@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kedisiplinan di Dunia Industri — Edisi Editorial</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&family=JetBrains+Mono:wght@400;500;600;700&family=Karla:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Baskerville:ital@1&family=Red+Hat+Mono:wght@500;600&family=Teko:wght@500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script src="secret-pathways-assets/three.min.js"></script>
 <style>
@@ -192,8 +192,8 @@
   }
   #slidePct .pct-art{
     display:block; position:relative; overflow:visible;
-    width:100%; max-width:540px; height:min(52vh, 520px);
-    align-self:center;
+    width:100%; max-width:none; height:min(34vh, 300px);
+    min-height:190px; margin-top:1.25rem; order:0;
   }
   #slidePct .pct-art.fade:not(.on){ opacity:0; }
   #slidePct .pct-art canvas{ width:100%; height:100%; display:block; }
@@ -216,6 +216,23 @@
   }
   #slidePct .pct-label.up{ color:var(--amber); }
   #slidePct .pct-label.down{ color:var(--muted-2); }
+  #slidePct .slide-inner.split{
+    max-width:1280px; align-items:center; gap:4vw;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  }
+  #slidePct .pct-copy{ display:flex; flex-direction:column; min-width:0; min-height:0; }
+  #slidePct .pct-book{
+    position:relative; min-height:0; height:min(64vh, 560px);
+    align-self:center; overflow:hidden; cursor:pointer;
+  }
+  #slidePct .pct-book canvas{ width:100%; height:100%; display:block; }
+  #slidePct .pct-book-hint{
+    position:absolute; left:50%; bottom:14px; transform:translateX(-50%);
+    z-index:2; font-size:.68rem; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--muted-2); pointer-events:none;
+    transition:opacity .35s var(--ease-out);
+  }
+  #slidePct .pct-book.is-open .pct-book-hint{ opacity:0; }
 
   /* ---- streak (FIG. 01): boxes light day-by-day in a loop to show
      consistency — fill, hold with a travelling glow, reset, repeat. ---- */
@@ -247,87 +264,207 @@
     font-variant-numeric:tabular-nums;
   }
 
-  /* ---- FIG. 03 jersey face-off: 10 vs 7 slam, count, clash, then lock ---- */
-  #slideVs .vs-el{
-    opacity:0; transform:translateY(14px);
+  /* ---- FIG. 03: copied from pit-board, scoped so the rest of editorial stays ---- */
+  #slideVs{
+    --coal:#10161A; --hazard:#F5C518; --signal:#3EC6C9;
+    --muted:#8A9AA3; --muted-2:#5E6E76;
+    padding:0; justify-content:flex-start; align-items:stretch; overflow:hidden; background:var(--coal);
+    font-family:'Karla',system-ui,sans-serif;
+  }
+  #slideVs .slide-inner{ max-width:none; width:100%; height:100%; position:relative; }
+  #slideVs .kicker::before{ content:none; }
+  #slideVs .kicker{
+    color:var(--signal); font-size:.68rem; letter-spacing:.16em; margin-bottom:.45rem;
+    font-family:'Red Hat Mono',monospace; font-weight:500;
+  }
+  #slideVs .mono{ font-family:'Red Hat Mono',ui-monospace,monospace; font-weight:500; }
+  #slideVs .h-lg{
+    font-family:'Teko',sans-serif; font-weight:600;
+    font-size:clamp(1.7rem,3vw,2.6rem); line-height:1.05; letter-spacing:.02em; max-width:none;
+  }
+  #slideVs .h-lg em{
+    font-family:'Libre Baskerville',Georgia,serif; font-style:italic; font-weight:400;
+    font-size:1em; color:var(--hazard); letter-spacing:0; animation:none;
+  }
+  #slideVs .vs-head{ position:absolute; top:18px; left:36px; z-index:4; max-width:28ch; }
+  #slideVs .vs-stage{
+    position:absolute; inset:0;
+    display:grid; grid-template-rows:1fr 1fr; grid-template-columns:1fr;
+  }
+  #slideVs .vs-card{
+    min-height:0; display:flex; align-items:center; justify-content:center; gap:18px;
+    opacity:0; position:relative; overflow:hidden;
     transition:opacity .55s var(--ease-out), transform .55s var(--ease-out);
   }
-  #slideVs .vs-h{ display:block; }
-  .vs-clash{
-    position:absolute; left:50%; top:48%; width:min(52vw,640px); height:180px;
-    pointer-events:none; z-index:1; transform:translate(-50%,-50%) scaleX(0);
-    background:radial-gradient(ellipse at center, rgba(227,163,78,.28), transparent 68%);
-    opacity:0;
+  #slideVs .vs-a{ grid-area:1 / 1; background:rgba(245,197,24,.06); padding-top:18vh; transform:translateY(-72px); }
+  #slideVs .vs-b{ grid-area:2 / 1; background:rgba(62,198,201,.06); transform:translateY(72px); }
+  #slideVs .vs-card.show{ opacity:1; transform:none; }
+  #slideVs .vs-photo{
+    position:absolute; inset:0; z-index:0; pointer-events:none;
+    background-size:cover; background-repeat:no-repeat;
+    filter:grayscale(.08) contrast(1.1) saturate(.78);
+    transform:scale(1.14);
+    transition:transform 1.15s var(--ease-out);
   }
-  #slideVs.clashing .vs-clash{ animation:vsClash .7s var(--ease-out) both; }
-  @keyframes vsClash{
-    0%{ opacity:0; transform:translate(-50%,-50%) scaleX(.2); }
-    35%{ opacity:1; transform:translate(-50%,-50%) scaleX(1); }
-    100%{ opacity:0; transform:translate(-50%,-50%) scaleX(1.15); }
+  #slideVs .vs-card.show .vs-photo{ transform:scale(1); }
+  #slideVs .vs-a .vs-photo{ background-image:url('messi.jpg'); background-position:center 20%; opacity:.55; }
+  #slideVs .vs-b .vs-photo{ background-image:url('ronaldo.jpg'); background-position:center 18%; opacity:.5; }
+  #slideVs .vs-a::after, #slideVs .vs-b::after{
+    content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+    background:linear-gradient(90deg, rgba(16,22,26,.58) 0%, rgba(16,22,26,.16) 48%, rgba(16,22,26,.6) 100%);
   }
-  .vs-stage{
-    display:flex; align-items:center; gap:22px; margin-top:2rem; position:relative; z-index:2;
+  #slideVs .vs-num{
+    font-family:'Teko',sans-serif; font-weight:600;
+    font-size:clamp(5rem,14vw,10rem); line-height:.8;
+    position:relative; z-index:2; text-shadow:0 4px 22px rgba(0,0,0,.78);
+    transform:scale(.7); opacity:.35;
+    transition:transform .5s var(--ease-out), opacity .4s var(--ease-out);
   }
-  .vs-col{
-    display:flex; flex-direction:column; align-items:center; gap:10px;
+  #slideVs .vs-card.show .vs-num{ transform:none; opacity:1; }
+  #slideVs .vs-a .vs-num{ color:var(--hazard); }
+  #slideVs .vs-b .vs-num{ color:var(--signal); }
+  #slideVs .vs-num.hit{ animation:vsHit .5s var(--ease-out); }
+  #slideVs .vs-num.breathe{ animation:vsBreathe 2.8s ease-in-out infinite; }
+  #slideVs .vs-cap{
+    font-size:.72rem; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--muted-2); opacity:0; transform:translateY(8px);
+    position:relative; z-index:2;
+    font-family:'Red Hat Mono',monospace;
+    transition:opacity .35s var(--ease-out), transform .4s var(--ease-out);
   }
-  .vs-mid{
-    display:flex; align-items:center; gap:10px; min-width:88px; justify-content:center;
+  #slideVs .vs-cap.show{ opacity:1; transform:none; }
+  #slideVs .vs-mid{
+    grid-area:1 / 1 / 3 / 2; align-self:center; height:0; z-index:5;
+    display:flex; align-items:center; padding:0 72px; pointer-events:none;
   }
-  .vs-rule{
-    display:block; width:0; height:1px; background:var(--amber-dim);
-    transition:width .55s var(--ease-out);
-  }
-  .vs-rule.grow{ width:22px; }
-  .vs-vs{
-    font-size:.72rem; letter-spacing:.22em; color:var(--muted-2); margin:0;
-    opacity:0; transform:scale(.6); display:inline-block;
-    transition:opacity .4s var(--ease-out), transform .45s var(--ease-out), color .4s;
-  }
-  .vs-vs.show{ opacity:1; transform:none; color:var(--amber-dim); }
-  .vs-cap{
-    font-family:'JetBrains Mono',monospace; font-size:.68rem; letter-spacing:.14em;
-    text-transform:uppercase; color:var(--muted-2); opacity:0; transform:translateY(8px);
-    transition:opacity .45s var(--ease-out), transform .45s var(--ease-out);
-  }
-  .vs-cap.show{ opacity:1; transform:none; }
-  .facebox{
-    position:relative; overflow:hidden; width:118px; height:138px;
-    border:1px solid var(--line); border-radius:4px;
+  #slideVs .vs-mark{
+    flex:0 0 56px; width:56px; height:56px; border-radius:50%; border:1px solid var(--hazard);
+    background:var(--coal); color:var(--hazard);
     display:flex; align-items:center; justify-content:center;
-    font-family:'JetBrains Mono',monospace; font-size:3.4rem; font-weight:600;
-    color:var(--amber); opacity:0; transform:scale(.55) translateX(var(--dx,0));
-    transition:opacity .5s var(--ease-out), transform .55s var(--ease-out),
-      border-color .4s, box-shadow .4s, background .4s;
+    font-size:.7rem; letter-spacing:.14em; opacity:0; transform:scale(.45);
+    transition:opacity .4s var(--ease-out), transform .45s cubic-bezier(.34,1.4,.64,1);
   }
-  .facebox.show{ opacity:1; transform:none; }
-  .facebox.dim{ color:var(--muted); }
-  .facebox.hit{ animation:vsHit .55s var(--ease-out); }
-  .facebox.locked{
-    border-color:var(--amber-dim);
-    box-shadow:0 0 0 1px rgba(227,163,78,.18), 0 0 28px rgba(227,163,78,.12);
+  #slideVs .vs-mark.show{ opacity:1; transform:none; }
+  #slideVs .vs-rule{
+    display:block; flex:1; height:2px; width:auto; background:var(--hazard);
+    transform:scaleX(0); transition:transform .5s var(--ease-out);
   }
-  .facebox.dim.locked{
-    border-color:var(--line); box-shadow:none; background:rgba(243,239,230,.02);
+  #slideVs #vsRuleL{ transform-origin:right center; }
+  #slideVs #vsRuleR{ transform-origin:left center; }
+  #slideVs .vs-rule.grow{ transform:scaleX(1); }
+  #slideVs .vs-body-dock{
+    position:absolute; left:36px; bottom:24px; z-index:4;
+    max-width:min(50ch, calc(50% - 14vw - 56px));
+    font-family:'Karla',system-ui,sans-serif; font-style:normal;
+    font-size:1.02rem; line-height:1.55; color:var(--muted);
   }
-  .facebox.shine::after{
-    content:''; position:absolute; inset:0; pointer-events:none;
-    background:linear-gradient(105deg, transparent 38%, rgba(255,217,160,.28) 50%, transparent 62%);
-    animation:vsShine .65s ease both;
+  #slideVs .vs-wash{
+    position:absolute; left:0; right:0; height:50%; pointer-events:none; opacity:0; z-index:1;
   }
-  .facebox.breathe{ animation:vsBreathe 2.8s ease-in-out infinite; }
+  #slideVs .vs-wash-a{ top:0; background:linear-gradient(180deg, rgba(245,197,24,.16), transparent); }
+  #slideVs .vs-wash-b{ bottom:0; background:linear-gradient(0deg, rgba(62,198,201,.16), transparent); }
+  #slideVs.clashing .vs-wash{ animation:vsClash .7s var(--ease-out) both; }
+  @keyframes vsClash{ 0%{ opacity:0; } 35%{ opacity:1; } 100%{ opacity:0; } }
   @keyframes vsHit{
     0%{ transform:scale(1); }
-    38%{ transform:scale(1.14); }
+    38%{ transform:scale(1.12); }
     100%{ transform:scale(1); }
   }
-  @keyframes vsShine{
-    from{ transform:translateX(-120%); }
-    to{ transform:translateX(120%); }
-  }
   @keyframes vsBreathe{
-    0%,100%{ box-shadow:0 0 0 1px rgba(227,163,78,.18), 0 0 18px rgba(227,163,78,.1); }
-    50%{ box-shadow:0 0 0 1px rgba(227,163,78,.4), 0 0 36px rgba(227,163,78,.28); }
+    0%,100%{ text-shadow:0 4px 22px rgba(0,0,0,.78), 0 0 14px rgba(245,197,24,.16); }
+    50%{ text-shadow:0 4px 22px rgba(0,0,0,.78), 0 0 34px rgba(245,197,24,.42); }
+  }
+
+  /* ---- FIG. 04: photo cards from pit-board, scoped ---- */
+  #slideFigures{
+    --coal:#10161A; --panel:#182026; --hazard:#F5C518; --signal:#3EC6C9;
+    --muted:#8A9AA3; --muted-2:#5E6E76; --line:rgba(232,238,240,.12);
+    padding:0; justify-content:flex-start; align-items:stretch; overflow:hidden; background:var(--coal);
+    font-family:'Karla',system-ui,sans-serif;
+  }
+  #slideFigures .slide-inner{ max-width:none; width:100%; height:100%; position:relative; }
+  #slideFigures .kicker::before{ content:none; }
+  #slideFigures .kicker{
+    color:var(--signal); font-size:.68rem; letter-spacing:.16em; margin-bottom:.45rem;
+    font-family:'Red Hat Mono',monospace; font-weight:500;
+  }
+  #slideFigures .mono{ font-family:'Red Hat Mono',ui-monospace,monospace; font-weight:500; }
+  #slideFigures .h-lg{
+    font-family:'Teko',sans-serif; font-weight:600;
+    font-size:clamp(1.7rem,3vw,2.6rem); line-height:1.05; letter-spacing:.02em; max-width:none;
+  }
+  #slideFigures .h-lg em{
+    font-family:'Libre Baskerville',Georgia,serif; font-style:italic; font-weight:400;
+    font-size:1em; color:var(--hazard); letter-spacing:0; animation:none;
+  }
+  #slideFigures .fig-head{ position:absolute; top:20px; left:36px; z-index:3; }
+  #slideFigures .fig-board{ position:absolute; inset:18vh 28px 8vh 28px; display:flex; gap:10px; }
+  #slideFigures .fig-card{
+    position:relative; background:var(--panel); border:1px solid var(--line); padding:22px 20px; cursor:pointer;
+    display:none; flex-direction:column; justify-content:flex-end; min-width:0; overflow:hidden;
+    flex:0 1 0;
+    transition:flex-grow .6s cubic-bezier(.16,1,.3,1), flex-basis .6s cubic-bezier(.16,1,.3,1), padding .4s ease, border-color .3s;
+  }
+  #slideFigures .fig-card.fade, #slideFigures .fig-card.fade.on{
+    animation:none; transform:none;
+  }
+  #slideFigures .fig-photo{
+    position:absolute; inset:0; z-index:0; pointer-events:none;
+    background-size:cover; background-repeat:no-repeat; background-position:center 18%;
+    transform-origin:center 22%; transform:scale(1.24); opacity:0;
+    filter:grayscale(.08) contrast(1.12) saturate(.85) brightness(.95);
+    transition:transform 1.05s var(--ease-out), opacity .85s var(--ease-out);
+  }
+  #slideFigures #figCard1 .fig-photo{ background-image:url('kobe.jpg'); }
+  #slideFigures #figCard2 .fig-photo{ background-image:url('kpop.jpg'); }
+  #slideFigures #figCard3 .fig-photo{ background-image:url('habibie.jpg'); }
+  #slideFigures .fig-wash{
+    position:absolute; inset:0; z-index:1; pointer-events:none; opacity:0;
+    background:linear-gradient(180deg, rgba(245,197,24,.22), transparent 62%);
+  }
+  #slideFigures .fig-card::after{
+    content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+    background:linear-gradient(180deg, rgba(16,22,26,.12) 0%, rgba(16,22,26,.18) 42%, rgba(16,22,26,.88) 100%);
+  }
+  #slideFigures .fig-copy{
+    position:relative; z-index:2; display:flex; flex-direction:column; justify-content:flex-end;
+    height:100%; min-width:0;
+  }
+  #slideFigures .fig-card.on{ display:flex; }
+  #slideFigures .fig-card.is-feature{ flex-grow:1; flex-basis:0; border-color:var(--hazard); }
+  #slideFigures .fig-card.is-strip{ flex-grow:0; flex-basis:76px; flex-shrink:0; padding:16px 10px; }
+  #slideFigures .fig-card.is-strip .fig-copy{ writing-mode:vertical-rl; rotate:180deg; justify-content:flex-start; }
+  #slideFigures .fig-card.is-strip p, #slideFigures .fig-card.is-strip .icon-line{ display:none; }
+  #slideFigures .fig-card.pinned{ border-color:var(--hazard); }
+  #slideFigures .fig-card.is-feature.is-live .fig-photo{ transform:scale(1); opacity:.92; animation:figKen 8s linear 1.05s forwards; }
+  #slideFigures .fig-card.is-strip.is-live .fig-photo{ transform:scale(1.08); opacity:.45; animation:none; background-position:center 28%; }
+  #slideFigures .fig-card.is-feature.is-live .fig-wash{ animation:figFlash .55s var(--ease-out); }
+  #slideFigures .fig-no{
+    font-family:'Teko',sans-serif; font-weight:600; font-size:2.4rem;
+    color:rgba(245,197,24,.4); line-height:1;
+    opacity:0; transform:translateY(18px) scale(.86);
+    transition:opacity .45s var(--ease-out), transform .5s var(--ease-out);
+  }
+  #slideFigures .fig-copy .icon-line,
+  #slideFigures .fig-copy b,
+  #slideFigures .fig-copy p{
+    opacity:0; transform:translateY(16px);
+    transition:opacity .45s var(--ease-out), transform .5s var(--ease-out);
+  }
+  #slideFigures .fig-card.is-live .fig-no{ opacity:1; transform:none; transition-delay:.1s; }
+  #slideFigures .fig-card.is-live .icon-line{ opacity:1; transform:none; transition-delay:.18s; }
+  #slideFigures .fig-card.is-live b{ opacity:1; transform:none; transition-delay:.22s; }
+  #slideFigures .fig-card.is-live p{ opacity:1; transform:none; transition-delay:.34s; }
+  #slideFigures .fig-card.is-hit .fig-no{ animation:figHit .45s var(--ease-out); }
+  #slideFigures .fig-card b{ display:block; margin:.4rem 0 .5rem; font-weight:600; }
+  #slideFigures .fig-card p{ font-size:.9rem; color:var(--muted); font-style:normal; line-height:1.5; }
+  #slideFigures .icon-line{ width:22px; height:22px; color:var(--signal); margin-bottom:auto; }
+  @keyframes figKen{ to{ transform:scale(1.08); } }
+  @keyframes figFlash{ 0%{ opacity:0; } 40%{ opacity:1; } 100%{ opacity:0; } }
+  @keyframes figHit{
+    0%{ transform:scale(1); }
+    38%{ transform:scale(1.1); }
+    100%{ transform:scale(1); }
   }
 
   /* ---- FIG. 05 Sistem Bekerja Selamat (poster-faithful, original hues) ---- */
@@ -444,9 +581,48 @@
     100%{ transform:translateY(480%); opacity:0; }
   }
 
-  /* ---- info rows for the three-figures slide (styled like the reference's category rows) ---- */
-  .figure-row{ opacity:0; transform:translateY(16px); transition:opacity .55s var(--ease-out), transform .55s var(--ease-out); transition-delay:var(--rvd,0ms); }
-  .figure-row.in{ opacity:1; transform:none; }
+  /* LinkedIn career stamp: reserved collapse until step 3 afterglow */
+  .li-stamp{
+    display:grid; grid-template-rows:0fr; opacity:0; margin-top:0;
+    transition:grid-template-rows .5s var(--ease-out), opacity .45s var(--ease-out), margin-top .45s var(--ease-out);
+  }
+  .li-stamp.show{ grid-template-rows:1fr; opacity:1; margin-top:.8rem; }
+  .li-stamp-inner{ overflow:hidden; min-height:0; }
+  .li-link{
+    display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit;
+    min-height:44px; width:fit-content; max-width:100%;
+  }
+  .li-mark{
+    flex:0 0 38px; width:38px; height:38px; color:#0A66C8;
+    transform:scale(.72); opacity:0;
+    filter:drop-shadow(0 0 0 rgba(10,102,200,0));
+    transition:transform .5s cubic-bezier(.34,1.4,.64,1), opacity .35s ease, filter .6s ease;
+  }
+  .li-stamp.show .li-mark{
+    transform:none; opacity:1;
+    filter:drop-shadow(0 0 10px rgba(10,102,200,.42));
+    animation:liPulse 2.6s ease-in-out .8s infinite;
+  }
+  .li-letters{ opacity:0; transition:opacity .3s ease .22s; }
+  .li-stamp.show .li-letters{ opacity:1; }
+  .li-copy{ display:flex; flex-direction:column; gap:2px; min-width:0; }
+  .li-handle{
+    font-family:'JetBrains Mono',monospace; font-size:.78rem; letter-spacing:.04em;
+    color:var(--text); white-space:nowrap;
+  }
+  .li-handle::after{
+    content:''; display:inline-block; width:7px; height:1.05em; margin-left:3px;
+    background:var(--amber); vertical-align:-2px; opacity:0;
+  }
+  .li-stamp.show.typing .li-handle::after{ opacity:1; animation:liCaret .7s steps(1) infinite; }
+  .li-note{ font-size:.78rem; font-style:italic; color:var(--muted); opacity:0; transform:translateY(6px);
+    transition:opacity .4s var(--ease-out), transform .4s var(--ease-out); }
+  .li-stamp.ready .li-note{ opacity:1; transform:none; }
+  @keyframes liPulse{
+    0%,100%{ filter:drop-shadow(0 0 8px rgba(10,102,200,.32)); }
+    50%{ filter:drop-shadow(0 0 14px rgba(10,102,200,.55)); }
+  }
+  @keyframes liCaret{ 50%{ opacity:0; } }
 
   /* ---- clicker OS (from bc-presentation): fade beats, step chrome, hover nav ---- */
   .fade{ opacity:0; transform:translateY(10px); pointer-events:none;
@@ -559,17 +735,36 @@
     .art{ order:-1; margin-bottom:1.2rem; }
     .dash-wrap{ grid-template-columns:1fr; }
     .sbs{ flex:1 1 auto; height:auto; min-height:180px; }
-    #slidePct .pct-art{ height:min(38vh, 320px); margin-bottom:1.2rem; }
+    #slidePct .pct-book{ height:48vh; min-height:260px; }
+    #slidePct .pct-art{ height:min(26vh, 220px); min-height:150px; margin-top:1rem; }
     .profile-grid{ grid-template-columns:1fr; }
+    .li-handle{ white-space:normal; font-size:.72rem; }
+    #slideVs .h-lg{ font-size:1.45rem; }
+    #slideVs .vs-head{ top:16px; left:20px; }
+    #slideVs .vs-a{ padding-top:22vh; }
+    #slideVs .vs-num{ font-size:4.6rem; }
+    #slideVs .vs-body-dock{ left:20px; bottom:20px; max-width:min(42ch, 58%); }
+    #slideFigures .fig-head{ top:16px; left:20px; }
+    #slideFigures .fig-board{ inset:16vh 16px 7vh 16px; flex-direction:column; }
+    #slideFigures .fig-card.is-strip{ flex:0 0 auto; }
+    #slideFigures .fig-card.is-strip .fig-copy{ writing-mode:horizontal-tb; rotate:none; }
+    #slideFigures .h-lg{ font-size:1.45rem; }
   }
   @media (prefers-reduced-motion: reduce){
     #slide2 .st-el, #slide2 .streak-grid{ opacity:1; transform:none; }
     .streak-day.on{ animation:none; }
     .profile-job.lit{ transform:none; }
     #slideProfile.scanning .profile-scan span{ animation:none; }
-    #slideVs .vs-el, #slideVs .vs-cap, #slideVs .vs-vs, #slideVs .facebox{ opacity:1; transform:none; }
-    .facebox.hit, .facebox.shine::after, .facebox.breathe, #slideVs.clashing .vs-clash{ animation:none; }
-    .vs-rule{ width:22px; }
+    .li-stamp.show .li-mark{ animation:none; }
+    .li-stamp.show.typing .li-handle::after{ animation:none; opacity:0; }
+    #slideVs .vs-cap, #slideVs .vs-mark, #slideVs .vs-card, #slideVs .vs-num, #slideVs .vs-photo{ opacity:1; transform:none; }
+    #slideVs .vs-num.hit, #slideVs .vs-num.breathe, #slideVs.clashing .vs-wash{ animation:none; }
+    #slideVs .vs-rule{ transform:scaleX(1); }
+    #slideFigures .fig-card{ transition:none; }
+    #slideFigures .fig-photo, #slideFigures .fig-no, #slideFigures .fig-copy .icon-line,
+    #slideFigures .fig-copy b, #slideFigures .fig-copy p{ opacity:1; transform:none; animation:none; }
+    #slideFigures .fig-card.is-hit .fig-no, #slideFigures .fig-card.is-feature.is-live .fig-photo,
+    #slideFigures .fig-card.is-feature.is-live .fig-wash{ animation:none; }
     .fade, .fade.on{ opacity:1; transform:none; animation:none; pointer-events:auto; }
     .sbs-loop, .sbs.run .sbs-flow, .sbs.run .sbs-belt, .sbs.run .sbs-incident{ animation:none; }
     .sbs-ico, .sbs-leader, .sbs-mine-bit, .sbs-found, .sbs-loop, .sbs-caps, .sbs-fork, .sbs-top, .sbs-out{ opacity:1; }
@@ -636,6 +831,20 @@
             <span class="mask-line fade" data-step="1" style="--d:.1s"><span>Jimmi Idris</span></span>
           </h2>
           <p class="profile-role fade" data-step="1" style="--d:.18s">General Manager OHS · PT Berau Coal</p>
+          <div class="li-stamp" id="liStamp">
+            <div class="li-stamp-inner">
+              <a class="li-link" href="https://www.linkedin.com/in/jimmi-idris-b4378937" target="_blank" rel="noopener noreferrer" aria-label="Profil LinkedIn Jimmi Idris">
+                <svg class="li-mark" viewBox="0 0 24 24" aria-hidden="true">
+                  <rect width="24" height="24" rx="4" fill="currentColor"/>
+                  <path class="li-letters" fill="#fff" d="M8.56 17.5H6.42V9.62h2.14zm.07-9.05a1.24 1.24 0 1 1-2.48-.01 1.24 1.24 0 0 1 2.48.01zM17.67 17.5h-2.14v-3.82c0-.91-.02-2.08-1.27-2.08-1.27 0-1.46.99-1.46 2.01v3.89h-2.13V9.62h2.05v1.08h.03c.29-.54.98-1.12 2.02-1.12 2.16 0 2.56 1.42 2.56 3.27z"/>
+                </svg>
+                <span class="li-copy">
+                  <span class="li-handle" id="liHandle"></span>
+                  <!-- <span class="li-note">Profil publik. Bukan CV di folder.</span> -->
+                </span>
+              </a>
+            </div>
+          </div>
           <p class="lede fade" data-step="1" style="--d:.26s; margin-top:1rem; max-width:38ch;">21 tahun operasi tambang di Indonesia dan Australia. Keselamatan bukan slogan di gerbang — itu sistem yang diulang sampai orang pulang utuh.</p>
           <div class="profile-stats">
             <div class="fade" data-step="2"><b id="pfYears">0+</b><span>tahun lapangan</span></div>
@@ -702,71 +911,100 @@
   <!-- SLIDE 3 — 1% chart (canvas compound-interest draw) -->
   <section class="slide" id="slidePct" data-steps="3" data-section="B · Disiplin">
     <div class="slide-inner split">
-      <div>
+      <div class="pct-copy">
         <p class="kicker mono fade" data-step="1" id="pctFig">Fig. 02 · Kenapa Harus Disiplin</p>
         <h2 class="h-lg">
           <span class="fade" data-step="1" style="--d:.1s" id="pctLineA">1% lebih baik tiap hari =</span>
           <span class="pct-line-b" id="pctLineB"><em class="pct-x" id="pctXVal">37×</em> lipat setahun</span>
         </h2>
-        <p class="body-txt fade" data-step="3" id="pctBody" style="margin-top:1.2rem;">1% lebih malas tiap hari, hasilnya mendekati nol dalam setahun. Disiplin bukan soal kejadian heroik sekali — itu bunga majemuk dari kebiasaan kecil yang diulang.</p>
-      </div>
-      <div class="art pct-art fade" id="pctChartWrap" data-step="2">
-        <div class="pct-hud" id="pctHud">
-          <div class="pct-hud-k" id="pctHudK">Hari ke-0</div>
-          <div class="pct-hud-v" id="pctHudV">1,00×</div>
+        <div class="art pct-art fade" id="pctChartWrap" data-step="1">
+          <div class="pct-hud" id="pctHud">
+            <div class="pct-hud-k" id="pctHudK">Hari ke-0</div>
+            <div class="pct-hud-v" id="pctHudV">1,00×</div>
+          </div>
+          <canvas id="pctCanvas"></canvas>
+          <div class="pct-label up" id="pctLabUp">+1%/hari</div>
+          <div class="pct-label down" id="pctLabDown">−1%/hari</div>
         </div>
-        <canvas id="pctCanvas"></canvas>
-        <div class="pct-label up" id="pctLabUp">+1%/hari</div>
-        <div class="pct-label down" id="pctLabDown">−1%/hari</div>
+        <p class="body-txt fade" data-step="3" id="pctBody" style="margin-top:1.1rem;">1% lebih malas tiap hari, hasilnya mendekati nol dalam setahun. Disiplin bukan soal kejadian heroik sekali — itu bunga majemuk dari kebiasaan kecil yang diulang.</p>
+      </div>
+      <div class="pct-book fade" id="pctBookWrap" data-step="1">
+        <canvas id="pctBook"></canvas>
+        <span class="pct-book-hint mono" id="pctBookHint">Klik · buka halaman</span>
       </div>
     </div>
   </section>
 
-  <!-- SLIDE 4 — messi vs ronaldo jersey face-off -->
+  <!-- SLIDE 4 — Fig. 03, same split as pit-board -->
   <section class="slide" id="slideVs" data-steps="3" data-section="B · Disiplin">
-    <div class="vs-clash" aria-hidden="true"></div>
-    <div class="slide-inner" style="max-width:740px; position:relative; z-index:2;">
-      <p class="kicker mono fade" data-step="1" id="vsKicker">Fig. 03 · Analogi Yang Paling Dekat</p>
-      <h2 class="h-lg" style="max-width:26ch;">
-        <span class="fade vs-h" data-step="1" style="--d:.1s" id="vsH1">Talenta bawa kamu naik.</span>
-        <span class="fade vs-h" data-step="1" style="--d:.2s" id="vsH2"><em>Disiplin</em> yang bikin kamu bertahan di atas.</span>
-      </h2>
+    <div class="vs-wash vs-wash-a" id="vsWashA"></div>
+    <div class="vs-wash vs-wash-b" id="vsWashB"></div>
+    <div class="slide-inner">
+      <div class="vs-head">
+        <p class="kicker mono fade" data-step="1" id="vsKicker">Fig. 03 · Analogi Yang Paling Dekat</p>
+        <h2 class="h-lg">
+          <span class="fade" data-step="1" id="vsH1">Talenta bawa kamu naik.</span>
+          <span class="fade" data-step="1" id="vsH2"><em>Disiplin</em> yang bikin kamu bertahan di atas.</span>
+        </h2>
+      </div>
       <div class="vs-stage fade" id="vsStage" data-step="2">
-        <div class="vs-col">
-          <div class="facebox" id="cuNumA" style="--dx:-72px">0</div>
-          <span class="vs-cap" id="vsCapA">No. 10 · Bakat</span>
+        <div class="vs-card vs-a" id="cuBoxA">
+          <span class="vs-photo" aria-hidden="true"></span>
+          <div class="vs-num" id="cuNumA">0</div>
+          <span class="vs-cap mono" id="vsCapA">No. 10 · Bakat</span>
         </div>
         <div class="vs-mid">
           <i class="vs-rule" id="vsRuleL"></i>
-          <span class="vs-vs mono" id="vsMark">VS</span>
+          <span class="vs-mark mono" id="vsMark">VS</span>
           <i class="vs-rule" id="vsRuleR"></i>
         </div>
-        <div class="vs-col">
-          <div class="facebox dim" id="cuNumB" style="--dx:72px">0</div>
-          <span class="vs-cap" id="vsCapB">No. 7 · Rutinitas</span>
+        <div class="vs-card vs-b" id="cuBoxB">
+          <span class="vs-photo" aria-hidden="true"></span>
+          <div class="vs-num" id="cuNumB">0</div>
+          <span class="vs-cap mono" id="vsCapB">No. 7 · Rutinitas</span>
         </div>
       </div>
-      <p class="body-txt fade" id="vsBody" data-step="3" style="margin-top:1.8rem;">Satu dikenal karena bakat alami sejak kecil, satu lagi dikenal karena rutinitas latihan, tidur, dan pola makan yang sangat ketat. Dua-duanya tetap kompetitif di level tertinggi sampai usia yang jauh melewati rata-rata atlet lain — bukan karena bakat itu abadi, tapi karena disiplin yang menjaganya tetap ada.</p>
+      <p class="body-txt vs-body-dock fade" id="vsBody" data-step="3">Satu dikenal karena bakat alami sejak kecil, satu lagi dikenal karena rutinitas latihan, tidur, dan pola makan yang sangat ketat. Dua-duanya tetap kompetitif di level tertinggi sampai usia yang jauh melewati rata-rata atlet lain — bukan karena bakat itu abadi, tapi karena disiplin yang menjaganya tetap ada.</p>
     </div>
   </section>
 
-  <!-- SLIDE 5 — three figures -->
+  <!-- SLIDE 5 — Fig. 04, same photo cards as pit-board -->
   <section class="slide" id="slideFigures" data-steps="4" data-section="C · Fondasi">
-    <div class="slide-inner" style="max-width:920px;">
-      <p class="kicker mono fade" data-step="1">Fig. 04 · Fondasinya Selalu Sama</p>
-      <h2 class="h-lg fade" data-step="1" style="--d:.1s; max-width:22ch;">Tiga dunia berbeda, satu <em>kebiasaan</em> yang sama</h2>
-      <div class="row-stack" id="figureRows">
-        <div class="orow figure-row pinable fade" data-step="2">
-          <div class="rh"><svg class="icon-line" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.4"/><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="1.1"/></svg><b>"Mamba Mentality"</b></div>
-          <p>Dikenal luas karena rutinitas latihan yang dimulai jauh sebelum subuh — bertahun-tahun sebelum orang lain bangun. Kebiasaan, bukan bakat kelahiran, yang sering disebut jadi pembeda utamanya.</p>
+    <div class="slide-inner">
+      <div class="fig-head">
+        <p class="kicker mono fade" data-step="1" id="figKicker">Fig. 04 · Fondasinya Selalu Sama</p>
+        <h2 class="h-lg fade" data-step="1" id="figTitle">Tiga dunia berbeda, satu <em>kebiasaan</em> yang sama</h2>
+      </div>
+      <div class="fig-board" id="figureRows">
+        <div class="fig-card pinable fade" data-step="2" id="figCard1">
+          <span class="fig-photo" aria-hidden="true"></span>
+          <span class="fig-wash" aria-hidden="true"></span>
+          <div class="fig-copy">
+            <div class="fig-no">01</div>
+            <svg class="icon-line" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.4"/><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="1.1"/></svg>
+            <b>"Mamba Mentality"</b>
+            <p>Dikenal luas karena rutinitas latihan yang dimulai jauh sebelum subuh — bertahun-tahun sebelum orang lain bangun. Kebiasaan, bukan bakat kelahiran, yang sering disebut jadi pembeda utamanya.</p>
+          </div>
         </div>
-        <div class="orow figure-row pinable fade" data-step="3">
-          <div class="rh"><svg class="icon-line" viewBox="0 0 24 24" fill="none"><path d="M12 3l2.4 6.5 6.9.2-5.5 4.3 2 6.6-5.8-4-5.8 4 2-6.6-5.5-4.3 6.9-.2z" stroke="currentColor" stroke-width="1.1" fill="none"/></svg><b>Sistem Trainee Idola K-pop</b></div>
-          <p>Sebelum debut, umumnya melalui bertahun-tahun latihan harian yang sangat terjadwal — vokal, tari, disiplin pola makan dan waktu. Panggung yang terlihat sempurna itu hasil ribuan hari latihan yang tidak terlihat.</p>
+        <div class="fig-card pinable fade" data-step="3" id="figCard2">
+          <span class="fig-photo" aria-hidden="true"></span>
+          <span class="fig-wash" aria-hidden="true"></span>
+          <div class="fig-copy">
+            <div class="fig-no">02</div>
+            <svg class="icon-line" viewBox="0 0 24 24" fill="none"><path d="M12 3l2.4 6.5 6.9.2-5.5 4.3 2 6.6-5.8-4-5.8 4 2-6.6-5.5-4.3 6.9-.2z" stroke="currentColor" stroke-width="1.1"/></svg>
+            <b>Sistem Trainee Idola K-pop</b>
+            <p>Sebelum debut, umumnya melalui bertahun-tahun latihan harian yang sangat terjadwal — vokal, tari, disiplin pola makan dan waktu. Panggung yang terlihat sempurna itu hasil ribuan hari latihan yang tidak terlihat.</p>
+          </div>
         </div>
-        <div class="orow figure-row pinable fade" data-step="4">
-          <div class="rh"><svg class="icon-line" viewBox="0 0 24 24" fill="none"><path d="M3 20L19 6l-3 8 3 4-9-3z" stroke="currentColor" stroke-width="1.2" fill="none"/></svg><b>B.J. Habibie</b></div>
-          <p>Disiplin belajar dan bekerja yang sangat ketat sejak masa studinya di Jerman — jadi fondasi yang mengantarnya merancang pesawat pertama buatan Indonesia.</p>
+        <div class="fig-card pinable fade" data-step="4" id="figCard3">
+          <span class="fig-photo" aria-hidden="true"></span>
+          <span class="fig-wash" aria-hidden="true"></span>
+          <div class="fig-copy">
+            <div class="fig-no">03</div>
+            <svg class="icon-line" viewBox="0 0 24 24" fill="none"><path d="M3 20L19 6l-3 8 3 4-9-3z" stroke="currentColor" stroke-width="1.2"/></svg>
+            <b>B.J. Habibie</b>
+            <p>Disiplin belajar dan bekerja yang sangat ketat sejak masa studinya di Jerman — jadi fondasi yang mengantarnya merancang pesawat pertama buatan Indonesia.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -1102,10 +1340,10 @@
     })(start);
   }
   function replayIn(scope){
-    scope.querySelectorAll('.rv.in, .pop.in, .figure-row.in, .mask-line.in').forEach(el=> el.classList.remove('in'));
+    scope.querySelectorAll('.rv.in, .pop.in, .mask-line.in').forEach(el=> el.classList.remove('in'));
     void scope.offsetWidth;
     requestAnimationFrame(()=>{
-      scope.querySelectorAll('.rv, .pop, .figure-row, .mask-line').forEach(el=> el.classList.add('in'));
+      scope.querySelectorAll('.rv, .pop, .mask-line').forEach(el=> el.classList.add('in'));
     });
   }
 
@@ -1328,6 +1566,520 @@
     return { play, stop };
   })();
 
+  /* ---- FIG. 02: hardcover opens, page flips, quote prints on the leaf ---- */
+  const atomicBook = (function(){
+    const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let renderer, scene, camera, book, coverPivot, flipPivot, leftPage, rightPage, pageStack, raf = 0, playing = false, started = 0;
+    let ptr = { x:0, y:0 }, ptrT = { x:0, y:0 }, onMove = null, onResize = null, onClick = null;
+    let quoteOn = false, quoteI = -1, busy = false, flipTimer = 0;
+    let coverT = 0, coverGoal = 0, flipT = 1, flipping = false, lastNow = 0;
+    let rightTex, flipFrontTex, flipBackTex;
+    const camClosed = { x:0.92, y:0.28, z:3.85 };
+    const camOpen = { x:0.02, y:1.05, z:4.55 };
+    const lookClosed = { x:0.03, y:0.02, z:0 };
+    const lookOpen = { x:0, y:0.04, z:0 };
+    const look = { x:0, y:0, z:0 };
+    const QUOTES = [
+      {
+        id:'Kamu tidak naik ke level tujuanmu. Kamu jatuh ke level sistemmu.',
+        en:'You do not rise to the level of your goals. You fall to the level of your systems.'
+      },
+      {
+        id:'Kebiasaan adalah bunga majemuk dari perbaikan diri.',
+        en:'Habits are the compound interest of self-improvement.'
+      },
+      {
+        id:'Setiap tindakan adalah suara untuk orang seperti apa yang ingin kamu jadi.',
+        en:'Every action you take is a vote for the type of person you wish to become.'
+      },
+      {
+        id:'Sukses adalah produk kebiasaan harian — bukan transformasi sekali seumur hidup.',
+        en:'Success is the product of daily habits — not once-in-a-lifetime transformations.'
+      }
+    ];
+    function easeInOut(t){ return t<0.5 ? 2*t*t : 1 - Math.pow(-2*t+2, 2)/2; }
+    function lerp(a,b,u){ return a+(b-a)*u; }
+    function hideQuote(){
+      quoteOn = false;
+      quoteI = -1;
+      coverGoal = 0;
+      coverT = 0;
+      flipT = 1;
+      flipping = false;
+      busy = false;
+      if(flipTimer){ clearTimeout(flipTimer); flipTimer = 0; }
+      if(leftPage) leftPage.visible = false;
+      if(rightPage) rightPage.visible = false;
+      if(flipPivot) flipPivot.visible = false;
+      if(pageStack) pageStack.visible = true;
+      if(coverPivot) coverPivot.rotation.y = 0;
+      const wrapEl = wrap();
+      if(wrapEl) wrapEl.classList.remove('is-open');
+    }
+
+    function canvas(){ return document.getElementById('pctBook'); }
+    function wrap(){ return document.getElementById('pctBookWrap'); }
+
+    function texFrom(draw, w, h){
+      const c = document.createElement('canvas');
+      c.width = w; c.height = h;
+      draw(c.getContext('2d'), w, h);
+      const t = new THREE.CanvasTexture(c);
+      if(THREE.SRGBColorSpace) t.colorSpace = THREE.SRGBColorSpace;
+      else if(THREE.sRGBEncoding) t.encoding = THREE.sRGBEncoding;
+      t.anisotropy = 8;
+      return t;
+    }
+    function paintCover(ctx, w, h){
+      ctx.fillStyle = '#E7D2A4';
+      ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = 'rgba(61,42,20,.05)';
+      for(let i=0;i<900;i++){
+        ctx.fillRect(Math.random()*w, Math.random()*h, 1.2, 1.2);
+      }
+      ctx.fillStyle = '#3D2A14';
+      ctx.fillRect(0, 0, 18, h);
+      ctx.strokeStyle = 'rgba(61,42,20,.18)';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(36, 36, w-72, h-72);
+      ctx.fillStyle = '#8A6B3D';
+      ctx.font = '600 22px "JetBrains Mono", monospace';
+      ctx.letterSpacing = '0.28em';
+      ctx.fillText('JAMES CLEAR', 56, 120);
+      ctx.fillStyle = '#1A1610';
+      ctx.font = '700 92px "Source Serif 4", Georgia, serif';
+      ctx.letterSpacing = '0';
+      ctx.fillText('ATOMIC', 52, 320);
+      ctx.fillText('HABITS', 52, 418);
+      ctx.fillStyle = '#C4A36A';
+      ctx.fillRect(56, 448, 120, 3);
+      ctx.beginPath();
+      ctx.arc(w*0.5, h*0.68, 54, 0, Math.PI*2);
+      ctx.strokeStyle = '#B68A3A';
+      ctx.lineWidth = 3;
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.arc(w*0.5, h*0.68, 28, 0, Math.PI*2);
+      ctx.stroke();
+      ctx.fillStyle = '#3D2A14';
+      ctx.font = 'italic 28px "Source Serif 4", Georgia, serif';
+      ctx.fillText('Tiny Changes,', 56, h-150);
+      ctx.fillText('Remarkable Results.', 56, h-112);
+    }
+    function paintSpine(ctx, w, h){
+      ctx.fillStyle = '#3D2A14';
+      ctx.fillRect(0, 0, w, h);
+      ctx.save();
+      ctx.translate(w*0.55, h*0.5);
+      ctx.rotate(-Math.PI/2);
+      ctx.fillStyle = '#E7D2A4';
+      ctx.font = '700 34px "Source Serif 4", Georgia, serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('ATOMIC HABITS', 0, 8);
+      ctx.restore();
+      ctx.fillStyle = '#C4A36A';
+      ctx.fillRect(8, 28, w-16, 3);
+      ctx.fillRect(8, h-31, w-16, 3);
+    }
+    function paintBack(ctx, w, h){
+      ctx.fillStyle = '#2A2118';
+      ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = '#C4A36A';
+      ctx.font = 'italic 36px "Source Serif 4", Georgia, serif';
+      ctx.fillText('1% better', 64, h*0.42);
+      ctx.fillText('every day.', 64, h*0.42+48);
+      ctx.fillStyle = 'rgba(231,210,164,.55)';
+      ctx.font = '500 20px "JetBrains Mono", monospace';
+      ctx.fillText('JAMES CLEAR', 64, h-90);
+    }
+    function paintPages(ctx, w, h){
+      const g = ctx.createLinearGradient(0, 0, w, 0);
+      g.addColorStop(0, '#F4EFE3');
+      g.addColorStop(0.5, '#E8DCC0');
+      g.addColorStop(1, '#F4EFE3');
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, w, h);
+      ctx.strokeStyle = 'rgba(61,42,20,.12)';
+      ctx.lineWidth = 1;
+      for(let x=4; x<w; x+=5){
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
+      }
+    }
+    function paperBase(ctx, w, h){
+      ctx.fillStyle = '#C8B48A';
+      ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = 'rgba(40,28,14,.08)';
+      for(let i=0;i<900;i++) ctx.fillRect(Math.random()*w, Math.random()*h, 1.4, 1.4);
+      ctx.fillStyle = 'rgba(40,28,14,.16)';
+      for(let y=130; y<h-90; y+=30) ctx.fillRect(56, y, w-112, 1);
+      ctx.fillStyle = 'rgba(120,40,32,.45)';
+      ctx.fillRect(70, 0, 2, h);
+    }
+    function wrapLines(ctx, text, maxW){
+      const words = String(text||'').split(/\s+/);
+      const lines = [];
+      let line = '';
+      words.forEach(word=>{
+        const test = line ? line+' '+word : word;
+        if(ctx.measureText(test).width > maxW && line){ lines.push(line); line = word; }
+        else line = test;
+      });
+      if(line) lines.push(line);
+      return lines;
+    }
+    function paintLeftPage(ctx, w, h){
+      paperBase(ctx, w, h);
+      ctx.fillStyle = '#3D2A14';
+      ctx.font = '700 22px "JetBrains Mono", monospace';
+      ctx.fillText('ATOMIC HABITS', 96, 86);
+      ctx.fillStyle = '#14110C';
+      ctx.font = '700 44px "Source Serif 4", Georgia, serif';
+      ctx.fillText('1% lebih baik', 96, 280);
+      ctx.fillText('tiap hari.', 96, 338);
+      ctx.fillStyle = '#6B4E1E';
+      ctx.fillRect(96, 370, 88, 4);
+      ctx.fillStyle = '#1C1610';
+      ctx.font = 'italic 28px "Source Serif 4", Georgia, serif';
+      const lines = wrapLines(ctx, 'Bunga majemuk dari kebiasaan kecil yang diulang — sampai hasilnya tidak lagi terlihat kecil.', w-200);
+      lines.forEach((ln,i)=> ctx.fillText(ln, 96, 432+i*38));
+      ctx.fillStyle = '#3D2A14';
+      ctx.font = '700 18px "JetBrains Mono", monospace';
+      ctx.fillText('JAMES CLEAR', 96, h-80);
+    }
+    function paintQuotePage(ctx, w, h, q){
+      paperBase(ctx, w, h);
+      ctx.fillStyle = '#3D2A14';
+      ctx.font = '700 20px "JetBrains Mono", monospace';
+      ctx.fillText('ATOMIC HABITS', 96, 86);
+      ctx.fillStyle = '#5C3D12';
+      ctx.font = '700 78px "Source Serif 4", Georgia, serif';
+      ctx.fillText('“', 80, 220);
+      ctx.fillStyle = '#120E0A';
+      ctx.font = '700 40px "Source Serif 4", Georgia, serif';
+      const idLines = wrapLines(ctx, q ? q.id : '', w-210);
+      idLines.forEach((ln,i)=> ctx.fillText(ln, 96, 250+i*52));
+      const enTop = 250 + idLines.length*52 + 32;
+      ctx.fillStyle = '#2A2118';
+      ctx.font = 'italic 26px "Source Serif 4", Georgia, serif';
+      const enLines = wrapLines(ctx, q ? q.en : '', w-210);
+      enLines.forEach((ln,i)=> ctx.fillText(ln, 96, enTop+i*36));
+      ctx.fillStyle = '#3D2A14';
+      ctx.font = '700 18px "JetBrains Mono", monospace';
+      ctx.fillText('— JAMES CLEAR', 96, h-80);
+    }
+    function paintSheet(ctx, w, h){
+      paintQuotePage(ctx, w, h, null);
+    }
+    function stamp(tex, paint){
+      if(!tex || !tex.image) return;
+      const c = tex.image;
+      paint(c.getContext('2d'), c.width, c.height);
+      tex.needsUpdate = true;
+    }
+    function colorMat(hex, extra){
+      return new THREE.MeshStandardMaterial(Object.assign({
+        color: hex, roughness: 0.72, metalness: 0.04
+      }, extra||{}));
+    }
+    function size(){
+      const c = canvas(), box = wrap();
+      if(!c || !box || !renderer) return;
+      const w = box.clientWidth, h = box.clientHeight;
+      if(w<4 || h<4) return;
+      renderer.setSize(w, h, false);
+      camera.aspect = w/h;
+      camera.updateProjectionMatrix();
+    }
+    function build(){
+      if(typeof THREE === 'undefined') return false;
+      const c = canvas();
+      if(!c) return false;
+      try{
+        renderer = new THREE.WebGLRenderer({ canvas:c, antialias:true, alpha:true, powerPreference:'low-power' });
+      }catch(e){ return false; }
+      renderer.setPixelRatio(Math.min(devicePixelRatio||1, 1.75));
+      renderer.setClearColor(0x000000, 0);
+      if(THREE.sRGBEncoding) renderer.outputEncoding = THREE.sRGBEncoding;
+      renderer.shadowMap.enabled = true;
+
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(30, 1, 0.1, 40);
+      camera.position.set(camClosed.x, camClosed.y, camClosed.z);
+      camera.lookAt(lookClosed.x, lookClosed.y, lookClosed.z);
+
+      scene.add(new THREE.AmbientLight(0xfff4e0, 0.28));
+      const key = new THREE.DirectionalLight(0xffe2b0, 0.72);
+      key.position.set(2.4, 3.2, 3.4);
+      key.castShadow = true;
+      scene.add(key);
+      const fill = new THREE.DirectionalLight(0xb8c4d4, 0.45);
+      fill.position.set(-3, 1.2, 1.4);
+      scene.add(fill);
+      const rim = new THREE.DirectionalLight(0xe3a34e, 0.55);
+      rim.position.set(-1.2, 1.6, -3);
+      scene.add(rim);
+
+      const coverTex = texFrom(paintCover, 768, 1152);
+      const spineTex = texFrom(paintSpine, 128, 1152);
+      const backTex = texFrom(paintBack, 768, 1152);
+      const edgeTex = texFrom(paintPages, 256, 1152);
+      const leftTex = texFrom(paintLeftPage, 768, 1152);
+      rightTex = texFrom((ctx,w,h)=> paintQuotePage(ctx,w,h,null), 768, 1152);
+      flipFrontTex = texFrom(paintSheet, 768, 1152);
+      flipBackTex = texFrom(paintSheet, 768, 1152);
+      if(document.fonts && document.fonts.ready){
+        document.fonts.ready.then(()=>{
+          [coverTex, spineTex, backTex, leftTex].forEach(t=>{
+            const src = t.image;
+            if(!src || !src.getContext) return;
+            if(t === coverTex) paintCover(src.getContext('2d'), src.width, src.height);
+            if(t === spineTex) paintSpine(src.getContext('2d'), src.width, src.height);
+            if(t === backTex) paintBack(src.getContext('2d'), src.width, src.height);
+            if(t === leftTex) paintLeftPage(src.getContext('2d'), src.width, src.height);
+            t.needsUpdate = true;
+          });
+        });
+      }
+
+      const W = 1.28, H = 1.86, D = 0.22, T = 0.038;
+      book = new THREE.Group();
+
+      const PW = W-0.08, PH = H-0.08;
+      pageStack = new THREE.Mesh(new THREE.BoxGeometry(PW, PH, 0.16), [
+        new THREE.MeshStandardMaterial({ map:edgeTex, roughness:0.88 }),
+        colorMat(0x3d2a14),
+        new THREE.MeshStandardMaterial({ map:edgeTex, roughness:0.88 }),
+        new THREE.MeshStandardMaterial({ map:edgeTex, roughness:0.88 }),
+        colorMat(0xe8dcc0),
+        colorMat(0xe8dcc0)
+      ]);
+      pageStack.position.set(0, 0, -0.02);
+      pageStack.castShadow = true;
+      book.add(pageStack);
+
+      leftPage = new THREE.Mesh(
+        new THREE.PlaneGeometry(PW, PH),
+        new THREE.MeshBasicMaterial({ map:leftTex })
+      );
+      leftPage.position.set(-PW/2, 0, 0.03);
+      leftPage.visible = false;
+      book.add(leftPage);
+
+      rightPage = new THREE.Mesh(
+        new THREE.PlaneGeometry(PW, PH),
+        new THREE.MeshBasicMaterial({ map:rightTex })
+      );
+      rightPage.position.set(PW/2, 0, 0.028);
+      rightPage.visible = false;
+      book.add(rightPage);
+
+      flipPivot = new THREE.Group();
+      flipPivot.position.set(0, 0, 0.04);
+      const flipMatFront = new THREE.MeshBasicMaterial({ map:flipFrontTex });
+      const flipMatBack = new THREE.MeshBasicMaterial({ map:flipBackTex });
+      const flipLeaf = new THREE.Mesh(new THREE.BoxGeometry(PW, PH, 0.01), [
+        colorMat(0xf3ead2), colorMat(0xf3ead2), colorMat(0xf3ead2), colorMat(0xf3ead2),
+        flipMatFront, flipMatBack
+      ]);
+      flipLeaf.position.set(PW/2, 0, 0);
+      flipPivot.add(flipLeaf);
+      flipPivot.visible = false;
+      book.add(flipPivot);
+
+      const back = new THREE.Mesh(new THREE.BoxGeometry(W, H, T), [
+        colorMat(0x3d2a14), colorMat(0x3d2a14), colorMat(0x3d2a14), colorMat(0x3d2a14),
+        new THREE.MeshStandardMaterial({ map:backTex, roughness:0.62 }),
+        new THREE.MeshStandardMaterial({ map:backTex, roughness:0.62 })
+      ]);
+      back.position.z = -D/2 - T/2;
+      back.castShadow = true;
+      book.add(back);
+
+      const spineFace = new THREE.MeshStandardMaterial({ map:spineTex, roughness:0.55 });
+      const spineDark = colorMat(0x3d2a14);
+      const spine = new THREE.Mesh(
+        new THREE.BoxGeometry(T, H, D+T*2),
+        [spineDark, spineFace, spineDark, spineDark, spineDark, spineDark]
+      );
+      spine.position.set(-W/2 + T/2, 0, 0);
+      spine.castShadow = true;
+      book.add(spine);
+
+      coverPivot = new THREE.Group();
+      coverPivot.position.set(-W/2 + T, 0, D/2);
+      const coverMat = new THREE.MeshStandardMaterial({ map:coverTex, roughness:0.48, metalness:0.08 });
+      const coverInside = colorMat(0xf3ead2);
+      const coverEdge = colorMat(0x3d2a14);
+      const cover = new THREE.Mesh(new THREE.BoxGeometry(W, H, T), [
+        coverEdge, coverEdge, coverEdge, coverEdge, coverMat, coverInside
+      ]);
+      cover.position.set(W/2, 0, T/2);
+      cover.castShadow = true;
+      coverPivot.add(cover);
+      coverPivot.rotation.y = 0;
+      book.add(coverPivot);
+
+      const shadow = new THREE.Mesh(
+        new THREE.CircleGeometry(1.15, 48),
+        new THREE.MeshBasicMaterial({ color:0x000000, transparent:true, opacity:0.28 })
+      );
+      shadow.rotation.x = -Math.PI/2;
+      shadow.position.y = -H/2 - 0.02;
+      shadow.scale.set(1, 0.42, 1);
+      book.add(shadow);
+
+      book.rotation.set(-0.16, 0.46, 0.05);
+      scene.add(book);
+      size();
+      return true;
+    }
+    function pose(now){
+      if(!book) return;
+      const t = (now - started)/1000;
+      const dt = lastNow ? Math.min(0.05, (now-lastNow)/1000) : 0.016;
+      lastNow = now;
+      const intro = Math.min(1, t/0.95);
+      const e = 1 - Math.pow(1-intro, 3);
+      const speed = REDUCE ? 8 : 1.35;
+      if(coverT < coverGoal) coverT = Math.min(coverGoal, coverT + dt*speed);
+      else if(coverT > coverGoal) coverT = Math.max(coverGoal, coverT - dt*1.6);
+      const cE = easeInOut(coverT);
+      if(flipping){
+        flipT = Math.min(1, flipT + dt*1.55);
+        if(flipT >= 1){
+          flipping = false;
+          busy = false;
+          flipT = 1;
+          if(flipPivot) flipPivot.rotation.y = 0;
+          stamp(flipFrontTex, (ctx,w,h)=> paintQuotePage(ctx,w,h, QUOTES[quoteI]||null));
+        }
+      }
+      ptr.x += (ptrT.x - ptr.x)*0.08;
+      ptr.y += (ptrT.y - ptr.y)*0.08;
+      const floatY = REDUCE || quoteOn ? 0 : Math.sin(t*1.15)*0.045;
+      book.position.x = lerp(0, 0.02, cE);
+      book.position.y = (1-e)*0.55 + floatY;
+      book.rotation.x = lerp(-0.16, -0.48, cE) + ptr.y*(quoteOn?0.08:0.22);
+      book.rotation.y = lerp(-0.55 + e*1.01, 0.02, cE) + ptr.x*(quoteOn?0.1:0.35) + (REDUCE||quoteOn?0:Math.sin(t*0.55)*0.05);
+      book.rotation.z = lerp(0.05, 0, cE) + ptr.x*-0.04;
+      book.scale.setScalar(lerp(0.86 + e*0.2, 0.9, cE));
+      if(leftPage) leftPage.visible = cE > 0.18;
+      if(rightPage) rightPage.visible = cE > 0.18;
+      if(flipPivot) flipPivot.visible = cE > 0.22;
+      if(pageStack) pageStack.visible = cE < 0.45;
+      if(coverPivot){
+        coverPivot.rotation.y = lerp(0, -2.86, cE);
+      }
+      if(flipPivot && flipping){
+        const fE = easeInOut(flipT);
+        flipPivot.rotation.y = -fE * Math.PI;
+        flipPivot.rotation.z = Math.sin(fE*Math.PI)*0.1;
+        flipPivot.position.y = Math.sin(fE*Math.PI)*0.05;
+      } else if(flipPivot && !flipping){
+        flipPivot.rotation.y = 0;
+        flipPivot.rotation.z = 0;
+        flipPivot.position.y = 0;
+      }
+      if(camera){
+        camera.position.set(
+          lerp(camClosed.x, camOpen.x, cE),
+          lerp(camClosed.y, camOpen.y, cE),
+          lerp(camClosed.z, camOpen.z, cE)
+        );
+        look.x = lerp(lookClosed.x, lookOpen.x, cE);
+        look.y = lerp(lookClosed.y, lookOpen.y, cE);
+        look.z = lerp(lookClosed.z, lookOpen.z, cE);
+        camera.lookAt(look.x, look.y, look.z);
+      }
+    }
+    function startFlip(advance){
+      if(advance){
+        const current = QUOTES[Math.max(0, quoteI)];
+        stamp(flipFrontTex, (ctx,w,h)=> paintQuotePage(ctx,w,h, current));
+        quoteI = (quoteI + 1 + QUOTES.length) % QUOTES.length;
+        stamp(rightTex, (ctx,w,h)=> paintQuotePage(ctx,w,h, QUOTES[quoteI]));
+      } else {
+        stamp(flipFrontTex, paintSheet);
+      }
+      flipT = 0;
+      flipping = true;
+      busy = true;
+      if(flipPivot){ flipPivot.rotation.y = 0; flipPivot.position.y = 0; }
+    }
+    function onBookClick(e){
+      e.preventDefault();
+      e.stopPropagation();
+      if(busy) return;
+      const wrapEl = wrap();
+      if(!quoteOn){
+        quoteOn = true;
+        quoteI = 0;
+        stamp(rightTex, (ctx,w,h)=> paintQuotePage(ctx,w,h, QUOTES[0]));
+        stamp(flipFrontTex, paintSheet);
+        coverGoal = 1;
+        if(wrapEl) wrapEl.classList.add('is-open');
+        if(REDUCE){
+          coverT = 1;
+          flipping = false;
+          flipT = 1;
+          return;
+        }
+        busy = true;
+        flipTimer = setTimeout(()=>{
+          flipTimer = 0;
+          if(playing && quoteOn) startFlip(false);
+        }, 740);
+        return;
+      }
+      startFlip(true);
+    }
+    function frame(now){
+      if(!playing) return;
+      raf = requestAnimationFrame(frame);
+      pose(now);
+      renderer.render(scene, camera);
+    }
+    function play(){
+      if(playing) return;
+      if(!renderer && !build()) return;
+      playing = true;
+      started = performance.now();
+      size();
+      const slide = document.getElementById('slidePct');
+      onMove = (e)=>{
+        const r = (wrap()||slide).getBoundingClientRect();
+        ptrT.x = ((e.clientX - r.left)/r.width)*2 - 1;
+        ptrT.y = ((e.clientY - r.top)/r.height)*2 - 1;
+      };
+      onResize = ()=> size();
+      onClick = onBookClick;
+      if(slide) slide.addEventListener('mousemove', onMove, { passive:true });
+      const box = wrap();
+      if(box) box.addEventListener('click', onClick);
+      addEventListener('resize', onResize, { passive:true });
+      if(REDUCE){
+        pose(started+1000);
+        renderer.render(scene, camera);
+        return;
+      }
+      raf = requestAnimationFrame(frame);
+    }
+    function stop(){
+      playing = false;
+      if(raf){ cancelAnimationFrame(raf); raf = 0; }
+      const slide = document.getElementById('slidePct');
+      if(slide && onMove) slide.removeEventListener('mousemove', onMove);
+      const box = wrap();
+      if(box && onClick) box.removeEventListener('click', onClick);
+      if(onResize) removeEventListener('resize', onResize);
+      onMove = onResize = onClick = null;
+      ptrT.x = ptrT.y = ptr.x = ptr.y = 0;
+      lastNow = 0;
+      hideQuote();
+    }
+    return { play, stop };
+  })();
+
   /* ---- FIG. 01 streak loop: text + boxes light day-by-day, then reset ---- */
   const streakAnim = (function(){
     const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1441,11 +2193,44 @@
       const id = setTimeout(fn, ms);
       timers.push(id);
     }
+    const LI_HANDLE = 'linkedin.com/in/jimmi-idris';
     function jobs(){ return Array.from(document.querySelectorAll('#profileRail .profile-job')); }
     function resetJobs(){
       const spine = document.getElementById('profileSpineFill');
       if(spine) spine.style.height = '0%';
       jobs().forEach(j=>{ j.classList.remove('on','lit','rv','in'); j.style.opacity='0'; j.style.transform='translateX(22px)'; });
+    }
+    function resetStamp(){
+      const stamp = document.getElementById('liStamp');
+      const handle = document.getElementById('liHandle');
+      if(stamp) stamp.classList.remove('show','typing','ready');
+      if(handle) handle.textContent = '';
+    }
+    function revealStamp(my, animate){
+      const stamp = document.getElementById('liStamp');
+      const handle = document.getElementById('liHandle');
+      if(!stamp || !handle) return;
+      if(!animate){
+        stamp.classList.add('show','ready');
+        stamp.classList.remove('typing');
+        handle.textContent = LI_HANDLE;
+        return;
+      }
+      stamp.classList.remove('ready');
+      stamp.classList.add('show','typing');
+      handle.textContent = '';
+      const start = performance.now();
+      const duration = 720;
+      (function step(now){
+        if(my!==gen) return;
+        const p = Math.min((now-start)/duration, 1);
+        handle.textContent = LI_HANDLE.slice(0, Math.round(LI_HANDLE.length * (1-Math.pow(1-p,3))));
+        if(p<1) requestAnimationFrame(step);
+        else{
+          stamp.classList.remove('typing');
+          stamp.classList.add('ready');
+        }
+      })(start);
     }
     function stop(){
       gen++;
@@ -1455,6 +2240,7 @@
       const slide = document.getElementById('slideProfile');
       if(slide) slide.classList.remove('scanning');
       resetJobs();
+      resetStamp();
       const years = document.getElementById('pfYears');
       const sites = document.getElementById('pfSites');
       if(years) years.textContent = '0+';
@@ -1486,6 +2272,10 @@
           if(spine) spine.style.height = (((i+1)/list.length)*100) + '%';
         });
       });
+      later(80 + list.length*340 + 220, ()=>{
+        if(my!==gen) return;
+        revealStamp(my, true);
+      });
     }
     function apply(level){
       if(level < reached){
@@ -1504,6 +2294,9 @@
           list[list.length-1] && list[list.length-1].classList.add('lit');
           const spine = document.getElementById('profileSpineFill');
           if(spine) spine.style.height = '100%';
+          revealStamp(my, false);
+        } else {
+          resetStamp();
         }
         reached = level;
         return;
@@ -1524,10 +2317,9 @@
       const id = setTimeout(fn, ms);
       timers.push(id);
     }
-    function apply(el, opacity, y){
-      if(!el || el.classList.contains('fade')) return;
-      el.style.opacity = opacity;
-      el.style.transform = 'translateY('+y+'px)';
+    function box(id){ return document.getElementById(id); }
+    function setNum(el, n){
+      if(el) el.textContent = String(n);
     }
     function count(el, to, duration){
       const my = gen;
@@ -1536,44 +2328,51 @@
         if(my !== gen) return;
         const p = Math.min((now-start)/duration, 1);
         const eased = 1 - Math.pow(1-p, 3);
-        el.textContent = String(Math.round(to*eased));
+        setNum(el, Math.round(to*eased));
         if(p<1) requestAnimationFrame(step);
       })(start);
     }
     function reset(){
-      const slide = document.getElementById('slideVs');
+      const slide = box('slideVs');
       if(slide) slide.classList.remove('clashing');
-      const a = document.getElementById('cuNumA');
-      const b = document.getElementById('cuNumB');
-      [a,b].forEach(el=>{
+      ['cuBoxA','cuBoxB'].forEach(id=>{
+        const el = box(id);
+        if(el) el.classList.remove('show','hit','locked');
+      });
+      ['cuNumA','cuNumB'].forEach(id=>{
+        const el = box(id);
         if(!el) return;
         el.classList.remove('show','hit','locked','shine','breathe');
-        el.textContent = '0';
+        setNum(el, 0);
       });
-      const mark = document.getElementById('vsMark');
+      const mark = box('vsMark');
       if(mark) mark.classList.remove('show');
       ['vsRuleL','vsRuleR'].forEach(id=>{
-        const r = document.getElementById(id);
+        const r = box(id);
         if(r) r.classList.remove('grow');
       });
       ['vsCapA','vsCapB'].forEach(id=>{
-        const c = document.getElementById(id);
+        const c = box(id);
         if(c) c.classList.remove('show');
       });
     }
     function showFinal(){
-      const a = document.getElementById('cuNumA');
-      const b = document.getElementById('cuNumB');
-      if(a){ a.textContent = '10'; a.classList.add('show','locked'); }
-      if(b){ b.textContent = '7'; b.classList.add('show','locked'); }
-      const mark = document.getElementById('vsMark');
+      ['cuBoxA','cuBoxB'].forEach(id=>{
+        const el = box(id);
+        if(el) el.classList.add('show','locked');
+      });
+      const a = box('cuNumA');
+      const b = box('cuNumB');
+      if(a){ setNum(a, 10); a.classList.add('show','locked'); }
+      if(b){ setNum(b, 7); b.classList.add('show','locked'); }
+      const mark = box('vsMark');
       if(mark) mark.classList.add('show');
       ['vsRuleL','vsRuleR'].forEach(id=>{
-        const r = document.getElementById(id);
+        const r = box(id);
         if(r) r.classList.add('grow');
       });
       ['vsCapA','vsCapB'].forEach(id=>{
-        const c = document.getElementById(id);
+        const c = box(id);
         if(c) c.classList.add('show');
       });
     }
@@ -1592,45 +2391,52 @@
 
       later(80, ()=>{
         if(my!==gen) return;
-        const a = document.getElementById('cuNumA');
+        const wrap = box('cuBoxA');
+        const a = box('cuNumA');
+        if(wrap) wrap.classList.add('show');
         if(!a) return;
         a.classList.add('show');
         count(a, 10, 720);
       });
       later(780, ()=>{
         if(my!==gen) return;
-        const a = document.getElementById('cuNumA');
-        if(!a) return;
-        a.classList.add('hit','shine','locked');
+        const wrap = box('cuBoxA');
+        const a = box('cuNumA');
+        if(wrap) wrap.classList.add('hit','locked');
+        if(a) a.classList.add('hit','shine','locked');
       });
       later(860, ()=>{
         if(my!==gen) return;
-        const mark = document.getElementById('vsMark');
+        const mark = box('vsMark');
         if(mark) mark.classList.add('show');
         ['vsRuleL','vsRuleR'].forEach(id=>{
-          const r = document.getElementById(id);
+          const r = box(id);
           if(r) r.classList.add('grow');
         });
       });
       later(1140, ()=>{
         if(my!==gen) return;
-        const b = document.getElementById('cuNumB');
+        const wrap = box('cuBoxB');
+        const b = box('cuNumB');
+        if(wrap) wrap.classList.add('show');
         if(!b) return;
         b.classList.add('show');
         count(b, 7, 880);
       });
       later(2020, ()=>{
         if(my!==gen) return;
-        const b = document.getElementById('cuNumB');
+        const wrap = box('cuBoxB');
+        const b = box('cuNumB');
+        if(wrap) wrap.classList.add('hit','locked');
         if(b) b.classList.add('hit','locked');
-        const capA = document.getElementById('vsCapA');
-        const capB = document.getElementById('vsCapB');
+        const capA = box('vsCapA');
+        const capB = box('vsCapB');
         if(capA) capA.classList.add('show');
         if(capB) capB.classList.add('show');
       });
       later(2200, ()=>{
         if(my!==gen) return;
-        const slide = document.getElementById('slideVs');
+        const slide = box('slideVs');
         if(slide){
           slide.classList.remove('clashing');
           void slide.offsetWidth;
@@ -1639,8 +2445,8 @@
       });
       later(2580, ()=>{
         if(my!==gen) return;
-        const a = document.getElementById('cuNumA');
-        const b = document.getElementById('cuNumB');
+        const a = box('cuNumA');
+        const b = box('cuNumB');
         if(a){
           a.classList.remove('hit','shine');
           a.classList.add('breathe');
@@ -1649,6 +2455,57 @@
       });
     }
     return { play, stop };
+  })();
+
+  /* ---- FIG. 04: feature card + strip, photo Ken Burns ---- */
+  const figAnim = (function(){
+    const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function card(i){ return document.getElementById('figCard'+i); }
+    function featureFigs(step){
+      [1,2,3].forEach(i=>{
+        const el = card(i); if(!el) return;
+        const cardStep = i+1;
+        el.classList.remove('is-feature','is-strip');
+        if(step >= cardStep){
+          if(i === step-1) el.classList.add('is-feature');
+          else el.classList.add('is-strip');
+        }
+      });
+    }
+    function stop(){
+      [1,2,3].forEach(i=>{
+        const el = card(i);
+        if(el) el.classList.remove('is-feature','is-strip','is-live','is-hit');
+      });
+    }
+    function settle(step){
+      featureFigs(step);
+      [1,2,3].forEach(i=>{
+        const el = card(i); if(!el) return;
+        el.classList.toggle('is-live', i+1 <= step);
+        el.classList.remove('is-hit');
+      });
+    }
+    function play(step){
+      featureFigs(step);
+      if(REDUCE){ settle(step); return; }
+      const incoming = step-1;
+      [1,2,3].forEach(i=>{
+        const el = card(i); if(!el) return;
+        if(i === incoming){
+          el.classList.remove('is-live','is-hit');
+          void el.offsetWidth;
+          el.classList.add('is-live');
+          requestAnimationFrame(()=> el.classList.add('is-hit'));
+        } else if(i < incoming){
+          el.classList.add('is-live');
+          el.classList.remove('is-hit');
+        } else {
+          el.classList.remove('is-live','is-hit');
+        }
+      });
+    }
+    return { play, stop, settle };
   })();
 
   /* ---- FIG. 05 Sistem Bekerja Selamat: core, then loops, then outcomes ---- */
@@ -1693,7 +2550,9 @@
     if(index !== 1) profileAnim.stop();
     if(index !== 2) streakAnim.stop();
     if(index !== 3) pctChart.stop();
+    atomicBook.stop();
     if(index !== 4) vsAnim.stop();
+    if(index !== 5) figAnim.stop();
     if(index !== 6) sbsAnim.stop();
   }
 
@@ -1742,12 +2601,17 @@
         if(n < 2) streakAnim.stop();
       }
       if(index === 3){
-        if(n >= 2 && prev < 2) pctChart.play();
-        if(n < 2) pctChart.stop();
+        if(n >= 1 && prev < 1){ atomicBook.play(); pctChart.play(); }
+        if(n < 1){ atomicBook.stop(); pctChart.stop(); }
       }
       if(index === 4){
         if(n >= 2 && prev < 2) vsAnim.play();
         if(n < 2) vsAnim.stop();
+      }
+      if(index === 5){
+        if(n < 2) figAnim.stop();
+        else if(n > prev) figAnim.play(n);
+        else figAnim.settle(n);
       }
       if(index === 6){
         if(n >= 2 && prev < 2) sbsAnim.play();
@@ -1804,7 +2668,7 @@
 
     document.addEventListener('click', (e)=>{
       if(guide.classList.contains('open')) return;
-      if(e.target.closest('button, a, input, textarea, .dot, .navbtn, .pinable, #studentApp, #guide, .guide-btn, .nav-zone')) return;
+      if(e.target.closest('button, a, input, textarea, .dot, .navbtn, .pinable, #studentApp, #guide, .guide-btn, .nav-zone, #pctBookWrap, .pct-quote')) return;
       nextStep();
     });
     document.querySelectorAll('.pinable').forEach(el=>{

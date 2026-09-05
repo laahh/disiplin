@@ -203,12 +203,25 @@
   /* ---- VS stack ---- */
   .vs-head{ position:absolute; top:18px; left:36px; z-index:4; max-width:28ch; }
   .vs-stage{ position:absolute; inset:0; display:flex; flex-direction:column; }
-  .vs-card{ flex:1; display:flex; align-items:center; justify-content:center; gap:18px; opacity:0; }
+  .vs-card{ flex:1; display:flex; align-items:center; justify-content:center; gap:18px; opacity:0; position:relative; overflow:hidden; }
+  .vs-photo{
+    position:absolute; inset:0; z-index:0; pointer-events:none;
+    background-size:cover; background-repeat:no-repeat;
+    filter:grayscale(.08) contrast(1.1) saturate(.78);
+  }
+  .vs-a .vs-photo{ background-image:url('messi.jpg'); background-position:center 20%; opacity:.55; }
+  .vs-b .vs-photo{ background-image:url('ronaldo.jpg'); background-position:center 18%; opacity:.5; }
   .vs-a{ background:rgba(245,197,24,.06); padding-top:18vh; }
   .vs-b{ background:rgba(62,198,201,.06); }
-  .vs-num{ font-size:clamp(5rem,14vw,10rem); line-height:.8; }
+  .vs-a::after, .vs-b::after{
+    content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+  }
+  .vs-a::after{ background:linear-gradient(90deg, rgba(16,22,26,.58) 0%, rgba(16,22,26,.16) 48%, rgba(16,22,26,.6) 100%); }
+  .vs-b::after{ background:linear-gradient(90deg, rgba(16,22,26,.58) 0%, rgba(16,22,26,.16) 48%, rgba(16,22,26,.6) 100%); }
+  .vs-num{ font-size:clamp(5rem,14vw,10rem); line-height:.8; position:relative; z-index:2;
+    text-shadow:0 4px 22px rgba(0,0,0,.78); }
   .vs-a .vs-num{ color:var(--hazard); } .vs-b .vs-num{ color:var(--signal); }
-  .vs-cap{ font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted-2); opacity:0; }
+  .vs-cap{ font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted-2); opacity:0; position:relative; z-index:2; }
   .vs-mid{
     position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); z-index:5;
     display:flex; align-items:center; gap:12px;
@@ -230,12 +243,38 @@
   .fig-head{ position:absolute; top:20px; left:36px; z-index:3; }
   .fig-board{ position:absolute; inset:18vh 28px 8vh 28px; display:flex; gap:10px; }
   .fig-card{
-    background:var(--panel); border:1px solid var(--line); padding:22px 20px; cursor:pointer;
+    position:relative; background:var(--panel); border:1px solid var(--line); padding:22px 20px; cursor:pointer;
     display:none; flex-direction:column; justify-content:flex-end; min-width:0; overflow:hidden;
+    flex:0 1 0;
+    transition:flex-grow .6s cubic-bezier(.16,1,.3,1), flex-basis .6s cubic-bezier(.16,1,.3,1), padding .4s ease, border-color .3s;
   }
+  .fig-photo{
+    position:absolute; inset:0; z-index:0; pointer-events:none;
+    background-size:cover; background-repeat:no-repeat; background-position:center 18%;
+    transform-origin:center 22%;
+    filter:grayscale(.08) contrast(1.12) saturate(.85) brightness(.95); opacity:0;
+  }
+  #figCard1 .fig-photo{ background-image:url('kobe.jpg'); }
+  #figCard2 .fig-photo{ background-image:url('kpop.jpg'); }
+  #figCard3 .fig-photo{ background-image:url('habibie.jpg'); }
+  .fig-wash{
+    position:absolute; inset:0; z-index:1; pointer-events:none; opacity:0;
+    background:linear-gradient(180deg, rgba(245,197,24,.22), transparent 62%);
+  }
+  .fig-card::after{
+    content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+    background:linear-gradient(180deg, rgba(16,22,26,.12) 0%, rgba(16,22,26,.18) 42%, rgba(16,22,26,.88) 100%);
+  }
+  .fig-copy{
+    position:relative; z-index:2; display:flex; flex-direction:column; justify-content:flex-end;
+    height:100%; min-width:0;
+  }
+  .fig-card.is-feature .fig-photo{ opacity:.92; }
+  .fig-card.is-strip .fig-photo{ opacity:.45; background-position:center 28%; }
   .fig-card.on{ display:flex; }
-  .fig-card.is-feature{ flex:1; }
-  .fig-card.is-strip{ flex:0 0 76px; padding:16px 10px; writing-mode:vertical-rl; transform:rotate(180deg); }
+  .fig-card.is-feature{ flex-grow:1; flex-basis:0; }
+  .fig-card.is-strip{ flex-grow:0; flex-basis:76px; flex-shrink:0; padding:16px 10px; }
+  .fig-card.is-strip .fig-copy{ writing-mode:vertical-rl; rotate:180deg; justify-content:flex-start; }
   .fig-card.is-strip p, .fig-card.is-strip .icon-line{ display:none; }
   .fig-card.pinned, .fig-card.is-feature{ border-color:var(--hazard); }
   .fig-no{ font-size:2.4rem; color:rgba(245,197,24,.4); line-height:1; }
@@ -314,13 +353,16 @@
     .profile-board{ grid-template-columns:1fr; }
     .profile-name{ writing-mode:horizontal-tb; transform:none; }
     .fig-board{ flex-direction:column; }
-    .fig-card.is-strip{ flex:0 0 auto; writing-mode:horizontal-tb; transform:none; }
+    .fig-card.is-strip{ flex:0 0 auto; }
+    .fig-card.is-strip .fig-copy{ writing-mode:horizontal-tb; rotate:none; }
     .vs-num{ font-size:4rem; }
     .hero-portrait{ width:46vw; max-width:200px; top:6%; bottom:auto; height:46vh; }
     .hero-hud{ right:0; padding-right:28px; }
   }
   @media (prefers-reduced-motion: reduce){
     .fade,.fade.on,.slide,.slide.active,.w{ animation:none; transition:none; opacity:1; transform:none; }
+    .fig-card{ transition:none; }
+    .fig-photo{ opacity:.92; transform:none; }
     .close-rule{ transform:rotate(-28deg); }
   }
 </style>
@@ -458,6 +500,7 @@
       </div>
       <div class="vs-stage fade" id="vsStage" data-step="2">
         <div class="vs-card vs-a" id="cuBoxA">
+          <span class="vs-photo" aria-hidden="true"></span>
           <div class="vs-num" id="cuNumA">0</div>
           <span class="vs-cap mono" id="vsCapA">No. 10 · Bakat</span>
         </div>
@@ -467,6 +510,7 @@
           <i class="vs-rule" id="vsRuleR"></i>
         </div>
         <div class="vs-card vs-b" id="cuBoxB">
+          <span class="vs-photo" aria-hidden="true"></span>
           <div class="vs-num" id="cuNumB">0</div>
           <span class="vs-cap mono" id="vsCapB">No. 7 · Rutinitas</span>
         </div>
@@ -483,22 +527,34 @@
       </div>
       <div class="fig-board" id="figureRows">
         <div class="fig-card pinable fade" data-step="2" id="figCard1">
-          <div class="fig-no">01</div>
-          <svg class="icon-line" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.4"/><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="1.1"/></svg>
-          <b>"Mamba Mentality"</b>
-          <p>Dikenal luas karena rutinitas latihan yang dimulai jauh sebelum subuh — bertahun-tahun sebelum orang lain bangun. Kebiasaan, bukan bakat kelahiran, yang sering disebut jadi pembeda utamanya.</p>
+          <span class="fig-photo" aria-hidden="true"></span>
+          <span class="fig-wash" aria-hidden="true"></span>
+          <div class="fig-copy">
+            <div class="fig-no">01</div>
+            <svg class="icon-line" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.4"/><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="1.1"/></svg>
+            <b>"Mamba Mentality"</b>
+            <p>Dikenal luas karena rutinitas latihan yang dimulai jauh sebelum subuh — bertahun-tahun sebelum orang lain bangun. Kebiasaan, bukan bakat kelahiran, yang sering disebut jadi pembeda utamanya.</p>
+          </div>
         </div>
         <div class="fig-card pinable fade" data-step="3" id="figCard2">
-          <div class="fig-no">02</div>
-          <svg class="icon-line" viewBox="0 0 24 24" fill="none"><path d="M12 3l2.4 6.5 6.9.2-5.5 4.3 2 6.6-5.8-4-5.8 4 2-6.6-5.5-4.3 6.9-.2z" stroke="currentColor" stroke-width="1.1"/></svg>
-          <b>Sistem Trainee Idola K-pop</b>
-          <p>Sebelum debut, umumnya melalui bertahun-tahun latihan harian yang sangat terjadwal — vokal, tari, disiplin pola makan dan waktu. Panggung yang terlihat sempurna itu hasil ribuan hari latihan yang tidak terlihat.</p>
+          <span class="fig-photo" aria-hidden="true"></span>
+          <span class="fig-wash" aria-hidden="true"></span>
+          <div class="fig-copy">
+            <div class="fig-no">02</div>
+            <svg class="icon-line" viewBox="0 0 24 24" fill="none"><path d="M12 3l2.4 6.5 6.9.2-5.5 4.3 2 6.6-5.8-4-5.8 4 2-6.6-5.5-4.3 6.9-.2z" stroke="currentColor" stroke-width="1.1"/></svg>
+            <b>Sistem Trainee Idola K-pop</b>
+            <p>Sebelum debut, umumnya melalui bertahun-tahun latihan harian yang sangat terjadwal — vokal, tari, disiplin pola makan dan waktu. Panggung yang terlihat sempurna itu hasil ribuan hari latihan yang tidak terlihat.</p>
+          </div>
         </div>
         <div class="fig-card pinable fade" data-step="4" id="figCard3">
-          <div class="fig-no">03</div>
-          <svg class="icon-line" viewBox="0 0 24 24" fill="none"><path d="M3 20L19 6l-3 8 3 4-9-3z" stroke="currentColor" stroke-width="1.2"/></svg>
-          <b>B.J. Habibie</b>
-          <p>Disiplin belajar dan bekerja yang sangat ketat sejak masa studinya di Jerman — jadi fondasi yang mengantarnya merancang pesawat pertama buatan Indonesia.</p>
+          <span class="fig-photo" aria-hidden="true"></span>
+          <span class="fig-wash" aria-hidden="true"></span>
+          <div class="fig-copy">
+            <div class="fig-no">03</div>
+            <svg class="icon-line" viewBox="0 0 24 24" fill="none"><path d="M3 20L19 6l-3 8 3 4-9-3z" stroke="currentColor" stroke-width="1.2"/></svg>
+            <b>B.J. Habibie</b>
+            <p>Disiplin belajar dan bekerja yang sangat ketat sejak masa studinya di Jerman — jadi fondasi yang mengantarnya merancang pesawat pertama buatan Indonesia.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -781,12 +837,7 @@
         if(k) tl.fromTo(k, {x:28, opacity:0}, {x:0, opacity:1, duration:0.4}, 0);
         if(t) tl.fromTo(t, {x:28, opacity:0}, {x:0, opacity:1, duration:0.5}, 0.08);
       }
-      if(n>=2){
-        featureFigs(n);
-        const idx = n-1;
-        const card=$id('figCard'+idx);
-        if(card && prev<n) tl.fromTo(card, {x:40, opacity:0}, {x:0, opacity:1, duration:0.5, ease:'power3.out'}, 0);
-      }
+      if(n>=2) featureFigs(n);
     }
     function sbsStep(tl, n, prev){
       if(n>=1 && prev<1){
@@ -1221,12 +1272,80 @@
     return { play, stop };
   })();
 
+  const figAnim = (function(){
+    const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let tweens=[];
+    function card(i){ return document.getElementById('figCard'+i); }
+    function killTweens(){ tweens.forEach(t=>{ try{ t.kill(); }catch(e){} }); tweens=[]; }
+    function tw(t){ tweens.push(t); return t; }
+    function resetCard(i){
+      const el=card(i); if(!el || !hasGsap) return;
+      const photo=el.querySelector('.fig-photo');
+      const wash=el.querySelector('.fig-wash');
+      const bits=el.querySelectorAll('.fig-no, .icon-line, b, p');
+      if(photo) gsap.set(photo, {clearProps:'transform,opacity,scale'});
+      if(wash) gsap.set(wash, {clearProps:'opacity'});
+      if(bits.length) gsap.set(bits, {clearProps:'transform,opacity,x,y,scale'});
+    }
+    function stop(){ killTweens(); [1,2,3].forEach(resetCard); }
+    function reveal(i){
+      const el=card(i); if(!el || !hasGsap) return;
+      const photo=el.querySelector('.fig-photo');
+      const wash=el.querySelector('.fig-wash');
+      const no=el.querySelector('.fig-no');
+      const icon=el.querySelector('.icon-line');
+      const title=el.querySelector('b');
+      const body=el.querySelector('p');
+      if(photo){
+        tw(gsap.fromTo(photo, {scale:1.24, opacity:0}, {scale:1, opacity:0.92, duration:1.05, ease:'power3.out'}));
+        tw(gsap.to(photo, {scale:1.08, duration:7.5, ease:'none', delay:1.05}));
+      }
+      if(wash) tw(gsap.fromTo(wash, {opacity:0}, {opacity:1, duration:0.28, yoyo:true, repeat:1, ease:'power2.out', delay:0.06}));
+      if(no){
+        tw(gsap.fromTo(no, {y:28, scale:0.78, opacity:0}, {y:0, scale:1, opacity:1, duration:0.55, ease:'expo.out', delay:0.1}));
+        tw(gsap.fromTo(no, {scale:1}, {scale:1.08, duration:0.2, yoyo:true, repeat:1, ease:'expo.out', delay:0.62}));
+      }
+      if(icon) tw(gsap.fromTo(icon, {scale:0.5, opacity:0}, {scale:1, opacity:1, duration:0.4, ease:'back.out(1.25)', delay:0.18}));
+      if(title) tw(gsap.fromTo(title, {y:20, opacity:0}, {y:0, opacity:1, duration:0.48, ease:'power3.out', delay:0.22}));
+      if(body) tw(gsap.fromTo(body, {y:16, opacity:0}, {y:0, opacity:1, duration:0.5, ease:'power3.out', delay:0.34}));
+    }
+    function collapse(i){
+      const el=card(i); if(!el || !hasGsap) return;
+      const photo=el.querySelector('.fig-photo');
+      if(photo) tw(gsap.to(photo, {scale:1.1, opacity:0.45, duration:0.55, ease:'power2.inOut', overwrite:'auto'}));
+    }
+    function settle(step){
+      killTweens();
+      [1,2,3].forEach(i=>{
+        const el=card(i); if(!el || !hasGsap) return;
+        const photo=el.querySelector('.fig-photo');
+        const wash=el.querySelector('.fig-wash');
+        const bits=el.querySelectorAll('.fig-no, .icon-line, b, p');
+        const shown=i+1<=step;
+        const feature=i===step-1;
+        if(photo) gsap.set(photo, {scale:feature?1:1.08, opacity:shown?(feature?0.92:0.45):0});
+        if(wash) gsap.set(wash, {opacity:0});
+        if(bits.length) gsap.set(bits, {opacity:1, x:0, y:0, scale:1});
+      });
+    }
+    function play(step){
+      if(REDUCE || !hasGsap) return;
+      killTweens();
+      const incoming=step-1;
+      const outgoing=incoming-1;
+      if(outgoing>=1) collapse(outgoing);
+      if(incoming>=1 && incoming<=3) reveal(incoming);
+    }
+    return { play, stop, settle };
+  })();
+
   function replaySlide(index){
     pitMotion.killAll();
     if(index!==1) profileAnim.stop();
     if(index!==2) streakAnim.stop();
     if(index!==3) pctChart.stop();
     if(index!==4) vsAnim.stop();
+    if(index!==5) figAnim.stop();
   }
 
   function initDeck(){
@@ -1264,6 +1383,11 @@
       if(index===2){ if(n>=2 && prev<2) streakAnim.play(); if(n<2) streakAnim.stop(); }
       if(index===3){ if(n>=1 && prev<1) pctChart.play(); if(n<1) pctChart.stop(); }
       if(index===4){ if(n>=2 && prev<2) vsAnim.play(); if(n<2) vsAnim.stop(); }
+      if(index===5){
+        if(n<2) figAnim.stop();
+        else if(n>prev) figAnim.play(n);
+        else figAnim.settle(n);
+      }
     }
     function paintChrome(){
       const total=maxStep(current);
