@@ -431,6 +431,32 @@ h1,h2,h3{ font-weight:400; margin:0; letter-spacing:-.005em; }
 .cta:hover i{ transform:none; }
 .cta:hover svg path{ stroke:#05070a; }
 
+/* — quiz: a small self-scored reflection, not a data-cam chapter, so it just
+   rides the document flow between eternity and the footer without a new
+   camera keyframe. */
+.quiz-box{ max-width:640px; margin:0 auto; text-align:center; }
+.quiz-stage{ display:flex; flex-direction:column; align-items:center; }
+.quiz-stage[hidden]{ display:none; }
+.quiz-q{ font-size:clamp(20px,2.6vw,32px); font-weight:400; line-height:1.35; margin:26px 0 30px; max-width:24ch; }
+.quiz-track{ width:100%; max-width:340px; height:2px; background:var(--line-soft); border-radius:2px; overflow:hidden; margin:0 auto 14px; }
+.quiz-track i{ display:block; height:100%; width:0%; background:var(--vermilion); transition:width .5s var(--ease-out); }
+.quiz-step{ font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:var(--muted); }
+.quiz-opts{ display:flex; flex-direction:column; gap:12px; width:100%; }
+.quiz-opt{
+  position:relative; text-align:left; width:100%; padding:18px 22px; border:1px solid var(--line);
+  border-radius:14px; background:rgba(223,231,224,.02); color:var(--bone); font:inherit; font-size:14px;
+  cursor:pointer; transition:border-color .4s var(--ease), background .4s var(--ease), transform .35s var(--ease-out);
+}
+.quiz-opt:hover{ border-color:rgba(223,231,224,.4); background:rgba(223,231,224,.05); transform:translateY(-1px); }
+.quiz-opt.is-picked{ border-color:var(--vermilion); background:rgba(224,35,28,.10); }
+.quiz-opt:disabled{ cursor:default; }
+.quiz-mark{ font-size:34px; color:var(--vermilion); display:block; margin-bottom:6px; }
+.quiz-kicker{ font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:var(--muted); margin-bottom:10px; }
+.quiz-title{ font-size:clamp(26px,3.4vw,44px); font-weight:400; margin:0 0 16px; }
+.quiz-desc{ font-size:14px; line-height:1.7; color:#b4bfb7; max-width:40ch; margin:0 0 12px; }
+.quiz-score{ display:block; font-size:11px; letter-spacing:.14em; color:var(--muted); text-transform:uppercase; margin-bottom:8px; }
+@media (max-width:560px){ .quiz-opt{ padding:15px 18px; font-size:13.5px; } }
+
 /* — footer */
 .foot{ position:relative; padding:clamp(50px,8vh,96px) var(--pad) clamp(26px,4vh,40px);
   border-top:1px solid var(--line-soft); }
@@ -923,6 +949,7 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
     <a class="nav-link" href="#pathways" data-cursor><span>Kebiasaan</span><span class="alt">石</span></a>
     <a class="nav-link" href="#lessons" data-cursor><span>Konsistensi</span><span class="alt">静</span></a>
     <a class="nav-link" href="#eternity" data-cursor><span>Penguasaan Diri</span><span class="alt">道</span></a>
+    <a class="nav-link" href="#quiz" data-cursor><span>Uji Dirimu</span><span class="alt">鏡</span></a>
   </nav>
   <button class="nav-burger" aria-label="Menu" data-cursor><i></i><i></i></button>
 </header>
@@ -1134,6 +1161,44 @@ body[data-layout-footer="b"] .foot-base span:last-child{ text-align:right; }
     <i></i><span>Mulai lagi, hari ini</span>
     <svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg>
   </a>
+</section>
+
+<!-- ============================================================ quiz -->
+<section class="sec quiz" id="quiz">
+  <div class="sec-head" data-rv="fade">
+    <span class="k"><b>+</b> — Cermin Disiplin</span><span class="rule"></span><span class="k jp">鏡</span>
+  </div>
+
+  <div class="quiz-box" id="quizBox">
+    <div class="quiz-stage quiz-intro" id="quizIntro">
+      <h2 class="display h-sec" data-rv="up">Seberapa jauh jalanmu sudah ditempuh?</h2>
+      <p class="body-lg" data-rv="up">Lima pertanyaan singkat, jujur pada diri sendiri saja — tidak ada jawaban
+        benar atau salah, hanya cermin.</p>
+      <button class="cta quiz-btn" type="button" id="quizStartBtn" data-cursor>
+        <i></i><span>Mulai kuis</span>
+        <svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg>
+      </button>
+    </div>
+
+    <div class="quiz-stage quiz-play" id="quizPlay" hidden>
+      <div class="quiz-track"><i id="quizFill"></i></div>
+      <div class="quiz-step" id="quizStep">Soal 1 / 5</div>
+      <h3 class="quiz-q" id="quizQ"></h3>
+      <div class="quiz-opts" id="quizOpts"></div>
+    </div>
+
+    <div class="quiz-stage quiz-done" id="quizDone" hidden>
+      <span class="quiz-mark jp" id="quizMark"></span>
+      <div class="quiz-kicker">Hasil cerminmu</div>
+      <h3 class="quiz-title" id="quizTitle"></h3>
+      <p class="quiz-desc" id="quizDesc"></p>
+      <span class="quiz-score" id="quizScore"></span>
+      <button class="cta quiz-btn" type="button" id="quizRetryBtn" data-cursor>
+        <i></i><span>Ulangi kuis</span>
+        <svg viewBox="0 0 14 14" fill="none" width="13" height="13"><path d="M3 11 11 3M5 3h6v6" stroke="#dfe7e0" stroke-width="1.3"/></svg>
+      </button>
+    </div>
+  </div>
 </section>
 
 <!-- ============================================================ footer -->
@@ -4817,6 +4882,152 @@ function start() {
 
 if (document.readyState === 'complete' || document.readyState === 'interactive') setTimeout(boot, 0);
 else addEventListener('DOMContentLoaded', boot);
+})();
+</script>
+
+<!-- ================================================= quiz: cermin disiplin -->
+<script>
+(function () {
+'use strict';
+
+const QUESTIONS = [
+  {
+    q: 'Saat menetapkan target baru, apa yang biasanya terjadi?',
+    opts: [
+      { t: 'Saya sering menyerah dalam beberapa hari', v: 1 },
+      { t: 'Semangat di awal, lalu perlahan kendor', v: 2 },
+      { t: 'Bertahan beberapa minggu, lalu terlupakan', v: 3 },
+      { t: 'Saya punya alasan kuat yang membuat saya terus jalan', v: 4 },
+    ],
+  },
+  {
+    q: 'Bagaimana biasanya Anda memulai kebiasaan baru?',
+    opts: [
+      { t: 'Langsung all-in dengan target besar', v: 1 },
+      { t: 'Coba-coba tanpa rencana yang jelas', v: 2 },
+      { t: 'Menunggu waktu yang "tepat" dulu', v: 1 },
+      { t: 'Mulai dari langkah kecil yang konsisten', v: 4 },
+    ],
+  },
+  {
+    q: 'Saat lelah atau kehilangan mood, apa yang Anda lakukan?',
+    opts: [
+      { t: 'Langsung berhenti hari itu juga', v: 1 },
+      { t: 'Kadang lanjut, kadang tidak', v: 2 },
+      { t: 'Kurangi porsinya, tapi tetap jalan', v: 3 },
+      { t: 'Tetap jalan sesuai rencana, walau kecil', v: 4 },
+    ],
+  },
+  {
+    q: 'Ketika tidak ada yang mengawasi, seberapa besar Anda tetap disiplin?',
+    opts: [
+      { t: 'Sangat kecil, saya butuh pengawasan', v: 1 },
+      { t: 'Kadang-kadang saja', v: 2 },
+      { t: 'Cukup sering, meski tak selalu', v: 3 },
+      { t: 'Sama saja seperti saat diawasi', v: 4 },
+    ],
+  },
+  {
+    q: 'Definisi disiplin menurut Anda paling dekat dengan apa?',
+    opts: [
+      { t: 'Menghukum diri sendiri', v: 1 },
+      { t: 'Memaksakan kehendak', v: 2 },
+      { t: 'Kebiasaan yang terus dijaga', v: 3 },
+      { t: 'Bentuk kasih sayang pada diri sendiri', v: 4 },
+    ],
+  },
+];
+
+const RESULTS = [
+  { min: 5, max: 8, jp: '心', title: 'Sang Pemula', desc: 'Kamu baru memulai jalan ini — dan memulai, sejujurnya, sudah jadi langkah paling berani. Niat yang jujur adalah gerbang pertama; sisanya tinggal diulang.' },
+  { min: 9, max: 13, jp: '石', title: 'Sang Pembangun', desc: 'Fondasimu sedang dibentuk, batu demi batu. Belum selalu konsisten, tapi kamu sudah tahu ke mana arah yang ingin dijaga.' },
+  { min: 14, max: 17, jp: '静', title: 'Sang Penjaga Ritme', desc: 'Kamu sudah menemukan ritme yang tenang dan berkelanjutan. Disiplinmu tidak lagi soal semangat, tapi soal kebiasaan yang diam-diam bekerja.' },
+  { min: 18, max: 20, jp: '道', title: 'Sang Penempuh Jalan', desc: 'Disiplin sudah menjadi bagian dari siapa dirimu, bukan lagi beban yang dipaksakan. Jalannya tidak pernah selesai — dan kamu sudah tahu itu.' },
+];
+
+function initQuiz() {
+  const box = document.getElementById('quizBox');
+  if (!box) return;
+  const intro = document.getElementById('quizIntro');
+  const play = document.getElementById('quizPlay');
+  const done = document.getElementById('quizDone');
+  const startBtn = document.getElementById('quizStartBtn');
+  const retryBtn = document.getElementById('quizRetryBtn');
+  const fill = document.getElementById('quizFill');
+  const step = document.getElementById('quizStep');
+  const qEl = document.getElementById('quizQ');
+  const optsEl = document.getElementById('quizOpts');
+  const cursor = document.getElementById('cursor');
+
+  const armCursor = el => {
+    if (!cursor) return;
+    el.addEventListener('mouseenter', () => cursor.classList.add('act'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('act'));
+  };
+
+  let idx = 0, score = 0, locked = false;
+
+  function renderQuestion() {
+    locked = false;
+    const item = QUESTIONS[idx];
+    step.textContent = 'Soal ' + (idx + 1) + ' / ' + QUESTIONS.length;
+    fill.style.width = (idx / QUESTIONS.length * 100) + '%';
+    qEl.textContent = item.q;
+    optsEl.innerHTML = '';
+    item.opts.forEach(opt => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'quiz-opt';
+      b.setAttribute('data-cursor', '');
+      b.textContent = opt.t;
+      b.addEventListener('click', () => pick(b, opt.v));
+      armCursor(b);
+      optsEl.appendChild(b);
+    });
+  }
+
+  function pick(btn, value) {
+    if (locked) return;
+    locked = true;
+    btn.classList.add('is-picked');
+    score += value;
+    setTimeout(() => {
+      idx += 1;
+      if (idx < QUESTIONS.length) renderQuestion();
+      else finish();
+    }, 380);
+  }
+
+  function finish() {
+    fill.style.width = '100%';
+    const tier = RESULTS.find(r => score >= r.min && score <= r.max) || RESULTS[RESULTS.length - 1];
+    document.getElementById('quizMark').textContent = tier.jp;
+    document.getElementById('quizTitle').textContent = tier.title;
+    document.getElementById('quizDesc').textContent = tier.desc;
+    document.getElementById('quizScore').textContent = 'Skor: ' + score + ' / 20';
+    play.hidden = true;
+    done.hidden = false;
+  }
+
+  function reset() {
+    idx = 0; score = 0; locked = false;
+    done.hidden = true;
+    play.hidden = false;
+    renderQuestion();
+  }
+
+  startBtn.addEventListener('click', () => {
+    intro.hidden = true;
+    play.hidden = false;
+    renderQuestion();
+  });
+  retryBtn.addEventListener('click', reset);
+  armCursor(startBtn);
+  armCursor(retryBtn);
+}
+
+if (document.readyState === 'complete' || document.readyState === 'interactive') initQuiz();
+else document.addEventListener('DOMContentLoaded', initQuiz);
 })();
 </script>
 </body>

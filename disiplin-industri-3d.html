@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kedisiplinan di Dunia Industri</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="secret-pathways-assets/three.min.js"></script>
+<style>
+  :root{
+    --bg:#14171C; --surface:#1D222A; --surface-2:#252B35;
+    --yellow:#F4B400; --orange:#E8542A; --teal:#2F8F7B;
+    --text:#F5F1E8; --muted:#8A93A1; --stripe-dark:#0E1116;
+    --ease-out:cubic-bezier(.16,1,.3,1);
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{height:100%;}
+  body{ background:var(--bg); color:var(--text); font-family:'Inter',sans-serif; overflow:hidden; -webkit-font-smoothing:antialiased; }
+  h1,h2,h3,.display{ font-family:'Barlow Condensed',sans-serif; font-weight:800; letter-spacing:0.01em; line-height:1.02; }
+
+  /* ---- 3D ambient backdrop: a slow drifting field of sparks and wireframe
+     safety-network solids behind the whole deck, always on, never scroll-tied
+     since this is a click-through deck rather than a scroll page. */
+  #bgcanvas{ position:fixed; inset:0; z-index:0; display:block; background:var(--bg); }
+  #vignette{ position:fixed; inset:0; z-index:1; pointer-events:none;
+    background:radial-gradient(120% 90% at 50% 38%, transparent 45%, rgba(4,5,7,.62) 100%); }
+  #grain-ov{ position:fixed; inset:0; z-index:1; pointer-events:none; opacity:.04; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  #deck{ position:relative; width:100vw; height:100vh; z-index:2; }
+  .slide{ position:absolute; inset:0; display:none; flex-direction:column; justify-content:center; align-items:center; padding:6vh 6vw;
+    opacity:0; transform:scale(1.035); filter:blur(6px); transition:opacity .6s var(--ease-out), transform .7s var(--ease-out), filter .6s var(--ease-out); }
+  .slide.active{ display:flex; opacity:1; transform:none; filter:blur(0); }
+  .slide.leaving{ display:flex; opacity:0; transform:scale(.975); filter:blur(4px); transition-duration:.35s; }
+
+  /* ---- motion-graphics reveal primitives: opt-in per element, replayed each
+     time a slide activates by toggling .in off then on (see replaySlide()). */
+  .rv{ opacity:0; transform:translateY(22px); transition:opacity .65s var(--ease-out), transform .65s var(--ease-out); transition-delay:var(--rvd,0ms); }
+  .rv.in{ opacity:1; transform:none; }
+  .pop{ opacity:0; transform:scale(.6); transition:opacity .45s var(--ease-out), transform .5s var(--ease-out); transition-delay:var(--rvd,0ms); }
+  .pop.in{ opacity:1; transform:none; }
+  .draw-path{ transition:stroke-dashoffset 1.4s var(--ease-out) .15s; }
+  .grow-bar{ transition:height 1s var(--ease-out) var(--rvd,0ms); }
+  .slide-inner{ max-width:1100px; width:100%; display:grid; grid-template-columns:1fr 1fr; gap:4vw; align-items:center; }
+  .slide-inner.stack{ grid-template-columns:1fr; text-align:center; justify-items:center;}
+  .eyebrow{ color:var(--yellow); font-size:0.95rem; font-weight:600; margin-bottom:0.6rem; font-family:'Barlow Condensed',sans-serif; letter-spacing:0.02em; }
+  .title-xl{ font-size:clamp(2.2rem,4.6vw,3.9rem); color:var(--text); }
+  .title-lg{ font-size:clamp(1.9rem,3.6vw,2.8rem); }
+  .lede{ color:var(--muted); font-size:1.15rem; margin-top:1rem; max-width:48ch; line-height:1.5;}
+  .art{ display:flex; align-items:center; justify-content:center; }
+  .art svg{ width:100%; max-width:420px; height:auto; }
+  .stripe-bar{ position:fixed; top:0; left:0; width:100%; height:10px; background:repeating-linear-gradient(135deg,var(--yellow) 0 24px, var(--stripe-dark) 24px 48px); z-index:20; }
+  #nav{ position:fixed; bottom:22px; left:50%; transform:translateX(-50%); display:flex; gap:10px; z-index:30; }
+  .dot{ width:10px; height:10px; border-radius:50%; background:var(--surface-2); border:1px solid var(--muted); cursor:pointer; transition:all .25s; }
+  .dot.active{ background:var(--yellow); border-color:var(--yellow); width:28px; border-radius:6px;}
+  .navbtn{ position:fixed; top:50%; transform:translateY(-50%); background:var(--surface); color:var(--text); border:1px solid #333a45; width:48px; height:48px; border-radius:50%; font-size:1.3rem; cursor:pointer; z-index:30; display:flex; align-items:center; justify-content:center; transition:background .2s; }
+  .navbtn:hover{ background:var(--surface-2); }
+  #prev{ left:20px; } #next{ right:20px; }
+  .kicker-count{ position:fixed; top:24px; right:28px; color:var(--muted); font-family:'Barlow Condensed',sans-serif; font-size:1rem; z-index:30; }
+  .btn{ margin-top:16px; padding:10px 26px; border-radius:30px; border:none; background:var(--yellow); color:#1a1a1a; font-weight:700; cursor:pointer; font-family:'Barlow Condensed',sans-serif; font-size:1.1rem; letter-spacing:0.02em; }
+  .btn:hover{ filter:brightness(1.08); }
+  .btn.ghost{ background:transparent; border:1px solid var(--muted); color:var(--text); }
+  .btn:disabled{ opacity:0.5; cursor:default; }
+  .closing-mark{ font-size:5rem; color:var(--yellow); line-height:1; }
+  .streak-grid{ display:grid; grid-template-columns:repeat(10,1fr); gap:6px; max-width:340px; margin:0 auto; }
+  .streak-day{ width:26px; height:26px; border-radius:5px; background:var(--surface-2); }
+  .streak-day.on{ background:var(--orange); }
+  .card-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; width:100%; margin-top:1.6rem; }
+  .info-card{ background:var(--surface); border-radius:8px; padding:20px 18px; text-align:left; border:1px solid #2a3038; }
+  .info-card .icon{ margin-bottom:10px; }
+  .info-card h3{ font-size:1.25rem; color:var(--yellow); margin-bottom:6px; }
+  .info-card p{ color:var(--muted); font-size:0.92rem; line-height:1.5; }
+  .pillars-wrap{ display:flex; flex-direction:column; align-items:center; width:100%; }
+  .pillars{ display:flex; gap:14px; align-items:flex-end; }
+  .pillar{ width:100px; border-radius:6px 6px 0 0; display:flex; align-items:flex-start; justify-content:center; padding-top:14px; font-family:'Barlow Condensed',sans-serif; font-size:1rem; font-weight:700; color:#1a1a1a; }
+  .pillar.p1{ height:110px; background:var(--yellow); }
+  .pillar.p2{ height:130px; background:#e0c14a; }
+  .pillar.p3{ height:100px; background:#c9902f; }
+  .pillar.p4{ height:120px; background:var(--orange); }
+  .pillars.pregrow .pillar{ height:0 !important; padding-top:0; overflow:hidden; }
+  .foundation{ margin-top:0; width:460px; max-width:90vw; height:34px; background:var(--teal); display:flex; align-items:center; justify-content:center; color:#0e1a17; font-weight:800; font-family:'Barlow Condensed',sans-serif; letter-spacing:0.08em; font-size:1.05rem; border-radius:0 0 6px 6px; }
+
+  /* DASHBOARD SLIDE */
+  .dash-wrap{ display:grid; grid-template-columns:280px 1fr; gap:40px; width:100%; max-width:1000px; align-items:center; }
+  .qr-box{ background:#fff; padding:16px; border-radius:10px; display:flex; align-items:center; justify-content:center; }
+  #qrcodeEl{ width:220px; height:220px; }
+  .qr-caption{ color:var(--muted); font-size:0.9rem; margin-top:10px; text-align:center; font-family:'Barlow Condensed',sans-serif; word-break:break-all; }
+  .dash-total{ font-family:'Barlow Condensed',sans-serif; font-size:1.1rem; color:var(--muted); margin-bottom:14px; }
+  .dash-total b{ color:var(--yellow); font-size:1.6rem; }
+  .bar-row{ display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+  .bar-label{ width:120px; font-family:'Barlow Condensed',sans-serif; font-size:1rem; text-align:right; flex-shrink:0; }
+  .bar-track{ flex:1; height:26px; background:var(--surface-2); border-radius:6px; overflow:hidden; }
+  .bar-fill{ height:100%; background:var(--yellow); width:0%; transition:width .6s ease; border-radius:6px; }
+  .bar-count{ width:50px; font-family:'Barlow Condensed',sans-serif; font-size:1rem; color:var(--muted); }
+  .dash-reset{ margin-top:10px; }
+  @media (max-width:820px){
+    .slide-inner{ grid-template-columns:1fr; text-align:center; }
+    .art{ order:-1; margin-bottom:1rem; }
+    .card-grid{ grid-template-columns:1fr; }
+    .pillars{ gap:8px; } .pillar{ width:70px; font-size:0.85rem; } .foundation{ width:320px; }
+    .dash-wrap{ grid-template-columns:1fr; }
+  }
+
+  /* STUDENT SURVEY FULLSCREEN MODE */
+  #studentApp{
+    position:fixed; inset:0; background:var(--bg); color:var(--text);
+    display:none; flex-direction:column; align-items:center; justify-content:center;
+    padding:6vh 6vw; z-index:100; font-family:'Inter',sans-serif;
+  }
+  #studentApp.active{ display:flex; }
+  #studentApp .wrap{ width:min(90vw,540px); text-align:center; }
+  #studentApp h1{ font-size:1.8rem; margin-bottom:10px; }
+  #studentApp p.sub{ color:var(--muted); margin-bottom:24px; }
+  .survey-progress{ color:var(--muted); font-size:0.95rem; margin-bottom:8px; }
+  .survey-card{ background:var(--surface); border-radius:8px; padding:26px 24px; text-align:left; border:1px solid #2a3038; }
+  .survey-text{ font-size:1.15rem; line-height:1.5; margin-bottom:18px; }
+  .choice-row{ display:flex; flex-direction:column; gap:10px; }
+  .choice-btn{ text-align:left; padding:14px 18px; border-radius:6px; border:1px solid #3a4250; background:var(--surface-2); color:var(--text); cursor:pointer; font-size:1rem; font-family:'Inter',sans-serif; transition:border-color .2s; }
+  .choice-btn:hover{ border-color:var(--yellow); }
+  .choice-btn.picked{ border-color:var(--yellow); background:rgba(244,180,0,.12); }
+  .choice-btn[disabled]{ cursor:default; }
+  .survey-nav{ display:flex; justify-content:flex-end; margin-top:16px; }
+  .result-wrap{ text-align:center; }
+  .result-level{ font-size:2.6rem; color:var(--yellow); font-family:'Barlow Condensed',sans-serif; margin-bottom:8px; }
+  .result-desc{ color:var(--muted); font-size:1.05rem; max-width:50ch; margin:0 auto 14px; line-height:1.55; }
+  .result-step{ background:var(--surface-2); border-left:4px solid var(--teal); padding:12px 16px; border-radius:4px; font-size:0.98rem; text-align:left; margin-top:10px; }
+  .sending-msg{ color:var(--muted); font-size:0.95rem; margin-top:10px; }
+</style>
+</head>
+<body>
+
+<canvas id="bgcanvas"></canvas>
+<div id="vignette"></div>
+<div id="grain-ov"></div>
+
+<div class="stripe-bar"></div>
+<div class="kicker-count" id="slideCount">01 / 08</div>
+
+<div id="deck">
+
+  <section class="slide active">
+    <div class="slide-inner stack">
+      <div class="art pop" style="--rvd:.05s">
+        <svg viewBox="0 0 300 300" fill="none">
+          <circle cx="150" cy="150" r="130" fill="#1D222A"/>
+          <path d="M90 160 a60 60 0 0 1 120 0 z" fill="#F4B400"/>
+          <rect x="80" y="158" width="140" height="16" rx="8" fill="#0E1116"/>
+          <rect x="130" y="80" width="40" height="18" rx="4" fill="#E8542A"/>
+        </svg>
+      </div>
+      <p class="eyebrow rv" style="--rvd:.2s">PKKMB Politeknik Sinar Mas Berau Coal · TA 2026/2027</p>
+      <h1 class="title-xl rv" style="--rvd:.32s">Bakat Bikin Dilihat,<br>Disiplin Bikin Bertahan</h1>
+      <p class="lede rv" style="--rvd:.46s">Kedisiplinan di Dunia Industri — bersama Jimmi Idris, GM Occupational Health &amp; Safety, PT Berau Coal</p>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner stack" style="max-width:640px;">
+      <p class="eyebrow rv" style="--rvd:.05s">Kalian sudah jago ini, cuma belum sadar</p>
+      <h2 class="title-lg rv" style="--rvd:.14s">47 hari streak Duolingo. Kenapa susah kalau buat bangun pagi?</h2>
+      <div class="streak-grid" id="streakGrid" style="margin-top:1.6rem;">
+        <div class="streak-day on pop"></div><div class="streak-day on pop"></div><div class="streak-day on pop"></div><div class="streak-day on pop"></div><div class="streak-day on pop"></div>
+        <div class="streak-day on pop"></div><div class="streak-day on pop"></div><div class="streak-day on pop"></div><div class="streak-day on pop"></div><div class="streak-day on pop"></div>
+        <div class="streak-day on pop"></div><div class="streak-day on pop"></div><div class="streak-day on pop"></div><div class="streak-day on pop"></div><div class="streak-day on pop"></div>
+        <div class="streak-day on pop"></div><div class="streak-day on pop"></div><div class="streak-day pop"></div><div class="streak-day pop"></div><div class="streak-day pop"></div>
+      </div>
+      <p class="lede rv" style="--rvd:.6s">Menjaga streak, jaga rank mabar, jaga "on fire" di Snapchat — itu semua disiplin. Cuma butuh dipindahkan ke hal yang benar-benar penting.</p>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner">
+      <div>
+        <p class="eyebrow rv" style="--rvd:.05s">Kenapa harus disiplin</p>
+        <h2 class="title-lg rv" style="--rvd:.14s">1% lebih baik tiap hari = <span id="cuMultiplier">0x</span> lipat setahun</h2>
+        <p class="lede rv" style="--rvd:.24s">1% lebih malas tiap hari, hasilnya mendekati nol dalam setahun. Disiplin bukan soal kejadian heroik sekali — itu bunga majemuk dari kebiasaan kecil yang diulang.</p>
+      </div>
+      <div class="art rv" style="--rvd:.1s">
+        <svg viewBox="0 0 320 240" fill="none">
+          <line x1="20" y1="210" x2="300" y2="210" stroke="#3a4250" stroke-width="2"/>
+          <line x1="20" y1="210" x2="20" y2="20" stroke="#3a4250" stroke-width="2"/>
+          <path id="chartUp" class="draw-path" d="M20 200 C 100 195, 180 170, 300 30" stroke="#F4B400" stroke-width="4" fill="none"/>
+          <path id="chartDown" class="draw-path" d="M20 200 C 100 205, 180 208, 300 210" stroke="#8A93A1" stroke-width="4" fill="none"/>
+          <circle class="pop" style="--rvd:1.2s" cx="300" cy="30" r="6" fill="#F4B400"/>
+          <text x="240" y="20" fill="#F4B400" font-size="14" font-family="Barlow Condensed">+1%/hari</text>
+          <text x="220" y="228" fill="#8A93A1" font-size="14" font-family="Barlow Condensed">-1%/hari</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner stack" style="max-width:700px;">
+      <p class="eyebrow rv" style="--rvd:.05s">Analogi yang paling dekat</p>
+      <h2 class="title-lg rv" style="--rvd:.14s">Talenta bawa kamu naik. Disiplin yang bikin kamu bertahan di atas.</h2>
+      <div style="display:flex; gap:40px; align-items:center; margin-top:1.6rem;">
+        <svg class="pop" style="--rvd:.3s" viewBox="0 0 120 140" width="110">
+          <rect x="10" y="10" width="100" height="120" rx="10" fill="#1D222A" stroke="#3a4250" stroke-width="2"/>
+          <text x="60" y="90" fill="#F4B400" font-size="60" font-family="Barlow Condensed" text-anchor="middle" id="cuNumA">0</text>
+        </svg>
+        <span class="eyebrow rv" style="margin:0; --rvd:.5s">VS</span>
+        <svg class="pop" style="--rvd:.4s" viewBox="0 0 120 140" width="110">
+          <rect x="10" y="10" width="100" height="120" rx="10" fill="#1D222A" stroke="#3a4250" stroke-width="2"/>
+          <text x="60" y="90" fill="#E8542A" font-size="60" font-family="Barlow Condensed" text-anchor="middle" id="cuNumB">0</text>
+        </svg>
+      </div>
+      <p class="lede rv" style="--rvd:.6s">Satu dikenal karena bakat alami sejak kecil, satu lagi dikenal karena rutinitas latihan, tidur, dan pola makan yang sangat ketat. Dua-duanya tetap kompetitif di level tertinggi sampai usia yang jauh melewati rata-rata atlet lain — bukan karena bakat itu abadi, tapi karena disiplin yang menjaganya tetap ada.</p>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner stack" style="max-width:900px;">
+      <p class="eyebrow rv" style="--rvd:.05s">Fondasinya selalu sama</p>
+      <h2 class="title-lg rv" style="--rvd:.14s">Tiga dunia berbeda, satu kebiasaan yang sama</h2>
+      <div class="card-grid">
+        <div class="info-card rv" style="--rvd:.26s">
+          <div class="icon"><svg width="36" height="36" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" stroke="#F4B400" stroke-width="3" fill="none"/><path d="M18 6 v24 M6 18 h24" stroke="#F4B400" stroke-width="2"/></svg></div>
+          <h3>"Mamba Mentality"</h3>
+          <p>Dikenal luas karena rutinitas latihan yang dimulai jauh sebelum subuh — bertahun-tahun sebelum orang lain bangun. Kebiasaan, bukan bakat kelahiran, yang sering disebut jadi pembeda utamanya.</p>
+        </div>
+        <div class="info-card rv" style="--rvd:.38s">
+          <div class="icon"><svg width="36" height="36" viewBox="0 0 36 36"><path d="M18 4 l4 10 h10 l-8 7 l3 11 l-9 -6 l-9 6 l3 -11 l-8 -7 h10 z" fill="#F4B400"/></svg></div>
+          <h3>Sistem trainee idola K-pop</h3>
+          <p>Sebelum debut, umumnya melalui bertahun-tahun latihan harian yang sangat terjadwal — vokal, tari, disiplin pola makan dan waktu. Panggung yang terlihat sempurna itu hasil ribuan hari latihan yang tidak terlihat.</p>
+        </div>
+        <div class="info-card rv" style="--rvd:.5s">
+          <div class="icon"><svg width="36" height="36" viewBox="0 0 36 36"><path d="M4 26 L32 10 L28 20 L32 26 L18 22 Z" fill="#F4B400"/></svg></div>
+          <h3>B.J. Habibie</h3>
+          <p>Disiplin belajar dan bekerja yang sangat ketat sejak masa studinya di Jerman — jadi fondasi yang mengantarnya merancang pesawat pertama buatan Indonesia.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner stack" style="max-width:760px;">
+      <p class="eyebrow rv" style="--rvd:.05s">Kenapa ini penting buat kalian nanti</p>
+      <h2 class="title-lg rv" style="--rvd:.14s">Bekerja selamat berdiri di atas empat pilar — dan satu fondasi</h2>
+      <div class="pillars-wrap" style="margin-top:1.8rem;">
+        <div class="pillars" id="pillarsWrap">
+          <div class="pillar p1 grow-bar" style="--rvd:.3s">Leadership</div>
+          <div class="pillar p2 grow-bar" style="--rvd:.42s">People</div>
+          <div class="pillar p3 grow-bar" style="--rvd:.54s">Process</div>
+          <div class="pillar p4 grow-bar" style="--rvd:.66s">Technology</div>
+        </div>
+        <div class="foundation rv" style="--rvd:.85s">DISIPLIN KERJA</div>
+      </div>
+      <p class="lede rv" style="margin-top:1.4rem; --rvd:1s">Empat pilar ini bisa ada di atas kertas — tapi tanpa disiplin yang menjaganya konsisten tiap hari, leadership jadi slogan, process jadi dokumen yang diabaikan, technology jadi alat yang gagal saat dibutuhkan. Kalau ada insiden berulang, jangan berhenti di "orangnya kurang disiplin" — cek juga apakah keempat pilar ini solid bersama.</p>
+    </div>
+  </section>
+
+  <!-- SLIDE 7: LIVE DASHBOARD -->
+  <section class="slide">
+    <div class="slide-inner stack" style="max-width:1000px;">
+      <p class="eyebrow rv" style="--rvd:.05s">Sesi interaktif — sebaran seluruh angkatan</p>
+      <h2 class="title-lg rv" style="--rvd:.14s">Di level mana disiplin kalian sekarang?</h2>
+      <div class="dash-wrap">
+        <div class="pop" style="--rvd:.3s; display:flex; flex-direction:column; align-items:center;">
+          <div class="qr-box"><div id="qrcodeEl"></div></div>
+          <p class="qr-caption">Scan untuk isi survey di HP kalian<br><span id="linkText"></span></p>
+        </div>
+        <div>
+          <div class="dash-total">Total sudah mengisi: <b id="totalCount">0</b></div>
+          <div class="bar-row"><div class="bar-label">Reaktif</div><div class="bar-track"><div class="bar-fill" id="bar-Reaktif"></div></div><div class="bar-count" id="cnt-Reaktif">0</div></div>
+          <div class="bar-row"><div class="bar-label">Bergantung</div><div class="bar-track"><div class="bar-fill" id="bar-Bergantung"></div></div><div class="bar-count" id="cnt-Bergantung">0</div></div>
+          <div class="bar-row"><div class="bar-label">Mandiri</div><div class="bar-track"><div class="bar-fill" id="bar-Mandiri"></div></div><div class="bar-count" id="cnt-Mandiri">0</div></div>
+          <div class="bar-row"><div class="bar-label">Interdependen</div><div class="bar-track"><div class="bar-fill" id="bar-Interdependen"></div></div><div class="bar-count" id="cnt-Interdependen">0</div></div>
+          <button class="btn ghost dash-reset" id="dashResetBtn">Reset data (sebelum acara)</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide">
+    <div class="slide-inner stack">
+      <div class="closing-mark pop" style="--rvd:.05s">"</div>
+      <h2 class="title-lg rv" style="max-width:18ch; --rvd:.2s">Bakat membuatmu dilihat sekali. Disiplin yang membuatmu tetap dilihat, terus-menerus.</h2>
+      <p class="lede rv" style="margin-top:1.2rem; --rvd:.4s">Selamat menjadi mahasiswa baru — mulai bangun kebiasaan yang akan kalian bawa ke dunia kerja. Terima kasih.</p>
+    </div>
+  </section>
+
+</div>
+
+<button class="navbtn" id="prev">‹</button>
+<button class="navbtn" id="next">›</button>
+<div id="nav"></div>
+
+<!-- STUDENT SURVEY FULLSCREEN (shown only when URL ends with #survey) -->
+<div id="studentApp">
+  <div class="wrap">
+    <h1>Level Maturitas Disiplin</h1>
+    <p class="sub">5 pertanyaan singkat. Jawab jujur — hasilnya langsung masuk ke layar depan (anonim).</p>
+    <div class="survey-progress" id="surveyProgress">Pertanyaan 1 / 5</div>
+    <div class="survey-card" id="surveyCard">
+      <div class="survey-text" id="surveyText"></div>
+      <div class="choice-row" id="surveyChoiceRow"></div>
+    </div>
+    <div class="survey-nav"><button class="btn" id="surveyNextBtn" style="display:none;">Lanjut</button></div>
+  </div>
+</div>
+
+<script>
+  const QUESTIONS = [
+    { text:"Kalau dosen tidak pernah mengecek kehadiran secara ketat, kamu biasanya...", options:[
+      {label:"Kadang tidak masuk kalau merasa tidak penting", score:1},
+      {label:"Tetap masuk karena takut nilai absensi berkurang", score:2},
+      {label:"Tetap masuk karena itu sudah jadi komitmen pribadi", score:3},
+      {label:"Tetap masuk, dan ingatkan teman yang mau bolos", score:4}
+    ]},
+    { text:"Saat tugas kelompok dan tidak ada yang mengecek pembagian kerja, kamu...", options:[
+      {label:"Kerjakan bagian minimal, yang penting selesai", score:1},
+      {label:"Kerjakan sesuai arahan ketua kelompok saja", score:2},
+      {label:"Kerjakan penuh tanggung jawab walau tidak diawasi", score:3},
+      {label:"Bantu pastikan seluruh anggota tim juga selesai", score:4}
+    ]},
+    { text:"Melihat teman melanggar aturan kecil dan tidak ada yang tahu, kamu...", options:[
+      {label:"Diam saja, bukan urusanku", score:1},
+      {label:"Diam kalau tidak ada yang menegur duluan", score:2},
+      {label:"Saya sendiri tidak akan melakukannya", score:3},
+      {label:"Saya tegur baik-baik", score:4}
+    ]},
+    { text:"Soal rutinitas harian (bangun pagi, olahraga, belajar), kamu...", options:[
+      {label:"Jalan kalau ada jadwal penting saja", score:1},
+      {label:"Pakai banyak alarm/pengingat karena takut lewat", score:2},
+      {label:"Sudah jadi kebiasaan sendiri tanpa banyak pengingat", score:3},
+      {label:"Rutinitas saya juga jadi contoh buat teman sekitar", score:4}
+    ]},
+    { text:"Kalau capek atau malas, tapi ada komitmen yang harus diselesaikan, kamu...", options:[
+      {label:"Sering menunda sampai deadline mepet", score:1},
+      {label:"Selesaikan karena takut konsekuensinya", score:2},
+      {label:"Selesaikan karena sudah jadi prinsip pribadi", score:3},
+      {label:"Selesaikan, dan tetap dukung teman yang struggling juga", score:4}
+    ]}
+  ];
+  const LEVELS = [
+    { min:5, max:8, name:"Reaktif", desc:"Disiplin masih banyak bergantung pada rasa takut kena sanksi atau saat ada yang mengawasi. Wajar — ini titik awal semua orang.", step:"Langkah kecil: pilih satu rutinitas sederhana dan jalankan 7 hari tanpa alasan 'karena diawasi'." },
+    { min:9, max:12, name:"Bergantung", desc:"Kamu sudah cukup konsisten, tapi masih perlu aturan atau pengingat dari luar supaya tetap jalan.", step:"Langkah kecil: coba satu kebiasaan yang biasanya kamu lakukan 'karena disuruh' — lakukan tanpa pengingat sekali ini." },
+    { min:13, max:16, name:"Mandiri", desc:"Disiplin sudah jadi kebiasaan pribadi. Kamu konsisten walau tidak ada yang mengawasi — modal besar untuk dunia kerja.", step:"Langkah kecil: perhatikan orang di sekitarmu — apakah ada yang bisa kamu bantu tetap konsisten juga?" },
+    { min:17, max:20, name:"Interdependen", desc:"Disiplin kamu sudah menular — kamu membantu menjaga orang lain tetap di jalur yang benar. Ini level yang paling dicari di dunia industri.", step:"Pertahankan, dan pikirkan bagaimana membangun ini jadi budaya di lingkunganmu." }
+  ];
+  function levelFor(score){ return LEVELS.find(l=> score>=l.min && score<=l.max) || LEVELS[0]; }
+
+  /* ================= ROUTING ================= */
+  if(location.hash === '#survey'){
+    document.getElementById('studentApp').classList.add('active');
+    document.getElementById('deck').style.display = 'none';
+    runStudentSurvey();
+  } else {
+    initDeck();
+    initDashboard();
+  }
+
+  /* ================= MOTION GRAPHICS: per-slide reveal replay ================= */
+  function countUp(el, to, duration, suffix){
+    const start = performance.now();
+    (function step(now){
+      const p = Math.min((now-start)/duration, 1);
+      const eased = 1 - Math.pow(1-p, 3);
+      el.textContent = Math.round(to*eased) + (suffix||'');
+      if(p<1) requestAnimationFrame(step);
+    })(start);
+  }
+  function replayIn(scope){
+    scope.querySelectorAll('.rv.in, .pop.in').forEach(el=> el.classList.remove('in'));
+    void scope.offsetWidth; /* force reflow so the removal above actually paints first */
+    requestAnimationFrame(()=>{
+      scope.querySelectorAll('.rv, .pop').forEach(el=> el.classList.add('in'));
+    });
+  }
+  const chartLens = {};
+  function primeChartPath(id){
+    const p = document.getElementById(id);
+    if(!p) return;
+    if(!chartLens[id]) chartLens[id] = p.getTotalLength();
+    p.style.strokeDasharray = chartLens[id];
+    p.style.strokeDashoffset = chartLens[id];
+  }
+  function drawChartPath(id){
+    const p = document.getElementById(id);
+    if(p) p.style.strokeDashoffset = 0;
+  }
+  function replaySlide(index, slideEl){
+    replayIn(slideEl);
+    if(index === 1){
+      const cells = slideEl.querySelectorAll('.streak-day');
+      cells.forEach((c,i)=>{ c.style.setProperty('--rvd', (i*35)+'ms'); c.classList.remove('in'); });
+      void slideEl.offsetWidth;
+      requestAnimationFrame(()=> cells.forEach(c=> c.classList.add('in')));
+    }
+    if(index === 2){
+      primeChartPath('chartUp'); primeChartPath('chartDown');
+      requestAnimationFrame(()=> requestAnimationFrame(()=>{ drawChartPath('chartUp'); drawChartPath('chartDown'); }));
+      const mult = document.getElementById('cuMultiplier');
+      if(mult) countUp(mult, 37, 1300, 'x');
+    }
+    if(index === 3){
+      const a = document.getElementById('cuNumA'), b = document.getElementById('cuNumB');
+      if(a) countUp(a, 10, 900);
+      if(b) countUp(b, 7, 900);
+    }
+    if(index === 5){
+      const wrap = document.getElementById('pillarsWrap');
+      if(wrap){
+        wrap.classList.add('pregrow');
+        void wrap.offsetWidth;
+        requestAnimationFrame(()=> requestAnimationFrame(()=> wrap.classList.remove('pregrow')));
+      }
+    }
+  }
+
+  /* ================= DECK (host view) ================= */
+  function initDeck(){
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const navWrap = document.getElementById('nav');
+    const slideCount = document.getElementById('slideCount');
+    let current = 0;
+    slides.forEach((s,i)=>{
+      const d = document.createElement('div');
+      d.className = 'dot' + (i===0?' active':'');
+      d.addEventListener('click', ()=> goTo(i));
+      navWrap.appendChild(d);
+    });
+    function goTo(i){
+      if(i<0) i = slides.length-1;
+      if(i>=slides.length) i = 0;
+      if(i === current) return;
+      const outgoing = slides[current];
+      outgoing.classList.remove('active');
+      outgoing.classList.add('leaving');
+      setTimeout(()=> outgoing.classList.remove('leaving'), 420);
+      navWrap.children[current].classList.remove('active');
+      current = i;
+      slides[current].classList.add('active');
+      navWrap.children[current].classList.add('active');
+      slideCount.textContent = String(current+1).padStart(2,'0') + ' / ' + String(slides.length).padStart(2,'0');
+      replaySlide(current, slides[current]);
+    }
+    replaySlide(0, slides[0]); /* first slide is active on load, before any goTo() call */
+    document.getElementById('next').addEventListener('click', ()=> goTo(current+1));
+    document.getElementById('prev').addEventListener('click', ()=> goTo(current-1));
+    document.addEventListener('keydown', (e)=>{
+      if(e.key==='ArrowRight') goTo(current+1);
+      if(e.key==='ArrowLeft') goTo(current-1);
+    });
+  }
+
+  /* ================= DASHBOARD (slide 7) ================= */
+  function initDashboard(){
+    const studentUrl = location.href.split('#')[0] + '#survey';
+    document.getElementById('linkText').textContent = studentUrl;
+    try{
+      new QRCode(document.getElementById('qrcodeEl'), { text: studentUrl, width:220, height:220, colorDark:"#14171C", colorLight:"#ffffff" });
+    }catch(e){ console.error('QR generation failed', e); }
+
+    async function refreshCounts(){
+      try{
+        const res = await window.storage.list('resp:', true);
+        const keys = (res && res.keys) ? res.keys : [];
+        const tally = { Reaktif:0, Bergantung:0, Mandiri:0, Interdependen:0 };
+        keys.forEach(k=>{
+          const parts = k.split(':');
+          const level = parts[1];
+          if(tally.hasOwnProperty(level)) tally[level]++;
+        });
+        const total = keys.length;
+        document.getElementById('totalCount').textContent = total;
+        Object.keys(tally).forEach(lvl=>{
+          const pct = total>0 ? Math.round((tally[lvl]/total)*100) : 0;
+          const bar = document.getElementById('bar-'+lvl);
+          const cnt = document.getElementById('cnt-'+lvl);
+          if(bar) bar.style.width = pct + '%';
+          if(cnt) cnt.textContent = tally[lvl];
+        });
+      }catch(e){
+        console.error('Failed to load survey counts', e);
+      }
+    }
+    refreshCounts();
+    setInterval(refreshCounts, 4000);
+
+    document.getElementById('dashResetBtn').addEventListener('click', async ()=>{
+      if(!confirm('Hapus semua data survey yang sudah masuk? Gunakan ini hanya sebelum acara dimulai.')) return;
+      try{
+        const res = await window.storage.list('resp:', true);
+        const keys = (res && res.keys) ? res.keys : [];
+        for(const k of keys){
+          try{ await window.storage.delete(k, true); }catch(e){ console.error('delete failed for', k, e); }
+        }
+        refreshCounts();
+      }catch(e){ console.error('Reset failed', e); }
+    });
+  }
+
+  /* ================= STUDENT SURVEY (fullscreen mode) ================= */
+  function runStudentSurvey(){
+    let qIndex = 0, totalScore = 0;
+    const progressEl = document.getElementById('surveyProgress');
+    const textEl = document.getElementById('surveyText');
+    const rowEl = document.getElementById('surveyChoiceRow');
+    const nextBtn = document.getElementById('surveyNextBtn');
+    const cardEl = document.getElementById('surveyCard');
+
+    function render(){
+      const q = QUESTIONS[qIndex];
+      progressEl.textContent = 'Pertanyaan ' + (qIndex+1) + ' / ' + QUESTIONS.length;
+      textEl.textContent = q.text;
+      rowEl.innerHTML = '';
+      nextBtn.style.display = 'none';
+      q.options.forEach((opt, idx)=>{
+        const btn = document.createElement('button');
+        btn.className = 'choice-btn';
+        btn.textContent = opt.label;
+        btn.addEventListener('click', ()=> pick(idx));
+        rowEl.appendChild(btn);
+      });
+    }
+    function pick(idx){
+      const q = QUESTIONS[qIndex];
+      Array.from(rowEl.children).forEach((btn,i)=>{
+        btn.disabled = true;
+        if(i===idx) btn.classList.add('picked');
+      });
+      totalScore += q.options[idx].score;
+      nextBtn.style.display = 'inline-block';
+    }
+    nextBtn.addEventListener('click', async ()=>{
+      qIndex++;
+      if(qIndex < QUESTIONS.length){ render(); }
+      else{
+        progressEl.textContent = 'Hasil kamu';
+        textEl.textContent = '';
+        rowEl.innerHTML = '';
+        nextBtn.style.display = 'none';
+        const lvl = levelFor(totalScore);
+        const resultDiv = document.createElement('div');
+        resultDiv.className = 'result-wrap';
+        resultDiv.innerHTML =
+          '<div class="result-level">'+lvl.name+'</div>'+
+          '<p class="result-desc">'+lvl.desc+'</p>'+
+          '<div class="result-step">'+lvl.step+'</div>'+
+          '<p class="sending-msg" id="sendingMsg">Mengirim ke layar depan...</p>';
+        cardEl.appendChild(resultDiv);
+        try{
+          const key = 'resp:' + lvl.name + ':' + Date.now() + '-' + Math.random().toString(36).slice(2);
+          const res = await window.storage.set(key, '1', true);
+          document.getElementById('sendingMsg').textContent = res ? 'Terkirim. Lihat layar depan untuk sebaran seluruh angkatan.' : 'Gagal mengirim — coba refresh halaman.';
+        }catch(e){
+          console.error('submit failed', e);
+          const msg = document.getElementById('sendingMsg');
+          if(msg) msg.textContent = 'Gagal mengirim ke server — coba refresh halaman lalu ulangi.';
+        }
+      }
+    });
+    render();
+  }
+</script>
+
+<!-- ============================================== ambient 3D backdrop ==== -->
+<script>
+(function(){
+  const canvas = document.getElementById('bgcanvas');
+  if(!canvas || typeof THREE === 'undefined') return; /* fail quiet: the deck reads fine without it */
+  const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  let renderer;
+  try{
+    renderer = new THREE.WebGLRenderer({ canvas, antialias:true, alpha:false, powerPreference:'low-power' });
+  }catch(e){ return; } /* a stage laptop with no WebGL should still show the deck */
+  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.75));
+
+  const scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x14171c, 0.05);
+  const camera = new THREE.PerspectiveCamera(50, innerWidth / innerHeight, .1, 100);
+  camera.position.set(0, 0, 15);
+
+  /* a soft radial spark sprite, painted once onto a small canvas texture */
+  function sparkTexture(){
+    const c = document.createElement('canvas'); c.width = c.height = 64;
+    const x = c.getContext('2d');
+    const g = x.createRadialGradient(32, 32, 0, 32, 32, 32);
+    g.addColorStop(0, 'rgba(255,224,158,1)');
+    g.addColorStop(.4, 'rgba(244,180,0,.65)');
+    g.addColorStop(1, 'rgba(244,180,0,0)');
+    x.fillStyle = g; x.fillRect(0, 0, 64, 64);
+    return new THREE.CanvasTexture(c);
+  }
+
+  /* drifting sparks — a factory-floor / welding-ember read on the brand yellow */
+  const COUNT = REDUCE ? 0 : 240;
+  const geo = new THREE.BufferGeometry();
+  const pos = new Float32Array(COUNT * 3);
+  const speed = new Float32Array(COUNT);
+  for(let i = 0; i < COUNT; i++){
+    pos[i*3]   = (Math.random() - .5) * 42;
+    pos[i*3+1] = (Math.random() - .5) * 26;
+    pos[i*3+2] = (Math.random() - .5) * 26 - 6;
+    speed[i]   = .25 + Math.random() * .55;
+  }
+  geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  const sparks = new THREE.Points(geo, new THREE.PointsMaterial({
+    size: .22, map: sparkTexture(), transparent: true, depthWrite: false,
+    blending: THREE.AdditiveBlending, color: 0xffffff,
+  }));
+  scene.add(sparks);
+
+  /* two low-poly wireframe solids — an abstract read on "structure / systems",
+     kept faint so they never compete with the slide text sitting in front. */
+  const solidA = new THREE.Mesh(
+    new THREE.IcosahedronGeometry(6, 1),
+    new THREE.MeshBasicMaterial({ color: 0x2f8f7b, wireframe: true, transparent: true, opacity: .16 })
+  );
+  solidA.position.set(7, -2, -15);
+  scene.add(solidA);
+
+  const solidB = new THREE.Mesh(
+    new THREE.IcosahedronGeometry(4, 1),
+    new THREE.MeshBasicMaterial({ color: 0xe8542a, wireframe: true, transparent: true, opacity: .13 })
+  );
+  solidB.position.set(-7.5, 3, -12);
+  scene.add(solidB);
+
+  function resize(){
+    const w = innerWidth, h = innerHeight;
+    renderer.setSize(w, h);
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+  }
+  addEventListener('resize', resize, { passive: true });
+  resize();
+
+  let t = 0, lastFrame = 0;
+  function tick(now){
+    requestAnimationFrame(tick);
+    /* stage laptops vary wildly; cap to ~30fps so an integrated GPU never
+       drags the actual slide transitions down with it */
+    if(now - lastFrame < 32) return;
+    lastFrame = now;
+    t += 0.02;
+    if(!REDUCE){
+      const arr = geo.attributes.position.array;
+      for(let i = 0; i < COUNT; i++){
+        arr[i*3+1] += speed[i] * .035;
+        if(arr[i*3+1] > 14) arr[i*3+1] = -14;
+      }
+      geo.attributes.position.needsUpdate = true;
+      solidA.rotation.y = t * .12; solidA.rotation.x = t * .06;
+      solidB.rotation.y = -t * .1; solidB.rotation.x = t * .08;
+      camera.position.x = Math.sin(t * .08) * 1.1;
+      camera.position.y = Math.cos(t * .065) * .6;
+      camera.lookAt(0, 0, -6);
+    }
+    renderer.render(scene, camera);
+  }
+  requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profil — General Manager OHS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+  :root{
+    --ink:#0B0C0E; --copper:#D4893A; --copper-dim:#8a5c2c; --bone:#EDE6D6;
+    --muted:#8a8378; --line:rgba(237,230,214,.12);
+    --ease:cubic-bezier(.16,1,.3,1);
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  html,body{ background:var(--ink); color:var(--bone); }
+  body{
+    font-family:Syne,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    background-image:radial-gradient(rgba(237,230,214,.07) 1px, transparent 1.2px);
+    background-size:24px 24px;
+  }
+  em{ font-family:Fraunces,serif; font-style:italic; font-weight:400; color:var(--copper); }
+  a{ color:var(--copper); text-decoration:none; }
+  a:hover{ text-decoration:underline; }
+
+  #vignette{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background:
+      radial-gradient(70% 55% at 82% 42%, rgba(212,137,58,.12), transparent 58%),
+      radial-gradient(90% 80% at 20% 80%, transparent 30%, rgba(11,12,14,.55) 100%);
+  }
+  #grain{
+    position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.04; mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .topbar{
+    position:fixed; top:0; left:0; right:0; z-index:20;
+    display:flex; justify-content:space-between; align-items:center;
+    padding:22px 4vw; pointer-events:none;
+  }
+  .brand, .top-links a{
+    pointer-events:auto; font-size:.72rem; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--muted); font-weight:600;
+  }
+  .brand span{ color:var(--copper); }
+  .top-links{ display:flex; gap:1.4rem; }
+  .top-links a:hover{ color:var(--bone); text-decoration:none; }
+
+  #story{ position:relative; z-index:2; }
+
+  .chapter{
+    min-height:100vh; padding:14vh 7vw 12vh;
+    display:grid; grid-template-columns:1fr minmax(0, 28rem); gap:6vw; align-items:center;
+  }
+  .chapter:not(#hero){ grid-template-columns:1fr; }
+  .copy{ max-width:40rem; width:min(100%, 40rem); }
+  .kicker{
+    font-size:.72rem; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--copper); font-weight:700; margin-bottom:1.1rem;
+  }
+  .kicker::before{ content:'— '; color:var(--copper-dim); }
+  h1,h2{ font-family:Fraunces,serif; font-weight:400; letter-spacing:-.02em; line-height:1.08; }
+  h1{ font-size:clamp(2.6rem, 6.4vw, 5.4rem); }
+  h2{ font-size:clamp(1.9rem, 3.6vw, 3.1rem); margin-bottom:.9rem; }
+  .role{
+    margin-top:.85rem; font-size:clamp(.95rem, 1.4vw, 1.15rem);
+    letter-spacing:.08em; text-transform:uppercase; color:var(--muted); font-weight:600;
+  }
+  .lede{ margin-top:1.6rem; font-family:Fraunces,serif; font-size:1.22rem; line-height:1.5; color:#cfc6b6; max-width:36ch; }
+  .body{ font-size:1.02rem; line-height:1.65; color:#b7b0a4; max-width:52ch; }
+  .hint{
+    margin-top:1.4rem; font-size:.68rem; letter-spacing:.14em; text-transform:uppercase; color:var(--copper-dim);
+  }
+
+  .stats{ display:flex; gap:2.2rem; margin-top:2.4rem; flex-wrap:wrap; }
+  .stat b{ display:block; font-family:Fraunces,serif; font-size:2.1rem; color:var(--copper); font-weight:400; }
+  .stat span{ font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); }
+
+  .edu, .job, .card{
+    border-left:2px solid var(--line); padding:1.05rem 0 1.05rem 1.2rem; margin-top:.2rem;
+  }
+  .edu:hover, .job:hover, .card:hover{ border-left-color:var(--copper); }
+  .when{ font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--copper); font-weight:700; }
+  .place{ font-family:Fraunces,serif; font-size:1.35rem; margin:.25rem 0 .35rem; }
+  .meta{ font-size:.88rem; color:var(--muted); }
+
+  .jobs{ display:flex; flex-direction:column; gap:.4rem; margin-top:1.4rem; }
+  .job h3{ font-family:Syne,sans-serif; font-size:.95rem; letter-spacing:.06em; text-transform:uppercase; font-weight:700; margin:.2rem 0; }
+  .job p{ color:#b7b0a4; font-size:.95rem; line-height:1.5; max-width:46ch; }
+
+  .cards{ display:grid; gap:1rem; margin-top:1.6rem; max-width:40rem; }
+  @media (min-width:720px){ .cards{ grid-template-columns:1fr 1fr; } .cards .card:last-child{ grid-column:1 / -1; } }
+  .card h3{ font-size:.92rem; letter-spacing:.08em; text-transform:uppercase; color:var(--copper); margin-bottom:.45rem; }
+  .card p{ color:#b7b0a4; font-size:.95rem; line-height:1.5; }
+
+  .contact-row{ display:flex; flex-direction:column; gap:.55rem; margin-top:1.6rem; font-size:1.05rem; }
+  .foot{
+    padding:2.5rem 7vw 3.2rem; color:var(--muted); font-size:.72rem;
+    letter-spacing:.12em; text-transform:uppercase;
+  }
+
+  #pendidikan.chapter, #karier.chapter, #fokus.chapter{
+    min-height:auto; padding-top:16vh; padding-bottom:16vh;
+  }
+
+  /* ---- 2D person mark: flat SVG, concentric rings ---- */
+  .mark{
+    position:relative; width:min(100%, 22rem); aspect-ratio:1; justify-self:center;
+  }
+  .mark .rings{
+    position:absolute; inset:8%; border:1px solid rgba(212,137,58,.22); border-radius:50%;
+  }
+  .mark .rings:nth-child(2){ inset:18%; opacity:.7; }
+  .mark .rings:nth-child(3){ inset:28%; opacity:.45; }
+  .mark svg{
+    position:relative; z-index:1; width:58%; height:auto;
+    display:block; margin:18% auto 0;
+    filter:drop-shadow(0 0 24px rgba(212,137,58,.28));
+  }
+  .mark .pulse{
+    position:absolute; inset:8%; border-radius:50%; border:1px solid rgba(212,137,58,.35);
+    animation:ringPulse 3.6s var(--ease) infinite;
+  }
+  @keyframes ringPulse{
+    0%,100%{ transform:scale(1); opacity:.5; }
+    50%{ transform:scale(1.06); opacity:.15; }
+  }
+
+  .rv{ opacity:0; transform:translateY(22px); }
+
+  @media (max-width:860px){
+    .top-links{ display:none; }
+    .chapter, #hero.chapter{ grid-template-columns:1fr; padding:18vh 6vw 10vh; min-height:auto; }
+    .copy{ max-width:none; }
+    .mark{ order:-1; width:min(64vw, 16rem); margin-bottom:2rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    .rv{ opacity:1; transform:none; }
+    .mark .pulse{ animation:none; }
+  }
+</style>
+</head>
+<body>
+<div id="vignette"></div>
+<div id="grain"></div>
+
+<header class="topbar">
+  <div class="brand"><span>OHS</span> · Field to Overlook</div>
+  <nav class="top-links">
+    <a href="#tentang">Tentang</a>
+    <a href="#pendidikan">Pendidikan</a>
+    <a href="#karier">Karier</a>
+    <a href="#fokus">Fokus</a>
+    <a href="#kontak">Kontak</a>
+  </nav>
+</header>
+
+<main id="story">
+
+  <section class="chapter" id="hero">
+    <div class="copy">
+      <p class="kicker rv">Profil pribadi · Occupational Health &amp; Safety</p>
+      <!-- GANTI INI: nama -->
+      <h1 class="rv">Andika<br>Prasetya</h1>
+      <!-- GANTI INI: jabatan -->
+      <p class="role rv">General Manager · Occupational Health &amp; Safety</p>
+      <p class="lede rv">Keselamatan bukan slogan di gerbang. Itu disiplin yang diulang di lapangan — sampai orang pulang utuh.</p>
+      <p class="hint rv">Gulir untuk jejak pendidikan, karier, dan fokus kerja</p>
+    </div>
+    <div class="mark rv" aria-hidden="true">
+      <span class="pulse"></span>
+      <span class="rings"></span>
+      <span class="rings"></span>
+      <span class="rings"></span>
+      <svg viewBox="0 0 120 160" fill="none">
+        <circle cx="60" cy="32" r="18" stroke="#D4893A" stroke-width="2"/>
+        <path d="M42 28 C42 16 50 10 60 10 C70 10 78 16 78 28" stroke="#D4893A" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M38 28 H82" stroke="#D4893A" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="60" cy="24" r="2.2" fill="#EDE6D6"/>
+        <path d="M60 50 V62" stroke="#EDE6D6" stroke-width="2" stroke-linecap="round"/>
+        <path d="M38 88 C38 70 46 64 60 64 C74 64 82 70 82 88 V108 C82 118 74 124 60 124 C46 124 38 118 38 108 Z" stroke="#D4893A" stroke-width="2"/>
+        <path d="M38 78 L22 102" stroke="#D4893A" stroke-width="2" stroke-linecap="round"/>
+        <path d="M82 78 L98 102" stroke="#D4893A" stroke-width="2" stroke-linecap="round"/>
+        <path d="M50 124 V150" stroke="#EDE6D6" stroke-width="2" stroke-linecap="round"/>
+        <path d="M70 124 V150" stroke="#EDE6D6" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </div>
+  </section>
+
+  <section class="chapter" id="tentang">
+    <div class="copy">
+      <p class="kicker rv">01 · Tentang</p>
+      <h2 class="rv">Dari helm di lapangan, ke meja yang menanggung seluruh lokasi.</h2>
+      <p class="body rv">Saya memimpin sistem OHS di operasi tambang: orang, proses, dan teknologi yang harus jalan bersamaan. Yang saya kejar bukan nol kertas — tapi keputusan kecil yang konsisten, sebelum insiden sempat jadi cerita.</p>
+      <div class="stats">
+        <!-- GANTI INI: angka -->
+        <div class="stat rv"><b>18+</b><span>tahun di lapangan</span></div>
+        <div class="stat rv"><b>4</b><span>lokasi operasi</span></div>
+        <div class="stat rv"><b>GM</b><span>OHS saat ini</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter" id="pendidikan">
+    <div class="copy">
+      <p class="kicker rv">02 · Pendidikan</p>
+      <h2 class="rv">Fondasi teknis, baru kemudian wewenang.</h2>
+      <!-- GANTI INI: kampus / jurusan / tahun -->
+      <div class="edu rv">
+        <div class="when">1999 — 2003</div>
+        <div class="place">Universitas Mulawarman</div>
+        <div class="meta">S1 Teknik Pertambangan · Samarinda</div>
+      </div>
+      <div class="edu rv">
+        <div class="when">2006</div>
+        <div class="place">Ahli K3 Umum — Kemnaker</div>
+        <div class="meta">Sertifikasi kompetensi keselamatan kerja</div>
+      </div>
+      <div class="edu rv">
+        <div class="when">2014</div>
+        <div class="place">NEBOSH IGC</div>
+        <div class="meta">International General Certificate in Occupational Health &amp; Safety</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter" id="karier">
+    <div class="copy">
+      <p class="kicker rv">03 · Jejak karier</p>
+      <h2 class="rv">Naik jenjang tanpa meninggalkan tanah.</h2>
+      <div class="jobs">
+        <!-- GANTI INI: riwayat kerja -->
+        <article class="job rv">
+          <div class="when">2004 — 2009</div>
+          <h3>Safety Officer</h3>
+          <div class="meta">PT Tambang Mahakam · East Kalimantan</div>
+          <p>Inspeksi harian, investigasi near-miss, dan membangun kebiasaan APD yang tidak lagi “karena diawasi”.</p>
+        </article>
+        <article class="job rv">
+          <div class="when">2009 — 2014</div>
+          <h3>Superintendent OHS</h3>
+          <div class="meta">PT Bumi Operasi · Site Utara</div>
+          <p>Menyatukan shift, kontraktor, dan prosedur satu bahasa — sebelum angka lagging sempat naik.</p>
+        </article>
+        <article class="job rv">
+          <div class="when">2014 — 2021</div>
+          <h3>Manager OHS</h3>
+          <div class="meta">PT Energi Kalimantan</div>
+          <p>Leading indicator, coaching pengawas, dan sistem izin kerja yang benar-benar dipakai di lapangan.</p>
+        </article>
+        <article class="job rv">
+          <div class="when">2021 — sekarang</div>
+          <h3>General Manager OHS</h3>
+          <div class="meta">PT Operasi Saat Ini · Divisi Occupational Health &amp; Safety</div>
+          <p>Menanggung seluruh lokasi: budaya, kapabilitas orang, process safety, dan teknologi yang gagal saat paling dibutuhkan jika tidak dijaga.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter" id="fokus">
+    <div class="copy">
+      <p class="kicker rv">04 · Fokus kerja</p>
+      <h2 class="rv">Empat pilar di atas kertas. Satu fondasi di lapangan.</h2>
+      <div class="cards">
+        <article class="card rv">
+          <h3>Budaya, bukan spanduk</h3>
+          <p>Disiplin kerja yang menular — dari pengawas ke kru, dari kru ke kontraktor. Yang kelihatan di gerbang harus sama dengan yang terjadi jam 02.00.</p>
+        </article>
+        <article class="card rv">
+          <h3>Leading indicator</h3>
+          <p>Near-miss, observasi, quality of intervention. Saya baca sinyal sebelum LTI, bukan setelah laporan bulanan.</p>
+        </article>
+        <article class="card rv">
+          <h3>Coaching di pit</h3>
+          <p>GM yang masih turun. Percakapan singkat di unit lebih mengubah perilaku daripada memo yang tidak dibaca.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="chapter" id="kontak">
+    <div class="copy">
+      <p class="kicker rv">05 · Kontak</p>
+      <h2 class="rv">Mari bicara soal orang yang pulang selamat.</h2>
+      <!-- GANTI INI: kontak -->
+      <div class="contact-row">
+        <a class="rv" href="mailto:andika.prasetya@email.com">andika.prasetya@email.com</a>
+        <a class="rv" href="https://linkedin.com/in/andika-prasetya" target="_blank" rel="noopener">linkedin.com/in/andika-prasetya</a>
+        <span class="rv" style="color:var(--muted)">Berau · Kalimantan Timur</span>
+      </div>
+      <p class="hint rv">Konten dummy — ganti semua bagian bertanda GANTI INI di source</p>
+    </div>
+  </section>
+
+  <p class="foot">Field of view · Profil GM OHS · 2026</p>
+</main>
+
+<script>
+(function(){
+  const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(typeof gsap === 'undefined'){
+    document.querySelectorAll('.rv').forEach(el=>{ el.style.opacity=1; el.style.transform='none'; });
+    return;
+  }
+  if(typeof ScrollTrigger !== 'undefined') gsap.registerPlugin(ScrollTrigger);
+  if(REDUCE){
+    document.querySelectorAll('.rv').forEach(el=>{ el.style.opacity=1; el.style.transform='none'; });
+    return;
+  }
+  gsap.utils.toArray('.chapter').forEach((ch, idx)=>{
+    const items = ch.querySelectorAll('.rv');
+    if(!items.length) return;
+    gsap.fromTo(items,
+      { opacity:0, y:24 },
+      {
+        opacity:1, y:0, duration:0.85, stagger:0.07, ease:'power3.out',
+        scrollTrigger:{
+          trigger:ch,
+          start: idx===0 ? 'top 90%' : 'top 72%',
+          toggleActions:'play none none reverse'
+        }
+      }
+    );
+  });
+})();
+</script>
+</body>
+</html>
