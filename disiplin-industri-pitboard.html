@@ -166,17 +166,64 @@
   .otag{ font-size:.72rem; color:var(--muted); border-left:2px solid var(--signal); padding:4px 0 4px 8px; }
   .otag .n{ color:var(--hazard); font-family:'Red Hat Mono',monospace; margin-right:6px; }
 
-  /* ---- streak ---- */
-  .streak-stage{ height:100%; display:flex; flex-direction:column; padding:6vh 5vw 8vh; }
-  .streak-num{
-    flex:1; display:flex; align-items:center; justify-content:center;
-    font-size:clamp(8rem,22vw,16rem); line-height:.8; color:var(--hazard); letter-spacing:-.04em;
+  /* ---- streak (Fig. 01): Duolingo-style calendar, flame, XP pops ---- */
+  #slide2{
+    --duo:#58CC02; --duo-deep:#46A302; --duo-soft:#89E219; --duo-flame:#FF9600; --duo-tile:#1A2624;
   }
-  .streak-copy{ max-width:36ch; margin-bottom:18px; }
-  .streak-grid{ display:grid; grid-template-columns:repeat(17,minmax(0,1fr)); gap:6px; height:22px; }
-  .streak-day{ background:#243038; border-radius:2px; transform-origin:center; }
-  .streak-day.on{ background:var(--signal); }
-  .streak-day.spark{ box-shadow:0 0 0 2px rgba(245,197,24,.45); }
+  .streak-stage{ height:100%; display:flex; flex-direction:column; padding:5vh 5vw 7vh; }
+  .streak-copy{ max-width:38ch; margin-bottom:10px; flex:0 0 auto; }
+  .duo-board{
+    position:relative; flex:1; min-height:0; width:100%;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px;
+  }
+  .duo-count{ position:relative; display:flex; align-items:center; justify-content:center; gap:clamp(10px,2vw,28px); }
+  .duo-flame{
+    width:clamp(64px,9vw,118px); height:clamp(80px,11vw,148px);
+    transform-origin:50% 90%; filter:drop-shadow(0 8px 18px rgba(255,150,0,.35));
+  }
+  .duo-flame svg{ width:100%; height:100%; display:block; overflow:visible; }
+  .duo-flame.is-lit .duo-flicker{ animation:duoFlicker .55s ease-in-out infinite; transform-origin:50% 80%; }
+  @keyframes duoFlicker{
+    0%,100%{ transform:scale(1) rotate(-2deg); }
+    50%{ transform:scale(1.06,1.1) rotate(3deg); }
+  }
+  .streak-num{
+    flex:none; display:flex; align-items:center; justify-content:center;
+    font-size:clamp(7rem,20vw,15rem); line-height:.78; color:var(--hazard); letter-spacing:-.04em;
+  }
+  .streak-num span{ display:inline-block; transform-origin:50% 80%; }
+  .duo-badge{
+    position:absolute; right:-8%; top:8%;
+    padding:6px 14px 5px; border-radius:999px;
+    background:var(--duo); color:#14330a;
+    font-family:'Teko',sans-serif; font-size:clamp(1rem,2vw,1.45rem); letter-spacing:.14em;
+    box-shadow:0 4px 0 var(--duo-deep); opacity:0; transform:scale(.6);
+    pointer-events:none;
+  }
+  .duo-cal{ width:min(520px, 88%); }
+  .duo-wdays{
+    display:grid; grid-template-columns:repeat(7,1fr); gap:8px; margin-bottom:8px;
+    font-family:'Red Hat Mono',monospace; font-size:.62rem; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--muted-2); text-align:center;
+  }
+  .duo-cells{ display:grid; grid-template-columns:repeat(7,1fr); gap:8px; }
+  .duo-cell{
+    aspect-ratio:1; border-radius:12px; background:var(--duo-tile);
+    border:2px solid #2A3A38; transform-origin:center;
+    box-shadow:0 3px 0 #101816;
+  }
+  .duo-cell.on{
+    background:var(--duo); border-color:var(--duo-soft);
+    box-shadow:0 4px 0 var(--duo-deep), 0 0 14px rgba(88,204,2,.32);
+  }
+  .duo-cell.spark{
+    box-shadow:0 4px 0 var(--duo-deep), 0 0 22px rgba(255,150,0,.55);
+  }
+  .duo-pops{ position:absolute; inset:0; pointer-events:none; overflow:visible; z-index:3; }
+  .duo-xp{
+    position:absolute; font-family:'Teko',sans-serif; font-size:1.55rem; letter-spacing:.04em;
+    color:var(--duo); text-shadow:0 2px 0 var(--duo-deep); white-space:nowrap;
+  }
 
   /* ---- chart bleed ---- */
   .pct-stage{ position:absolute; inset:0; }
@@ -356,11 +403,16 @@
     .fig-card.is-strip{ flex:0 0 auto; }
     .fig-card.is-strip .fig-copy{ writing-mode:horizontal-tb; rotate:none; }
     .vs-num{ font-size:4rem; }
+    .duo-cal{ width:min(420px, 92%); }
+    .duo-wdays, .duo-cells{ gap:6px; }
+    .duo-cell{ border-radius:10px; }
+    .duo-badge{ right:0; top:0; }
     .hero-portrait{ width:46vw; max-width:200px; top:6%; bottom:auto; height:46vh; }
     .hero-hud{ right:0; padding-right:28px; }
   }
   @media (prefers-reduced-motion: reduce){
     .fade,.fade.on,.slide,.slide.active,.w{ animation:none; transition:none; opacity:1; transform:none; }
+    .duo-flame.is-lit .duo-flicker{ animation:none; }
     .fig-card{ transition:none; }
     .fig-photo{ opacity:.92; transform:none; }
     .close-rule{ transform:rotate(-28deg); }
@@ -449,14 +501,29 @@
           <p class="kicker mono fade" data-step="1" id="stKicker">Fig. 01 · Kalian Sudah Jago Ini, Cuma Belum Sadar</p>
           <h2 class="h-lg fade" data-step="1" id="stHead">Hari streak Duolingo. Kenapa susah kalau buat <em>bangun pagi</em>?</h2>
         </div>
-        <div class="streak-num fade" id="streakGridWrap" data-step="2">
-          <span id="stNum">0</span>
-        </div>
-        <div class="streak-grid fade" data-step="2" id="streakGrid">
-          <div class="streak-day"></div><div class="streak-day"></div><div class="streak-day"></div><div class="streak-day"></div><div class="streak-day"></div>
-          <div class="streak-day"></div><div class="streak-day"></div><div class="streak-day"></div><div class="streak-day"></div><div class="streak-day"></div>
-          <div class="streak-day"></div><div class="streak-day"></div><div class="streak-day"></div><div class="streak-day"></div><div class="streak-day"></div>
-          <div class="streak-day"></div><div class="streak-day"></div>
+        <div class="duo-board fade" id="streakGridWrap" data-step="2">
+          <div class="duo-count">
+            <div class="duo-flame" id="duoFlame" aria-hidden="true">
+              <svg viewBox="0 0 64 84" fill="none">
+                <path class="duo-flicker" d="M32 82c-16 0-26-11-26-26 0-16 12-28 18-40 2 10 8 16 14 16 2-10 4-22 8-30 12 14 18 28 18 42 0 20-12 38-32 38z" fill="#FF9600"/>
+                <path class="duo-flicker" d="M32 76c-10 0-17-8-17-18 0-10 7-18 12-26 1 7 5 11 9 11 1-7 3-15 5-20 8 10 12 19 12 27 0 14-8 26-21 26z" fill="#FFC800"/>
+                <path d="M32 68c-5 0-8-4-8-9 0-5 3-8 6-12 1 4 3 6 5 6 1-4 2-8 3-11 4 5 6 10 6 14 0 7-4 12-12 12z" fill="#FFF3B0"/>
+              </svg>
+            </div>
+            <div class="streak-num"><span id="stNum">0</span></div>
+            <span class="duo-badge" id="duoBadge">STREAK</span>
+          </div>
+          <div class="duo-cal" id="streakGrid">
+            <div class="duo-wdays" aria-hidden="true">
+              <span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span><span>Jum</span><span>Sab</span><span>Min</span>
+            </div>
+            <div class="duo-cells">
+              <div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div>
+              <div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div>
+              <div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div>
+            </div>
+          </div>
+          <div class="duo-pops" id="duoPops" aria-hidden="true"></div>
         </div>
         <p class="body-txt fade" id="stBody" data-step="3">Menjaga streak, jaga rank mabar, jaga "on fire" di Snapchat — itu semua disiplin. Cuma butuh dipindahkan ke hal yang benar-benar penting.</p>
       </div>
@@ -808,8 +875,11 @@
         if(head){ const words=wrapWords(head); gsap.set(words,{x:18,opacity:0}); tl.to(words,{x:0,opacity:1,stagger:0.04,ease:'expo.out'},0.08); }
       }
       if(n>=2 && prev<2){
-        const num=$id('stNum');
-        if(num) tl.fromTo(num, {scale:0.86, opacity:0}, {scale:1, opacity:1, duration:0.6, ease:'expo.out'}, 0);
+        const board=$id('streakGridWrap'), flame=$id('duoFlame'), num=$id('stNum'), cal=$id('streakGrid');
+        if(board) tl.fromTo(board, {y:22, opacity:0}, {y:0, opacity:1, duration:0.45}, 0);
+        if(flame) tl.fromTo(flame, {scale:0.35, opacity:0, rotate:-12}, {scale:1, opacity:1, rotate:0, duration:0.55, ease:'back.out(1.8)'}, 0.04);
+        if(num) tl.fromTo(num, {scale:0.5, opacity:0}, {scale:1, opacity:1, duration:0.55, ease:'back.out(1.7)'}, 0.08);
+        if(cal) tl.fromTo(cal, {y:18, opacity:0}, {y:0, opacity:1, duration:0.4, ease:'back.out(1.2)'}, 0.16);
       }
       if(n>=3 && prev<3){
         const body=$id('stBody');
@@ -1064,45 +1134,106 @@
 
   const streakAnim = (function(){
     const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const LOOP=7.6, FILLED=17, TARGET=47, FILL_START=1.15, FILL_EACH=0.16;
+    const FILLED=16, TARGET=47;
     const $id=(id)=>document.getElementById(id);
-    const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
-    const range=(t,a,b)=>clamp((t-a)/(b-a),0,1);
-    const easeOut=(t)=>1-Math.pow(1-t,3);
-    let playing=false, start=0, raf=0, gen=0, lastSpark=-1;
+    let gen=0, tl=null;
     function cells(){ const g=$id('streakGrid'); return g?Array.from(g.querySelectorAll('.streak-day')):[]; }
-    function setFilled(n, sparkIndex){
-      cells().forEach((c,i)=>{
-        const on = i<n;
-        const was = c.classList.contains('on');
-        c.classList.toggle('on', on);
-        c.classList.toggle('spark', i<n && i===sparkIndex);
-        if(on && !was && hasGsap && !REDUCE) gsap.fromTo(c, {scale:0.6}, {scale:1, duration:0.12, ease:'back.out(1.15)'});
+    function pops(){ return $id('duoPops'); }
+    function resetVisual(){
+      const num=$id('stNum'), flame=$id('duoFlame'), badge=$id('duoBadge'), layer=pops();
+      cells().forEach(c=>{
+        c.classList.remove('on','spark');
+        if(hasGsap) gsap.set(c, {scale:1, y:0});
       });
-      if(sparkIndex>=0 && sparkIndex!==lastSpark && hasGsap && !REDUCE){
-        const c = cells()[sparkIndex];
-        if(c) gsap.fromTo(c, {scale:1}, {scale:1.08, duration:0.12, yoyo:true, repeat:1, ease:'power2.out'});
+      if(num){ num.textContent='0'; if(hasGsap) gsap.set(num, {scale:1}); }
+      if(flame){ flame.classList.remove('is-lit'); if(hasGsap) gsap.set(flame, {scale:1, rotate:0}); }
+      if(badge && hasGsap) gsap.set(badge, {opacity:0, scale:0.6});
+      if(layer) layer.innerHTML='';
+    }
+    function showFinal(){
+      const num=$id('stNum'), flame=$id('duoFlame'), badge=$id('duoBadge');
+      cells().forEach((c,i)=> c.classList.toggle('on', i<FILLED));
+      if(num) num.textContent=String(TARGET);
+      if(flame) flame.classList.add('is-lit');
+      if(badge && hasGsap) gsap.set(badge, {opacity:1, scale:1});
+    }
+    function popXp(cell, label){
+      const layer=pops(); if(!layer || !cell) return;
+      const el=document.createElement('span');
+      el.className='duo-xp';
+      el.textContent=label;
+      const cr=cell.getBoundingClientRect();
+      const lr=layer.getBoundingClientRect();
+      el.style.left=(cr.left-lr.left+cr.width*0.5)+'px';
+      el.style.top=(cr.top-lr.top-4)+'px';
+      layer.appendChild(el);
+      gsap.fromTo(el, {y:8, opacity:0, scale:0.55}, {
+        y:-38, opacity:1, scale:1, duration:0.22, ease:'back.out(2)',
+        onComplete(){
+          gsap.to(el, {y:-58, opacity:0, duration:0.38, ease:'power2.in', onComplete(){ el.remove(); }});
+        }
+      });
+    }
+    function lightCell(i){
+      const list=cells();
+      const cell=list[i];
+      if(!cell) return;
+      list.forEach(c=> c.classList.remove('spark'));
+      cell.classList.add('on','spark');
+      gsap.fromTo(cell, {scale:0.45, y:10}, {scale:1.16, y:0, duration:0.22, ease:'back.out(2.4)',
+        onComplete(){ gsap.to(cell, {scale:1, duration:0.16, ease:'power2.out'}); }
+      });
+      popXp(cell, '+1');
+      const flame=$id('duoFlame');
+      if(flame){
+        flame.classList.add('is-lit');
+        const grow=0.88+((i+1)/FILLED)*0.22;
+        gsap.fromTo(flame, {scale:grow*0.86, rotate:-8}, {scale:grow, rotate:0, duration:0.28, ease:'back.out(2.2)'});
       }
-      lastSpark = sparkIndex;
-    }
-    function showFinal(){ const num=$id('stNum'); if(num) num.textContent=String(TARGET); setFilled(FILLED,-1); }
-    function frame(t){
-      const cyc=t%LOOP;
-      const fillEnd=FILL_START+FILLED*FILL_EACH;
-      const fillP=range(cyc,FILL_START,fillEnd);
-      const n=cyc>=6.7?0:Math.min(FILLED, Math.ceil(fillP*FILLED-0.0001));
-      const spark=(n>0 && cyc<fillEnd+0.18)?n-1:-1;
-      setFilled(n, spark);
       const num=$id('stNum');
-      if(num){ if(cyc>=6.7||fillP===0) num.textContent='0'; else num.textContent=String(Math.round(TARGET*easeOut(fillP))); }
+      if(num){
+        num.textContent=String(Math.round(TARGET*((i+1)/FILLED)));
+        gsap.fromTo(num, {scale:0.86}, {scale:1.08, duration:0.16, ease:'back.out(2.6)',
+          onComplete(){ gsap.to(num, {scale:1, duration:0.18, ease:'power2.out'}); }
+        });
+      }
     }
-    function tick(now){ if(!playing) return; frame((now-start)/1000); raf=requestAnimationFrame(tick); }
-    function stop(){ gen++; playing=false; lastSpark=-1; if(raf){ cancelAnimationFrame(raf); raf=0; } if(hasGsap) cells().forEach(c=> gsap.killTweensOf(c)); }
+    function celebrate(){
+      const num=$id('stNum'), flame=$id('duoFlame'), badge=$id('duoBadge');
+      const on=cells().filter(c=>c.classList.contains('on'));
+      if(num){
+        num.textContent=String(TARGET);
+        gsap.fromTo(num, {scale:1}, {scale:1.18, duration:0.22, yoyo:true, repeat:1, ease:'back.out(2)'});
+      }
+      if(on.length) gsap.fromTo(on, {scale:1}, {scale:1.12, duration:0.16, stagger:0.03, yoyo:true, repeat:1, ease:'back.out(2.2)'});
+      if(flame) gsap.fromTo(flame, {scale:1.08, rotate:0}, {scale:1.28, rotate:10, duration:0.16, yoyo:true, repeat:3, ease:'power2.inOut'});
+      if(badge) gsap.fromTo(badge, {opacity:0, scale:0.5, y:10}, {opacity:1, scale:1, y:0, duration:0.38, ease:'back.out(2)'});
+    }
+    function stop(){
+      gen++;
+      if(tl){ tl.kill(); tl=null; }
+      if(hasGsap){
+        gsap.killTweensOf(cells());
+        const num=$id('stNum'), flame=$id('duoFlame'), badge=$id('duoBadge');
+        if(num) gsap.killTweensOf(num);
+        if(flame) gsap.killTweensOf(flame);
+        if(badge) gsap.killTweensOf(badge);
+      }
+      resetVisual();
+    }
     function play(){
-      stop(); const my=gen;
-      if(REDUCE){ showFinal(); return; }
-      frame(0); start=performance.now(); playing=true;
-      raf=requestAnimationFrame(function go(now){ if(my!==gen) return; start=now; tick(now); });
+      stop();
+      const my=gen;
+      if(REDUCE || !hasGsap){ showFinal(); return; }
+      tl=gsap.timeline({
+        repeat:-1, repeatDelay:0.55,
+        onRepeat(){ if(my!==gen) return; resetVisual(); }
+      });
+      for(let i=0;i<FILLED;i++){
+        tl.call(lightCell, [i], i===0 ? 0.28 : '+=0.13');
+      }
+      tl.call(celebrate, null, '+=0.28');
+      tl.to({}, {duration:1.7});
     }
     return { play, stop };
   })();
