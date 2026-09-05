@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@designcodeio/threeui": "^1.2.0",
+    "@vercel/blob": "^2.8.0",
     "gsap": "^3.15.0"
   }
 }

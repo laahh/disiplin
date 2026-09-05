@@ -284,18 +284,24 @@
   .closing-note{ position:absolute; bottom:12%; right:8%; font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted-2); text-align:right; }
 
   #studentApp{ position:fixed; inset:0; background:var(--coal); color:var(--ink); display:none;
-    flex-direction:column; align-items:center; justify-content:center; padding:6vh 6vw; z-index:100; }
+    flex-direction:column; align-items:center; justify-content:flex-start; padding:6vh 5vw 8vh; overflow:auto; z-index:100; }
   #studentApp.active{ display:flex; }
-  #studentApp .wrap{ width:min(90vw,560px); }
+  #studentApp .wrap{ width:min(92vw,560px); margin:auto; }
   #studentApp h1{ font-family:'Teko',sans-serif; font-size:2.4rem; margin-bottom:8px; }
   #studentApp p.sub{ color:var(--muted); margin-bottom:24px; }
   .survey-progress{ color:var(--hazard); font-size:.78rem; margin-bottom:10px; letter-spacing:.08em; text-transform:uppercase; }
   .survey-card{ border:1px solid var(--line); padding:26px; background:var(--panel); }
   .survey-text{ font-size:1.15rem; line-height:1.5; margin-bottom:18px; }
-  .choice-row{ display:flex; flex-direction:column; gap:10px; }
-  .choice-btn{ text-align:left; padding:14px 16px; border:1px solid var(--line); background:transparent; color:var(--ink); cursor:pointer; font-size:.98rem; font-family:'Karla',sans-serif; }
+  .choice-row{ display:flex; flex-direction:column; gap:12px; }
+  .choice-btn{
+    text-align:left; min-height:48px; padding:16px 16px; border:1px solid var(--line);
+    background:transparent; color:var(--ink); cursor:pointer; font-size:1.05rem;
+    font-family:'Karla',sans-serif; -webkit-tap-highlight-color:transparent;
+  }
   .choice-btn:hover, .choice-btn.picked{ border-color:var(--hazard); background:rgba(245,197,24,.08); }
+  .choice-btn:disabled{ opacity:.72; cursor:default; }
   .survey-nav{ display:flex; justify-content:flex-end; margin-top:16px; }
+  #surveyNextBtn{ min-height:48px; padding:14px 22px; }
   .result-level{ font-size:2.2rem; color:var(--hazard); font-family:'Teko',sans-serif; }
   .result-desc{ color:var(--muted); margin-bottom:14px; }
   .result-step{ border-left:3px solid var(--hazard); padding:12px 14px; color:var(--muted); }
@@ -1339,20 +1345,52 @@
   }
 
   const surveyStore = (function(){
-    const remote = window.storage;
-    if(remote && typeof remote.list==='function'){
-      return { list:(prefix)=>remote.list(prefix,true), set:(key,val)=>remote.set(key,val,true), delete:(key)=>remote.delete(key,true) };
-    }
     const NS='survey:';
+    const canApi = location.protocol!=='file:';
     function keysWith(prefix){
       const out=[];
       try{ for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(k && k.startsWith(NS+prefix)) out.push(k.slice(NS.length)); } }catch(e){}
       return out;
     }
+    async function api(url, opts){
+      const r = await fetch(url, opts);
+      if(!r.ok) throw new Error('survey-api '+r.status);
+      return r.json();
+    }
     return {
-      async list(prefix){ return { keys: keysWith(prefix) }; },
-      async set(key,val){ localStorage.setItem(NS+key,val); return true; },
-      async delete(key){ localStorage.removeItem(NS+key); return true; }
+      async list(prefix){
+        if(canApi){
+          try{
+            const data = await api('/api/survey');
+            if(data && Array.isArray(data.keys)) return data;
+          }catch(e){}
+        }
+        return { keys: keysWith(prefix||'resp:') };
+      },
+      async set(key, val, extra){
+        const level = (extra && extra.level) || String(key||'').split(':')[1];
+        if(canApi){
+          try{
+            const data = await api('/api/survey', {
+              method:'POST',
+              headers:{ 'Content-Type':'application/json' },
+              body: JSON.stringify({ level })
+            });
+            return !!(data && data.ok);
+          }catch(e){}
+        }
+        try{ localStorage.setItem(NS+key, val); return true; }catch(e){ return false; }
+      },
+      async deleteAll(){
+        if(canApi){
+          try{
+            const data = await api('/api/survey', { method:'DELETE' });
+            if(data && data.ok) return true;
+          }catch(e){}
+        }
+        keysWith('resp:').forEach((k)=>{ try{ localStorage.removeItem(NS+k); }catch(e){} });
+        return true;
+      }
     };
   })();
 
@@ -1366,9 +1404,10 @@
       try{
         const res = await surveyStore.list('resp:');
         const keys = (res && res.keys) ? res.keys : [];
-        const tally = { Reaktif:0, Bergantung:0, Mandiri:0, Interdependen:0 };
-        keys.forEach(k=>{ const level=k.split(':')[1]; if(tally.hasOwnProperty(level)) tally[level]++; });
-        const total=keys.length;
+        const tally = (res && res.tally) ? Object.assign({ Reaktif:0, Bergantung:0, Mandiri:0, Interdependen:0 }, res.tally)
+          : { Reaktif:0, Bergantung:0, Mandiri:0, Interdependen:0 };
+        if(!res || !res.tally) keys.forEach(k=>{ const level=k.split(':')[1]; if(tally.hasOwnProperty(level)) tally[level]++; });
+        const total = (res && typeof res.total==='number') ? res.total : keys.length;
         document.getElementById('totalCount').textContent=total;
         Object.keys(tally).forEach(lvl=>{
           const pct = total>0 ? Math.round((tally[lvl]/total)*100) : 0;
@@ -1383,16 +1422,14 @@
     document.getElementById('dashResetBtn').addEventListener('click', async ()=>{
       if(!confirm('Hapus semua data survey yang sudah masuk? Gunakan ini hanya sebelum acara dimulai.')) return;
       try{
-        const res=await surveyStore.list('resp:');
-        const keys=(res && res.keys)?res.keys:[];
-        for(const k of keys){ try{ await surveyStore.delete(k); }catch(e){} }
+        await surveyStore.deleteAll();
         refreshCounts();
       }catch(e){ console.error('Reset failed', e); }
     });
   }
 
   function runStudentSurvey(){
-    let qIndex=0, totalScore=0;
+    let qIndex=0, totalScore=0, sending=false;
     const progressEl=document.getElementById('surveyProgress');
     const textEl=document.getElementById('surveyText');
     const rowEl=document.getElementById('surveyChoiceRow');
@@ -1403,7 +1440,7 @@
       progressEl.textContent='Pertanyaan '+(qIndex+1)+' / '+QUESTIONS.length;
       textEl.textContent=q.text; rowEl.innerHTML=''; nextBtn.style.display='none';
       q.options.forEach((opt,idx)=>{
-        const btn=document.createElement('button'); btn.className='choice-btn'; btn.textContent=opt.label;
+        const btn=document.createElement('button'); btn.type='button'; btn.className='choice-btn'; btn.textContent=opt.label;
         btn.addEventListener('click', ()=> pick(idx)); rowEl.appendChild(btn);
       });
     }
@@ -1413,21 +1450,25 @@
       totalScore += q.options[idx].score; nextBtn.style.display='inline-block';
     }
     nextBtn.addEventListener('click', async ()=>{
+      if(sending) return;
       qIndex++;
-      if(qIndex<QUESTIONS.length){ render(); }
-      else{
-        progressEl.textContent='Hasil kamu'; textEl.textContent=''; rowEl.innerHTML=''; nextBtn.style.display='none';
-        const lvl=levelFor(totalScore);
-        const resultDiv=document.createElement('div');
-        resultDiv.innerHTML='<div class="result-level">'+lvl.name+'</div><p class="result-desc">'+lvl.desc+'</p><div class="result-step">'+lvl.step+'</div><p class="sending-msg" id="sendingMsg">Mengirim ke layar depan...</p>';
-        cardEl.appendChild(resultDiv);
-        try{
-          const key='resp:'+lvl.name+':'+Date.now()+'-'+Math.random().toString(36).slice(2);
-          const res=await surveyStore.set(key,'1');
-          document.getElementById('sendingMsg').textContent = res ? 'Terkirim. Lihat layar depan untuk sebaran seluruh angkatan.' : 'Gagal mengirim — coba refresh halaman.';
-        }catch(e){
-          const msg=document.getElementById('sendingMsg'); if(msg) msg.textContent='Gagal mengirim ke server — coba refresh halaman lalu ulangi.';
-        }
+      if(qIndex<QUESTIONS.length){ render(); return; }
+      sending = true;
+      nextBtn.disabled = true;
+      nextBtn.style.display='none';
+      progressEl.textContent='Hasil kamu'; textEl.textContent=''; rowEl.innerHTML='';
+      const lvl=levelFor(totalScore);
+      const resultDiv=document.createElement('div');
+      resultDiv.innerHTML='<div class="result-level">'+lvl.name+'</div><p class="result-desc">'+lvl.desc+'</p><div class="result-step">'+lvl.step+'</div><p class="sending-msg" id="sendingMsg">Mengirim ke layar depan...</p>';
+      cardEl.appendChild(resultDiv);
+      try{
+        const key='resp:'+lvl.name+':'+Date.now()+'-'+Math.random().toString(36).slice(2);
+        const res=await surveyStore.set(key,'1',{ level:lvl.name });
+        document.getElementById('sendingMsg').textContent = res ? 'Terkirim. Lihat layar depan untuk sebaran seluruh angkatan.' : 'Gagal mengirim — coba refresh halaman.';
+      }catch(e){
+        const msg=document.getElementById('sendingMsg'); if(msg) msg.textContent='Gagal mengirim ke server — coba refresh halaman lalu ulangi.';
+      }finally{
+        sending = false;
       }
     });
     render();
