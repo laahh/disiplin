@@ -359,33 +359,33 @@
       <div class="profile-head">
         <p class="kicker mono fade" data-step="1">Fig. 00 · Pembicara</p>
         <h2 class="h-lg" style="max-width:18ch;">
-          <span class="clip-line fade" data-step="1" id="pfName"><span>Andika Prasetya</span></span>
+          <span class="clip-line fade" data-step="1" id="pfName"><span>Jimmi Idris</span></span>
         </h2>
-        <p class="profile-role fade" data-step="1" id="pfRole">General Manager · Occupational Health &amp; Safety</p>
-        <p class="lede fade" data-step="1" id="pfLede">Keselamatan bukan slogan di gerbang. Itu disiplin yang diulang di lapangan — sampai orang pulang utuh.</p>
+        <p class="profile-role fade" data-step="1" id="pfRole">General Manager OHS · PT Berau Coal</p>
+        <p class="lede fade" data-step="1" id="pfLede">21 tahun operasi tambang di Indonesia dan Australia. Keselamatan bukan slogan di gerbang — itu sistem yang diulang sampai orang pulang utuh.</p>
       </div>
       <div class="profile-stats">
         <div class="stat-card fade" data-step="2"><b id="pfYears">0+</b><span>tahun lapangan</span></div>
-        <div class="stat-card fade" data-step="2" style="--d:.08s"><b id="pfSites">0</b><span>lokasi operasi</span></div>
-        <div class="stat-card fade" data-step="2" style="--d:.16s"><b>GM</b><span>OHS saat ini</span></div>
+        <div class="stat-card fade" data-step="2" style="--d:.08s"><b id="pfSites">0</b><span>negara operasi</span></div>
+        <div class="stat-card fade" data-step="2" style="--d:.16s"><b>GM</b><span>OHS Berau Coal</span></div>
       </div>
       <div class="profile-edu">
-        <span class="otag fade" data-step="2" style="--d:.22s"><span class="n">1999–03</span> Unmul · Tambang</span>
-        <span class="otag fade" data-step="2" style="--d:.3s"><span class="n">2006</span> Ahli K3 Umum</span>
-        <span class="otag fade" data-step="2" style="--d:.38s"><span class="n">2014</span> NEBOSH IGC</span>
-        <span class="otag fade" data-step="2" style="--d:.44s">Budaya, bukan spanduk</span>
-        <span class="otag fade" data-step="2" style="--d:.52s">Leading indicator</span>
-        <span class="otag fade" data-step="2" style="--d:.6s">Coaching di pit</span>
+        <span class="otag fade" data-step="2" style="--d:.22s"><span class="n">1999–04</span> Unsri · Tambang</span>
+        <span class="otag fade" data-step="2" style="--d:.3s"><span class="n">2019–20</span> ITB · MBA</span>
+        <span class="otag fade" data-step="2" style="--d:.38s"><span class="n">2021</span> GM OHS</span>
+        <span class="otag fade" data-step="2" style="--d:.44s">Indonesia &amp; Australia</span>
+        <span class="otag fade" data-step="2" style="--d:.52s">Mining Eyes</span>
+        <span class="otag fade" data-step="2" style="--d:.6s">Safety leadership</span>
       </div>
       <div class="attribution fade" data-step="2" style="--d:.7s">
-        <span>Berau · Kaltim</span><span>·</span><span>andika.prasetya@email.com</span>
+        <span>Berau · Kaltim</span><span>·</span><span>Unsri · ITB</span>
       </div>
       <div class="profile-rail fade" id="profileRail" data-step="3">
         <div class="profile-spine" aria-hidden="true"><i id="profileSpineFill"></i></div>
-        <div class="profile-job" data-rank="1"><b>2004–09 · Safety Officer</b><p>PT Tambang Mahakam — inspeksi, near-miss, APD yang tidak lagi “karena diawasi”.</p></div>
-        <div class="profile-job" data-rank="2"><b>2009–14 · Superintendent OHS</b><p>PT Bumi Operasi — satu bahasa antara shift, kontraktor, dan prosedur.</p></div>
-        <div class="profile-job" data-rank="3"><b>2014–21 · Manager OHS</b><p>PT Energi Kalimantan — leading indicator dan izin kerja yang benar-benar dipakai.</p></div>
-        <div class="profile-job" data-rank="4"><b>2021–kini · General Manager OHS</b><p>PT Operasi Saat Ini — menanggung seluruh lokasi: orang, process, teknologi.</p></div>
+        <div class="profile-job" data-rank="1"><b>2004–08 · Pit &amp; Mine Planning</b><p>PT Koba Tin, lalu PT Thiess — rencana harian, ISO 9001 / 14001 / OHSAS 18001.</p></div>
+        <div class="profile-job" data-rank="2"><b>2009–17 · Engineer, ID &amp; AU</b><p>Bukit Asam, Global Surface Mining, Fortescue — GPS, fleet, surface miner di Australia Barat.</p></div>
+        <div class="profile-job" data-rank="3"><b>2017–22 · Supt. &amp; Mine Manager</b><p>PT Berau Coal — operasi pit, produksi, dan kontraktor di Kalimantan Timur.</p></div>
+        <div class="profile-job" data-rank="4"><b>2021–kini · General Manager OHS</b><p>PT Berau Coal — transformasi keselamatan, Mining Eyes, operasi K3 untuk ribuan orang.</p></div>
       </div>
     </div>
   </section>
@@ -1192,8 +1192,8 @@
     }
     function stats(my){
       const years=document.getElementById('pfYears'); const sites=document.getElementById('pfSites');
-      later(120, ()=>{ if(my===gen && years) countUp(years,18,1100,'+'); });
-      later(220, ()=>{ if(my===gen && sites) countUp(sites,4,800); });
+      later(120, ()=>{ if(my===gen && years) countUp(years,21,1100,'+'); });
+      later(220, ()=>{ if(my===gen && sites) countUp(sites,2,800); });
     }
     function career(my){
       const spine=document.getElementById('profileSpineFill'); const list=jobs();
@@ -1224,7 +1224,7 @@
       if(REDUCE){
         scan();
         const years=document.getElementById('pfYears'); const sites=document.getElementById('pfSites');
-        if(years) years.textContent='18+'; if(sites) sites.textContent='4';
+        if(years) years.textContent='21+'; if(sites) sites.textContent='2';
         if(level>=3){
           const list=jobs();
           list.forEach(j=>{ j.style.opacity='1'; j.style.transform='none'; j.classList.add('on'); if(hasGsap) gsap.set(j,{opacity:1,y:0}); });
