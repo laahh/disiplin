@@ -51,7 +51,7 @@ export default async function handler(req, res){
       const id = Date.now()+'-'+Math.random().toString(36).slice(2, 8);
       const pathname = PREFIX+level+'-'+id+'.json';
       await put(pathname, JSON.stringify({ level, t: Date.now() }), {
-        access: 'private',
+        access: 'public',
         addRandomSuffix: false,
         contentType: 'application/json',
       });
