@@ -1,0 +1,1633 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kedisiplinan di Dunia Industri — Kit PKKMB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/TextPlugin.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  :root{
+    --sun:#FFE566; --coral:#FF5A5F; --aqua:#14C8C4; --ink:#1B1B1B;
+    --page:#FFF7E8; --grape:#6B4CFF; --muted:#5C5348; --muted-2:#9A8F80;
+    --line:rgba(27,27,27,.12); --ease:cubic-bezier(.16,1,.3,1);
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{ height:100%; }
+  body{
+    background:var(--page); color:var(--ink); font-family:'Nunito',system-ui,sans-serif;
+    font-size:1.05rem; line-height:1.5; overflow:hidden; -webkit-font-smoothing:antialiased;
+  }
+  .kit-blobs{ position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
+  .kit-blobs i{ position:absolute; border-radius:50%; filter:blur(8px); opacity:.55; }
+  .kit-blobs i:nth-child(1){ width:42vw; height:42vw; left:-10vw; top:-16vw; background:#FFE566; }
+  .kit-blobs i:nth-child(2){ width:28vw; height:28vw; right:-6vw; top:12vh; background:#FFB4B6; }
+  .kit-blobs i:nth-child(3){ width:34vw; height:34vw; left:28vw; bottom:-18vw; background:#B8F3F1; }
+  #slideWipe{
+    position:fixed; inset:0; z-index:46; pointer-events:none; display:none;
+    background:radial-gradient(circle at 50% 50%, var(--coral) 0 42%, transparent 43%);
+    clip-path:circle(0% at 50% 50%);
+  }
+  em{ font-style:italic; font-weight:800; color:var(--coral); }
+  .h-xl,.h-lg,.streak-num,.vs-num,.fig-no,.id-name,.close-stamp span{
+    font-family:'Bricolage Grotesque',sans-serif; font-weight:800;
+  }
+  .h-xl{ font-size:clamp(2.1rem,4.6vw,3.9rem); line-height:.98; letter-spacing:-.03em; }
+  .h-lg{ font-size:clamp(1.45rem,2.7vw,2.25rem); line-height:1.12; letter-spacing:-.02em; }
+  .lede,.body-txt{ color:var(--muted); max-width:48ch; }
+  .kicker{ color:var(--grape); font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; font-weight:800; }
+  .mono{ font-weight:800; letter-spacing:.1em; text-transform:uppercase; }
+
+  .washi{
+    position:fixed; top:0; left:0; right:0; height:52px; z-index:22;
+    background:
+      repeating-linear-gradient(-12deg, rgba(255,229,102,.55) 0 10px, rgba(255,255,255,.2) 10px 14px),
+      #fff4b8;
+    border-bottom:3px dashed rgba(27,27,27,.12);
+    display:flex; align-items:center; padding:0 16px; gap:14px;
+    box-shadow:0 8px 0 rgba(255,90,95,.12);
+  }
+  .washi-brand{ font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:.95rem; white-space:nowrap; }
+  .washi-brand b{ color:var(--coral); }
+  .sticker-tabs{ display:flex; gap:8px; }
+  .sticker-tabs button{
+    min-width:34px; height:28px; border:2px solid var(--ink); background:#fff;
+    font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:.78rem;
+    cursor:pointer; border-radius:8px 8px 14px 8px; transform:rotate(-2deg);
+    box-shadow:2px 3px 0 var(--ink);
+  }
+  .sticker-tabs button:nth-child(2){ transform:rotate(2deg); background:var(--sun); }
+  .sticker-tabs button:nth-child(3){ transform:rotate(-3deg); background:#c8f6f4; }
+  .sticker-tabs button:nth-child(4){ transform:rotate(1deg); background:#ffd0d2; }
+  .sticker-tabs button:nth-child(5){ transform:rotate(-1deg); background:#ddd6ff; }
+  .sticker-tabs button.on{ background:var(--coral); color:#fff; }
+  .washi-progress{ flex:1; height:8px; background:#fff; border:2px solid var(--ink); border-radius:99px; overflow:hidden; }
+  .washi-progress i{ display:block; height:100%; width:0; background:var(--aqua); }
+  .washi-step{ font-weight:800; min-width:2ch; }
+  .washi-count{ font-size:.72rem; font-weight:800; color:var(--muted); }
+
+  .sticker-nav{
+    position:fixed; left:0; right:0; bottom:0; height:42px; z-index:22;
+    display:flex; align-items:center; justify-content:center;
+    background:#fff; border-top:3px solid var(--ink);
+  }
+  .sticker-nav #nav{ display:flex; gap:8px; }
+  .dot{
+    width:14px; height:14px; border:2px solid var(--ink); background:var(--sun);
+    border-radius:4px; cursor:pointer; box-shadow:2px 2px 0 var(--ink);
+  }
+  .dot:nth-child(odd){ background:#c8f6f4; transform:rotate(8deg); }
+  .dot.active{ background:var(--coral); width:22px; }
+
+  #deck{ position:relative; width:100vw; height:100vh; z-index:2; padding:52px 0 42px; }
+  .slide{ position:absolute; inset:52px 0 42px; display:none; flex-direction:column; opacity:0; }
+  .slide.active{ display:flex; opacity:1; }
+  .slide.leaving{ display:flex; opacity:0; }
+  .slide-inner{ width:100%; height:100%; position:relative; z-index:2; }
+  .fade{ opacity:0; pointer-events:none; }
+  .fade.on{ opacity:1; pointer-events:auto; }
+  html.js-motion .fade{ transition:none; }
+  .w{ display:inline-block; }
+
+  .navbtn{
+    position:fixed; top:50%; transform:translateY(-50%); width:44px; height:44px;
+    border:3px solid var(--ink); background:#fff; color:var(--ink); font-size:1.2rem;
+    cursor:pointer; z-index:30; border-radius:12px; box-shadow:3px 4px 0 var(--ink);
+  }
+  .navbtn:hover{ background:var(--sun); }
+  #prev{ left:16px; } #next{ right:16px; }
+  .guide-btn{
+    position:fixed; top:12px; right:14px; z-index:40; width:28px; height:28px;
+    border:2px solid var(--ink); background:var(--sun); cursor:pointer;
+    font-family:'Bricolage Grotesque',sans-serif; font-weight:800; border-radius:8px;
+  }
+  .deck-chrome,.nav-zone{ display:none; }
+
+  #guide{ position:fixed; inset:0; z-index:50; display:none; align-items:center; justify-content:center;
+    background:rgba(27,27,27,.45); padding:6vh 6vw; }
+  #guide.open{ display:flex; }
+  .guide-card{ width:min(640px,92vw); background:#fff; border:3px solid var(--ink); padding:30px 32px;
+    border-radius:18px; box-shadow:8px 10px 0 var(--ink); }
+  .guide-card h3{ font-family:'Bricolage Grotesque',sans-serif; font-size:1.7rem; margin-bottom:1rem; }
+  .guide-row{ display:grid; grid-template-columns:148px 1fr; gap:10px 16px; margin:8px 0; color:var(--muted); }
+  .guide-row b{ color:var(--coral); font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; }
+  .guide-foot{ margin-top:1.2rem; color:var(--muted-2); font-size:.75rem; font-weight:700; }
+  .btn-outline{
+    margin-top:1rem; padding:12px 20px; border:3px solid var(--ink); background:var(--sun);
+    color:var(--ink); cursor:pointer; font-family:'Nunito',sans-serif; font-weight:800;
+    border-radius:12px; box-shadow:3px 4px 0 var(--ink);
+  }
+  .btn-outline:hover{ background:var(--aqua); }
+
+  /* hero */
+  #slideHero{ overflow:hidden; }
+  .hero-kit{ height:100%; display:grid; grid-template-columns:1.15fr .85fr; padding:5vh 6vw 4vh; gap:28px; align-items:center; }
+  .hero-blob{
+    position:absolute; width:min(38vw,420px); height:min(38vw,420px); right:6vw; top:8vh;
+    background:var(--sun); border:3px solid var(--ink); border-radius:46% 54% 50% 50%;
+    box-shadow:10px 12px 0 var(--ink); z-index:0;
+  }
+  .hero-copy{ position:relative; z-index:1; }
+  .hero-copy h1 .fade{ display:block; }
+  .hero-chips{ display:flex; flex-wrap:wrap; gap:10px; margin-top:18px; }
+  .chip{
+    background:#fff; border:2px solid var(--ink); padding:6px 12px; border-radius:999px;
+    font-size:.72rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase;
+    box-shadow:2px 3px 0 var(--ink);
+  }
+  .chip:nth-child(2){ background:var(--aqua); color:#073; }
+  .chip:nth-child(3){ background:#ffd0d2; }
+
+  .profile-scan{ position:absolute; inset:0; pointer-events:none; opacity:0; }
+  /* lanyard */
+  .id-stage{ height:100%; display:grid; grid-template-columns:minmax(0,1fr) 280px; gap:32px; padding:4.5vh 6vw; align-items:center; }
+  .id-card{
+    background:#fff; border:3px solid var(--ink); border-radius:22px; padding:22px 24px 20px;
+    box-shadow:10px 12px 0 var(--coral); position:relative; transform:rotate(-1.5deg);
+  }
+  .id-card::before{
+    content:''; position:absolute; left:50%; top:-34px; width:18px; height:40px;
+    background:var(--aqua); border:3px solid var(--ink); transform:translateX(-50%);
+  }
+  .id-name{ font-size:clamp(2.4rem,5vw,4.2rem); line-height:.9; }
+  .id-role{ font-weight:800; color:var(--coral); margin:.4rem 0 .7rem; letter-spacing:.06em; text-transform:uppercase; font-size:.78rem; }
+  .id-stamps{ display:flex; flex-direction:column; gap:14px; }
+  .stamp{
+    background:var(--sun); border:3px solid var(--ink); border-radius:50%;
+    width:120px; height:120px; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; box-shadow:4px 5px 0 var(--ink); transform:rotate(6deg);
+  }
+  .stamp:nth-child(2){ background:#c8f6f4; transform:rotate(-5deg); }
+  .stamp:nth-child(3){ background:#ffd0d2; transform:rotate(3deg); }
+  .stamp b{ font-family:'Bricolage Grotesque',sans-serif; font-size:1.7rem; line-height:1; }
+  .stamp span{ font-size:.62rem; font-weight:800; text-transform:uppercase; }
+  .otag-row{ display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+  .otag{ background:#fff; border:2px dashed var(--ink); padding:4px 8px; border-radius:8px; font-size:.72rem; font-weight:700; }
+  .otag .n{ color:var(--grape); margin-right:4px; }
+  .career-row{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:18px; }
+  .career-item{ background:#fff; border:2px solid var(--ink); border-radius:12px; padding:10px; font-size:.75rem; }
+  .career-item b{ display:block; margin-bottom:4px; font-size:.72rem; }
+
+  /* stickers */
+  .streak-stage{ height:100%; display:flex; flex-direction:column; padding:4vh 6vw 3vh; }
+  .duo-board{ position:relative; flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; }
+  .duo-count{ position:relative; display:flex; align-items:center; gap:16px; }
+  .duo-flame{ width:72px; height:72px; background:var(--coral); border:3px solid var(--ink); border-radius:18px;
+    display:grid; place-items:center; box-shadow:4px 5px 0 var(--ink); font-size:2rem; }
+  .streak-num{ font-size:clamp(5.5rem,16vw,11rem); line-height:.78; color:var(--coral); }
+  .duo-badge{
+    position:absolute; right:-8%; top:0; background:var(--aqua); color:#073;
+    border:3px solid var(--ink); padding:5px 12px; border-radius:999px; font-weight:800;
+    opacity:0; transform:scale(.6); box-shadow:3px 3px 0 var(--ink);
+  }
+  .duo-cal{ width:min(500px,90%); }
+  .duo-wdays{ display:grid; grid-template-columns:repeat(7,1fr); gap:8px; margin-bottom:8px;
+    font-size:.62rem; font-weight:800; text-transform:uppercase; text-align:center; color:var(--muted-2); }
+  .duo-cells{ display:grid; grid-template-columns:repeat(7,1fr); gap:8px; }
+  .duo-cell{
+    aspect-ratio:1; background:#fff; border:3px solid var(--ink); border-radius:12px;
+    box-shadow:2px 3px 0 rgba(27,27,27,.18); transform:rotate(-2deg);
+  }
+  .duo-cell:nth-child(even){ transform:rotate(2deg); }
+  .duo-cell.on{ background:var(--sun); box-shadow:3px 4px 0 var(--ink); }
+  .duo-cell.spark{ background:var(--coral); }
+  .duo-pops{ position:absolute; inset:0; pointer-events:none; }
+  .duo-xp{ position:absolute; font-weight:800; color:var(--coral); font-size:1.15rem; }
+
+  /* chart */
+  .pct-stage{ position:absolute; inset:0; }
+  .pct-art{ position:absolute; inset:0 0 160px; }
+  .pct-art canvas{ width:100%; height:100%; display:block; }
+  .pct-ticker{ position:absolute; top:0; left:0; right:0; z-index:3; padding:22px 48px 12px; }
+  .pct-x{ display:inline-block; color:var(--coral); }
+  .pct-hud{ position:absolute; right:28px; bottom:24px; z-index:3; background:#fff; border:3px solid var(--ink);
+    padding:10px 14px; border-radius:14px; opacity:0; box-shadow:4px 5px 0 var(--ink); }
+  .pct-hud-k{ font-size:.68rem; font-weight:800; text-transform:uppercase; color:var(--muted-2); }
+  .pct-hud-v{ font-size:1.25rem; font-weight:800; color:var(--aqua); }
+  .pct-label{ position:absolute; font-size:.72rem; font-weight:800; opacity:0; }
+  .pct-label.up{ color:var(--coral); } .pct-label.down{ color:var(--grape); }
+  .pct-body-dock{ position:absolute; left:40px; bottom:18px; z-index:4; max-width:38ch;
+    background:#fff; border:3px solid var(--ink); padding:12px; border-radius:14px; }
+
+  /* collection cards */
+  .vs-head{ position:absolute; top:18px; left:48px; right:48px; z-index:4; max-width:40ch; }
+  .vs-stage{ position:absolute; inset:16vh 6vw 20vh; display:flex; gap:28px; align-items:stretch; justify-content:center; }
+  .vs-card{
+    flex:1; max-width:380px; opacity:0; position:relative; overflow:hidden;
+    background:#fff; border:3px solid var(--ink); border-radius:22px;
+    box-shadow:8px 10px 0 var(--ink); display:flex; flex-direction:column; justify-content:flex-end;
+    padding:18px; transform:rotate(-2deg);
+  }
+  .vs-card.show{ opacity:1; }
+  .vs-b{ transform:rotate(2deg); box-shadow:8px 10px 0 var(--coral); }
+  .vs-photo{ position:absolute; inset:0; background-size:cover; background-position:center 18%; filter:saturate(1.05); }
+  .vs-a .vs-photo{ background-image:url('messi.jpg'); }
+  .vs-b .vs-photo{ background-image:url('ronaldo.jpg'); }
+  .vs-card::after{ content:''; position:absolute; inset:0; background:linear-gradient(180deg,transparent 40%, rgba(27,27,27,.78)); }
+  .vs-num,.vs-cap{ position:relative; z-index:2; color:#fff; }
+  .vs-num{ font-size:clamp(4rem,9vw,7rem); line-height:.8; }
+  .vs-cap{ font-size:.72rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; opacity:0; }
+  .vs-mid{ position:absolute; left:50%; top:48%; transform:translate(-50%,-50%); z-index:5; display:flex; align-items:center; gap:10px; }
+  .vs-mark{
+    width:64px; height:64px; border-radius:50%; background:var(--sun); border:3px solid var(--ink);
+    display:grid; place-items:center; font-weight:800; opacity:0; box-shadow:3px 4px 0 var(--ink);
+  }
+  .vs-rule{ height:6px; width:0; background:var(--ink); border-radius:99px; }
+  .vs-wash{ display:none; }
+  .vs-body-dock{ position:absolute; left:48px; right:48px; bottom:16px; z-index:4; max-width:64ch;
+    background:#fff; border:3px solid var(--ink); padding:10px 12px; border-radius:12px; }
+
+  /* peel stickers */
+  .fig-head{ position:absolute; top:18px; left:48px; z-index:3; }
+  .fig-board{ position:absolute; inset:15vh 36px 5vh; display:flex; gap:16px; }
+  .fig-card{
+    position:relative; flex:0 1 0; display:none; overflow:hidden; cursor:pointer;
+    background:#fff; border:3px solid var(--ink); border-radius:22px; padding:20px;
+    box-shadow:6px 8px 0 var(--ink); transform-origin:top right;
+  }
+  .fig-card.on{ display:flex; flex-direction:column; justify-content:flex-end; }
+  .fig-card.is-feature{ flex-grow:1; }
+  .fig-card.is-strip{ flex-grow:0; flex-basis:82px; padding:14px 8px; }
+  .fig-card.is-strip .fig-copy{ writing-mode:vertical-rl; rotate:180deg; }
+  .fig-card.is-strip p,.fig-card.is-strip .icon-line{ display:none; }
+  .fig-photo{ position:absolute; inset:0; background-size:cover; background-position:center 18%; opacity:0; }
+  #figCard1 .fig-photo{ background-image:url('kobe.jpg'); }
+  #figCard2 .fig-photo{ background-image:url('kpop.jpg'); }
+  #figCard3 .fig-photo{ background-image:url('habibie.jpg'); }
+  .fig-wash{ position:absolute; inset:0; opacity:0; background:linear-gradient(180deg,rgba(255,90,95,.3),transparent 60%); }
+  .fig-card::after{ content:''; position:absolute; inset:0; background:linear-gradient(180deg,transparent 35%, rgba(27,27,27,.8)); }
+  .fig-copy{ position:relative; z-index:2; color:#fff; }
+  .fig-no{ font-size:2.1rem; color:var(--sun); }
+  .fig-card b{ display:block; margin:.35rem 0 .4rem; }
+  .fig-card p{ font-size:.86rem; color:rgba(255,255,255,.88); }
+  .icon-line{ width:22px; height:22px; color:var(--sun); margin-bottom:auto; }
+  .fig-card.is-feature,.fig-card.pinned{ box-shadow:8px 10px 0 var(--coral); }
+
+  /* SBS polaroid */
+  #slidePillars{ padding:3vh 6vw 3vh; }
+  .sbs-art{
+    position:relative; flex:1; min-height:0; margin:16px auto 0; width:min(860px,92%);
+    background:#fff; border:3px solid var(--ink); padding:12px 12px 36px;
+    transform:rotate(-2deg); box-shadow:10px 12px 0 var(--ink); opacity:0;
+  }
+  .sbs-art.fade.on{ opacity:1; }
+  .sbs-art::before{
+    content:''; position:absolute; left:18px; top:-14px; width:86px; height:28px;
+    background:#ffe566cc; border:2px dashed var(--ink); transform:rotate(-6deg);
+  }
+  .sbs-art img{ width:100%; height:calc(100% - 8px); object-fit:contain; display:block; }
+  #sbsBody{ margin-top:14px; max-width:58ch; }
+
+  /* thermometers */
+  .dash-stage{ height:100%; display:flex; flex-direction:column; padding:4vh 6vw 3vh; }
+  #dashWrap{ flex:1; display:grid; grid-template-columns:280px 1fr; gap:36px; align-items:center; }
+  .qr-center{ text-align:center; }
+  .qr-box{ background:#fff; border:3px solid var(--ink); padding:12px; display:inline-flex; border-radius:16px; box-shadow:5px 6px 0 var(--ink); }
+  #qrcodeEl{ width:200px; height:200px; }
+  .qr-caption{ font-size:.75rem; font-weight:700; color:var(--muted); margin-top:8px; word-break:break-all; }
+  .dash-total{ font-weight:800; margin-bottom:8px; }
+  .dash-total b{ color:var(--coral); font-size:1.6rem; }
+  .thermo-list{ display:flex; gap:22px; align-items:flex-end; height:min(46vh,320px); }
+  .thermo{ display:flex; flex-direction:column; align-items:center; gap:8px; flex:1; height:100%; }
+  .thermo span{ font-size:.62rem; font-weight:800; text-transform:uppercase; text-align:center; }
+  .hist-track{
+    flex:1; width:36px; background:#fff; border:3px solid var(--ink); border-radius:99px;
+    display:flex; align-items:flex-end; overflow:hidden;
+  }
+  .hist-fill{ width:100%; height:0; border-radius:99px 99px 0 0; }
+  #bar-Reaktif{ background:var(--coral); }
+  #bar-Bergantung{ background:var(--sun); }
+  #bar-Mandiri{ background:var(--aqua); }
+  #bar-Interdependen{ background:var(--grape); }
+  .thermo b{ font-size:1.15rem; }
+
+  /* close stamp */
+  .close-stage{ height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:6vh 8vw; }
+  .close-stamp{
+    width:150px; height:150px; border:6px solid var(--coral); color:var(--coral);
+    border-radius:50%; display:grid; place-items:center; margin-bottom:24px;
+    transform:rotate(-12deg); background:rgba(255,90,95,.08);
+  }
+  .close-stamp span{ font-size:1.4rem; letter-spacing:.16em; }
+  .close-quote{ max-width:18ch; }
+  .close-lede{ margin-top:18px; }
+  .closing-note{ margin-top:12px; font-size:.72rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--muted-2); }
+
+  #studentApp{ position:fixed; inset:0; background:var(--page); display:none; z-index:100;
+    flex-direction:column; padding:6vh 5vw 8vh; overflow:auto; }
+  #studentApp.active{ display:flex; }
+  body:has(#studentApp.active) .washi,
+  body:has(#studentApp.active) .sticker-nav,
+  body:has(#studentApp.active) .navbtn,
+  body:has(#studentApp.active) .guide-btn{ display:none; }
+  #studentApp .wrap{ width:min(92vw,560px); margin:auto; }
+  #studentApp h1{ font-family:'Bricolage Grotesque',sans-serif; font-size:2rem; }
+  #studentApp p.sub{ color:var(--muted); margin:8px 0 22px; }
+  .survey-progress{ color:var(--coral); font-weight:800; margin-bottom:10px; }
+  .survey-card{ background:#fff; border:3px solid var(--ink); padding:24px; border-radius:18px; box-shadow:6px 8px 0 var(--ink); }
+  .survey-text{ font-size:1.12rem; margin-bottom:16px; }
+  .choice-row{ display:flex; flex-direction:column; gap:10px; }
+  .choice-btn{
+    text-align:left; min-height:48px; padding:14px; border:2px solid var(--ink);
+    background:#fff; cursor:pointer; font:inherit; border-radius:12px;
+  }
+  .choice-btn:hover,.choice-btn.picked{ background:var(--sun); }
+  .survey-nav{ display:flex; justify-content:flex-end; margin-top:14px; }
+  .result-level{ font-family:'Bricolage Grotesque',sans-serif; font-size:2rem; color:var(--coral); }
+  .result-desc{ color:var(--muted); margin-bottom:12px; }
+  .result-step{ border-left:4px solid var(--aqua); padding:10px 12px; }
+  .sending-msg{ color:var(--muted-2); font-size:.85rem; margin-top:10px; }
+
+  @media (max-width:900px){
+    .hero-kit,.id-stage,#dashWrap{ grid-template-columns:1fr; }
+    .career-row{ grid-template-columns:1fr 1fr; }
+    .id-stamps{ flex-direction:row; }
+    .stamp{ width:88px; height:88px; }
+    .fig-board{ flex-direction:column; }
+    .fig-card.is-strip{ flex-basis:auto; }
+    .fig-card.is-strip .fig-copy{ writing-mode:horizontal-tb; rotate:none; }
+    .vs-stage{ flex-direction:column; }
+    .thermo-list{ height:220px; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .fade,.fade.on,.slide,.w{ animation:none; transition:none; opacity:1; }
+    .fig-photo{ opacity:.92; }
+    .sbs-art{ transform:none; }
+  }
+</style>
+</head>
+<body>
+<div class="kit-blobs" aria-hidden="true"><i></i><i></i><i></i></div>
+<div id="slideWipe" aria-hidden="true"></div>
+
+<header class="washi" aria-hidden="true">
+  <span class="washi-brand">KIT <b>PKKMB</b></span>
+  <div class="sticker-tabs" id="railLetters">
+    <button type="button" data-jump="0">A</button>
+    <button type="button" data-jump="2">B</button>
+    <button type="button" data-jump="5">C</button>
+    <button type="button" data-jump="7">D</button>
+    <button type="button" data-jump="8">E</button>
+  </div>
+  <div class="washi-progress"><i id="progressFill"></i></div>
+  <div class="washi-step" id="railStep">01</div>
+  <div class="washi-count" id="slideCount">01 / 09</div>
+</header>
+
+<div id="deck">
+
+  <section class="slide active" id="slideHero" data-steps="3" data-section="A · Opening">
+    <div class="slide-inner">
+      <div class="hero-blob" id="heroMark" aria-hidden="true"></div>
+      <div class="hero-kit">
+        <div class="hero-copy" id="heroHud">
+          <p class="kicker fade" data-step="1" id="heroKicker">PKKMB Politeknik Sinar Mas Berau Coal · TA 2026/2027</p>
+          <h1 class="h-xl">
+            <span class="fade" data-step="1" id="heroL1">Yang kelihatan di panggung itu bakat.</span>
+            <span class="fade" data-step="2" id="heroL2">Yang bikin kamu dipanggil lagi itu <em id="heroEm">jam yang sama</em>, diulang.</span>
+          </h1>
+          <p class="lede fade" data-step="3" id="heroLede">Sesi Kedisiplinan di Dunia Industri bersama <em>Jimmi Idris</em> — GM OHS PT Berau Coal. Bukan ceramah “jangan telat”, tapi cara industri memilih orang yang bisa diandalkan.</p>
+          <div class="hero-chips fade" data-step="3" id="heroChips">
+            <span class="chip">Kit pembekalan</span>
+            <span class="chip">± 55 menit</span>
+            <span class="chip">Bawa HP — ada survei</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" id="slideProfile" data-steps="3" data-section="A · Opening">
+    <div class="profile-scan" id="profileScan" aria-hidden="true"></div>
+    <div class="slide-inner">
+      <div class="id-stage">
+        <div>
+          <p class="kicker fade" data-step="1">Fig. 00 · Kartu tamu</p>
+          <div class="id-card fade" data-step="1">
+            <h2 class="id-name" id="pfName">Jimmi Idris</h2>
+            <p class="id-role" id="pfRole">General Manager OHS · PT Berau Coal</p>
+            <p class="lede" id="pfLede">Dua dekade di pit Indonesia dan Australia. Yang dia bawa ke sini: keselamatan itu bukan poster di gerbang — itu kebiasaan yang membuat orang pulang utuh.</p>
+            <div class="otag-row">
+              <span class="otag fade" data-step="2"><span class="n">1999–04</span> Unsri · Tambang</span>
+              <span class="otag fade" data-step="2"><span class="n">2019–20</span> ITB · MBA</span>
+              <span class="otag fade" data-step="2"><span class="n">2021</span> GM OHS</span>
+              <span class="otag fade" data-step="2">Mining Eyes</span>
+            </div>
+          </div>
+          <div class="career-row fade" id="profileRail" data-step="3">
+            <i id="profileSpineFill" hidden></i>
+            <div class="career-item profile-job" data-rank="1"><b>2004–08 · Planning</b><p>Koba Tin &amp; Thiess — rencana harian, ISO &amp; OHSAS.</p></div>
+            <div class="career-item profile-job" data-rank="2"><b>2009–17 · Engineer</b><p>Bukit Asam, GSM, Fortescue — fleet &amp; surface miner di AU.</p></div>
+            <div class="career-item profile-job" data-rank="3"><b>2017–22 · Mine Mgr</b><p>Berau Coal — pit, produksi, kontraktor Kaltim.</p></div>
+            <div class="career-item profile-job" data-rank="4"><b>2021–kini · GM OHS</b><p>Transformasi K3 untuk ribuan orang di operasi.</p></div>
+          </div>
+        </div>
+        <div class="id-stamps">
+          <div class="stamp fade" data-step="2"><b id="pfYears">0+</b><span>tahun lapangan</span></div>
+          <div class="stamp fade" data-step="2"><b id="pfSites">0</b><span>negara operasi</span></div>
+          <div class="stamp fade" data-step="2"><b>21 th</b><span>ID / AU</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" id="slide2" data-steps="3" data-section="B · Disiplin">
+    <div class="slide-inner">
+      <div class="streak-stage">
+        <div>
+          <p class="kicker fade" data-step="1" id="stKicker">Fig. 01 · Kalian sudah jago — salah tempat</p>
+          <h2 class="h-lg fade" data-step="1" id="stHead">Nunggu drop Shopee. Nonton jam tayang. Cek HP 80 kali. Itu <em>disiplin</em>.</h2>
+        </div>
+        <div class="duo-board fade" id="streakGridWrap" data-step="2">
+          <div class="duo-count">
+            <div class="duo-flame" id="duoFlame" aria-hidden="true">✓</div>
+            <div class="streak-num"><span id="stNum">0</span></div>
+            <span class="duo-badge" id="duoBadge">HADIR</span>
+          </div>
+          <div class="duo-cal" id="streakGrid">
+            <div class="duo-wdays" aria-hidden="true">
+              <span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span><span>Jum</span><span>Sab</span><span>Min</span>
+            </div>
+            <div class="duo-cells">
+              <div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div>
+              <div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div>
+              <div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div>
+            </div>
+          </div>
+          <div class="duo-pops" id="duoPops" aria-hidden="true"></div>
+        </div>
+        <p class="body-txt fade" id="stBody" data-step="3">Ototnya sudah ada. Tinggal dipindah: APD sebelum masuk area, pre-start sebelum mesin hidup, duduk di kelas sebelum dosen mulai. Industri tidak butuh bakat baru — butuh kebiasaan yang sudah kalian punya, di tempat yang benar.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" id="slidePct" data-steps="1" data-section="B · Disiplin">
+    <div class="slide-inner">
+      <div class="pct-stage">
+        <div class="pct-ticker">
+          <p class="kicker fade" data-step="1" id="pctFig">Fig. 02 · Bunga majemuk, bukan motivasi</p>
+          <h2 class="h-lg">
+            <span class="fade" data-step="1" id="pctLineA">Naik 1% tiap hari bukan poster.</span>
+            <span class="fade" data-step="1" id="pctLineB">Itu <em class="pct-x" id="pctXVal">37×</em> di akhir tahun — atau nyaris nol kalau bolos kecil diulang.</span>
+          </h2>
+        </div>
+        <div class="pct-art fade" id="pctChartWrap" data-step="1">
+          <canvas id="pctCanvas"></canvas>
+          <div class="pct-label up" id="pctLabUp">+1% / hari</div>
+          <div class="pct-label down" id="pctLabDown">−1% / hari</div>
+        </div>
+        <div class="pct-hud" id="pctHud">
+          <div class="pct-hud-k" id="pctHudK">Hari ke-0</div>
+          <div class="pct-hud-v" id="pctHudV">1,00×</div>
+        </div>
+        <p class="body-txt pct-body-dock fade" data-step="1" id="pctBody">Di kampus: satu tugas ditunda terasa remeh. Di site: satu pre-start dilewati terasa remeh. Dua-duanya majemuk. Industri membaca pola, bukan momen heroik sekali.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" id="slideVs" data-steps="3" data-section="B · Disiplin">
+    <div class="vs-wash vs-wash-a" id="vsWashA"></div>
+    <div class="vs-wash vs-wash-b" id="vsWashB"></div>
+    <div class="slide-inner">
+      <div class="vs-head">
+        <p class="kicker fade" data-step="1" id="vsKicker">Fig. 03 · Kartu koleksi</p>
+        <h2 class="h-lg">
+          <span class="fade" data-step="1" id="vsH1">Messi dibicarakan karena rasa.</span>
+          <span class="fade" data-step="1" id="vsH2"><em>Ronaldo</em> dibicarakan karena jam tidur dan jam latihan.</span>
+        </h2>
+      </div>
+      <div class="vs-stage fade" id="vsStage" data-step="2">
+        <div class="vs-card vs-a" id="cuBoxA">
+          <span class="vs-photo" aria-hidden="true"></span>
+          <div class="vs-num" id="cuNumA">0</div>
+          <span class="vs-cap" id="vsCapA">No. 10 · Bakat yang dijaga</span>
+        </div>
+        <div class="vs-mid">
+          <i class="vs-rule" id="vsRuleL"></i>
+          <span class="vs-mark" id="vsMark">VS</span>
+          <i class="vs-rule" id="vsRuleR"></i>
+        </div>
+        <div class="vs-card vs-b" id="cuBoxB">
+          <span class="vs-photo" aria-hidden="true"></span>
+          <div class="vs-num" id="cuNumB">0</div>
+          <span class="vs-cap" id="vsCapB">No. 7 · Rutinitas ketat</span>
+        </div>
+      </div>
+      <p class="body-txt vs-body-dock fade" id="vsBody" data-step="3">Dua-duanya masih kompetitif jauh melewati usia “wajar” atlet. Bukan karena bakat abadi. Karena yang satu menjaga rasa dengan kerja, yang satu membangun kerja sampai rasa ikut datang. Kampus sama: nilai bagus tanpa jam yang sama tidak bertahan sampai site.</p>
+    </div>
+  </section>
+
+  <section class="slide" id="slideFigures" data-steps="4" data-section="C · Fondasi">
+    <div class="slide-inner">
+      <div class="fig-head">
+        <p class="kicker fade" data-step="1" id="figKicker">Fig. 04 · Tiga stiker, satu lem</p>
+        <h2 class="h-lg fade" data-step="1" id="figTitle">Basket, trainee, pesawat — lemnya selalu <em>jam yang diulang</em></h2>
+      </div>
+      <div class="fig-board" id="figureRows">
+        <div class="fig-card pinable fade" data-step="2" id="figCard1">
+          <span class="fig-photo" aria-hidden="true"></span>
+          <span class="fig-wash" aria-hidden="true"></span>
+          <div class="fig-copy">
+            <div class="fig-no">01</div>
+            <svg class="icon-line" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.4"/><path d="M12 3v18M3 12h18" stroke="currentColor" stroke-width="1.1"/></svg>
+            <b>Kobe · sebelum subuh</b>
+            <p>Yang orang sebut “Mamba” itu bukan aura. Itu gym kosong, berulang, bertahun-tahun sebelum kamera datang.</p>
+          </div>
+        </div>
+        <div class="fig-card pinable fade" data-step="3" id="figCard2">
+          <span class="fig-photo" aria-hidden="true"></span>
+          <span class="fig-wash" aria-hidden="true"></span>
+          <div class="fig-copy">
+            <div class="fig-no">02</div>
+            <svg class="icon-line" viewBox="0 0 24 24" fill="none"><path d="M12 3l2.4 6.5 6.9.2-5.5 4.3 2 6.6-5.8-4-5.8 4 2-6.6-5.5-4.3 6.9-.2z" stroke="currentColor" stroke-width="1.1"/></svg>
+            <b>Trainee K-pop</b>
+            <p>Panggung 3 menit. Latihan harian bertahun-tahun: vokal, tari, makan, tidur. Sempurna yang kelihatan = ribuan hari yang tidak.</p>
+          </div>
+        </div>
+        <div class="fig-card pinable fade" data-step="4" id="figCard3">
+          <span class="fig-photo" aria-hidden="true"></span>
+          <span class="fig-wash" aria-hidden="true"></span>
+          <div class="fig-copy">
+            <div class="fig-no">03</div>
+            <svg class="icon-line" viewBox="0 0 24 24" fill="none"><path d="M3 20L19 6l-3 8 3 4-9-3z" stroke="currentColor" stroke-width="1.2"/></svg>
+            <b>Habibie · meja Jerman</b>
+            <p>Pesawat pertama Indonesia bukan lompatan inspirasi. Itu disiplin belajar yang ketat, lama, sebelum ada upacara.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" id="slidePillars" data-steps="3" data-section="C · Fondasi">
+    <div class="slide-inner" style="display:flex;flex-direction:column;height:100%;">
+      <p class="kicker fade" data-step="1" id="sbsKicker">Fig. 05 · Dari kampus ke siklus site</p>
+      <h2 class="h-lg fade" data-step="1" id="sbsTitle">SBS hanya hidup kalau ada orang yang <em>mengulang</em> gap–audit</h2>
+      <div class="sbs-art fade" id="sbsRoot" data-step="2">
+        <img src="sbs.png" width="1672" height="941" alt="Diagram Sistem Bekerja Selamat">
+      </div>
+      <p class="body-txt fade" data-step="3" id="sbsBody">Empat pilar dan lima layer di kertas tidak menyelamatkan siapa pun. Yang menyelamatkan: pre-start yang tidak dilewati, temuan yang tidak ditutupin, audit yang tidak dinilai “acara”. Kebiasaan kampus — datang, kerjakan, tegur teman — itu bahan bakar siklus ini.</p>
+    </div>
+  </section>
+
+  <section class="slide" id="slideDash" data-steps="2" data-section="D · Interaktif">
+    <div class="slide-inner">
+      <div class="dash-stage">
+        <div>
+          <p class="kicker fade" data-step="1" id="dashKicker">Fig. 06 · Termometer angkatan</p>
+          <h2 class="h-lg fade" data-step="1" id="dashTitle">Jujur dulu: disiplin kalian di level mana?</h2>
+        </div>
+        <div class="fade" data-step="2" id="dashWrap">
+          <div class="qr-center">
+            <div class="dash-total">SUDAH MENGISI <b id="totalCount">0</b></div>
+            <div class="qr-box" id="qrBox"><div id="qrcodeEl"></div></div>
+            <p class="qr-caption">Scan — anonim<br><span id="linkText"></span></p>
+          </div>
+          <div>
+            <div class="thermo-list">
+              <div class="thermo"><div class="hist-track"><div class="hist-fill" id="bar-Reaktif"></div></div><b id="cnt-Reaktif">0</b><span>Reaktif</span></div>
+              <div class="thermo"><div class="hist-track"><div class="hist-fill" id="bar-Bergantung"></div></div><b id="cnt-Bergantung">0</b><span>Bergantung</span></div>
+              <div class="thermo"><div class="hist-track"><div class="hist-fill" id="bar-Mandiri"></div></div><b id="cnt-Mandiri">0</b><span>Mandiri</span></div>
+              <div class="thermo"><div class="hist-track"><div class="hist-fill" id="bar-Interdependen"></div></div><b id="cnt-Interdependen">0</b><span>Interdependen</span></div>
+            </div>
+            <button class="btn-outline" id="dashResetBtn">Reset data (sebelum acara)</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" id="slideClose" data-steps="3" data-section="E · Penutup">
+    <div class="slide-inner">
+      <div class="close-stage">
+        <div class="close-stamp fade" data-step="1" id="closeStamp"><span>HADIR</span></div>
+        <h2 class="h-lg close-quote fade" data-step="2" id="closeQuote">Bakat bikin kamu masuk foto. <em>Jam yang sama</em> bikin kamu tetap di dalam frame.</h2>
+        <p class="lede close-lede fade" data-step="3" id="closeLede">Mulai dari yang kecil: datang, pakai APD, kerjakan bagianmu, tegur teman. Itu sudah cukup untuk hari pertama industri.</p>
+        <p class="closing-note fade" data-step="3" id="closeNote">Politeknik Sinar Mas Berau Coal · Kit PKKMB</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<button class="navbtn" id="prev">‹</button>
+<button class="navbtn" id="next">›</button>
+<button class="guide-btn" id="guideBtn" type="button" aria-label="Panduan">i</button>
+<div class="deck-chrome" aria-hidden="true">
+  <span id="sectionTag" hidden></span>
+  <span id="stepCount" hidden></span>
+  <span id="stepDots"></span>
+</div>
+<div class="sticker-nav" aria-hidden="true"><div id="nav"></div></div>
+
+<div id="guide">
+  <div class="guide-card">
+    <h3>Cara menjalankan kit</h3>
+    <div class="guide-row"><b>← · →</b><span>Slide sebelumnya / berikutnya</span></div>
+    <div class="guide-row"><b>Space · klik · ↓</b><span>Langkah berikutnya di dalam slide</span></div>
+    <div class="guide-row"><b>↑ · Backspace</b><span>Langkah sebelumnya</span></div>
+    <div class="guide-row"><b>Hover · klik kartu</b><span>Pin stiker fondasi</span></div>
+    <div class="guide-row"><b>A · B · C · D · E</b><span>Loncat ke section</span></div>
+    <div class="guide-row"><b>R</b><span>Kembali ke slide pertama</span></div>
+    <div class="guide-row"><b>U</b><span>Ulangi slide ini dari langkah 1</span></div>
+    <p class="guide-foot">Klik di luar, Escape, atau i untuk menutup</p>
+  </div>
+</div>
+
+<div id="studentApp">
+  <div class="wrap">
+    <h1>Level Maturitas Disiplin</h1>
+    <p class="sub">5 pertanyaan singkat. Jawab jujur — hasilnya langsung masuk ke layar depan (anonim).</p>
+    <div class="survey-progress" id="surveyProgress">Pertanyaan 1 / 5</div>
+    <div class="survey-card" id="surveyCard">
+      <div class="survey-text" id="surveyText"></div>
+      <div class="choice-row" id="surveyChoiceRow"></div>
+    </div>
+    <div class="survey-nav"><button class="btn-outline" id="surveyNextBtn" style="display:none;">Lanjut</button></div>
+  </div>
+</div>
+
+<script>
+  const QUESTIONS = [
+    { text:"Kalau dosen tidak pernah mengecek kehadiran secara ketat, kamu biasanya...", options:[
+      {label:"Kadang tidak masuk kalau merasa tidak penting", score:1},
+      {label:"Tetap masuk karena takut nilai absensi berkurang", score:2},
+      {label:"Tetap masuk karena itu sudah jadi komitmen pribadi", score:3},
+      {label:"Tetap masuk, dan ingatkan teman yang mau bolos", score:4}
+    ]},
+    { text:"Saat tugas kelompok dan tidak ada yang mengecek pembagian kerja, kamu...", options:[
+      {label:"Kerjakan bagian minimal, yang penting selesai", score:1},
+      {label:"Kerjakan sesuai arahan ketua kelompok saja", score:2},
+      {label:"Kerjakan penuh tanggung jawab walau tidak diawasi", score:3},
+      {label:"Bantu pastikan seluruh anggota tim juga selesai", score:4}
+    ]},
+    { text:"Melihat teman melanggar aturan kecil dan tidak ada yang tahu, kamu...", options:[
+      {label:"Diam saja, bukan urusanku", score:1},
+      {label:"Diam kalau tidak ada yang menegur duluan", score:2},
+      {label:"Saya sendiri tidak akan melakukannya", score:3},
+      {label:"Saya tegur baik-baik", score:4}
+    ]},
+    { text:"Soal rutinitas harian (bangun pagi, olahraga, belajar), kamu...", options:[
+      {label:"Jalan kalau ada jadwal penting saja", score:1},
+      {label:"Pakai banyak alarm/pengingat karena takut lewat", score:2},
+      {label:"Sudah jadi kebiasaan sendiri tanpa banyak pengingat", score:3},
+      {label:"Rutinitas saya juga jadi contoh buat teman sekitar", score:4}
+    ]},
+    { text:"Kalau capek atau malas, tapi ada komitmen yang harus diselesaikan, kamu...", options:[
+      {label:"Sering menunda sampai deadline mepet", score:1},
+      {label:"Selesaikan karena takut konsekuensinya", score:2},
+      {label:"Selesaikan karena sudah jadi prinsip pribadi", score:3},
+      {label:"Selesaikan, dan tetap dukung teman yang struggling juga", score:4}
+    ]}
+  ];
+  const LEVELS = [
+    { min:5, max:8, name:"Reaktif", desc:"Disiplin masih banyak bergantung pada rasa takut kena sanksi atau saat ada yang mengawasi. Wajar — ini titik awal semua orang.", step:"Langkah kecil: pilih satu rutinitas sederhana dan jalankan 7 hari tanpa alasan 'karena diawasi'." },
+    { min:9, max:12, name:"Bergantung", desc:"Kamu sudah cukup konsisten, tapi masih perlu aturan atau pengingat dari luar supaya tetap jalan.", step:"Langkah kecil: coba satu kebiasaan yang biasanya kamu lakukan 'karena disuruh' — lakukan tanpa pengingat sekali ini." },
+    { min:13, max:16, name:"Mandiri", desc:"Disiplin sudah jadi kebiasaan pribadi. Kamu konsisten walau tidak ada yang mengawasi — modal besar untuk dunia kerja.", step:"Langkah kecil: perhatikan orang di sekitarmu — apakah ada yang bisa kamu bantu tetap konsisten juga?" },
+    { min:17, max:20, name:"Interdependen", desc:"Disiplin kamu sudah menular — kamu membantu menjaga orang lain tetap di jalur yang benar. Ini level yang paling dicari di dunia industri.", step:"Pertahankan, dan pikirkan bagaimana membangun ini jadi budaya di lingkunganmu." }
+  ];
+  function levelFor(score){ return LEVELS.find(l=> score>=l.min && score<=l.max) || LEVELS[0]; }
+  const hasGsap = typeof gsap !== 'undefined';
+  const REDUCE_MOTION = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(hasGsap){
+    document.documentElement.classList.add('js-motion');
+    if(typeof TextPlugin !== 'undefined') gsap.registerPlugin(TextPlugin);
+  }
+
+  function countUp(el, to, duration, suffix){
+    if(!el) return;
+    if(hasGsap && !REDUCE_MOTION){
+      const obj = { n: 0 };
+      gsap.to(obj, { n:to, duration:duration/1000, ease:'back.out(1.4)', onUpdate(){ el.textContent = Math.round(obj.n) + (suffix||''); } });
+      return;
+    }
+    const start = performance.now();
+    (function step(now){
+      const p = Math.min((now-start)/duration, 1);
+      el.textContent = Math.round(to*(1-Math.pow(1-p,3))) + (suffix||'');
+      if(p<1) requestAnimationFrame(step);
+    })(start);
+  }
+
+  const pitMotion = (function(){
+    const tls = new Map();
+    const wrapped = new Set();
+    let hoverBound = false;
+    function $id(id){ return document.getElementById(id); }
+    function wrapWords(el){
+      if(!el || el.dataset.wrapped==='1') return el ? Array.from(el.querySelectorAll('.w')) : [];
+      el.dataset.origHtml = el.innerHTML;
+      el.dataset.wrapped = '1';
+      wrapped.add(el);
+      (function walk(node){
+        if(node.nodeType===3){
+          const parts = node.textContent.split(/(\s+)/);
+          const frag = document.createDocumentFragment();
+          parts.forEach(p=>{
+            if(!p) return;
+            if(/^\s+$/.test(p)){ frag.appendChild(document.createTextNode(p)); return; }
+            const s = document.createElement('span'); s.className='w'; s.textContent=p; frag.appendChild(s);
+          });
+          node.parentNode.replaceChild(frag, node);
+        } else if(node.nodeType===1){ Array.from(node.childNodes).forEach(walk); }
+      })(el);
+      return Array.from(el.querySelectorAll('.w'));
+    }
+    function unwrapWords(el){
+      if(!el || el.dataset.wrapped!=='1') return;
+      el.innerHTML = el.dataset.origHtml;
+      delete el.dataset.wrapped; delete el.dataset.origHtml;
+    }
+    function killSlide(index){ const tl=tls.get(index); if(tl){ tl.kill(); tls.delete(index); } }
+    function killAll(){
+      tls.forEach(t=> t.kill()); tls.clear();
+      wrapped.forEach(unwrapWords); wrapped.clear();
+    }
+    function featureFigs(step){
+      [1,2,3].forEach(i=>{
+        const el=$id('figCard'+i); if(!el) return;
+        const cardStep = i+1;
+        if(step>=cardStep){
+          if(i === step-1){ el.classList.add('is-feature'); el.classList.remove('is-strip'); }
+          else { el.classList.add('is-strip'); el.classList.remove('is-feature'); }
+        } else {
+          el.classList.remove('is-feature','is-strip');
+        }
+      });
+    }
+    function play(index, n, prev){
+      if(!hasGsap) return;
+      if(REDUCE_MOTION){ settle(index, n); return; }
+      if(n < prev){ if(index===5) featureFigs(n); return; }
+      killSlide(index);
+      const tl = gsap.timeline({ defaults:{ duration:0.5, ease:'power3.out' } });
+      tls.set(index, tl);
+      const fns = [hero, profile, streak, pct, vs, figures, sbsStep, dash, close];
+      if(fns[index]) fns[index](tl, n, prev);
+    }
+    function hero(tl, n, prev){
+      if(n>=1 && prev<1){
+        const mark=$id('heroMark'), k=$id('heroKicker'), l1=$id('heroL1');
+        if(mark) tl.fromTo(mark, {scale:0.4, rotate:-12, opacity:0}, {scale:1, rotate:0, opacity:1, duration:0.8, ease:'back.out(1.6)'}, 0);
+        if(k) tl.fromTo(k, {y:16, opacity:0}, {y:0, opacity:1, duration:0.4}, 0.16);
+        if(l1) tl.fromTo(l1, {y:22, opacity:0, rotate:-2}, {y:0, opacity:1, rotate:0, duration:0.5}, 0.22);
+      }
+      if(n>=2 && prev<2){
+        const l2=$id('heroL2'), em=$id('heroEm');
+        if(l2) tl.fromTo(l2, {y:20, opacity:0}, {y:0, opacity:1, duration:0.5}, 0);
+        if(em) tl.fromTo(em, {scale:0.92}, {scale:1, duration:0.35, ease:'back.out(2)'}, 0.3);
+      }
+      if(n>=3 && prev<3){
+        const lede=$id('heroLede'); const chips=$id('heroChips')?$id('heroChips').querySelectorAll('.chip'):[];
+        if(lede) tl.fromTo(lede, {y:16, opacity:0}, {y:0, opacity:1, duration:0.45}, 0);
+        if(chips.length) tl.fromTo(chips, {scale:0.7, rotate:-8, opacity:0}, {scale:1, rotate:0, opacity:1, stagger:0.08, ease:'back.out(1.7)'}, 0.1);
+      }
+    }
+    function profile(tl, n, prev){
+      if(n>=1 && prev<1){
+        const card=document.querySelector('.id-card'), name=$id('pfName');
+        if(card) tl.fromTo(card, {y:-40, rotate:-8, opacity:0}, {y:0, rotate:-1.5, opacity:1, duration:0.65, ease:'back.out(1.5)'}, 0);
+        if(name) tl.fromTo(name, {y:12, opacity:0}, {y:0, opacity:1, duration:0.4}, 0.15);
+      }
+      if(n>=2 && prev<2){
+        const stamps=document.querySelectorAll('#slideProfile .stamp');
+        const tags=document.querySelectorAll('#slideProfile .otag');
+        tl.fromTo(stamps, {scale:0.4, rotate:20, opacity:0}, {scale:1, rotate:0, opacity:1, stagger:0.1, ease:'back.out(1.8)'}, 0);
+        tl.fromTo(tags, {y:10, opacity:0}, {y:0, opacity:1, stagger:0.05}, 0.16);
+      }
+    }
+    function streak(tl, n, prev){
+      if(n>=1 && prev<1){
+        const k=$id('stKicker'), head=$id('stHead');
+        if(k) tl.fromTo(k, {y:12, opacity:0}, {y:0, opacity:1, duration:0.35}, 0);
+        if(head){ const words=wrapWords(head); gsap.set(words,{y:12,opacity:0}); tl.to(words,{y:0,opacity:1,stagger:0.035,ease:'expo.out'},0.08); }
+      }
+      if(n>=2 && prev<2){
+        const board=$id('streakGridWrap'), flame=$id('duoFlame'), num=$id('stNum'), cal=$id('streakGrid');
+        if(board) tl.fromTo(board, {y:16, opacity:0}, {y:0, opacity:1, duration:0.4}, 0);
+        if(flame) tl.fromTo(flame, {scale:0.3, rotate:-20, opacity:0}, {scale:1, rotate:0, opacity:1, duration:0.5, ease:'back.out(2)'}, 0.05);
+        if(num) tl.fromTo(num, {scale:0.5, opacity:0}, {scale:1, opacity:1, duration:0.5, ease:'back.out(1.7)'}, 0.08);
+        if(cal) tl.fromTo(cal, {y:14, opacity:0}, {y:0, opacity:1, duration:0.4}, 0.14);
+      }
+      if(n>=3 && prev<3){
+        const body=$id('stBody');
+        if(body) tl.fromTo(body, {y:14, opacity:0}, {y:0, opacity:1, duration:0.4}, 0);
+      }
+    }
+    function pct(){
+      gsap.set('#pctFig,#pctLineA,#pctLineB,#pctChartWrap,#pctBody', {opacity:1, x:0, y:0});
+    }
+    function vs(tl, n, prev){
+      if(n>=1 && prev<1){
+        const k=$id('vsKicker'), a=$id('vsH1'), b=$id('vsH2');
+        if(k) tl.fromTo(k, {y:12, opacity:0}, {y:0, opacity:1, duration:0.35}, 0);
+        if(a) tl.fromTo(a, {y:14, opacity:0}, {y:0, opacity:1, duration:0.4}, 0.08);
+        if(b) tl.fromTo(b, {y:14, opacity:0}, {y:0, opacity:1, duration:0.4}, 0.18);
+      }
+      if(n>=3 && prev<3){
+        const body=$id('vsBody');
+        if(body) tl.fromTo(body, {y:12, opacity:0}, {y:0, opacity:1, duration:0.4}, 0);
+      }
+    }
+    function figures(tl, n, prev){
+      if(n>=1 && prev<1){
+        const k=$id('figKicker'), t=$id('figTitle');
+        if(k) tl.fromTo(k, {y:12, opacity:0}, {y:0, opacity:1, duration:0.35}, 0);
+        if(t) tl.fromTo(t, {y:14, opacity:0}, {y:0, opacity:1, duration:0.45}, 0.08);
+      }
+      if(n>=2) featureFigs(n);
+    }
+    function sbsStep(tl, n, prev){
+      if(n>=1 && prev<1){
+        const k=$id('sbsKicker'), t=$id('sbsTitle');
+        if(k) tl.fromTo(k, {y:12, opacity:0}, {y:0, opacity:1, duration:0.35}, 0);
+        if(t) tl.fromTo(t, {y:14, opacity:0}, {y:0, opacity:1, duration:0.4}, 0.08);
+      }
+      if(n>=2 && prev<2){
+        const root=$id('sbsRoot');
+        if(root) tl.fromTo(root, {rotate:-10, y:24, opacity:0}, {rotate:-2, y:0, opacity:1, duration:0.7, ease:'back.out(1.4)'}, 0);
+      }
+      if(n>=3 && prev<3){
+        const body=$id('sbsBody');
+        if(body) tl.fromTo(body, {y:12, opacity:0}, {y:0, opacity:1, duration:0.4}, 0);
+      }
+    }
+    function dash(tl, n, prev){
+      if(n>=1 && prev<1){
+        const k=$id('dashKicker'), t=$id('dashTitle');
+        if(k) tl.fromTo(k, {y:12, opacity:0}, {y:0, opacity:1, duration:0.35}, 0);
+        if(t) tl.fromTo(t, {y:14, opacity:0}, {y:0, opacity:1, duration:0.45}, 0.08);
+      }
+      if(n>=2 && prev<2){
+        const qr=$id('qrBox');
+        const thermos=document.querySelectorAll('.thermo');
+        if(qr) tl.fromTo(qr, {scale:0.85, rotate:-6, opacity:0}, {scale:1, rotate:0, opacity:1, duration:0.55, ease:'back.out(1.5)'}, 0);
+        if(thermos.length) tl.fromTo(thermos, {y:20, opacity:0}, {y:0, opacity:1, stagger:0.08, ease:'back.out(1.3)'}, 0.12);
+      }
+    }
+    function close(tl, n, prev){
+      if(n>=1 && prev<1){
+        const stamp=$id('closeStamp');
+        if(stamp) tl.fromTo(stamp, {scale:2.2, rotate:20, opacity:0}, {scale:1, rotate:-12, opacity:1, duration:0.7, ease:'back.out(1.8)'}, 0);
+      }
+      if(n>=2 && prev<2){
+        const q=$id('closeQuote');
+        if(q){
+          const words=wrapWords(q);
+          gsap.set(words,{y:12,opacity:0});
+          tl.to(words,{y:0,opacity:1,stagger:0.04,ease:'expo.out'},0);
+        }
+      }
+      if(n>=3 && prev<3){
+        const lede=$id('closeLede'), note=$id('closeNote');
+        if(lede) tl.fromTo(lede, {y:14, opacity:0}, {y:0, opacity:1, duration:0.4}, 0);
+        if(note) tl.fromTo(note, {y:10, opacity:0}, {y:0, opacity:1, duration:0.4}, 0.1);
+      }
+    }
+    function settle(index, n){
+      if(!hasGsap) return;
+      gsap.set('#heroMark,#heroKicker,#heroL1,#heroL2,#heroLede,#heroChips .chip', {opacity:1, x:0, y:0, scale:1, rotate:0});
+      gsap.set('#pctFig,#pctLineA,#pctLineB,#pctChartWrap,#pctBody', {opacity:1, x:0, y:0});
+      const stamp=$id('closeStamp'); if(stamp) gsap.set(stamp, {scale:1, rotate:-12, opacity:1});
+      ['stHead','closeQuote'].forEach(id=>{ const el=$id(id); if(el) unwrapWords(el); });
+      if(index===5) featureFigs(n||4);
+      const sbs=$id('sbsRoot'); if(sbs) gsap.set(sbs, {opacity:1, rotate:-2, y:0});
+    }
+    function wipe(done){
+      const el=$id('slideWipe');
+      if(!hasGsap || REDUCE_MOTION || !el){ done(); return; }
+      gsap.killTweensOf(el);
+      gsap.set(el, {display:'block', clipPath:'circle(0% at 50% 50%)'});
+      gsap.timeline()
+        .to(el, {clipPath:'circle(75% at 50% 50%)', duration:0.22, ease:'power2.in'})
+        .add(done)
+        .to(el, {clipPath:'circle(0% at 50% 50%)', duration:0.26, ease:'power2.out'})
+        .set(el, {display:'none'});
+    }
+    function init(){
+      if(!hasGsap || hoverBound || REDUCE_MOTION) return;
+      hoverBound = true;
+      document.querySelectorAll('.stamp, .fig-card, .vs-card').forEach(el=>{
+        el.addEventListener('mouseenter', ()=> gsap.to(el, {y:-6, duration:0.2, ease:'power2.out', overwrite:'auto'}));
+        el.addEventListener('mouseleave', ()=>{
+          const keep = el.classList.contains('pinned') || el.classList.contains('is-feature');
+          gsap.to(el, {y: keep ? -6 : 0, duration:0.2, ease:'power2.out', overwrite:'auto'});
+        });
+      });
+    }
+    return { play, killAll, wipe, init, featureFigs };
+  })();
+  const pctChart = (function(){
+    const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const DURATION = 11;
+    const HOLD = 1.4;
+    const $id = (id) => document.getElementById(id);
+    const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
+    const range = (t,a,b) => clamp((t-a)/(b-a), 0, 1);
+    const lerp = (a,b,u) => a+(b-a)*u;
+    const easeOut = (t) => 1 - Math.pow(1-t, 3);
+    const easeInOut = (t) => t<.5 ? 2*t*t : 1 - Math.pow(-2*t+2, 2)/2;
+    let playing = false, start = 0, raf = 0, pausedAt = 0, gen = 0, ctx = null, hudPopped = false, punched = false;
+    function canvas(){ return $id('pctCanvas'); }
+    function wrap(){ return $id('pctChartWrap'); }
+    function sizeCanvas(){
+      const c = canvas(), wEl = wrap();
+      if(!c || !wEl) return false;
+      ctx = c.getContext('2d');
+      const dpr = Math.min(devicePixelRatio||1, 2);
+      const w = wEl.clientWidth, h = wEl.clientHeight;
+      if(w<2 || h<2) return false;
+      c.width = Math.round(w*dpr); c.height = Math.round(h*dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      return true;
+    }
+    function layout(){
+      const wEl = wrap(); const w = wEl.clientWidth, h = wEl.clientHeight;
+      return { x0:48, y0:h-48, x1:w-80, y1:88, w:w-128, h:h-136, yMax:h-12 };
+    }
+    function pointUp(u, L){
+      const days = u*365; const val = Math.pow(1.01, days);
+      const yNorm = (val-1)/(Math.pow(1.01,365)-1);
+      return { x:L.x0 + u*L.w, y:L.y0 - yNorm*L.h, days, val };
+    }
+    function pointDown(u, L){
+      const days = u*365; const val = Math.pow(0.99, days);
+      const drop = (1-val)/(1-Math.pow(0.99,365));
+      return { x:L.x0 + u*L.w, y:Math.min(L.y0 + drop*L.h*0.18, L.yMax), days, val };
+    }
+    function trace(progress, getPoint, L){
+      const n = 140; const last = Math.max(1, Math.floor(n*progress));
+      ctx.beginPath();
+      for(let i=0;i<=last;i++){
+        const p = getPoint(i/n, L);
+        if(i===0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
+      }
+      return getPoint(last/n, L);
+    }
+    function drawAxes(L, a){
+      ctx.save(); ctx.globalAlpha = a;
+      ctx.strokeStyle = 'rgba(27,27,27,.16)'; ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.moveTo(L.x0, L.y1); ctx.lineTo(L.x0, L.y0); ctx.lineTo(L.x1, L.y0); ctx.stroke();
+      ctx.fillStyle = 'rgba(27,27,27,.45)';
+      ctx.font = '800 12px Nunito, sans-serif';
+      ctx.fillText('0', L.x0-4, L.y0+24); ctx.fillText('365 hari', L.x1-64, L.y0+24);
+      ctx.restore();
+    }
+    function placeLabel(el, p, dx, dy, opacity){
+      if(!el) return; el.style.opacity = opacity; el.style.left = (p.x+dx)+'px'; el.style.top = (p.y+dy)+'px';
+    }
+    function fmtMult(val){
+      if(val>=37) return '37×';
+      if(val<10) return val.toFixed(2).replace('.',',')+'×';
+      if(val<20) return val.toFixed(1).replace('.',',')+'×';
+      return val.toFixed(0)+'×';
+    }
+    function frame(t){
+      const c = canvas(); if(!c || !ctx) return;
+      const L = layout(); ctx.clearRect(0,0,c.width,c.height);
+      const chartIn = easeOut(range(t,0,0.45));
+      drawAxes(L, chartIn);
+      const drawP = easeInOut(range(t,0.35,9.0));
+      const downP = easeInOut(range(t,0.55,7.4));
+      const hud = $id('pctHud'); if(hud) hud.style.opacity = range(t,0.45,1.15)*(1-range(t,8.5,9.8));
+      if(hud && range(t,0.45,1.15)>0.2 && !hudPopped && hasGsap && !REDUCE){
+        hudPopped = true;
+        gsap.fromTo(hud, {scale:0.86, rotate:-4}, {scale:1, rotate:0, duration:0.4, ease:'back.out(1.4)'});
+      }
+      if(drawP>0){
+        ctx.save(); ctx.lineCap='round'; ctx.lineJoin='round';
+        ctx.strokeStyle='#6B4CFF'; ctx.lineWidth=2.2; ctx.globalAlpha=.85;
+        const endDown = trace(downP, pointDown, L); ctx.stroke(); ctx.restore();
+        ctx.save(); ctx.lineCap='round'; ctx.lineJoin='round';
+        ctx.strokeStyle='#FF5A5F'; ctx.shadowColor='rgba(255,90,95,.35)'; ctx.shadowBlur=10; ctx.lineWidth=3.4;
+        const endUp = trace(drawP, pointUp, L); ctx.stroke();
+        ctx.beginPath(); ctx.fillStyle='#FF5A5F'; ctx.arc(endUp.x,endUp.y,6,0,Math.PI*2); ctx.fill(); ctx.restore();
+        const live = pointUp(drawP, L);
+        const hudK=$id('pctHudK'), hudV=$id('pctHudV');
+        if(hudK) hudK.textContent='Hari ke-'+Math.round(live.days);
+        if(hudV) hudV.textContent=fmtMult(live.val);
+        placeLabel($id('pctLabUp'), endUp, 14, -18, easeOut(range(t,6.4,8.0)));
+        placeLabel($id('pctLabDown'), endDown, 14, 6, easeOut(range(t,5.8,7.4)));
+      } else {
+        placeLabel($id('pctLabUp'), {x:0,y:0}, 0, 0, 0);
+        placeLabel($id('pctLabDown'), {x:0,y:0}, 0, 0, 0);
+      }
+      const punch = easeOut(range(t,8.3,9.7));
+      const countP = easeInOut(range(t,0.5,9.2));
+      const shown = Math.pow(1.01, countP*365);
+      const xEl=$id('pctXVal');
+      if(xEl){ xEl.textContent = punch<0.08 ? fmtMult(shown) : '37×'; if(!punched) xEl.style.transform='scale('+lerp(0.86,1,punch)+')'; }
+      if(punch>=0.02 && !punched && hasGsap && !REDUCE && xEl){
+        punched = true;
+        gsap.fromTo(xEl, {scale:0.86}, {scale:1.1, duration:0.28, ease:'expo.out', yoyo:true, repeat:1, onComplete(){ gsap.set(xEl, {scale:1}); }});
+      }
+    }
+    function restartCycle(now){
+      hudPopped=false; punched=false;
+      if(hasGsap){
+        const hud=$id('pctHud'), xEl=$id('pctXVal');
+        if(hud) gsap.killTweensOf(hud);
+        if(xEl){ gsap.killTweensOf(xEl); gsap.set(xEl, {scale:1}); }
+      }
+      start=now;
+    }
+    function tick(now){
+      if(!playing) return;
+      let t=(now-start)/1000;
+      if(t>=DURATION+HOLD){ restartCycle(now); t=0; }
+      const drawT=Math.min(t, DURATION);
+      pausedAt=drawT; frame(drawT); raf=requestAnimationFrame(tick);
+    }
+    function stop(){ gen++; playing=false; hudPopped=false; punched=false; if(raf){ cancelAnimationFrame(raf); raf=0; } }
+    function play(){
+      stop(); const my=gen; let tries=0;
+      function go(){
+        if(my!==gen) return;
+        if(!sizeCanvas()){ if(++tries<10){ requestAnimationFrame(go); return; } return; }
+        if(REDUCE){ frame(DURATION); pausedAt=DURATION; return; }
+        frame(0); start=performance.now(); playing=true; raf=requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(go);
+    }
+    addEventListener('resize', ()=>{
+      const wEl=wrap(); if(!wEl || wEl.offsetParent===null) return;
+      sizeCanvas(); const t=playing?(performance.now()-start)/1000:pausedAt; frame(Math.min(t||0, DURATION));
+    }, {passive:true});
+    return { play, stop };
+  })();
+
+  const streakAnim = (function(){
+    const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const FILLED=16, TARGET=47;
+    const $id=(id)=>document.getElementById(id);
+    let gen=0, tl=null;
+    function cells(){ const g=$id('streakGrid'); return g?Array.from(g.querySelectorAll('.streak-day')):[]; }
+    function pops(){ return $id('duoPops'); }
+    function resetVisual(){
+      const num=$id('stNum'), flame=$id('duoFlame'), badge=$id('duoBadge'), layer=pops();
+      cells().forEach(c=>{
+        c.classList.remove('on','spark');
+        if(hasGsap) gsap.set(c, {scale:1, y:0});
+      });
+      if(num){ num.textContent='0'; if(hasGsap) gsap.set(num, {scale:1}); }
+      if(flame){ flame.classList.remove('is-lit'); if(hasGsap) gsap.set(flame, {scale:1, rotate:0}); }
+      if(badge && hasGsap) gsap.set(badge, {opacity:0, scale:0.6});
+      if(layer) layer.innerHTML='';
+    }
+    function showFinal(){
+      const num=$id('stNum'), flame=$id('duoFlame'), badge=$id('duoBadge');
+      cells().forEach((c,i)=> c.classList.toggle('on', i<FILLED));
+      if(num) num.textContent=String(TARGET);
+      if(flame) flame.classList.add('is-lit');
+      if(badge && hasGsap) gsap.set(badge, {opacity:1, scale:1});
+    }
+    function popXp(cell, label){
+      const layer=pops(); if(!layer || !cell) return;
+      const el=document.createElement('span');
+      el.className='duo-xp';
+      el.textContent=label;
+      const cr=cell.getBoundingClientRect();
+      const lr=layer.getBoundingClientRect();
+      el.style.left=(cr.left-lr.left+cr.width*0.5)+'px';
+      el.style.top=(cr.top-lr.top-4)+'px';
+      layer.appendChild(el);
+      gsap.fromTo(el, {y:8, opacity:0, scale:0.55}, {
+        y:-38, opacity:1, scale:1, duration:0.22, ease:'back.out(2)',
+        onComplete(){ gsap.to(el, {y:-58, opacity:0, duration:0.38, ease:'power2.in', onComplete(){ el.remove(); }}); }
+      });
+    }
+    function lightCell(i){
+      const list=cells();
+      const cell=list[i];
+      if(!cell) return;
+      list.forEach(c=> c.classList.remove('spark'));
+      cell.classList.add('on','spark');
+      gsap.fromTo(cell, {scale:0.4, rotate:-12}, {scale:1.12, rotate:0, duration:0.22, ease:'back.out(2.4)',
+        onComplete(){ gsap.to(cell, {scale:1, duration:0.16, ease:'power2.out'}); }
+      });
+      popXp(cell, '+1');
+      const flame=$id('duoFlame');
+      if(flame){
+        flame.classList.add('is-lit');
+        gsap.fromTo(flame, {scale:0.86, rotate:-8}, {scale:1, rotate:0, duration:0.28, ease:'back.out(2.2)'});
+      }
+      const num=$id('stNum');
+      if(num){
+        num.textContent=String(Math.round(TARGET*((i+1)/FILLED)));
+        gsap.fromTo(num, {scale:0.86}, {scale:1.08, duration:0.16, ease:'back.out(2.6)',
+          onComplete(){ gsap.to(num, {scale:1, duration:0.18, ease:'power2.out'}); }
+        });
+      }
+    }
+    function celebrate(){
+      const num=$id('stNum'), flame=$id('duoFlame'), badge=$id('duoBadge');
+      const on=cells().filter(c=>c.classList.contains('on'));
+      if(num){
+        num.textContent=String(TARGET);
+        gsap.fromTo(num, {scale:1}, {scale:1.18, duration:0.22, yoyo:true, repeat:1, ease:'back.out(2)'});
+      }
+      if(on.length) gsap.fromTo(on, {scale:1}, {scale:1.1, duration:0.16, stagger:0.03, yoyo:true, repeat:1, ease:'back.out(2.2)'});
+      if(flame) gsap.fromTo(flame, {scale:1, rotate:0}, {scale:1.2, rotate:8, duration:0.16, yoyo:true, repeat:3, ease:'power2.inOut'});
+      if(badge) gsap.fromTo(badge, {opacity:0, scale:0.5, y:10}, {opacity:1, scale:1, y:0, duration:0.38, ease:'back.out(2)'});
+    }
+    function stop(){
+      gen++;
+      if(tl){ tl.kill(); tl=null; }
+      if(hasGsap){
+        gsap.killTweensOf(cells());
+        const num=$id('stNum'), flame=$id('duoFlame'), badge=$id('duoBadge');
+        if(num) gsap.killTweensOf(num);
+        if(flame) gsap.killTweensOf(flame);
+        if(badge) gsap.killTweensOf(badge);
+      }
+      resetVisual();
+    }
+    function play(){
+      stop();
+      const my=gen;
+      if(REDUCE || !hasGsap){ showFinal(); return; }
+      tl=gsap.timeline({
+        repeat:-1, repeatDelay:0.55,
+        onRepeat(){ if(my!==gen) return; resetVisual(); }
+      });
+      for(let i=0;i<FILLED;i++){
+        tl.call(lightCell, [i], i===0 ? 0.28 : '+=0.13');
+      }
+      tl.call(celebrate, null, '+=0.28');
+      tl.to({}, {duration:1.7});
+    }
+    return { play, stop };
+  })();
+
+  const profileAnim = (function(){
+    const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let timers=[], gen=0, reached=0, careerTl=null;
+    function later(ms,fn){ const id=setTimeout(fn,ms); timers.push(id); }
+    function jobs(){ return Array.from(document.querySelectorAll('#profileRail .profile-job')); }
+    function resetJobs(){
+      jobs().forEach(j=>{
+        j.classList.remove('on','lit');
+        if(hasGsap) gsap.set(j, {opacity:0, y:16});
+        else j.style.opacity='0';
+      });
+    }
+    function stop(){
+      gen++; reached=0; timers.forEach(clearTimeout); timers=[];
+      if(careerTl){ careerTl.kill(); careerTl=null; }
+      resetJobs();
+      const years=document.getElementById('pfYears'); const sites=document.getElementById('pfSites');
+      if(years) years.textContent='0+'; if(sites) sites.textContent='0';
+    }
+    function stats(my){
+      const years=document.getElementById('pfYears'); const sites=document.getElementById('pfSites');
+      later(120, ()=>{ if(my===gen && years) countUp(years,21,1100,'+'); });
+      later(220, ()=>{ if(my===gen && sites) countUp(sites,2,800); });
+    }
+    function career(my){
+      const list=jobs();
+      if(hasGsap && !REDUCE){
+        careerTl = gsap.timeline();
+        list.forEach((j,i)=>{
+          careerTl.fromTo(j, {y:18, rotate:-4, opacity:0}, {y:0, rotate:0, opacity:1, duration:0.4, ease:'back.out(1.4)', onStart(){
+            if(my!==gen) return;
+            list.forEach(x=> x.classList.remove('lit'));
+            j.classList.add('on','lit');
+          }}, i*0.12);
+        });
+        return;
+      }
+      list.forEach((j,i)=>{
+        later(80+i*120, ()=>{
+          if(my!==gen) return;
+          j.style.opacity='1'; j.classList.add('on','lit');
+        });
+      });
+    }
+    function apply(level){
+      if(level<reached) stop();
+      const my=gen;
+      if(REDUCE){
+        const years=document.getElementById('pfYears'); const sites=document.getElementById('pfSites');
+        if(years) years.textContent='21+'; if(sites) sites.textContent='2';
+        if(level>=3){
+          jobs().forEach(j=>{ j.style.opacity='1'; j.classList.add('on'); if(hasGsap) gsap.set(j,{opacity:1,y:0}); });
+        }
+        reached=level; return;
+      }
+      if(level>=1 && reached<1){ reached=1; }
+      if(level>=2 && reached<2){ stats(my); reached=2; }
+      if(level>=3 && reached<3){ career(my); reached=3; }
+    }
+    return { apply, stop, play(level){ apply(level==null?3:level); } };
+  })();
+  const vsAnim = (function(){
+    const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let timers=[], gen=0, tweens=[];
+    function later(ms,fn){ const id=setTimeout(fn,ms); timers.push(id); }
+    function count(el,to,duration){
+      if(!el) return;
+      if(hasGsap){
+        const obj={ n:0 };
+        const tw=gsap.to(obj,{ n:to, duration:duration/1000, ease:'power3.out', onUpdate(){ el.textContent=String(Math.round(obj.n)); } });
+        tweens.push(tw); return;
+      }
+      const my=gen; const start=performance.now();
+      (function step(now){
+        if(my!==gen) return;
+        const p=Math.min((now-start)/duration,1);
+        el.textContent=String(Math.round(to*(1-Math.pow(1-p,3))));
+        if(p<1) requestAnimationFrame(step);
+      })(start);
+    }
+    function box(id){ return document.getElementById(id); }
+    function reset(){
+      ['cuBoxA','cuBoxB'].forEach(id=>{ const el=box(id); if(el){ el.classList.remove('show','hit','locked'); if(hasGsap) gsap.set(el,{opacity:0,x:0,rotate:id==='cuBoxB'?2:-2,scale:1}); } });
+      const a=box('cuNumA'), b=box('cuNumB'); if(a) a.textContent='0'; if(b) b.textContent='0';
+      const mark=box('vsMark'); if(mark && hasGsap) gsap.set(mark,{opacity:0,scale:0.5});
+      ['vsRuleL','vsRuleR'].forEach(id=>{ const r=box(id); if(r && hasGsap) gsap.set(r,{width:0}); });
+      ['vsCapA','vsCapB'].forEach(id=>{ const c=box(id); if(c && hasGsap) gsap.set(c,{opacity:0}); });
+    }
+    function showFinal(){
+      const a=box('cuNumA'), b=box('cuNumB');
+      if(a) a.textContent='10'; if(b) b.textContent='7';
+      ['cuBoxA','cuBoxB'].forEach(id=>{ const el=box(id); if(el){ el.classList.add('show','locked'); if(hasGsap) gsap.set(el,{opacity:1,x:0,scale:1}); } });
+      const mark=box('vsMark'); if(mark && hasGsap) gsap.set(mark,{opacity:1,scale:1});
+      ['vsRuleL','vsRuleR'].forEach(id=>{ const r=box(id); if(r && hasGsap) gsap.set(r,{width:48}); });
+      ['vsCapA','vsCapB'].forEach(id=>{ const c=box(id); if(c && hasGsap) gsap.set(c,{opacity:1}); });
+    }
+    function stop(){ gen++; timers.forEach(clearTimeout); timers=[]; tweens.forEach(t=>{ try{ t.kill(); }catch(e){} }); tweens=[]; }
+    function play(){
+      stop(); const my=gen; reset(); if(REDUCE){ showFinal(); return; }
+      later(80, ()=>{
+        if(my!==gen) return;
+        const wrap=box('cuBoxA'); const a=box('cuNumA');
+        if(wrap && hasGsap){ wrap.classList.add('show'); tweens.push(gsap.fromTo(wrap, {x:-70, rotate:-8, opacity:0}, {x:0, rotate:-2, opacity:1, duration:0.55, ease:'back.out(1.4)'})); }
+        else if(wrap) wrap.classList.add('show');
+        if(a) count(a,10,720);
+      });
+      later(780, ()=>{
+        if(my!==gen) return;
+        const wrap=box('cuBoxA');
+        if(wrap){ wrap.classList.add('hit','locked'); if(hasGsap) tweens.push(gsap.fromTo(wrap, {scale:1}, {scale:1.04, duration:0.2, yoyo:true, repeat:1, ease:'expo.out'})); }
+      });
+      later(860, ()=>{
+        if(my!==gen) return;
+        const mark=box('vsMark');
+        if(mark && hasGsap) tweens.push(gsap.fromTo(mark, {scale:0.3, rotate:-20, opacity:0}, {scale:1, rotate:0, opacity:1, duration:0.5, ease:'back.out(1.8)'}));
+        ['vsRuleL','vsRuleR'].forEach(id=>{ const r=box(id); if(r && hasGsap) tweens.push(gsap.to(r, {width:48, duration:0.45, ease:'power3.out'})); });
+      });
+      later(1140, ()=>{
+        if(my!==gen) return;
+        const wrap=box('cuBoxB'); const b=box('cuNumB');
+        if(wrap && hasGsap){ wrap.classList.add('show'); tweens.push(gsap.fromTo(wrap, {x:70, rotate:8, opacity:0}, {x:0, rotate:2, opacity:1, duration:0.55, ease:'back.out(1.4)'})); }
+        else if(wrap) wrap.classList.add('show');
+        if(b) count(b,7,880);
+      });
+      later(2020, ()=>{
+        if(my!==gen) return;
+        const wrap=box('cuBoxB');
+        if(wrap){ wrap.classList.add('hit','locked'); if(hasGsap) tweens.push(gsap.fromTo(wrap, {scale:1}, {scale:1.04, duration:0.2, yoyo:true, repeat:1, ease:'expo.out'})); }
+        ['vsCapA','vsCapB'].forEach(id=>{ const c=box(id); if(c && hasGsap) tweens.push(gsap.to(c,{opacity:1,duration:0.3})); });
+      });
+    }
+    return { play, stop };
+  })();
+
+  const figAnim = (function(){
+    const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let tweens=[];
+    function card(i){ return document.getElementById('figCard'+i); }
+    function killTweens(){ tweens.forEach(t=>{ try{ t.kill(); }catch(e){} }); tweens=[]; }
+    function tw(t){ tweens.push(t); return t; }
+    function resetCard(i){
+      const el=card(i); if(!el || !hasGsap) return;
+      const photo=el.querySelector('.fig-photo');
+      const wash=el.querySelector('.fig-wash');
+      const bits=el.querySelectorAll('.fig-no, .icon-line, b, p');
+      if(photo) gsap.set(photo, {clearProps:'transform,opacity,scale'});
+      if(wash) gsap.set(wash, {clearProps:'opacity'});
+      if(bits.length) gsap.set(bits, {clearProps:'transform,opacity,x,y,scale'});
+      gsap.set(el, {clearProps:'rotate,opacity'});
+    }
+    function stop(){ killTweens(); [1,2,3].forEach(resetCard); }
+    function reveal(i){
+      const el=card(i); if(!el || !hasGsap) return;
+      const photo=el.querySelector('.fig-photo');
+      const wash=el.querySelector('.fig-wash');
+      const no=el.querySelector('.fig-no');
+      const icon=el.querySelector('.icon-line');
+      const title=el.querySelector('b');
+      const body=el.querySelector('p');
+      tw(gsap.fromTo(el, {rotate:18, y:-24, opacity:0, transformOrigin:'90% 8%'}, {rotate:0, y:0, opacity:1, duration:0.7, ease:'back.out(1.5)'}));
+      if(photo){
+        tw(gsap.fromTo(photo, {scale:1.2, opacity:0}, {scale:1, opacity:0.92, duration:1, ease:'power3.out'}));
+        tw(gsap.to(photo, {scale:1.08, duration:7.5, ease:'none', delay:1}));
+      }
+      if(wash) tw(gsap.fromTo(wash, {opacity:0}, {opacity:1, duration:0.25, yoyo:true, repeat:1, ease:'power2.out', delay:0.06}));
+      if(no) tw(gsap.fromTo(no, {y:20, opacity:0}, {y:0, opacity:1, duration:0.45, ease:'expo.out', delay:0.12}));
+      if(icon) tw(gsap.fromTo(icon, {scale:0.5, opacity:0}, {scale:1, opacity:1, duration:0.35, ease:'back.out(1.4)', delay:0.16}));
+      if(title) tw(gsap.fromTo(title, {y:16, opacity:0}, {y:0, opacity:1, duration:0.4, ease:'power3.out', delay:0.2}));
+      if(body) tw(gsap.fromTo(body, {y:12, opacity:0}, {y:0, opacity:1, duration:0.45, ease:'power3.out', delay:0.3}));
+    }
+    function collapse(i){
+      const el=card(i); if(!el || !hasGsap) return;
+      const photo=el.querySelector('.fig-photo');
+      if(photo) tw(gsap.to(photo, {scale:1.1, opacity:0.45, duration:0.5, ease:'power2.inOut', overwrite:'auto'}));
+    }
+    function settle(step){
+      killTweens();
+      [1,2,3].forEach(i=>{
+        const el=card(i); if(!el || !hasGsap) return;
+        const photo=el.querySelector('.fig-photo');
+        const wash=el.querySelector('.fig-wash');
+        const bits=el.querySelectorAll('.fig-no, .icon-line, b, p');
+        const shown=i+1<=step;
+        const feature=i===step-1;
+        if(photo) gsap.set(photo, {scale:feature?1:1.08, opacity:shown?(feature?0.92:0.45):0});
+        if(wash) gsap.set(wash, {opacity:0});
+        if(bits.length) gsap.set(bits, {opacity:1, x:0, y:0, scale:1});
+        gsap.set(el, {rotate:0, opacity:shown?1:0});
+      });
+    }
+    function play(step){
+      if(REDUCE || !hasGsap) return;
+      killTweens();
+      const incoming=step-1;
+      const outgoing=incoming-1;
+      if(outgoing>=1) collapse(outgoing);
+      if(incoming>=1 && incoming<=3) reveal(incoming);
+    }
+    return { play, stop, settle };
+  })();
+
+  function replaySlide(index){
+    pitMotion.killAll();
+    if(index!==1) profileAnim.stop();
+    if(index!==2) streakAnim.stop();
+    if(index!==3) pctChart.stop();
+    if(index!==4) vsAnim.stop();
+    if(index!==5) figAnim.stop();
+  }
+
+  function initDeck(){
+    const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const slides = Array.from(document.querySelectorAll('.slide'));
+    const navWrap = document.getElementById('nav');
+    const slideCount = document.getElementById('slideCount');
+    const stepCount = document.getElementById('stepCount');
+    const sectionTag = document.getElementById('sectionTag');
+    const progressFill = document.getElementById('progressFill');
+    const railStep = document.getElementById('railStep');
+    const guide = document.getElementById('guide');
+    let current=0, step=1;
+    slides.forEach((s,i)=>{
+      const d=document.createElement('div'); d.className='dot'+(i===0?' active':'');
+      d.addEventListener('click', ()=> goTo(i)); navWrap.appendChild(d);
+    });
+    document.querySelectorAll('#railLetters button').forEach(btn=>{
+      btn.addEventListener('click', e=>{ e.stopPropagation(); goTo(parseInt(btn.dataset.jump,10)); });
+    });
+    function maxStep(i){ return Math.max(1, parseInt(slides[i].dataset.steps||'1',10)); }
+    function applyFades(slideEl, n){
+      slideEl.querySelectorAll('[data-step]').forEach(el=>{
+        const need = parseInt(el.dataset.step,10) <= n;
+        const was = el.classList.contains('on');
+        if(need && !was){ el.classList.remove('on'); void el.offsetWidth; el.classList.add('on'); }
+        else if(!need){
+          el.classList.remove('on');
+          if(hasGsap) gsap.set(el, {clearProps:'opacity,transform,x,y,scale'});
+        }
+      });
+    }
+    function syncEngines(index, n, prev){
+      if(index===1) profileAnim.apply(n);
+      if(index===2){ if(n>=2 && prev<2) streakAnim.play(); if(n<2) streakAnim.stop(); }
+      if(index===3){ if(n>=1 && prev<1) pctChart.play(); if(n<1) pctChart.stop(); }
+      if(index===4){ if(n>=2 && prev<2) vsAnim.play(); if(n<2) vsAnim.stop(); }
+      if(index===5){
+        if(n<2) figAnim.stop();
+        else if(n>prev) figAnim.play(n);
+        else figAnim.settle(n);
+      }
+    }
+    function paintChrome(){
+      const total=maxStep(current);
+      if(stepCount) stepCount.textContent='Step '+String(step).padStart(2,'0')+' / '+String(total).padStart(2,'0');
+      if(slideCount) slideCount.textContent=String(current+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');
+      if(railStep) railStep.textContent=String(step).padStart(2,'0');
+      const sec=slides[current].dataset.section||'';
+      if(sectionTag) sectionTag.textContent=sec.replace(/^.*·\s*/,'') || sec;
+      if(progressFill) progressFill.style.width = (((current+step/total)/slides.length)*100)+'%';
+      const letter = (sec.match(/^[A-E]/)||['A'])[0];
+      document.querySelectorAll('#railLetters button').forEach(b=>{
+        b.classList.toggle('on', b.textContent===letter);
+      });
+    }
+    function setStep(n, opts){
+      const total=maxStep(current);
+      n=Math.max(1, Math.min(total,n));
+      const prev=(opts && opts.prev!=null)?opts.prev:step;
+      step=n;
+      applyFades(slides[current], REDUCE?total:n);
+      syncEngines(current, REDUCE?total:n, prev);
+      pitMotion.play(current, REDUCE?total:n, prev);
+      paintChrome();
+    }
+    function goTo(i){
+      if(i<0) i=slides.length-1; if(i>=slides.length) i=0; if(i===current) return;
+      if(goTo.busy) return;
+      goTo.busy = true;
+      const outgoing=slides[current];
+      pitMotion.wipe(()=>{
+        outgoing.classList.remove('active'); outgoing.classList.add('leaving');
+        setTimeout(()=> outgoing.classList.remove('leaving'), 280);
+        navWrap.children[current].classList.remove('active');
+        current=i; slides[current].classList.add('active'); navWrap.children[current].classList.add('active');
+        replaySlide(current); applyFades(slides[current], 0);
+        setStep(REDUCE?maxStep(current):1, {prev:0});
+        goTo.busy = false;
+      });
+    }
+    function nextStep(){ if(step<maxStep(current)) setStep(step+1,{prev:step}); else goTo(current+1); }
+    function prevStep(){ if(step>1) setStep(step-1,{prev:step}); else goTo(current-1); }
+    pitMotion.init();
+    replaySlide(0); applyFades(slides[0],0); setStep(REDUCE?maxStep(0):1,{prev:0});
+    document.getElementById('next').addEventListener('click', e=>{ e.stopPropagation(); goTo(current+1); });
+    document.getElementById('prev').addEventListener('click', e=>{ e.stopPropagation(); goTo(current-1); });
+    document.addEventListener('click', e=>{
+      if(guide.classList.contains('open')) return;
+      if(e.target.closest('button, a, input, textarea, .dot, .navbtn, .pinable, #studentApp, #guide, .guide-btn, .sticker-nav, .washi')) return;
+      nextStep();
+    });
+    document.querySelectorAll('.pinable').forEach(el=>{
+      el.addEventListener('click', e=>{
+        e.stopPropagation();
+        el.classList.toggle('pinned');
+        if(hasGsap && !REDUCE) gsap.to(el, {y: el.classList.contains('pinned') ? -6 : 0, duration:0.2, ease:'power2.out', overwrite:'auto'});
+      });
+    });
+    document.addEventListener('keydown', e=>{
+      if(e.target && /input|textarea/i.test(e.target.tagName)) return;
+      if(guide.classList.contains('open') && e.key!=='Escape' && e.key!=='i' && e.key!=='I') return;
+      if(e.key==='ArrowRight') goTo(current+1);
+      else if(e.key==='ArrowLeft') goTo(current-1);
+      else if(e.key===' ' || e.key==='ArrowDown' || e.key==='PageDown'){ e.preventDefault(); nextStep(); }
+      else if(e.key==='ArrowUp' || e.key==='Backspace' || e.key==='PageUp'){ e.preventDefault(); prevStep(); }
+      else if(e.key==='Escape') closeGuide();
+      else if(e.key==='i' || e.key==='I') toggleGuide();
+      else if(e.key==='r' || e.key==='R') goTo(0);
+      else if(e.key==='u' || e.key==='U'){ replaySlide(current); applyFades(slides[current],0); setStep(1,{prev:0}); }
+      else if(/^[a-eA-E]$/.test(e.key)){
+        const map={ a:0, b:2, c:5, d:7, e:8 }; goTo(map[e.key.toLowerCase()]);
+      }
+    });
+    function openGuide(){ guide.classList.add('open'); }
+    function closeGuide(){ guide.classList.remove('open'); }
+    function toggleGuide(){ guide.classList.toggle('open'); }
+    document.getElementById('guideBtn').addEventListener('click', e=>{ e.stopPropagation(); toggleGuide(); });
+    guide.addEventListener('click', e=>{ if(e.target===guide) closeGuide(); });
+    if(!sessionStorage.getItem('kit-guide-seen')){ openGuide(); sessionStorage.setItem('kit-guide-seen','1'); }
+  }
+
+  const surveyStore = (function(){
+    const NS='survey:';
+    const canApi = location.protocol!=='file:';
+    function keysWith(prefix){
+      const out=[];
+      try{ for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(k && k.startsWith(NS+prefix)) out.push(k.slice(NS.length)); } }catch(e){}
+      return out;
+    }
+    async function api(url, opts){
+      const r = await fetch(url, opts);
+      if(!r.ok) throw new Error('survey-api '+r.status);
+      return r.json();
+    }
+    return {
+      async list(prefix){
+        if(canApi){
+          try{
+            const data = await api('/api/survey');
+            if(data && Array.isArray(data.keys)) return data;
+          }catch(e){}
+        }
+        return { keys: keysWith(prefix||'resp:') };
+      },
+      async set(key, val, extra){
+        const level = (extra && extra.level) || String(key||'').split(':')[1];
+        if(canApi){
+          try{
+            const data = await api('/api/survey', {
+              method:'POST',
+              headers:{ 'Content-Type':'application/json' },
+              body: JSON.stringify({ level })
+            });
+            return !!(data && data.ok);
+          }catch(e){}
+        }
+        try{ localStorage.setItem(NS+key, val); return true; }catch(e){ return false; }
+      },
+      async deleteAll(){
+        if(canApi){
+          try{
+            const data = await api('/api/survey', { method:'DELETE' });
+            if(data && data.ok) return true;
+          }catch(e){}
+        }
+        keysWith('resp:').forEach((k)=>{ try{ localStorage.removeItem(NS+k); }catch(e){} });
+        return true;
+      }
+    };
+  })();
+
+  function initDashboard(){
+    const studentUrl = location.href.split('#')[0]+'#survey';
+    document.getElementById('linkText').textContent = studentUrl;
+    try{
+      new QRCode(document.getElementById('qrcodeEl'), { text:studentUrl, width:200, height:200, colorDark:'#1B1B1B', colorLight:'#FFFFFF' });
+    }catch(e){ console.error('QR generation failed', e); }
+    async function refreshCounts(){
+      try{
+        const res = await surveyStore.list('resp:');
+        const keys = (res && res.keys) ? res.keys : [];
+        const tally = (res && res.tally) ? Object.assign({ Reaktif:0, Bergantung:0, Mandiri:0, Interdependen:0 }, res.tally)
+          : { Reaktif:0, Bergantung:0, Mandiri:0, Interdependen:0 };
+        if(!res || !res.tally) keys.forEach(k=>{ const level=k.split(':')[1]; if(tally.hasOwnProperty(level)) tally[level]++; });
+        const total = (res && typeof res.total==='number') ? res.total : keys.length;
+        document.getElementById('totalCount').textContent=total;
+        Object.keys(tally).forEach(lvl=>{
+          const pct = total>0 ? Math.round((tally[lvl]/total)*100) : 0;
+          const bar=document.getElementById('bar-'+lvl); const cnt=document.getElementById('cnt-'+lvl);
+          if(bar) bar.style.height = pct+'%';
+          if(cnt) cnt.textContent = tally[lvl];
+        });
+      }catch(e){}
+    }
+    refreshCounts(); setInterval(refreshCounts, 4000);
+    addEventListener('storage', e=>{ if(e.key && e.key.indexOf('survey:resp:')===0) refreshCounts(); });
+    document.getElementById('dashResetBtn').addEventListener('click', async ()=>{
+      if(!confirm('Hapus semua data survey yang sudah masuk? Gunakan ini hanya sebelum acara dimulai.')) return;
+      try{
+        await surveyStore.deleteAll();
+        refreshCounts();
+      }catch(e){ console.error('Reset failed', e); }
+    });
+  }
+
+  function runStudentSurvey(){
+    let qIndex=0, totalScore=0, sending=false;
+    const progressEl=document.getElementById('surveyProgress');
+    const textEl=document.getElementById('surveyText');
+    const rowEl=document.getElementById('surveyChoiceRow');
+    const nextBtn=document.getElementById('surveyNextBtn');
+    const cardEl=document.getElementById('surveyCard');
+    function render(){
+      const q=QUESTIONS[qIndex];
+      progressEl.textContent='Pertanyaan '+(qIndex+1)+' / '+QUESTIONS.length;
+      textEl.textContent=q.text; rowEl.innerHTML=''; nextBtn.style.display='none';
+      q.options.forEach((opt,idx)=>{
+        const btn=document.createElement('button'); btn.type='button'; btn.className='choice-btn'; btn.textContent=opt.label;
+        btn.addEventListener('click', ()=> pick(idx)); rowEl.appendChild(btn);
+      });
+    }
+    function pick(idx){
+      const q=QUESTIONS[qIndex];
+      Array.from(rowEl.children).forEach((btn,i)=>{ btn.disabled=true; if(i===idx) btn.classList.add('picked'); });
+      totalScore += q.options[idx].score; nextBtn.style.display='inline-block';
+    }
+    nextBtn.addEventListener('click', async ()=>{
+      if(sending) return;
+      qIndex++;
+      if(qIndex<QUESTIONS.length){ render(); return; }
+      sending = true;
+      nextBtn.disabled = true;
+      nextBtn.style.display='none';
+      progressEl.textContent='Hasil kamu'; textEl.textContent=''; rowEl.innerHTML='';
+      const lvl=levelFor(totalScore);
+      const resultDiv=document.createElement('div');
+      resultDiv.innerHTML='<div class="result-level">'+lvl.name+'</div><p class="result-desc">'+lvl.desc+'</p><div class="result-step">'+lvl.step+'</div><p class="sending-msg" id="sendingMsg">Mengirim ke layar depan...</p>';
+      cardEl.appendChild(resultDiv);
+      try{
+        const key='resp:'+lvl.name+':'+Date.now()+'-'+Math.random().toString(36).slice(2);
+        const res=await surveyStore.set(key,'1',{ level:lvl.name });
+        document.getElementById('sendingMsg').textContent = res ? 'Terkirim. Lihat layar depan untuk sebaran seluruh angkatan.' : 'Gagal mengirim — coba refresh halaman.';
+      }catch(e){
+        const msg=document.getElementById('sendingMsg'); if(msg) msg.textContent='Gagal mengirim ke server — coba refresh halaman lalu ulangi.';
+      }finally{
+        sending = false;
+      }
+    });
+    render();
+  }
+
+  if(location.hash==='#survey'){
+    document.getElementById('studentApp').classList.add('active');
+    document.getElementById('deck').style.display='none';
+    runStudentSurvey();
+  } else {
+    initDeck();
+    initDashboard();
+  }
+</script>
+</body>
+</html>
