@@ -5,8 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kedisiplinan di Dunia Industri — Edisi Editorial</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&family=JetBrains+Mono:wght@400;500;600;700&family=Karla:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Baskerville:ital@1&family=Red+Hat+Mono:wght@500;600&family=Teko:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&family=JetBrains+Mono:wght@400;500;600;700&family=Karla:ital,wght@0,400;0,500;0,600;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400;1,700&family=Red+Hat+Mono:wght@500;600&family=Teko:wght@500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="vendor/jquery.min.js"></script>
+<script src="vendor/turn.js"></script>
 <script src="secret-pathways-assets/three.min.js"></script>
 <style>
   :root{
@@ -50,10 +52,10 @@
     background-size:cover; background-repeat:no-repeat;
     animation:heroDrift 26s ease-in-out infinite alternate; }
   @keyframes heroDrift{ from{ transform:scale(1) translate(0,0); } to{ transform:scale(1.07) translate(-1%,-1%); } }
-  /* video stands in for bg1.png on the hero: same box, same Ken Burns drift
-     (inherited from .photo-bg), object-fit takes over cropping since
-     background-size doesn't apply to a <video> element. */
-  video.photo-bg{ inset:0; width:100%; height:100%; object-fit:cover; object-position:75% center; }
+  #slideHero .photo-bg{
+    background-image:url('bg-cerah.png');
+    background-position:68% center;
+  }
   .photo-scrim{ position:absolute; inset:0; z-index:1; pointer-events:none;
     background:linear-gradient(90deg, rgba(255,255,255,.94) 0%, rgba(255,255,255,.72) 34%, rgba(255,255,255,.22) 60%, transparent 76%); }
 
@@ -62,10 +64,7 @@
      (far left) and the "SAFETY TODAY" signboard (far right) safe together. */
   #slide2 .photo-bg{ background-image:url('bg2.png'); background-position:center center; }
 
-  /* ---- hero ornament overlay: video.mp4 is the raw plate with no arc/dot
-     graphic baked in (bg1.png had it painted on), so it's redrawn here as a
-     live SVG layer sitting on top — same look, same corners, now animated
-     instead of static. ---- */
+  /* ---- hero ornament overlay: live SVG arc/dot layer on top of the photo. ---- */
   .hero-ornament{ position:absolute; inset:0; z-index:1; pointer-events:none; }
   .hero-ornament svg{ position:absolute; top:0; left:0; width:min(46vw,620px); height:auto; overflow:visible;
     animation:ornamentDrift 9s ease-in-out infinite alternate; }
@@ -222,15 +221,146 @@
   }
   #slidePct .pct-copy{ display:flex; flex-direction:column; min-width:0; min-height:0; }
   #slidePct .pct-book{
-    position:relative; min-height:0; height:min(64vh, 560px);
-    align-self:center; overflow:hidden; cursor:pointer;
+    position:relative; width:100%; min-width:280px;
+    height:min(68vh,560px); min-height:320px;
+    align-self:center; overflow:visible; z-index:3;
   }
-  #slidePct .pct-book canvas{ width:100%; height:100%; display:block; }
+  #slidePct .pct-flip-stage{ position:relative; width:100%; height:calc(100% - 28px); }
+  #slidePct .pct-hard{
+    position:absolute; inset:0; z-index:6;
+    display:flex; align-items:center; justify-content:center;
+    perspective:1100px; cursor:pointer;
+  }
+  #slidePct .pct-hard-3d{
+    position:relative; width:min(34vh,250px); height:min(48vh,380px);
+    transform-style:preserve-3d;
+    transform:rotateY(-32deg) rotateX(12deg);
+    animation:hardFloat 3.8s ease-in-out infinite;
+    filter:drop-shadow(18px 22px 16px rgba(18,36,26,.28));
+  }
+  #slidePct .pct-book.is-open .pct-hard{ opacity:0; pointer-events:none; transition:opacity .28s ease; }
+  #slidePct .pct-book.is-open .pct-hard-3d{ animation:none; }
+  @keyframes hardFloat{
+    0%,100%{ transform:rotateY(-32deg) rotateX(12deg) translateY(0); }
+    50%{ transform:rotateY(-26deg) rotateX(10deg) translateY(-7px); }
+  }
+  #slidePct .pct-hard-cover, #slidePct .pct-hard-back, #slidePct .pct-hard-pages, #slidePct .pct-hard-edge{
+    position:absolute; inset:0; border-radius:2px 4px 4px 2px;
+  }
+  #slidePct .pct-hard-cover{
+    z-index:4; transform:translateZ(16px);
+    background:
+      linear-gradient(90deg, #3D2A14 0 16px, transparent 16px),
+      linear-gradient(180deg, rgba(255,255,255,.12), transparent 28%, rgba(61,42,20,.08)),
+      repeating-linear-gradient(135deg, rgba(61,42,20,.04) 0 2px, transparent 2px 6px),
+      #E7D2A4;
+    color:#1A1610; padding:12% 10% 10% 16%;
+    display:flex; flex-direction:column;
+    box-shadow:inset -10px 0 16px rgba(61,42,20,.08);
+  }
+  #slidePct .pct-hard-back{ z-index:1; background:#2A2118; transform:translateZ(-16px) rotateY(180deg); }
+  #slidePct .pct-hard-pages{
+    z-index:2; inset:7px 6px 7px 10px;
+    background:repeating-linear-gradient(90deg,#F4EFE3 0 2px,#E4D6B4 2px 3px);
+    transform:translateZ(2px);
+  }
+  #slidePct .pct-hard-edge{
+    z-index:3; left:auto; width:18px; right:-16px;
+    background:linear-gradient(90deg,#C4A36A,#8A6B3D 40%,#3D2A14);
+    transform:rotateY(90deg) translateZ(9px); transform-origin:left center;
+  }
+  #slidePct .pct-hard-spine{
+    position:absolute; left:0; top:0; bottom:0; width:18px; z-index:5;
+    background:linear-gradient(90deg,#2A1C10,#3D2A14 40%,#5A3D1C);
+    transform:rotateY(-90deg) translateZ(9px); transform-origin:left center;
+  }
+  #slidePct .pct-hard-floor{
+    position:absolute; left:6%; right:-10%; bottom:-14px; height:18px; z-index:0;
+    background:radial-gradient(ellipse at center, rgba(18,36,26,.4) 0%, transparent 68%);
+    filter:blur(4px); pointer-events:none; transform:rotateX(70deg);
+  }
+  #pctBook{ margin:20px auto 0; cursor:pointer; background:transparent; box-shadow:none; }
+  #slidePct .pct-book:not(.is-open) #pctBook{ visibility:hidden; pointer-events:none; }
+  #pctBook .shadow, #pctBook .overlay, #pctBook .gradient, #pctBook .fyt, #pctBook .fpage{ background-image:none !important; }
+  #pctBook .shadow{ display:none !important; }
+  #slidePct .pct-book.is-open .pct-flip-stage::after{
+    content:''; position:absolute; left:16%; right:16%; bottom:10px; height:16px;
+    background:radial-gradient(ellipse, rgba(18,36,26,.22), transparent 72%);
+    pointer-events:none; z-index:0;
+  }
+  #pctBook .turn-page{ background-color:#F3EAD2; overflow:hidden; box-shadow:none; }
+  #pctBook .turn-page-wrapper{ box-shadow:none; }
+  #slidePct .pct-pg{ width:100%; height:100%; position:relative; overflow:hidden; box-sizing:border-box; }
+  #slidePct .pct-pg-cover{
+    background:
+      linear-gradient(90deg, #3D2A14 0 14px, transparent 14px),
+      repeating-linear-gradient(135deg, rgba(61,42,20,.035) 0 2px, transparent 2px 6px),
+      #E7D2A4;
+    color:#1A1610; padding:10% 11% 9% 14%;
+    display:flex; flex-direction:column;
+  }
+  #slidePct .pct-pg-cover .pct-pg-author,
+  #slidePct .pct-hard-cover .pct-pg-author{
+    font-family:'JetBrains Mono',monospace; font-size:.62rem;
+    letter-spacing:.32em; color:#8A6B3D; margin-bottom:1.1em;
+  }
+  #slidePct .pct-pg-cover h3,
+  #slidePct .pct-hard-cover h3{
+    font-family:'Libre Baskerville',Georgia,serif; font-weight:700;
+    font-size:clamp(1.35rem,2.8vw,2.1rem); line-height:.95; letter-spacing:-.02em;
+  }
+  #slidePct .pct-pg-ring{
+    width:48px; height:48px; border-radius:50%;
+    border:2px solid #B68A3A; margin:16px 0 0;
+    box-shadow:inset 0 0 0 10px #E7D2A4, inset 0 0 0 12px #B68A3A;
+  }
+  #slidePct .pct-pg-cover .pct-pg-sub,
+  #slidePct .pct-hard-cover .pct-pg-sub{
+    margin-top:auto; font-family:'Libre Baskerville',Georgia,serif;
+    font-style:italic; font-size:.82rem; color:#3D2A14; line-height:1.35;
+  }
+  #slidePct .pct-pg-back{
+    background:repeating-linear-gradient(135deg, rgba(231,210,164,.06) 0 2px, transparent 2px 6px), #2A2118;
+    color:#E7D2A4; padding:14% 12%;
+    display:flex; flex-direction:column; justify-content:center;
+  }
+  #slidePct .pct-pg-back p{
+    font-family:'Libre Baskerville',Georgia,serif; font-style:italic;
+    font-size:1.25rem; line-height:1.3;
+  }
+  #slidePct .pct-pg-back small{
+    margin-top:28px; font-family:'JetBrains Mono',monospace;
+    letter-spacing:.18em; font-size:.62rem; color:#C4A36A;
+  }
+  #slidePct .pct-pg-paper{
+    background:
+      linear-gradient(90deg, rgba(120,40,32,.35) 0 3px, transparent 3px),
+      repeating-linear-gradient(#C8B48A 0 0, transparent 0 28px, rgba(40,28,14,.12) 28px 29px),
+      #F3EAD2;
+    color:#14110C; padding:9% 9% 8% 12%;
+    display:flex; flex-direction:column;
+  }
+  #slidePct .pct-pg-k{
+    font-family:'JetBrains Mono',monospace; font-size:.58rem;
+    letter-spacing:.2em; color:#3D2A14; margin-bottom:1.4em;
+  }
+  #slidePct .pct-pg-paper h4{
+    font-family:'Libre Baskerville',Georgia,serif; font-weight:700;
+    font-size:clamp(1.05rem,1.9vw,1.45rem); line-height:1.25; margin-bottom:.55em;
+  }
+  #slidePct .pct-pg-paper .pct-pg-rule{ width:52px; height:3px; background:#6B4E1E; margin:0 0 14px; }
+  #slidePct .pct-pg-paper .pct-pg-en{
+    font-family:'Libre Baskerville',Georgia,serif; font-style:italic;
+    font-size:.82rem; line-height:1.45; color:#2A2118;
+  }
+  #slidePct .pct-pg-paper .pct-pg-by{
+    margin-top:auto; font-family:'JetBrains Mono',monospace;
+    font-size:.58rem; letter-spacing:.16em; color:#3D2A14;
+  }
   #slidePct .pct-book-hint{
-    position:absolute; left:50%; bottom:14px; transform:translateX(-50%);
-    z-index:2; font-size:.68rem; letter-spacing:.14em; text-transform:uppercase;
-    color:var(--muted-2); pointer-events:none;
-    transition:opacity .35s var(--ease-out);
+    position:absolute; left:50%; bottom:4px; transform:translateX(-50%);
+    z-index:4; font-size:.68rem; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--muted-2); pointer-events:none; white-space:nowrap;
   }
   #slidePct .pct-book.is-open .pct-book-hint{ opacity:0; }
 
@@ -596,96 +726,202 @@
     font-size:clamp(1.15rem,2vw,1.55rem); letter-spacing:.01em; color:var(--text);
   }
 
-  /* ---- speaker profile: one dense slide, all the bio without leaving the deck ---- */
-  .profile-grid{ display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr); gap:4.2vw; align-items:start; }
-  .profile-role{ font-family:'JetBrains Mono',monospace; font-size:.82rem; letter-spacing:.06em;
-    text-transform:uppercase; color:var(--muted); margin-top:.55rem; }
-  .profile-stats{ display:flex; gap:22px; margin-top:1.5rem; flex-wrap:wrap; }
-  .profile-stats b{ display:block; font-family:'JetBrains Mono',monospace; font-size:1.35rem; color:var(--green); font-weight:600; }
-  .profile-stats span{ font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); }
-  .profile-edu, .profile-focus{ display:flex; flex-wrap:wrap; gap:8px; margin-top:1.15rem; }
-  .profile-focus{ margin-top:12px; }
-  .profile-rail{ position:relative; padding-left:18px; margin-top:0; gap:8px; }
-  .profile-spine{
-    position:absolute; left:0; top:6px; bottom:6px; width:2px;
-    background:var(--line-soft); border-radius:2px; overflow:hidden;
+  /* ---- Fig. 00: LinkedIn page mock (same concept as pitboard-1) ---- */
+  #slideProfile{
+    --li:#0a66c2; --li-ink:#191919; --li-muted:#666;
+    --li-line:#e0e0e0; --li-bg:#f4f2ee;
+    padding:0; justify-content:stretch; overflow:hidden; background:var(--li-bg);
   }
-  .profile-spine i{
-    display:block; width:100%; height:0%; background:var(--green);
-    box-shadow:0 0 12px rgba(18,124,66,.75);
-    transition:height .5s var(--ease-out);
+  #slideProfile .slide-inner{ max-width:none; width:100%; height:100%; }
+  #slideProfile .profile-scan{
+    position:absolute; top:0; bottom:0; width:14%; left:0; z-index:4; opacity:0; pointer-events:none;
+    background:linear-gradient(90deg, transparent, rgba(10,102,194,.16), transparent);
   }
-  .profile-job{
-    padding:12px 16px; opacity:0; transform:translateX(22px);
-    transition:opacity .5s var(--ease-out), transform .55s var(--ease-out),
-      border-color .4s var(--ease-out), background .35s var(--ease-out);
+  #slideProfile.scanning .profile-scan{
+    animation:profileScanSweep 1.5s ease-in-out both;
   }
-  .profile-job .rh{ margin-bottom:2px; }
-  .profile-job .rh b{ font-size:.8rem; }
-  .profile-job p{ font-size:.82rem; margin:0; }
-  .profile-job.lit{
-    border-left-color:var(--green); background:rgba(18,124,66,.07);
-    transform:translateX(6px);
+  @keyframes profileScanSweep{
+    0%{ transform:translateX(-40%); opacity:1; }
+    100%{ transform:translateX(480%); opacity:0; }
   }
-  .profile-scan{
-    position:absolute; inset:0; pointer-events:none; overflow:hidden; z-index:3;
+  #slideProfile .profile-board{ height:100%; display:flex; }
+  #slideProfile .li-app{
+    width:100%; height:100%; display:flex; flex-direction:column; background:var(--li-bg);
+    font-family:'Karla',system-ui,sans-serif;
   }
-  .profile-scan span{
-    position:absolute; left:-8%; right:-8%; height:22%;
-    background:linear-gradient(180deg, transparent, rgba(18,124,66,.14), transparent);
-    transform:translateY(-120%); opacity:0;
+  #slideProfile .li-nav{
+    flex:0 0 52px; background:#fff; border-bottom:1px solid var(--li-line);
+    display:flex; align-items:center; justify-content:center; gap:28px; padding:0 24px;
+    pointer-events:none; z-index:3;
   }
-  #slideProfile.scanning .profile-scan span{
-    animation:profileScan 1.7s var(--ease-out) .15s both;
+  #slideProfile .li-nav-left, #slideProfile .li-nav-right{ display:flex; align-items:center; gap:8px; }
+  #slideProfile .li-logo{
+    width:34px; height:34px; border-radius:4px; background:var(--li); color:#fff;
+    display:grid; place-items:center; font-weight:700; font-size:1.15rem; letter-spacing:-.04em;
   }
-  @keyframes profileScan{
-    0%{ transform:translateY(-120%); opacity:0; }
-    18%{ opacity:1; }
-    100%{ transform:translateY(480%); opacity:0; }
+  #slideProfile .li-search{
+    width:min(280px,22vw); height:34px; border-radius:4px; background:#edf3f8; color:#666;
+    display:flex; align-items:center; gap:8px; padding:0 12px; font-size:.86rem;
   }
-
-  /* LinkedIn career stamp: reserved collapse until step 3 afterglow */
-  .li-stamp{
-    display:grid; grid-template-rows:0fr; opacity:0; margin-top:0;
-    transition:grid-template-rows .5s var(--ease-out), opacity .45s var(--ease-out), margin-top .45s var(--ease-out);
+  #slideProfile .li-nav-item{
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    min-width:64px; color:#666; font-size:.68rem; gap:2px; position:relative;
   }
-  .li-stamp.show{ grid-template-rows:1fr; opacity:1; margin-top:.8rem; }
-  .li-stamp-inner{ overflow:hidden; min-height:0; }
-  .li-link{
-    display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit;
-    min-height:44px; width:fit-content; max-width:100%;
+  #slideProfile .li-nav-item svg{ width:22px; height:22px; fill:currentColor; }
+  #slideProfile .li-nav-item.is-on{ color:var(--li-ink); }
+  #slideProfile .li-nav-item.is-on::after{
+    content:''; position:absolute; left:8px; right:8px; bottom:-8px; height:2px; background:var(--li-ink);
   }
-  .li-mark{
-    flex:0 0 38px; width:38px; height:38px; color:#0A66C8;
-    transform:scale(.72); opacity:0;
-    filter:drop-shadow(0 0 0 rgba(10,102,200,0));
-    transition:transform .5s cubic-bezier(.34,1.4,.64,1), opacity .35s ease, filter .6s ease;
+  #slideProfile .li-badge{
+    position:absolute; top:-2px; right:14px; min-width:16px; height:16px; padding:0 4px;
+    border-radius:8px; background:#cc1016; color:#fff; font-size:10px; font-weight:700;
+    display:grid; place-items:center;
   }
-  .li-stamp.show .li-mark{
-    transform:none; opacity:1;
-    filter:drop-shadow(0 0 10px rgba(10,102,200,.42));
-    animation:liPulse 2.6s ease-in-out .8s infinite;
+  #slideProfile .li-me img{
+    width:24px; height:24px; border-radius:50%; object-fit:cover; object-position:center 18%;
+    background:#d3e4f0;
   }
-  .li-letters{ opacity:0; transition:opacity .3s ease .22s; }
-  .li-stamp.show .li-letters{ opacity:1; }
-  .li-copy{ display:flex; flex-direction:column; gap:2px; min-width:0; }
-  .li-handle{
-    font-family:'JetBrains Mono',monospace; font-size:.78rem; letter-spacing:.04em;
-    color:var(--text); white-space:nowrap;
+  #slideProfile .li-nav-split{ width:1px; height:36px; background:var(--li-line); margin:0 4px; }
+  #slideProfile .li-nav-extra{ color:#666; font-size:.68rem; text-align:center; line-height:1.2; }
+  #slideProfile .li-feed{
+    flex:1; min-height:0; overflow:auto; width:min(1120px,100%); margin:0 auto;
+    display:grid; grid-template-columns:minmax(0,1fr) 300px; gap:12px; align-content:start;
+    padding:12px 16px 28px;
+    scrollbar-width:none; -ms-overflow-style:none;
   }
-  .li-handle::after{
-    content:''; display:inline-block; width:7px; height:1.05em; margin-left:3px;
-    background:var(--green); vertical-align:-2px; opacity:0;
+  #slideProfile .li-feed::-webkit-scrollbar{ display:none; width:0; height:0; }
+  #slideProfile, #slideProfile *{ scrollbar-width:none; }
+  #slideProfile *::-webkit-scrollbar{ display:none; width:0; height:0; }
+  #slideProfile .li-col{ display:flex; flex-direction:column; gap:8px; min-width:0; }
+  #slideProfile .li-card{
+    background:#fff; border:1px solid var(--li-line); border-radius:8px; overflow:hidden;
+    box-shadow:0 0 0 1px rgba(0,0,0,.04);
   }
-  .li-stamp.show.typing .li-handle::after{ opacity:1; animation:liCaret .7s steps(1) infinite; }
-  .li-note{ font-size:.78rem; font-style:italic; color:var(--muted); opacity:0; transform:translateY(6px);
-    transition:opacity .4s var(--ease-out), transform .4s var(--ease-out); }
-  .li-stamp.ready .li-note{ opacity:1; transform:none; }
-  @keyframes liPulse{
-    0%,100%{ filter:drop-shadow(0 0 8px rgba(10,102,200,.32)); }
-    50%{ filter:drop-shadow(0 0 14px rgba(10,102,200,.55)); }
+  #slideProfile .li-hero{ position:relative; }
+  #slideProfile .li-cover{ position:relative; height:148px; }
+  #slideProfile .li-banner{
+    position:absolute; inset:0; overflow:hidden;
+    background:#1a1a1a url('bg3.png') 70% 42% / cover no-repeat;
   }
-  @keyframes liCaret{ 50%{ opacity:0; } }
+  #slideProfile .li-avatar{
+    position:absolute; left:24px; bottom:-52px; width:112px; height:112px; border-radius:50%;
+    border:4px solid #fff; overflow:hidden; z-index:3;
+    background:linear-gradient(180deg,#c5d5e2 0%,#e7eef3 72%);
+    box-shadow:0 0 0 1px rgba(0,0,0,.08);
+  }
+  #slideProfile .li-avatar img{ width:100%; height:100%; object-fit:cover; object-position:center 12%; display:block; }
+  #slideProfile .li-bell{
+    position:absolute; right:16px; top:160px; width:36px; height:36px; border:0; background:transparent;
+    color:#666; pointer-events:none; z-index:2;
+  }
+  #slideProfile .li-bell svg{ width:22px; height:22px; fill:currentColor; }
+  #slideProfile .li-head{
+    display:flex; justify-content:space-between; gap:20px; align-items:flex-start;
+    padding:16px 24px 6px 156px;
+  }
+  #slideProfile .profile-name{
+    font-family:'Karla',system-ui,sans-serif; font-weight:600;
+    font-size:1.5rem; letter-spacing:0; color:var(--li-ink); line-height:1.25;
+  }
+  #slideProfile .li-degree{ color:var(--li-muted); font-size:.95rem; font-weight:400; }
+  #slideProfile .li-verify{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:16px; height:16px; margin:0 2px 2px; vertical-align:middle; color:#0a66c2;
+  }
+  #slideProfile .li-verify svg{ width:16px; height:16px; display:block; }
+  #slideProfile .profile-role{
+    font-size:1rem; letter-spacing:0; text-transform:none; color:var(--li-ink);
+    margin:.2rem 0 .15rem; font-weight:400; font-family:'Karla',sans-serif;
+  }
+  #slideProfile .li-meta{ font-size:.875rem; color:var(--li-muted); }
+  #slideProfile .li-meta a{ color:var(--li); text-decoration:none; font-weight:600; }
+  #slideProfile .li-meta a:hover{ text-decoration:underline; }
+  #slideProfile .li-conn{ font-size:.875rem; color:var(--li); font-weight:600; margin-top:4px; }
+  #slideProfile .li-mutual{ display:flex; align-items:center; gap:8px; margin-top:8px; color:var(--li-muted); font-size:.82rem; }
+  #slideProfile .li-mutual i{
+    width:24px; height:24px; border-radius:50%; background:linear-gradient(160deg,#7aa8d4,#1d4f7a);
+    display:inline-block; flex:none;
+  }
+  #slideProfile .li-orgs{ display:flex; flex-direction:column; gap:10px; min-width:168px; padding-top:4px; }
+  #slideProfile .li-org{ display:flex; align-items:center; gap:8px; font-size:.82rem; color:var(--li-ink); font-weight:600; }
+  #slideProfile .li-mark{
+    width:24px; height:24px; border-radius:4px; background:#111; color:#f4c430;
+    display:grid; place-items:center; font-size:.52rem; font-weight:700; letter-spacing:.02em; flex:none;
+    transform:none; opacity:1; filter:none; animation:none;
+  }
+  #slideProfile .li-mark.uni{ background:#1a4b8c; color:#ffd54f; border-radius:50%; }
+  #slideProfile .li-actions{ display:flex; flex-wrap:wrap; gap:8px; padding:8px 24px 18px 156px; }
+  #slideProfile .li-btn{
+    border-radius:999px; padding:6px 16px; min-height:32px; font-size:.95rem; font-weight:600;
+    cursor:default; font-family:inherit; border:1px solid var(--li); background:var(--li); color:#fff;
+    display:inline-flex; align-items:center; gap:6px; pointer-events:none;
+  }
+  #slideProfile .li-btn svg{ width:16px; height:16px; fill:currentColor; }
+  #slideProfile .li-btn.ghost{ background:#fff; color:var(--li); }
+  #slideProfile .li-btn.more{ border-color:var(--li-muted); color:var(--li-muted); background:#fff; }
+  #slideProfile .li-sec{ padding:16px 24px 18px; }
+  #slideProfile .li-label{ font-size:1.25rem; letter-spacing:0; text-transform:none; color:var(--li-ink); font-weight:600; margin-bottom:12px; }
+  #slideProfile .lede{ color:rgba(0,0,0,.9); max-width:none; font-size:.95rem; line-height:1.5; font-style:normal; }
+  #slideProfile .li-aside{ display:flex; flex-direction:column; gap:8px; }
+  #slideProfile .li-aside .li-sec{ padding:16px 16px 12px; }
+  #slideProfile .li-more{
+    display:block; text-align:center; padding:10px 0 4px; font-size:.92rem; font-weight:600;
+    color:var(--li-muted); border-top:1px solid var(--li-line); margin-top:8px;
+  }
+  #slideProfile .profile-stamps{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px; }
+  #slideProfile .stamp{ background:#fff; border:0; padding:0; text-align:center; }
+  #slideProfile .stamp b{ display:block; font-family:'Karla',sans-serif; font-size:1.25rem; font-weight:600; color:var(--li-ink); line-height:1.1; }
+  #slideProfile .stamp span{ font-size:.68rem; letter-spacing:0; text-transform:none; color:var(--li-muted); }
+  #slideProfile .li-edu, #slideProfile .li-proj{ display:flex; flex-direction:column; }
+  #slideProfile .otag{
+    display:grid; grid-template-columns:48px 1fr; gap:12px; align-items:start;
+    font-size:.875rem; color:var(--li-muted); border:0; padding:10px 0; border-radius:0;
+    text-transform:none; letter-spacing:0; background:transparent;
+    border-bottom:1px solid var(--li-line);
+  }
+  #slideProfile .otag:last-of-type{ border-bottom:0; }
+  #slideProfile .otag .n{ display:block; color:var(--li-muted); font-weight:400; margin:2px 0 0; }
+  #slideProfile .otag strong{ display:block; color:var(--li-ink); font-size:1rem; font-weight:600; }
+  #slideProfile .li-mini{
+    width:48px; height:48px; border-radius:4px; background:#111; color:#7dce3a;
+    display:grid; place-items:center; font-size:.62rem; font-weight:700; flex:none;
+  }
+  #slideProfile .li-mini.uni{ background:#1a4b8c; color:#ffd54f; border-radius:50%; }
+  #slideProfile .li-mini.itb{ background:#1b3a6b; color:#fff; border-radius:50%; }
+  #slideProfile .li-skill{ display:flex; align-items:center; gap:6px; margin-top:8px; color:var(--li-ink); font-size:.875rem; font-weight:600; }
+  #slideProfile .li-skill i{ width:12px; height:12px; background:var(--li-muted); clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%); flex:none; }
+  #slideProfile .profile-log{ position:relative; padding-left:0; margin-top:0; }
+  #slideProfile .profile-spine{ position:absolute; left:23px; top:20px; bottom:20px; width:2px; background:#e8e8e8; overflow:hidden; }
+  #slideProfile .profile-spine i{ display:block; width:100%; height:0; background:var(--li); box-shadow:none; transition:height .5s var(--ease-out); }
+  #slideProfile .profile-job{
+    opacity:0; position:relative; display:grid; grid-template-columns:48px 1fr; gap:12px;
+    padding:4px 0 16px; border-bottom:1px solid var(--li-line); margin:0 0 12px;
+    transform:none; background:transparent; border-left:0;
+  }
+  #slideProfile .profile-job:last-child{ border-bottom:0; margin-bottom:0; padding-bottom:4px; }
+  #slideProfile .profile-job.on{ opacity:1; transform:none; }
+  #slideProfile .profile-job.lit{ border-bottom-color:#e0e0e0; }
+  #slideProfile .li-job-logo{
+    width:48px; height:48px; border-radius:4px; background:#111; color:#7dce3a;
+    display:grid; place-items:center; font-size:.62rem; font-weight:700; z-index:1;
+  }
+  #slideProfile .li-job-logo.au{ background:#007a3d; color:#fff; border-radius:50%; }
+  #slideProfile .li-job-logo.th{ background:#e87722; color:#fff; }
+  #slideProfile .li-job-logo.ba{ background:#1a5f2a; color:#fff; }
+  #slideProfile .li-job-logo.kt{ background:#4a5560; color:#fff; }
+  #slideProfile .profile-job b{ display:block; font-size:1rem; color:var(--li-ink); font-weight:600; }
+  #slideProfile .profile-job .li-job-co{ font-size:.875rem; color:var(--li-ink); margin-top:1px; }
+  #slideProfile .profile-job .li-job-meta{ font-size:.875rem; color:var(--li-muted); margin-top:1px; }
+  #slideProfile .profile-job p{ font-size:.875rem; color:rgba(0,0,0,.9); margin-top:6px; }
+  #slideProfile .li-roles{ margin-top:10px; padding-left:18px; border-left:2px solid #e0e0e0; }
+  #slideProfile .li-role{ position:relative; padding:0 0 14px 10px; }
+  #slideProfile .li-role:last-child{ padding-bottom:0; }
+  #slideProfile .li-role::before{
+    content:''; position:absolute; left:-23px; top:7px; width:8px; height:8px;
+    border-radius:50%; background:#b2b2b2; box-shadow:0 0 0 3px #fff;
+  }
+  #slideProfile .li-role b{ font-size:.95rem; }
+  #slideProfile .li-more-link{ color:var(--li-muted); font-weight:600; }
 
   /* ---- clicker OS (from bc-presentation): fade beats, step chrome, hover nav ---- */
   .fade{ opacity:0; transform:translateY(10px); pointer-events:none;
@@ -800,8 +1036,14 @@
     .sbs{ flex:1 1 auto; height:auto; min-height:180px; }
     #slidePct .pct-book{ height:48vh; min-height:260px; }
     #slidePct .pct-art{ height:min(26vh, 220px); min-height:150px; margin-top:1rem; }
-    .profile-grid{ grid-template-columns:1fr; }
-    .li-handle{ white-space:normal; font-size:.72rem; }
+    #slideProfile .li-feed{ grid-template-columns:1fr; }
+    #slideProfile .li-nav-item span, #slideProfile .li-nav-extra, #slideProfile .li-nav-split{ display:none; }
+    #slideProfile .li-search{ width:140px; }
+    #slideProfile .li-head{ padding:60px 16px 6px 16px; }
+    #slideProfile .li-actions{ padding:8px 16px 16px; }
+    #slideProfile .li-orgs{ flex-direction:row; flex-wrap:wrap; }
+    #slideProfile .li-bell{ top:156px; }
+    #slidePct .pct-hard-3d{ width:min(28vh,180px); height:min(40vh,260px); }
     #slideVs .h-lg{ font-size:1.45rem; }
     #slideVs .vs-head{ top:16px; left:20px; }
     #slideVs .vs-a{ padding-top:22vh; }
@@ -816,10 +1058,7 @@
   @media (prefers-reduced-motion: reduce){
     #slide2 .st-el, #slide2 .streak-grid{ opacity:1; transform:none; }
     .streak-day.on{ animation:none; }
-    .profile-job.lit{ transform:none; }
-    #slideProfile.scanning .profile-scan span{ animation:none; }
-    .li-stamp.show .li-mark{ animation:none; }
-    .li-stamp.show.typing .li-handle::after{ animation:none; opacity:0; }
+    #slideProfile .profile-job{ opacity:1; }
     #slideVs .vs-cap, #slideVs .vs-mark, #slideVs .vs-card, #slideVs .vs-num, #slideVs .vs-photo{ opacity:1; transform:none; }
     #slideVs .vs-num.hit, #slideVs .vs-num.breathe, #slideVs.clashing .vs-wash{ animation:none; }
     #slideVs .vs-rule{ transform:scaleX(1); }
@@ -846,9 +1085,7 @@
   <!-- SLIDE 1 — hero -->
   <section class="slide active photo-slide" id="slideHero" data-steps="3" data-section="A · Opening">
     <div class="photo-parallax" id="heroParallax">
-      <video class="photo-bg" autoplay muted loop playsinline preload="auto">
-        <source src="video.mp4" type="video/mp4">
-      </video>
+      <div class="photo-bg"></div>
     </div>
     <div class="photo-scrim"></div>
     <div class="hero-ornament" aria-hidden="true">
@@ -881,70 +1118,194 @@
     </div>
   </section>
 
-  <!-- SLIDE 2 — speaker profile (one slide, full arc) -->
+  <!-- SLIDE 2 — speaker profile: LinkedIn mock -->
   <section class="slide" id="slideProfile" data-steps="3" data-section="A · Opening">
-    <div class="profile-scan" aria-hidden="true"><span></span></div>
-    <div class="slide-inner" style="max-width:1120px; position:relative; z-index:2;">
-      <p class="kicker mono fade" data-step="1">Fig. 00 · Pembicara</p>
-      <div class="profile-grid">
-        <div>
-          <!-- GANTI INI: nama / jabatan -->
-          <h2 class="h-lg" style="max-width:16ch;">
-            <span class="mask-line fade" data-step="1" style="--d:.1s"><span>Jimmi Idris</span></span>
-          </h2>
-          <p class="profile-role fade" data-step="1" style="--d:.18s">General Manager OHS · PT Berau Coal</p>
-          <div class="li-stamp" id="liStamp">
-            <div class="li-stamp-inner">
-              <a class="li-link" href="https://www.linkedin.com/in/jimmi-idris-b4378937" target="_blank" rel="noopener noreferrer" aria-label="Profil LinkedIn Jimmi Idris">
-                <svg class="li-mark" viewBox="0 0 24 24" aria-hidden="true">
-                  <rect width="24" height="24" rx="4" fill="currentColor"/>
-                  <path class="li-letters" fill="#fff" d="M8.56 17.5H6.42V9.62h2.14zm.07-9.05a1.24 1.24 0 1 1-2.48-.01 1.24 1.24 0 0 1 2.48.01zM17.67 17.5h-2.14v-3.82c0-.91-.02-2.08-1.27-2.08-1.27 0-1.46.99-1.46 2.01v3.89h-2.13V9.62h2.05v1.08h.03c.29-.54.98-1.12 2.02-1.12 2.16 0 2.56 1.42 2.56 3.27z"/>
-                </svg>
-                <span class="li-copy">
-                  <span class="li-handle" id="liHandle"></span>
-                  <!-- <span class="li-note">Profil publik. Bukan CV di folder.</span> -->
-                </span>
-              </a>
+    <div class="profile-scan" id="profileScan" aria-hidden="true"></div>
+    <div class="slide-inner">
+      <div class="profile-board">
+        <div class="li-app" id="liCard">
+          <nav class="li-nav" aria-hidden="true">
+            <div class="li-nav-left">
+              <div class="li-logo">in</div>
+              <div class="li-search">
+                <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M11.5 10.4 14.8 13.7 13.7 14.8 10.4 11.5A5.5 5.5 0 1 1 11.5 10.4ZM6.5 10.5A4 4 0 1 0 6.5 2.5A4 4 0 0 0 6.5 10.5Z"/></svg>
+                Search
+              </div>
             </div>
-          </div>
-          <p class="lede fade" data-step="1" style="--d:.26s; margin-top:1rem; max-width:38ch;">21 tahun operasi tambang di Indonesia dan Australia. Keselamatan bukan slogan di gerbang — itu sistem yang diulang sampai orang pulang utuh.</p>
-          <div class="profile-stats">
-            <div class="fade" data-step="2"><b id="pfYears">0+</b><span>tahun lapangan</span></div>
-            <div class="fade" data-step="2" style="--d:.08s"><b id="pfSites">0</b><span>negara operasi</span></div>
-            <div class="fade" data-step="2" style="--d:.16s"><b>GM</b><span>OHS Berau Coal</span></div>
-          </div>
-          <div class="profile-edu">
-            <span class="otag fade" data-step="2" style="--d:.22s"><span class="n">1999–04</span> Unsri · Tambang</span>
-            <span class="otag fade" data-step="2" style="--d:.3s"><span class="n">2019–20</span> ITB · MBA</span>
-            <span class="otag fade" data-step="2" style="--d:.38s"><span class="n">2021</span> GM OHS</span>
-          </div>
-          <div class="profile-focus">
-            <span class="otag fade" data-step="2" style="--d:.44s">Indonesia &amp; Australia</span>
-            <span class="otag fade" data-step="2" style="--d:.52s">Mining Eyes</span>
-            <span class="otag fade" data-step="2" style="--d:.6s">Safety leadership</span>
-          </div>
-          <div class="attribution fade" data-step="2" style="--d:.7s">
-            <span>Berau · Kaltim</span><span class="dot"></span>
-            <span>Unsri · ITB</span>
-          </div>
-        </div>
-        <div class="row-stack profile-rail fade" id="profileRail" data-step="3">
-          <div class="profile-spine" aria-hidden="true"><i id="profileSpineFill"></i></div>
-          <div class="orow profile-job" data-rank="1">
-            <div class="rh"><b>2004–08 · Pit &amp; Mine Planning</b></div>
-            <p>PT Koba Tin, lalu PT Thiess — rencana harian, ISO 9001 / 14001 / OHSAS 18001.</p>
-          </div>
-          <div class="orow profile-job" data-rank="2">
-            <div class="rh"><b>2009–17 · Engineer, ID &amp; AU</b></div>
-            <p>Bukit Asam, Global Surface Mining, Fortescue — GPS, fleet, surface miner di Australia Barat.</p>
-          </div>
-          <div class="orow profile-job" data-rank="3">
-            <div class="rh"><b>2017–22 · Supt. &amp; Mine Manager</b></div>
-            <p>PT Berau Coal — operasi pit, produksi, dan kontraktor di Kalimantan Timur.</p>
-          </div>
-          <div class="orow profile-job" data-rank="4">
-            <div class="rh"><b>2021–kini · General Manager OHS</b></div>
-            <p>PT Berau Coal — transformasi keselamatan, Mining Eyes, operasi K3 untuk ribuan orang.</p>
+            <div class="li-nav-right">
+              <div class="li-nav-item is-on"><svg viewBox="0 0 24 24"><path d="M12 3 2 12h3v8h6v-6h2v6h6v-8h3z"/></svg><span>Home</span></div>
+              <div class="li-nav-item"><svg viewBox="0 0 24 24"><path d="M16 11a4 4 0 1 0-4-4 4 4 0 0 0 4 4Zm-8 1a3.5 3.5 0 1 0-3.5-3.5A3.5 3.5 0 0 0 8 12Zm8 2c-2.7 0-8 1.3-8 4v2h16v-2c0-2.7-5.3-4-8-4Zm-8.2.2C5.2 14.3 2 15.4 2 17.5V19h6v-1.2c0-1.1.4-2.5 1.8-3.6Z"/></svg><span>My Network</span></div>
+              <div class="li-nav-item"><svg viewBox="0 0 24 24"><path d="M4 6h16v3H4zm0 5h16v9H4zm5-8h6v3H9z"/></svg><span>Jobs</span></div>
+              <div class="li-nav-item"><svg viewBox="0 0 24 24"><path d="M4 4h16v12H7l-3 3z"/></svg><span>Messaging</span></div>
+              <div class="li-nav-item"><svg viewBox="0 0 24 24"><path d="M12 22a2.2 2.2 0 0 0 2.2-2.2h-4.4A2.2 2.2 0 0 0 12 22Zm8-6V11a8 8 0 1 0-16 0v5L2 18v1h20v-1z"/></svg><span>Notifications</span><b class="li-badge">3</b></div>
+              <div class="li-nav-item li-me"><img src="gmohs.jpg" alt=""><span>Me ▾</span></div>
+              <div class="li-nav-split"></div>
+              <div class="li-nav-extra">For Business<br>Hire with AI</div>
+            </div>
+          </nav>
+          <div class="li-feed">
+            <div class="li-col">
+              <article class="li-card li-hero fade" data-step="1">
+                <div class="li-cover">
+                  <div class="li-banner" id="liBanner"></div>
+                  <div class="li-avatar" id="liAvatar"><img src="gmohs.jpg" alt="Jimmi Idris"></div>
+                </div>
+                <button type="button" class="li-bell" tabindex="-1" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M12 22a2.2 2.2 0 0 0 2.2-2.2h-4.4A2.2 2.2 0 0 0 12 22Zm8-6V11a8 8 0 1 0-16 0v5L2 18v1h20v-1z"/></svg>
+                </button>
+                <div class="li-head">
+                  <div>
+                    <h2 class="profile-name" id="pfName">jimmi idris <span class="li-verify" title="Verified"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 1.3 9.7 3l2.1.4.4 2.1L14.1 7l-1.9 1.5.4 2.1-2.1.4L8 13.1 6.3 11.4l-2.1-.4.4-2.1L2.7 7l1.9-1.5-.4-2.1 2.1-.4L8 1.3zm-.2 8.4 3.3-3.3-.9-.9-2.4 2.4-1.1-1.1-.9.9 2 2z"/></svg></span> <span class="li-degree">· 2nd</span></h2>
+                    <p class="profile-role" id="pfRole">General Manager OHS di PT Berau Coa</p>
+                    <p class="li-meta">Merau, East Kalimantan, Indonesia · <a id="liLink" href="https://www.linkedin.com/in/jimmi-idris-b4378937" target="_blank" rel="noopener">Contact info</a></p>
+                    <p class="li-conn">2K followers · 500+ connections</p>
+                    <p class="li-mutual"><i></i> Ir. Elferdy, ST, MM is a mutual connection</p>
+                  </div>
+                  <div class="li-orgs">
+                    <div class="li-org"><span class="li-mark">BC</span> PT Berau Coal</div>
+                    <div class="li-org"><span class="li-mark uni">UN</span> Sriwijaya University</div>
+                  </div>
+                </div>
+                <div class="li-actions">
+                  <button type="button" class="li-btn" tabindex="-1"><svg viewBox="0 0 16 16"><path d="M8 3v10M3 8h10"/></svg> Connect</button>
+                  <button type="button" class="li-btn ghost" tabindex="-1"><svg viewBox="0 0 16 16"><path d="M2 3h12v8H5L2 14z"/></svg> Message</button>
+                  <button type="button" class="li-btn more" tabindex="-1">More</button>
+                </div>
+              </article>
+              <article class="li-card li-sec fade" data-step="1">
+                <p class="li-label">About</p>
+                <p class="lede" id="pfLede">Visionary mining executive with over 21 years of progressive experience in both coal and mineral operations across Indonesia and Australia. Demonstrated excellence in strategic leadership, safety transformation, mine planning, and digital technology integration. Proven record of driving performance improvements, enhancing compliance culture, and leading high-impact teams in dynamic and high-risk environments. <span class="li-more-link">… more</span></p>
+              </article>
+              <article class="li-card li-sec fade" data-step="3">
+                <p class="li-label">Experience</p>
+                <div class="profile-log" id="profileRail">
+                  <div class="profile-spine" aria-hidden="true"><i id="profileSpineFill"></i></div>
+                  <div class="profile-job is-group" data-rank="4">
+                    <span class="li-job-logo">BC</span>
+                    <div>
+                      <b>PT Berau Coal</b>
+                      <p class="li-job-meta">9 yrs 6 mos</p>
+                      <div class="li-roles">
+                        <div class="li-role">
+                          <b>General Manager OHS</b>
+                          <p class="li-job-meta">Full-time</p>
+                          <p class="li-job-meta">Oct 2021 - Present · 5 yrs</p>
+                          <p class="li-job-meta">Merau, East Kalimantan, Indonesia</p>
+                          <p class="li-skill"><i></i> Manajemen Proyek and Pengembangan Tim</p>
+                        </div>
+                        <div class="li-role">
+                          <b>Mine Manager</b>
+                          <p class="li-job-meta">Apr 2018 - Jul 2022 · 4 yrs 4 mos</p>
+                          <p class="li-job-meta">Berau, Kalimantan Timur, Indonesia</p>
+                          <p class="li-skill"><i></i> Manajemen Proyek and Pengembangan Tim</p>
+                        </div>
+                        <div class="li-role">
+                          <b>Mining Superintendent</b>
+                          <p class="li-job-meta">Apr 2017 - Jul 2022 · 5 yrs 4 mos</p>
+                          <p class="li-skill"><i></i> Manajemen Proyek and Pengembangan Tim</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="profile-job" data-rank="3">
+                    <span class="li-job-logo au">FM</span>
+                    <div>
+                      <b>Mining Engineer</b>
+                      <p class="li-job-co">Fortescue Metals Group</p>
+                      <p class="li-job-meta">Apr 2014 - Apr 2017 · 3 yrs 1 mo</p>
+                    </div>
+                  </div>
+                  <div class="profile-job" data-rank="2">
+                    <span class="li-job-logo au">GS</span>
+                    <div>
+                      <b>Mining Engineer</b>
+                      <p class="li-job-co">Global Surface Mining</p>
+                      <p class="li-job-meta">Jul 2011 - Aug 2014 · 3 yrs 2 mos</p>
+                      <p class="li-job-meta">Western Australia, Australia</p>
+                      <p>Prepare weekly and Daily Planning for 29 Unit Surface Mining (Wirtgen SM 2500 - 4200 and Vermeer T1255 -1655). Calculate Daily production using Trimble GPS machine. <span class="li-more-link">more</span></p>
+                      <p class="li-skill"><i></i> Manajemen Proyek</p>
+                    </div>
+                  </div>
+                  <div class="profile-job" data-rank="1">
+                    <span class="li-job-logo ba">BA</span>
+                    <div>
+                      <b>Long Term Engineer</b>
+                      <p class="li-job-co">PT Bukit Asam (Persero) Tbk</p>
+                      <p class="li-job-meta">Jan 2009 - Jun 2011 · 2 yrs 6 mos</p>
+                      <p class="li-job-meta">Tanjung Enim, Indonesia</p>
+                      <p>Running five years rolling plan. Provide Engineer Estimate Equipment For Rent and Contract. Evaluate and Optimize Planning. <span class="li-more-link">more</span></p>
+                      <p class="li-skill"><i></i> Manajemen Proyek</p>
+                    </div>
+                  </div>
+                  <div class="profile-job" data-rank="1">
+                    <span class="li-job-logo th">TH</span>
+                    <div>
+                      <b>Pit Engineer</b>
+                      <p class="li-job-co">PT Thiess Contractor Indonesia</p>
+                      <p class="li-job-meta">Apr 2006 - May 2008 · 2 yrs 2 mos</p>
+                      <p>Prepare Daily and Weekly Plan for Shovel and Truck within over than 5.000.000 Tonnes Coal Perannum and 50.000.000 Bcm Overburden per annum. <span class="li-more-link">more</span></p>
+                      <p class="li-skill"><i></i> Manajemen Proyek</p>
+                    </div>
+                  </div>
+                  <div class="profile-job" data-rank="1">
+                    <span class="li-job-logo kt">KT</span>
+                    <div>
+                      <b>Mine Planning Engineer</b>
+                      <p class="li-job-co">PT. Koba Tin</p>
+                      <p class="li-job-meta">Mar 2004 - Mar 2006 · 2 yrs 1 mo</p>
+                      <p class="li-job-meta">Koba, Bangka Tengah, Indonesia</p>
+                      <p>Prepare Monthly and Yearly Plan for Dredge and Gravel Pump Mining in Alluvial Tin Mining. Task force in Implementing ISO 9001, 14001 and OHSAS 18001.</p>
+                      <p class="li-skill"><i></i> Manajemen Proyek</p>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+            <aside class="li-aside">
+              <article class="li-card li-sec fade" data-step="2">
+                <p class="li-label">Education</p>
+                <div class="li-edu">
+                  <span class="otag fade" data-step="2">
+                    <span class="li-mini uni">UN</span>
+                    <span><strong>Sriwijaya University</strong>Bachelor Degree, Mining Engineer<span class="n">1999 - 2004</span></span>
+                  </span>
+                  <span class="otag fade" data-step="2">
+                    <span class="li-mini itb">ITB</span>
+                    <span><strong>Institut Teknologi Bandung (ITB)</strong>Master of Business Administration - MBA, operation management<span class="n">2019 - 2020</span></span>
+                  </span>
+                  <span class="otag fade" data-step="2">
+                    <span class="li-mini uni">UN</span>
+                    <span><strong>University of Sriwijaya</strong>S1 Mining Engineer<span class="n">1999 - 2004</span></span>
+                  </span>
+                </div>
+                <span class="li-more">Show all 3 educations →</span>
+              </article>
+              <article class="li-card li-sec fade" data-step="2">
+                <p class="li-label">Projects</p>
+                <div class="li-proj">
+                  <span class="otag fade" data-step="2">
+                    <span class="li-mini">ME</span>
+                    <span><strong>mining eyes</strong>Transformation of Mine Supervising method for human protection<span class="n">Analysis, Continuous Improvement and +15 skills</span></span>
+                  </span>
+                  <span class="otag fade" data-step="2">
+                    <span class="li-mini">AU</span>
+                    <span><strong>International Mining Experience</strong>Australia &amp; Indonesia<span class="n">21 years 8 months</span></span>
+                  </span>
+                  <span class="otag fade" data-step="2">
+                    <span class="li-mini">OH</span>
+                    <span><strong>Occupational Health and Safety System</strong>Strategic Safety Leadership &amp; Compliance<span class="n">Mining Eyes · zero fatalities</span></span>
+                  </span>
+                </div>
+              </article>
+              <article class="li-card li-sec fade" data-step="2">
+                <p class="li-label">Highlights</p>
+                <div class="profile-stamps">
+                  <div class="stamp fade" data-step="2"><b id="pfYears">0+</b><span>years field</span></div>
+                  <div class="stamp fade" data-step="2"><b id="pfSites">0</b><span>countries</span></div>
+                  <div class="stamp fade" data-step="2"><b>GM</b><span>OHS Berau Coal</span></div>
+                </div>
+              </article>
+            </aside>
           </div>
         </div>
       </div>
@@ -990,9 +1351,79 @@
         </div>
         <p class="body-txt fade" data-step="3" id="pctBody" style="margin-top:1.1rem;">1% lebih malas tiap hari, hasilnya mendekati nol dalam setahun. Disiplin bukan soal kejadian heroik sekali — itu bunga majemuk dari kebiasaan kecil yang diulang.</p>
       </div>
-      <div class="pct-book fade" id="pctBookWrap" data-step="1">
-        <canvas id="pctBook"></canvas>
-        <span class="pct-book-hint mono" id="pctBookHint">Klik · buka halaman</span>
+      <div class="pct-book" id="pctBookWrap">
+        <div class="pct-flip-stage" id="pctFlipStage">
+          <div class="pct-hard" id="pctHard" aria-hidden="true">
+            <div class="pct-hard-3d">
+              <i class="pct-hard-floor"></i>
+              <i class="pct-hard-back"></i>
+              <i class="pct-hard-pages"></i>
+              <i class="pct-hard-edge"></i>
+              <i class="pct-hard-spine"></i>
+              <div class="pct-hard-cover">
+                <p class="pct-pg-author">James Clear</p>
+                <h3>ATOMIC<br>HABITS</h3>
+                <i class="pct-pg-ring" aria-hidden="true"></i>
+                <p class="pct-pg-sub">Tiny Changes,<br>Remarkable Results.</p>
+              </div>
+            </div>
+          </div>
+          <div id="pctBook">
+            <div class="pct-pg pct-pg-cover">
+              <p class="pct-pg-author">James Clear</p>
+              <h3>ATOMIC<br>HABITS</h3>
+              <i class="pct-pg-ring" aria-hidden="true"></i>
+              <p class="pct-pg-sub">Tiny Changes,<br>Remarkable Results.</p>
+            </div>
+            <div class="pct-pg pct-pg-paper">
+              <p class="pct-pg-k">Atomic Habits</p>
+              <h4>1% lebih baik tiap hari.</h4>
+              <span class="pct-pg-rule"></span>
+              <p class="pct-pg-en">Bunga majemuk dari kebiasaan kecil yang diulang — sampai hasilnya tidak lagi terlihat kecil.</p>
+              <p class="pct-pg-by">James Clear</p>
+            </div>
+            <div class="pct-pg pct-pg-paper">
+              <p class="pct-pg-k">Atomic Habits</p>
+              <h4>Kamu tidak naik ke level tujuanmu. Kamu jatuh ke level sistemmu.</h4>
+              <span class="pct-pg-rule"></span>
+              <p class="pct-pg-en">You do not rise to the level of your goals. You fall to the level of your systems.</p>
+              <p class="pct-pg-by">— James Clear</p>
+            </div>
+            <div class="pct-pg pct-pg-paper">
+              <p class="pct-pg-k">Atomic Habits</p>
+              <h4>Kebiasaan adalah bunga majemuk dari perbaikan diri.</h4>
+              <span class="pct-pg-rule"></span>
+              <p class="pct-pg-en">Habits are the compound interest of self-improvement.</p>
+              <p class="pct-pg-by">— James Clear</p>
+            </div>
+            <div class="pct-pg pct-pg-paper">
+              <p class="pct-pg-k">Atomic Habits</p>
+              <h4>Setiap tindakan adalah suara untuk orang seperti apa yang ingin kamu jadi.</h4>
+              <span class="pct-pg-rule"></span>
+              <p class="pct-pg-en">Every action you take is a vote for the type of person you wish to become.</p>
+              <p class="pct-pg-by">— James Clear</p>
+            </div>
+            <div class="pct-pg pct-pg-paper">
+              <p class="pct-pg-k">Atomic Habits</p>
+              <h4>Sukses adalah produk kebiasaan harian — bukan transformasi sekali seumur hidup.</h4>
+              <span class="pct-pg-rule"></span>
+              <p class="pct-pg-en">Success is the product of daily habits — not once-in-a-lifetime transformations.</p>
+              <p class="pct-pg-by">— James Clear</p>
+            </div>
+            <div class="pct-pg pct-pg-paper">
+              <p class="pct-pg-k">Atomic Habits</p>
+              <h4>Disiplin adalah sistem, bukan semangat sesaat.</h4>
+              <span class="pct-pg-rule"></span>
+              <p class="pct-pg-en">1% lebih baik tiap hari. Itu seluruh bukunya — dan seluruh shift-nya.</p>
+              <p class="pct-pg-by">Fig. 02</p>
+            </div>
+            <div class="pct-pg pct-pg-back">
+              <p>1% better<br>every day.</p>
+              <small>James Clear</small>
+            </div>
+          </div>
+        </div>
+        <span class="pct-book-hint mono" id="pctBookHint">Klik · geser sudut halaman</span>
       </div>
     </div>
   </section>
@@ -1459,516 +1890,153 @@
     return { play, stop };
   })();
 
-  /* ---- FIG. 02: hardcover opens, page flips, quote prints on the leaf ---- */
+  /* ---- FIG. 02: turn.js hardcover, same as pitboard-1 ---- */
   const atomicBook = (function(){
     const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let renderer, scene, camera, book, coverPivot, flipPivot, leftPage, rightPage, pageStack, raf = 0, playing = false, started = 0;
-    let ptr = { x:0, y:0 }, ptrT = { x:0, y:0 }, onMove = null, onResize = null, onClick = null;
-    let quoteOn = false, quoteI = -1, busy = false, flipTimer = 0;
-    let coverT = 0, coverGoal = 0, flipT = 1, flipping = false, lastNow = 0;
-    let rightTex, flipFrontTex, flipBackTex;
-    const camClosed = { x:0.92, y:0.28, z:3.85 };
-    const camOpen = { x:0.02, y:1.05, z:4.55 };
-    const lookClosed = { x:0.03, y:0.02, z:0 };
-    const lookOpen = { x:0, y:0.04, z:0 };
-    const look = { x:0, y:0, z:0 };
-    const QUOTES = [
-      {
-        id:'Kamu tidak naik ke level tujuanmu. Kamu jatuh ke level sistemmu.',
-        en:'You do not rise to the level of your goals. You fall to the level of your systems.'
-      },
-      {
-        id:'Kebiasaan adalah bunga majemuk dari perbaikan diri.',
-        en:'Habits are the compound interest of self-improvement.'
-      },
-      {
-        id:'Setiap tindakan adalah suara untuk orang seperti apa yang ingin kamu jadi.',
-        en:'Every action you take is a vote for the type of person you wish to become.'
-      },
-      {
-        id:'Sukses adalah produk kebiasaan harian — bukan transformasi sekali seumur hidup.',
-        en:'Success is the product of daily habits — not once-in-a-lifetime transformations.'
-      }
-    ];
-    function easeInOut(t){ return t<0.5 ? 2*t*t : 1 - Math.pow(-2*t+2, 2)/2; }
-    function lerp(a,b,u){ return a+(b-a)*u; }
-    function hideQuote(){
-      quoteOn = false;
-      quoteI = -1;
-      coverGoal = 0;
-      coverT = 0;
-      flipT = 1;
-      flipping = false;
-      busy = false;
-      if(flipTimer){ clearTimeout(flipTimer); flipTimer = 0; }
-      if(leftPage) leftPage.visible = false;
-      if(rightPage) rightPage.visible = false;
-      if(flipPivot) flipPivot.visible = false;
-      if(pageStack) pageStack.visible = true;
-      if(coverPivot) coverPivot.rotation.y = 0;
-      const wrapEl = wrap();
-      if(wrapEl) wrapEl.classList.remove('is-open');
-    }
-
-    function canvas(){ return document.getElementById('pctBook'); }
+    let playing = false, inited = false, turning = false, resizing = false, onResize = null, onGuard = null;
+    function $jq(){ return window.jQuery; }
     function wrap(){ return document.getElementById('pctBookWrap'); }
-
-    function texFrom(draw, w, h){
-      const c = document.createElement('canvas');
-      c.width = w; c.height = h;
-      draw(c.getContext('2d'), w, h);
-      const t = new THREE.CanvasTexture(c);
-      if(THREE.SRGBColorSpace) t.colorSpace = THREE.SRGBColorSpace;
-      else if(THREE.sRGBEncoding) t.encoding = THREE.sRGBEncoding;
-      t.anisotropy = 8;
-      return t;
+    function bookEl(){ return document.getElementById('pctBook'); }
+    function ready(){
+      const $ = $jq();
+      return !!( $ && $.fn && $.fn.turn && bookEl() );
     }
-    function paintCover(ctx, w, h){
-      ctx.fillStyle = '#E7D2A4';
-      ctx.fillRect(0, 0, w, h);
-      ctx.fillStyle = 'rgba(61,42,20,.05)';
-      for(let i=0;i<900;i++){
-        ctx.fillRect(Math.random()*w, Math.random()*h, 1.2, 1.2);
+    function $book(){ return $jq()(bookEl()); }
+    function measure(){
+      const box = wrap();
+      const maxW = Math.max(280, (box && box.clientWidth) || 420);
+      const maxH = Math.max(240, ((box && box.clientHeight) || 480) - 32);
+      let h = Math.min(maxH, 520);
+      let pw = Math.round(h * 0.70);
+      if(pw * 2 > maxW){
+        pw = Math.floor(maxW / 2);
+        h = Math.round(pw / 0.70);
       }
-      ctx.fillStyle = '#3D2A14';
-      ctx.fillRect(0, 0, 18, h);
-      ctx.strokeStyle = 'rgba(61,42,20,.18)';
-      ctx.lineWidth = 2;
-      ctx.strokeRect(36, 36, w-72, h-72);
-      ctx.fillStyle = '#8A6B3D';
-      ctx.font = '600 22px "JetBrains Mono", monospace';
-      ctx.letterSpacing = '0.28em';
-      ctx.fillText('JAMES CLEAR', 56, 120);
-      ctx.fillStyle = '#1A1610';
-      ctx.font = '700 92px "Source Serif 4", Georgia, serif';
-      ctx.letterSpacing = '0';
-      ctx.fillText('ATOMIC', 52, 320);
-      ctx.fillText('HABITS', 52, 418);
-      ctx.fillStyle = '#C4A36A';
-      ctx.fillRect(56, 448, 120, 3);
-      ctx.beginPath();
-      ctx.arc(w*0.5, h*0.68, 54, 0, Math.PI*2);
-      ctx.strokeStyle = '#B68A3A';
-      ctx.lineWidth = 3;
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.arc(w*0.5, h*0.68, 28, 0, Math.PI*2);
-      ctx.stroke();
-      ctx.fillStyle = '#3D2A14';
-      ctx.font = 'italic 28px "Source Serif 4", Georgia, serif';
-      ctx.fillText('Tiny Changes,', 56, h-150);
-      ctx.fillText('Remarkable Results.', 56, h-112);
+      return { w: Math.max(240, pw * 2), h: Math.max(180, h) };
     }
-    function paintSpine(ctx, w, h){
-      ctx.fillStyle = '#3D2A14';
-      ctx.fillRect(0, 0, w, h);
-      ctx.save();
-      ctx.translate(w*0.55, h*0.5);
-      ctx.rotate(-Math.PI/2);
-      ctx.fillStyle = '#E7D2A4';
-      ctx.font = '700 34px "Source Serif 4", Georgia, serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('ATOMIC HABITS', 0, 8);
-      ctx.restore();
-      ctx.fillStyle = '#C4A36A';
-      ctx.fillRect(8, 28, w-16, 3);
-      ctx.fillRect(8, h-31, w-16, 3);
-    }
-    function paintBack(ctx, w, h){
-      ctx.fillStyle = '#2A2118';
-      ctx.fillRect(0, 0, w, h);
-      ctx.fillStyle = '#C4A36A';
-      ctx.font = 'italic 36px "Source Serif 4", Georgia, serif';
-      ctx.fillText('1% better', 64, h*0.42);
-      ctx.fillText('every day.', 64, h*0.42+48);
-      ctx.fillStyle = 'rgba(231,210,164,.55)';
-      ctx.font = '500 20px "JetBrains Mono", monospace';
-      ctx.fillText('JAMES CLEAR', 64, h-90);
-    }
-    function paintPages(ctx, w, h){
-      const g = ctx.createLinearGradient(0, 0, w, 0);
-      g.addColorStop(0, '#F4EFE3');
-      g.addColorStop(0.5, '#E8DCC0');
-      g.addColorStop(1, '#F4EFE3');
-      ctx.fillStyle = g;
-      ctx.fillRect(0, 0, w, h);
-      ctx.strokeStyle = 'rgba(61,42,20,.12)';
-      ctx.lineWidth = 1;
-      for(let x=4; x<w; x+=5){
-        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
-      }
-    }
-    function paperBase(ctx, w, h){
-      ctx.fillStyle = '#C8B48A';
-      ctx.fillRect(0, 0, w, h);
-      ctx.fillStyle = 'rgba(40,28,14,.08)';
-      for(let i=0;i<900;i++) ctx.fillRect(Math.random()*w, Math.random()*h, 1.4, 1.4);
-      ctx.fillStyle = 'rgba(40,28,14,.16)';
-      for(let y=130; y<h-90; y+=30) ctx.fillRect(56, y, w-112, 1);
-      ctx.fillStyle = 'rgba(120,40,32,.45)';
-      ctx.fillRect(70, 0, 2, h);
-    }
-    function wrapLines(ctx, text, maxW){
-      const words = String(text||'').split(/\s+/);
-      const lines = [];
-      let line = '';
-      words.forEach(word=>{
-        const test = line ? line+' '+word : word;
-        if(ctx.measureText(test).width > maxW && line){ lines.push(line); line = word; }
-        else line = test;
-      });
-      if(line) lines.push(line);
-      return lines;
-    }
-    function paintLeftPage(ctx, w, h){
-      paperBase(ctx, w, h);
-      ctx.fillStyle = '#3D2A14';
-      ctx.font = '700 22px "JetBrains Mono", monospace';
-      ctx.fillText('ATOMIC HABITS', 96, 86);
-      ctx.fillStyle = '#14110C';
-      ctx.font = '700 44px "Source Serif 4", Georgia, serif';
-      ctx.fillText('1% lebih baik', 96, 280);
-      ctx.fillText('tiap hari.', 96, 338);
-      ctx.fillStyle = '#6B4E1E';
-      ctx.fillRect(96, 370, 88, 4);
-      ctx.fillStyle = '#1C1610';
-      ctx.font = 'italic 28px "Source Serif 4", Georgia, serif';
-      const lines = wrapLines(ctx, 'Bunga majemuk dari kebiasaan kecil yang diulang — sampai hasilnya tidak lagi terlihat kecil.', w-200);
-      lines.forEach((ln,i)=> ctx.fillText(ln, 96, 432+i*38));
-      ctx.fillStyle = '#3D2A14';
-      ctx.font = '700 18px "JetBrains Mono", monospace';
-      ctx.fillText('JAMES CLEAR', 96, h-80);
-    }
-    function paintQuotePage(ctx, w, h, q){
-      paperBase(ctx, w, h);
-      ctx.fillStyle = '#3D2A14';
-      ctx.font = '700 20px "JetBrains Mono", monospace';
-      ctx.fillText('ATOMIC HABITS', 96, 86);
-      ctx.fillStyle = '#5C3D12';
-      ctx.font = '700 78px "Source Serif 4", Georgia, serif';
-      ctx.fillText('“', 80, 220);
-      ctx.fillStyle = '#120E0A';
-      ctx.font = '700 40px "Source Serif 4", Georgia, serif';
-      const idLines = wrapLines(ctx, q ? q.id : '', w-210);
-      idLines.forEach((ln,i)=> ctx.fillText(ln, 96, 250+i*52));
-      const enTop = 250 + idLines.length*52 + 32;
-      ctx.fillStyle = '#2A2118';
-      ctx.font = 'italic 26px "Source Serif 4", Georgia, serif';
-      const enLines = wrapLines(ctx, q ? q.en : '', w-210);
-      enLines.forEach((ln,i)=> ctx.fillText(ln, 96, enTop+i*36));
-      ctx.fillStyle = '#3D2A14';
-      ctx.font = '700 18px "JetBrains Mono", monospace';
-      ctx.fillText('— JAMES CLEAR', 96, h-80);
-    }
-    function paintSheet(ctx, w, h){
-      paintQuotePage(ctx, w, h, null);
-    }
-    function stamp(tex, paint){
-      if(!tex || !tex.image) return;
-      const c = tex.image;
-      paint(c.getContext('2d'), c.width, c.height);
-      tex.needsUpdate = true;
-    }
-    function colorMat(hex, extra){
-      return new THREE.MeshStandardMaterial(Object.assign({
-        color: hex, roughness: 0.72, metalness: 0.04
-      }, extra||{}));
+    function syncOpen(page){
+      const box = wrap();
+      if(box) box.classList.toggle('is-open', page > 1);
     }
     function size(){
-      const c = canvas(), box = wrap();
-      if(!c || !box || !renderer) return;
-      const w = box.clientWidth, h = box.clientHeight;
-      if(w<4 || h<4) return;
-      renderer.setSize(w, h, false);
-      camera.aspect = w/h;
-      camera.updateProjectionMatrix();
+      if(!inited || !ready() || turning || resizing) return;
+      const dim = measure();
+      resizing = true;
+      try{ $book().turn('size', dim.w, dim.h); }catch(e){}
+      bookEl().style.width = dim.w + 'px';
+      bookEl().style.height = dim.h + 'px';
+      resizing = false;
     }
     function build(){
-      if(typeof THREE === 'undefined') return false;
-      const c = canvas();
-      if(!c) return false;
-      try{
-        renderer = new THREE.WebGLRenderer({ canvas:c, antialias:true, alpha:true, powerPreference:'low-power' });
-      }catch(e){ return false; }
-      renderer.setPixelRatio(Math.min(devicePixelRatio||1, 1.75));
-      renderer.setClearColor(0x000000, 0);
-      if(THREE.sRGBEncoding) renderer.outputEncoding = THREE.sRGBEncoding;
-      renderer.shadowMap.enabled = true;
-
-      scene = new THREE.Scene();
-      camera = new THREE.PerspectiveCamera(30, 1, 0.1, 40);
-      camera.position.set(camClosed.x, camClosed.y, camClosed.z);
-      camera.lookAt(lookClosed.x, lookClosed.y, lookClosed.z);
-
-      scene.add(new THREE.AmbientLight(0xfff4e0, 0.28));
-      const key = new THREE.DirectionalLight(0xffe2b0, 0.72);
-      key.position.set(2.4, 3.2, 3.4);
-      key.castShadow = true;
-      scene.add(key);
-      const fill = new THREE.DirectionalLight(0xb8c4d4, 0.45);
-      fill.position.set(-3, 1.2, 1.4);
-      scene.add(fill);
-      const rim = new THREE.DirectionalLight(0xe3a34e, 0.55);
-      rim.position.set(-1.2, 1.6, -3);
-      scene.add(rim);
-
-      const coverTex = texFrom(paintCover, 768, 1152);
-      const spineTex = texFrom(paintSpine, 128, 1152);
-      const backTex = texFrom(paintBack, 768, 1152);
-      const edgeTex = texFrom(paintPages, 256, 1152);
-      const leftTex = texFrom(paintLeftPage, 768, 1152);
-      rightTex = texFrom((ctx,w,h)=> paintQuotePage(ctx,w,h,null), 768, 1152);
-      flipFrontTex = texFrom(paintSheet, 768, 1152);
-      flipBackTex = texFrom(paintSheet, 768, 1152);
-      if(document.fonts && document.fonts.ready){
-        document.fonts.ready.then(()=>{
-          [coverTex, spineTex, backTex, leftTex].forEach(t=>{
-            const src = t.image;
-            if(!src || !src.getContext) return;
-            if(t === coverTex) paintCover(src.getContext('2d'), src.width, src.height);
-            if(t === spineTex) paintSpine(src.getContext('2d'), src.width, src.height);
-            if(t === backTex) paintBack(src.getContext('2d'), src.width, src.height);
-            if(t === leftTex) paintLeftPage(src.getContext('2d'), src.width, src.height);
-            t.needsUpdate = true;
-          });
-        });
-      }
-
-      const W = 1.28, H = 1.86, D = 0.22, T = 0.038;
-      book = new THREE.Group();
-
-      const PW = W-0.08, PH = H-0.08;
-      pageStack = new THREE.Mesh(new THREE.BoxGeometry(PW, PH, 0.16), [
-        new THREE.MeshStandardMaterial({ map:edgeTex, roughness:0.88 }),
-        colorMat(0x3d2a14),
-        new THREE.MeshStandardMaterial({ map:edgeTex, roughness:0.88 }),
-        new THREE.MeshStandardMaterial({ map:edgeTex, roughness:0.88 }),
-        colorMat(0xe8dcc0),
-        colorMat(0xe8dcc0)
-      ]);
-      pageStack.position.set(0, 0, -0.02);
-      pageStack.castShadow = true;
-      book.add(pageStack);
-
-      leftPage = new THREE.Mesh(
-        new THREE.PlaneGeometry(PW, PH),
-        new THREE.MeshBasicMaterial({ map:leftTex })
-      );
-      leftPage.position.set(-PW/2, 0, 0.03);
-      leftPage.visible = false;
-      book.add(leftPage);
-
-      rightPage = new THREE.Mesh(
-        new THREE.PlaneGeometry(PW, PH),
-        new THREE.MeshBasicMaterial({ map:rightTex })
-      );
-      rightPage.position.set(PW/2, 0, 0.028);
-      rightPage.visible = false;
-      book.add(rightPage);
-
-      flipPivot = new THREE.Group();
-      flipPivot.position.set(0, 0, 0.04);
-      const flipMatFront = new THREE.MeshBasicMaterial({ map:flipFrontTex });
-      const flipMatBack = new THREE.MeshBasicMaterial({ map:flipBackTex });
-      const flipLeaf = new THREE.Mesh(new THREE.BoxGeometry(PW, PH, 0.01), [
-        colorMat(0xf3ead2), colorMat(0xf3ead2), colorMat(0xf3ead2), colorMat(0xf3ead2),
-        flipMatFront, flipMatBack
-      ]);
-      flipLeaf.position.set(PW/2, 0, 0);
-      flipPivot.add(flipLeaf);
-      flipPivot.visible = false;
-      book.add(flipPivot);
-
-      const back = new THREE.Mesh(new THREE.BoxGeometry(W, H, T), [
-        colorMat(0x3d2a14), colorMat(0x3d2a14), colorMat(0x3d2a14), colorMat(0x3d2a14),
-        new THREE.MeshStandardMaterial({ map:backTex, roughness:0.62 }),
-        new THREE.MeshStandardMaterial({ map:backTex, roughness:0.62 })
-      ]);
-      back.position.z = -D/2 - T/2;
-      back.castShadow = true;
-      book.add(back);
-
-      const spineFace = new THREE.MeshStandardMaterial({ map:spineTex, roughness:0.55 });
-      const spineDark = colorMat(0x3d2a14);
-      const spine = new THREE.Mesh(
-        new THREE.BoxGeometry(T, H, D+T*2),
-        [spineDark, spineFace, spineDark, spineDark, spineDark, spineDark]
-      );
-      spine.position.set(-W/2 + T/2, 0, 0);
-      spine.castShadow = true;
-      book.add(spine);
-
-      coverPivot = new THREE.Group();
-      coverPivot.position.set(-W/2 + T, 0, D/2);
-      const coverMat = new THREE.MeshStandardMaterial({ map:coverTex, roughness:0.48, metalness:0.08 });
-      const coverInside = colorMat(0xf3ead2);
-      const coverEdge = colorMat(0x3d2a14);
-      const cover = new THREE.Mesh(new THREE.BoxGeometry(W, H, T), [
-        coverEdge, coverEdge, coverEdge, coverEdge, coverMat, coverInside
-      ]);
-      cover.position.set(W/2, 0, T/2);
-      cover.castShadow = true;
-      coverPivot.add(cover);
-      coverPivot.rotation.y = 0;
-      book.add(coverPivot);
-
-      const shadow = new THREE.Mesh(
-        new THREE.CircleGeometry(1.15, 48),
-        new THREE.MeshBasicMaterial({ color:0x000000, transparent:true, opacity:0.28 })
-      );
-      shadow.rotation.x = -Math.PI/2;
-      shadow.position.y = -H/2 - 0.02;
-      shadow.scale.set(1, 0.42, 1);
-      book.add(shadow);
-
-      book.rotation.set(-0.16, 0.46, 0.05);
-      scene.add(book);
-      size();
+      if(inited || !ready()) return false;
+      const $b = $book();
+      const dim = measure();
+      const el = bookEl();
+      el.style.width = dim.w + 'px';
+      el.style.height = dim.h + 'px';
+      $b.turn({
+        width: dim.w,
+        height: dim.h,
+        display: 'double',
+        gradients: true,
+        acceleration: true,
+        duration: REDUCE ? 1 : 1000,
+        page: 1,
+        when: {
+          turning: function(e, page){
+            turning = true;
+            if(e && e.stopPropagation) e.stopPropagation();
+          },
+          turned: function(e, page){
+            turning = false;
+            syncOpen(page);
+          }
+        }
+      });
+      inited = true;
+      bookEl().classList.add('is-ready');
       return true;
     }
-    function pose(now){
-      if(!book) return;
-      const t = (now - started)/1000;
-      const dt = lastNow ? Math.min(0.05, (now-lastNow)/1000) : 0.016;
-      lastNow = now;
-      const intro = Math.min(1, t/0.95);
-      const e = 1 - Math.pow(1-intro, 3);
-      const speed = REDUCE ? 8 : 1.35;
-      if(coverT < coverGoal) coverT = Math.min(coverGoal, coverT + dt*speed);
-      else if(coverT > coverGoal) coverT = Math.max(coverGoal, coverT - dt*1.6);
-      const cE = easeInOut(coverT);
-      if(flipping){
-        flipT = Math.min(1, flipT + dt*1.55);
-        if(flipT >= 1){
-          flipping = false;
-          busy = false;
-          flipT = 1;
-          if(flipPivot) flipPivot.rotation.y = 0;
-          stamp(flipFrontTex, (ctx,w,h)=> paintQuotePage(ctx,w,h, QUOTES[quoteI]||null));
-        }
-      }
-      ptr.x += (ptrT.x - ptr.x)*0.08;
-      ptr.y += (ptrT.y - ptr.y)*0.08;
-      const floatY = REDUCE || quoteOn ? 0 : Math.sin(t*1.15)*0.045;
-      book.position.x = lerp(0, 0.02, cE);
-      book.position.y = (1-e)*0.55 + floatY;
-      book.rotation.x = lerp(-0.16, -0.48, cE) + ptr.y*(quoteOn?0.08:0.22);
-      book.rotation.y = lerp(-0.55 + e*1.01, 0.02, cE) + ptr.x*(quoteOn?0.1:0.35) + (REDUCE||quoteOn?0:Math.sin(t*0.55)*0.05);
-      book.rotation.z = lerp(0.05, 0, cE) + ptr.x*-0.04;
-      book.scale.setScalar(lerp(0.86 + e*0.2, 0.9, cE));
-      if(leftPage) leftPage.visible = cE > 0.18;
-      if(rightPage) rightPage.visible = cE > 0.18;
-      if(flipPivot) flipPivot.visible = cE > 0.22;
-      if(pageStack) pageStack.visible = cE < 0.45;
-      if(coverPivot){
-        coverPivot.rotation.y = lerp(0, -2.86, cE);
-      }
-      if(flipPivot && flipping){
-        const fE = easeInOut(flipT);
-        flipPivot.rotation.y = -fE * Math.PI;
-        flipPivot.rotation.z = Math.sin(fE*Math.PI)*0.1;
-        flipPivot.position.y = Math.sin(fE*Math.PI)*0.05;
-      } else if(flipPivot && !flipping){
-        flipPivot.rotation.y = 0;
-        flipPivot.rotation.z = 0;
-        flipPivot.position.y = 0;
-      }
-      if(camera){
-        camera.position.set(
-          lerp(camClosed.x, camOpen.x, cE),
-          lerp(camClosed.y, camOpen.y, cE),
-          lerp(camClosed.z, camOpen.z, cE)
-        );
-        look.x = lerp(lookClosed.x, lookOpen.x, cE);
-        look.y = lerp(lookClosed.y, lookOpen.y, cE);
-        look.z = lerp(lookClosed.z, lookOpen.z, cE);
-        camera.lookAt(look.x, look.y, look.z);
-      }
-    }
-    function startFlip(advance){
-      if(advance){
-        const current = QUOTES[Math.max(0, quoteI)];
-        stamp(flipFrontTex, (ctx,w,h)=> paintQuotePage(ctx,w,h, current));
-        quoteI = (quoteI + 1 + QUOTES.length) % QUOTES.length;
-        stamp(rightTex, (ctx,w,h)=> paintQuotePage(ctx,w,h, QUOTES[quoteI]));
-      } else {
-        stamp(flipFrontTex, paintSheet);
-      }
-      flipT = 0;
-      flipping = true;
-      busy = true;
-      if(flipPivot){ flipPivot.rotation.y = 0; flipPivot.position.y = 0; }
-    }
-    function onBookClick(e){
-      e.preventDefault();
+    function guard(e){
       e.stopPropagation();
-      if(busy) return;
-      const wrapEl = wrap();
-      if(!quoteOn){
-        quoteOn = true;
-        quoteI = 0;
-        stamp(rightTex, (ctx,w,h)=> paintQuotePage(ctx,w,h, QUOTES[0]));
-        stamp(flipFrontTex, paintSheet);
-        coverGoal = 1;
-        if(wrapEl) wrapEl.classList.add('is-open');
-        if(REDUCE){
-          coverT = 1;
-          flipping = false;
-          flipT = 1;
-          return;
-        }
-        busy = true;
-        flipTimer = setTimeout(()=>{
-          flipTimer = 0;
-          if(playing && quoteOn) startFlip(false);
-        }, 740);
+    }
+    function openBook(){
+      const box = wrap();
+      if(box) box.classList.add('is-open');
+      try{
+        const $b = $book();
+        if($b.turn('page') < 2) $b.turn('next');
+      }catch(err){
+        try{ $book().turn('page', 2); }catch(e){}
+      }
+    }
+    function onWrapClick(e){
+      e.stopPropagation();
+      if(!inited || turning) return;
+      const box = wrap();
+      if(box && !box.classList.contains('is-open')){
+        openBook();
         return;
       }
-      startFlip(true);
-    }
-    function frame(now){
-      if(!playing) return;
-      raf = requestAnimationFrame(frame);
-      pose(now);
-      renderer.render(scene, camera);
+      try{
+        const $b = $book();
+        const pages = $b.turn('pages');
+        const page = $b.turn('page');
+        if(page >= pages){ $b.turn('page', 1); syncOpen(1); }
+        else $b.turn('next');
+      }catch(err){}
     }
     function play(){
       if(playing) return;
-      if(!renderer && !build()) return;
       playing = true;
-      started = performance.now();
-      size();
-      const slide = document.getElementById('slidePct');
-      onMove = (e)=>{
-        const r = (wrap()||slide).getBoundingClientRect();
-        ptrT.x = ((e.clientX - r.left)/r.width)*2 - 1;
-        ptrT.y = ((e.clientY - r.top)/r.height)*2 - 1;
+      const boot = ()=>{
+        if(!playing) return;
+        if(!ready()){ playing = false; return; }
+        const box = wrap();
+        if(box) box.classList.add('is-live');
+        const firstBoot = !inited;
+        if(!inited) build();
+        else size();
+        syncOpen(1);
+        const stage = document.getElementById('pctFlipStage');
+        onGuard = guard;
+        if(box){
+          box.addEventListener('click', onWrapClick);
+          box.addEventListener('mousedown', onGuard);
+          box.addEventListener('touchstart', onGuard, { passive:true });
+        }
+        if(stage){
+          stage.addEventListener('mousedown', onGuard);
+          stage.addEventListener('touchstart', onGuard, { passive:true });
+        }
+        onResize = ()=> size();
+        addEventListener('resize', onResize, { passive:true });
+        if(!firstBoot) requestAnimationFrame(size);
       };
-      onResize = ()=> size();
-      onClick = onBookClick;
-      if(slide) slide.addEventListener('mousemove', onMove, { passive:true });
-      const box = wrap();
-      if(box) box.addEventListener('click', onClick);
-      addEventListener('resize', onResize, { passive:true });
-      if(REDUCE){
-        pose(started+1000);
-        renderer.render(scene, camera);
-        return;
-      }
-      raf = requestAnimationFrame(frame);
+      requestAnimationFrame(()=> requestAnimationFrame(boot));
     }
     function stop(){
       playing = false;
-      if(raf){ cancelAnimationFrame(raf); raf = 0; }
-      const slide = document.getElementById('slidePct');
-      if(slide && onMove) slide.removeEventListener('mousemove', onMove);
+      turning = false;
       const box = wrap();
-      if(box && onClick) box.removeEventListener('click', onClick);
+      const stage = document.getElementById('pctFlipStage');
+      if(box){
+        box.removeEventListener('click', onWrapClick);
+        if(onGuard){
+          box.removeEventListener('mousedown', onGuard);
+          box.removeEventListener('touchstart', onGuard);
+        }
+        box.classList.remove('is-live','is-open');
+      }
+      if(stage && onGuard){
+        stage.removeEventListener('mousedown', onGuard);
+        stage.removeEventListener('touchstart', onGuard);
+      }
       if(onResize) removeEventListener('resize', onResize);
-      onMove = onResize = onClick = null;
-      ptrT.x = ptrT.y = ptr.x = ptr.y = 0;
-      lastNow = 0;
-      hideQuote();
+      onResize = onGuard = null;
+      if(inited){
+        try{ $book().turn('page', 1); $book().turn('stop'); }catch(e){}
+      }
     }
     return { play, stop };
   })();
@@ -2086,44 +2154,15 @@
       const id = setTimeout(fn, ms);
       timers.push(id);
     }
-    const LI_HANDLE = 'linkedin.com/in/jimmi-idris';
     function jobs(){ return Array.from(document.querySelectorAll('#profileRail .profile-job')); }
     function resetJobs(){
       const spine = document.getElementById('profileSpineFill');
       if(spine) spine.style.height = '0%';
-      jobs().forEach(j=>{ j.classList.remove('on','lit','rv','in'); j.style.opacity='0'; j.style.transform='translateX(22px)'; });
-    }
-    function resetStamp(){
-      const stamp = document.getElementById('liStamp');
-      const handle = document.getElementById('liHandle');
-      if(stamp) stamp.classList.remove('show','typing','ready');
-      if(handle) handle.textContent = '';
-    }
-    function revealStamp(my, animate){
-      const stamp = document.getElementById('liStamp');
-      const handle = document.getElementById('liHandle');
-      if(!stamp || !handle) return;
-      if(!animate){
-        stamp.classList.add('show','ready');
-        stamp.classList.remove('typing');
-        handle.textContent = LI_HANDLE;
-        return;
-      }
-      stamp.classList.remove('ready');
-      stamp.classList.add('show','typing');
-      handle.textContent = '';
-      const start = performance.now();
-      const duration = 720;
-      (function step(now){
-        if(my!==gen) return;
-        const p = Math.min((now-start)/duration, 1);
-        handle.textContent = LI_HANDLE.slice(0, Math.round(LI_HANDLE.length * (1-Math.pow(1-p,3))));
-        if(p<1) requestAnimationFrame(step);
-        else{
-          stamp.classList.remove('typing');
-          stamp.classList.add('ready');
-        }
-      })(start);
+      jobs().forEach(j=>{
+        j.classList.remove('on','lit','rv','in');
+        j.style.opacity = '0';
+        j.style.transform = 'translateX(22px)';
+      });
     }
     function stop(){
       gen++;
@@ -2133,7 +2172,6 @@
       const slide = document.getElementById('slideProfile');
       if(slide) slide.classList.remove('scanning');
       resetJobs();
-      resetStamp();
       const years = document.getElementById('pfYears');
       const sites = document.getElementById('pfSites');
       if(years) years.textContent = '0+';
@@ -2165,15 +2203,9 @@
           if(spine) spine.style.height = (((i+1)/list.length)*100) + '%';
         });
       });
-      later(80 + list.length*340 + 220, ()=>{
-        if(my!==gen) return;
-        revealStamp(my, true);
-      });
     }
     function apply(level){
-      if(level < reached){
-        stop();
-      }
+      if(level < reached) stop();
       const my = gen;
       if(REDUCE){
         scan();
@@ -2187,9 +2219,6 @@
           list[list.length-1] && list[list.length-1].classList.add('lit');
           const spine = document.getElementById('profileSpineFill');
           if(spine) spine.style.height = '100%';
-          revealStamp(my, false);
-        } else {
-          resetStamp();
         }
         reached = level;
         return;
@@ -2556,6 +2585,8 @@
 
     document.getElementById('next').addEventListener('click', (e)=>{ e.stopPropagation(); goTo(current+1); });
     document.getElementById('prev').addEventListener('click', (e)=>{ e.stopPropagation(); goTo(current-1); });
+    const liLink = document.getElementById('liLink');
+    if(liLink) liLink.addEventListener('click', e=> e.stopPropagation());
 
     document.addEventListener('click', (e)=>{
       if(guide.classList.contains('open')) return;
@@ -2599,7 +2630,7 @@
 
   /* ================= SURVEY STORE =================
      Hosted decks may inject window.storage (shared KV). Local file /
-     Laragon does not — fall back to localStorage so the dashboard
+     Laragon does not ??? fall back to localStorage so the dashboard
      still renders zeros (and same-browser survey still works). */
   const surveyStore = (function(){
     const remote = window.storage;
@@ -2662,7 +2693,7 @@
           if(cnt) cnt.textContent = tally[lvl];
         });
       }catch(e){
-        /* keep bars at zero — do not spam the console every poll */
+        /* keep bars at zero ??? do not spam the console every poll */
       }
     }
     refreshCounts();
@@ -2736,18 +2767,18 @@
         try{
           const key = 'resp:' + lvl.name + ':' + Date.now() + '-' + Math.random().toString(36).slice(2);
           const res = await surveyStore.set(key, '1');
-          document.getElementById('sendingMsg').textContent = res ? 'Terkirim. Lihat layar depan untuk sebaran seluruh angkatan.' : 'Gagal mengirim — coba refresh halaman.';
+          document.getElementById('sendingMsg').textContent = res ? 'Terkirim. Lihat layar depan untuk sebaran seluruh angkatan.' : 'Gagal mengirim ??? coba refresh halaman.';
         }catch(e){
           console.error('submit failed', e);
           const msg = document.getElementById('sendingMsg');
-          if(msg) msg.textContent = 'Gagal mengirim ke server — coba refresh halaman lalu ulangi.';
+          if(msg) msg.textContent = 'Gagal mengirim ke server ??? coba refresh halaman lalu ulangi.';
         }
       }
     });
     render();
   }
 
-  /* ================= ROUTING (after const engines exist — pctChart is not hoisted) ================= */
+  /* ================= ROUTING (after const engines exist ??? pctChart is not hoisted) ================= */
   if(location.hash === '#survey'){
     document.getElementById('studentApp').classList.add('active');
     document.getElementById('deck').style.display = 'none';

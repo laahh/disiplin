@@ -131,13 +131,22 @@
   .btn-outline:hover{ background:var(--hazard); color:var(--coal); }
 
   /* ---- hero HUD ---- */
-  #slideHero{ overflow:hidden; }
+  #slideHero{ overflow:hidden; background:#1a3048; }
+  #slideHero .hero-bg{
+    position:absolute; inset:0; z-index:0; pointer-events:none;
+    background:#1a3048 url('bg-cerah.png') 68% center / cover no-repeat;
+  }
+  #slideHero .hero-scrim{
+    position:absolute; inset:0; z-index:1; pointer-events:none;
+    background:linear-gradient(90deg, rgba(247,251,255,.88) 0%, rgba(247,251,255,.56) 34%, rgba(247,251,255,.16) 56%, transparent 72%);
+  }
   #slideHero .hero-mark{
     position:absolute; left:4%; top:42%; transform:translateY(-50%);
     font-size:clamp(10rem,32vw,24rem); line-height:.72; color:rgba(29,127,224,.08); pointer-events:none;
     z-index:1;
   }
   .hero-portrait{
+    display:none;
     position:absolute; right:1%; top:0; bottom:0; z-index:2; margin:0;
     width:min(48vw, 580px); pointer-events:none; overflow:visible;
     background:transparent;
@@ -156,9 +165,9 @@
     filter:drop-shadow(0 18px 28px rgba(18,40,60,.12));
   }
   .hero-hud{
-    position:absolute; left:0; right:min(46vw, 520px); bottom:0; z-index:3;
+    position:absolute; left:0; right:min(38vw, 420px); bottom:0; z-index:3;
     padding:28px 40px 36px;
-    background:linear-gradient(180deg, transparent 22%, rgba(247,251,255,.55) 100%);
+    background:transparent;
   }
   .hero-hud h1 .fade{ display:block; }
   .hero-chips{ display:flex; flex-wrap:wrap; gap:10px 16px; margin-top:14px; }
@@ -844,6 +853,8 @@
 <div id="deck">
 
   <section class="slide active" id="slideHero" data-steps="3" data-section="A · Opening">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-scrim" aria-hidden="true"></div>
     <div class="slide-inner">
       <div class="hero-mark" id="heroMark" aria-hidden="true">01</div>
       <figure class="hero-portrait" id="heroPortrait">
