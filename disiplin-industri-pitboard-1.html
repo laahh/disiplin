@@ -496,10 +496,11 @@
     animation:hardFloat 3.8s ease-in-out infinite;
     filter:drop-shadow(18px 22px 16px rgba(22,50,79,.28));
   }
+  .pct-hard{ transition:opacity .4s var(--ease); }
+  .pct-book.is-opening .pct-hard,
   .pct-book.is-open .pct-hard{
-    opacity:0; pointer-events:none; transition:opacity .28s ease;
+    opacity:0; pointer-events:none;
   }
-  .pct-book.is-open .pct-hard-3d{ animation:none; }
   @keyframes hardFloat{
     0%,100%{ transform:rotateY(-32deg) rotateX(12deg) translateY(0); }
     50%{ transform:rotateY(-26deg) rotateX(10deg) translateY(-7px); }
@@ -547,8 +548,14 @@
     margin:20px auto 0; cursor:pointer;
     background:transparent; box-shadow:none;
   }
-  .pct-book:not(.is-open) #pctBook{
-    visibility:hidden; pointer-events:none;
+  .pct-book:not(.is-open):not(.is-opening) #pctBook{
+    opacity:0; pointer-events:none;
+  }
+  .pct-book.is-opening #pctBook,
+  .pct-book.is-open #pctBook{
+    opacity:1; pointer-events:auto;
+    touch-action:none;
+    transition:opacity .35s var(--ease);
   }
   #pctBook .shadow,
   #pctBook .overlay,
@@ -647,6 +654,7 @@
     z-index:4; font-size:.68rem; letter-spacing:.14em; text-transform:uppercase;
     color:var(--muted-2); pointer-events:none; white-space:nowrap;
   }
+  .pct-book.is-opening .pct-book-hint,
   .pct-book.is-open .pct-book-hint{ opacity:0; }
 
   /* ---- VS stack: pitboard split, sky portraits ---- */
@@ -900,10 +908,45 @@
   .dash-reset{ margin-top:8px; }
 
   /* ---- close ---- */
+  #slideClose{ overflow:hidden; background:#cfe4f4; }
+  #slideClose .close-bg{
+    position:absolute; inset:0; z-index:0; pointer-events:none;
+    background:#cfe4f4 url('end.png') 52% center / cover no-repeat;
+  }
+  #slideClose .close-scrim{
+    position:absolute; inset:0; z-index:1; pointer-events:none;
+    background:
+      linear-gradient(90deg, rgba(247,251,255,.62) 0%, rgba(247,251,255,.22) 28%, transparent 48%),
+      linear-gradient(210deg, transparent 58%, rgba(247,251,255,.36) 100%);
+  }
+  #slideClose .slide-inner{ z-index:2; }
   .close-rule{ position:absolute; top:28%; left:18%; width:72px; height:3px; background:var(--hazard); transform:scaleX(0) rotate(-28deg); transform-origin:left center; }
-  .close-quote{ position:absolute; top:14%; left:8%; max-width:16ch; }
-  .close-lede{ position:absolute; bottom:22%; right:8%; max-width:28ch; text-align:right; }
-  .closing-note{ position:absolute; bottom:12%; right:8%; font-size:.72rem; letter-spacing:.14em; text-transform:uppercase; color:var(--muted-2); text-align:right; }
+  .close-quote{
+    position:absolute; top:16%; left:6%; max-width:18ch;
+    text-shadow:0 1px 0 rgba(255,255,255,.88), 0 8px 22px rgba(247,251,255,.55);
+  }
+  .close-lede{
+    position:absolute; bottom:18%; right:6%; max-width:28ch; text-align:right;
+    color:var(--ink); font-weight:500; padding:8px 4px;
+    isolation:isolate;
+    text-shadow:0 1px 0 rgba(255,255,255,.95);
+  }
+  .close-lede::before{
+    content:''; position:absolute; z-index:-1; pointer-events:none;
+    left:-42px; right:-38px; top:-16px; bottom:-58px;
+    background:#fff; border-radius:80px; opacity:.88;
+    filter:blur(8px);
+    box-shadow:
+      -58px 10px 0 10px #fff,
+      62px -8px 0 6px #fff,
+      8px 30px 0 4px #F4FAFF,
+      -20px -22px 0 0 #fff;
+  }
+  .closing-note{
+    position:absolute; bottom:10%; right:6%; font-size:.72rem; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--hazard); text-align:right;
+    text-shadow:0 1px 0 rgba(255,255,255,.9);
+  }
 
   #studentApp{ position:fixed; inset:0; background:var(--coal); color:var(--ink); display:none;
     flex-direction:column; align-items:center; justify-content:flex-start; padding:6vh 5vw 8vh; overflow:auto; z-index:100; }
@@ -958,6 +1001,9 @@
     .hero-hud{ right:0; padding-right:28px; }
     .dash-wrap{ grid-template-columns:1fr; gap:28px; }
     #slideDash .slide-inner{ padding:5vh 5vw 8vh; }
+    .close-quote{ top:12%; left:5%; max-width:16ch; }
+    .close-lede{ bottom:16%; right:5%; max-width:24ch; }
+    .closing-note{ bottom:8%; right:5%; }
     .sbs{ flex:1 1 auto; height:auto; min-height:180px; }
   }
   @media (prefers-reduced-motion: reduce){
@@ -1478,6 +1524,8 @@
   </section>
 
   <section class="slide" id="slideClose" data-steps="3" data-section="E · Penutup">
+    <div class="close-bg" aria-hidden="true"></div>
+    <div class="close-scrim" aria-hidden="true"></div>
     <div class="slide-inner">
       <div class="close-rule fade" data-step="1" id="closeRule"></div>
       <h2 class="h-lg close-quote fade" data-step="2" id="closeQuote">Bakat membuatmu dilihat sekali. <em>Disiplin</em> yang membuatmu tetap dilihat, terus-menerus.</h2>
@@ -1843,7 +1891,7 @@
     const lerp = (a,b,u) => a+(b-a)*u;
     const easeOut = (t) => 1 - Math.pow(1-t, 3);
     const easeInOut = (t) => t<.5 ? 2*t*t : 1 - Math.pow(-2*t+2, 2)/2;
-    let playing = false, start = 0, raf = 0, pausedAt = 0, gen = 0, ctx = null, hudPopped = false, punched = false;
+    let playing = false, start = 0, raf = 0, pausedAt = 0, gen = 0, ctx = null, hudPopped = false, punched = false, signaledBook = false;
     function canvas(){ return $id('pctCanvas'); }
     function wrap(){ return $id('pctChartWrap'); }
     function sizeCanvas(){
@@ -1957,15 +2005,26 @@
       let t=(now-start)/1000;
       if(t>=DURATION+HOLD){ restartCycle(now); t=0; }
       const drawT=Math.min(t, DURATION);
+      if(drawT>=9.2) signalBook();
       pausedAt=drawT; frame(drawT); raf=requestAnimationFrame(tick);
     }
-    function stop(){ gen++; playing=false; hudPopped=false; punched=false; if(raf){ cancelAnimationFrame(raf); raf=0; } }
+    function signalBook(){
+      if(signaledBook) return;
+      signaledBook = true;
+      if(typeof atomicBook !== 'undefined' && atomicBook.openOnce) atomicBook.openOnce();
+    }
+    function pause(){
+      if(!playing) return;
+      playing=false;
+      if(raf){ cancelAnimationFrame(raf); raf=0; }
+    }
+    function stop(){ gen++; playing=false; hudPopped=false; punched=false; signaledBook=false; if(raf){ cancelAnimationFrame(raf); raf=0; } }
     function play(){
       stop(); const my=gen; let tries=0;
       function go(){
         if(my!==gen) return;
         if(!sizeCanvas()){ if(++tries<10){ requestAnimationFrame(go); return; } return; }
-        if(REDUCE){ frame(DURATION); pausedAt=DURATION; return; }
+        if(REDUCE){ frame(DURATION); pausedAt=DURATION; setTimeout(signalBook, 80); return; }
         frame(0); start=performance.now(); playing=true; raf=requestAnimationFrame(tick);
       }
       requestAnimationFrame(go);
@@ -1974,7 +2033,7 @@
       const wEl=wrap(); if(!wEl || wEl.offsetParent===null) return;
       sizeCanvas(); const t=playing?(performance.now()-start)/1000:pausedAt; frame(Math.min(t||0, DURATION));
     }, {passive:true});
-    return { play, stop };
+    return { play, stop, pause };
   })();
 
   const streakAnim = (function(){
@@ -2317,7 +2376,7 @@
 
   const atomicBook = (function(){
     const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let playing = false, inited = false, turning = false, resizing = false, onResize = null, onGuard = null;
+    let playing = false, inited = false, turning = false, resizing = false, autoOpened = false, onResize = null, onGuard = null, swipe = null;
     function $jq(){ return window.jQuery; }
     function wrap(){ return document.getElementById('pctBookWrap'); }
     function bookEl(){ return document.getElementById('pctBook'); }
@@ -2340,7 +2399,10 @@
     }
     function syncOpen(page){
       const box = wrap();
-      if(box) box.classList.toggle('is-open', page > 1);
+      if(!box) return;
+      const open = page > 1;
+      box.classList.toggle('is-open', open);
+      if(!open) box.classList.remove('is-opening');
     }
     function size(){
       if(!inited || !ready() || turning || resizing) return;
@@ -2364,7 +2426,7 @@
         display: 'double',
         gradients: true,
         acceleration: true,
-        duration: REDUCE ? 1 : 1000,
+        duration: REDUCE ? 1 : 1100,
         page: 1,
         when: {
           turning: function(e, page){
@@ -2384,30 +2446,83 @@
     function guard(e){
       e.stopPropagation();
     }
+    function resetHard(hard){
+      if(!hard) return;
+      hard.style.animation = '';
+      hard.style.transition = '';
+      hard.style.transform = '';
+    }
+    function flattenHard(done){
+      const hard = document.querySelector('#pctBookWrap .pct-hard-3d');
+      if(!hard){ done(); return; }
+      const now = getComputedStyle(hard).transform;
+      hard.style.animation = 'none';
+      hard.style.transition = 'none';
+      hard.style.transform = (now && now!=='none') ? now : 'rotateY(-32deg) rotateX(12deg)';
+      void hard.offsetWidth;
+      hard.style.transition = 'transform .55s cubic-bezier(.16,1,.3,1)';
+      hard.style.transform = 'rotateY(0deg) rotateX(0deg) translateY(0)';
+      setTimeout(done, REDUCE ? 0 : 560);
+    }
+    function startFlip(box){
+      if(!playing) return;
+      box.classList.add('is-opening');
+      setTimeout(()=>{
+        if(!playing) return;
+        try{ size(); }catch(e){}
+        try{
+          const $b = $book();
+          if($b.turn('page') < 2) $b.turn('next');
+        }catch(err){
+          try{ $book().turn('page', 2); }catch(e){}
+        }
+        box.classList.add('is-open');
+      }, REDUCE ? 0 : 380);
+    }
     function openBook(){
       const box = wrap();
-      if(box) box.classList.add('is-open');
-      try{
-        const $b = $book();
-        if($b.turn('page') < 2) $b.turn('next');
-      }catch(err){
-        try{ $book().turn('page', 2); }catch(e){}
+      if(!box || box.classList.contains('is-flattening') || box.classList.contains('is-opening') || box.classList.contains('is-open')) return;
+      if(typeof pctChart!=='undefined' && pctChart.pause) pctChart.pause();
+      box.classList.add('is-flattening');
+      flattenHard(()=> startFlip(box));
+    }
+    function openOnce(){
+      if(autoOpened || !playing) return;
+      autoOpened = true;
+      const box = wrap();
+      if(box && box.classList.contains('is-open')) return;
+      if(!inited){
+        if(!ready()) return;
+        build();
       }
+      openBook();
     }
     function onWrapClick(e){
       e.stopPropagation();
       if(!inited || turning) return;
       const box = wrap();
-      if(box && !box.classList.contains('is-open')){
-        openBook();
-        return;
-      }
+      if(!box || box.classList.contains('is-flattening') || box.classList.contains('is-opening')) return;
+      if(!box.classList.contains('is-open')) openBook();
+    }
+    function swipePoint(e){
+      const t = (e.changedTouches && e.changedTouches[0]) || (e.touches && e.touches[0]) || e;
+      return { x:t.clientX, y:t.clientY };
+    }
+    function onSwipeStart(e){
+      const box = wrap();
+      if(!box || !box.classList.contains('is-open') || turning) return;
+      swipe = Object.assign({ t: Date.now() }, swipePoint(e));
+    }
+    function onSwipeEnd(e){
+      if(!swipe || turning){ swipe = null; return; }
+      const p = swipePoint(e);
+      const dx = p.x - swipe.x, dy = p.y - swipe.y;
+      swipe = null;
+      if(Math.abs(dx) < 46 || Math.abs(dx) < Math.abs(dy)*1.15) return;
+      e.stopPropagation();
       try{
-        const $b = $book();
-        const pages = $b.turn('pages');
-        const page = $b.turn('page');
-        if(page >= pages){ $b.turn('page', 1); syncOpen(1); }
-        else $b.turn('next');
+        if(dx < 0) $book().turn('next');
+        else $book().turn('previous');
       }catch(err){}
     }
     function play(){
@@ -2428,6 +2543,8 @@
           box.addEventListener('click', onWrapClick);
           box.addEventListener('mousedown', onGuard);
           box.addEventListener('touchstart', onGuard, { passive:true });
+          box.addEventListener('pointerdown', onSwipeStart);
+          box.addEventListener('pointerup', onSwipeEnd);
         }
         if(stage){
           stage.addEventListener('mousedown', onGuard);
@@ -2442,15 +2559,20 @@
     function stop(){
       playing = false;
       turning = false;
+      autoOpened = false;
+      swipe = null;
       const box = wrap();
       const stage = document.getElementById('pctFlipStage');
       if(box){
         box.removeEventListener('click', onWrapClick);
+        box.removeEventListener('pointerdown', onSwipeStart);
+        box.removeEventListener('pointerup', onSwipeEnd);
         if(onGuard){
           box.removeEventListener('mousedown', onGuard);
           box.removeEventListener('touchstart', onGuard);
         }
-        box.classList.remove('is-live','is-open');
+        box.classList.remove('is-live','is-open','is-opening','is-flattening');
+        resetHard(box.querySelector('.pct-hard-3d'));
       }
       if(stage && onGuard){
         stage.removeEventListener('mousedown', onGuard);
@@ -2462,7 +2584,7 @@
         try{ $book().turn('page', 1); $book().turn('stop'); }catch(e){}
       }
     }
-    return { play, stop };
+    return { play, stop, openOnce };
   })();
 
   const sbsAnim = (function(){
