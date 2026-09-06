@@ -138,7 +138,9 @@
   }
   #slideHero .hero-scrim{
     position:absolute; inset:0; z-index:1; pointer-events:none;
-    background:linear-gradient(90deg, rgba(247,251,255,.88) 0%, rgba(247,251,255,.56) 34%, rgba(247,251,255,.16) 56%, transparent 72%);
+    background:
+      linear-gradient(90deg, rgba(247,251,255,.92) 0%, rgba(247,251,255,.62) 36%, rgba(247,251,255,.18) 56%, transparent 72%),
+      linear-gradient(180deg, transparent 58%, rgba(247,251,255,.42) 100%);
   }
   #slideHero .hero-mark{
     position:absolute; left:4%; top:42%; transform:translateY(-50%);
@@ -170,6 +172,16 @@
     background:transparent;
   }
   .hero-hud h1 .fade{ display:block; }
+  #slideHero #heroLede{
+    color:var(--ink); font-weight:600;
+    font-size:clamp(1.12rem, 1.7vw, 1.38rem);
+    line-height:1.4; max-width:38ch; margin-top:.85rem;
+    text-shadow:0 1px 0 rgba(255,255,255,.95), 0 6px 18px rgba(247,251,255,.75);
+  }
+  #slideHero #heroLede em{
+    color:var(--hazard); font-style:italic; font-weight:700;
+    text-shadow:0 1px 0 rgba(255,255,255,.95), 0 0 18px rgba(29,127,224,.28);
+  }
   .hero-chips{ display:flex; flex-wrap:wrap; gap:10px 16px; margin-top:14px; }
   .chip{ font-size:.72rem; letter-spacing:.12em; text-transform:uppercase; color:var(--signal);
     border-left:2px solid var(--hazard); padding-left:10px; }
@@ -291,7 +303,10 @@
     width:24px; height:24px; border-radius:4px; background:#111; color:#f4c430;
     display:grid; place-items:center; font-size:.52rem; font-weight:700; letter-spacing:.02em; flex:none;
   }
-  .li-mark.uni{ background:#1a4b8c; color:#ffd54f; border-radius:50%; }
+  .li-mark.logo{ background:transparent; overflow:hidden; padding:0; }
+  .li-mark.logo img{ width:100%; height:100%; object-fit:contain; display:block; }
+  .li-mark.logo.bc{ width:44px; height:24px; }
+  .li-mark.logo.uni{ width:28px; height:28px; border-radius:6px; }
   .li-actions{ display:flex; flex-wrap:wrap; gap:8px; padding:8px 24px 18px 156px; }
   .li-btn{
     border-radius:999px; padding:6px 16px; min-height:32px; font-size:.95rem; font-weight:600;
@@ -329,8 +344,10 @@
     width:48px; height:48px; border-radius:4px; background:#111; color:#7dce3a;
     display:grid; place-items:center; font-size:.62rem; font-weight:700; flex:none;
   }
-  .li-mini.uni{ background:#1a4b8c; color:#ffd54f; border-radius:50%; }
-  .li-mini.itb{ background:#1b3a6b; color:#fff; border-radius:50%; }
+  .li-mini.logo{ background:transparent; overflow:hidden; padding:0; }
+  .li-mini.logo img{ width:100%; height:100%; object-fit:contain; display:block; }
+  .li-mini.uni{ border-radius:8px; }
+  .li-mini.itb{ border-radius:50%; }
   .li-skill{ display:flex; align-items:center; gap:6px; margin-top:8px; color:var(--li-ink); font-size:.875rem; font-weight:600; }
   .li-skill i{ width:12px; height:12px; background:var(--li-muted); clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%); flex:none; }
   .profile-log{ position:relative; padding-left:0; margin-top:0; }
@@ -725,39 +742,158 @@
   .fig-card p{ font-size:.9rem; color:rgba(255,255,255,.86); }
   .icon-line{ width:22px; height:22px; color:var(--signal); margin-bottom:auto; }
 
-  /* ---- SBS board ---- */
+  /* ---- SBS board + fondasi (same concept as editorial) ---- */
   #slidePillars{ padding:2.2vh 2vw 5.5vh; }
-  #slidePillars .h-lg{ font-size:clamp(1rem,1.8vw,1.45rem); max-width:none; }
-  .sbs-art{
-    position:relative; flex:1; min-height:0; margin-top:.45rem; opacity:0;
+  #slidePillars .slide-inner{
+    display:flex; flex-direction:column; height:100%; min-height:0;
   }
-  .sbs-art.fade.on{ opacity:1; }
-  .sbs-art img{
+  #slidePillars .h-lg{ font-size:clamp(1rem,1.8vw,1.45rem); max-width:none; flex:0 0 auto; }
+  #slidePillars .kicker{ margin-bottom:.28rem; }
+  #sbsBody{ margin-top:8px; max-width:72ch; flex:0 0 auto; }
+  .sbs{
+    position:relative; width:100%; flex:1 1 auto; min-height:0;
+    margin-top:.2rem; opacity:0;
+    display:flex; flex-direction:column;
+  }
+  .sbs.fade.on{ opacity:1; }
+  .sbs-frame{
+    position:relative; width:100%; flex:1 1 auto; min-height:0;
+    overflow:hidden;
+  }
+  .sbs-frame img{
     position:absolute; inset:0; width:100%; height:100%;
-    object-fit:contain; display:block;
+    object-fit:contain; object-position:center;
+    display:block; opacity:0; transform:scale(1.07);
+    filter:saturate(.88) brightness(.86);
+    transition:opacity .7s var(--ease), transform 1.35s var(--ease), filter 1.1s var(--ease);
   }
-  #sbsBody{ margin-top:8px; max-width:62ch; }
+  .sbs.show-img img{
+    opacity:1; transform:scale(1.02);
+    filter:saturate(1) brightness(1);
+  }
+  .sbs.run img{ animation:sbsKen 22s ease-in-out infinite alternate; }
+  @keyframes sbsKen{
+    from{ transform:scale(1.02) translate(0,0); }
+    to{ transform:scale(1.06) translate(-0.6%,-0.4%); }
+  }
+  .sbs-scan{
+    position:absolute; inset:-8% -12%; pointer-events:none; opacity:0;
+    background:linear-gradient(105deg, transparent 38%, rgba(29,127,224,.16) 50%, transparent 62%);
+    transform:translateX(-40%);
+  }
+  .sbs.show-scan .sbs-scan{ animation:sbsSweep 1.15s var(--ease) forwards; }
+  @keyframes sbsSweep{
+    0%{ opacity:0; transform:translateX(-46%); }
+    18%{ opacity:1; }
+    100%{ opacity:0; transform:translateX(46%); }
+  }
+  .sbs-runner{
+    position:absolute; left:0; top:0; width:9px; height:9px; margin:-4px;
+    border-radius:50%; background:var(--hazard);
+    box-shadow:0 0 10px rgba(29,127,224,.95), 0 0 22px rgba(29,127,224,.45);
+    offset-path:inset(6% 3.5% round 80px); offset-distance:0%;
+    opacity:0; pointer-events:none;
+  }
+  .sbs.run .sbs-runner{ opacity:1; animation:sbsRide 16s linear infinite; }
+  @keyframes sbsRide{ to{ offset-distance:100%; } }
+  .sbs-flowdown{
+    position:relative; flex:0 0 48px; width:min(78%, 820px); margin:-2px auto 0;
+    overflow:visible;
+  }
+  .sbs-funnel{
+    position:absolute; inset:0; width:100%; height:100%; display:block; overflow:visible;
+  }
+  .sbs-funnel path, .sbs-funnel line{
+    fill:none; stroke:rgba(29,127,224,.5); stroke-width:1.2; stroke-linecap:round;
+  }
+  .sbs-funnel line{
+    stroke-dasharray:64; stroke-dashoffset:64;
+    transition:stroke-dashoffset .7s var(--ease); transition-delay:var(--d,0s);
+  }
+  .sbs-funnel path{
+    stroke:rgba(29,127,224,.22); fill:rgba(29,127,224,.06);
+    opacity:0; transition:opacity .55s var(--ease);
+  }
+  .sbs.show-flow .sbs-funnel line{ stroke-dashoffset:0; }
+  .sbs.show-flow .sbs-funnel path{ opacity:1; }
+  .sbs-pipe{
+    position:absolute; top:0; height:100%; left:var(--x);
+    width:2px; margin-left:-1px; background:transparent;
+    transform:scaleY(0); transform-origin:top center; opacity:0;
+  }
+  .sbs.show-flow .sbs-pipe{
+    opacity:1; transform:scaleY(1);
+    transition:transform .55s var(--ease), opacity .3s var(--ease);
+    transition-delay:var(--d,0s);
+  }
+  .sbs-pipe i{
+    position:absolute; left:50%; top:-10%; width:7px; height:7px;
+    margin-left:-3.5px; border-radius:50%;
+    background:var(--hazard);
+    box-shadow:0 0 8px rgba(29,127,224,.9);
+    opacity:0;
+  }
+  .sbs.show-flow.run .sbs-pipe i{ animation:sbsDrop 1.35s cubic-bezier(.2,.7,.2,1) infinite; animation-delay:var(--d,0s); }
+  @keyframes sbsDrop{
+    0%{ top:-8%; opacity:0; transform:scale(.6); }
+    12%{ opacity:1; }
+    88%{ opacity:1; }
+    100%{ top:96%; opacity:.15; transform:scale(.9); }
+  }
+  .sbs-base{
+    flex:0 0 auto; align-self:center;
+    width:min(560px, 70%);
+    margin-top:2px; padding:10px 22px 11px;
+    display:flex; flex-direction:column; align-items:center; gap:2px;
+    border:1px solid var(--line);
+    border-top-width:2px; border-top-color:var(--hazard);
+    background:linear-gradient(180deg, rgba(29,127,224,.12), rgba(255,255,255,.94));
+    box-shadow:0 10px 24px rgba(29,127,224,.12), inset 0 1px 0 rgba(29,127,224,.2);
+    opacity:0; transform:translateY(18px);
+    transition:opacity .5s var(--ease), transform .55s var(--ease), box-shadow .5s;
+  }
+  .sbs.show-base .sbs-base{ opacity:1; transform:none; }
+  .sbs.show-base.lit .sbs-base{
+    box-shadow:0 0 28px rgba(29,127,224,.28), 0 10px 24px rgba(29,127,224,.16), inset 0 1px 0 rgba(29,127,224,.35);
+  }
+  .sbs-base-k{
+    font-family:'Red Hat Mono',monospace; font-size:.58rem;
+    letter-spacing:.16em; text-transform:uppercase; color:var(--hazard);
+  }
+  .sbs-base b{
+    font-family:'Teko',sans-serif; font-weight:600;
+    font-size:clamp(1.25rem,2.2vw,1.7rem); letter-spacing:.04em; color:var(--ink);
+  }
 
-  /* ---- dashboard corners ---- */
-  .dash-stage{ position:absolute; inset:0; }
-  .dash-title-dock{ position:absolute; top:18px; left:36px; z-index:3; max-width:22ch; }
-  .qr-center{ position:absolute; left:50%; top:52%; transform:translate(-50%,-50%); text-align:center; z-index:2; }
-  .qr-box{ background:#fff; padding:14px; display:inline-flex; box-shadow:0 10px 28px rgba(29,127,224,.1); }
-  #qrcodeEl{ width:240px; height:240px; }
-  .qr-caption{ color:var(--muted); font-size:.75rem; margin-top:10px; word-break:break-all; }
-  .dash-total{ font-size:.78rem; color:var(--muted); margin-bottom:8px; }
-  .dash-total b{ color:var(--hazard); font-family:'Teko',sans-serif; font-size:1.8rem; }
-  .dash-corner{ position:absolute; width:168px; z-index:3; }
-  .dash-tl{ top:18px; right:28px; } .dash-tr{ top:18px; left:auto; }
-  .c-reaktif{ top:22px; right:28px; }
-  .c-bergantung{ top:168px; left:36px; }
-  .c-mandiri{ bottom:88px; left:36px; }
-  .c-inter{ bottom:88px; right:28px; }
-  .corner-card{ background:var(--panel); border:1px solid var(--line); padding:10px 12px; box-shadow:0 8px 20px rgba(29,127,224,.07); }
-  .corner-card span{ font-size:.68rem; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); }
-  .hist-track{ height:48px; width:10px; background:#D5E8F6; display:flex; align-items:flex-end; margin-top:6px; }
-  .hist-fill{ width:100%; height:0; background:var(--signal); }
-  .dash-reset{ position:absolute; bottom:20px; left:50%; transform:translateX(-50%); z-index:4; }
+  /* ---- dashboard: two-column like editorial (QR + bars) ---- */
+  #slideDash .slide-inner{
+    display:flex; flex-direction:column; justify-content:center;
+    max-width:980px; padding:8vh 6vw 8vh 48px;
+  }
+  #slideDash .kicker{ margin-bottom:1.2rem; }
+  #slideDash .dash-title{ max-width:22ch; }
+  .dash-wrap{
+    display:grid; grid-template-columns:250px 1fr; gap:52px;
+    width:100%; max-width:980px; align-items:center; margin-top:2rem;
+  }
+  .dash-qr{ display:flex; flex-direction:column; align-items:center; }
+  .qr-box{
+    background:#fff; padding:14px; display:flex; align-items:center; justify-content:center;
+    border:1px solid var(--line); box-shadow:0 10px 28px rgba(29,127,224,.1);
+  }
+  #qrcodeEl{ width:200px; height:200px; }
+  .qr-caption{ color:var(--muted); font-size:.78rem; margin-top:12px; text-align:center; word-break:break-all; }
+  .dash-total{ font-size:.9rem; color:var(--muted); margin-bottom:16px; letter-spacing:.03em; }
+  .dash-total b{ color:var(--hazard); font-family:'Teko',sans-serif; font-size:1.45rem; }
+  .bar-row{ display:flex; align-items:center; gap:14px; margin-bottom:15px; }
+  .bar-label{
+    width:126px; font-size:.82rem; text-align:right; flex-shrink:0;
+    color:var(--muted); letter-spacing:.04em;
+  }
+  .bar-track{ flex:1; height:22px; border:1px solid var(--line); overflow:hidden; background:#fff; }
+  .bar-fill{ height:100%; width:0%; background:rgba(29,127,224,.28); border-right:2px solid var(--hazard); transition:width .7s var(--ease); }
+  .bar-count{ width:34px; font-size:.85rem; color:var(--muted); }
+  .dash-reset{ margin-top:8px; }
 
   /* ---- close ---- */
   .close-rule{ position:absolute; top:28%; left:18%; width:72px; height:3px; background:var(--hazard); transform:scaleX(0) rotate(-28deg); transform-origin:left center; }
@@ -816,6 +952,9 @@
     .pct-art{ min-height:150px; }
     .hero-portrait{ width:46vw; max-width:200px; top:6%; bottom:auto; height:46vh; }
     .hero-hud{ right:0; padding-right:28px; }
+    .dash-wrap{ grid-template-columns:1fr; gap:28px; }
+    #slideDash .slide-inner{ padding:5vh 5vw 8vh; }
+    .sbs{ flex:1 1 auto; height:auto; min-height:180px; }
   }
   @media (prefers-reduced-motion: reduce){
     .fade,.fade.on,.slide,.slide.active,.w{ animation:none; transition:none; opacity:1; transform:none; }
@@ -824,6 +963,9 @@
     .fig-card{ transition:none; }
     .fig-photo{ opacity:.92; transform:none; }
     .close-rule{ transform:rotate(-28deg); }
+    .sbs.run img, .sbs.show-scan .sbs-scan, .sbs.run .sbs-runner, .sbs.show-flow.run .sbs-pipe i{ animation:none; }
+    .sbs-frame img{ opacity:1; transform:none; filter:none; }
+    .sbs-pipe, .sbs-base{ opacity:1; transform:none; }
   }
 </style>
 </head>
@@ -866,11 +1008,11 @@
           <span class="fade" data-step="1" id="heroL1">Bakat Bikin Dilihat,</span>
           <span class="fade" data-step="2" id="heroL2"><em id="heroEm">Disiplin</em> Bikin Bertahan.</span>
         </h1>
-        <p class="lede fade" data-step="3" id="heroLede">Kedisiplinan di Dunia Industri — bersama <em>Jimmi Idris</em>, GM Occupational Health &amp; Safety, PT Berau Coal.</p>
+        <p class="lede fade" data-step="3" id="heroLede"><em>Jimmi Idris</em>, GM Occupational Health &amp; Safety, PT Berau Coal.</p>
         <div class="hero-chips fade" data-step="3" id="heroChips">
           <span class="chip mono">Sesi Pembekalan</span>
-          <span class="chip mono">± 55 Menit</span>
-          <span class="chip mono">Interaktif</span>
+          <!-- <span class="chip mono">± 55 Menit</span> -->
+          <!-- <span class="chip mono">Interaktif</span> -->
         </div>
       </div>
     </div>
@@ -913,15 +1055,15 @@
                 </button>
                 <div class="li-head">
                   <div>
-                    <h2 class="profile-name" id="pfName">jimmi idris <span class="li-verify" title="Verified"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 1.3 9.7 3l2.1.4.4 2.1L14.1 7l-1.9 1.5.4 2.1-2.1.4L8 13.1 6.3 11.4l-2.1-.4.4-2.1L2.7 7l1.9-1.5-.4-2.1 2.1-.4L8 1.3zm-.2 8.4 3.3-3.3-.9-.9-2.4 2.4-1.1-1.1-.9.9 2 2z"/></svg></span> <span class="li-degree">· 2nd</span></h2>
-                    <p class="profile-role" id="pfRole">General Manager OHS di PT Berau Coa</p>
-                    <p class="li-meta">Merau, East Kalimantan, Indonesia · <a id="liLink" href="https://www.linkedin.com/in/jimmi-idris-b4378937" target="_blank" rel="noopener">Contact info</a></p>
-                    <p class="li-conn">2K followers · 500+ connections</p>
+                    <h2 class="profile-name" id="pfName">Jimmi Idris <span class="li-verify" title="Verified"><svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 1.3 9.7 3l2.1.4.4 2.1L14.1 7l-1.9 1.5.4 2.1-2.1.4L8 13.1 6.3 11.4l-2.1-.4.4-2.1L2.7 7l1.9-1.5-.4-2.1 2.1-.4L8 1.3zm-.2 8.4 3.3-3.3-.9-.9-2.4 2.4-1.1-1.1-.9.9 2 2z"/></svg></span> <span class="li-degree">· 2nd</span></h2>
+                    <p class="profile-role" id="pfRole">General Manager OHS di PT Berau Coal</p>
+                    <p class="li-meta">Berau, East Kalimantan, Indonesia · <a id="liLink" href="https://www.linkedin.com/in/jimmi-idris-b4378937" target="_blank" rel="noopener">Contact info</a></p>
+                    <p class="li-conn">10K followers · 500+ connections</p>
                     <p class="li-mutual"><i></i> Ir. Elferdy, ST, MM is a mutual connection</p>
                   </div>
                   <div class="li-orgs">
-                    <div class="li-org"><span class="li-mark">BC</span> PT Berau Coal</div>
-                    <div class="li-org"><span class="li-mark uni">UN</span> Sriwijaya University</div>
+                    <div class="li-org"><span class="li-mark logo bc"><img src="bc.png" alt="PT Berau Coal"></span> PT Berau Coal</div>
+                    <div class="li-org"><span class="li-mark logo uni"><img src="sriwijaya-removebg-preview.png" alt="Sriwijaya University"></span> Sriwijaya University</div>
                   </div>
                 </div>
                 <div class="li-actions">
@@ -1024,19 +1166,16 @@
                 <p class="li-label">Education</p>
                 <div class="li-edu">
                   <span class="otag fade" data-step="2">
-                    <span class="li-mini uni">UN</span>
+                    <span class="li-mini logo uni"><img src="sriwijaya-removebg-preview.png" alt="Universitas Sriwijaya"></span>
                     <span><strong>Sriwijaya University</strong>Bachelor Degree, Mining Engineer<span class="n">1999 - 2004</span></span>
                   </span>
                   <span class="otag fade" data-step="2">
-                    <span class="li-mini itb">ITB</span>
+                    <span class="li-mini logo itb"><img src="itb.png" alt="Institut Teknologi Bandung"></span>
                     <span><strong>Institut Teknologi Bandung (ITB)</strong>Master of Business Administration - MBA, operation management<span class="n">2019 - 2020</span></span>
                   </span>
-                  <span class="otag fade" data-step="2">
-                    <span class="li-mini uni">UN</span>
-                    <span><strong>University of Sriwijaya</strong>S1 Mining Engineer<span class="n">1999 - 2004</span></span>
-                  </span>
+                  
                 </div>
-                <span class="li-more">Show all 3 educations →</span>
+                <span class="li-more">Show all educations →</span>
               </article>
               <article class="li-card li-sec fade" data-step="2">
                 <p class="li-label">Projects</p>
@@ -1075,7 +1214,7 @@
       <div class="streak-stage">
         <div class="streak-copy">
           <p class="kicker mono fade" data-step="1" id="stKicker">Fig. 01 · Kalian Sudah Jago Ini, Cuma Belum Sadar</p>
-          <h2 class="h-lg fade" data-step="1" id="stHead">Hari streak Duolingo. Kenapa susah kalau buat <em>bangun pagi</em>?</h2>
+          <h2 class="h-lg fade" data-step="1" id="stHead">Streak TikTok dijaga. Kenapa susah kalau buat <em>bangun pagi</em>?</h2>
         </div>
         <div class="duo-board fade" id="streakGridWrap" data-step="2">
           <div class="duo-count">
@@ -1212,7 +1351,7 @@
     <div class="vs-wash vs-wash-b" id="vsWashB"></div>
     <div class="slide-inner">
       <div class="vs-head">
-        <p class="kicker mono fade" data-step="1" id="vsKicker">Fig. 03 · Analogi Yang Paling Dekat</p>
+        <p class="kicker mono fade" data-step="1" id="vsKicker">Fig. 03 · Analogi Yang Paling Sesuai</p>
         <h2 class="h-lg">
           <span class="fade" data-step="1" id="vsH1">Talenta bawa kamu naik.</span>
           <span class="fade" data-step="1" id="vsH2"><em>Disiplin</em> yang bikin kamu bertahan di atas.</span>
@@ -1281,41 +1420,53 @@
   </section>
 
   <section class="slide" id="slidePillars" data-steps="3" data-section="C · Fondasi">
-    <div class="slide-inner" style="display:flex;flex-direction:column;height:100%;">
+    <div class="slide-inner">
       <p class="kicker mono fade" data-step="1" id="sbsKicker">Fig. 05 · Sistem Bekerja Selamat</p>
-      <h2 class="h-lg fade" data-step="1" id="sbsTitle">Empat pilar hidup di dalam satu siklus — <em>bukan di atas kertas</em></h2>
-      <div class="sbs-art fade" id="sbsRoot" data-step="2">
-        <img src="sbs.png" width="1672" height="941" alt="Diagram Sistem Bekerja Selamat">
+      <h2 class="h-lg fade" data-step="1" id="sbsTitle">Seluruh SBS memakai satu fondasi — <em>disiplin kerja</em></h2>
+      <div class="sbs fade" id="sbsRoot" data-step="2">
+        <div class="sbs-frame">
+          <img src="sbs.png" id="sbsImg" width="1672" height="941" alt="Diagram Sistem Bekerja Selamat">
+          <div class="sbs-scan" aria-hidden="true"></div>
+          <div class="sbs-runner" aria-hidden="true"></div>
+        </div>
+        <div class="sbs-flowdown" aria-hidden="true">
+          <svg class="sbs-funnel" viewBox="0 0 100 40" preserveAspectRatio="none">
+            <path d="M6 0 H94 L62 40 H38 Z"/>
+            <line x1="14" y1="0" x2="42" y2="40" style="--d:.02s"/>
+            <line x1="32" y1="0" x2="46" y2="40" style="--d:.12s"/>
+            <line x1="50" y1="0" x2="50" y2="40" style="--d:.22s"/>
+            <line x1="68" y1="0" x2="54" y2="40" style="--d:.32s"/>
+            <line x1="86" y1="0" x2="58" y2="40" style="--d:.42s"/>
+          </svg>
+          <span class="sbs-pipe" style="--x:14%; --d:.02s"><i></i></span>
+          <span class="sbs-pipe" style="--x:32%; --d:.12s"><i></i></span>
+          <span class="sbs-pipe" style="--x:50%; --d:.22s"><i></i></span>
+          <span class="sbs-pipe" style="--x:68%; --d:.32s"><i></i></span>
+          <span class="sbs-pipe" style="--x:86%; --d:.42s"><i></i></span>
+        </div>
+        <div class="sbs-base" id="sbsBase">
+          <b>Disiplin kerja</b>
+        </div>
       </div>
-      <p class="body-txt fade" data-step="3" id="sbsBody">Tanpa disiplin yang menjaga siklus gap–incident–audit berputar, lima layer itu hanya slogan. Insiden berulang: telusuri dari Layer 5 ke Layer 1.</p>
+      <p class="body-txt fade" data-step="3" id="sbsBody">Leadership, proses, teknologi, lima layer, audit — semuanya hanya jalan jika memakai disiplin kerja. Tanpa itu, siklus gap–incident–audit berhenti di poster.</p>
     </div>
   </section>
 
   <section class="slide" id="slideDash" data-steps="2" data-section="D · Interaktif">
     <div class="slide-inner">
-      <div class="dash-stage">
-        <div class="dash-title-dock">
-          <p class="kicker mono fade" data-step="1" id="dashKicker">Fig. 06 · Sesi Interaktif — Sebaran Seluruh Angkatan</p>
-          <h2 class="h-lg fade" data-step="1" id="dashTitle">Di level mana disiplin kalian sekarang?</h2>
+      <p class="kicker mono fade" data-step="1" id="dashKicker">Fig. 06 · Sesi Interaktif — Sebaran Seluruh Angkatan</p>
+      <h2 class="h-lg dash-title fade" data-step="1" id="dashTitle">Di level mana disiplin kalian sekarang?</h2>
+      <div class="dash-wrap fade" data-step="2" id="dashWrap">
+        <div class="dash-qr">
+          <div class="qr-box" id="qrBox"><div id="qrcodeEl"></div></div>
+          <p class="qr-caption mono">Scan untuk isi survey<br><span id="linkText"></span></p>
         </div>
-        <div class="fade" data-step="2" id="dashWrap">
-          <div class="qr-center">
-            <div class="dash-total mono">TOTAL SUDAH MENGISI: <b id="totalCount">0</b></div>
-            <div class="qr-box" id="qrBox"><div id="qrcodeEl"></div></div>
-            <p class="qr-caption mono">Scan untuk isi survey<br><span id="linkText"></span></p>
-          </div>
-          <div class="dash-corner c-bergantung">
-            <div class="corner-card"><span>Bergantung</span><div class="hist-track"><div class="hist-fill" id="bar-Bergantung"></div></div><b id="cnt-Bergantung">0</b></div>
-          </div>
-          <div class="dash-corner c-reaktif">
-            <div class="corner-card"><span>Reaktif</span><div class="hist-track"><div class="hist-fill" id="bar-Reaktif"></div></div><b id="cnt-Reaktif">0</b></div>
-          </div>
-          <div class="dash-corner c-mandiri">
-            <div class="corner-card"><span>Mandiri</span><div class="hist-track"><div class="hist-fill" id="bar-Mandiri"></div></div><b id="cnt-Mandiri">0</b></div>
-          </div>
-          <div class="dash-corner c-inter">
-            <div class="corner-card"><span>Interdependen</span><div class="hist-track"><div class="hist-fill" id="bar-Interdependen"></div></div><b id="cnt-Interdependen">0</b></div>
-          </div>
+        <div class="dash-bars">
+          <div class="dash-total mono">TOTAL SUDAH MENGISI: <b id="totalCount">0</b></div>
+          <div class="bar-row"><div class="bar-label mono">Reaktif</div><div class="bar-track"><div class="bar-fill" id="bar-Reaktif"></div></div><div class="bar-count mono" id="cnt-Reaktif">0</div></div>
+          <div class="bar-row"><div class="bar-label mono">Bergantung</div><div class="bar-track"><div class="bar-fill" id="bar-Bergantung"></div></div><div class="bar-count mono" id="cnt-Bergantung">0</div></div>
+          <div class="bar-row"><div class="bar-label mono">Mandiri</div><div class="bar-track"><div class="bar-fill" id="bar-Mandiri"></div></div><div class="bar-count mono" id="cnt-Mandiri">0</div></div>
+          <div class="bar-row"><div class="bar-label mono">Interdependen</div><div class="bar-track"><div class="bar-fill" id="bar-Interdependen"></div></div><div class="bar-count mono" id="cnt-Interdependen">0</div></div>
           <button class="btn-outline dash-reset" id="dashResetBtn">Reset data (sebelum acara)</button>
         </div>
       </div>
@@ -1617,9 +1768,9 @@
       }
       if(n>=2 && prev<2){
         const qr=$id('qrBox');
-        const corners=document.querySelectorAll('.corner-card');
+        const rows=document.querySelectorAll('#slideDash .bar-row, #slideDash .dash-total, #slideDash .dash-reset, #slideDash .qr-caption');
         if(qr) tl.fromTo(qr, {scale:0.92, opacity:0}, {scale:1, opacity:1, duration:0.55, ease:'expo.out'}, 0);
-        if(corners.length) tl.fromTo(corners, {x:20, opacity:0}, {x:0, opacity:1, stagger:0.08, ease:'back.out(1.15)'}, 0.12);
+        if(rows.length) tl.fromTo(rows, {x:20, opacity:0}, {x:0, opacity:1, stagger:0.07, ease:'back.out(1.15)'}, 0.12);
       }
     }
     function close(tl, n, prev){
@@ -2310,6 +2461,41 @@
     return { play, stop };
   })();
 
+  const sbsAnim = (function(){
+    const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const ALL = ['show-img','show-scan','run','show-flow','show-base','lit'];
+    let timers = [], gen = 0;
+    function later(ms, fn){
+      const id = setTimeout(fn, ms);
+      timers.push(id);
+    }
+    function root(){ return document.getElementById('sbsRoot'); }
+    function stop(){
+      gen++;
+      timers.forEach(clearTimeout);
+      timers = [];
+      const r = root();
+      if(r) r.classList.remove.apply(r.classList, ALL);
+    }
+    function play(){
+      stop();
+      const my = gen;
+      const r = root();
+      if(!r) return;
+      if(REDUCE){
+        ALL.forEach(c=> r.classList.add(c));
+        return;
+      }
+      later(40, ()=>{ if(my===gen) r.classList.add('show-img'); });
+      later(420, ()=>{ if(my===gen) r.classList.add('show-scan'); });
+      later(1180, ()=>{ if(my===gen) r.classList.add('run'); });
+      later(1620, ()=>{ if(my===gen) r.classList.add('show-flow'); });
+      later(2140, ()=>{ if(my===gen) r.classList.add('show-base'); });
+      later(2480, ()=>{ if(my===gen) r.classList.add('lit'); });
+    }
+    return { play, stop };
+  })();
+
   function replaySlide(index){
     pitMotion.killAll();
     if(index!==1) profileAnim.stop();
@@ -2317,6 +2503,7 @@
     if(index!==3){ pctChart.stop(); atomicBook.stop(); }
     if(index!==4) vsAnim.stop();
     if(index!==5) figAnim.stop();
+    if(index!==6) sbsAnim.stop();
   }
 
   function initDeck(){
@@ -2358,6 +2545,10 @@
         if(n<2) figAnim.stop();
         else if(n>prev) figAnim.play(n);
         else figAnim.settle(n);
+      }
+      if(index===6){
+        if(n>=2 && prev<2) sbsAnim.play();
+        if(n<2) sbsAnim.stop();
       }
     }
     function paintChrome(){
@@ -2495,7 +2686,7 @@
     const studentUrl = location.href.split('#')[0]+'#survey';
     document.getElementById('linkText').textContent = studentUrl;
     try{
-      new QRCode(document.getElementById('qrcodeEl'), { text:studentUrl, width:240, height:240, colorDark:'#16324F', colorLight:'#FFFFFF' });
+      new QRCode(document.getElementById('qrcodeEl'), { text:studentUrl, width:200, height:200, colorDark:'#16324F', colorLight:'#FFFFFF' });
     }catch(e){ console.error('QR generation failed', e); }
     async function refreshCounts(){
       try{
@@ -2509,7 +2700,7 @@
         Object.keys(tally).forEach(lvl=>{
           const pct = total>0 ? Math.round((tally[lvl]/total)*100) : 0;
           const bar=document.getElementById('bar-'+lvl); const cnt=document.getElementById('cnt-'+lvl);
-          if(bar) bar.style.height = pct+'%';
+          if(bar) bar.style.width = pct+'%';
           if(cnt) cnt.textContent = tally[lvl];
         });
       }catch(e){}

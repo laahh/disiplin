@@ -63,6 +63,9 @@
      screens that matter, so a plain center anchor keeps both the ornament
      (far left) and the "SAFETY TODAY" signboard (far right) safe together. */
   #slide2 .photo-bg{ background-image:url('bg2.png'); background-position:center center; }
+  #slide2 .photo-scrim{
+    background:linear-gradient(180deg, rgba(246,250,246,.78) 0%, rgba(246,250,246,.42) 42%, rgba(246,250,246,.7) 100%);
+  }
 
   /* ---- hero ornament overlay: live SVG arc/dot layer on top of the photo. ---- */
   .hero-ornament{ position:absolute; inset:0; z-index:1; pointer-events:none; }
@@ -364,34 +367,98 @@
   }
   #slidePct .pct-book.is-open .pct-book-hint{ opacity:0; }
 
-  /* ---- streak (FIG. 01): boxes light day-by-day in a loop to show
-     consistency — fill, hold with a travelling glow, reset, repeat. ---- */
-  .streak-grid{ display:grid; grid-template-columns:repeat(10,1fr); gap:7px; max-width:360px; }
-  .streak-day{ width:28px; height:28px; border:1px solid var(--line); border-radius:4px;
-    background:transparent; transform:scale(1); box-shadow:none;
-    transition:border-color .25s var(--ease-out), background .25s var(--ease-out),
-               box-shadow .25s var(--ease-out), transform .25s var(--ease-out); }
-  .streak-day.on{
-    background:rgba(18,124,66,.16); border-color:var(--green);
-    box-shadow:0 0 8px rgba(18,124,66,.35);
-    animation:streakBreathe 2.2s ease-in-out infinite;
-    animation-delay:calc(var(--i, 0) * 70ms);
+  /* ---- streak (FIG. 01): same full board as pitboard-1 ---- */
+  #slide2{
+    --duo:#2B8FE8; --duo-deep:#176FBF; --duo-soft:#7EC4F8; --duo-flame:#FFB020; --duo-tile:#E8F4FC;
+    padding:0; justify-content:stretch; align-items:stretch;
   }
-  .streak-day.spark{
-    transform:scale(1.18);
-    background:rgba(18,124,66,.38);
-    box-shadow:0 0 16px rgba(18,124,66,.8);
-    animation:none;
+  #slide2 .slide-inner{ max-width:none; width:100%; height:100%; position:relative; z-index:2; }
+  #slide2 .streak-stage{ height:100%; position:relative; }
+  #slide2 .streak-copy{
+    position:absolute; left:max(36px,5vw); top:6.5vh; z-index:3;
+    max-width:38ch;
   }
-  @keyframes streakBreathe{
-    0%,100%{ box-shadow:0 0 6px rgba(18,124,66,.28); }
-    50%{ box-shadow:0 0 14px rgba(18,124,66,.62); }
+  #slide2 .streak-copy .h-lg{ max-width:20ch; }
+  #slide2 .streak-copy .kicker{ margin-bottom:.85rem; }
+  #slide2 .streak-stage > .body-txt{
+    position:absolute; left:max(36px,5vw); bottom:7.5vh; z-index:3;
+    max-width:46ch; margin:0;
   }
-  #slide2 .st-el{ opacity:0; transform:translateY(12px); }
-  #slide2 h2 .st-el{ transform:none; }
-  #slide2 .st-num{
-    display:inline-block; min-width:2ch; text-align:right;
-    font-variant-numeric:tabular-nums;
+  #slide2 .duo-board{
+    position:absolute; left:0; right:0; top:19vh; z-index:2;
+    width:min(560px,70vw); margin:0 auto;
+    display:flex; flex-direction:column; align-items:center; justify-content:flex-start; gap:14px;
+  }
+  #slide2 .duo-count{ position:relative; display:flex; align-items:center; justify-content:center; gap:clamp(10px,2vw,28px); }
+  #slide2 .duo-flame{
+    width:clamp(64px,9vw,118px); height:clamp(80px,11vw,148px);
+    transform-origin:50% 90%; filter:drop-shadow(0 8px 18px rgba(255,150,0,.35));
+  }
+  #slide2 .duo-flame svg{ width:100%; height:100%; display:block; overflow:visible; }
+  #slide2 .duo-flame.is-lit .duo-flicker{ animation:duoFlicker .55s ease-in-out infinite; transform-origin:50% 80%; }
+  @keyframes duoFlicker{
+    0%,100%{ transform:scale(1) rotate(-2deg); }
+    50%{ transform:scale(1.06,1.1) rotate(3deg); }
+  }
+  #slide2 .streak-num{
+    flex:none; display:flex; align-items:center; justify-content:center;
+    font-family:'Teko',sans-serif; font-weight:600;
+    font-size:clamp(5.6rem,13vw,10.5rem); line-height:.78; color:var(--duo); letter-spacing:-.04em;
+  }
+  #slide2 .streak-num span{ display:inline-block; transform-origin:50% 80%; }
+  #slide2 .streak-num span.pop{ animation:duoNumPop .34s var(--ease-out); }
+  @keyframes duoNumPop{
+    0%{ transform:scale(.86); }
+    45%{ transform:scale(1.08); }
+    100%{ transform:scale(1); }
+  }
+  #slide2 .duo-tiktok{
+    flex:none; width:clamp(72px,11vw,140px); height:clamp(72px,11vw,140px);
+  }
+  #slide2 .duo-tiktok img{
+    width:100%; height:100%; object-fit:cover; object-position:center;
+    display:block; mix-blend-mode:screen;
+  }
+  #slide2 .duo-badge{
+    position:absolute; right:-8%; top:8%;
+    padding:6px 14px 5px; border-radius:999px;
+    background:var(--duo); color:#fff;
+    font-family:'Teko',sans-serif; font-size:clamp(1rem,2vw,1.45rem); letter-spacing:.14em;
+    box-shadow:0 4px 0 var(--duo-deep); opacity:0; transform:scale(.6);
+    pointer-events:none; transition:opacity .28s var(--ease-out), transform .28s var(--ease-out);
+  }
+  #slide2 .duo-badge.show{ opacity:1; transform:scale(1); }
+  #slide2 .duo-cal{ width:min(480px, 92%); }
+  #slide2 .duo-wdays{
+    display:grid; grid-template-columns:repeat(7,1fr); gap:8px; margin-bottom:8px;
+    font-family:'JetBrains Mono',monospace; font-size:.62rem; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--muted); text-align:center;
+  }
+  #slide2 .duo-cells{ display:grid; grid-template-columns:repeat(7,1fr); gap:8px; }
+  #slide2 .duo-cell{
+    aspect-ratio:1; border-radius:12px; background:var(--duo-tile);
+    border:2px solid #C5DFF0; transform-origin:center;
+    box-shadow:0 3px 0 #B7D6EE;
+    transition:transform .18s var(--ease-out), background .15s, border-color .15s, box-shadow .15s;
+  }
+  #slide2 .duo-cell.on{
+    background:var(--duo); border-color:var(--duo-soft);
+    box-shadow:0 4px 0 var(--duo-deep), 0 0 14px rgba(29,127,224,.28);
+  }
+  #slide2 .duo-cell.spark{
+    transform:scale(1.16);
+    box-shadow:0 4px 0 var(--duo-deep), 0 0 22px rgba(255,150,0,.55);
+  }
+  #slide2 .duo-pops{ position:absolute; inset:0; pointer-events:none; overflow:visible; z-index:3; }
+  #slide2 .duo-xp{
+    position:absolute; font-family:'Teko',sans-serif; font-size:1.55rem; letter-spacing:.04em;
+    color:var(--duo); text-shadow:0 2px 0 var(--duo-deep); white-space:nowrap;
+    transform:translate(-50%,0); animation:duoXpPop .6s ease-out forwards;
+  }
+  @keyframes duoXpPop{
+    0%{ transform:translate(-50%,8px) scale(.55); opacity:0; }
+    35%{ transform:translate(-50%,-38px) scale(1); opacity:1; }
+    100%{ transform:translate(-50%,-58px) scale(1); opacity:0; }
   }
 
   /* ---- FIG. 03: copied from pit-board, scoped so the rest of editorial stays ---- */
@@ -1034,6 +1101,10 @@
     .art{ order:-1; margin-bottom:1.2rem; }
     .dash-wrap{ grid-template-columns:1fr; }
     .sbs{ flex:1 1 auto; height:auto; min-height:180px; }
+    #slide2 .duo-cal{ width:min(420px, 92%); }
+    #slide2 .duo-wdays, #slide2 .duo-cells{ gap:6px; }
+    #slide2 .duo-cell{ border-radius:10px; }
+    #slide2 .duo-badge{ right:0; top:0; }
     #slidePct .pct-book{ height:48vh; min-height:260px; }
     #slidePct .pct-art{ height:min(26vh, 220px); min-height:150px; margin-top:1rem; }
     #slideProfile .li-feed{ grid-template-columns:1fr; }
@@ -1056,8 +1127,9 @@
     #slideFigures .h-lg{ font-size:1.45rem; }
   }
   @media (prefers-reduced-motion: reduce){
-    #slide2 .st-el, #slide2 .streak-grid{ opacity:1; transform:none; }
-    .streak-day.on{ animation:none; }
+    #slide2 .duo-flame.is-lit .duo-flicker, #slide2 .streak-num span.pop, #slide2 .duo-xp{ animation:none; }
+    #slide2 .duo-badge{ opacity:1; transform:none; }
+    #slide2 .duo-cell{ transform:none; }
     #slideProfile .profile-job{ opacity:1; }
     #slideVs .vs-cap, #slideVs .vs-mark, #slideVs .vs-card, #slideVs .vs-num, #slideVs .vs-photo{ opacity:1; transform:none; }
     #slideVs .vs-num.hit, #slideVs .vs-num.breathe, #slideVs.clashing .vs-wash{ animation:none; }
@@ -1316,18 +1388,41 @@
   <section class="slide photo-slide" id="slide2" data-steps="3" data-section="B · Disiplin">
     <div class="photo-parallax"><div class="photo-bg"></div></div>
     <div class="photo-scrim"></div>
-    <div class="slide-inner" style="position:relative; z-index:2; max-width:680px;">
-      <p class="kicker mono fade" data-step="1" id="stKicker">Fig. 01 · Kalian Sudah Jago Ini, Cuma Belum Sadar</p>
-      <h2 class="h-lg" style="max-width:20ch;">
-        <span class="fade" data-step="1" style="--d:.1s" id="stLineA"><span class="st-num" id="stNum">0</span> hari streak Duolingo. </span><span class="fade" data-step="1" style="--d:.18s" id="stLineB">Kenapa susah kalau buat <em>bangun pagi</em>?</span>
-      </h2>
-      <div class="streak-grid fade" id="streakGrid" data-step="2" style="margin-top:2.2rem;">
-        <div class="streak-day" style="--i:0"></div><div class="streak-day" style="--i:1"></div><div class="streak-day" style="--i:2"></div><div class="streak-day" style="--i:3"></div><div class="streak-day" style="--i:4"></div>
-        <div class="streak-day" style="--i:5"></div><div class="streak-day" style="--i:6"></div><div class="streak-day" style="--i:7"></div><div class="streak-day" style="--i:8"></div><div class="streak-day" style="--i:9"></div>
-        <div class="streak-day" style="--i:10"></div><div class="streak-day" style="--i:11"></div><div class="streak-day" style="--i:12"></div><div class="streak-day" style="--i:13"></div><div class="streak-day" style="--i:14"></div>
-        <div class="streak-day" style="--i:15"></div><div class="streak-day" style="--i:16"></div><div class="streak-day" style="--i:17"></div><div class="streak-day" style="--i:18"></div><div class="streak-day" style="--i:19"></div>
+    <div class="slide-inner">
+      <div class="streak-stage">
+        <div class="streak-copy">
+          <p class="kicker mono fade" data-step="1" id="stKicker">Fig. 01 · Kalian Sudah Jago Ini, Cuma Belum Sadar</p>
+          <h2 class="h-lg fade" data-step="1" id="stHead">Hari streak Duolingo. Kenapa susah kalau buat <em>bangun pagi</em>?</h2>
+        </div>
+        <div class="duo-board fade" id="streakGridWrap" data-step="2">
+          <div class="duo-count">
+            <div class="duo-flame" id="duoFlame" aria-hidden="true">
+              <svg viewBox="0 0 64 84" fill="none">
+                <path class="duo-flicker" d="M32 82c-16 0-26-11-26-26 0-16 12-28 18-40 2 10 8 16 14 16 2-10 4-22 8-30 12 14 18 28 18 42 0 20-12 38-32 38z" fill="#FF9600"/>
+                <path class="duo-flicker" d="M32 76c-10 0-17-8-17-18 0-10 7-18 12-26 1 7 5 11 9 11 1-7 3-15 5-20 8 10 12 19 12 27 0 14-8 26-21 26z" fill="#FFC800"/>
+                <path d="M32 68c-5 0-8-4-8-9 0-5 3-8 6-12 1 4 3 6 5 6 1-4 2-8 3-11 4 5 6 10 6 14 0 7-4 12-12 12z" fill="#FFF3B0"/>
+              </svg>
+            </div>
+            <div class="streak-num"><span id="stNum">0</span></div>
+            <div class="duo-tiktok" id="duoTiktok" aria-hidden="true">
+              <img src="tiktok.png" alt="">
+            </div>
+            <span class="duo-badge" id="duoBadge">STREAK</span>
+          </div>
+          <div class="duo-cal" id="streakGrid">
+            <div class="duo-wdays" aria-hidden="true">
+              <span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span><span>Jum</span><span>Sab</span><span>Min</span>
+            </div>
+            <div class="duo-cells">
+              <div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div>
+              <div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div>
+              <div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div><div class="duo-cell streak-day"></div>
+            </div>
+          </div>
+          <div class="duo-pops" id="duoPops" aria-hidden="true"></div>
+        </div>
+        <p class="body-txt fade" id="stBody" data-step="3">Menjaga streak, jaga rank mabar, jaga "on fire" di Snapchat — itu semua disiplin. Cuma butuh dipindahkan ke hal yang benar-benar penting.</p>
       </div>
-      <p class="body-txt fade" id="stBody" data-step="3" style="margin-top:1.6rem;">Menjaga streak, jaga rank mabar, jaga "on fire" di Snapchat — itu semua disiplin. Cuma butuh dipindahkan ke hal yang benar-benar penting.</p>
     </div>
   </section>
 
@@ -2041,107 +2136,119 @@
     return { play, stop };
   })();
 
-  /* ---- FIG. 01 streak loop: text + boxes light day-by-day, then reset ---- */
+  /* ---- FIG. 01 streak: Duolingo board lights day-by-day, then loops ---- */
   const streakAnim = (function(){
     const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const LOOP = 7.6;
-    const FILLED = 17;
+    const FILLED = 16;
     const TARGET = 47;
-    const FILL_START = 1.15;
-    const FILL_EACH = 0.16;
     const $id = (id) => document.getElementById(id);
-    const clamp = (v,a,b) => Math.max(a, Math.min(b, v));
-    const range = (t,a,b) => clamp((t-a)/(b-a), 0, 1);
-    const lerp = (a,b,u) => a+(b-a)*u;
-    const easeOut = (t) => 1 - Math.pow(1-t, 3);
+    let playing = false, gen = 0, timers = [];
 
-    let playing = false, start = 0, raf = 0, gen = 0, lastLit = -1;
-
+    function later(ms, fn){
+      const id = setTimeout(fn, ms);
+      timers.push(id);
+    }
     function cells(){
       const g = $id('streakGrid');
       return g ? Array.from(g.querySelectorAll('.streak-day')) : [];
     }
-    function apply(el, opacity, y){
-      if(!el || el.classList.contains('fade')) return;
-      el.style.opacity = opacity;
-      if(el.id === 'stLineA' || el.id === 'stLineB') return;
-      el.style.transform = 'translateY('+y+'px)';
-    }
-    function setFilled(n, sparkIndex){
-      cells().forEach((c,i)=>{
-        const on = i < n;
-        c.classList.toggle('on', on);
-        c.classList.toggle('spark', on && i === sparkIndex);
+    function pops(){ return $id('duoPops'); }
+    function resetVisual(){
+      const num = $id('stNum');
+      const flame = $id('duoFlame');
+      const badge = $id('duoBadge');
+      const layer = pops();
+      cells().forEach(c=>{
+        c.classList.remove('on','spark');
+        c.style.transform = '';
       });
+      if(num){ num.textContent = '0'; num.classList.remove('pop'); }
+      if(flame){ flame.classList.remove('is-lit'); flame.style.transform = ''; }
+      if(badge) badge.classList.remove('show');
+      if(layer) layer.innerHTML = '';
     }
     function showFinal(){
-      apply($id('stKicker'), 1, 0);
-      apply($id('stLineA'), 1, 0);
-      apply($id('stLineB'), 1, 0);
-      apply($id('stBody'), 1, 0);
-      const grid = $id('streakGrid');
-      if(grid){ grid.style.opacity = 1; grid.style.transform = 'none'; }
       const num = $id('stNum');
+      const flame = $id('duoFlame');
+      const badge = $id('duoBadge');
+      cells().forEach((c,i)=> c.classList.toggle('on', i < FILLED));
       if(num) num.textContent = String(TARGET);
-      setFilled(FILLED, -1);
+      if(flame) flame.classList.add('is-lit');
+      if(badge) badge.classList.add('show');
     }
-
-    function frame(t){
-      const cyc = t % LOOP;
-
-      apply($id('stKicker'), easeOut(range(t, 0.15, 0.7)), lerp(10, 0, easeOut(range(t, 0.15, 0.7))));
-      apply($id('stLineA'), easeOut(range(t, 0.45, 1.15)), 0);
-      apply($id('stLineB'), easeOut(range(t, 0.85, 1.55)), 0);
-      apply($id('stBody'), easeOut(range(t, 4.35, 5.15)), lerp(12, 0, easeOut(range(t, 4.35, 5.15))));
-
-      const grid = $id('streakGrid');
-      if(grid){
-        const gIn = easeOut(range(t, 0.7, 1.25));
-        grid.style.opacity = gIn;
-        grid.style.transform = 'translateY('+lerp(10, 0, gIn)+'px)';
+    function popXp(cell, label){
+      const layer = pops();
+      if(!layer || !cell) return;
+      const el = document.createElement('span');
+      el.className = 'duo-xp';
+      el.textContent = label;
+      const cr = cell.getBoundingClientRect();
+      const lr = layer.getBoundingClientRect();
+      el.style.left = (cr.left - lr.left + cr.width * 0.5) + 'px';
+      el.style.top = (cr.top - lr.top - 4) + 'px';
+      layer.appendChild(el);
+      later(620, ()=> el.remove());
+    }
+    function lightCell(i){
+      const list = cells();
+      const cell = list[i];
+      if(!cell) return;
+      list.forEach(c=> c.classList.remove('spark'));
+      cell.classList.add('on','spark');
+      popXp(cell, '+1');
+      const flame = $id('duoFlame');
+      if(flame){
+        flame.classList.add('is-lit');
+        const grow = 0.88 + ((i+1)/FILLED)*0.22;
+        flame.style.transform = 'scale('+grow+')';
       }
-
-      const fillEnd = FILL_START + FILLED*FILL_EACH;
-      const fillP = range(cyc, FILL_START, fillEnd);
-      const n = cyc >= 6.7 ? 0 : Math.min(FILLED, Math.ceil(fillP * FILLED - 0.0001));
-      const spark = (n > 0 && cyc < fillEnd + 0.18) ? n-1 : -1;
-      setFilled(n, spark);
-
       const num = $id('stNum');
       if(num){
-        if(cyc >= 6.7 || fillP === 0) num.textContent = '0';
-        else num.textContent = String(Math.round(TARGET * easeOut(fillP)));
+        num.textContent = String(Math.round(TARGET*((i+1)/FILLED)));
+        num.classList.remove('pop');
+        void num.offsetWidth;
+        num.classList.add('pop');
       }
     }
-
-    function tick(now){
-      if(!playing) return;
-      frame((now-start)/1000);
-      raf = requestAnimationFrame(tick);
+    function celebrate(){
+      const num = $id('stNum');
+      const flame = $id('duoFlame');
+      const badge = $id('duoBadge');
+      if(num) num.textContent = String(TARGET);
+      if(flame) flame.style.transform = 'scale(1.18)';
+      if(badge) badge.classList.add('show');
     }
-
     function stop(){
       gen++;
       playing = false;
-      lastLit = -1;
-      if(raf){ cancelAnimationFrame(raf); raf = 0; }
+      timers.forEach(clearTimeout);
+      timers = [];
+      resetVisual();
     }
-
     function play(){
       stop();
       const my = gen;
-      if(REDUCE){ showFinal(); return; }
-      lastLit = -1;
-      frame(0);
-      start = performance.now();
       playing = true;
-      raf = requestAnimationFrame(function go(now){
-        if(my !== gen) return;
-        start = now;
-        tick(now);
-      });
+      if(REDUCE){ showFinal(); return; }
+      let i = 0;
+      function step(){
+        if(my !== gen || !playing) return;
+        if(i < FILLED){
+          lightCell(i);
+          i++;
+          later(130, step);
+        } else {
+          celebrate();
+          later(1980, ()=>{
+            if(my !== gen || !playing) return;
+            resetVisual();
+            i = 0;
+            later(550, step);
+          });
+        }
+      }
+      later(280, step);
     }
-
     return { play, stop };
   })();
 
