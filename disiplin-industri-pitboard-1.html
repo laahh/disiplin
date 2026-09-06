@@ -2482,7 +2482,6 @@
     function openBook(){
       const box = wrap();
       if(!box || box.classList.contains('is-flattening') || box.classList.contains('is-opening') || box.classList.contains('is-open')) return;
-      if(typeof pctChart!=='undefined' && pctChart.pause) pctChart.pause();
       box.classList.add('is-flattening');
       flattenHard(()=> startFlip(box));
     }
