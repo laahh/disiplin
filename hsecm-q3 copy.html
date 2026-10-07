@@ -1455,29 +1455,6 @@
   .eg-st li::before{ content:''; position:absolute; left:0; top:.55em; width:5px; height:5px; border-radius:50%; background:var(--c); }
   .eg-st .note{ margin-top:auto; flex:none; display:flex; align-items:center; gap:8px; margin:auto -6px 0; padding:.6vh 14px; background:color-mix(in srgb, var(--c) 7%, #fff); font-size:calc(clamp(.7rem,1.8vh,1.04rem) * var(--fit,1)); line-height:1.3; }
   .eg-st .note b{ color:var(--c); }
-  /* Fig. 05 depth pass: tinted bands, soft elevation, gradient bars, zebra rows so the slide is not flat white */
-  #slideEngineering .re-card{ border-color:#D6E0EA; box-shadow:0 1px 2px rgba(15,42,74,.06), 0 10px 26px rgba(15,42,74,.09); background:linear-gradient(180deg,#fff 0%,#FAFCFE 100%); }
-  #slideEngineering .eg-band, #slideEngineering .eg-std-h{ background:linear-gradient(90deg,#E6F3EA 0%,#F2F8F4 55%,#fff 100%); border-bottom-color:#D3E6D9; }
-  #slideEngineering .eg-std-h{ background:linear-gradient(90deg,#E8EFF7 0%,#F3F7FB 55%,#fff 100%); border-bottom-color:#D6E0EA; font-weight:700; }
-  #slideEngineering .eg-no{ background:linear-gradient(135deg,#2BB35C,#157A3A); box-shadow:0 3px 8px rgba(31,154,75,.35); }
-  #slideEngineering .eg-prog .bar, #slideEngineering .eg-std td.bar span{ background:#E3E9F0; box-shadow:inset 0 1px 2px rgba(15,42,74,.12); }
-  #slideEngineering .eg-prog .bar i, #slideEngineering .eg-std td.bar i{ background:linear-gradient(90deg,color-mix(in srgb,var(--c) 78%,#000),var(--c) 55%,color-mix(in srgb,var(--c) 70%,#fff)); }
-  #slideEngineering .eg-prog .ic{ color:#1F6E3E; }
-  #slideEngineering .eg-std th{ background:#F1F5F9; color:#3E5268; }
-  #slideEngineering .eg-std td.site{ background:linear-gradient(90deg,#EEF3F8,#F7FAFC); color:#0F2A4A; }
-  #slideEngineering .eg-tile{ background:linear-gradient(135deg,color-mix(in srgb,var(--c) 9%,#fff) 0%,#fff 70%); border-color:color-mix(in srgb,var(--c) 26%,#E1E7EE); box-shadow:0 1px 2px rgba(15,42,74,.06), 0 8px 20px rgba(15,42,74,.08); transition:transform .15s, border-color .2s, box-shadow .2s; }
-  #slideEngineering .eg-tile:hover{ transform:translateY(-2px); box-shadow:0 12px 26px rgba(15,42,74,.13); }
-  #slideEngineering .eg-tile.is-on{ background:linear-gradient(135deg,color-mix(in srgb,var(--c) 18%,#fff) 0%,color-mix(in srgb,var(--c) 5%,#fff) 75%); box-shadow:inset 0 -3px 0 var(--c), 0 10px 24px color-mix(in srgb,var(--c) 26%,transparent); }
-  #slideEngineering .eg-tile .ic{ background:linear-gradient(135deg,color-mix(in srgb,var(--c) 75%,#fff),var(--c) 45%,color-mix(in srgb,var(--c) 75%,#000)); box-shadow:0 4px 10px color-mix(in srgb,var(--c) 40%,transparent), inset 0 1px 0 rgba(255,255,255,.35); }
-  #slideEngineering .eg-st{ border-color:#D6E0EA; box-shadow:0 1px 2px rgba(15,42,74,.06), 0 12px 30px rgba(15,42,74,.1); }
-  #slideEngineering .eg-st header{ background:linear-gradient(90deg,color-mix(in srgb,var(--c) 14%,#fff) 0%,color-mix(in srgb,var(--c) 4%,#fff) 60%,#fff 100%); border-bottom-color:color-mix(in srgb,var(--c) 22%,#E1E7EE); }
-  #slideEngineering .eg-st header .no{ background:linear-gradient(135deg,color-mix(in srgb,var(--c) 75%,#fff),var(--c) 50%,color-mix(in srgb,var(--c) 75%,#000)); box-shadow:0 3px 8px color-mix(in srgb,var(--c) 38%,transparent); }
-  #slideEngineering .eg-st th{ background:#F1F5F9; color:#3E5268; border-bottom-color:#D6E0EA; }
-  #slideEngineering .eg-st tbody tr:nth-child(even) td{ background:#F7FAFC; }
-  #slideEngineering .eg-st tbody tr{ transition:background-color .2s; }
-  #slideEngineering .eg-st tbody tr:hover td{ background:color-mix(in srgb,var(--c) 7%,#fff); }
-  #slideEngineering .eg-st td.gap span{ background:linear-gradient(180deg,#FFEDED,#FBD5D5); border:1px solid #F3B4B4; box-shadow:0 1px 3px rgba(215,38,43,.15); }
-  #slideEngineering .eg-st .note{ background:linear-gradient(90deg,color-mix(in srgb,var(--c) 14%,#fff),color-mix(in srgb,var(--c) 4%,#fff)); border-top:1px solid color-mix(in srgb,var(--c) 22%,#E1E7EE); }
   .re-grid{ flex:1 1 auto; min-height:0; display:grid; gap:1vh 14px; grid-template-columns:minmax(0,1.56fr) minmax(0,1fr); }
   .re-right{ min-height:0; display:grid; gap:1vh; grid-template-rows:minmax(0,1.02fr) minmax(0,.88fr) minmax(0,1.05fr); }
   .re-card{
@@ -1730,111 +1707,6 @@
   .hf-hl i{ flex:none; width:clamp(18px,3.2vh,30px); height:clamp(18px,3.2vh,30px); border-radius:50%; display:grid; place-items:center; background:var(--c); color:#fff; font-style:normal; font-weight:700; font-size:1.15em; }
   .hf-box-h.alert .hf-ico{ color:#FFD24A; }
 
-  /* ---- Fig. 06 calm restyle: white cards, hairline rules, one accent per half; colour is kept
-     for meaning only (green = better, red = worse, amber = flat / watch) ---- */
-  #slideHealth{ --hx-line:#E1E7EE; --hx-muted:#5B6B7E; --hx-head:#F6F8FA; --hx-acc:#1F7A45; }
-  #slideHealth #hfLayak{ --hx-acc:#1E4E8C; }
-  #slideHealth .hf-half{ background:#fff; border:1px solid var(--hx-line); border-radius:10px; box-shadow:none; }
-  #slideHealth .hx-band{ background:#fff; color:#0F2A4A; padding:.9vh 16px .7vh; border-bottom:1px solid var(--hx-line); box-shadow:inset 0 3px 0 var(--hx-acc); }
-  #slideHealth .hx-band > b{ font-size:clamp(1rem,2.8vh,1.6rem); letter-spacing:.06em; color:var(--hx-acc); }
-  #slideHealth .hx-band-ic{ width:clamp(22px,3.6vh,32px); height:clamp(22px,3.6vh,32px); color:var(--hx-acc); }
-  #slideHealth .hx-tag{ border-left-color:var(--hx-line); color:var(--hx-muted); }
-  #slideHealth .hx-tag b{ color:#0F2A4A; }
-  #slideHealth .hx-h-ic{ background:transparent; color:var(--hx-acc); padding:0; }
-  #slideHealth .hx-inc .hx-h-ic{ background:transparent; color:#D7262B; }
-  #slideHealth .hx-h b, #slideHealth .hf-h{ color:#0F2A4A; }
-  #slideHealth .hf-h .hf-ico{ color:var(--hx-acc); }
-  #slideHealth .hx-tbl thead th{ background:var(--hx-head); color:#33475E; border:0; border-bottom:1px solid var(--hx-line); font-weight:600; }
-  #slideHealth .hx-tbl thead tr:first-child th{ color:#0F2A4A; font-weight:700; }
-  #slideHealth .hx-tbl thead tr:first-child th + th{ border-left:1px solid var(--hx-line); }
-  #slideHealth .hx-tbl tbody th{ font-weight:700; }
-  #slideHealth .hx-tbl td.q3{ background:transparent; color:#0F2A4A; }
-  #slideHealth .hx-tbl tbody tr:nth-child(even) td, #slideHealth .hx-tbl tbody tr:nth-child(even) th{ background:#FAFBFC; }
-  #slideHealth .hx-tbl td{ border-bottom:1px solid #F0F3F6; }
-  #slideHealth .hx-sum{ background:transparent; padding:0; gap:.5vh; }
-  #slideHealth .hx-sum > header{ background:transparent; color:#0F2A4A; text-align:left; padding:0 2px .3vh; border-bottom:1px solid var(--hx-line); }
-  #slideHealth .hx-kpi{ border:1px solid var(--hx-line); border-radius:8px; }
-  #slideHealth .hx-kpi .ic{ color:var(--hx-muted); }
-  #slideHealth .hf-box{ border:1px solid var(--hx-line); border-radius:8px; background:#fff; }
-  #slideHealth .hf-box-h{ background:#fff; color:#0F2A4A; border-bottom:1px solid var(--hx-line); }
-  #slideHealth .hf-box-h .hf-ico{ color:var(--hx-acc); }
-  #slideHealth .hf-box-h.alert .hf-ico{ color:#E0A100; }
-  #slideHealth .hx-ring circle.arc{ stroke:var(--hx-acc); }
-  #slideHealth .hx-ring b, #slideHealth .hx-util b{ color:#0F2A4A; }
-  #slideHealth .hx-util .ic{ color:var(--hx-acc); }
-  #slideHealth .hx-todo i{ border-radius:6px; background:#EEF2F6; color:#0F2A4A; }
-  #slideHealth .hx-todo li{ border-bottom-color:#F0F3F6; }
-  #slideHealth .hf-chev div{ background:var(--hx-head); color:#0F2A4A; }
-  #slideHealth .hf-chev i{ background:var(--hx-acc); color:#fff; }
-  #slideHealth .hf-phase .hf-ico{ color:var(--hx-acc); }
-  #slideHealth .hf-phase img{ border-radius:6px; }
-  #slideHealth .hx-big{ background:#fff; border:1px solid var(--hx-line); }
-  #slideHealth .hx-viol{ border:1px solid #F3C2C2; background:#FFFAFA; }
-  #slideHealth .hf-roster th{ background:var(--hx-head); color:#33475E; font-weight:600; border-bottom:1px solid var(--hx-line); }
-  #slideHealth .hf-roster tfoot td{ background:var(--hx-head); color:#0F2A4A; border-top:1px solid #C9D3DE; }
-  #slideHealth .hf-roster tfoot td.r{ color:#D7262B; }
-  #slideHealth .hf-hl div{ background:#fff; border:1px solid var(--hx-line); }
-  #slideHealth .hx-next{ background:#fff; border:1px solid var(--hx-line); box-shadow:inset 3px 0 0 var(--hx-acc); }
-  #slideHealth .hx-next > b small{ background:transparent; color:var(--hx-acc); border:1px solid var(--hx-acc); }
-  #slideHealth .hx-next li::before{ color:var(--hx-acc); }
-  /* Fig. 06 loops: red trend arrows nod, red summary arrows pulse, the 100% ring glows, the
-     Fatigue 360 chevrons light up 1 -> 2 -> 3, the fatigue counts beat, the violation box blinks */
-  #slideHealth.active #hfSehat.on .hx-tbl td.dn-r, #slideHealth.active #hfSehat.on .hx-tbl td.up-r{ animation:hxNod 1.6s ease-in-out 2.5s infinite; }
-  #slideHealth.active #hfSehat.on .hx-kpi.t-down > b i, #slideHealth.active #hfSehat.on .hx-kpi.t-up > b i{ display:inline-block; animation:hxPulse 1.6s ease-in-out 2.5s infinite; }
-  #slideHealth.active #hxBottom.on .hx-ring{ animation:hxGlow 3s ease-in-out 3s infinite; border-radius:50%; }
-  #slideHealth.active #hxBottom.on .hx-util .ic svg{ animation:hxBars 2.4s ease-in-out 3s infinite; transform-origin:50% 100%; }
-  #slideHealth.active #hfLayak.on .hf-chev > div{ animation:hxRelay 4.5s ease-in-out 3s infinite; }
-  #slideHealth.active #hfLayak.on .hf-chev > div:nth-child(2){ animation-delay:4.5s; }
-  #slideHealth.active #hfLayak.on .hf-chev > div:nth-child(3){ animation-delay:6s; }
-  #slideHealth.active #hxInc.on .hx-big b{ display:inline-block; animation:hxBeat 2.2s ease-in-out 2.5s infinite; }
-  #slideHealth.active #hxInc.on .hx-viol{ animation:hxRedBlink 1.3s ease-in-out 2.5s infinite; }
-  @keyframes hxNod{ 0%, 100%{ transform:none; } 50%{ transform:translateY(2px); } }
-  @keyframes hxPulse{ 0%, 100%{ transform:scale(1); opacity:1; } 50%{ transform:scale(1.35); opacity:.7; } }
-  @keyframes hxGlow{ 0%, 100%{ box-shadow:0 0 0 0 rgba(31,122,69,0); } 50%{ box-shadow:0 0 0 8px rgba(31,122,69,.12); } }
-  @keyframes hxBars{ 0%, 100%{ transform:scaleY(1); } 50%{ transform:scaleY(.82); } }
-  @keyframes hxRelay{ 0%, 25%, 100%{ filter:none; transform:none; } 10%{ filter:brightness(1.08) saturate(1.3); transform:translateY(-2px); } }
-  @keyframes hxBeat{ 0%, 70%, 100%{ transform:scale(1); } 80%{ transform:scale(1.15); } 90%{ transform:scale(.97); } }
-  @keyframes hxRedBlink{ 0%, 100%{ border-color:#F3C2C2; box-shadow:0 2px 8px rgba(15,42,74,.06); } 50%{ border-color:#FF2525; box-shadow:0 0 0 2px rgba(255,37,37,.25), 0 0 12px rgba(255,37,37,.35); } }
-  /* interaction states */
-  #slideHealth .hx-sum > header small{ font-weight:500; color:#8A97A6; font-size:.85em; }
-  #slideHealth .hx-kpi[role="button"], #slideHealth .hf-chev > div, #slideHealth .hf-hl > div.is-link{ cursor:pointer; transition:transform .15s, box-shadow .2s, outline-color .2s; }
-  #slideHealth .hx-kpi[role="button"]:hover, #slideHealth .hf-hl > div.is-link:hover{ transform:translateY(-2px); box-shadow:0 6px 16px rgba(15,42,74,.12); }
-  #slideHealth .hx-kpi.is-on{ outline:2px solid var(--hx-acc); outline-offset:-2px; }
-  #slideHealth .hx-kpi:focus-visible, #slideHealth .hf-chev > div:focus-visible, #slideHealth .hf-hl > div:focus-visible{ outline:2px solid #1D7FE0; outline-offset:2px; }
-  #slideHealth .hx-tbl td, #slideHealth .hx-tbl th{ transition:opacity .2s, background-color .2s; }
-  #slideHealth .hx-tbl tbody tr:hover td, #slideHealth .hx-tbl tbody tr:hover th{ background:#EEF6F0; }
-  #hxInd[data-focus="0"] [data-g]:not([data-g="0"]), #hxInd[data-focus="1"] [data-g]:not([data-g="1"]),
-  #hxInd[data-focus="2"] [data-g]:not([data-g="2"]), #hxInd[data-focus="3"] [data-g]:not([data-g="3"]){ opacity:.28 !important; }
-  #hxInd[data-focus="0"] td[data-g="0"], #hxInd[data-focus="1"] td[data-g="1"], #hxInd[data-focus="2"] td[data-g="2"], #hxInd[data-focus="3"] td[data-g="3"]{ background:#E8F4EC !important; font-weight:700; }
-  #slideHealth .hf-chev > div.is-on{ filter:brightness(1.05) saturate(1.4); }
-  #slideHealth .hf-phase{ transition:opacity .25s, transform .25s; }
-  #slideHealth .hf-phase.is-dim{ opacity:.35; }
-  #slideHealth .hf-phase.is-on{ transform:translateY(-2px); }
-  #slideHealth .hf-hl > div.is-on{ outline:2px solid var(--c); outline-offset:-2px; }
-  #slideHealth .hf-roster tbody tr{ transition:background-color .2s; }
-  #slideHealth .hf-roster tbody tr:hover td{ background:#F3F7FC; }
-  #slideHealth .hf-roster tbody tr.is-mark td{ background:#FDE9E9; font-weight:700; }
-
-  /* depth pass: soft shadows for elevation, a tinted header gradient per half, tinted sub-headers */
-  #slideHealth{ --hx-tint:#E8F4EC; --hx-tint2:#F4FAF6; }
-  #slideHealth #hfLayak{ --hx-tint:#E6EEF8; --hx-tint2:#F3F7FC; }
-  #slideHealth .hf-half{ border:1px solid rgba(15,42,74,.08); box-shadow:0 1px 2px rgba(15,42,74,.06), 0 12px 30px rgba(15,42,74,.10); }
-  #slideHealth .hx-band{ background:linear-gradient(90deg, var(--hx-acc) 0%, color-mix(in srgb, var(--hx-acc) 78%, #fff) 100%); color:#fff; box-shadow:none; border-bottom:0; }
-  #slideHealth .hx-band > b, #slideHealth .hx-band-ic{ color:#fff; }
-  #slideHealth .hx-tag{ color:rgba(255,255,255,.9); border-left-color:rgba(255,255,255,.4); }
-  #slideHealth .hx-tag b{ color:#fff; }
-  #slideHealth .hf-body{ background:linear-gradient(180deg, var(--hx-tint2), #fff 40%); }
-  #slideHealth .hx-tbl thead th{ background:var(--hx-tint); }
-  #slideHealth .hf-box, #slideHealth .hx-kpi, #slideHealth .hx-big, #slideHealth .hf-hl div, #slideHealth .hx-next{ box-shadow:0 2px 8px rgba(15,42,74,.06); }
-  #slideHealth .hf-box-h{ background:linear-gradient(180deg, var(--hx-tint), var(--hx-tint2)); }
-  #slideHealth .hx-sum > header{ color:var(--hx-acc); }
-  #slideHealth .hx-kpi{ background:linear-gradient(135deg, #fff 55%, var(--hx-tint2)); }
-  #slideHealth .hf-chev div{ background:linear-gradient(90deg, var(--hx-tint), var(--hx-tint2)); }
-  #slideHealth .hf-roster th, #slideHealth .hf-roster tfoot td{ background:var(--hx-tint); }
-  #slideHealth .hx-big{ background:linear-gradient(135deg, #FFF5F5, #fff); border-color:#F6D3D3; }
-  #slideHealth .hx-next{ background:linear-gradient(90deg, var(--hx-tint), #fff 70%); }
-  #slideHealth .hf-hl div{ background:linear-gradient(135deg, color-mix(in srgb, var(--c) 10%, #fff), #fff); }
-
   /* ---- Fig. 07: highlight & next to do Q4 2026 — matrix, gap table, focus ---- */
   #slideNext{
     padding:2.2vh 72px 2.4vh 64px;
@@ -1980,8 +1852,7 @@
     .fade,.fade.on,.slide,.slide.active,.w{ animation:none; transition:none; opacity:1; transform:none; }
     #slideSafety .sp-tier::after, #slideSafety .sp-halo, #slideSafety .sp-val span, #slideSafety .sp-val i,
     #slideSafety .sp-alert, #slideSafety .sp-u-cell, #slideSafety .sp-kpi td,
-    #slideSafety .sp-yd::after, #slideSafety .lp-kpi i, #slideSafety .lp-star, #slideHealth .hx-tbl td, #slideHealth .hx-kpi i, #slideHealth .hx-ring, #slideHealth .hx-util svg, #slideHealth .hf-chev > div, #slideHealth .hx-big b, #slideHealth .hx-viol,
-    #slideSafety .mc-top, #slideSafety .mc-photo img, #slideSafety .mc-ctl, #slideSafety .mc-cons, #slideSafety .mc-lines .flow, #slideSafety .rm-map .ring, #slideSafety .ip-dot::after, #slideSafety .ip-hl,
+    #slideSafety .sp-yd::after, #slideSafety .lp-kpi i, #slideSafety .lp-star, #slideSafety .mc-top, #slideSafety .mc-photo img, #slideSafety .mc-ctl, #slideSafety .mc-cons, #slideSafety .mc-lines .flow, #slideSafety .rm-map .ring, #slideSafety .ip-dot::after, #slideSafety .ip-hl,
     #slideSafety .ip-hl span, #slideSafety .ip-rank-box, #slideSafety .ip-photo img,
     #slideJourney .jr-node, #slideJourney .jr-tile svg, #slideJourney .jr-root span, #slideJourney .jr-seg, #slideJourney .impact svg,
     .jr-panel .jr-node, .jr-panel .jr-tile svg, .jr-panel .jr-root span, .jr-panel .impact svg,
@@ -2485,23 +2356,6 @@
         el.textContent = v + unit;
       };
       tl.fromTo(o, {v:0}, {v:to, duration:0.9, ease:'power2.out', onUpdate:paint}, at + i*each);
-    });
-  }
-  // Like countTo, but the digits flicker through random values on the way up from 0 and settle
-  // on the real figure. The original text is kept in data-v so a replay always lands on it.
-  function scrambleTo(tl, els, at, each){
-    Array.from(els).forEach((el, i)=>{
-      const src = el.dataset.v || (el.dataset.v = el.textContent.trim());
-      const m = src.match(/^(\d+)(?:([.,])(\d+))?(%?)$/);
-      if(!m) return;
-      const sep = m[2] || '', dec = m[3] ? m[3].length : 0, unit = m[4];
-      const to = parseFloat(m[1]+'.'+(m[3]||'0'));
-      const o = { p:0 };
-      const paint = ()=>{
-        const rest = 1 - o.p, v = o.p >= 1 ? to : Math.max(0, to*o.p + (Math.random()-.5)*Math.max(to, 1)*rest*0.9);
-        el.textContent = (dec ? v.toFixed(dec).replace('.', sep) : String(Math.round(v))) + unit;
-      };
-      tl.fromTo(o, {p:0}, {p:1, duration:1.2, ease:'power2.out', onUpdate:paint, onComplete:()=>{ el.textContent = src; }}, at + i*each);
     });
   }
   // Draws a delta bracket left to right, then pops its pill label.
@@ -3452,8 +3306,6 @@
         tl.fromTo(all('#hxInd tbody tr'), {x:-10, opacity:0}, {x:0, opacity:1, stagger:0.05, duration:0.35}, 0.35);
         tl.fromTo(all('#hxInd td.t'), {scale:0}, {scale:1, stagger:0.01, duration:0.25, ease:'back.out(2)'}, 0.9);
         tl.fromTo(all('#hxSum .hx-kpi'), {x:14, opacity:0}, {x:0, opacity:1, stagger:0.12, duration:0.4}, 0.5);
-        scrambleTo(tl, all('#hxInd tbody td:not(.t)'), 0.4, 0.008);
-        scrambleTo(tl, all('#hxSum .hx-kpi .v'), 0.6, 0.12);
       }
       if(n>=3 && prev<3){
         pop('#hxBottom .hf-box', 0.05, {y:14});
@@ -4925,16 +4777,16 @@
     }
     function ind(){
       const groups = ['Rasio Kelayakan Kerja (%)','MFR','ASR','Rasio PAK (%)'];
-      const head = '<thead><tr><th rowspan="2">Perusahaan</th>'+groups.map((g, i)=> '<th colspan="3" data-g="'+i+'">'+g+'</th>').join('')+'</tr>'
-        + '<tr>'+groups.map((g, i)=> '<th data-g="'+i+'">Q2 2026</th><th colspan="2" data-g="'+i+'">Q3 2026</th>').join('')+'</tr></thead>';
+      const head = '<thead><tr><th rowspan="2">Perusahaan</th>'+groups.map(g=> '<th colspan="3">'+g+'</th>').join('')+'</tr>'
+        + '<tr>'+groups.map(()=> '<th>Q2 2026</th><th colspan="2">Q3 2026</th>').join('')+'</tr></thead>';
       const body = HEALTH2.ind.map(([co, ...m])=> '<tr><th>'+co+'</th>'
-        + m.map(([a, b], i)=> ('<td>'+a+'</td><td class="q3">'+b+'</td>'+trend(a, b, i===0)).replace(/<td/g, '<td data-g="'+i+'"')).join('')+'</tr>').join('');
+        + m.map(([a, b], i)=> '<td>'+a+'</td><td class="q3">'+b+'</td>'+trend(a, b, i===0)).join('')+'</tr>').join('');
       return head + '<tbody>'+body+'</tbody>';
     }
     function sum(){
       const arrow = { up:'▲', down:'▼', eq:'—' };
-      return '<header title="Klik kartu untuk menyorot kolom di tabel">Ringkasan Pencapaian Q3</header>' + HEALTH2.sum.map(([ic, label, v, t, c], i)=>
-        '<div class="hx-kpi'+(t==='eq'?'':' t-'+t)+'" role="button" tabindex="0" data-g="'+i+'" aria-pressed="false"><span class="ic">'+svg(ic)+'</span><span>'+label+'</span><b><span class="v">'+v+'</span><i style="color:'+c+'">'+arrow[t]+'</i></b></div>').join('');
+      return '<header>Ringkasan Pencapaian Q3</header>' + HEALTH2.sum.map(([ic, label, v, t, c])=>
+        '<div class="hx-kpi"><span class="ic">'+svg(ic)+'</span><span>'+label+'</span><b>'+v+'<i style="color:'+c+'">'+arrow[t]+'</i></b></div>').join('');
     }
     function render(){
       const $ = (id)=> document.getElementById(id); if(!$('hxInd')) return;
@@ -4954,48 +4806,6 @@
       const N = HEALTH2.next;
       $('hxNext').innerHTML = '<b><small>Next To Do</small>'+N.title+'</b><ul>'+N.items.map(t=> '<li>'+t+'</li>').join('')+'</ul>';
       fitText('#slideHealth .hx-tbl, #slideHealth .hx-todo');
-      bind();
-    }
-    // Interactions on Fig. 06 (clicks never advance the slide):
-    //  - a Q3 summary card spotlights its column group in the indicator table (click again to clear)
-    //  - a Fatigue 360 chevron spotlights its phase column
-    //  - a Gap Highlight card marks the roster rows it talks about
-    let bound = false;
-    function bind(){
-      if(bound) return; bound = true;
-      const root = document.getElementById('slideHealth');
-      const stop = (e)=> e.stopPropagation();
-      const kpis = root.querySelectorAll('.hx-kpi[data-g]'), tbl = document.getElementById('hxInd');
-      const pick = (k)=>{
-        const g = k.dataset.g, on = tbl.dataset.focus !== g;
-        if(on) tbl.dataset.focus = g; else delete tbl.dataset.focus;
-        kpis.forEach(x=>{ const a = on && x===k; x.classList.toggle('is-on', a); x.setAttribute('aria-pressed', String(a)); });
-      };
-      kpis.forEach(k=>{
-        k.addEventListener('click', e=>{ stop(e); pick(k); });
-        k.addEventListener('keydown', e=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); stop(e); pick(k); } });
-      });
-      const chev = root.querySelectorAll('.hf-chev > div'), phases = root.querySelectorAll('.hf-phase');
-      chev.forEach((c, i)=>{
-        c.setAttribute('role', 'button'); c.tabIndex = 0;
-        const go = (e)=>{ stop(e); const on = !c.classList.contains('is-on');
-          chev.forEach((x, j)=> x.classList.toggle('is-on', on && j===i));
-          phases.forEach((p, j)=>{ p.classList.toggle('is-on', on && j===i); p.classList.toggle('is-dim', on && j!==i); }); };
-        c.addEventListener('click', go);
-        c.addEventListener('keydown', e=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); go(e); } });
-      });
-      const SITES = [['LMO','SMO','GMO'], [], ['LMO','SMO'], []];
-      const rows = Array.from(root.querySelectorAll('#hfRoster tbody tr'));
-      root.querySelectorAll('#hfHighlight > div').forEach((card, i)=>{
-        if(!SITES[i] || !SITES[i].length) return;
-        card.classList.add('is-link'); card.setAttribute('role', 'button'); card.tabIndex = 0;
-        const go = (e)=>{ stop(e); const on = !card.classList.contains('is-on');
-          root.querySelectorAll('#hfHighlight > div').forEach(x=> x.classList.remove('is-on'));
-          card.classList.toggle('is-on', on);
-          rows.forEach(r=> r.classList.toggle('is-mark', on && SITES[i].includes(r.children[1].textContent.trim()))); };
-        card.addEventListener('click', go);
-        card.addEventListener('keydown', e=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); go(e); } });
-      });
     }
     return { render };
   })();
