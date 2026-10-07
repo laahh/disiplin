@@ -1450,13 +1450,19 @@
   .eg-st-body{ flex:1; min-height:0; display:flex; flex-direction:column; padding:0 6px; }
   .eg-st table{ width:100%; border-collapse:collapse; font-size:calc(clamp(.72rem,1.95vh,1.12rem) * var(--fit,1)); line-height:1.2; }
   .eg-st th{ padding:.5vh 8px; font-weight:700; font-size:.92em; color:#4A5D73; text-align:left; border-bottom:1px solid #E1E7EE; }
-  .eg-st th:nth-child(2), .eg-st th:nth-child(3){ text-align:center; }
+
   .eg-st td{ padding:.3vh 8px; border-bottom:1px solid #EEF2F6; vertical-align:top; }
   .eg-st td.co{ width:13%; font-weight:800; white-space:nowrap; }
   .eg-st td.n{ width:8%; text-align:center; font-weight:700; }
   .eg-st td.gap{ width:8%; text-align:center; font-weight:800; color:var(--eg-r); }
   .eg-st td.gap span{ display:inline-block; min-width:2.2em; padding:.1em 8px; border-radius:4px; background:#FDE6E6; font-size:1.05em; }
   .eg-st ul{ list-style:none; columns:2; column-gap:18px; }
+  .eg-st td.eng, .eg-st td.risk{ padding-top:.5vh; padding-bottom:.5vh; }
+  .eg-st td.eng{ width:50%; } .eg-st td.risk{ width:37%; }
+  .eg-st td.eng ul, .eg-st td.risk ul{ columns:1; }
+  .eg-st td.eng li + li, .eg-st td.risk li + li{ margin-top:.25em; }
+  .eg-st td.risk li::before{ background:transparent; box-shadow:inset 0 0 0 1.5px var(--c); }
+  .eg-st .ref{ white-space:nowrap; font-weight:700; color:#5B6B7E; font-variant-numeric:tabular-nums; }
   .eg-st li{ position:relative; padding-left:12px; break-inside:avoid; }
   .eg-st li::before{ content:''; position:absolute; left:0; top:.55em; width:5px; height:5px; border-radius:50%; background:var(--c); }
   .eg-st .note{ margin-top:auto; flex:none; display:flex; align-items:center; gap:8px; margin:auto -6px 0; padding:.6vh 14px; background:color-mix(in srgb, var(--c) 7%, #fff); font-size:calc(clamp(.7rem,1.8vh,1.04rem) * var(--fit,1)); line-height:1.3; }
@@ -4632,36 +4638,56 @@
       ['GMO', [['KDC',27,28],['PAMA',32,46],['BAR',13,22]]]
     ],
     states:[
-      { key:'full', no:'01', title:'Sudah Berjalan <em>(Full)</em>', tile:'Sudah Berjalan <em>(Full)</em>', count:178, gap:38, c:'#1F9A4B', bg:'#E9F5E9', icon:'check',
-        desc:'Rekayasa sudah terimplementasi penuh, namun masih terdapat gap incident pada beberapa company-site.',
+      { key:'full', no:'01', title:'Sudah Berjalan <em>(Full)</em> — target terpenuhi &amp; standardisasi done', tile:'Sudah Berjalan <em>(Full)</em>', count:178, gap:38, c:'#1F9A4B', bg:'#E9F5E9', icon:'check',
+        desc:'10 control confirmed signal → review efektivitas implementasi.',
         note:'rekayasa sudah full tetapi incident masih muncul → review efektivitas implementasi.',
         rows:[
-          ['PAMA – BMO 2',26,14,['Fatigue Management — tabrakan/kehilangan kendali; unit rebah/terbalik.','Kelayakan & Pengoperasian Kendaraan/Unit — collision; ground failure/terperosok; kehilangan kendali.','Dumping Overburden — amblas/terperosok/rollover.','Hauling Road Maintenance — collision/rollover; tyre-wheel failure; lentingan material.']],
-          ['PAMA – GMO',14,9,['Dumping Overburden — amblas/terperosok/rollover.','Loading Overburden — collision.','Hauling — collision; tyre-wheel failure; kehilangan fungsi/kendali.','Hauling Road Maintenance — rollover.','Kelayakan & Pengoperasian Kendaraan/Unit — collision.']],
-          ['BAR – BMO 3',13,6,['Dewatering — kemasukan air/risiko tenggelam.','Fatigue Management — collision/rollover.','Kelayakan & Pengoperasian Kendaraan/Unit — collision.','Hauling — kebakaran.']],
-          ['KDC – BMO 1',19,3,['Hauling — kehilangan fungsi/kendali/property damage.','Dumping Overburden — kebakaran.','Pemasangan Tyre LV — tyre/wheel terlepas; kehilangan fungsi/kendali.']],
-          ['FAD – LMO',4,3,['Dumping Overburden — amblas/terperosok/rollover; collision.','Dumping Material Lumpur — ground failure/rollover.']],
-          ['KDC – GMO',27,1,['Dumping Overburden — kehilangan fungsi/kendali/property damage.']],
-          ['MTL – BMO 1',7,1,['Kelayakan & Pengoperasian Kendaraan/Unit — collision.']],
-          ['BUMA – LMO',16,1,['Kelayakan & Pengoperasian Kendaraan/Unit — unit rebah/terbalik/terperosok.']]
+          ['PAMA – BMO 2',
+            ['Geofencing Dumping Limiter/Motion Intelligence Rover → BMO2/2026/6, /17','Gform keluarga → BMO2/2026/1, /12, /21','Control Room DMS → BMO2/2026/1, /12, /21','CCTV Portable Fatigue Test → BMO2/2026/1, /12, /21'],
+            ['Dumping/ROM — amblas/rollover/rebah','Fatigue Management — fatigue/microsleep → loss of control/collision']],
+          ['PAMA – GMO',
+            ['Wheel Lock Nut (LV/Bus) → GMO/2026/19','P2H Online LV → GMO/2026/19','Verifikasi P2H Control Room → GMO/2026/13, /19','Kamera Kabin Excavator → GMO/2026/2','Mine Awareness MH02 persimpangan kritis → GMO/2026/21'],
+            ['Hauling LV — tyre detachment/mechanical failure','Loading OB — excavator/dozer contact','Hauling — collision pada traffic-control/portal']],
+          ['FAD – LMO',
+            ['Pengukuran situasi disposal menggunakan drone → LMO/2026/8'],
+            ['Dumping Material Lumpur — ground condition/amblas/rollover exposure']]
         ] },
-      { key:'partial', no:'02', title:'Masih Progress <em>(Partial)</em>', tile:'Masih Progress <em>(Partial)</em>', count:17, gap:12, c:'#EE8B1E', bg:'#FDEFDF', icon:'gear',
-        desc:'Rekayasa dalam tahap implementasi, dan sudah terdapat gap incident pada beberapa company-site.',
+      { key:'partial', no:'02', title:'Masih Progress <em>(Partial)</em> — sudah berjalan namun belum full/standardized', tile:'Masih Progress <em>(Partial)</em>', count:17, gap:12, c:'#EE8B1E', bg:'#FDEFDF', icon:'gear',
+        desc:'12 control confirmed signal → percepat closure hingga standardisasi.',
         note:'rekayasa masih progress dan incident sudah muncul → percepat pemenuhan hingga standarisasi.',
         rows:[
-          ['BAR – BMO 3',5,5,['Fatigue Management — collision/rollover.','Kelayakan & Pengoperasian Kendaraan/Unit — collision.','Dumping Overburden — kebakaran.']],
-          ['PAMA – BMO 2',1,4,['Kelayakan & Pengoperasian Kendaraan/Unit — collision; ground failure/rollover; kehilangan kendali.']],
-          ['MTL – BMO 1',1,1,['Kelayakan & Pengoperasian Kendaraan/Unit — collision.']],
-          ['PAMA – GMO',4,1,['Kelayakan & Pengoperasian Kendaraan/Unit — collision.']],
-          ['BUMA – LMO',1,1,['Loading Overburden — kebakaran.']]
+          ['BAR – BMO 3',
+            ['DMS to DWS; Smart Ring; DMS Unit DT; CCTV Portable Fatigue Test → BMO3/2026/2'],
+            ['Fatigue Management — microsleep → loss of control/rollover']],
+          ['MTN – SMO',
+            ['Speed Limiter Integrated with Geofencing Hauling → SMO/2026/2, /06','Speed Reminder Integrated Geofence → SMO/2026/2, /06'],
+            ['Hauling — rollover / road departure / speed-position exposure']],
+          ['PAMA – BMO 2',
+            ['Geofencing Dumping Limiter → BMO2/2026/6, /17','ARCAS → BMO2/2026/21'],
+            ['Dumping/ROM — amblas/rollover','Vehicle operation — rear-end collision/inter-unit proximity']],
+          ['PAMA – GMO',
+            ['Accelerometer Unit DT → GMO/2026/1, /14','Drive Thru Dumping (HD) → GMO/2026/1, /14'],
+            ['Dumping/DT — ground failure/rollover']],
+          ['FAD – LMO',
+            ['Lampu Payload → LMO/2026/1'],
+            ['Dumping Overburden — ground failure/rollover']],
+          ['MTL – BMO 1',
+            ['Automatic Emergency Brake → BMO1/2026/05'],
+            ['Kelayakan kendaraan — collision saat manuver Bus']]
         ] },
-      { key:'none', no:'03', title:'Belum Berjalan', tile:'Belum Berjalan', count:47, gap:9, c:'#D7262B', bg:'#FDE6E6', icon:'stop',
-        desc:'Rekayasa belum diimplementasikan, namun sudah terdapat gap incident pada beberapa company-site.',
-        note:'rekayasa belum berjalan tetapi incident sudah ada → segera ideation & pengadaan.',
+      { key:'none', no:'03', title:'Belum Berjalan — actual 0', tile:'Belum Berjalan', count:47, gap:9, c:'#D7262B', bg:'#FDE6E6', icon:'stop',
+        desc:'5 control confirmed signal → segera procurement &amp; implementasi.',
+        note:'rekayasa belum berjalan tetapi incident sudah ada → segera procurement &amp; implementasi.',
         rows:[
-          ['PAMA – BMO 2',3,4,['Kelayakan & Pengoperasian Kendaraan/Unit — collision; ground failure/rollover; kehilangan kendali.']],
-          ['BAR – BMO 3',4,3,['Kelayakan & Pengoperasian Kendaraan/Unit — collision.']],
-          ['PAMA – GMO',3,2,['Pengeboran untuk Peledakan — collision.','Hauling Road Maintenance — rollover.']]
+          ['PAMA – BMO 2',
+            ['Kamera 360 unit transportasi massal → BMO2/2026/2'],
+            ['Kelayakan kendaraan — blind spot/collision pada Bus']],
+          ['FAD – LMO',
+            ['Lock Speed Connect terhadap Geofence; Speed Geofence Recognition Alert → LMO/2026/6'],
+            ['Hauling LV — loss of control/menyisir tanggul']],
+          ['BAR – BMO 3',
+            ['P2H Online unit DT; Verifikasi P2H Control Room → BMO3/2026/5, /7'],
+            ['Vehicle condition — Dump Truck fire/smoke']]
         ] }
     ]
   };
@@ -4680,6 +4706,7 @@
     const band = (v)=> v>=80 ? 'var(--eg-g)' : v>=50 ? 'var(--eg-a)' : 'var(--eg-r)';
     const pct = (a, b)=> b ? a/b*100 : 0;
     const f1 = (v)=> v.toFixed(1).replace('.', ',');
+    const ref = (t)=>{ const i = t.lastIndexOf(' → '); return '<li>'+(i < 0 ? t : t.slice(0, i)+' <span class="ref">→ '+t.slice(i+3)+'</span>')+'</li>'; };
     function render(){
       const E = ENG2, $ = (id)=> document.getElementById(id);
       if(!$('egProg')) return;
@@ -4695,8 +4722,8 @@
       $('egTiles').innerHTML = E.states.map((s, i)=> '<button type="button" role="tab" class="eg-tile'+(i===0?' is-on':'')+'" aria-selected="'+(i===0)+'" data-st="'+s.key+'" style="--c:'+s.c+'"><span class="ic">'+svg(s.icon)+'</span><div><h4>'+s.tile+'</h4>'
         + '<p><span class="n">'+s.count+'</span> <small>rekayasa</small></p><p class="gap"><span class="n">'+s.gap+'</span> <small>gap incident</small></p></div></button>').join('');
       $('egCards').innerHTML = E.states.map((s, i)=> '<section class="eg-st" role="tabpanel" data-st="'+s.key+'"'+(i===0?'':' hidden')+' style="--c:'+s.c+';--bg:'+s.bg+'"><header><span class="no">'+s.no+'</span><div><b>'+s.title+'</b><small>'+s.desc+'</small></div></header>'
-        + '<div class="eg-st-body"><table><thead><tr><th>Company – Site</th><th>Jumlah Rekayasa</th><th>Gap Incident</th><th>Aktivitas – Risiko Gap karena Incident</th></tr></thead><tbody>'
-        + s.rows.map(([co, n, g, items])=> '<tr><td class="co">'+co+'</td><td class="n">'+n+'</td><td class="gap"><span>'+g+'</span></td><td><ul>'+items.map(t=> '<li>'+t+'</li>').join('')+'</ul></td></tr>').join('')
+        + '<div class="eg-st-body"><table><thead><tr><th>Company – Site</th><th>Rekayasa Engineering → Incident</th><th>Aktivitas – Risiko yang Dicakup</th></tr></thead><tbody>'
+        + s.rows.map(([co, eng, risk])=> '<tr><td class="co">'+co+'</td><td class="eng"><ul>'+eng.map(ref).join('')+'</ul></td><td class="risk"><ul>'+risk.map(t=> '<li>'+t+'</li>').join('')+'</ul></td></tr>').join('')
         + '</tbody></table><p class="note">'+svg('bulb').replace('<svg','<svg style="width:1.6em;height:1.6em;flex:none;fill:'+s.c+'"')+'<span><b>Arah pembacaan:</b> '+s.note+'</span></p></div></section>').join('');
       fitText('#egStdCard .eg-std-wrap, #egCards .eg-st-body');
       // the three status tiles switch the detail panel below
