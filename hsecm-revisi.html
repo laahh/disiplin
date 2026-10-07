@@ -1292,6 +1292,65 @@
   #slideEngineering .slide-inner{ display:flex; flex-direction:column; gap:1.1vh; height:100%; min-height:0; }
   #slideEngineering .sp-title{ font-size:clamp(1.4rem,4.5vh,3.1rem); }
   #slideEngineering .sp-desc{ font-size:clamp(.68rem,1.65vh,.98rem); }
+  /* Fig. 05 rebuilt: progress + standardisation per company-site on the left, the three
+     implementation states (full / partial / not started) with their incident gaps on the right */
+  #slideEngineering{ --eg-g:#1F9A4B; --eg-a:#F29A1F; --eg-r:#D7262B; }
+  .eg-grid{ flex:1 1 auto; min-height:0; display:grid; gap:1vh 12px; grid-template-columns:minmax(0,.62fr) minmax(0,1.38fr); }
+  .eg-left, .eg-right{ min-width:0; min-height:0; display:flex; flex-direction:column; gap:1vh; }
+  #egProgCard{ flex:none; }
+  #egStdCard{ flex:1 1 0; }
+  .eg-band{ flex:none; display:flex; align-items:center; gap:10px; padding:.6vh 12px; background:linear-gradient(90deg,#0B6A33,#11803F); color:#fff; }
+  .eg-band b{ display:block; font-size:clamp(.8rem,2.1vh,1.15rem); line-height:1.1; }
+  .eg-band small{ display:block; font-size:clamp(.66rem,1.65vh,.9rem); opacity:.9; }
+  .eg-no{ flex:none; width:clamp(26px,4.2vh,38px); height:clamp(26px,4.2vh,38px); border-radius:50%; display:grid; place-items:center; background:#fff; color:#0B6A33; font-weight:800; font-size:1.1em; }
+  .eg-prog{ list-style:none; display:flex; flex-direction:column; gap:.5vh; padding:.8vh 12px 1vh; }
+  .eg-prog li{ display:grid; grid-template-columns:clamp(18px,2.8vh,26px) minmax(0,1fr) minmax(0,1.3fr) auto 3.6em; align-items:center; gap:8px; font-size:clamp(.66rem,1.7vh,.94rem); }
+  .eg-prog .ic{ width:100%; aspect-ratio:1; color:#0F2A4A; } .eg-prog .ic svg{ width:100%; height:100%; fill:currentColor; }
+  .eg-prog .bar{ height:clamp(10px,1.8vh,16px); border-radius:2px; background:#E7ECF2; overflow:hidden; }
+  .eg-prog .bar i{ display:block; height:100%; width:var(--w); background:var(--c); transform-origin:left center; }
+  .eg-prog .fr{ color:#4A5D73; font-variant-numeric:tabular-nums; }
+  .eg-prog b{ text-align:right; font-weight:800; color:var(--c); font-variant-numeric:tabular-nums; }
+  .eg-std-h{ flex:none; display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; padding:.5vh 12px; font-size:clamp(.72rem,1.85vh,1rem); }
+  .eg-lg{ display:flex; align-items:center; gap:5px; font-size:.78em; color:#4A5D73; }
+  .eg-lg i{ width:10px; height:10px; border-radius:2px; margin-left:6px; } .eg-lg i.g{ background:var(--eg-g); } .eg-lg i.a{ background:var(--eg-a); } .eg-lg i.r{ background:var(--eg-r); }
+  .eg-std-wrap{ flex:1; min-height:0; padding:0 8px .6vh; }
+  .eg-std{ width:100%; height:100%; border-collapse:collapse; font-size:calc(clamp(.56rem,1.42vh,.8rem) * var(--fit,1)); line-height:1.1; }
+  .eg-std th{ padding:.4vh 6px; background:#EEF3F7; font-weight:700; text-align:center; }
+  .eg-std td{ padding:0 6px; }
+  .eg-std td.site{ font-weight:800; font-size:1.2em; border-bottom:1px solid #D7DEE6; }
+  .eg-std tr.last td{ border-bottom:1px solid #D7DEE6; }
+  .eg-std td.co{ font-weight:600; }
+  .eg-std td.bar{ width:45%; }
+  .eg-std td.bar span{ display:block; height:1.05em; background:#E7ECF2; }
+  .eg-std td.bar i{ display:block; height:100%; width:var(--w); background:var(--c); min-width:2px; transform-origin:left center; }
+  .eg-std td.pct{ text-align:right; font-weight:800; color:var(--c); font-variant-numeric:tabular-nums; }
+  .eg-std td.n{ text-align:center; color:#4A5D73; font-variant-numeric:tabular-nums; }
+  .eg-tiles{ flex:none; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
+  .eg-tile{ display:flex; align-items:center; gap:12px; padding:.8vh 14px; border-radius:12px; background:#fff; border:1px solid #E3E8EE; box-shadow:0 8px 20px rgba(15,42,74,.06); }
+  .eg-tile .ic{ flex:none; width:clamp(40px,7vh,64px); aspect-ratio:1; border-radius:50%; display:grid; place-items:center; background:var(--c); color:#fff; }
+  .eg-tile .ic svg{ width:58%; height:58%; fill:currentColor; }
+  .eg-tile h4{ font-size:clamp(.74rem,1.9vh,1.05rem); font-weight:700; color:#0F2D6B; }
+  .eg-tile h4 em{ font-family:inherit; font-style:italic; color:inherit; }
+  .eg-tile p{ font-weight:800; font-size:clamp(1.05rem,3vh,1.7rem); line-height:1.05; color:var(--c); }
+  .eg-tile p small{ font-size:.72em; font-weight:700; }
+  .eg-tile p.gap{ color:var(--c2); }
+  .eg-cards{ flex:1 1 0; min-height:0; display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr); gap:10px; }
+  .eg-st{ min-width:0; min-height:0; display:flex; flex-direction:column; border-radius:12px; overflow:hidden; background:#fff; border:2px solid var(--c); }
+  .eg-st header{ flex:none; display:flex; align-items:center; gap:10px; padding:.6vh 10px; background:var(--c); color:#fff; }
+  .eg-st header .no{ flex:none; width:clamp(26px,4.2vh,38px); height:clamp(26px,4.2vh,38px); border-radius:50%; display:grid; place-items:center; background:#fff; color:var(--c); font-weight:800; }
+  .eg-st header b{ display:block; font-size:clamp(.78rem,2vh,1.1rem); }
+  .eg-st header b em{ font-family:inherit; font-style:italic; color:inherit; }
+  .eg-st header small{ display:block; font-size:clamp(.54rem,1.3vh,.74rem); line-height:1.2; opacity:.95; }
+  .eg-st-body{ flex:1; min-height:0; display:flex; flex-direction:column; }
+  .eg-st table{ width:100%; border-collapse:collapse; font-size:calc(clamp(.5rem,1.22vh,.72rem) * var(--fit,1)); line-height:1.18; }
+  .eg-st th{ padding:.4vh 4px; background:var(--bg); font-weight:700; text-align:center; border-bottom:1px solid #D7DEE6; }
+  .eg-st td{ padding:.35vh 4px; border-bottom:1px solid #E3E8EE; vertical-align:middle; }
+  .eg-st td.co{ font-weight:700; white-space:nowrap; }
+  .eg-st td.n{ text-align:center; font-weight:700; }
+  .eg-st td.gap{ text-align:center; font-weight:800; color:var(--eg-r); }
+  .eg-st ul{ list-style:disc; padding-left:1.1em; }
+  .eg-st .note{ margin-top:auto; flex:none; display:flex; align-items:center; gap:8px; padding:.5vh 10px; background:var(--bg); font-size:calc(clamp(.52rem,1.25vh,.74rem) * var(--fit,1)); line-height:1.25; }
+  .eg-st .note b{ color:var(--c); }
   .re-grid{ flex:1 1 auto; min-height:0; display:grid; gap:1vh 14px; grid-template-columns:minmax(0,1.56fr) minmax(0,1fr); }
   .re-right{ min-height:0; display:grid; gap:1vh; grid-template-rows:minmax(0,1.02fr) minmax(0,.88fr) minmax(0,1.05fr); }
   .re-card{
@@ -1395,6 +1454,71 @@
     color:#fff; font-weight:700; letter-spacing:.06em; font-size:clamp(1rem,3vh,1.75rem);
   }
   .hf-body{ flex:1; min-height:0; display:flex; flex-direction:column; gap:.9vh; padding:.8vh 10px 1vh; }
+  /* rebuilt Fig. 06: banded halves with a tagline, health indicators per company, fatigue incidents */
+  .hx-band{ flex:none; display:flex; align-items:center; gap:14px; padding:.6vh 16px; background:linear-gradient(90deg,var(--hf-green-d),var(--hf-green)); color:#fff; }
+  .hx-band > b{ font-weight:800; letter-spacing:.04em; font-size:clamp(1.1rem,3.4vh,2rem); }
+  .hx-band-ic, .hx-h-ic{ flex:none; display:grid; place-items:center; }
+  .hx-band-ic{ width:clamp(26px,4.4vh,40px); height:clamp(26px,4.4vh,40px); }
+  .hx-band-ic svg, .hx-h-ic svg{ width:100%; height:100%; fill:currentColor; }
+  .hx-tag{ margin-left:auto; max-width:56%; padding-left:14px; border-left:1.5px solid rgba(255,255,255,.6); font-size:clamp(.6rem,1.55vh,.88rem); line-height:1.25; }
+  .hx-tag b{ font-weight:700; }
+  .hx-top{ flex:1.55 1 0; min-height:0; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.36fr); gap:8px; }
+  .hx-ind{ min-height:0; display:flex; flex-direction:column; gap:.5vh; }
+  .hx-h{ flex:none; display:flex; align-items:center; gap:8px; }
+  .hx-h-ic{ width:clamp(22px,3.6vh,34px); height:clamp(22px,3.6vh,34px); padding:4px; border-radius:6px; background:var(--hf-green-d); color:#fff; }
+  .hx-h b{ display:block; color:#0F2D6B; font-size:clamp(.74rem,1.95vh,1.08rem); line-height:1.1; }
+  .hx-h small{ display:block; color:#33475E; font-size:clamp(.6rem,1.5vh,.86rem); }
+  .hx-tbl{ flex:1; min-height:0; }
+  .hx-tbl table{ width:100%; height:100%; border-collapse:collapse; font-size:calc(clamp(.5rem,1.28vh,.76rem) * var(--fit,1)); text-align:center; line-height:1.05; font-variant-numeric:tabular-nums; }
+  .hx-tbl thead th{ background:var(--hf-green-d); color:#fff; font-weight:700; padding:.3vh 3px; border:1px solid rgba(255,255,255,.25); }
+  .hx-tbl tbody th{ text-align:left; padding:0 6px; font-weight:800; }
+  .hx-tbl td{ padding:0 3px; border-bottom:1px solid #E6ECE8; }
+  .hx-tbl td.q3{ font-weight:800; background:#F4F8F5; }
+  .hx-tbl td.t{ width:1.2em; font-weight:800; font-size:1.1em; }
+  .hx-tbl .up-g, .hx-tbl .dn-g{ color:var(--hf-green); } .hx-tbl .up-r, .hx-tbl .dn-r{ color:var(--hf-red); } .hx-tbl .eq{ color:#F2A20C; }
+  .hx-sum{ min-height:0; display:flex; flex-direction:column; gap:.6vh; padding:.5vh 6px; border-radius:10px; background:#EEF6F0; }
+  .hx-sum > header{ flex:none; padding:.4vh 6px; border-radius:6px; background:var(--hf-green-d); color:#fff; font-weight:700; text-align:center; font-size:clamp(.6rem,1.5vh,.86rem); }
+  .hx-kpi{ flex:1 1 0; min-height:0; display:grid; grid-template-columns:auto minmax(0,1fr); align-items:center; gap:2px 8px; padding:.3vh 6px; border-radius:8px; background:#fff; }
+  .hx-kpi .ic{ grid-row:1 / 3; width:clamp(18px,3.2vh,30px); height:clamp(18px,3.2vh,30px); color:var(--hf-green-d); }
+  .hx-kpi .ic svg{ width:100%; height:100%; fill:currentColor; }
+  .hx-kpi span{ font-size:clamp(.54rem,1.32vh,.78rem); line-height:1.15; }
+  .hx-kpi span b{ font-weight:700; }
+  .hx-kpi > b{ font-weight:800; font-size:clamp(.95rem,2.8vh,1.6rem); line-height:1; font-variant-numeric:tabular-nums; }
+  .hx-kpi > b i{ font-style:normal; font-size:.6em; margin-left:6px; }
+  .hx-bottom{ flex:1 1 0; min-height:0; display:grid; grid-template-columns:minmax(0,.6fr) minmax(0,.75fr) minmax(0,1.5fr); gap:8px; }
+  .hx-inst{ flex:1; min-height:0; display:grid; place-items:center; padding:.4vh; }
+  .hx-ring{ position:relative; height:min(100%, 13vh); aspect-ratio:1; }
+  .hx-ring svg{ width:100%; height:100%; transform:rotate(-90deg); } .hx-ring circle{ fill:none; stroke-width:4.5; }
+  .hx-ring div{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; line-height:1.1; }
+  .hx-ring b{ font-weight:800; color:#0F2D6B; font-size:clamp(1rem,3vh,1.8rem); }
+  .hx-ring{ height:min(100%, 15vh); }
+  .hx-ring b span{ font-size:inherit; }
+  .hx-ring span{ font-size:clamp(.5rem,1.25vh,.74rem); }
+  .hx-util{ flex:1; min-height:0; display:flex; align-items:center; justify-content:center; gap:10px; padding:.4vh 8px; }
+  .hx-util .ic{ width:clamp(30px,6vh,56px); height:clamp(30px,6vh,56px); color:var(--hf-green-d); } .hx-util .ic svg{ width:100%; height:100%; fill:currentColor; }
+  .hx-util b{ display:block; font-weight:800; color:#0F2D6B; font-size:clamp(1.1rem,3.4vh,2rem); line-height:1; }
+  .hx-util span{ font-size:clamp(.56rem,1.4vh,.82rem); line-height:1.2; }
+  .hx-todo-box .hf-box-h small{ font-weight:500; }
+  .hx-todo{ flex:1; min-height:0; list-style:none; display:flex; flex-direction:column; justify-content:space-around; padding:.3vh 8px; font-size:calc(clamp(.52rem,1.3vh,.76rem) * var(--fit,1)); line-height:1.15; }
+  .hx-todo li{ display:flex; align-items:center; gap:8px; padding:.2vh 0; border-bottom:1px solid #E6ECE8; }
+  .hx-todo i{ flex:none; width:2.2em; height:2.2em; border-radius:50%; display:grid; place-items:center; background:var(--hf-green-d); color:#fff; font-style:normal; font-weight:800; font-size:.9em; }
+  .hx-inc{ flex:none; display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,.85fr) minmax(0,1.2fr); align-items:stretch; gap:6px; }
+  .hx-inc .hx-h{ grid-column:1 / -1; }
+  .hx-inc .hx-h-ic{ background:var(--hf-red); border-radius:50%; }
+  .hx-big{ display:flex; align-items:center; gap:10px; padding:.4vh 10px; border-radius:8px; background:#FDECEC; }
+  .hx-big b{ font-weight:800; color:var(--hf-red); font-size:clamp(1.6rem,5.2vh,3rem); line-height:1; font-variant-numeric:tabular-nums; }
+  .hx-big span{ font-size:clamp(.6rem,1.55vh,.9rem); line-height:1.2; }
+  .hx-gt{ align-self:center; color:var(--hf-red); font-weight:800; font-size:1.4em; }
+  .hx-viol{ padding:.4vh 10px; border:1.5px solid var(--hf-red); border-radius:8px; background:#FFF8F8; font-size:clamp(.54rem,1.34vh,.8rem); line-height:1.35; }
+  .hx-viol header{ font-weight:700; }
+  .hx-viol li{ list-style:none; color:var(--hf-red); }
+  .hx-viol li::before{ content:'○'; margin-right:6px; font-weight:800; }
+  .hx-viol li b{ font-weight:800; }
+  .hx-next{ flex:none; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); gap:10px; align-items:center; padding:.5vh 10px; border-radius:8px; background:#EEF6F0; border:1px solid #CFE3D4; }
+  .hx-next > b{ display:flex; align-items:center; gap:8px; color:#0F2D6B; font-size:clamp(.62rem,1.55vh,.9rem); line-height:1.2; }
+  .hx-next > b small{ flex:none; padding:.2vh 8px; border-radius:4px; background:var(--hf-green-d); color:#fff; font-size:.85em; }
+  .hx-next ul{ list-style:none; font-size:clamp(.5rem,1.24vh,.74rem); line-height:1.25; }
+  .hx-next li::before{ content:'✓'; color:var(--hf-green); font-weight:800; margin-right:6px; }
   .hf-sec{ min-height:0; display:flex; flex-direction:column; gap:.6vh; }
   .hf-h{ flex:none; display:flex; align-items:center; gap:8px; font-weight:700; font-size:clamp(.78rem,2.05vh,1.12rem); }
   .hf-h .hf-ico{ width:clamp(16px,2.7vh,24px); height:clamp(16px,2.7vh,24px); color:var(--hf-green); }
@@ -1491,7 +1615,15 @@
   #slideNext .sp-desc{ font-size:clamp(.68rem,1.65vh,.98rem); }
   #slideNext .sp-desc b{ font-weight:700; }
   .nx-logo{ position:absolute; right:0; top:.6vh; height:clamp(34px,6.4vh,64px); mix-blend-mode:multiply; }
-  .nx-grid{ flex:1 1 auto; min-height:0; display:grid; gap:12px; grid-template-columns:minmax(0,1.14fr) minmax(0,.98fr) minmax(0,.94fr); }
+  .nx-grid{ flex:1 1 auto; min-height:0; display:grid; gap:12px; grid-template-columns:minmax(0,3.5fr) minmax(0,1fr); }
+  .nx-grid > .nx-src{ display:none; }
+  /* copy of the Fig. 04 challenge cards, with Fig. 04's colour tokens */
+  .nx-cp{ min-width:0; min-height:0; display:flex; flex-direction:column;
+    --cp-green:#1C7C3A; --cp-green-soft:#E3F5E7; --cp-amber:#F29A1F; --cp-red:#D7262B; --cp-row:#EEF2F7; }
+  /* the Fig. 04 cards are laid out at their own slide width and scaled down as a whole (--z is set
+     from the space available), so nothing inside them wraps or overflows */
+  .nx-cp{ position:relative; }
+  .nx-cp .cp-grid{ position:absolute; left:0; top:0; transform-origin:0 0; }
   .nx-card{
     min-width:0; min-height:0; display:flex; flex-direction:column; overflow:hidden;
     background:rgba(255,255,255,.96); border:1px solid rgba(17,128,63,.14); border-radius:14px;
@@ -1917,37 +2049,33 @@
     </div>
   </section>
 
-  <section class="slide" id="slideEngineering" data-steps="5" data-section="D · Perkuatan">
+  <section class="slide" id="slideEngineering" data-steps="4" data-section="D · Perkuatan">
     <div class="slide-inner">
       <div class="sp-head">
         <p class="kicker mono fade" data-step="1" id="reKicker">Fig. 05 · Implementasi Rekayasa Engineering Overview</p>
         <h2 class="sp-title fade" data-step="1" id="reTitle">Implementasi Rekayasa Engineering</h2>
         <p class="sp-desc fade" data-step="1" id="reDesc">Rekayasa engineering telah menunjukkan penurunan high-significant risk, namun efektivitas belum merata karena beberapa rekayasa masih memiliki coverage rendah dan residual risk masih terkonsentrasi pada hauling road maintenance, maintenance unit, serta pengisian BBC.</p>
       </div>
-      <div class="re-grid">
-        <div class="re-card fade" data-step="2" id="reMatrixCard">
-          <div class="re-head" data-head="gear">Coverage Rekayasa Engineering terhadap Aktivitas &amp; Risiko</div>
-          <div class="re-matrix" id="reMatrix"></div>
+      <div class="eg-grid">
+        <div class="eg-left">
+          <div class="re-card fade" data-step="2" id="egProgCard">
+            <div class="eg-band"><span class="eg-no">1</span><span><b>Progress Implementasi</b><small id="egTotal"></small></span></div>
+            <ul class="eg-prog" id="egProg"></ul>
+          </div>
+          <div class="re-card fade" data-step="2" id="egStdCard">
+            <div class="eg-std-h"><b>Standarisasi per Company-Site</b><span class="eg-lg"><i class="g"></i>&ge; 80%<i class="a"></i>50 – 79%<i class="r"></i>&lt; 50%</span></div>
+            <div class="eg-std-wrap"><table class="eg-std" id="egStd"></table></div>
+          </div>
         </div>
-        <div class="re-right">
-          <div class="re-card fade" data-step="3" id="reProgCard">
-            <div class="re-head" data-head="bars">Progress Pemenuhan Rekayasa Engineering</div>
-            <div class="re-prog" id="reProg"></div>
-          </div>
-          <div class="re-card fade" data-step="4" id="reGapCard">
-            <div class="re-head" data-head="doc">Gap Incident Tanpa Kontrol Rekayasa Engineering</div>
-            <div class="re-tbl"><table id="reGap"></table></div>
-          </div>
-          <div class="re-card fade" data-step="5" id="reImplCard">
-            <div class="re-head" data-head="wrench">Gap pada Implementasi Rekayasa yang sudah berjalan</div>
-            <div class="re-tbl"><table id="reImpl"></table></div>
-          </div>
+        <div class="eg-right">
+          <div class="eg-tiles fade" data-step="3" id="egTiles"></div>
+          <div class="eg-cards fade" data-step="4" id="egCards"></div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="slide" id="slideHealth" data-steps="7" data-section="D · Perkuatan">
+  <section class="slide" id="slideHealth" data-steps="6" data-section="D · Perkuatan">
     <div class="slide-inner">
       <div class="sp-head">
         <p class="kicker mono fade" data-step="1" id="hfKicker">Fig. 06 · Health &amp; Fatigue Management Overview</p>
@@ -1956,50 +2084,44 @@
       </div>
       <div class="hf-grid">
         <div class="hf-half fade" data-step="2" id="hfSehat">
-          <div class="hf-band">SEHAT</div>
+          <div class="hx-band"><span class="hx-band-ic" data-i="heart"></span><b>SEHAT</b><span class="hx-tag">Kondisi fisik yang baik mendukung bekerja aman, produktif dan berkelanjutan.</span></div>
           <div class="hf-body">
-            <div class="hf-top">
-              <div class="hf-top-l hf-sec">
-                <div class="hf-h" data-h="leaf">Pilar Program WELL</div>
-                <div class="hf-tiles p4" id="hfPillars"></div>
+            <div class="hx-top">
+              <div class="hx-ind">
+                <div class="hx-h"><span class="hx-h-ic" data-i="bars"></span><span><b>Indikator Sehat Q3 2026 vs Q2 2026</b><small>(perusahaan mitra tambang)</small></span></div>
+                <div class="hx-tbl"><table id="hxInd"></table></div>
               </div>
-              <div class="hf-hero"><img src="hf-well.jpg" alt="Pekerja tambang memantau aplikasi WELL: 7.560 langkah"></div>
+              <div class="hx-sum fade" data-step="2" id="hxSum"></div>
             </div>
-            <div class="hf-sec hf-apps fade" data-step="3" id="hfAppsSec">
-              <div class="hf-h" data-h="bars">Implementasi Aplikasi WELL</div>
-              <div class="hf-tiles" id="hfApps"></div>
-            </div>
-            <div class="hf-bottom fade" data-step="4" id="hfBottom">
-              <div class="hf-box"><div class="hf-box-h" data-h="download">Instalasi WELL</div><div class="hf-install" id="hfInstall"></div></div>
-              <div class="hf-box"><div class="hf-box-h" data-h="calendar">Next To Do WELL</div><ul class="hf-todo" id="hfTodo"></ul></div>
-              <div class="hf-box"><div class="hf-box-h" data-h="gear">Upgrade Pengembangan Fitur WELL</div><div class="hf-up" id="hfUpgrade"></div></div>
+            <div class="hx-bottom fade" data-step="3" id="hxBottom">
+              <div class="hf-box"><div class="hf-box-h" data-h="gear">Instalasi WELL</div><div class="hx-inst" id="hxInst"></div></div>
+              <div class="hf-box"><div class="hf-box-h" data-h="bars">Utilisasi Aplikasi WELL</div><div class="hx-util" id="hxUtil"></div></div>
+              <div class="hf-box hx-todo-box"><div class="hf-box-h" data-h="calendar">Next To Do WELL <small>&nbsp;(Data &amp; Development)</small></div><ul class="hx-todo" id="hxTodo"></ul></div>
             </div>
           </div>
         </div>
 
-        <div class="hf-half fade" data-step="5" id="hfLayak">
-          <div class="hf-band">LAYAK KERJA</div>
+        <div class="hf-half fade" data-step="4" id="hfLayak">
+          <div class="hx-band"><span class="hx-band-ic" data-i="helmet"></span><b>LAYAK KERJA</b><span class="hx-tag">Pekerja yang <b>fit, bebas fatigue</b>, dan bekerja sesuai ketentuan roster.</span></div>
           <div class="hf-body">
             <div class="hf-sec hf-360">
-              <div class="hf-h" data-h="gear">Fatigue Management 360</div>
+              <div class="hf-h" data-h="gauge">Fatigue Management 360</div>
               <div class="hf-chev" id="hfChev"></div>
               <div class="hf-phases" id="hfPhases"></div>
             </div>
-            <div class="hf-sec hf-shift fade" data-step="6" id="hfShiftSec">
-              <div class="hf-h" data-h="gear">Kelompok Pola Shift</div>
-              <div class="hf-shifts" id="hfShifts"></div>
-            </div>
-            <div class="hf-gap fade" data-step="7" id="hfGapSec">
+            <div class="hx-inc fade" data-step="5" id="hxInc"></div>
+            <div class="hf-gap fade" data-step="6" id="hfGapSec">
               <div class="hf-box"><div class="hf-box-h" data-h="bars">Gap Roster per Site <small style="font-weight:500">&nbsp;(Semua Perusahaan)</small></div><div class="hf-roster"><table id="hfRoster"></table></div></div>
               <div class="hf-box"><div class="hf-box-h alert" data-h="warn">Gap Highlight</div><div class="hf-hl" id="hfHighlight"></div></div>
             </div>
+            <div class="hx-next fade" data-step="6" id="hxNext"></div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="slide" id="slideNext" data-steps="5" data-section="E · Next to Do">
+  <section class="slide" id="slideNext" data-steps="3" data-section="E · Next to Do">
     <div class="slide-inner">
       <div class="sp-head">
         <p class="kicker mono fade" data-step="1" id="nxKicker">Fig. 07 · Highlight &amp; Next to Do Q4 2026 Overview</p>
@@ -2008,6 +2130,10 @@
         <img class="nx-logo fade" data-step="1" src="bc.png" alt="Berau Coal">
       </div>
       <div class="nx-grid">
+        <div class="nx-cp fade" data-step="2" id="nxCp"></div>
+        <!-- matrix, keys and company table are no longer shown here; they stay as the source of
+             the "Korelasi Kontrol & Lagging" tab -->
+        <div class="nx-src" hidden>
         <div class="nx-left">
           <div class="nx-card fade" data-step="2" id="nxMatrixCard">
             <div class="nx-band">Exposure × Control Matrix</div>
@@ -2018,7 +2144,8 @@
         <div class="nx-card fade" data-step="4" id="nxTableCard">
           <div class="nx-tbl"><table id="nxTable"></table></div>
         </div>
-        <div class="nx-card fade" data-step="5" id="nxFocusCard">
+        </div>
+        <div class="nx-card fade" data-step="3" id="nxFocusCard">
           <div class="nx-band">Focus &amp; Next to Do Q4 2026</div>
           <div class="nx-focus" id="nxFocus"></div>
         </div>
@@ -3003,37 +3130,31 @@
         if(d) tl.fromTo(d, {x:28, opacity:0}, {x:0, opacity:1, duration:0.45}, 0.16);
       }
       if(n>=2 && prev<2){
-        const card=$id('reMatrixCard');
-        if(card) tl.fromTo(card, {y:24, opacity:0}, {y:0, opacity:1, duration:0.45}, 0);
-        tl.fromTo(all('.re-colh'), {y:-10, opacity:0}, {y:0, opacity:1, stagger:0.1, duration:0.35}, 0.15);
-        // each row reads activity → risk → arrow → control, rows cascading top to bottom
-        const ROWS = 6, ROW_GAP = 0.22;
-        for(let r=1; r<=ROWS; r++){
-          const at = 0.4 + (r-1)*ROW_GAP, cell = (cls)=> all('.'+cls+'[data-row="'+r+'"]');
-          tl.fromTo(cell('re-act'), {x:-18, opacity:0}, {x:0, opacity:1, duration:0.35}, at);
-          tl.fromTo(all('.re-act[data-row="'+r+'"] img'), {scale:1.25}, {scale:1, duration:0.7, ease:'power2.out'}, at);
-          tl.fromTo(cell('re-risk'), {x:-10, opacity:0}, {x:0, opacity:1, duration:0.3}, at+0.12);
-          tl.fromTo(cell('re-arrow'), {x:-8, opacity:0}, {x:0, opacity:1, duration:0.25}, at+0.24);
-          tl.fromTo(cell('re-ctrl'), {x:12, opacity:0}, {x:0, opacity:1, duration:0.35}, at+0.32);
-        }
-        tl.call(()=>{ if(matrix) matrix.classList.add('flowing'); }, null, 0.4 + ROWS*ROW_GAP + 0.3);
+        // progress bars run out with their percentages counting, then the standardisation rows
+        const pc=$id('egProgCard'), sc=$id('egStdCard');
+        if(pc) tl.fromTo(pc, {y:22, opacity:0}, {y:0, opacity:1, duration:0.5}, 0);
+        tl.fromTo(all('.eg-prog li'), {x:-12, opacity:0}, {x:0, opacity:1, stagger:0.1, duration:0.4}, 0.15);
+        tl.fromTo(all('.eg-prog .bar i'), {scaleX:0}, {scaleX:1, stagger:0.1, duration:0.9, ease:'power3.out'}, 0.2);
+        countTo(tl, all('.eg-prog .n'), 0.2, 0.1);
+        if(sc) tl.fromTo(sc, {y:22, opacity:0}, {y:0, opacity:1, duration:0.5}, 0.3);
+        tl.fromTo(all('.eg-std tbody tr'), {x:-10, opacity:0}, {x:0, opacity:1, stagger:0.04, duration:0.35}, 0.45);
+        tl.fromTo(all('.eg-std td.bar i'), {scaleX:0}, {scaleX:1, stagger:0.04, duration:0.6, ease:'power3.out'}, 0.5);
+        countTo(tl, all('.eg-std td.pct .n'), 0.5, 0.04);
       }
       if(n>=3 && prev<3){
-        const card=$id('reProgCard');
-        if(card) tl.fromTo(card, {x:24, opacity:0}, {x:0, opacity:1, duration:0.45}, 0);
-        tl.fromTo(all('.re-bar i'), {scaleX:0}, {scaleX:1, stagger:0.15, duration:0.9, ease:'expo.out'}, 0.25);
-        const total = document.querySelector('#slideEngineering [data-count]');
-        if(total){ const to=+total.dataset.count; tl.call(()=> countUp(total, to, 1100), null, 0.2); }
+        all('.eg-tile').forEach((t, i)=>{
+          tl.fromTo(t, {y:16, opacity:0}, {y:0, opacity:1, duration:0.5}, i*0.15);
+          tl.fromTo(t.querySelector('.ic'), {scale:0, rotation:-90}, {scale:1, rotation:0, duration:0.5, ease:'back.out(1.6)'}, i*0.15+0.1);
+          countTo(tl, t.querySelectorAll('.n'), i*0.15+0.15, 0.1);
+        });
       }
       if(n>=4 && prev<4){
-        const card=$id('reGapCard');
-        if(card) tl.fromTo(card, {x:24, opacity:0}, {x:0, opacity:1, duration:0.45}, 0);
-        tl.fromTo(all('#reGap tr'), {x:14, opacity:0}, {x:0, opacity:1, stagger:0.1, duration:0.35}, 0.2);
-      }
-      if(n>=5 && prev<5){
-        const card=$id('reImplCard');
-        if(card) tl.fromTo(card, {x:24, opacity:0}, {x:0, opacity:1, duration:0.45}, 0);
-        tl.fromTo(all('#reImpl tr'), {x:14, opacity:0}, {x:0, opacity:1, stagger:0.1, duration:0.35}, 0.2);
+        all('.eg-st').forEach((c, i)=>{
+          const t = i*0.2;
+          tl.fromTo(c, {y:20, opacity:0}, {y:0, opacity:1, duration:0.5}, t);
+          tl.fromTo(c.querySelectorAll('tbody tr'), {x:10, opacity:0}, {x:0, opacity:1, stagger:0.06, duration:0.35}, t+0.2);
+          tl.fromTo(c.querySelectorAll('.note'), {opacity:0}, {opacity:1, duration:0.4}, t+0.6);
+        });
       }
     }
     function health(tl, n, prev){
@@ -3048,18 +3169,22 @@
       if(n>=2 && prev<2){
         const half=$id('hfSehat');
         if(half) tl.fromTo(half, {y:24, opacity:0}, {y:0, opacity:1, duration:0.45}, 0);
-        pop('#hfPillars .hf-tile', 0.25, {y:14, scale:0.9});
-        tl.fromTo(all('.hf-hero img'), {scale:1.15, opacity:0}, {scale:1, opacity:1, duration:0.9, ease:'power2.out'}, 0.2);
+        tl.fromTo(all('#hfSehat .hx-band > *'), {x:-12, opacity:0}, {x:0, opacity:1, stagger:0.08, duration:0.4}, 0.1);
+        tl.fromTo(all('#hxInd thead th'), {opacity:0}, {opacity:1, stagger:0.02, duration:0.3}, 0.25);
+        tl.fromTo(all('#hxInd tbody tr'), {x:-10, opacity:0}, {x:0, opacity:1, stagger:0.05, duration:0.35}, 0.35);
+        tl.fromTo(all('#hxInd td.t'), {scale:0}, {scale:1, stagger:0.01, duration:0.25, ease:'back.out(2)'}, 0.9);
+        tl.fromTo(all('#hxSum .hx-kpi'), {x:14, opacity:0}, {x:0, opacity:1, stagger:0.12, duration:0.4}, 0.5);
       }
-      if(n>=3 && prev<3) pop('#hfApps .hf-tile', 0.05, {y:14});
+      if(n>=3 && prev<3){
+        pop('#hxBottom .hf-box', 0.05, {y:14});
+        tl.fromTo(all('.hx-ring .arc'), {strokeDasharray:'0 100'}, {strokeDasharray:'100 0', duration:1, ease:'power2.out'}, 0.3);
+        countTo(tl, all('#hxInst .n, #hxUtil .n'), 0.3, 0.1);
+        pop('.hx-todo li', 0.35, {x:10});
+      }
       if(n>=4 && prev<4){
-        pop('#hfBottom .hf-box', 0.05, {y:14});
-        tl.fromTo(all('.hf-ring .arc'), {strokeDasharray:'0 100'}, {strokeDasharray:'100 0', duration:1, ease:'power2.out'}, 0.3);
-        pop('.hf-todo li, .hf-up div', 0.35, {x:10});
-      }
-      if(n>=5 && prev<5){
         const half=$id('hfLayak');
         if(half) tl.fromTo(half, {y:24, opacity:0}, {y:0, opacity:1, duration:0.45}, 0);
+        tl.fromTo(all('#hfLayak .hx-band > *'), {x:-12, opacity:0}, {x:0, opacity:1, stagger:0.08, duration:0.4}, 0.1);
         // pre → during → post, each chevron leading its column
         all('.hf-chev div').forEach((c, i)=>{
           const at = 0.3 + i*0.35, col = all('.hf-phase')[i];
@@ -3067,11 +3192,17 @@
           if(col) tl.fromTo(col.children, {y:12, opacity:0}, {y:0, opacity:1, stagger:0.08, duration:0.35}, at+0.12);
         });
       }
-      if(n>=6 && prev<6) pop('#hfShifts .hf-sc', 0.05, {y:14, scale:0.92});
-      if(n>=7 && prev<7){
+      if(n>=5 && prev<5){
+        tl.fromTo(all('#hxInc > *'), {y:12, opacity:0}, {y:0, opacity:1, stagger:0.12, duration:0.45}, 0);
+        countTo(tl, all('#hxInc .n'), 0.15, 0.25);
+        tl.fromTo(all('#hxInc .hx-viol li'), {x:10, opacity:0}, {x:0, opacity:1, stagger:0.1, duration:0.3}, 0.6);
+      }
+      if(n>=6 && prev<6){
         pop('#hfGapSec .hf-box', 0.05, {y:14});
         tl.fromTo(all('#hfRoster tr'), {x:10, opacity:0}, {x:0, opacity:1, stagger:0.04, duration:0.28}, 0.25);
         pop('#hfHighlight div', 0.5, {scale:0.9});
+        tl.fromTo(all('#hxNext'), {y:12, opacity:0}, {y:0, opacity:1, duration:0.45}, 0.7);
+        tl.fromTo(all('#hxNext li'), {x:10, opacity:0}, {x:0, opacity:1, stagger:0.1, duration:0.3}, 0.9);
       }
     }
     function nextdo(tl, n, prev){
@@ -3084,26 +3215,21 @@
         tl.fromTo(all('.nx-logo'), {scale:0.8, opacity:0}, {scale:1, opacity:1, duration:0.5, ease:'back.out(1.6)'}, 0.2);
       }
       if(n>=2 && prev<2){
-        const card=$id('nxMatrixCard');
-        if(card) tl.fromTo(card, {y:24, opacity:0}, {y:0, opacity:1, duration:0.45}, 0);
-        tl.fromTo(all('.nx-q'), {opacity:0}, {opacity:1, stagger:0.12, duration:0.4}, 0.2);
-        tl.fromTo(all('.nx-div'), {opacity:0}, {opacity:1, duration:0.3}, 0.6);
-        // controlled quadrants first, the critical gap last so it lands as the punchline
-        ['k4','k2','k3','k1'].forEach((k, i)=>{
-          tl.fromTo(all('.nx-dot.'+k), {scale:0, opacity:0}, {scale:1, opacity:1, stagger:0.06, duration:0.35, ease:'back.out(2)'}, 0.75 + i*0.35);
+        // the four Fig. 04 cards: banner number turns in, actions slide, gauges sweep, outputs open
+        all('#nxCp .cp-card').forEach((card, i)=>{
+          const t = i*0.18, q = (sel)=> card.querySelectorAll(sel);
+          tl.fromTo(card, {y:22, opacity:0}, {y:0, opacity:1, duration:0.5}, t);
+          tl.fromTo(q('.cp-num'), {scale:0, rotate:-90}, {scale:1, rotate:0, duration:0.5, ease:'back.out(1.4)'}, t+0.15);
+          tl.fromTo(q('.cp-banner h3'), {x:-14, opacity:0}, {x:0, opacity:1, duration:0.45}, t+0.2);
+          tl.fromTo(q('.cp-action'), {x:16, opacity:0}, {x:0, opacity:1, stagger:0.06, duration:0.35}, t+0.35);
+          tl.fromTo(q('.cp-donut circle, .cp-ring .arc'), {strokeDasharray:'0 100'}, {strokeDasharray:(k, el)=> el.getAttribute('stroke-dasharray'), stagger:0.2, duration:0.8, ease:'power2.out'}, t+0.35);
+          tl.fromTo(q('.cp-hbars i'), {scaleX:0}, {scaleX:1, stagger:0.08, duration:0.6, ease:'power3.out'}, t+0.4);
+          tl.fromTo(q('.cp-lk-stat, .cp-phase, .cp-stat, .cp-gauge, .cp-issues tr, .cp-keys li'), {y:8, opacity:0}, {y:0, opacity:1, stagger:0.04, duration:0.3}, t+0.45);
+          countTo(tl, q('.cp-donut .mid b, .cp-lk-stat b, .cp-hbars b, .cp-stat b, .cp-ring b'), t+0.45, 0.06);
+          tl.fromTo(q('.cp-out > div'), {clipPath:'inset(0 100% 0 0)'}, {clipPath:'inset(0 0% 0 0)', stagger:0.08, duration:0.4, clearProps:'clipPath'}, t+0.8);
         });
       }
       if(n>=3 && prev<3){
-        tl.fromTo(all('.nx-k'), {y:16, opacity:0}, {y:0, opacity:1, stagger:0.1, duration:0.4}, 0);
-        tl.fromTo(all('.nx-item'), {x:10, opacity:0}, {x:0, opacity:1, stagger:0.025, duration:0.28}, 0.3);
-      }
-      if(n>=4 && prev<4){
-        const card=$id('nxTableCard');
-        if(card) tl.fromTo(card, {y:24, opacity:0}, {y:0, opacity:1, duration:0.45}, 0);
-        tl.fromTo(all('#nxTable tbody tr'), {x:14, opacity:0}, {x:0, opacity:1, stagger:0.05, duration:0.3}, 0.2);
-        tl.fromTo(all('#nxTable td.k span'), {scale:0}, {scale:1, stagger:0.04, duration:0.3, ease:'back.out(2)'}, 0.45);
-      }
-      if(n>=5 && prev<5){
         const card=$id('nxFocusCard');
         if(card) tl.fromTo(card, {x:24, opacity:0}, {x:0, opacity:1, duration:0.45}, 0);
         all('.nx-f').forEach((row, i)=>{
@@ -4171,6 +4297,88 @@
     ]
   };
 
+  // Fig. 05: implementation of the 292 engineering controls (from the report)
+  const ENG2 = {
+    total:292,
+    progress:[ ['study','Kajian Teknis',286], ['cart','Pengadaan',270], ['flask','Uji Coba',240], ['up','Standarisasi',183] ],
+    std:[
+      ['LMO', [['BUMA',18,21],['FAD',4,10]]],
+      ['BMO 1', [['MTN',22,22],['KDC',17,19],['BUMA',6,11],['MTL',4,10],['FAD',0,2]]],
+      ['BMO 2', [['BUMA',4,4],['PAMA',16,30]]],
+      ['BMO 3', [['BUMA',1,1],['BAR',8,22]]],
+      ['SMO', [['MTN',7,17],['DNX',0,1]]],
+      ['GMO', [['KDC',27,28],['PAMA',32,46],['BAR',13,22],['BC',0,2]]]
+    ],
+    states:[
+      { key:'full', no:'01', title:'Sudah Berjalan <em>(Full)</em>', tile:'Sudah Berjalan <em>(Full)</em>', count:178, gap:38, c:'#1F9A4B', bg:'#E9F5E9', icon:'check',
+        desc:'Rekayasa sudah terimplementasi penuh, namun masih terdapat gap incident pada beberapa company-site.',
+        note:'rekayasa sudah full tetapi incident masih muncul → review efektivitas implementasi.',
+        rows:[
+          ['PAMA – BMO 2',26,14,['Fatigue Management — tabrakan/kehilangan kendali; unit rebah/terbalik.','Kelayakan & Pengoperasian Kendaraan/Unit — collision; ground failure/terperosok; kehilangan kendali.','Dumping Overburden — amblas/terperosok/rollover.','Hauling Road Maintenance — collision/rollover; tyre-wheel failure; lentingan material.']],
+          ['PAMA – GMO',14,9,['Dumping Overburden — amblas/terperosok/rollover.','Loading Overburden — collision.','Hauling — collision; tyre-wheel failure; kehilangan fungsi/kendali.','Hauling Road Maintenance — rollover.','Kelayakan & Pengoperasian Kendaraan/Unit — collision.']],
+          ['BAR – BMO 3',13,6,['Dewatering — kemasukan air/risiko tenggelam.','Fatigue Management — collision/rollover.','Kelayakan & Pengoperasian Kendaraan/Unit — collision.','Hauling — kebakaran.']],
+          ['KDC – BMO 1',19,3,['Hauling — kehilangan fungsi/kendali/property damage.','Dumping Overburden — kebakaran.','Pemasangan Tyre LV — tyre/wheel terlepas; kehilangan fungsi/kendali.']],
+          ['FAD – LMO',4,3,['Dumping Overburden — amblas/terperosok/rollover; collision.','Dumping Material Lumpur — ground failure/rollover.']],
+          ['KDC – GMO',27,1,['Dumping Overburden — kehilangan fungsi/kendali/property damage.']],
+          ['MTL – BMO 1',7,1,['Kelayakan & Pengoperasian Kendaraan/Unit — collision.']],
+          ['BUMA – LMO',16,1,['Kelayakan & Pengoperasian Kendaraan/Unit — unit rebah/terbalik/terperosok.']]
+        ] },
+      { key:'partial', no:'02', title:'Masih Progress <em>(Partial)</em>', tile:'Masih Progress <em>(Partial)</em>', count:17, gap:12, c:'#EE8B1E', bg:'#FDEFDF', icon:'gear',
+        desc:'Rekayasa dalam tahap implementasi, dan sudah terdapat gap incident pada beberapa company-site.',
+        note:'rekayasa masih progress dan incident sudah muncul → percepat pemenuhan hingga standarisasi.',
+        rows:[
+          ['BAR – BMO 3',5,5,['Fatigue Management — collision/rollover.','Kelayakan & Pengoperasian Kendaraan/Unit — collision.','Dumping Overburden — kebakaran.']],
+          ['PAMA – BMO 2',1,4,['Kelayakan & Pengoperasian Kendaraan/Unit — collision; ground failure/rollover; kehilangan kendali.']],
+          ['MTL – BMO 1',1,1,['Kelayakan & Pengoperasian Kendaraan/Unit — collision.']],
+          ['PAMA – GMO',4,1,['Kelayakan & Pengoperasian Kendaraan/Unit — collision.']],
+          ['BUMA – LMO',1,1,['Loading Overburden — kebakaran.']]
+        ] },
+      { key:'none', no:'03', title:'Belum Berjalan', tile:'Belum Berjalan', count:47, gap:9, c:'#D7262B', bg:'#FDE6E6', icon:'stop',
+        desc:'Rekayasa belum diimplementasikan, namun sudah terdapat gap incident pada beberapa company-site.',
+        note:'rekayasa belum berjalan tetapi incident sudah ada → segera ideation & pengadaan.',
+        rows:[
+          ['PAMA – BMO 2',3,4,['Kelayakan & Pengoperasian Kendaraan/Unit — collision; ground failure/rollover; kehilangan kendali.']],
+          ['BAR – BMO 3',4,3,['Kelayakan & Pengoperasian Kendaraan/Unit — collision.']],
+          ['PAMA – GMO',3,2,['Pengeboran untuk Peledakan — collision.','Hauling Road Maintenance — rollover.']]
+        ] }
+    ]
+  };
+  const engView = (function(){
+    const ICON = {
+      study:'<path d="M19.4 13a7.5 7.5 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a7.3 7.3 0 0 0-1.7-1L15 3h-4l-.4 2.9a7.3 7.3 0 0 0-1.7 1l-2.5-1-2 3.5L6.6 11a7.5 7.5 0 0 0 0 2l-2.1 1.6 2 3.5 2.5-1a7.3 7.3 0 0 0 1.7 1L11 21h4l.4-2.9a7.3 7.3 0 0 0 1.7-1l2.5 1 2-3.5L19.4 13zM13 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z" transform="translate(-1 0)"/>',
+      cart:'<path d="M3 4h2.4l2.3 10.2a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 1.9-1.4L21 8H7.2L6.8 6H21V4H5.3L5 2H1v2h2zm6 15.5a1.5 1.5 0 1 0 0 .01zm9 0a1.5 1.5 0 1 0 0 .01z"/>',
+      flask:'<path d="M9 2h6v2h-1v5.3l5.7 9.6A2 2 0 0 1 18 22H6a2 2 0 0 1-1.7-3.1L10 9.3V4H9V2zm-.6 13h7.2l-2.4-4.1V4h-2v6.9L8.4 15z"/>',
+      up:'<path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 15h-2v-6H8l4-5 4 5h-3v6z"/>',
+      check:'<path d="M9.5 16.2 5.3 12l-1.4 1.4 5.6 5.6L20.1 8.4 18.7 7z"/>',
+      gear:'<path d="M19.4 13a7.5 7.5 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a7.3 7.3 0 0 0-1.7-1L15 3h-4l-.4 2.9a7.3 7.3 0 0 0-1.7 1l-2.5-1-2 3.5L6.6 11a7.5 7.5 0 0 0 0 2l-2.1 1.6 2 3.5 2.5-1a7.3 7.3 0 0 0 1.7 1L11 21h4l.4-2.9a7.3 7.3 0 0 0 1.7-1l2.5 1 2-3.5L19.4 13zM13 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z" transform="translate(-1 0)"/>',
+      stop:'<path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zM6 11h12v2H6z"/>',
+      bulb:'<path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2zM9 19h6v2H9z"/>'
+    };
+    const svg = (k)=> '<svg viewBox="0 0 24 24" aria-hidden="true">'+ICON[k]+'</svg>';
+    const band = (v)=> v>=80 ? 'var(--eg-g)' : v>=50 ? 'var(--eg-a)' : 'var(--eg-r)';
+    const pct = (a, b)=> b ? a/b*100 : 0;
+    const f1 = (v)=> v.toFixed(1).replace('.', ',');
+    function render(){
+      const E = ENG2, $ = (id)=> document.getElementById(id);
+      if(!$('egProg')) return;
+      $('egTotal').textContent = '('+E.total+' Rekayasa Engineering)';
+      $('egProg').innerHTML = E.progress.map(([ic, name, n])=>{ const v = pct(n, E.total);
+        return '<li style="--c:'+band(v)+'"><span class="ic">'+svg(ic)+'</span><span>'+name+'</span><span class="bar"><i style="--w:'+v.toFixed(1)+'%"></i></span><span class="fr">'+n+' / '+E.total+'</span><b><span class="n">'+f1(v)+'</span>%</b></li>'; }).join('');
+      $('egStd').innerHTML = '<thead><tr><th colspan="2">Company-Site</th><th colspan="2">% Standarisasi</th><th>Jumlah Rekayasa</th></tr></thead><tbody>'
+        + E.std.map(([site, rows])=> rows.map(([co, a, b], i)=>{ const v = pct(a, b);
+          return '<tr'+(i===rows.length-1?' class="last"':'')+' style="--c:'+band(v)+'">'+(i===0?'<td class="site" rowspan="'+rows.length+'">'+site+'</td>':'')
+            + '<td class="co">'+co+'</td><td class="bar"><span><i style="--w:'+v.toFixed(1)+'%"></i></span></td><td class="pct"><span class="n">'+f1(v)+'</span>%</td><td class="n">'+a+'/'+b+'</td></tr>'; }).join('')).join('')+'</tbody>';
+      $('egTiles').innerHTML = E.states.map(s=> '<div class="eg-tile" style="--c:'+s.c+';--c2:'+(s.key==='full'?'#EE8B1E':s.c)+'"><span class="ic">'+svg(s.icon)+'</span><div><h4>'+s.tile+'</h4>'
+        + '<p><span class="n">'+s.count+'</span> <small>rekayasa</small></p><p class="gap"><span class="n">'+s.gap+'</span> <small>gap incident</small></p></div></div>').join('');
+      $('egCards').innerHTML = E.states.map(s=> '<section class="eg-st" style="--c:'+s.c+';--bg:'+s.bg+'"><header><span class="no">'+s.no+'</span><div><b>'+s.title+'</b><small>'+s.desc+'</small></div></header>'
+        + '<div class="eg-st-body"><table><thead><tr><th>Company – Site</th><th>Jumlah Rekayasa</th><th>Gap Incident</th><th>Aktivitas – Risiko Gap karena Incident</th></tr></thead><tbody>'
+        + s.rows.map(([co, n, g, items])=> '<tr><td class="co">'+co+'</td><td class="n">'+n+'</td><td class="gap">'+g+'</td><td><ul>'+items.map(t=> '<li>'+t+'</li>').join('')+'</ul></td></tr>').join('')
+        + '</tbody></table><p class="note">'+svg('bulb').replace('<svg','<svg style="width:1.6em;height:1.6em;flex:none;fill:'+s.c+'"')+'<span><b>Arah pembacaan:</b> '+s.note+'</span></p></div></section>').join('');
+      fitText('#egStdCard .eg-std-wrap, #egCards .eg-st-body');
+    }
+    return { render };
+  })();
+
   const engineeringView = (function(){
     const esc = (s)=> String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
     const icon = (name)=> '<span class="re-ico"><svg viewBox="0 0 24 24" aria-hidden="true">'+(RE_ICONS[name]||'')+'</svg></span>';
@@ -4246,12 +4454,12 @@
               ['db','Integrasi data dengan Fit to Work, RFID, dan DMS'],['bars','Dashboard analytic & progress monitoring'],
               ['brain','Pengembangan fitur mental health / stress management'],['people','Program coaching kesehatan personal']],
     phases:[
-      { title:'Pre Operation', sub:'Persiapan Awal', img:'hf-pre.jpg',
-        items:[['calendar','Roster & shift'],['calendar','Hari kritis'],['stetho','MCU / BeHealth'],['people','Kunjungan klinik'],['doc','BeHealth Aggregator / Fit to Work']] },
-      { title:'During Operation', sub:'Monitoring & Deteksi', img:'hf-during.jpg',
-        items:[['speak','Speak up'],['gauge','Fatigue test / Fit-Unit'],['camera','DMS / Camera AI'],['monitor','Dashboard alert'],['helmet','Supervisor intervention']] },
-      { title:'Post Operation', sub:'Evaluasi & Recovery', img:'hf-post.jpg',
-        items:[['idcard','RFID out'],['checkbox','Evaluasi paparan'],['heart','Recovery advice'],['bars','Dashboard monitoring']] }
+      { title:'Pre Operasi', sub:'Persiapan Awak', img:'hf-pre.jpg',
+        items:[['checkbox','Kondisi fisik'],['checkbox','Jam tidur'],['checkbox','MCU / Kesehatan'],['checkbox','Kesiapan & fokus'],['checkbox','Briefing fatigue risk']] },
+      { title:'During Operasi', sub:'Monitoring & Deteksi', img:'hf-during.jpg',
+        items:[['checkbox','DMS / Camera AI'],['checkbox','Perilaku mengemudi'],['checkbox','Monitoring jam kerja'],['checkbox','Supervisor check'],['checkbox','Intervensi dini']] },
+      { title:'Post Operasi', sub:'Evaluasi & Recovery', img:'hf-post.jpg',
+        items:[['checkbox','Evaluasi kejadian'],['checkbox','Konseling / medical advice'],['checkbox','Recovery & istirahat'],['checkbox','Sanksi / tindak lanjut'],['checkbox','Perbaikan sistem']] }
     ],
     shifts:[
       ['6S-6M-10FF','#11803F',['MTL','MTN SMO','MTN BMO','MTN LMO']],
@@ -4260,7 +4468,7 @@
       ['7S-6M-10FF','#E0313A',['KDC BMO','KDC GMO']]
     ],
     rosterCols:['No','Site','Total Karyawan YTD','Pelanggar YTD','Wajib Cuti (>7 hari)'],
-    roster:[['BMO 1','425','306','38'],['BMO 2','1.163','413','20'],['BMO 3','293','208','30'],['GMO','796','457','29'],
+    roster:[['BMO','425','306','38'],['BMO 2','1.163','413','20'],['BMO 3','293','208','30'],['GMO','796','457','29'],
             ['LMO','872','635','83'],['SMO','647','497','51'],['(tanpa site)','2','2','0']],
     rosterTotal:['4.198','2.518','251'],
     highlights:[['Pelanggaran tertinggi terjadi di LMO, diikuti SMO dan GMO.','#E0313A',true],
@@ -4268,6 +4476,97 @@
                 ['Wajib cuti tertinggi terdapat di LMO, lalu SMO.','#F58220',true],
                 ['Overshift masih terjadi dan perlu pengendalian lebih ketat.','#F2A20C',false]]
   };
+
+  // Fig. 06 rebuilt: health indicators per mining partner (Q2 vs Q3 2026) and fatigue incidents.
+  // ind rows: [company, [kelayakan Q2,Q3], [MFR Q2,Q3], [ASR Q2,Q3], [PAK Q2,Q3]]; '-' = no data.
+  // Kelayakan: higher is better; MFR, ASR and PAK: lower is better.
+  const HEALTH2 = {
+    ind:[
+      ['MTL',      ['84.12','86.00'],  ['0.00','0.00'], ['-','-'],          ['14.00','0.00']],
+      ['BUMA LMO', ['96.21','95.35'],  ['0.02','0.02'], ['92.39','92.39'],  ['46.20','0.00']],
+      ['BUMA BMO', ['91.02','91.02'],  ['-','-'],       ['-','-'],          ['0.00','0.00']],
+      ['PAMA BMO', ['85.67','83.21'],  ['0.04','0.03'], ['85.62','85.62'],  ['109.08','0.00']],
+      ['PAMA GMO', ['92.13','90.72'],  ['0.03','0.05'], ['175.05','175.05'],['9.75','0.00']],
+      ['MTN SMO',  ['96.04','95.13'],  ['0.00','0.01'], ['61.86','61.86'],  ['63.03','0.00']],
+      ['KDC BMO',  ['89.72','88.51'],  ['0.00','0.00'], ['0.00','0.00'],    ['0.00','0.00']],
+      ['KDC GMO',  ['94.35','92.19'],  ['0.00','0.01'], ['37.91','37.91'],  ['31.59','0.00']],
+      ['FAD LMO',  ['99.12','100.00'], ['0.00','0.00'], ['13.24','13.24'],  ['22.69','0.00']],
+      ['BAR BMO',  ['91.05','90.34'],  ['0.00','0.00'], ['0.00','0.00'],    ['503.84','0.00']]
+    ],
+    // Q3 summary: [icon, label, value, trend ('up'|'down'|'eq'), colour]
+    sum:[ ['shield','<b>Rasio Kelayakan Kerja</b> (average)','92,0%','down','#E0313A'],
+          ['people','<b>MFR</b> (average)','0,01','up','#E0313A'],
+          ['bed','<b>ASR</b> (average)','51,4','down','#E0313A'],
+          ['target','<b>Rasio PAK</b> (average)','0,00','eq','#F2A20C'] ],
+    install:{ pct:100, label:'Terinstal', sub:'(semua site)' },
+    util:{ users:'1.130', label:'pengguna aktif per hari' },
+    todo:[ ['2.1','Pencatatan Menu Catering & Nutrisi dari Masing-masing Vendor Makanan'],
+           ['2.2','Monitoring Karyawan dengan Hasil MCU'],
+           ['2.3','Monitoring Konsumsi Makanan & Partisipasi Olahraga'],
+           ['2.4','Monitoring Karyawan yang memiliki catatan MCU dengan partisipasi & detail olahraga (durasi, intensitas, frekuensi)'] ],
+    incidents:{ total:9, roster:7, since:'Pelanggaran (sejak Jul 2025) · 77,8%',
+      violations:[ ['On-site >71 hr:','2','(22,2%)'], ['Cuti <12 hr:','5','(55,6%)'], ['Shift >13 hr beruntun:','1','(11,1%)'] ] },
+    next:{ title:'Compliance terhadap desain roster, waktu kerja dan istirahat sesuai ketentuan yang berlaku',
+      items:[ 'Penerapan desain roster sesuai perundangan (antara lain UU No. 13 Tahun 2003).',
+              'Monitoring jam kerja dan periode istirahat di setiap site.',
+              'Tindak lanjut pelanggaran roster dan pencegahan recurrence.' ] }
+  };
+  const hxView = (function(){
+    const ICON = {
+      heart:'<path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.3 3 4.5 6.7 4.5c2.1 0 3.6 1.1 4.3 2.6h2c.7-1.5 2.2-2.6 4.3-2.6 3.7 0 5.8 3.8 4.3 7.2C19.5 16.4 12 21 12 21zm-6-10h3l1.5-2.5 2 5 1.5-2.5H18v-1.5h-3l-1.5 2.5-2-5L10 9.5H6z"/>',
+      helmet:'<path d="M2 17h20v3H2zM11 4.1V10h2V4.1A8 8 0 0 1 20 12v4H4v-4a8 8 0 0 1 7-7.9z"/>',
+      bars:'<path d="M4 20h16v2H4zM5 13h3v6H5zm5-4h3v10h-3zm5-5h3v15h-3z"/>',
+      shield:'<path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3zm-1.5 14L7 12.5l1.4-1.4 2.1 2.1 5.1-5.1L17 9.5 10.5 16z"/>',
+      people:'<circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M2 20c0-3.5 3-6 7-6s7 2.5 7 6H2zm14.5-5.5c3 .2 5.5 2.2 5.5 5.5h-4.5c0-2-.4-3.8-1-5.5z"/>',
+      bed:'<path d="M2 6h2v8h7V9h7a4 4 0 0 1 4 4v7h-2v-3H4v3H2V6zm5 2.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM6 2h2v1.5h1.5v2H8V7H6V5.5H4.5v-2H6z"/>',
+      target:'<path d="M12 2a10 10 0 1 0 10 10h-2a8 8 0 1 1-8-8V2zm0 4a6 6 0 1 0 6 6h-2a4 4 0 1 1-4-4V6zm0 4a2 2 0 1 0 2 2l6.3-6.3V3.3h-2.4L11.6 9.6A2 2 0 0 0 12 10z"/>',
+      phone:'<path d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 3v13h10V5H7zm4 14.5a1 1 0 1 0 2 0 1 1 0 0 0-2 0z"/>',
+      alert:'<path d="M11 5h2v9h-2zm0 11h2v2h-2z"/>',
+      list:'<path d="M4 5h2v2H4zm4 0h12v2H8zM4 11h2v2H4zm4 0h12v2H8zM4 17h2v2H4zm4 0h12v2H8z"/>'
+    };
+    const svg = (k)=> '<svg viewBox="0 0 24 24" aria-hidden="true">'+(ICON[k]||'')+'</svg>';
+    const num = (s)=> s==='-' ? null : parseFloat(s);
+    // arrow + colour of a Q2 -> Q3 change; higherBetter decides which way is good
+    function trend(a, b, higherBetter){
+      const x = num(a), y = num(b);
+      if(x==null || y==null || x===y) return '<td class="t eq">–</td>';
+      const up = y > x, good = up === higherBetter;
+      return '<td class="t '+(up?'up':'dn')+'-'+(good?'g':'r')+'">'+(up?'↑':'↓')+'</td>';
+    }
+    function ind(){
+      const groups = ['Rasio Kelayakan Kerja (%)','MFR','ASR','Rasio PAK (%)'];
+      const head = '<thead><tr><th rowspan="2">Perusahaan</th>'+groups.map(g=> '<th colspan="3">'+g+'</th>').join('')+'</tr>'
+        + '<tr>'+groups.map(()=> '<th>Q2 2026</th><th colspan="2">Q3 2026</th>').join('')+'</tr></thead>';
+      const body = HEALTH2.ind.map(([co, ...m])=> '<tr><th>'+co+'</th>'
+        + m.map(([a, b], i)=> '<td>'+a+'</td><td class="q3">'+b+'</td>'+trend(a, b, i===0)).join('')+'</tr>').join('');
+      return head + '<tbody>'+body+'</tbody>';
+    }
+    function sum(){
+      const arrow = { up:'▲', down:'▼', eq:'—' };
+      return '<header>Ringkasan Pencapaian Q3</header>' + HEALTH2.sum.map(([ic, label, v, t, c])=>
+        '<div class="hx-kpi"><span class="ic">'+svg(ic)+'</span><span>'+label+'</span><b>'+v+'<i style="color:'+c+'">'+arrow[t]+'</i></b></div>').join('');
+    }
+    function render(){
+      const $ = (id)=> document.getElementById(id); if(!$('hxInd')) return;
+      document.querySelectorAll('#slideHealth [data-i]').forEach(el=>{ el.innerHTML = svg(el.dataset.i); });
+      $('hxInd').innerHTML = ind();
+      $('hxSum').innerHTML = sum();
+      const I = HEALTH2.install, R = 15.915;
+      $('hxInst').innerHTML = '<div class="hx-ring"><svg viewBox="0 0 42 42"><circle cx="21" cy="21" r="'+R+'" stroke="#E3ECE6"/><circle class="arc" cx="21" cy="21" r="'+R+'" stroke="#11803F" stroke-dasharray="'+I.pct+' '+(100-I.pct)+'"/></svg>'
+        + '<div><b><span class="n">'+I.pct+'%</span></b><span>'+I.label+'<br>'+I.sub+'</span></div></div>';
+      $('hxUtil').innerHTML = '<span class="ic">'+svg('bars')+'</span><div><b class="n">'+HEALTH2.util.users+'</b><span>'+HEALTH2.util.label+'</span></div>';
+      $('hxTodo').innerHTML = HEALTH2.todo.map(([k, t])=> '<li><i>'+k+'</i><span>'+t+'</span></li>').join('');
+      const F = HEALTH2.incidents;
+      $('hxInc').innerHTML = '<div class="hx-h"><span class="hx-h-ic">'+svg('alert')+'</span><span><b>Insiden Fatigue YTD 2026</b></span></div>'
+        + '<div class="hx-big"><b class="n">'+F.total+'</b><span>Insiden fatigue<br>YTD 2026</span></div><span class="hx-gt">›</span>'
+        + '<div class="hx-big"><b class="n">'+F.roster+'</b><span>terkait gap<br>manajemen roster</span></div>'
+        + '<div class="hx-viol"><header>'+F.since+'</header><ul>'+F.violations.map(([a, n, pc])=> '<li>'+a+' <b>'+n+'</b> '+pc+'</li>').join('')+'</ul></div>';
+      const N = HEALTH2.next;
+      $('hxNext').innerHTML = '<b><small>Next To Do</small>'+N.title+'</b><ul>'+N.items.map(t=> '<li>'+t+'</li>').join('')+'</ul>';
+      fitText('#slideHealth .hx-tbl, #slideHealth .hx-todo');
+    }
+    return { render };
+  })();
 
   const healthView = (function(){
     const esc = (s)=> String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');
@@ -4644,8 +4943,37 @@
   journeyView.render();
   challengeView.render();
   engineeringView.render();
+  engView.render();
   healthView.render();
+  hxView.render();
   nextDoView.render();
+  // Fig. 07 shows the four Fig. 04 challenge cards beside the Q4 focus card
+  (function(){
+    const src = document.querySelector('#slideChallenge .cp-grid'), dst = document.getElementById('nxCp');
+    if(!src || !dst) return;
+    const copy = src.cloneNode(true);
+    [copy].concat(Array.from(copy.querySelectorAll('*'))).forEach(el=>{
+      el.removeAttribute('id'); el.removeAttribute('data-step'); el.classList.remove('fade', 'on');
+    });
+    dst.appendChild(copy);
+    // scale = available width / width the cards have on their own slide (full content width)
+    const scale = ()=>{
+      // lay the cards out a little wider than the space (Z_TARGET) so text stays large but
+      // nothing wraps into overflow; never wider than their own slide
+      const Z_TARGET = 0.88;
+      const full = document.getElementById('deck').clientWidth - 92 - 136;
+      const W = dst.clientWidth, H = dst.clientHeight;
+      if(!W || !H || full <= 0) return;
+      const z = Math.min(1, Math.max(W / full, Z_TARGET));
+      dst.style.setProperty('--z', z.toFixed(3));
+      copy.style.width = (W / z).toFixed(1)+'px';
+      copy.style.height = (H / z).toFixed(1)+'px';
+      copy.style.transform = 'scale('+z.toFixed(4)+')';
+    };
+    if('ResizeObserver' in window) new ResizeObserver(()=> requestAnimationFrame(scale)).observe(dst);
+    scale();
+    fitText('#nxCp .cp-left');
+  })();
   jrTab.build();   // after Fig. 03 and Fig. 07 are rendered, it copies from both
   spCards.render();
   // monthly charts (live slide and Fig. 02 copies) draw themselves once their box is visible
