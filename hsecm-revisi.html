@@ -463,13 +463,73 @@
   #slideSafety.active #lpLeftCard.on .rm-map .ring{ animation:rmPing 2.6s ease-out 3s infinite; }
   @keyframes rmPing{ 0%{ opacity:.8; transform:scale(1); } 100%{ opacity:0; transform:scale(2.6); } }
 
+  /* ---- Major Case tab: bowtie (threats -> top event -> consequences) and barriers ---- */
+  .sp-panel.bt{ min-height:0; }
+  .bt-wrap{
+    flex:1; min-height:0; display:grid; gap:1vh 12px; font-family:'Source Sans 3',sans-serif; color:var(--sp-ink);
+    grid-template-columns:minmax(0,1fr) minmax(0,1.05fr) minmax(0,.95fr) minmax(0,.98fr) minmax(0,.98fr);
+    grid-template-rows:auto auto minmax(0,1fr) auto;
+    --bt-navy:#0F4C8A; --bt-red:#D7262B; --bt-green:#1F9A4B; --bt-amber:#F5A70A;
+  }
+  .bt-wrap > *{ min-width:0; min-height:0; }
+  .bt-svg{ grid-column:1 / 4; grid-row:2 / 4; position:relative; z-index:0; pointer-events:none; }
+  .bt-svg svg{ position:absolute; inset:0; width:100%; height:100%; overflow:visible; }
+  .bt-svg path{ fill:none; stroke-width:1.8; }
+  .bt-svg path.in{ stroke:#16325C; } .bt-svg path.out{ stroke:var(--bt-red); }
+  .bt-h{ grid-row:1; align-self:end; padding:.7vh 10px; border-radius:6px; text-align:center; color:#fff; font-weight:800; font-size:clamp(.8rem,2.2vh,1.2rem); letter-spacing:.02em; }
+  .bt-h.threat{ grid-column:1; background:var(--bt-navy); }
+  .bt-h.cons{ grid-column:3; background:var(--bt-red); }
+  .bt-h.bar{ grid-column:4 / 6; background:var(--bt-green); }
+  .bt-sub{ grid-row:2; align-self:end; padding:.4vh 8px; border-radius:5px; text-align:center; background:#DDF2E3; color:#14532D; font-weight:700; font-size:clamp(.66rem,1.7vh,.92rem); }
+  .bt-sub.prev{ grid-column:4; } .bt-sub.miti{ grid-column:5; }
+  .bt-col{ grid-row:3; position:relative; z-index:1; display:flex; flex-direction:column; justify-content:space-between; gap:.8vh; }
+  .bt-col.threat{ grid-column:1; } .bt-col.cons{ grid-column:3; justify-content:space-around; }
+  .bt-col.prev{ grid-column:4; } .bt-col.miti{ grid-column:5; justify-content:flex-start; }
+  .bt-item{ flex:1 1 0; max-height:12vh; display:flex; align-items:center; gap:8px; padding:.5vh 8px; border-radius:10px; font-size:clamp(.58rem,1.45vh,.82rem); line-height:1.2; }
+  .bt-item .no{ flex:none; width:clamp(18px,3vh,26px); height:clamp(18px,3vh,26px); border-radius:50%; display:grid; place-items:center; color:#fff; font-weight:800; font-size:.95em; }
+  .bt-item .ic{ flex:none; width:clamp(18px,3.2vh,30px); height:clamp(18px,3.2vh,30px); }
+  .bt-item .ic svg{ width:100%; height:100%; fill:currentColor; }
+  .bt-col.threat .bt-item{ background:#F4F8FD; border:1.5px solid #9CC2EA; }
+  .bt-col.threat .no{ background:#16325C; } .bt-col.threat .ic{ color:#16325C; }
+  .bt-col.cons .bt-item{ flex:0 1 auto; min-height:8vh; background:#FFF2F2; border:1.5px solid #F3A3A3; }
+  .bt-col.cons .no{ background:var(--bt-red); } .bt-col.cons .ic{ color:var(--bt-red); }
+  .bt-barrier{ flex:1 1 0; max-height:13vh; display:flex; flex-direction:column; border-radius:8px; overflow:hidden; background:#F3F6EC; border:1px solid #D9E3CC; }
+  .bt-barrier header{ flex:none; display:flex; align-items:center; gap:6px; padding:.3vh 8px; background:var(--bt-green); color:#fff; font-weight:700; font-size:clamp(.62rem,1.6vh,.9rem); }
+  .bt-barrier header b{ width:clamp(16px,2.6vh,22px); height:clamp(16px,2.6vh,22px); border-radius:50%; display:grid; place-items:center; background:#fff; color:var(--bt-green); font-size:.9em; }
+  .bt-barrier div{ flex:1; min-height:0; display:flex; align-items:center; gap:8px; padding:.3vh 8px; font-size:clamp(.56rem,1.4vh,.8rem); line-height:1.2; }
+  .bt-barrier .ic{ flex:none; width:clamp(16px,2.8vh,26px); height:clamp(16px,2.8vh,26px); color:#1E3A2A; }
+  .bt-barrier .ic svg{ width:100%; height:100%; fill:currentColor; }
+  .bt-mid{ grid-column:2; grid-row:2 / 4; position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1.2vh; }
+  .bt-hazard{ width:88%; border:1.5px solid #9CC2EA; border-radius:6px; overflow:hidden; background:#F4F8FD; text-align:center; }
+  .bt-hazard header{ padding:.4vh 6px; background:var(--bt-navy); color:#fff; font-weight:800; font-size:clamp(.66rem,1.7vh,.92rem); }
+  .bt-hazard p{ padding:.5vh 8px; font-weight:700; font-size:clamp(.58rem,1.45vh,.82rem); line-height:1.2; }
+  .bt-top{
+    position:relative; width:min(100%, 34vh); aspect-ratio:1; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:.6vh; padding:0 8%; text-align:center; background:radial-gradient(circle at 50% 40%, #FFC24A, #F5A70A 70%); border:3px solid #fff;
+    box-shadow:0 10px 28px rgba(245,167,10,.35);
+  }
+  .bt-top::after{ content:''; position:absolute; inset:-6px; border-radius:50%; border:2px solid var(--bt-amber); opacity:0; }
+  .bt-top h4{ color:#fff; font-weight:800; font-size:clamp(.8rem,2.2vh,1.2rem); letter-spacing:.04em; text-shadow:0 1px 2px rgba(0,0,0,.25); }
+  .bt-top .ic{ width:34%; aspect-ratio:1; color:#7A2E0E; }
+  .bt-top .ic svg{ width:100%; height:100%; fill:currentColor; }
+  .bt-top p{ font-weight:700; font-size:clamp(.54rem,1.38vh,.8rem); line-height:1.2; color:#1E1306; }
+  .bt-note{ grid-column:1 / -1; grid-row:4; padding:.8vh 14px; border:1.5px solid #8CC08F; border-radius:10px; background:#F3FAF0; font-style:italic; font-size:clamp(.62rem,1.6vh,.9rem); line-height:1.35; }
+  #slideSafety.active .sp-panel.bt:not([hidden]) .bt-top::after{ animation:btPulse 2.4s ease-out 2.5s infinite; }
+  @keyframes btPulse{ 0%{ opacity:.8; transform:scale(1); } 100%{ opacity:0; transform:scale(1.18); } }
+
   /* ---- Incident Profile tab ---- */
   #slideSafety{ --ip-core:#1E78E0; --ip-support:#FFC52E; --ip-mine:#1E3F8F; --ip-gray:#B9C0C8; --ip-line:#1F5BB5; }
-  .sp-panel.ip{ display:grid; grid-template-columns:minmax(0,2.3fr) minmax(0,1fr); gap:14px; }
+  .sp-panel.ip{ display:grid; grid-template-columns:minmax(0,1.25fr) minmax(0,1fr); gap:14px; }
   .sp-panel.ip[hidden]{ display:none; }
   .ip-main, .ip-case{ gap:1.4vh; padding:1.5vh 16px; }
   .ip-bar{ justify-content:flex-start; }
-  .ip-body{ flex:1; min-height:0; display:grid; grid-template-columns:minmax(0,.82fr) minmax(0,1.7fr) minmax(0,1.12fr); gap:12px; }
+  .ip-body{ flex:1; min-height:0; display:grid; grid-template-columns:minmax(0,.7fr) minmax(0,1.5fr); gap:12px; }
+  /* Pareto card: two ECharts stacks, the five main activities on top and the long tail below */
+  .ip-pareto-card{ gap:.8vh; padding:1.5vh 16px; }
+  .ip-pareto{ min-height:0; width:100%; }
+  .ip-pareto.top{ flex:1 1 0; }
+  .ip-pareto.rest{ flex:1.5 1 0; }
+  .ip-pareto-note{ flex:none; font-family:'Source Sans 3',sans-serif; font-style:italic; font-size:clamp(.56rem,1.35vh,.76rem); color:#5B6B7E; }
   .ip-col{ min-height:0; display:flex; flex-direction:column; gap:1.2vh; }
   .ip-box{
     flex:1 1 0; min-height:0; display:flex; flex-direction:column; border:1px solid #E1E8F0; border-radius:8px;
@@ -532,7 +592,6 @@
   #slideSafety.active #ipTrends.on .ip-dot.now::after{ animation:ipNow 2.8s ease-out 3s infinite; }
   #slideSafety.active #ipTrends.on .ip-hl{ animation:ipBreathe 2.8s ease-in-out 3s infinite; }
   #slideSafety.active #ipTrends.on .ip-hl span{ animation:ipNod 2.8s ease-in-out 3s infinite; }
-  #slideSafety.active #ipTop.on .ip-rank-box{ animation:ipBox 2.8s ease-in-out 3.3s infinite; }
   #slideSafety.active #ipCaseCard.on .ip-photo img{ animation:ipDrift 16s ease-in-out 2.5s infinite alternate; }
   @keyframes ipNow{ 0%{ opacity:.75; transform:scale(1); } 100%{ opacity:0; transform:scale(2.6); } }
   @keyframes ipBreathe{ 0%, 100%{ background-color:rgba(224,32,32,.05); } 50%{ background-color:rgba(224,32,32,.14); } }
@@ -1494,7 +1553,7 @@
     .fade,.fade.on,.slide,.slide.active,.w{ animation:none; transition:none; opacity:1; transform:none; }
     #slideSafety .sp-tier::after, #slideSafety .sp-halo, #slideSafety .sp-val span, #slideSafety .sp-val i,
     #slideSafety .sp-alert, #slideSafety .sp-u-cell, #slideSafety .sp-kpi td,
-    #slideSafety .sp-yd::after, #slideSafety .lp-kpi i, #slideSafety .lp-star, #slideSafety .rm-map .ring, #slideSafety .ip-dot::after, #slideSafety .ip-hl,
+    #slideSafety .sp-yd::after, #slideSafety .lp-kpi i, #slideSafety .lp-star, #slideSafety .bt-top, #slideSafety .rm-map .ring, #slideSafety .ip-dot::after, #slideSafety .ip-hl,
     #slideSafety .ip-hl span, #slideSafety .ip-rank-box, #slideSafety .ip-photo img,
     #slideJourney .jr-node, #slideJourney .jr-tile svg, #slideJourney .jr-root span, #slideJourney .jr-seg, #slideJourney .impact svg,
     .jr-panel .jr-node, .jr-panel .jr-tile svg, .jr-panel .jr-root span, .jr-panel .impact svg,
@@ -1583,7 +1642,7 @@
           <button type="button" class="sp-tab is-on" data-tab="safety">Safety Performance</button>
           <button type="button" class="sp-tab" data-tab="leading">Rapor Mitra Kerja</button>
           <button type="button" class="sp-tab" data-tab="incident">Incident Profile</button>
-          <button type="button" class="sp-tab" aria-disabled="true">Major Case</button>
+          <button type="button" class="sp-tab" data-tab="major">Major Case</button>
           <button type="button" class="sp-tab" data-tab="journey">Journey</button>
         </div>
       </div>
@@ -1616,20 +1675,20 @@
           <p class="rm-note">*LSI: Lagging Severity Index (scoring dengan pembobotan jumlah × severity incident)</p>
         </div>
       </div>
+      <div class="sp-panel bt" data-panel="major" hidden><div class="bt-wrap" id="btWrap"></div></div>
       <div class="sp-panel ip" data-panel="incident" hidden>
         <div class="sp-card ip-main fade" data-step="2" id="ipMainCard">
           <div class="lp-bar has-badge ip-bar"><span class="lp-badge">C</span>Profil Incident Based on Activity Q1 – Q3</div>
           <div class="ip-body">
             <div class="ip-col" id="ipSplits"></div>
             <div class="ip-col fade" data-step="3" id="ipTrends"></div>
-            <div class="ip-top fade" data-step="3" id="ipTop"></div>
           </div>
         </div>
-        <div class="sp-card ip-case fade" data-step="4" id="ipCaseCard">
-          <div class="lp-bar has-badge ip-bar"><span class="lp-badge">D</span>LTI Major Injury Marine</div>
-          <figure class="ip-photo"><img src="marine-lti.jpg" alt="Pekerja menyalakan mesin jangkar tongkang secara manual dengan engkol"></figure>
-          <p class="ip-case-title" id="ipCaseTitle"></p>
-          <p class="ip-case-body" id="ipCaseBody"></p>
+        <div class="sp-card ip-pareto-card fade" data-step="4" id="ipParetoCard">
+          <div class="lp-bar has-badge ip-bar"><span class="lp-badge">D</span>Pareto Activity Related to Incident YTD 2026</div>
+          <div class="ip-pareto top" id="ipParetoTop" role="img" aria-label="Pareto aktivitas utama: Hauling 23, Loading 8, Dumping 8, Dozing 8, Blasting 1"></div>
+          <div class="ip-pareto rest" id="ipParetoRest" role="img" aria-label="Pareto aktivitas lainnya"></div>
+          <p class="ip-pareto-note">Kotak merah: aktivitas dengan kejadian injury.</p>
         </div>
       </div>
     </div>
@@ -2107,6 +2166,194 @@
     return { play, scrub, watch };
   })();
 
+  // Incident Profile pareto (Apache ECharts): stacked Non Injury / Injury / Nearmiss per activity,
+  // total on top, activities with an injury boxed in red. Drawn when the card is visible.
+  const paretoChart = (function(){
+    const C = { nm:'#D3D9E0', inj:'#C8102E', non:'#FFA000', ink:'#0F2A4A' };
+    const watched = new WeakSet();
+    function option(rows, height, long){
+      const fs = Math.round(Math.max(8, Math.min(12, height/(long ? 26 : 16))));
+      const cats = rows.map(r=> r[0]), col = (k)=> rows.map(r=> r[k] || null);
+      const total = rows.map(r=> r[1]+r[2]+r[3]), maxT = Math.max.apply(null, total);
+      const hl = rows.filter(r=> r[4]).map(r=> [{ xAxis:r[0] }, { xAxis:r[0] }]);
+      const animate = hasGsap ? !REDUCE_MOTION : true;
+      const seg = (name, data, color, order, extra)=> Object.assign({
+        name, type:'bar', stack:'p', data, barWidth: long ? '62%' : '56%', itemStyle:{ color },
+        label:{ show:true, position:'inside', fontSize:fs-1, fontWeight:600, color: name==='Injury' ? '#fff' : C.ink,
+          // thin slivers keep their figure only for injury; the total above the bar covers the rest
+          formatter:(p)=> p.value && (name==='Injury' || p.value >= maxT*0.08) ? p.value : '' },
+        animationDelay:(i)=> i*(long ? 40 : 90) + order*160
+      }, extra||{});
+      return {
+        animation:animate, animationDuration:700, animationEasing:'cubicOut',
+        textStyle:{ fontFamily:"'Source Sans 3', sans-serif" },
+        grid:{ left:4, right:6, top: long ? 14 : fs*2.6, bottom:0, containLabel:true },
+        legend: long ? { show:false } : { top:0, left:0, icon:'rect', itemWidth:12, itemHeight:8, itemGap:12,
+          textStyle:{ fontSize:fs, color:C.ink }, data:['Nearmiss','Injury','Non Injury'] },
+        tooltip:{ trigger:'axis', axisPointer:{ type:'shadow', shadowStyle:{ color:'rgba(15,45,107,.06)' } }, confine:true, textStyle:{ fontSize:fs },
+          formatter:(ps)=>{ const i = ps[0].dataIndex, r = rows[i];
+            return '<b>'+r[0]+'</b><br>Nearmiss: <b>'+r[1]+'</b><br>Injury: <b>'+r[2]+'</b><br>Non Injury: <b>'+r[3]+'</b><br>Total: <b>'+total[i]+'</b>'; } },
+        xAxis:{ type:'category', data:cats, axisTick:{ show:false }, axisLine:{ lineStyle:{ color:'#0F2A4A' } },
+          axisLabel:{ interval:0, fontSize: long ? fs-1 : fs, color:C.ink, fontWeight:600, rotate: long ? 90 : 0,
+            formatter:(v, i)=> rows[i][4] ? '{h|'+v+'}' : v,
+            rich:{ h:{ color:'#C8102E', fontWeight:700, fontSize: long ? fs-1 : fs } } } },
+        yAxis:{ type:'value', show:false, max:(e)=> Math.ceil(e.max*1.18) },
+        series:[
+          seg('Non Injury', col(3), C.non, 0),
+          seg('Injury', col(2), C.inj, 1),
+          seg('Nearmiss', col(1), C.nm, 2, {
+            markArea:{ silent:true, itemStyle:{ color:'rgba(200,16,46,.07)', borderColor:'#C8102E', borderWidth:1.5 }, data:hl } }),
+          { name:'Total', type:'bar', stack:'p', data:rows.map(()=> 0), silent:true, tooltip:{ show:false },
+            label:{ show:true, position:'top', fontSize:fs, fontWeight:700, color:C.ink, formatter:(p)=> total[p.dataIndex] },
+            animationDelay:(i)=> 500 + i*(long ? 40 : 90) }
+        ]
+      };
+    }
+    function play(el){
+      if(typeof echarts==='undefined' || !el || !el.clientHeight) return;
+      const long = el.classList.contains('rest');
+      const chart = echarts.getInstanceByDom(el) || echarts.init(el, null, { renderer:'canvas' });
+      chart.resize(); chart.clear();
+      chart.setOption(option(long ? INCIDENT.paretoRest : INCIDENT.paretoTop, el.clientHeight, long));
+      watch(el);
+    }
+    function watch(el){
+      if(watched.has(el) || !('ResizeObserver' in window) || typeof echarts==='undefined') return;
+      watched.add(el);
+      new ResizeObserver(()=>{ if(!el.clientHeight) return; const c = echarts.getInstanceByDom(el); if(c) c.resize(); else play(el); }).observe(el);
+    }
+    return { play, watch };
+  })();
+  function paretoIn(tl, root, at){
+    root.querySelectorAll('.ip-pareto').forEach((el, i)=> tl.call(()=> paretoChart.play(el), null, at + i*0.35));
+    tl.fromTo(root.querySelectorAll('.ip-pareto-note'), {opacity:0}, {opacity:1, duration:0.4}, at+1);
+  }
+
+  // Major Case bowtie: LTI major injury marine (anchor engine started by hand crank).
+  const MAJOR = {
+    header:{
+      kicker:'Fig. 01 · Major Case Overview',
+      title:'Major Case',
+      desc:'Bowtie analysis insiden <b>injury pergelangan tangan</b> saat pengoperasian mesin jangkar tongkang secara manual dengan engkol: ancaman, top event, konsekuensi, serta barrier pencegahan dan mitigasi.'
+    },
+    hazard:'Energi mekanis kickback mesin jangkar saat manual starting (engkol)',
+    top:'Mesin jangkar mengalami kickback / reverse rotation saat menyalakan mesin jangkar dengan engkol dan menghantam pergelangan tangan KKM',
+    threats:[
+      ['gear','Metode start manual dipilih walaupun electric starter tersedia & berfungsi dengan baik'],
+      ['clip','Aktivitas maintenance bersifat unscheduled; belum terkontrol penuh dalam DOP / JSA / HIRA'],
+      ['worker','Pengawasan tidak independen; KKM ikut sebagai pelaksana / penguji pekerjaan'],
+      ['wrench','Konfigurasi peralatan masih memungkinkan manual cranking (engkol tersedia, kabel accu positif dilepas)'],
+      ['people','Crew lain tidak melakukan speak up / stop unsafe act']
+    ],
+    consequences:[
+      ['bandage','Cedera pergelangan tangan kanan (actual consequences)'],
+      ['hand','Potensi major injury lebih berat: crush injury / kehilangan fungsi tangan'],
+      ['helmet','Potensi cedera sekunder di ruang sempit, area akomodasi terbatas'],
+      ['chart','Evakuasi medis, operasi, dan kehilangan hari kerja']
+    ],
+    prevent:[
+      ['bolt','Wajib electric starter; larangan tertulis penggunaan engkol manual'],
+      ['gear','DOP update + JSA/HIRA + toolbox meeting untuk maintenance unscheduled'],
+      ['worker','Pengawas khusus dan pemisahan peran pelaksana vs pengawas'],
+      ['lock','Engineering barrier: menghilangkan engkol dan menutup lubang masuk engkol'],
+      ['warn','Safety campaign, KPO PBO, dan budaya speak up / stop work authority']
+    ],
+    mitigate:[
+      ['cross','Hentikan aktivitas, P3K awal, kompres es, dan pemasangan mitela'],
+      ['radio','Pelaporan incident ke Emergency Respon PT Berau Coal'],
+      ['boat','Evakuasi korban oleh tim rescue / paramedis menggunakan speed rescue'],
+      ['bed','Penanganan klinik / RS, ortopedi, operasi, dan monitoring pemulihan']
+    ],
+    note:'Kejadian Major Injury ini menegaskan bahwa kontrol masih terlalu bergantung pada keputusan manusia; perlunya memprioritaskan eliminasi pekerjaan dengan manual process melalui Engineering Control yang diperkuat dengan kontrol pelaksanaan pekerjaan, kepengawasan, dan kewenangan untuk Stop Pekerjaan jika terdapat deviasi.'
+  };
+  const BT_ICONS = {
+    gear:'<path d="M19.4 13a7.5 7.5 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a7.3 7.3 0 0 0-1.7-1L15 3h-4l-.4 2.9a7.3 7.3 0 0 0-1.7 1l-2.5-1-2 3.5L6.6 11a7.5 7.5 0 0 0 0 2l-2.1 1.6 2 3.5 2.5-1a7.3 7.3 0 0 0 1.7 1L11 21h4l.4-2.9a7.3 7.3 0 0 0 1.7-1l2.5 1 2-3.5L19.4 13zM13 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z" transform="translate(-1 0)"/>',
+    clip:'<path d="M9 2h6v2h3a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3V2zm2 2v1h2V4h-2zM8 9v2h2V9H8zm4 0v2h4V9h-4zm-4 4v2h2v-2H8zm4 0v2h4v-2h-4zm-4 4v2h2v-2H8zm4 0v2h4v-2h-4z"/>',
+    worker:'<path d="M12 2a6 6 0 0 0-6 6h12a6 6 0 0 0-6-6zM4 9h16v1.6H4zm3 3a5 5 0 0 0 10 0H7zm-3 10a8 8 0 0 1 16 0H4z"/>',
+    wrench:'<path d="M21 6.5a5 5 0 0 1-6.8 4.7L6.3 19.1a2 2 0 0 1-2.8-2.8l7.9-7.9A5 5 0 0 1 17.5 3l-2.9 2.9.9 2.6 2.6.9L21 6.5z"/>',
+    people:'<circle cx="7" cy="7" r="2.6"/><circle cx="17" cy="7" r="2.6"/><circle cx="12" cy="9.5" r="3"/><path d="M1.5 19c0-3 2.3-5 5.5-5 1 0 1.9.2 2.6.6A6.4 6.4 0 0 0 6 20H1.5V19zm21 1H18a6.4 6.4 0 0 0-3.6-5.4c.7-.4 1.6-.6 2.6-.6 3.2 0 5.5 2 5.5 5V20zM6.5 21c0-3 2.4-5.5 5.5-5.5s5.5 2.5 5.5 5.5h-11z"/>',
+    bandage:'<path d="M3.5 14.5 14.5 3.5a3.5 3.5 0 0 1 5 5L8.5 19.5a3.5 3.5 0 0 1-5-5zM10 10a1 1 0 1 0 0 .01zm2 2a1 1 0 1 0 0 .01zm2-2a1 1 0 1 0 0 .01zm-2-2a1 1 0 1 0 0 .01z"/>',
+    hand:'<path d="M8 4a1.5 1.5 0 0 1 3 0v6h.5V2.5a1.5 1.5 0 0 1 3 0V10h.5V4a1.5 1.5 0 0 1 3 0v9.5A8.5 8.5 0 0 1 9.5 22c-2.3 0-3.6-1-4.8-2.6L1.5 15a1.5 1.5 0 0 1 2.3-2L6 15V7a1 1 0 0 1 2 0v4h0V4z"/>',
+    helmet:'<path d="M2 17h20v3H2zM11 4.1V10h2V4.1A8 8 0 0 1 20 12v4H4v-4a8 8 0 0 1 7-7.9z"/>',
+    chart:'<path d="M4 20h16v2H4zM5 13h3v6H5zm5-4h3v10h-3zm5-5h3v15h-3z"/>',
+    bolt:'<path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z"/>',
+    lock:'<path d="M6 10V7a6 6 0 0 1 12 0v3h1a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V11a1 1 0 0 1 1-1h1zm2 0h8V7a4 4 0 0 0-8 0v3zm4 4a1.6 1.6 0 0 0-1 2.9V19h2v-2.1a1.6 1.6 0 0 0-1-2.9z"/>',
+    warn:'<path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V9h2v4z"/>',
+    cross:'<path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/>',
+    radio:'<path d="M15 2h2v5h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h7V2zM9 10v3h8v-3H9zm1 5v2h2v-2h-2zm4 0v2h2v-2h-2z"/>',
+    boat:'<path d="M5 13h14l-2 6c-1.3 0-2.5-.7-3-1.5-.5.8-1.7 1.5-3 1.5s-2.5-.7-3-1.5C7.5 18.3 6.3 19 5 19l-1-3zm3-6h5l3 5H6l2-5zM2 20c1.2 0 2.3-.5 3-1.2.7.7 1.8 1.2 3 1.2s2.3-.5 3-1.2c.7.7 1.8 1.2 3 1.2s2.3-.5 3-1.2c.7.7 1.8 1.2 3 1.2v2c-1.2 0-2.3-.4-3-1-.7.6-1.8 1-3 1s-2.3-.4-3-1c-.7.6-1.8 1-3 1s-2.3-.4-3-1c-.7.6-1.8 1-3 1v-2z"/>',
+    bed:'<path d="M2 6h2v8h7V9h7a4 4 0 0 1 4 4v7h-2v-3H4v3H2V6zm5 2.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM6 2h2v1.5h1.5v2H8V7H6V5.5H4.5v-2H6z"/>',
+    crank:'<path d="M14 3a7 7 0 0 1 6.9 8h-2.1A5 5 0 1 0 14 17v2a7 7 0 0 1 0-16zm-1 4h2v4.6l3 1.8-1 1.7-4-2.4V7zM2 20l6-6 1.5 1.5-6 6L2 20z"/>'
+  };
+  const majorView = (function(){
+    const ic = (k)=> '<span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true">'+(BT_ICONS[k]||'')+'</svg></span>';
+    const item = ([k, t], i)=> '<div class="bt-item"><span class="no">'+(i+1)+'</span>'+ic(k)+'<span>'+t+'</span></div>';
+    const barrier = (title)=> ([k, t], i)=> '<div class="bt-barrier"><header><b>'+(i+1)+'</b>'+title+'</header><div>'+ic(k)+'<span>'+t+'</span></div></div>';
+    function render(){
+      const el = document.getElementById('btWrap'); if(!el) return;
+      const M = MAJOR;
+      el.innerHTML = '<div class="bt-h threat">THREATS</div><div class="bt-h cons">CONSEQUENCES</div><div class="bt-h bar">BARRIERS</div>'
+        + '<div class="bt-sub prev">Prevent Threats</div><div class="bt-sub miti">Mitigate Consequences</div>'
+        + '<div class="bt-svg" aria-hidden="true"><svg></svg></div>'
+        + '<div class="bt-col threat">'+M.threats.map(item).join('')+'</div>'
+        + '<div class="bt-mid"><div class="bt-hazard"><header>BAHAYA UTAMA</header><p>'+M.hazard+'</p></div>'
+        + '<div class="bt-top"><h4>TOP EVENT</h4>'+ic('crank')+'<p>'+M.top+'</p></div></div>'
+        + '<div class="bt-col cons">'+M.consequences.map(item).join('')+'</div>'
+        + '<div class="bt-col prev">'+M.prevent.map(barrier('Preventive Barrier')).join('')+'</div>'
+        + '<div class="bt-col miti">'+M.mitigate.map(barrier('Mitigative Barrier')).join('')+'</div>'
+        + '<p class="bt-note">'+M.note+'</p>';
+      wire(el);
+      if('ResizeObserver' in window) new ResizeObserver(()=> requestAnimationFrame(()=> wire(el))).observe(el);
+    }
+    // connectors: every threat into the top event, the top event out to every consequence
+    function wire(el){
+      const box = el.querySelector('.bt-svg'), svg = box && box.querySelector('svg'), top = el.querySelector('.bt-top');
+      if(!svg || !top || !box.clientWidth) return;
+      const o = box.getBoundingClientRect(), t = top.getBoundingClientRect();
+      const cx = t.left + t.width/2 - o.left, cy = t.top + t.height/2 - o.top, r = t.width/2;
+      const at = (deg)=> [cx + r*Math.cos(deg), cy + r*Math.sin(deg)];
+      const ctr = (n)=> { const b = n.getBoundingClientRect(); return [b.left - o.left, b.top - o.top, b.width, b.height]; };
+      let d = '<defs><marker id="btArrIn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#16325C"/></marker>'
+        + '<marker id="btArrOut" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#D7262B"/></marker></defs>';
+      el.querySelectorAll('.bt-col.threat .bt-item').forEach(n=>{
+        const [x, y, w, hh] = ctr(n), sy = y + hh/2, sx = x + w;
+        // land on the circle edge facing the threat
+        const [ex, ey] = at(Math.atan2(sy - cy, sx - cx));
+        d += '<path class="in" d="M'+sx.toFixed(1)+' '+sy.toFixed(1)+' L'+ex.toFixed(1)+' '+ey.toFixed(1)+'" marker-end="url(#btArrIn)"/>';
+      });
+      el.querySelectorAll('.bt-col.cons .bt-item').forEach(n=>{
+        const [x, y, w, hh] = ctr(n), ey = y + hh/2, ex = x;
+        const [sx, sy] = at(Math.atan2(ey - cy, ex - cx));
+        d += '<path class="out" d="M'+sx.toFixed(1)+' '+sy.toFixed(1)+' L'+(ex-2).toFixed(1)+' '+ey.toFixed(1)+'" marker-end="url(#btArrOut)"/>';
+      });
+      svg.innerHTML = d;
+    }
+    return { render, wire };
+  })();
+  // Bowtie entrance: threats in from the left, their arrows converge on the top event, the event
+  // lands, arrows fan out to the consequences, then the barriers fill in and the lesson closes it.
+  function majorIn(tl, root, at){
+    const q = (s)=> root.querySelectorAll(s);
+    tl.call(()=> majorView.wire(root.querySelector('.bt-wrap')), null, at);
+    tl.fromTo(q('.bt-h, .bt-sub'), {y:-10, opacity:0}, {y:0, opacity:1, stagger:0.06, duration:0.4}, at);
+    tl.fromTo(q('.bt-col.threat .bt-item'), {x:-24, opacity:0}, {x:0, opacity:1, stagger:0.1, duration:0.45}, at+0.15);
+    tl.fromTo(q('.bt-hazard'), {y:-12, opacity:0}, {y:0, opacity:1, duration:0.45}, at+0.3);
+    tl.call(()=> q('.bt-svg path.in').forEach((p, i)=>{
+      const len = p.getTotalLength();
+      gsap.fromTo(p, {strokeDasharray:len, strokeDashoffset:len}, {strokeDashoffset:0, duration:0.5, delay:i*0.08, ease:'power2.out', clearProps:'strokeDasharray,strokeDashoffset'});
+    }), null, at+0.6);
+    tl.fromTo(q('.bt-top'), {scale:0.6, opacity:0}, {scale:1, opacity:1, duration:0.6, ease:'back.out(1.6)'}, at+1.0);
+    tl.fromTo(q('.bt-top .ic'), {rotation:-90}, {rotation:0, duration:0.7, ease:'power2.out'}, at+1.1);
+    tl.call(()=> q('.bt-svg path.out').forEach((p, i)=>{
+      const len = p.getTotalLength();
+      gsap.fromTo(p, {strokeDasharray:len, strokeDashoffset:len}, {strokeDashoffset:0, duration:0.5, delay:i*0.1, ease:'power2.out', clearProps:'strokeDasharray,strokeDashoffset'});
+    }), null, at+1.5);
+    tl.fromTo(q('.bt-col.cons .bt-item'), {x:-16, opacity:0}, {x:0, opacity:1, stagger:0.12, duration:0.45}, at+1.7);
+    tl.fromTo(q('.bt-col.prev .bt-barrier'), {y:12, opacity:0}, {y:0, opacity:1, stagger:0.08, duration:0.4}, at+2.0);
+    tl.fromTo(q('.bt-col.miti .bt-barrier'), {y:12, opacity:0}, {y:0, opacity:1, stagger:0.08, duration:0.4}, at+2.3);
+    tl.fromTo(q('.bt-note'), {y:10, opacity:0}, {y:0, opacity:1, duration:0.5}, at+2.8);
+  }
+
   // Fig. 01 monthly trend entrance: ECharts animates the bars, line and markers itself; the summary
   // boxes under the chart follow once the line has been drawn.
   function monthlyIn(tl, root, at){
@@ -2515,10 +2762,9 @@
           tl.fromTo(lpr, {x:24, opacity:0}, {x:0, opacity:1, duration:0.6}, 0);
           rmTableIn(tl, lpr, 0.1);
         }
-        tl.fromTo(all('#ipTrends, #ipTop'), {y:18, opacity:0}, {y:0, opacity:1, stagger:0.1, duration:0.55}, 0);
-        const ipTr=$id('ipTrends'), ipTp=$id('ipTop');
+        tl.fromTo(all('#ipTrends'), {y:18, opacity:0}, {y:0, opacity:1, stagger:0.1, duration:0.55}, 0);
+        const ipTr=$id('ipTrends');
         if(ipTr) ipTrendsIn(tl, ipTr, 0.15);
-        if(ipTp) ipTopIn(tl, ipTp, 0.3);
       }
       if(n>=4 && prev<4){
         const card=$id('spKpiCard');
@@ -2531,11 +2777,11 @@
           tl.fromTo(box, {x:24, opacity:0}, {x:0, opacity:1, duration:0.6}, 0.3);
           unitsIn(tl, box, 0.5);
         }
-        const ic=$id('ipCaseCard');
-        if(ic){
-          tl.fromTo(ic, {x:24, opacity:0}, {x:0, opacity:1, duration:0.6}, 0);
-          tl.fromTo(ic.querySelector('.lp-bar'), {x:-16, opacity:0}, {x:0, opacity:1, duration:0.45}, 0.1);
-          ipCaseIn(tl, ic, 0.15);
+        const ipp=$id('ipParetoCard');
+        if(ipp){
+          tl.fromTo(ipp, {x:24, opacity:0}, {x:0, opacity:1, duration:0.6}, 0);
+          tl.fromTo(ipp.querySelector('.lp-bar'), {x:-16, opacity:0}, {x:0, opacity:1, duration:0.45}, 0.1);
+          paretoIn(tl, ipp, 0.3);
         }
       }
     }
@@ -3220,7 +3466,7 @@
     header:{
       kicker:'Fig. 01 · Incident Profile Overview',
       title:'Incident Profile',
-      desc:'Tab ini menunjukkan profil insiden berdasarkan aktivitas Q1–Q3, perbandingan core vs support dan minecon vs non minecon, tren insiden per kuartal, serta aktivitas dengan kejadian tertinggi dan highlight major injury marine.'
+      desc:'Tab ini menunjukkan profil insiden berdasarkan aktivitas Q1–Q3, perbandingan core vs support dan minecon vs non minecon, tren insiden per kuartal, serta pareto aktivitas yang berkaitan dengan incident YTD 2026.'
     },
     // [title, [label, total, first share %], [first name, colour var], [second name, colour var]]
     splits:[
@@ -3242,6 +3488,16 @@
       ['CPP',0.3,0.6],['Maintenance',0.3,0.4],['Pit Service',0.3,0.4],['Barging',0.5,0.2],['Transport',0.7,0.0]
     ],
     topFocus:3,
+    // Pareto YTD 2026: [activity, nearmiss, injury, non injury, highlighted]
+    paretoTop:[ ['Hauling',16,1,6,true], ['Loading',4,0,4], ['Dumping',2,0,6], ['Dozing',5,0,3], ['Blasting',0,0,1] ],
+    paretoRest:[
+      ['Pengoperasian LV',7,0,4], ['CPP',2,0,3], ['Maintenance',0,3,1,true], ['Pit Service',3,0,1], ['HRM',2,0,2],
+      ['Parkir Unit',0,0,3], ['Pengoperasian Genset',0,0,2], ['Barging',2,0,0], ['Aktivitas Office',0,0,2],
+      ['Charging Unit',1,0,0], ['Infrastruktur',0,1,0,true], ['Manual Handling',0,1,0,true], ['Mobilisasi Unit',1,0,0],
+      ['Loading Batu Split',1,0,0], ['Dismantle Tower',0,1,0,true], ['Penyeberangan Ketinting',1,0,0], ['Refueling',1,0,0],
+      ['Transportasi',1,0,0], ['Service',1,0,0], ['Pengawasan',0,0,1], ['Travel Unit A2B',0,0,1], ['Pengelasan',0,0,1],
+      ['Pengoperasian Bus',0,0,1]
+    ],
     caseTitle:'Insiden Injury Pergelangan Tangan Pengoperasian Mesin Jangkar secara manual',
     caseBody:'Inisiatif pengawas yang berlebihan. Mesin jangkar tongkang dinyalakan manual dengan engkol, padahal sistem starter elektrik sudah tersedia.'
   };
@@ -3299,9 +3555,6 @@
       if(!$('ipSplits')) return;
       $('ipSplits').innerHTML = INCIDENT.splits.map(split).join('');
       $('ipTrends').innerHTML = INCIDENT.trends.map(trend).join('');
-      $('ipTop').innerHTML = top();
-      $('ipCaseTitle').textContent = INCIDENT.caseTitle;
-      $('ipCaseBody').textContent = INCIDENT.caseBody;
     }
     return { render };
   })();
@@ -3330,16 +3583,19 @@
         if(left && left.classList.contains('on')) rmMapIn(tabTl, left, 0.15);
         if(right && right.classList.contains('on')) rmTableIn(tabTl, right, 0.2);
       }
+      if(key==='major'){
+        const panel = document.querySelector('#slideSafety .sp-panel.bt');
+        if(panel) majorIn(tabTl, panel, 0.15);
+      }
       if(key==='journey'){
         const panel = document.querySelector('#slideSafety .jr-panel');
         if(panel) jrTabIn(tabTl, panel, 0.15);
       }
       if(key==='incident'){
-        const main = $id('ipMainCard'), tr = $id('ipTrends'), tp = $id('ipTop'), cs = $id('ipCaseCard');
+        const main = $id('ipMainCard'), tr = $id('ipTrends'), pc = $id('ipParetoCard');
         if(main && main.classList.contains('on')) ipSplitsIn(tabTl, main, 0.15);
         if(tr && tr.classList.contains('on')) ipTrendsIn(tabTl, tr, 0.3);
-        if(tp && tp.classList.contains('on')) ipTopIn(tabTl, tp, 0.4);
-        if(cs && cs.classList.contains('on')) ipCaseIn(tabTl, cs, 0.2);
+        if(pc && pc.classList.contains('on')) paretoIn(tabTl, pc, 0.3);
       }
     }
     function show(key){
@@ -3358,6 +3614,7 @@
       headers.safety = { kicker:$id('spKicker').textContent, title:$id('spTitle').textContent, desc:$id('spDesc').innerHTML };
       headers.leading = RAPOR.header;
       headers.incident = INCIDENT.header;
+      headers.major = MAJOR.header;
       headers.journey = {
         kicker:'Fig. 01 · Journey Safety Performance Overview',
         title:$id('jrTitle') ? $id('jrTitle').textContent : 'Journey Safety Performance',
@@ -4178,7 +4435,7 @@
     document.getElementById('prev').addEventListener('click', e=>{ e.stopPropagation(); goTo(current-1); });
     document.addEventListener('click', e=>{
       if(guide.classList.contains('open')) return;
-      if(e.target.closest('button, a, input, textarea, .dot, .navbtn, #guide, .guide-btn, .nav-zone, .pit-rail, .sp-mo-ec, #intro')) return;
+      if(e.target.closest('button, a, input, textarea, .dot, .navbtn, #guide, .guide-btn, .nav-zone, .pit-rail, .sp-mo-ec, .ip-pareto, #intro')) return;
       nextStep();
     });
     document.addEventListener('keydown', e=>{
@@ -4210,6 +4467,7 @@
   safetyView.render();
   leadingView.render();
   raporView.render();
+  majorView.render();
   incidentView.render();
   journeyView.render();
   challengeView.render();
@@ -4220,6 +4478,7 @@
   spCards.render();
   // monthly charts (live slide and Fig. 02 copies) draw themselves once their box is visible
   document.querySelectorAll('.sp-mo-ec').forEach(moChart.watch);
+  document.querySelectorAll('.ip-pareto').forEach(paretoChart.watch);
   spTabs.init();
   initDeck();
 </script>
