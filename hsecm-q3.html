@@ -623,7 +623,7 @@
      their marker nods in its direction, and the case photo drifts so the card never sits frozen. */
   .ip-dot.now::after{ content:''; position:absolute; inset:-3px; border-radius:50%; border:2px solid var(--c); opacity:0; }
   #slideSafety.active #ipTrends.on .ip-dot.now::after{ animation:ipNow 2.8s ease-out 3s infinite; }
-  #slideSafety.active #ipTrends.on .ip-hl{ animation:ipBreathe 2.8s ease-in-out 3s infinite; }
+  #slideSafety.active #ipTrends.on .ip-hl{ animation:spAlertBlink 1.3s ease-in-out 2.4s infinite; }
   #slideSafety.active #ipTrends.on .ip-hl span{ animation:ipNod 2.8s ease-in-out 3s infinite; }
   #slideSafety.active #ipCaseCard.on .ip-photo img{ animation:ipDrift 16s ease-in-out 2.5s infinite alternate; }
   @keyframes ipNow{ 0%{ opacity:.75; transform:scale(1); } 100%{ opacity:0; transform:scale(2.6); } }
@@ -1378,14 +1378,15 @@
   /* Fig. 05 rebuilt: progress + standardisation per company-site on the left, the three
      implementation states (full / partial / not started) with their incident gaps on the right */
   #slideEngineering{ --eg-g:#1F9A4B; --eg-a:#F29A1F; --eg-r:#D7262B; }
-  .eg-grid{ flex:1 1 auto; min-height:0; display:grid; gap:1vh 12px; grid-template-columns:minmax(0,.62fr) minmax(0,1.38fr); }
+  .eg-grid{ flex:1 1 auto; min-height:0; display:grid; gap:1vh 12px; grid-template-columns:minmax(0,.54fr) minmax(0,1.46fr); }
   .eg-left, .eg-right{ min-width:0; min-height:0; display:flex; flex-direction:column; gap:1vh; }
   #egProgCard{ flex:none; }
   #egStdCard{ flex:1 1 0; }
-  .eg-band{ flex:none; display:flex; align-items:center; gap:10px; padding:.6vh 12px; background:linear-gradient(90deg,#0B6A33,#11803F); color:#fff; }
-  .eg-band b{ display:block; font-size:clamp(.8rem,2.1vh,1.15rem); line-height:1.1; }
-  .eg-band small{ display:block; font-size:clamp(.66rem,1.65vh,.9rem); opacity:.9; }
-  .eg-no{ flex:none; width:clamp(26px,4.2vh,38px); height:clamp(26px,4.2vh,38px); border-radius:50%; display:grid; place-items:center; background:#fff; color:#0B6A33; font-weight:800; font-size:1.1em; }
+  #slideEngineering .re-card{ border:1px solid #E1E7EE; box-shadow:none; border-radius:10px; }
+  .eg-band{ flex:none; display:flex; align-items:center; gap:10px; padding:.9vh 14px .5vh; color:#0F2A4A; border-bottom:1px solid #E1E7EE; }
+  .eg-band b{ display:block; font-size:clamp(.82rem,2.15vh,1.18rem); line-height:1.1; }
+  .eg-band small{ display:block; font-size:clamp(.62rem,1.55vh,.86rem); color:#5B6B7E; }
+  .eg-no{ flex:none; width:clamp(22px,3.6vh,32px); height:clamp(22px,3.6vh,32px); border-radius:6px; display:grid; place-items:center; background:#1F9A4B; color:#fff; font-weight:800; }
   .eg-prog{ list-style:none; display:flex; flex-direction:column; gap:.5vh; padding:.8vh 12px 1vh; }
   .eg-prog li{ display:grid; grid-template-columns:clamp(18px,2.8vh,26px) minmax(0,1fr) minmax(0,1.3fr) auto 3.6em; align-items:center; gap:8px; font-size:clamp(.66rem,1.7vh,.94rem); }
   .eg-prog .ic{ width:100%; aspect-ratio:1; color:#0F2A4A; } .eg-prog .ic svg{ width:100%; height:100%; fill:currentColor; }
@@ -1393,46 +1394,66 @@
   .eg-prog .bar i{ display:block; height:100%; width:var(--w); background:var(--c); transform-origin:left center; }
   .eg-prog .fr{ color:#4A5D73; font-variant-numeric:tabular-nums; }
   .eg-prog b{ text-align:right; font-weight:800; color:var(--c); font-variant-numeric:tabular-nums; }
-  .eg-std-h{ flex:none; display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; padding:.5vh 12px; font-size:clamp(.72rem,1.85vh,1rem); }
+  .eg-std-h{ flex:none; display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; padding:.9vh 14px .5vh; font-size:clamp(.78rem,2vh,1.08rem); border-bottom:1px solid #E1E7EE; }
   .eg-lg{ display:flex; align-items:center; gap:5px; font-size:.78em; color:#4A5D73; }
   .eg-lg i{ width:10px; height:10px; border-radius:2px; margin-left:6px; } .eg-lg i.g{ background:var(--eg-g); } .eg-lg i.a{ background:var(--eg-a); } .eg-lg i.r{ background:var(--eg-r); }
   .eg-std-wrap{ flex:1; min-height:0; padding:0 8px .6vh; }
   .eg-std{ width:100%; height:100%; border-collapse:collapse; font-size:calc(clamp(.56rem,1.42vh,.8rem) * var(--fit,1)); line-height:1.1; }
-  .eg-std th{ padding:.4vh 6px; background:#EEF3F7; font-weight:700; text-align:center; }
+  .eg-std th{ padding:.4vh 6px; font-weight:600; color:#5B6B7E; text-align:center; border-bottom:1px solid #E1E7EE; }
   .eg-std td{ padding:0 6px; }
   .eg-std td.site{ font-weight:800; font-size:1.2em; border-bottom:1px solid #D7DEE6; }
   .eg-std tr.last td{ border-bottom:1px solid #D7DEE6; }
   .eg-std td.co{ font-weight:600; }
   .eg-std td.bar{ width:45%; }
-  .eg-std td.bar span{ display:block; height:1.05em; background:#E7ECF2; }
+  .eg-std td.bar span{ display:block; height:.8em; border-radius:2px; background:#EEF2F6; overflow:hidden; }
   .eg-std td.bar i{ display:block; height:100%; width:var(--w); background:var(--c); min-width:2px; transform-origin:left center; }
   .eg-std td.pct{ text-align:right; font-weight:800; color:var(--c); font-variant-numeric:tabular-nums; }
   .eg-std td.n{ text-align:center; color:#4A5D73; font-variant-numeric:tabular-nums; }
+  /* rows under 50%: a blinking red frame around company → count (the site label stays clear) */
+  .eg-std tr.low td:not(.site){ background:rgba(215,38,43,.05); border-top:2px solid var(--eg-blink, rgba(215,38,43,.35)); border-bottom:2px solid var(--eg-blink, rgba(215,38,43,.35)); }
+  .eg-std tr.low td.co{ border-left:2px solid var(--eg-blink, rgba(215,38,43,.35)); }
+  .eg-std tr.low td.n{ border-right:2px solid var(--eg-blink, rgba(215,38,43,.35)); }
+  @property --eg-blink{ syntax:'<color>'; inherits:true; initial-value:rgba(215,38,43,.35); }
+  #slideEngineering.active #egStdCard.on .eg-std tr.low{ animation:egBlink 1.3s ease-in-out 2.4s infinite; }
+  @keyframes egBlink{ 0%, 100%{ --eg-blink:rgba(215,38,43,.3); } 50%{ --eg-blink:#FF2525; } }
   .eg-tiles{ flex:none; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
-  .eg-tile{ display:flex; align-items:center; gap:12px; padding:.8vh 14px; border-radius:12px; background:#fff; border:1px solid #E3E8EE; box-shadow:0 8px 20px rgba(15,42,74,.06); }
-  .eg-tile .ic{ flex:none; width:clamp(40px,7vh,64px); aspect-ratio:1; border-radius:50%; display:grid; place-items:center; background:var(--c); color:#fff; }
-  .eg-tile .ic svg{ width:58%; height:58%; fill:currentColor; }
-  .eg-tile h4{ font-size:clamp(.74rem,1.9vh,1.05rem); font-weight:700; color:#0F2D6B; }
+  .eg-tile{
+    position:relative; display:flex; align-items:center; gap:12px; padding:.9vh 14px; border-radius:10px; text-align:left; cursor:pointer;
+    background:#fff; border:1px solid #E1E7EE; font:inherit; color:inherit; transition:border-color .2s, background .2s, box-shadow .2s;
+  }
+  .eg-tile:hover{ border-color:var(--c); }
+  .eg-tile:focus-visible{ outline:2px solid var(--c); outline-offset:2px; }
+  .eg-tile.is-on{ border-color:var(--c); background:color-mix(in srgb, var(--c) 7%, #fff); box-shadow:inset 0 -3px 0 var(--c); }
+  .eg-tile::after{ content:'Lihat detail ›'; position:absolute; right:12px; bottom:.6vh; font-size:clamp(.54rem,1.3vh,.74rem); font-weight:600; color:#8A97A6; }
+  .eg-tile.is-on::after{ content:'Detail ditampilkan'; color:var(--c); }
+  .eg-tile .ic{ flex:none; width:clamp(36px,6vh,54px); aspect-ratio:1; border-radius:50%; display:grid; place-items:center; background:var(--c); color:#fff; }
+  .eg-tile .ic svg{ width:56%; height:56%; fill:currentColor; }
+  .eg-tile h4{ font-size:clamp(.74rem,1.85vh,1.02rem); font-weight:700; color:#0F2A4A; }
   .eg-tile h4 em{ font-family:inherit; font-style:italic; color:inherit; }
-  .eg-tile p{ font-weight:800; font-size:clamp(1.05rem,3vh,1.7rem); line-height:1.05; color:var(--c); }
-  .eg-tile p small{ font-size:.72em; font-weight:700; }
-  .eg-tile p.gap{ color:var(--c2); }
-  .eg-cards{ flex:1 1 0; min-height:0; display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr); gap:10px; }
-  .eg-st{ min-width:0; min-height:0; display:flex; flex-direction:column; border-radius:12px; overflow:hidden; background:#fff; border:2px solid var(--c); }
-  .eg-st header{ flex:none; display:flex; align-items:center; gap:10px; padding:.6vh 10px; background:var(--c); color:#fff; }
-  .eg-st header .no{ flex:none; width:clamp(26px,4.2vh,38px); height:clamp(26px,4.2vh,38px); border-radius:50%; display:grid; place-items:center; background:#fff; color:var(--c); font-weight:800; }
-  .eg-st header b{ display:block; font-size:clamp(.78rem,2vh,1.1rem); }
+  .eg-tile p{ font-weight:800; font-size:clamp(1rem,2.8vh,1.6rem); line-height:1.05; color:var(--c); }
+  .eg-tile p small{ font-size:.66em; font-weight:600; color:#4A5D73; }
+  .eg-tile p.gap{ color:var(--eg-r); }
+  .eg-cards{ flex:1 1 0; min-height:0; display:grid; grid-template-columns:minmax(0,1fr); grid-template-rows:minmax(0,1fr); }
+  .eg-st{ grid-area:1 / 1; min-width:0; min-height:0; display:flex; flex-direction:column; border-radius:10px; overflow:hidden; background:#fff; border:1px solid #E1E7EE; border-top:3px solid var(--c); }
+  .eg-st[hidden]{ display:none; }
+  .eg-st header{ flex:none; display:flex; align-items:center; gap:12px; padding:.8vh 14px; border-bottom:1px solid #E1E7EE; }
+  .eg-st header .no{ flex:none; width:clamp(24px,3.8vh,34px); height:clamp(24px,3.8vh,34px); border-radius:6px; display:grid; place-items:center; background:var(--c); color:#fff; font-weight:800; }
+  .eg-st header b{ display:block; color:#0F2A4A; font-size:clamp(.95rem,2.6vh,1.45rem); }
   .eg-st header b em{ font-family:inherit; font-style:italic; color:inherit; }
-  .eg-st header small{ display:block; font-size:clamp(.54rem,1.3vh,.74rem); line-height:1.2; opacity:.95; }
-  .eg-st-body{ flex:1; min-height:0; display:flex; flex-direction:column; }
-  .eg-st table{ width:100%; border-collapse:collapse; font-size:calc(clamp(.5rem,1.22vh,.72rem) * var(--fit,1)); line-height:1.18; }
-  .eg-st th{ padding:.4vh 4px; background:var(--bg); font-weight:700; text-align:center; border-bottom:1px solid #D7DEE6; }
-  .eg-st td{ padding:.35vh 4px; border-bottom:1px solid #E3E8EE; vertical-align:middle; }
-  .eg-st td.co{ font-weight:700; white-space:nowrap; }
-  .eg-st td.n{ text-align:center; font-weight:700; }
-  .eg-st td.gap{ text-align:center; font-weight:800; color:var(--eg-r); }
-  .eg-st ul{ list-style:disc; padding-left:1.1em; }
-  .eg-st .note{ margin-top:auto; flex:none; display:flex; align-items:center; gap:8px; padding:.5vh 10px; background:var(--bg); font-size:calc(clamp(.52rem,1.25vh,.74rem) * var(--fit,1)); line-height:1.25; }
+  .eg-st header small{ display:block; color:#4A5D73; font-size:clamp(.7rem,1.8vh,1.02rem); line-height:1.25; }
+  .eg-st-body{ flex:1; min-height:0; display:flex; flex-direction:column; padding:0 6px; }
+  .eg-st table{ width:100%; border-collapse:collapse; font-size:calc(clamp(.72rem,1.95vh,1.12rem) * var(--fit,1)); line-height:1.2; }
+  .eg-st th{ padding:.5vh 8px; font-weight:700; font-size:.92em; color:#4A5D73; text-align:left; border-bottom:1px solid #E1E7EE; }
+  .eg-st th:nth-child(2), .eg-st th:nth-child(3){ text-align:center; }
+  .eg-st td{ padding:.3vh 8px; border-bottom:1px solid #EEF2F6; vertical-align:top; }
+  .eg-st td.co{ width:13%; font-weight:800; white-space:nowrap; }
+  .eg-st td.n{ width:8%; text-align:center; font-weight:700; }
+  .eg-st td.gap{ width:8%; text-align:center; font-weight:800; color:var(--eg-r); }
+  .eg-st td.gap span{ display:inline-block; min-width:2.2em; padding:.1em 8px; border-radius:4px; background:#FDE6E6; font-size:1.05em; }
+  .eg-st ul{ list-style:none; columns:2; column-gap:18px; }
+  .eg-st li{ position:relative; padding-left:12px; break-inside:avoid; }
+  .eg-st li::before{ content:''; position:absolute; left:0; top:.55em; width:5px; height:5px; border-radius:50%; background:var(--c); }
+  .eg-st .note{ margin-top:auto; flex:none; display:flex; align-items:center; gap:8px; margin:auto -6px 0; padding:.6vh 14px; background:color-mix(in srgb, var(--c) 7%, #fff); font-size:calc(clamp(.7rem,1.8vh,1.04rem) * var(--fit,1)); line-height:1.3; }
   .eg-st .note b{ color:var(--c); }
   .re-grid{ flex:1 1 auto; min-height:0; display:grid; gap:1vh 14px; grid-template-columns:minmax(0,1.56fr) minmax(0,1fr); }
   .re-right{ min-height:0; display:grid; gap:1vh; grid-template-rows:minmax(0,1.02fr) minmax(0,.88fr) minmax(0,1.05fr); }
@@ -1835,6 +1856,7 @@
     #slideSafety .ip-hl span, #slideSafety .ip-rank-box, #slideSafety .ip-photo img,
     #slideJourney .jr-node, #slideJourney .jr-tile svg, #slideJourney .jr-root span, #slideJourney .jr-seg, #slideJourney .impact svg,
     .jr-panel .jr-node, .jr-panel .jr-tile svg, .jr-panel .jr-root span, .jr-panel .impact svg,
+    #slideEngineering .eg-std tr,
     #slideChallenge .cp-donut circle, #slideChallenge .cp-tile, #slideChallenge .cp-pi, #slideChallenge .cp-ring .arc{ animation:none !important; }
     .fig-card{ transition:none; }
     .fig-photo{ opacity:.92; transform:none; }
@@ -1854,10 +1876,10 @@
   <span class="rail-brand mono">OHS DIVISI</span>
   <div class="rail-letters" id="railLetters">
     <button type="button" data-jump="0">H</button>
-    <button type="button" data-jump="2">S</button>
-    <button type="button" data-jump="3">C</button>
+    <button type="button" data-jump="1">S</button>
+    <button type="button" data-jump="2">C</button>
     <!-- <button type="button" data-jump="4">C</button> -->
-    <button type="button" data-jump="5">M</button>
+    <button type="button" data-jump="4">M</button>
   </div>
   <div class="rail-progress"><i id="progressFill"></i></div>
   <div class="rail-step" id="railStep">01</div>
@@ -1886,30 +1908,6 @@
     </div>
   </section>
 
-  <section class="slide" id="slideHero" data-steps="3" data-section="A · Cover">
-    <div class="hero-bg" aria-hidden="true"></div>
-    <div class="hero-scrim" aria-hidden="true"></div>
-    <div class="slide-inner">
-      <div class="hero-mark" id="heroMark" aria-hidden="true">01</div>
-      <figure class="hero-portrait" id="heroPortrait">
-        <img src="gm-cut.png" alt="Ilustrasi petugas K3 PT Berau Coal" width="706" height="996" decoding="async">
-      </figure>
-      <div class="hero-hud" id="heroHud">
-        <p class="kicker mono fade" data-step="1" id="heroKicker">HSECM TK 1</p>
-        <h1 class="h-xl">
-          <span class="fade" data-step="1" id="heroL1">Lead with Focus,</span>
-          <span class="fade" data-step="2" id="heroL2">Act with <em id="heroEm">Discipline</em>,</span>
-          <span class="fade" data-step="2" id="heroL3">Improve with Creativity</span>
-        </h1>
-        <p class="lede fade" data-step="3" id="heroLede"><b>Momentum Siaga Keselamatan</b> menuntut setiap pemimpin untuk menjaga <b>disiplin operasi</b> dan memastikan <b>pengendalian efektif</b> untuk menghilangkan sumber bahaya.<span class="hero-by"><em>Jimmi Idris</em>, GM Occupational Health &amp; Safety, PT Berau Coal.</span></p>
-        <div class="hero-chips fade" data-step="3" id="heroChips">
-          <!-- <span class="chip mono">Sesi Pembekalan</span> -->
-          <!-- <span class="chip mono">± 55 Menit</span> -->
-          <!-- <span class="chip mono">Interaktif</span> -->
-        </div>
-      </div>
-    </div>
-  </section>
 
   <section class="slide" id="slideSafety" data-steps="4" data-section="B · Performance">
     <div class="slide-inner">
@@ -2501,7 +2499,23 @@
   // total on top, activities with an injury boxed in red. Drawn when the card is visible.
   const paretoChart = (function(){
     const C = { nm:'#D3D9E0', inj:'#C8102E', non:'#FFA000', ink:'#0F2A4A' };
-    const watched = new WeakSet();
+    const watched = new WeakSet(), blinking = new WeakSet();
+    // the red injury frames pulse like the pyramid alert: the canvas cannot use CSS animation,
+    // so the frame colour, width and glow are swapped on a timer while the chart is on screen
+    function blink(el){
+      if(blinking.has(el) || (hasGsap && REDUCE_MOTION)) return;
+      blinking.add(el);
+      let on = false;
+      setInterval(()=>{
+        const c = echarts.getInstanceByDom(el);
+        if(!c || !el.offsetParent) return;
+        on = !on;
+        c.setOption({ series:[{}, {}, { markArea:{ itemStyle:{
+          borderColor: on ? '#FF2525' : 'rgba(224,32,32,.35)', borderWidth: on ? 2.5 : 1.5,
+          shadowBlur: on ? 12 : 0, shadowColor:'rgba(255,37,37,.6)',
+          color: on ? 'rgba(255,37,37,.1)' : 'rgba(200,16,46,.05)' } } }] }, false, true);
+      }, 650);
+    }
     function option(rows, height, long){
       const fs = Math.round(Math.max(8, Math.min(12, height/(long ? 26 : 16))));
       const cats = rows.map(r=> r[0]), col = (k)=> rows.map(r=> r[k] || null);
@@ -2546,6 +2560,7 @@
       const chart = echarts.getInstanceByDom(el) || echarts.init(el, null, { renderer:'canvas' });
       chart.resize(); chart.clear();
       chart.setOption(option(long ? INCIDENT.paretoRest : INCIDENT.paretoTop, el.clientHeight, long));
+      blink(el);
       watch(el);
     }
     function watch(el){
@@ -3038,7 +3053,7 @@
       killSlide(index);
       const tl = gsap.timeline({ defaults:{ duration:0.5, ease:'power3.out' } });
       tls.set(index, tl);
-      const fns = [opening, hero, safety, engineering, health, nextdo, berbagi];
+      const fns = [opening, safety, engineering, health, nextdo, berbagi];
       if(fns[index]) fns[index](tl, n, prev);
     }
     // Opening: the photo settles in, the badge line draws, the title rises line by line
@@ -3393,7 +3408,8 @@
     }
     function settle(){
       if(!hasGsap) return;
-      gsap.set('#heroMark,#heroPortrait,#heroHud,#heroKicker,#heroL1,#heroL2,#heroL3,#heroLede,#heroChips .chip', {opacity:1, x:0, y:0, scale:1});
+      const hero = document.querySelectorAll('#heroMark,#heroPortrait,#heroHud,#heroKicker,#heroL1,#heroL2,#heroL3,#heroLede,#heroChips .chip');
+      if(hero.length) gsap.set(hero, {opacity:1, x:0, y:0, scale:1});
     }
     function wipe(done){
       const el=$id('slideWipe');
@@ -4512,17 +4528,32 @@
         return '<li style="--c:'+band(v)+'"><span class="ic">'+svg(ic)+'</span><span>'+name+'</span><span class="bar"><i style="--w:'+v.toFixed(1)+'%"></i></span><span class="fr">'+n+' / '+E.total+'</span><b><span class="n">'+f1(v)+'</span>%</b></li>'; }).join('');
       $('egStd').innerHTML = '<thead><tr><th colspan="2">Company-Site</th><th colspan="2">% Standarisasi</th><th>Jumlah Rekayasa</th></tr></thead><tbody>'
         + E.std.map(([site, rows])=> rows.map(([co, a, b], i)=>{ const v = pct(a, b);
-          return '<tr'+(i===rows.length-1?' class="last"':'')+' style="--c:'+band(v)+'">'+(i===0?'<td class="site" rowspan="'+rows.length+'">'+site+'</td>':'')
+          const cls = (i===rows.length-1?'last ':'') + (v < 50 ? 'low' : '');
+          return '<tr class="'+cls.trim()+'" style="--c:'+band(v)+'">'+(i===0?'<td class="site" rowspan="'+rows.length+'">'+site+'</td>':'')
             + '<td class="co">'+co+'</td><td class="bar"><span><i style="--w:'+v.toFixed(1)+'%"></i></span></td><td class="pct"><span class="n">'+f1(v)+'</span>%</td><td class="n">'+a+'/'+b+'</td></tr>'; }).join('')).join('')+'</tbody>';
-      $('egTiles').innerHTML = E.states.map(s=> '<div class="eg-tile" style="--c:'+s.c+';--c2:'+(s.key==='full'?'#EE8B1E':s.c)+'"><span class="ic">'+svg(s.icon)+'</span><div><h4>'+s.tile+'</h4>'
-        + '<p><span class="n">'+s.count+'</span> <small>rekayasa</small></p><p class="gap"><span class="n">'+s.gap+'</span> <small>gap incident</small></p></div></div>').join('');
-      $('egCards').innerHTML = E.states.map(s=> '<section class="eg-st" style="--c:'+s.c+';--bg:'+s.bg+'"><header><span class="no">'+s.no+'</span><div><b>'+s.title+'</b><small>'+s.desc+'</small></div></header>'
+      $('egTiles').setAttribute('role', 'tablist');
+      $('egTiles').innerHTML = E.states.map((s, i)=> '<button type="button" role="tab" class="eg-tile'+(i===0?' is-on':'')+'" aria-selected="'+(i===0)+'" data-st="'+s.key+'" style="--c:'+s.c+'"><span class="ic">'+svg(s.icon)+'</span><div><h4>'+s.tile+'</h4>'
+        + '<p><span class="n">'+s.count+'</span> <small>rekayasa</small></p><p class="gap"><span class="n">'+s.gap+'</span> <small>gap incident</small></p></div></button>').join('');
+      $('egCards').innerHTML = E.states.map((s, i)=> '<section class="eg-st" role="tabpanel" data-st="'+s.key+'"'+(i===0?'':' hidden')+' style="--c:'+s.c+';--bg:'+s.bg+'"><header><span class="no">'+s.no+'</span><div><b>'+s.title+'</b><small>'+s.desc+'</small></div></header>'
         + '<div class="eg-st-body"><table><thead><tr><th>Company – Site</th><th>Jumlah Rekayasa</th><th>Gap Incident</th><th>Aktivitas – Risiko Gap karena Incident</th></tr></thead><tbody>'
-        + s.rows.map(([co, n, g, items])=> '<tr><td class="co">'+co+'</td><td class="n">'+n+'</td><td class="gap">'+g+'</td><td><ul>'+items.map(t=> '<li>'+t+'</li>').join('')+'</ul></td></tr>').join('')
+        + s.rows.map(([co, n, g, items])=> '<tr><td class="co">'+co+'</td><td class="n">'+n+'</td><td class="gap"><span>'+g+'</span></td><td><ul>'+items.map(t=> '<li>'+t+'</li>').join('')+'</ul></td></tr>').join('')
         + '</tbody></table><p class="note">'+svg('bulb').replace('<svg','<svg style="width:1.6em;height:1.6em;flex:none;fill:'+s.c+'"')+'<span><b>Arah pembacaan:</b> '+s.note+'</span></p></div></section>').join('');
       fitText('#egStdCard .eg-std-wrap, #egCards .eg-st-body');
+      // the three status tiles switch the detail panel below
+      $('egTiles').querySelectorAll('.eg-tile').forEach(btn=> btn.addEventListener('click', e=>{ e.stopPropagation(); show(btn.dataset.st); }));
     }
-    return { render };
+    function show(key){
+      const tiles = document.querySelectorAll('#egTiles .eg-tile'), panes = document.querySelectorAll('#egCards .eg-st');
+      tiles.forEach(t=>{ const on = t.dataset.st===key; t.classList.toggle('is-on', on); t.setAttribute('aria-selected', String(on)); });
+      let shown = null;
+      panes.forEach(p=>{ const on = p.dataset.st===key; p.hidden = !on; if(on) shown = p; });
+      if(shown && hasGsap && !REDUCE_MOTION){
+        gsap.fromTo(shown, {y:10, opacity:0}, {y:0, opacity:1, duration:0.35, ease:'power2.out', clearProps:'transform,opacity'});
+        gsap.fromTo(shown.querySelectorAll('tbody tr'), {x:10, opacity:0}, {x:0, opacity:1, stagger:0.05, duration:0.3, delay:0.1, clearProps:'transform,opacity'});
+      }
+      requestAnimationFrame(()=> fitText('#egCards .eg-st:not([hidden]) .eg-st-body'));
+    }
+    return { render, show };
   })();
 
   // Fig. 08: Program Berbagi Keselamatan YTD 2026 (amounts in rupiah, from the report)
@@ -5133,7 +5164,7 @@
       else if(e.key==='r' || e.key==='R') goTo(0);
       else if(e.key==='u' || e.key==='U'){ replaySlide(current); applyFades(slides[current],0); setStep(1,{prev:0}); }
       else if(/^[a-eA-E]$/.test(e.key)){
-        const map={ a:0, b:2, c:3, d:3, e:5 }; goTo(map[e.key.toLowerCase()]);
+        const map={ a:0, b:1, c:2, d:2, e:4 }; goTo(map[e.key.toLowerCase()]);
       }
     });
     function openGuide(){ guide.classList.add('open'); }
