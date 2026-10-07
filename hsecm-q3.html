@@ -147,6 +147,12 @@
   .in-skip kbd{ padding:2px 6px; border-radius:4px; background:rgba(255,255,255,.18); font:600 .8em 'Red Hat Mono',monospace; }
   .in-progress{ position:absolute; left:0; right:0; bottom:0; z-index:3; height:3px; background:rgba(255,255,255,.15); }
   .in-progress i{ display:block; height:100%; background:var(--g); transform-origin:left center; transform:scaleX(0); }
+  /* ---- Outro: Closing.mp4 full screen after the last slide, looping until dismissed ---- */
+  #outro{ position:fixed; inset:0; z-index:60; overflow:hidden; background:#000; --g:#3CE57A; }
+  #outro[hidden]{ display:none; }
+  .ou-ctl{ position:absolute; right:28px; bottom:26px; z-index:3; display:flex; gap:10px; }
+  .ou-ctl .in-skip{ position:static; }
+  #outro.is-ended .in-skip{ opacity:1; }
 
   /* ---- Opening: photo hero, copy on a dark-green scrim on the left, deck sections as the nav ---- */
   /* while the opening is on screen the side rail slides away and the arrow moves to the edge */
@@ -1848,7 +1854,6 @@
   #slideNext .sp-desc b{ font-weight:700; }
   /* the four exposures, highlighted like a marker pen */
   #slideNext .nx-hl{ padding:0 4px; border-radius:3px; background:linear-gradient(180deg, transparent 45%, rgba(46,158,91,.28) 45%); color:var(--sp-ink); font-weight:700; box-decoration-break:clone; -webkit-box-decoration-break:clone; }
-  .nx-logo{ position:absolute; right:0; top:.6vh; height:clamp(34px,6.4vh,64px); mix-blend-mode:multiply; }
   .nx-grid{ flex:1 1 auto; min-height:0; display:grid; gap:12px; grid-template-columns:minmax(0,3.5fr) minmax(0,1fr); }
   .nx-grid > .nx-src{ display:none; }
   /* copy of the Fig. 04 challenge cards, with Fig. 04's colour tokens */
@@ -2342,7 +2347,6 @@
         <p class="kicker mono fade" data-step="1" id="nxKicker">Fig. 07 · Highlight &amp; Next to Do Q4 2026 Overview</p>
         <h2 class="sp-title fade" data-step="1" id="nxTitle">Highlight &amp; Next to Do Q4 2026</h2>
         <p class="sp-desc fade" data-step="1" id="nxDesc">Perkuatan Q4 difokuskan pada <b>empat exposure utama</b>—<mark class="nx-hl">Ketajaman Penilaian pada Leading Scorecard</mark>, <mark class="nx-hl">Kontrol Aktivitas Luar Kabin</mark>, <mark class="nx-hl">perbaikan pada Kontrol Critical Tools</mark>, dan <mark class="nx-hl">Efektivitas Pengawasan RIC</mark>.</p>
-        <img class="nx-logo fade" data-step="1" src="bc.png" alt="Berau Coal">
       </div>
       <div class="nx-grid">
         <div class="nx-cp fade" data-step="2" id="nxCp"></div>
@@ -2408,6 +2412,15 @@
 <div id="intro" role="dialog" aria-label="Video pembuka">
   <video class="in-video" src="Showreel.mp4" muted playsinline preload="auto" aria-label="Showreel pembuka HSECM"></video>
   <button type="button" class="in-skip">Lewati intro <kbd>Esc</kbd></button>
+  <div class="in-progress" aria-hidden="true"><i></i></div>
+</div>
+
+<div id="outro" role="dialog" aria-label="Video penutup" hidden>
+  <video class="in-video" src="Closing.mp4" muted loop playsinline preload="auto" aria-label="Video penutup HSECM"></video>
+  <div class="ou-ctl">
+    <button type="button" class="in-skip ou-replay">Putar ulang <kbd>R</kbd></button>
+    <button type="button" class="in-skip ou-back">Kembali ke slide <kbd>Esc</kbd></button>
+  </div>
   <div class="in-progress" aria-hidden="true"><i></i></div>
 </div>
 
@@ -3520,7 +3533,6 @@
         if(k) tl.fromTo(k, {x:28, opacity:0}, {x:0, opacity:1, duration:0.4}, 0);
         if(t) tl.fromTo(t, {x:28, opacity:0}, {x:0, opacity:1, duration:0.5}, 0.08);
         if(d) tl.fromTo(d, {x:28, opacity:0}, {x:0, opacity:1, duration:0.45}, 0.16);
-        tl.fromTo(all('.nx-logo'), {scale:0.8, opacity:0}, {scale:1, opacity:1, duration:0.5, ease:'back.out(1.6)'}, 0.2);
       }
       if(n>=2 && prev<2){
         // the four Fig. 04 cards: banner number turns in, actions slide, gauges sweep, outputs open
@@ -5252,6 +5264,54 @@
     return { play, get running(){ return !done; } };
   })();
 
+  // Outro: advancing past the last slide plays Closing.mp4 full screen (no audio track, so muted
+  // playback is fine). It loops until dismissed; Esc / ← / the button go back to the deck, R restarts it.
+  const outro = (function(){
+    const el = document.getElementById('outro');
+    const video = el ? el.querySelector('.in-video') : null;
+    const bar = el ? el.querySelector('.in-progress i') : null;
+    let open = false, raf = 0;
+    function tick(){
+      if(video.duration) bar.style.transform = 'scaleX('+(video.currentTime/video.duration).toFixed(4)+')';
+      if(open && !video.ended) raf = requestAnimationFrame(tick);
+    }
+    function start(){
+      el.classList.remove('is-ended');
+      video.currentTime = 0;
+      const p = video.play();
+      if(p && p.catch) p.catch(()=> el.classList.add('is-ended'));
+      cancelAnimationFrame(raf); raf = requestAnimationFrame(tick);
+    }
+    function close(){
+      if(!open) return; open = false;
+      cancelAnimationFrame(raf);
+      document.removeEventListener('keydown', onKey, true);
+      video.pause();
+      const hide = ()=>{ el.hidden = true; };
+      if(hasGsap) gsap.to(el, {opacity:0, duration:0.4, ease:'power1.out', onComplete:hide}); else hide();
+    }
+    function onKey(e){
+      e.preventDefault(); e.stopImmediatePropagation();
+      if(['Escape','ArrowLeft','Backspace','PageUp'].includes(e.key)) close();
+      else if(e.key==='r' || e.key==='R') start();
+    }
+    function show(){
+      if(!el || !video || open || REDUCE_MOTION) return;
+      open = true; el.hidden = false;
+      if(hasGsap) gsap.fromTo(el, {opacity:0}, {opacity:1, duration:0.5, ease:'power1.out'}); else el.style.opacity = 1;
+      document.addEventListener('keydown', onKey, true);
+      start();
+    }
+    if(el && video){
+      video.addEventListener('ended', ()=>{ el.classList.add('is-ended'); bar.style.transform = 'scaleX(1)'; });
+      video.addEventListener('error', close);
+      el.querySelector('.ou-back').addEventListener('click', e=>{ e.stopPropagation(); close(); });
+      el.querySelector('.ou-replay').addEventListener('click', e=>{ e.stopPropagation(); start(); });
+      el.addEventListener('click', e=> e.stopPropagation());
+    }
+    return { show, get open(){ return open; } };
+  })();
+
   function initDeck(){
     const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const slides = Array.from(document.querySelectorAll('.slide'));
@@ -5324,7 +5384,9 @@
         goTo.busy = false;
       });
     }
-    function nextStep(){ if(step<maxStep(current)) setStep(step+1,{prev:step}); else goTo(current+1); }
+    // past the last slide the closing video plays instead of wrapping back to the first slide
+    function forward(){ if(current===slides.length-1) outro.show(); else goTo(current+1); }
+    function nextStep(){ if(step<maxStep(current)) setStep(step+1,{prev:step}); else forward(); }
     function prevStep(){ if(step>1) setStep(step-1,{prev:step}); else goTo(current-1); }
     pitMotion.init();
     replaySlide(0); applyFades(slides[0],0); setStep(REDUCE?maxStep(0):1,{prev:0});
@@ -5335,17 +5397,17 @@
         if(i>=0) goTo(i);
       });
     });
-    document.getElementById('next').addEventListener('click', e=>{ e.stopPropagation(); goTo(current+1); });
+    document.getElementById('next').addEventListener('click', e=>{ e.stopPropagation(); forward(); });
     document.getElementById('prev').addEventListener('click', e=>{ e.stopPropagation(); goTo(current-1); });
     document.addEventListener('click', e=>{
       if(guide.classList.contains('open')) return;
-      if(e.target.closest('button, a, input, textarea, .dot, .navbtn, #guide, .guide-btn, .nav-zone, .pit-rail, .sp-mo-ec, .ip-pareto, #intro')) return;
+      if(e.target.closest('button, a, input, textarea, .dot, .navbtn, #guide, .guide-btn, .nav-zone, .pit-rail, .sp-mo-ec, .ip-pareto, #intro, #outro')) return;
       nextStep();
     });
     document.addEventListener('keydown', e=>{
       if(e.target && /input|textarea/i.test(e.target.tagName)) return;
       if(guide.classList.contains('open') && e.key!=='Escape' && e.key!=='i' && e.key!=='I') return;
-      if(e.key==='ArrowRight') goTo(current+1);
+      if(e.key==='ArrowRight') forward();
       else if(e.key==='ArrowLeft') goTo(current-1);
       else if(e.key===' ' || e.key==='ArrowDown' || e.key==='PageDown'){ e.preventDefault(); nextStep(); }
       else if(e.key==='ArrowUp' || e.key==='Backspace' || e.key==='PageUp'){ e.preventDefault(); prevStep(); }
