@@ -499,12 +499,17 @@
   .bt-barrier div{ flex:1; min-height:0; display:flex; align-items:center; gap:8px; padding:.3vh 8px; font-size:clamp(.56rem,1.4vh,.8rem); line-height:1.2; }
   .bt-barrier .ic{ flex:none; width:clamp(16px,2.8vh,26px); height:clamp(16px,2.8vh,26px); color:#1E3A2A; }
   .bt-barrier .ic svg{ width:100%; height:100%; fill:currentColor; }
-  .bt-mid{ grid-column:2; grid-row:2 / 4; position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1.2vh; }
+  /* above the connectors, so lines pass behind the photo and hazard box */
+  .bt-mid{ grid-column:2; grid-row:2 / 4; position:relative; z-index:3; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.9vh; }
+  .bt-photo{ position:relative; width:88%; flex:0 1 auto; min-height:0; max-height:19vh; aspect-ratio:426/296; margin:0; border-radius:8px; overflow:hidden; background:#1a2430; box-shadow:0 6px 16px rgba(15,42,74,.18); }
+  .bt-photo img{ width:100%; height:100%; object-fit:cover; object-position:left top; display:block; transform-origin:12% 12%; }
+  .bt-photo figcaption{ position:absolute; left:0; right:0; bottom:0; padding:.3vh 8px; background:linear-gradient(0deg, rgba(10,20,35,.8), rgba(10,20,35,0)); color:#fff; font-size:clamp(.52rem,1.25vh,.74rem); font-weight:600; }
+  #slideSafety.active .sp-panel.bt:not([hidden]) .bt-photo img{ animation:ipDrift 16s ease-in-out 2.5s infinite alternate; }
   .bt-hazard{ width:88%; border:1.5px solid #9CC2EA; border-radius:6px; overflow:hidden; background:#F4F8FD; text-align:center; }
   .bt-hazard header{ padding:.4vh 6px; background:var(--bt-navy); color:#fff; font-weight:800; font-size:clamp(.66rem,1.7vh,.92rem); }
   .bt-hazard p{ padding:.5vh 8px; font-weight:700; font-size:clamp(.58rem,1.45vh,.82rem); line-height:1.2; }
   .bt-top{
-    position:relative; width:min(100%, 34vh); aspect-ratio:1; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center;
+    position:relative; flex:none; width:min(100%, 27vh); aspect-ratio:1; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:center;
     gap:.6vh; padding:0 8%; text-align:center; background:radial-gradient(circle at 50% 40%, #FFC24A, #F5A70A 70%); border:3px solid #fff;
     box-shadow:0 10px 28px rgba(245,167,10,.35);
   }
@@ -512,7 +517,7 @@
   .bt-top h4{ color:#fff; font-weight:800; font-size:clamp(.8rem,2.2vh,1.2rem); letter-spacing:.04em; text-shadow:0 1px 2px rgba(0,0,0,.25); }
   .bt-top .ic{ width:34%; aspect-ratio:1; color:#7A2E0E; }
   .bt-top .ic svg{ width:100%; height:100%; fill:currentColor; }
-  .bt-top p{ font-weight:700; font-size:clamp(.52rem,1.3vh,.78rem); line-height:1.2; color:#1E1306; }
+  .bt-top p{ font-weight:700; font-size:clamp(.5rem,1.2vh,.74rem); line-height:1.2; color:#1E1306; }
   .bt-note{ grid-column:1 / -1; grid-row:4; padding:.8vh 14px; border:1.5px solid #8CC08F; border-radius:10px; background:#F3FAF0; font-style:italic; font-size:clamp(.62rem,1.6vh,.9rem); line-height:1.35; }
   #slideSafety.active .sp-panel.bt:not([hidden]) .bt-top::after{ animation:btPulse 2.4s ease-out 2.5s infinite; }
   @keyframes btPulse{ 0%{ opacity:.8; transform:scale(1); } 100%{ opacity:0; transform:scale(1.18); } }
@@ -1553,7 +1558,7 @@
     .fade,.fade.on,.slide,.slide.active,.w{ animation:none; transition:none; opacity:1; transform:none; }
     #slideSafety .sp-tier::after, #slideSafety .sp-halo, #slideSafety .sp-val span, #slideSafety .sp-val i,
     #slideSafety .sp-alert, #slideSafety .sp-u-cell, #slideSafety .sp-kpi td,
-    #slideSafety .sp-yd::after, #slideSafety .lp-kpi i, #slideSafety .lp-star, #slideSafety .bt-top, #slideSafety .rm-map .ring, #slideSafety .ip-dot::after, #slideSafety .ip-hl,
+    #slideSafety .sp-yd::after, #slideSafety .lp-kpi i, #slideSafety .lp-star, #slideSafety .bt-top, #slideSafety .bt-photo img, #slideSafety .rm-map .ring, #slideSafety .ip-dot::after, #slideSafety .ip-hl,
     #slideSafety .ip-hl span, #slideSafety .ip-rank-box, #slideSafety .ip-photo img,
     #slideJourney .jr-node, #slideJourney .jr-tile svg, #slideJourney .jr-root span, #slideJourney .jr-seg, #slideJourney .impact svg,
     .jr-panel .jr-node, .jr-panel .jr-tile svg, .jr-panel .jr-root span, .jr-panel .impact svg,
@@ -2236,6 +2241,8 @@
       title:'Major Case',
       desc:'Bowtie analysis insiden <b>injury pergelangan tangan</b> saat pengoperasian mesin jangkar tongkang secara manual dengan engkol: ancaman, top event, konsekuensi, serta barrier pencegahan dan mitigasi.'
     },
+    photoAlt:'Pekerja menyalakan mesin jangkar tongkang secara manual dengan engkol',
+    photoCap:'Ilustrasi kejadian: menyalakan mesin jangkar dengan engkol manual',
     hazard:'Energi mekanis kickback mesin jangkar saat manual starting (engkol)',
     top:'Mesin jangkar mengalami kickback / reverse rotation saat menyalakan mesin jangkar dengan engkol dan menghantam pergelangan tangan KKM',
     threats:[
@@ -2296,7 +2303,8 @@
         + '<div class="bt-sub prev">Prevent Threats</div><div class="bt-sub miti">Mitigate Consequences</div>'
         + '<div class="bt-svg" aria-hidden="true"><svg></svg></div>'
         + '<div class="bt-col threat">'+M.threats.map(item).join('')+'</div>'
-        + '<div class="bt-mid"><div class="bt-hazard"><header>BAHAYA UTAMA</header><p>'+M.hazard+'</p></div>'
+        + '<div class="bt-mid"><figure class="bt-photo"><img src="marine-lti.jpg" alt="'+M.photoAlt+'"><figcaption>'+M.photoCap+'</figcaption></figure>'
+        + '<div class="bt-hazard"><header>BAHAYA UTAMA</header><p>'+M.hazard+'</p></div>'
         + '<div class="bt-top"><h4>TOP EVENT</h4>'+ic('crank')+'<p>'+M.top+'</p></div></div>'
         + '<div class="bt-col cons">'+M.consequences.map(item).join('')+'</div>'
         + '<div class="bt-col prev">'+M.prevent.map(barrier('Preventive Barrier')).join('')+'</div>'
@@ -2338,6 +2346,8 @@
     tl.call(()=> majorView.wire(root.querySelector('.bt-wrap')), null, at);
     tl.fromTo(q('.bt-h, .bt-sub'), {y:-10, opacity:0}, {y:0, opacity:1, stagger:0.06, duration:0.4}, at);
     tl.fromTo(q('.bt-col.threat .bt-item'), {x:-24, opacity:0}, {x:0, opacity:1, stagger:0.1, duration:0.45}, at+0.15);
+    tl.fromTo(q('.bt-photo'), {scale:0.9, opacity:0}, {scale:1, opacity:1, duration:0.6}, at+0.1);
+    tl.fromTo(q('.bt-photo img'), {scale:1.15}, {scale:1, duration:1.2, ease:'power2.out', clearProps:'transform'}, at+0.1);
     tl.fromTo(q('.bt-hazard'), {y:-12, opacity:0}, {y:0, opacity:1, duration:0.45}, at+0.3);
     tl.call(()=> q('.bt-svg path.in').forEach((p, i)=>{
       const len = p.getTotalLength();
