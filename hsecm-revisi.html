@@ -472,7 +472,7 @@
     --bt-navy:#0F4C8A; --bt-red:#D7262B; --bt-green:#1F9A4B; --bt-amber:#F5A70A;
   }
   .bt-wrap > *{ min-width:0; min-height:0; }
-  .bt-svg{ grid-column:1 / 4; grid-row:2 / 4; position:relative; z-index:0; pointer-events:none; }
+  .bt-svg{ grid-column:1 / 4; grid-row:2 / 4; position:relative; z-index:2; pointer-events:none; }
   .bt-svg svg{ position:absolute; inset:0; width:100%; height:100%; overflow:visible; }
   .bt-svg path{ fill:none; stroke-width:1.8; }
   .bt-svg path.in{ stroke:#16325C; } .bt-svg path.out{ stroke:var(--bt-red); }
@@ -512,7 +512,7 @@
   .bt-top h4{ color:#fff; font-weight:800; font-size:clamp(.8rem,2.2vh,1.2rem); letter-spacing:.04em; text-shadow:0 1px 2px rgba(0,0,0,.25); }
   .bt-top .ic{ width:34%; aspect-ratio:1; color:#7A2E0E; }
   .bt-top .ic svg{ width:100%; height:100%; fill:currentColor; }
-  .bt-top p{ font-weight:700; font-size:clamp(.54rem,1.38vh,.8rem); line-height:1.2; color:#1E1306; }
+  .bt-top p{ font-weight:700; font-size:clamp(.52rem,1.3vh,.78rem); line-height:1.2; color:#1E1306; }
   .bt-note{ grid-column:1 / -1; grid-row:4; padding:.8vh 14px; border:1.5px solid #8CC08F; border-radius:10px; background:#F3FAF0; font-style:italic; font-size:clamp(.62rem,1.6vh,.9rem); line-height:1.35; }
   #slideSafety.active .sp-panel.bt:not([hidden]) .bt-top::after{ animation:btPulse 2.4s ease-out 2.5s infinite; }
   @keyframes btPulse{ 0%{ opacity:.8; transform:scale(1); } 100%{ opacity:0; transform:scale(1.18); } }
@@ -1643,7 +1643,7 @@
           <button type="button" class="sp-tab" data-tab="leading">Rapor Mitra Kerja</button>
           <button type="button" class="sp-tab" data-tab="incident">Incident Profile</button>
           <button type="button" class="sp-tab" data-tab="major">Major Case</button>
-          <button type="button" class="sp-tab" data-tab="journey">Journey</button>
+          <button type="button" class="sp-tab" data-tab="journey">Korelasi Kontrol & Lagging </button>
         </div>
       </div>
       <div class="sp-panel" data-panel="safety">
@@ -2311,7 +2311,8 @@
       if(!svg || !top || !box.clientWidth) return;
       const o = box.getBoundingClientRect(), t = top.getBoundingClientRect();
       const cx = t.left + t.width/2 - o.left, cy = t.top + t.height/2 - o.top, r = t.width/2;
-      const at = (deg)=> [cx + r*Math.cos(deg), cy + r*Math.sin(deg)];
+      // a few px outside the circle so the arrowheads stay visible on its rim
+      const at = (deg)=> [cx + (r+5)*Math.cos(deg), cy + (r+5)*Math.sin(deg)];
       const ctr = (n)=> { const b = n.getBoundingClientRect(); return [b.left - o.left, b.top - o.top, b.width, b.height]; };
       let d = '<defs><marker id="btArrIn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#16325C"/></marker>'
         + '<marker id="btArrOut" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#D7262B"/></marker></defs>';
@@ -2324,7 +2325,7 @@
       el.querySelectorAll('.bt-col.cons .bt-item').forEach(n=>{
         const [x, y, w, hh] = ctr(n), ey = y + hh/2, ex = x;
         const [sx, sy] = at(Math.atan2(ey - cy, ex - cx));
-        d += '<path class="out" d="M'+sx.toFixed(1)+' '+sy.toFixed(1)+' L'+(ex-2).toFixed(1)+' '+ey.toFixed(1)+'" marker-end="url(#btArrOut)"/>';
+        d += '<path class="out" d="M'+sx.toFixed(1)+' '+sy.toFixed(1)+' L'+(ex-1).toFixed(1)+' '+ey.toFixed(1)+'" marker-end="url(#btArrOut)"/>';
       });
       svg.innerHTML = d;
     }
