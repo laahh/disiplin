@@ -261,10 +261,15 @@
   }
   #slideHero #heroLede{
     color:var(--ink); font-weight:600;
-    font-size:clamp(1.12rem, 1.7vw, 1.38rem);
-    line-height:1.4; max-width:38ch; margin-top:.85rem;
+    font-size:clamp(.98rem, 1.45vw, 1.24rem);
+    line-height:1.45; max-width:52ch; margin-top:.85rem;
     text-shadow:0 1px 0 rgba(255,255,255,.95), 0 6px 18px rgba(247,251,255,.75);
   }
+  #slideHero #heroLede b{ font-weight:800; color:var(--hazard); }
+  #slideHero .hero-by{ display:block; margin-top:.6rem; font-weight:600; font-size:.88em; }
+  /* three-line theme: a touch smaller than the old two-line headline */
+  #slideHero .h-xl{ font-size:clamp(2.2rem,4.1vw,3.9rem); }
+  #slideHero #heroL3{ color:var(--hazard); }
   #slideHero #heroLede em{
     color:var(--hazard); font-style:italic; font-weight:700;
     text-shadow:0 1px 0 rgba(255,255,255,.95), 0 0 18px rgba(29,127,224,.28);
@@ -866,7 +871,7 @@
   .jr-panel{ --jr-red:#D7262B; --jr-amber:#F5A70A; --jr-green:#1F9A4B; }
   /* the Journey description carries <em> terms; keep them in the body face like on Fig. 03 */
   #slideSafety .sp-desc em{ font-family:inherit; color:inherit; }
-  .jr-panel .jr-grid{ flex:1 1 auto; gap:1vh 12px; grid-template-columns:minmax(0,1.12fr) minmax(0,1fr) minmax(0,1fr); grid-template-rows:minmax(0,1fr); }
+  .jr-panel .jr-grid{ flex:1 1 auto; gap:1vh 12px; grid-template-columns:minmax(0,1.05fr) minmax(0,1.45fr) minmax(0,.85fr); grid-template-rows:minmax(0,1fr); }
   .jr-panel .jt-col{ min-width:0; min-height:0; display:flex; flex-direction:column; gap:1vh; }
   /* no size transition: the fit pass must measure the final size, the content fade does the motion */
   .jr-panel .jt-a > .jr-card{ flex:1 1 0; overflow:hidden; }
@@ -904,7 +909,17 @@
   .jr-panel .jt-c > .jr-card{ flex:1 1 auto; }
   /* Fig. 07 matrix copy needs Fig. 07's colour tokens */
   .jr-panel .jt-b{ --nx-green:#11803F; --nx-green-d:#0B6A33; --k1:#E0263A; --k2:#F2711C; --k3:#F5B400; --k4:#1E6B34; font-family:'Source Sans 3',sans-serif; color:var(--sp-ink); }
-  .jr-panel .jt-b .nx-left{ flex:1; }
+  .jr-panel .jt-b > .nx-card{ flex:1 1 0; }
+  .jr-panel .jt-b-bot{ flex:1.25 1 0; min-height:0; display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.3fr); gap:8px; }
+  .jr-panel .jt-b-bot .nx-keys{ grid-template-columns:1fr; grid-template-rows:minmax(0,.75fr) minmax(0,1.25fr); }
+  .jr-panel .jt-b-bot .nx-card{ min-height:0; }
+  .jr-panel .jt-b-bot .nx-tbl table{ font-size:calc(clamp(.48rem,1.18vh,.72rem) * var(--fit,1)); }
+  .jr-panel .jt-b-bot .nx-tbl th{ padding:.5vh 4px; }
+  .jr-panel .jt-b-bot .nx-tbl td.gap{ padding:0 6px; }
+  .jr-panel .jt-b-bot .nx-tbl table{ line-height:1.05; }
+  .jr-panel .jt-b-bot .nx-tbl td{ padding:0 4px; }
+  .jr-panel .jt-b-bot .nx-tbl td.k span{ min-height:1.7em; }
+  .jr-panel .jt-b-bot .nx-k ul{ padding:.2vh 8px; }
   .jr-panel .jt-a .jr-card{ padding:.6vh 10px .7vh; gap:.5vh; }
   .jr-panel .jt-a .jr-head{ font-size:clamp(.66rem,1.7vh,.92rem); padding:.4vh 40px .4vh 46px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; display:block; line-height:clamp(22px,3.8vh,32px); }
   .jr-panel .jt-a .jr-head-ico{ top:50%; }
@@ -1624,7 +1639,7 @@
     <button type="button" data-jump="2">S</button>
     <button type="button" data-jump="3">C</button>
     <!-- <button type="button" data-jump="4">C</button> -->
-    <button type="button" data-jump="7">M</button>
+    <button type="button" data-jump="6">M</button>
   </div>
   <div class="rail-progress"><i id="progressFill"></i></div>
   <div class="rail-step" id="railStep">01</div>
@@ -1664,10 +1679,11 @@
       <div class="hero-hud" id="heroHud">
         <p class="kicker mono fade" data-step="1" id="heroKicker">PKKMB Politeknik Sinar Mas Berau Coal · TA 2026/2027</p>
         <h1 class="h-xl">
-          <span class="fade" data-step="1" id="heroL1">Bakat Bikin Dilihat,</span>
-          <span class="fade" data-step="2" id="heroL2"><em id="heroEm">Disiplin</em> Bikin Bertahan.</span>
+          <span class="fade" data-step="1" id="heroL1">Lead with Focus,</span>
+          <span class="fade" data-step="2" id="heroL2">Act with <em id="heroEm">Discipline</em>,</span>
+          <span class="fade" data-step="2" id="heroL3">Improve with Creativity</span>
         </h1>
-        <p class="lede fade" data-step="3" id="heroLede"><em>Jimmi Idris</em>, GM Occupational Health &amp; Safety, PT Berau Coal.</p>
+        <p class="lede fade" data-step="3" id="heroLede"><b>Momentum Siaga Keselamatan</b> menuntut setiap pemimpin untuk menjaga <b>disiplin operasi</b> dan memastikan <b>pengendalian efektif</b> untuk menghilangkan sumber bahaya.<span class="hero-by"><em>Jimmi Idris</em>, GM Occupational Health &amp; Safety, PT Berau Coal.</span></p>
         <div class="hero-chips fade" data-step="3" id="heroChips">
           <span class="chip mono">Sesi Pembekalan</span>
           <!-- <span class="chip mono">± 55 Menit</span> -->
@@ -1682,7 +1698,7 @@
       <div class="sp-head">
         <p class="kicker mono fade" data-step="1" id="spKicker">Fig. 01 · Safety Performance Overview</p>
         <h2 class="sp-title fade" data-step="1" id="spTitle">Safety Performance</h2>
-        <p class="sp-desc fade" data-step="1" id="spDesc">Tab ini menunjukkan <b>gambaran keseluruhan</b> performa keselamatan, mulai dari kejadian di puncak piramida hingga indikator fondasi, serta tren KPI utama untuk membantu manajemen melihat pola risiko, kekuatan pelaporan, dan pergerakan insiden dari 2025 hingga Q3 2026.</p>
+        <p class="sp-desc fade" data-step="1" id="spDesc">Q3 menjadi <b>early warning</b> karena muncul kembali <b>LTI/MTI</b> dan peningkatan <b>Property Damage</b>, sementara leading activity seperti Golden Rules dan Hazard Report justru meningkat. Artinya, tantangan berikutnya bukan lagi sekadar meningkatkan aktivitas deteksi, tetapi memastikan sinyal yang sudah teridentifikasi benar-benar diterjemahkan menjadi <b>pengendalian exposure</b> dan <b>pencegahan consequence</b>.</p>
         <div class="sp-tabs fade" data-step="1" id="spTabs">
           <button type="button" class="sp-tab is-on" data-tab="safety">Safety Performance</button>
           <button type="button" class="sp-tab" data-tab="leading">Rapor Mitra Kerja</button>
@@ -1752,7 +1768,9 @@
     </div>
   </section>
 
-  <section class="slide" id="slideJourney" data-steps="10" data-section="C · Journey">
+  <!-- Fig. 03 is no longer a slide; its cards stay here, hidden, as the source of the
+       "Korelasi Kontrol & Lagging" tab on Fig. 01 -->
+  <section class="jr-source" id="slideJourney" hidden aria-hidden="true">
     <div class="slide-inner">
       <div class="sp-head">
         <p class="kicker mono fade" data-step="1" id="jrKicker">Fig. 03 · Journey Safety Performance Overview</p>
@@ -2136,8 +2154,12 @@
     const watched = new WeakSet();
     function option(M, height){
       const fs = Math.round(Math.max(9, Math.min(13, height/22)));
-      const rows = M.summary.concat([null], M.months);           // null = gap between yearly and monthly
-      const cats = rows.map(r=> r ? r[0] : '');
+      const proj = M.projection || [];
+      // null = gap between yearly and monthly; projection months follow Sep with no breakdown
+      const rows = M.summary.concat([null], M.months, proj.map(()=> null));
+      const cats = M.summary.concat([null], M.months).map(r=> r ? r[0] : '').concat(proj.map(p=> p[0]));
+      const projAt = M.summary.length + 1 + M.months.length;
+      const projData = cats.map((c, i)=> i >= projAt ? val(proj[i-projAt][1]) : null);
       const col = (k)=> rows.map(r=> r ? val(r[k]) : null);
       const total = col(1), non = col(2), inj = col(3), nm = col(4);
       const monthAt = (i)=> M.summary.length + 1 + i;
@@ -2154,12 +2176,18 @@
         animation:animate, animationDuration:800, animationEasing:'cubicOut',
         textStyle:{ fontFamily:"'Source Sans 3', sans-serif" },
         grid:{ left:2, right:10, top:fs*2.6, bottom:0, containLabel:true },
+        // the average line is named at top-left, clear of the Q4 projection bars
+        graphic:[{ type:'group', left:4, top:2, children:[
+          { type:'line', shape:{ x1:0, y1:6, x2:18, y2:6 }, style:{ stroke:C.good, lineWidth:1.4, lineDash:[4,3] } },
+          { type:'text', left:24, top:0, style:{ text:"AVG YTD'26 "+M.summary[ytd][1], fill:C.good, font:'600 '+(fs-1)+"px 'Source Sans 3', sans-serif" } }
+        ] }],
         legend:{ top:0, right:0, icon:'roundRect', itemWidth:12, itemHeight:8, itemGap:12,
-          textStyle:{ fontSize:fs-1, color:C.ink }, data:['Nearmiss','Injury','Non Injury','Total'] },
+          textStyle:{ fontSize:fs-1, color:C.ink }, data:['Nearmiss','Injury','Non Injury','Total','Proyeksi'] },
         tooltip:{ trigger:'axis', axisPointer:{ type:'shadow', shadowStyle:{ color:'rgba(15,45,107,.06)' } },
           textStyle:{ fontSize:fs }, confine:true,
           formatter:(ps)=>{
             const i = ps[0].dataIndex; if(!cats[i]) return '';
+            if(i >= projAt) return '<b>'+cats[i]+'</b><br>Proyeksi: <b>'+fmt(projData[i])+'</b>';
             const line = (n, v, c)=> '<span style="display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:6px;background:'+c+'"></span>'+n+': <b>'+fmt(v)+'</b>';
             return '<b>'+cats[i]+'</b><br>'+[line('Nearmiss', nm[i], C.nm), line('Injury', inj[i], C.inj), line('Non Injury', non[i], C.non)].join('<br>')
               + '<br>Total: <b>'+fmt(total[i])+'</b>';
@@ -2178,13 +2206,18 @@
             markArea:{ silent:true, itemStyle:{ color:'rgba(15,45,107,.045)' },
               label:{ show:true, position:'insideTop', color:C.muted, fontSize:fs-2, distance:4 },
               data:[[ { name:'Jan – Sep 2026', xAxis:M.months[0][0] }, { xAxis:M.months[M.months.length-1][0] } ]] } }),
+          // Oct-Dec as dashed outline bars, as in the report
+          { name:'Proyeksi', type:'bar', barGap:'-100%', barWidth:'54%', data:projData, z:2,
+            itemStyle:{ color:'rgba(255,255,255,.6)', borderColor:C.ink, borderWidth:1.3, borderType:[5,4] },
+            label:{ show:true, position:'top', fontSize:fs-1, fontWeight:700, color:C.ink, formatter:(p)=> p.value==null ? '' : fmt(p.value) },
+            animationDelay:(i)=> 700 + (i-projAt)*120 },
           { name:'Total', type:'line', data:total, z:5, symbol:'circle', symbolSize:6,
             lineStyle:{ color:C.line, width:2 }, itemStyle:{ color:C.line, borderColor:'#fff', borderWidth:1.5 },
             label:{ show:true, position:'top', distance:6, fontSize:fs-1, fontWeight:700, color:C.ink, formatter:(p)=> fmt(p.value) },
             animationDelay:900, animationDuration:1000, animationEasing:'cubicInOut',
             markLine:{ silent:true, symbol:'none', animationDelay:1500,
               lineStyle:{ color:C.good, type:'dashed', width:1.2 },
-              label:{ position:'insideEndBottom', fontSize:fs-2, color:C.good, fontWeight:600, formatter:"AVG YTD'26 "+M.summary[ytd][1] },
+              label:{ show:false },
               data:[{ yAxis:val(M.summary[ytd][1]) }] },
             markPoint:{ symbol:'roundRect', symbolSize:[fs*6.2, fs*1.6], symbolOffset:[0, -fs*3], animationDelay:1700,
               itemStyle:{ color:C.good }, label:{ color:'#fff', fontSize:fs-2, fontWeight:700 },
@@ -2742,6 +2775,8 @@
       });
       tl.fromTo(m('.nx-k'), {y:14, opacity:0}, {y:0, opacity:1, stagger:0.1, duration:0.4}, at+1.6);
       tl.fromTo(m('.nx-item'), {x:10, opacity:0}, {x:0, opacity:1, stagger:0.02, duration:0.28}, at+1.8);
+      tl.fromTo(m('.nx-tbl tbody tr'), {x:12, opacity:0}, {x:0, opacity:1, stagger:0.04, duration:0.3}, at+1.9);
+      tl.fromTo(m('.nx-tbl td.k span'), {scale:0}, {scale:1, stagger:0.03, duration:0.3, ease:'back.out(2)'}, at+2.2);
     }
   }
 
@@ -2759,7 +2794,7 @@
       killSlide(index);
       const tl = gsap.timeline({ defaults:{ duration:0.5, ease:'power3.out' } });
       tls.set(index, tl);
-      const fns = [opening, hero, safety, journey, challenge, engineering, health, nextdo];
+      const fns = [opening, hero, safety, challenge, engineering, health, nextdo];
       if(fns[index]) fns[index](tl, n, prev);
     }
     // Opening: the photo settles in, the badge line draws, the title rises line by line
@@ -2785,6 +2820,8 @@
       if(n>=2 && prev<2){
         const l2=$id('heroL2'), em=$id('heroEm');
         if(l2) tl.fromTo(l2, {x:28, opacity:0}, {x:0, opacity:1, duration:0.5}, 0);
+        const l3=$id('heroL3');
+        if(l3) tl.fromTo(l3, {x:28, opacity:0}, {x:0, opacity:1, duration:0.5}, 0.18);
         if(em) tl.fromTo(em, {color:'#16324F'}, {color:'#1D7FE0', duration:0.35}, 0.4);
       }
       if(n>=3 && prev<3){
@@ -3085,7 +3122,7 @@
     }
     function settle(){
       if(!hasGsap) return;
-      gsap.set('#heroMark,#heroPortrait,#heroHud,#heroKicker,#heroL1,#heroL2,#heroLede,#heroChips .chip', {opacity:1, x:0, y:0, scale:1});
+      gsap.set('#heroMark,#heroPortrait,#heroHud,#heroKicker,#heroL1,#heroL2,#heroL3,#heroLede,#heroChips .chip', {opacity:1, x:0, y:0, scale:1});
     }
     function wipe(done){
       const el=$id('slideWipe');
@@ -3154,6 +3191,8 @@
         ['Jul','22,0','9,0','2,0','11,0'], ['Aug','12,0','5,0','1,0','6,0'], ['Sep','3,0','2,0','0,0','1,0']
       ],
       monthDelta:{ from:7, to:8, label:'-75%' },
+      // Q4 months shown as dashed outline bars (no breakdown yet): [label, value]
+      projection:[['Oct','10,0'], ['Nov','11,0'], ['Dec','12,0']],
       stats:[['AVG 2025 → AVG YTD\'26','11,5','10,9'], ['Ags → Sep','12','3']],
       remark:'Terjadi penurunan frekuensi dari Agustus ke September. Namun, secara YTD <b>insiden masih tinggi</b>.'
     },
@@ -3736,12 +3775,22 @@
       });
       ['jrFlowCard','jrTrendCard','jrIssueCard'].forEach(id=>{ if(byId[id]) colA.appendChild(byId[id]); });
       if(byId.jrActCard) colC.appendChild(byId.jrActCard);
-      const nx = document.querySelector('#slideNext .nx-left');
-      if(nx) colB.appendChild(clean(nx.cloneNode(true), NX_CLASSES));
+      // middle column, as in the report: the matrix on top; below it the K1 and K2 lists beside the
+      // per-company gap table (K3 and K4 lists are left to the Fig. 07 slide)
+      const mxCard = document.querySelector('#nxMatrixCard'), keys = document.querySelector('#nxKeys'), tbl = document.querySelector('#nxTableCard');
+      if(mxCard) colB.appendChild(clean(mxCard.cloneNode(true), NX_CLASSES));
+      const bot = document.createElement('div'); bot.className = 'jt-b-bot';
+      if(keys){
+        const k = clean(keys.cloneNode(true), NX_CLASSES);
+        k.querySelectorAll('.nx-k.k3, .nx-k.k4').forEach(el=> el.remove());
+        bot.appendChild(k);
+      }
+      if(tbl) bot.appendChild(clean(tbl.cloneNode(true), NX_CLASSES));
+      colB.appendChild(bot);
       dst.append(colA, colB, colC);
       accordion(colA);
       watchZoom(colA.querySelectorAll('.jr-card'));
-      fitText('.jr-panel .jr-act, .jr-panel .jr-bul, .jr-panel .jr-issue-r, .jr-panel .jr-tile');
+      fitText('.jr-panel .jr-act, .jr-panel .jr-bul, .jr-panel .jr-issue-r, .jr-panel .jr-tile, .jr-panel .jt-b-bot .nx-tbl');
     }
     // Three stacked cards share one column, so a card whose content is taller than its share is
     // scaled down as a whole (CSS zoom keeps layout and text proportions), never below 60%.
@@ -3775,7 +3824,7 @@
     }
     // The flow keeps its width and grows downwards to fill the card (up to 2.2x the design height):
     // the SVG is redrawn with stretched y coordinates and the HTML nodes follow via % positions.
-    const FLOW_MAX = 2.2;
+    const FLOW_MAX = 2.8;
     function fitFlow(card){
       const wrap = card.querySelector('.jr-flow-wrap'), flow = card.querySelector('.jr-flow'), svg = flow && flow.querySelector('svg');
       if(!wrap || !svg || card.classList.contains('is-collapsed') || !wrap.clientWidth || !wrap.clientHeight) return;
@@ -4573,7 +4622,7 @@
       else if(e.key==='r' || e.key==='R') goTo(0);
       else if(e.key==='u' || e.key==='U'){ replaySlide(current); applyFades(slides[current],0); setStep(1,{prev:0}); }
       else if(/^[a-eA-E]$/.test(e.key)){
-        const map={ a:0, b:2, c:3, d:4, e:7 }; goTo(map[e.key.toLowerCase()]);
+        const map={ a:0, b:2, c:3, d:3, e:6 }; goTo(map[e.key.toLowerCase()]);
       }
     });
     function openGuide(){ guide.classList.add('open'); }
