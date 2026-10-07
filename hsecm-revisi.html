@@ -1771,7 +1771,7 @@
     <button type="button" data-jump="2">S</button>
     <button type="button" data-jump="3">C</button>
     <!-- <button type="button" data-jump="4">C</button> -->
-    <button type="button" data-jump="6">M</button>
+    <button type="button" data-jump="5">M</button>
   </div>
   <div class="rail-progress"><i id="progressFill"></i></div>
   <div class="rail-step" id="railStep">01</div>
@@ -1973,7 +1973,9 @@
     </div>
   </section>
 
-  <section class="slide" id="slideChallenge" data-steps="5" data-section="D · Perkuatan">
+  <!-- Fig. 04 is no longer a slide; its four cards stay here, hidden, as the source of the
+       Highlight & Next to Do slide -->
+  <section class="jr-source" id="slideChallenge" hidden aria-hidden="true">
     <div class="slide-inner">
       <div class="sp-head">
         <p class="kicker mono fade" data-step="1" id="cpKicker">Fig. 04 · Challenge &amp; Perkuatan Q4 2026 Overview</p>
@@ -2454,7 +2456,7 @@
     header:{
       kicker:'Fig. 01 · Major Case Overview',
       title:'Major Case',
-      desc:'Bowtie analysis insiden <b>injury pergelangan tangan</b> saat pengoperasian mesin jangkar tongkang secara manual dengan engkol, beserta kontrol pencegahan, kontrol mitigasi, dan lesson learned.'
+      desc:'Kejadian Major Injury ini menegaskan bahwa kontrol masih terlalu bergantung pada <b>keputusan manusia</b>; perlunya memprioritaskan <b>eliminasi pekerjaan dengan manual process</b> melalui <b>Engineering Control</b> yang diperkuat dengan kontrol pelaksanaan pekerjaan, kepengawasan, dan kewenangan untuk <b>Stop Pekerjaan</b> jika terdapat deviasi.'
     },
     threat:'Potensi kickback mesin jangkar saat manual starting (engkol)',
     hazard:'Energi mekanis kickback mesin jangkar saat manual starting (engkol)',
@@ -2921,7 +2923,7 @@
       killSlide(index);
       const tl = gsap.timeline({ defaults:{ duration:0.5, ease:'power3.out' } });
       tls.set(index, tl);
-      const fns = [opening, hero, safety, challenge, engineering, health, nextdo];
+      const fns = [opening, hero, safety, engineering, health, nextdo];
       if(fns[index]) fns[index](tl, n, prev);
     }
     // Opening: the photo settles in, the badge line draws, the title rises line by line
@@ -3701,7 +3703,7 @@
     header:{
       kicker:'Fig. 01 · Incident Profile Overview',
       title:'Incident Profile',
-      desc:'Tab ini menunjukkan profil insiden berdasarkan aktivitas Q1–Q3, perbandingan core vs support dan minecon vs non minecon, tren insiden per kuartal, serta pareto aktivitas yang berkaitan dengan incident YTD 2026.'
+      desc:'Incident pada <b>Aktivitas Core</b> meningkat dari <b>2,3 → 5,7</b> dibandingkan Q2’26 dan merupakan frekuensi tertinggi selama 2025 hingga YTD 2026. Incident pada <b>Aktivitas Support</b> belum mengalami penurunan jika dibandingkan Q2’26. Aktivitas yang perlu menjadi perhatian pada Aktivitas Support terutama pada aktivitas <b>Maintenance</b> karena <b>3 dari total 4 kejadian</b> berakibat Injury.'
     },
     // [title, [label, total, first share %], [first name, colour var], [second name, colour var]]
     splits:[
@@ -3854,7 +3856,7 @@
         // named after the tab; the Fig. 03 slide keeps its own Journey title
         kicker:'Fig. 01 · Korelasi Kontrol & Lagging Overview',
         title:'Korelasi Kontrol & Lagging',
-        desc:$id('jrDesc') ? $id('jrDesc').innerHTML : ''
+        desc:'Peningkatan pencapaian leading belum otomatis menghasilkan <b>pengurangan exposure dan konsekuensi</b> di lapangan. Fokus memastikan <b>aktualisasi dan efektivitas program</b> related incident berulang di lapangan.'
       };
       document.querySelectorAll('#spTabs [data-tab]').forEach(btn=>{
         btn.addEventListener('click', e=>{ e.stopPropagation(); if(!btn.classList.contains('is-on')) show(btn.dataset.tab); });
@@ -4921,7 +4923,7 @@
       else if(e.key==='r' || e.key==='R') goTo(0);
       else if(e.key==='u' || e.key==='U'){ replaySlide(current); applyFades(slides[current],0); setStep(1,{prev:0}); }
       else if(/^[a-eA-E]$/.test(e.key)){
-        const map={ a:0, b:2, c:3, d:3, e:6 }; goTo(map[e.key.toLowerCase()]);
+        const map={ a:0, b:2, c:3, d:3, e:5 }; goTo(map[e.key.toLowerCase()]);
       }
     });
     function openGuide(){ guide.classList.add('open'); }
