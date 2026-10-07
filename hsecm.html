@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Safety Performance PT Berau Coal | All Site Q3 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;500;600;700&family=Red+Hat+Mono:wght@500;600;700&family=Teko:wght@500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"></script>
+<style>
+  :root{
+    --coal:#F4FAFF; --panel:#FFFFFF; --ink:#16324F; --muted:#4A6B84; --muted-2:#7A96AC;
+    --hazard:#1D7FE0; --signal:#3BA3F0; --alert:#E25B4C; --good:#2E9E53; --line:rgba(29,127,224,.16);
+    --shadow:0 2px 10px rgba(29,127,224,.07), 0 1px 2px rgba(29,127,224,.05);
+    --radius:10px;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html,body{ height:100%; overflow:hidden; }
+  body{
+    background:var(--coal); color:var(--ink); font-family:'Karla',system-ui,sans-serif;
+    font-size:13px; line-height:1.4; -webkit-font-smoothing:antialiased; position:relative;
+  }
+  .sky-wash{
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background:
+      radial-gradient(80% 50% at 88% -8%, #fff 0%, transparent 46%),
+      radial-gradient(70% 40% at 4% 108%, rgba(125,198,245,.3) 0%, transparent 54%),
+      linear-gradient(180deg, #DDF0FF 0%, #EEF8FF 36%, #F7FBFF 100%);
+  }
+  .pit-grid{
+    position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.5;
+    background-image:
+      linear-gradient(rgba(29,127,224,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(29,127,224,.05) 1px, transparent 1px);
+    background-size:34px 34px;
+  }
+  .mono{ font-family:'Red Hat Mono',ui-monospace,monospace; font-weight:600; }
+  .disp{ font-family:'Teko',sans-serif; font-weight:600; }
+
+  .stage{ position:fixed; inset:0; z-index:1; overflow:hidden; }
+  .wrap{ position:absolute; top:50%; left:50%; width:1920px; height:1080px;
+    transform:translate(-50%,-50%); transform-origin:center center;
+    display:flex; flex-direction:column; padding:14px; gap:12px; }
+
+  /* ---- header ---- */
+  .hd{ flex:0 0 auto; display:flex; align-items:center; gap:18px; background:var(--panel);
+    border-radius:var(--radius); box-shadow:var(--shadow); padding:10px 20px; border:1px solid var(--line); }
+  .hd-logo{ display:flex; align-items:center; gap:10px; flex:none; }
+  .hd-logo img{ height:36px; width:auto; display:block; }
+  .hd-logo .tag{ font-size:9px; color:var(--muted-2); line-height:1.2; max-width:7ch; }
+  .hd-title{ flex:1; min-width:0; }
+  .hd-title .k{ font-family:'Red Hat Mono',monospace; font-size:11px; color:var(--muted); font-weight:600; letter-spacing:.04em; text-transform:uppercase; }
+  .hd-title h1{ font-family:'Teko',sans-serif; font-size:30px; font-weight:700; color:var(--hazard); letter-spacing:.01em; line-height:1; }
+  .hd-title h1 span{ color:var(--muted); font-weight:500; }
+  .hd-badges{ display:flex; align-items:center; gap:10px; flex:none; }
+  .pill-badge{ font-family:'Red Hat Mono',monospace; font-size:11px; font-weight:700; padding:7px 14px;
+    border-radius:999px; white-space:nowrap; letter-spacing:.02em; }
+  .pill-badge.speakup{ background:rgba(226,91,76,.1); color:var(--alert); font-style:italic; }
+  .pill-badge.siaga{ background:var(--alert); color:#fff; text-transform:uppercase; }
+
+  /* ---- grid ---- */
+  .grid{ flex:1; min-height:0; display:grid; grid-template-columns:1.55fr 1.15fr 1fr;
+    grid-template-rows:auto auto; gap:12px 14px; }
+  .panel-a{ grid-row:1 / 3; grid-column:1; }
+  .panel-b{ grid-row:1; grid-column:2; }
+  .panel-rank{ grid-row:1; grid-column:3; }
+  .row-bottom{ grid-row:2; grid-column:2 / 4; display:flex; gap:14px; align-items:stretch; min-height:0; }
+  .row-bottom .panel-c{ flex:1 1 56%; min-width:0; }
+  .row-bottom .panel-top10{ flex:0 0 22%; min-width:190px; }
+  .row-bottom .panel-d{ flex:0 0 22%; min-width:200px; }
+
+  .panel{ background:var(--panel); border-radius:var(--radius); box-shadow:var(--shadow);
+    border:1px solid var(--line); display:flex; flex-direction:column; min-width:0; min-height:0; overflow:hidden; }
+  .panel-head{ flex:0 0 auto; display:flex; align-items:center; gap:9px; padding:8px 14px;
+    border-bottom:1px solid var(--line); }
+  .panel-head .badge{ width:22px; height:22px; border-radius:50%; border:1.5px solid var(--hazard);
+    color:var(--hazard); font-family:'Red Hat Mono',monospace; font-weight:700; font-size:11px;
+    display:flex; align-items:center; justify-content:center; flex:none; }
+  .panel-head h2{ font-family:'Teko',sans-serif; font-size:17px; font-weight:600; color:var(--ink); letter-spacing:.01em; }
+  .panel-body{ padding:10px 14px 12px; flex:1; min-height:0; display:flex; flex-direction:column; gap:8px; }
+
+  /* ---- panel A internals ---- */
+  .a-top{ display:flex; gap:10px; align-items:stretch; flex:0 0 auto; }
+  .a-funnel-col{ flex:0 0 190px; display:flex; flex-direction:column; }
+  .a-funnel-note{ font-family:'Red Hat Mono',monospace; font-size:9px; color:var(--alert); font-weight:700; text-align:center; margin-bottom:2px; }
+  #chartFunnel{ width:190px; height:260px; }
+  .a-classify{ font-size:9.5px; color:var(--muted); line-height:1.5; margin-top:2px; }
+  .a-classify b{ color:var(--ink); }
+  .a-bar-col{ flex:1; min-width:0; display:flex; flex-direction:column; }
+  .a-bar-title{ font-family:'Teko',sans-serif; font-size:14px; font-weight:600; color:var(--ink); margin-bottom:2px; }
+  #chartRateBar{ width:100%; height:260px; }
+
+  .legend-row{ display:flex; flex-wrap:wrap; gap:5px 13px; padding:5px 2px; border-top:1px dashed var(--line);
+    border-bottom:1px dashed var(--line); flex:0 0 auto; }
+  .legend-chip{ display:flex; align-items:center; gap:5px; font-size:9.5px; color:var(--muted); }
+  .legend-chip i{ width:10px; height:10px; border-radius:2px; flex:none; display:inline-block; }
+  .legend-chip i.hatch{ background-color:#fff;
+    background-image:repeating-linear-gradient(45deg,#6b7781 0,#6b7781 1.4px,transparent 1.4px,transparent 4px);
+    border:1px solid #6b7781; }
+
+  .a-mid{ display:flex; gap:10px; align-items:stretch; flex:0 0 auto; }
+  .a-stack-col{ flex:0 0 240px; }
+  .a-stack-col h3, .a-ifr-col h3, .a-site-wrap h3{ font-family:'Teko',sans-serif; font-size:14px; font-weight:600; color:var(--ink); margin-bottom:3px; }
+  #chartOverview{ width:100%; height:130px; }
+  .overview-note{ font-size:9px; color:var(--muted-2); text-align:center; margin-top:-4px; }
+  .a-ifr-col{ flex:1; min-width:0; }
+  .ifr-table{ width:100%; border-collapse:collapse; font-size:10.5px; }
+  .ifr-table th{ background:#EFF7FF; color:var(--muted); font-weight:600; padding:4px 6px; text-align:center;
+    border:1px solid var(--line); }
+  .ifr-table td{ padding:4px 6px; text-align:center; border:1px solid var(--line); font-weight:600; }
+  .ifr-table td.lbl{ text-align:left; font-weight:700; }
+  .ifr-table td.lbl.good{ background:rgba(46,158,83,.12); color:#1E7A3E; }
+  .ifr-table td.lbl.bad{ background:rgba(226,91,76,.14); color:#B23A2D; }
+  .ifr-table td.flag{ background:rgba(226,91,76,.08); color:#B23A2D; }
+  .ifr-table td.ok{ background:rgba(46,158,83,.06); }
+
+  .a-site-wrap{ flex:1; min-height:0; display:flex; flex-direction:column; }
+  .a-site-row{ display:flex; gap:8px; flex:1; min-height:0; }
+  .site-card{ flex:1; min-width:0; display:flex; flex-direction:column; border:1px solid var(--line);
+    border-radius:8px; padding:6px 8px 2px; }
+  .site-card .site-name{ font-family:'Teko',sans-serif; font-size:14px; font-weight:600; color:var(--hazard); display:flex;
+    align-items:center; justify-content:space-between; }
+  .site-card .trend{ font-family:'Red Hat Mono',monospace; font-size:9px; font-weight:700; padding:1px 6px; border-radius:8px; }
+  .site-card .trend.up{ background:rgba(226,91,76,.12); color:var(--alert); }
+  .site-card .trend.down{ background:rgba(46,158,83,.12); color:var(--good); }
+  .site-chart{ flex:1; min-height:70px; }
+
+  /* ---- panel B internals ---- */
+  .b-gauges{ display:flex; gap:6px; flex:0 0 auto; }
+  .b-gauge{ flex:1; display:flex; flex-direction:column; align-items:center; }
+  .b-gauge .chart{ width:100%; height:86px; }
+  .b-gauge .lbl{ font-size:9.5px; color:var(--muted); font-weight:600; margin-top:-12px; }
+  .b-table-title{ background:var(--hazard); color:#fff; font-family:'Teko',sans-serif; font-size:14px; font-weight:600; text-align:center;
+    padding:5px; border-radius:6px; flex:0 0 auto; }
+  #chartHeatmapB{ width:100%; height:180px; }
+
+  /* ---- panel rank internals ---- */
+  .rank-legend{ font-family:'Red Hat Mono',monospace; font-size:8.5px; color:var(--signal); font-weight:700; display:flex; gap:12px; margin-bottom:4px; flex-wrap:wrap; flex:0 0 auto; }
+  .rank-table{ width:100%; border-collapse:collapse; font-size:10.5px; flex:1; }
+  .rank-table td{ border:1px solid var(--line); padding:5px 9px; vertical-align:middle; }
+  .rank-table td.name{ font-weight:700; display:flex; align-items:center; justify-content:space-between; gap:6px; }
+  .rank-table td.status{ text-align:center; font-weight:700; line-height:1.25; }
+  .rank-table tr.flag td.status{ background:rgba(226,91,76,.1); }
+  .star{ font-size:12px; }
+  .star.gold{ color:#E8B020; }
+  .star.gray{ color:#BBD1E6; }
+  .c-fc{ color:var(--signal); } .c-mti{ color:var(--alert); } .c-pd{ color:var(--ink); } .c-mi{ color:var(--alert); }
+
+  /* ---- panel C internals ---- */
+  .c-top{ display:flex; gap:9px; flex:1; min-height:0; }
+  .c-stack-pair{ flex:0 0 140px; display:flex; flex-direction:column; gap:3px; }
+  .c-stack-pair .chart{ width:100%; height:118px; }
+  .c-stack-pair .lg{ display:flex; gap:9px; font-size:9px; color:var(--muted); justify-content:center; flex:0 0 auto; }
+  .c-stack-pair .lg i{ width:9px; height:9px; border-radius:2px; display:inline-block; margin-right:3px; vertical-align:-1px; }
+  .c-lines{ flex:1.4; min-width:0; display:flex; flex-direction:column; gap:4px; }
+  .c-line-row{ display:flex; align-items:stretch; height:148px; }
+  .c-line-tab{ writing-mode:vertical-rl; transform:rotate(180deg); font-family:'Red Hat Mono',monospace; font-size:10px; font-weight:700;
+    color:#fff; display:flex; align-items:center; justify-content:center; width:18px; border-radius:4px; flex:none; }
+  .c-line-tab.core{ background:var(--hazard); }
+  .c-line-tab.support{ background:var(--signal); }
+  .c-line-chart{ flex:1; min-width:0; }
+  .c-bottom-lg{ display:flex; gap:13px; justify-content:center; font-size:9px; color:var(--muted); flex:0 0 auto; }
+  .c-bottom-lg i{ width:9px; height:9px; border-radius:2px; display:inline-block; margin-right:4px; vertical-align:-1px; }
+
+  .panel-top10 .panel-body{ padding:8px 8px 10px; }
+  #chartTop10{ height:300px; }
+  .top10-note{ font-size:8.5px; color:var(--muted-2); text-align:center; flex:0 0 auto; }
+
+  /* ---- panel D internals ---- */
+  .d-case{ flex:none; width:19px; height:19px; border-radius:50%; background:var(--alert);
+    border:2px solid #fff; color:#fff; font-weight:800; font-size:10px;
+    display:flex; align-items:center; justify-content:center; }
+  .d-photo{ height:140px; border-radius:8px; background:#EAF3FC; border:1px dashed #AFCBE6;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; color:var(--muted-2); gap:5px; }
+  .d-photo svg{ width:30px; height:30px; opacity:.6; }
+  .d-photo span{ font-size:9.5px; font-weight:600; }
+  .d-cap{ background:var(--ink); color:#fff; font-weight:700; font-size:10.5px; text-align:center;
+    padding:7px 9px; border-radius:6px; line-height:1.3; flex:0 0 auto; }
+  .d-desc{ background:#EFF7FF; border:1px solid var(--line); border-radius:6px; padding:8px 9px;
+    font-size:9.5px; color:var(--muted); line-height:1.45; flex:0 0 auto; }
+
+  @media (prefers-reduced-motion: reduce){ *{ transition:none !important; animation:none !important; } }
+</style>
+</head>
+<body>
+
+<div class="sky-wash"></div>
+<div class="pit-grid"></div>
+
+<div class="stage" id="stage">
+<div class="wrap" id="wrap">
+
+  <header class="hd">
+    <div class="hd-logo">
+      <img src="bc.png" alt="Berau Coal">
+      <span class="tag">better energy, brighter future</span>
+    </div>
+    <div class="hd-title">
+      <div class="k">Performance Q3 2026 PT Berau Coal</div>
+      <h1>Safety Performance PT Berau Coal <span>| All Site Q3 2026</span></h1>
+    </div>
+    <div class="hd-badges">
+      <div class="pill-badge speakup">#SayaBeraniSpeakUp</div>
+      <div class="pill-badge siaga">#SiagaSalingMenjaga</div>
+    </div>
+  </header>
+
+  <div class="grid">
+
+    <!-- ===================== PANEL A ===================== -->
+    <section class="panel panel-a">
+      <div class="panel-head"><span class="badge">A</span><h2>Safety Performance All Site YTD 2026</h2></div>
+      <div class="panel-body">
+
+        <div class="a-top">
+          <div class="a-funnel-col">
+            <div class="a-funnel-note">&uarr; Injury Need To Be Prevented<br>(Top Of Pyramid)</div>
+            <div id="chartFunnel"></div>
+            <div class="a-classify">
+              <b>Insiden:</b> LTI&ndash;First Aid &nbsp;&middot;&nbsp; <b>Accident:</b> Fire Case&ndash;Property Damage<br>
+              <b>Pelanggaran:</b> Golden Rules&ndash;To Be Concerned &nbsp;&middot;&nbsp; <b>Ketidaksesuaian:</b> Hazard Report
+            </div>
+          </div>
+          <div class="a-bar-col">
+            <div class="a-bar-title">Rate per Periode &mdash; 2025 vs Q1&ndash;Q3 2026</div>
+            <div id="chartRateBar"></div>
+          </div>
+        </div>
+
+        <div class="legend-row" id="legendRow"></div>
+
+        <div class="a-mid">
+          <div class="a-stack-col">
+            <h3>Total Insiden All Site (2022&ndash;YTD'26)</h3>
+            <div id="chartOverview"></div>
+            <div class="overview-note">2025 &rarr; YTD'26 : <b style="color:var(--good)">-4%</b></div>
+          </div>
+          <div class="a-ifr-col">
+            <h3>Indikator Lagging All Site</h3>
+            <table class="ifr-table" id="ifrTable"></table>
+          </div>
+        </div>
+
+        <div class="a-site-wrap">
+          <h3>Tren Insiden per Site (2022&ndash;2026, Q1&ndash;Q3'26)</h3>
+          <div class="a-site-row" id="siteRow"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================== PANEL B ===================== -->
+    <section class="panel panel-b">
+      <div class="panel-head"><span class="badge">B</span><h2>Leading Performance &amp; Rapor Mining Contractor YTD 2026</h2></div>
+      <div class="panel-body">
+        <div class="b-gauges" id="gaugeRow"></div>
+        <div class="b-table-title">Leading Performance Mining Contractor Q3</div>
+        <div id="chartHeatmapB"></div>
+      </div>
+    </section>
+
+    <!-- ===================== PANEL RANK ===================== -->
+    <section class="panel panel-rank">
+      <div class="panel-head"><h2 style="margin-left:2px;">Rapor Mining Contractor</h2></div>
+      <div class="panel-body">
+        <div class="rank-legend">
+          <span>&#9733; Zero Incident &ge; 3 Bulan Terakhir</span>
+          <span>&#9733; Zero Incident di Sept'26</span>
+        </div>
+        <table class="rank-table" id="rankTable"></table>
+      </div>
+    </section>
+
+    <!-- ===================== ROW BOTTOM: C + Top10 + D ===================== -->
+    <div class="row-bottom">
+
+      <section class="panel panel-c">
+        <div class="panel-head"><span class="badge">C</span><h2>Profil Incident Based on Activity Q1&ndash;Q3</h2></div>
+        <div class="panel-body">
+          <div class="c-top">
+            <div class="c-stack-pair">
+              <div class="chart" id="chartSplitCS"></div>
+              <div class="lg"><span><i style="background:var(--hazard)"></i>Core</span><span><i style="background:var(--signal)"></i>Support</span></div>
+            </div>
+            <div class="c-stack-pair">
+              <div class="chart" id="chartSplitMC"></div>
+              <div class="lg"><span><i style="background:var(--ink)"></i>Minecont</span><span><i style="background:#BBD1E6"></i>Non Minecont</span></div>
+            </div>
+            <div class="c-lines">
+              <div class="c-line-row">
+                <div class="c-line-tab core">Core</div>
+                <div class="c-line-chart" id="chartLineCore"></div>
+              </div>
+              <div class="c-line-row">
+                <div class="c-line-tab support">Support</div>
+                <div class="c-line-chart" id="chartLineSupport"></div>
+              </div>
+            </div>
+          </div>
+          <div class="c-bottom-lg">
+            <span><i style="background:var(--ink)"></i>Minecont</span>
+            <span><i style="background:#BBD1E6"></i>Non Minecont</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel panel-top10">
+        <div class="panel-head" style="justify-content:center;"><h2 style="font-style:italic;">Top 10 Activity Incident</h2></div>
+        <div class="panel-body">
+          <div id="chartTop10"></div>
+          <div class="top10-note">Rata-rata kejadian per bulan &middot; AVG 2025 vs AVG'26</div>
+        </div>
+      </section>
+
+      <section class="panel panel-d">
+        <div class="panel-head">
+          <span class="badge">D</span><h2 style="flex:1;">LTI Major Injury</h2>
+          <span class="d-case">2</span>
+        </div>
+        <div class="panel-body">
+          <div class="d-photo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="12" cy="12" r="3.3"/><path d="M8 5l1.5-2h5L16 5"/></svg>
+            <span>Foto dokumentasi insiden</span>
+          </div>
+          <div class="d-cap">Insiden Injury Pergelangan Tangan<br>Pengoperasian Mesin Jangkar secara Manual</div>
+          <div class="d-desc">Inisiatif pengawas yang berlebihan. Mesin jangkar tongkang dinyalakan manual dengan engkol, padahal sistem starter elektrik sudah tersedia.</div>
+        </div>
+      </section>
+
+    </div>
+
+  </div>
+</div>
+</div>
+
+<script>
+  const CHARTS = [];
+  function mk(id, opt){
+    const el = document.getElementById(id);
+    if(!el) return null;
+    const c = echarts.init(el);
+    c.setOption(opt);
+    CHARTS.push(c);
+    return c;
+  }
+  const FONT = "'Karla',system-ui,sans-serif";
+  const baseText = { fontFamily:FONT, color:'#16324F' };
+
+  /* ================= PANEL A: safety pyramid ================= */
+  const PYRAMID = [
+    { name:'Fatality', value:3,  color:'#E25B4C' },
+    { name:'LTI', value:6,  color:'#EA6F55' },
+    { name:'RWI', value:10, color:'#F28C4E' },
+    { name:'MTI', value:15, color:'#F5B04A' },
+    { name:'First Aid', value:21, color:'#F5D24A' },
+    { name:'Fire Case', value:28, color:'#CDDB4E' },
+    { name:'Property Damage', value:38, color:'#9FD266' },
+    { name:'Nearmiss', value:52, color:'#5FBF8E' },
+    { name:'Golden Rules', value:68, color:'#3BA3F0' },
+    { name:'To Be Concerned', value:86, color:'#1D7FE0' },
+    { name:'Hazard Report', value:108, color:'#7A96AC' },
+  ];
+  mk('chartFunnel', {
+    textStyle: baseText,
+    series: [{
+      type:'funnel', left:0, right:0, top:2, bottom:2, min:0, max:110,
+      sort:'none', gap:0, width:'96%',
+      label:{ position:'inside', fontSize:9.5, color:'#fff', fontWeight:700,
+        formatter:(p)=> p.name.length>10 ? p.name.replace(' ','\n') : p.name },
+      itemStyle:{ borderColor:'#fff', borderWidth:1 },
+      data: PYRAMID.map(p=>({ name:p.name, value:p.value, itemStyle:{ color:p.color } })),
+    }]
+  });
+
+  /* ================= PANEL A: rate comparison bar ================= */
+  const RATE_CATS = ['LTI','MTI','First Aid','Fire Case','Property Damage','Nearmiss','Golden Rules','To Be Concerned','Hazard Report'];
+  const RATE_SERIES = {
+    '2025':        [0,   0.3, 0.4, 0.6, 3.3, 6.9, 11.1, 3.7, 12.6],
+    'Q1 2026':     [0.3, 0,   0.3, 1.7, 2.7, 5.3, 5.3,  5.8, 14.9],
+    'Q2 2026':     [0,   0.7, 0,   1.7, 3.3, 4.3, 11.7, 7.0, 15.8],
+    'Q3 2026':     [0.3, 0.3, 0.3, 1.3, 4.0, 6.0, 19.7, 8.6, 17.3],
+  };
+  const RATE_RAW = { // raw counts shown in parentheses on the source report, for tooltip context
+    'To Be Concerned': { '2025':'20.281', 'Q1 2026':'29.163', 'Q2 2026':'33.445', 'Q3 2026':'49.668' },
+    'Hazard Report':   { '2025':'83.332', 'Q1 2026':'86.110', 'Q2 2026':'91.899', 'Q3 2026':'108.227' },
+  };
+  const FLAGGED_CATS = ['LTI','MTI','Fire Case','Property Damage'];
+  mk('chartRateBar', {
+    textStyle: baseText,
+    grid:{ left:92, right:14, top:28, bottom:14 },
+    tooltip:{ trigger:'axis', axisPointer:{ type:'shadow' },
+      formatter:(items)=>{
+        const cat = items[0].axisValueLabel || items[0].name;
+        let s = '<b>'+cat+'</b><br>';
+        items.forEach(it=>{
+          const raw = RATE_RAW[cat] && RATE_RAW[cat][it.seriesName];
+          s += it.marker+it.seriesName+': '+it.value + (raw? ' ('+raw+')':'') + '<br>';
+        });
+        return s;
+      }
+    },
+    legend:{ top:0, right:0, itemWidth:11, itemHeight:11, textStyle:{ fontSize:9.5 } },
+    xAxis:{ type:'value', splitLine:{ lineStyle:{ color:'#EAF3FC' } } },
+    yAxis:{ type:'category', inverse:true, data:RATE_CATS, axisTick:{show:false},
+      axisLine:{ lineStyle:{ color:'#BBD1E6' } },
+      axisLabel:{ fontSize:10.5, color:(v)=> FLAGGED_CATS.includes(v) ? '#E25B4C' : '#16324F', fontWeight:600 } },
+    series:[
+      { name:'2025', type:'bar', data:RATE_SERIES['2025'], itemStyle:{ color:'#BBD1E6' }, barMaxWidth:9 },
+      { name:'Q1 2026', type:'bar', data:RATE_SERIES['Q1 2026'], itemStyle:{ color:'#9FD266' }, barMaxWidth:9 },
+      { name:'Q2 2026', type:'bar', data:RATE_SERIES['Q2 2026'], itemStyle:{ color:'#3BA3F0' }, barMaxWidth:9 },
+      { name:'Q3 2026', type:'bar', data:RATE_SERIES['Q3 2026'], itemStyle:{ color:'#E25B4C' }, barMaxWidth:9 },
+    ]
+  });
+
+  /* ================= PANEL A: legend chips ================= */
+  const LEGEND_CHIPS = [
+    { label:'Nearmiss', color:'#E4E7EC' }, { label:'Injury', color:'#9F1239' }, { label:'Non Injury', color:'#F5B04A' },
+    { label:'Nearmiss', color:'#5FBF8E' }, { label:'Minor Injury', hatch:true }, { label:'First Aid', color:'#F1A7A0' },
+    { label:'Fatality', color:'#16324F' }, { label:'RWI', color:'#E25B4C' }, { label:'Fire Case', color:'#3BA3F0' },
+    { label:'Mayor Injury', color:'#AEB7BF' }, { label:'MTI', color:'#F5B04A' }, { label:'Property Damage', color:'#F5D24A' },
+  ];
+  document.getElementById('legendRow').innerHTML = LEGEND_CHIPS.map(c=>
+    `<span class="legend-chip"><i class="${c.hatch?'hatch':''}" style="${c.color?('background:'+c.color):''}"></i>${c.label}</span>`
+  ).join('');
+
+  /* ================= PANEL A: overview stacked bar ================= */
+  const OVERVIEW_YEARS = ['2022','2023','2024','2025',"YTD'26"];
+  const OVERVIEW_MID   = [5.3, 5.5, 9.2, 6.9, 5.3];
+  const OVERVIEW_LOW   = [4.3, 4.3, 5.1, 3.8, 4.9];
+  const OVERVIEW_INJ   = OVERVIEW_MID.map((m,i)=> +( (i===3?11.5:(i===4?11.0:[10.7,10.3,15.2][i])) - m - OVERVIEW_LOW[i]).toFixed(1));
+  mk('chartOverview', {
+    textStyle: baseText,
+    grid:{ left:4, right:4, top:22, bottom:16 },
+    tooltip:{ trigger:'axis', axisPointer:{ type:'shadow' } },
+    xAxis:{ type:'category', data:OVERVIEW_YEARS, axisTick:{show:false}, axisLabel:{ fontSize:9.5 }, axisLine:{ lineStyle:{ color:'#BBD1E6' } } },
+    yAxis:{ show:false },
+    series:[
+      { name:'Nearmiss', type:'bar', stack:'t', data:OVERVIEW_MID, itemStyle:{ color:'#D7E6F4', borderRadius:[0,0,3,3] } },
+      { name:'Injury', type:'bar', stack:'t', data:OVERVIEW_INJ, itemStyle:{ color:'#9F1239' } },
+      { name:'Non Injury', type:'bar', stack:'t', data:OVERVIEW_LOW, itemStyle:{ color:'#3BA3F0', borderRadius:[3,3,0,0] },
+        label:{ show:true, position:'top', formatter:(p)=> (p.dataIndex!=null? (OVERVIEW_MID[p.dataIndex]+OVERVIEW_INJ[p.dataIndex]+OVERVIEW_LOW[p.dataIndex]).toFixed(1):''), fontWeight:700, fontSize:10, color:'#16324F' } },
+    ]
+  });
+
+  /* ================= PANEL A: IFR/AFR lagging table ================= */
+  const IFR_COLS = ['2022','2023','2024','2025',"YTD'2026"];
+  const IFR_ROWS = [
+    { label:'IFR', good:true,  values:[2.53,2.09,3.17,2.57,2.66] },
+    { label:'AFR', good:true,  values:[1.17,0.97,1.25,1.03,1.39] },
+    { label:'Inc', good:true,  values:[128,123,182,138,98] },
+    { label:'Acc', good:true,  values:[64,57,72,55,51] },
+    { label:'LR',  good:false, values:[169.5,345.2,225.2,258.4,603.5] },
+    { label:'LTISR', good:true, values:[0,0,0,0,122.3] },
+  ];
+  (function buildIfrTable(){
+    const t = document.getElementById('ifrTable');
+    let html = '<tr><th></th>' + IFR_COLS.map(c=>`<th>${c}</th>`).join('') + '</tr>';
+    IFR_ROWS.forEach(r=>{
+      html += `<tr><td class="lbl ${r.good?'good':'bad'}">${r.label}</td>` +
+        r.values.map((v,i)=> `<td class="${i===2?'flag':'ok'}">${v}</td>`).join('') + '</tr>';
+    });
+    t.innerHTML = html;
+  })();
+
+  /* ================= PANEL A: per-site mini trend charts ================= */
+  const SITE_CATS = ['2022','2023','2024','2025','2026','Q1','Q2','Q3'];
+  const SITES = [
+    { name:'Mining', trend:'+3%', up:true,  values:[10.2,9.7,14.3,9.9,10.2,10.0,9.0,12.3], color:'#1D7FE0' },
+    { name:'Head Office', trend:'-67%', up:false, values:[0.1,0.0,0.2,0.8,0.3,0.3,0.7,0.0], color:'#3BA3F0' },
+    { name:'Eksplorasi', trend:'-100%', up:false, values:[0.3,0.3,0.3,0.0,0.0,0.0,0.0,0.0], color:'#F5B04A' },
+    { name:'Marine', trend:'-56%', up:false, values:[0.2,0.3,0.4,0.8,0.3,0.3,0.0,1.0], color:'#E25B4C' },
+  ];
+  const siteRow = document.getElementById('siteRow');
+  siteRow.innerHTML = SITES.map((s,idx)=>
+    `<div class="site-card">
+      <div class="site-name">${s.name}<span class="trend ${s.up?'up':'down'}">${s.trend}</span></div>
+      <div class="site-chart" id="siteChart${idx}"></div>
+    </div>`
+  ).join('');
+  SITES.forEach((s,idx)=>{
+    mk('siteChart'+idx, {
+      textStyle: baseText,
+      grid:{ left:16, right:4, top:14, bottom:18 },
+      tooltip:{ trigger:'axis', axisPointer:{ type:'shadow' } },
+      xAxis:{ type:'category', data:SITE_CATS, axisTick:{show:false},
+        axisLabel:{ fontSize:7.5, interval:0, rotate:45 }, axisLine:{ lineStyle:{ color:'#D7E6F4' } } },
+      yAxis:{ show:false },
+      series:[{ type:'bar', data:s.values, itemStyle:{ color:s.color, borderRadius:[2,2,0,0] }, barMaxWidth:12,
+        label:{ show:true, position:'top', fontSize:8, fontWeight:600, color:'#16324F' } }]
+    });
+  });
+
+  /* ================= PANEL B: KPI gauges ================= */
+  const GAUGES = [
+    { name:'Leadership', value:95 }, { name:'People', value:82 }, { name:'Process', value:72 }, { name:'Technology', value:65 },
+  ];
+  function gaugeColor(v){
+    if(v>=90) return '#2E9E53'; if(v>=78) return '#9FD266'; if(v>=70) return '#F5B04A'; return '#E25B4C';
+  }
+  const gaugeRow = document.getElementById('gaugeRow');
+  gaugeRow.innerHTML = GAUGES.map((g,idx)=>
+    `<div class="b-gauge"><div class="chart" id="gauge${idx}"></div><div class="lbl">${g.name}</div></div>`
+  ).join('');
+  GAUGES.forEach((g,idx)=>{
+    mk('gauge'+idx, {
+      textStyle: baseText,
+      series:[{
+        type:'gauge', startAngle:220, endAngle:-40, min:0, max:100, radius:'95%', center:['50%','62%'],
+        axisLine:{ lineStyle:{ width:7, color:[[1, '#EAF3FC']] } },
+        progress:{ show:true, width:7, itemStyle:{ color:gaugeColor(g.value) } },
+        pointer:{ show:false }, axisTick:{ show:false }, splitLine:{ show:false }, axisLabel:{ show:false },
+        anchor:{ show:false },
+        detail:{ valueAnimation:true, fontSize:17, fontWeight:800, color:'#16324F', offsetCenter:[0,0], formatter:'{value}%' },
+        data:[{ value:g.value }]
+      }]
+    });
+  });
+
+  /* ================= PANEL B: Q1-Q3 heatmap table ================= */
+  const HEAT_ROWS = ['Leadership','People','Process','Technology','Overall'];
+  const HEAT_COLS = ['Q1','Q2','Q3'];
+  const HEAT_VALUES = [
+    [93,95,96], [80,82,85], [72,71,72], [62,65,67], [77,78,80],
+  ];
+  const heatData = [];
+  HEAT_VALUES.forEach((row,r)=> row.forEach((v,c)=> heatData.push([c, r, v])));
+  mk('chartHeatmapB', {
+    textStyle: baseText,
+    grid:{ left:80, right:14, top:14, bottom:6 },
+    tooltip:{ position:'top', formatter:(p)=> HEAT_ROWS[p.value[1]]+' '+HEAT_COLS[p.value[0]]+': '+p.value[2]+'%' },
+    xAxis:{ type:'category', data:HEAT_COLS, position:'top', splitArea:{show:true}, axisTick:{show:false}, axisLine:{show:false}, axisLabel:{ fontWeight:700, fontSize:10.5 } },
+    yAxis:{ type:'category', inverse:true, data:HEAT_ROWS, splitArea:{show:true}, axisTick:{show:false}, axisLine:{show:false}, axisLabel:{ fontWeight:600, fontSize:10 } },
+    visualMap:{ show:false, min:55, max:100,
+      inRange:{ color:['#E25B4C','#F5B04A','#F5D24A','#9FD266','#2E9E53'] } },
+    series:[{
+      type:'heatmap', data:heatData, label:{ show:true, fontWeight:700, fontSize:10.5,
+        formatter:(p)=> p.value[2]+'%' },
+      itemStyle:{ borderColor:'#fff', borderWidth:2 },
+    }]
+  });
+
+  /* ================= PANEL RANK: contractor table ================= */
+  const RANK = [
+    { name:'FAD LMO', star:'gold', flag:false, status:[{ t:'Zero Acc' }] },
+    { name:'KDC', star:null, flag:false, status:[{ t:'1 FC', c:'c-fc' },{ t:'1 PD', c:'c-pd' }] },
+    { name:'BUMA BMO', star:'gold', flag:false, status:[{ t:'Zero Acc' }] },
+    { name:'PAMA BMO', star:'gray', flag:true, status:[{ t:'1 FC', c:'c-fc' },{ t:'4 PD', c:'c-pd' }] },
+    { name:'MTN', star:'gray', flag:false, status:[{ t:'1 MTI', c:'c-mti' },{ t:'1 FC', c:'c-fc' },{ t:'2 PD', c:'c-pd' }] },
+    { name:'BUMA LMO', star:'gray', flag:false, status:[{ t:'1 MI', c:'c-mi' },{ t:'1 PD', c:'c-pd' }] },
+    { name:'BAR', star:null, flag:true, status:[{ t:'4 PD', c:'c-pd' }] },
+    { name:'MTL BMO', star:'gray', flag:true, status:[{ t:'1 FC', c:'c-fc' },{ t:'1 PD', c:'c-pd' }] },
+    { name:'PAMA GMO', star:'gray', flag:false, status:[{ t:'2 MTI', c:'c-mti' },{ t:'1 FC', c:'c-fc' },{ t:'1 PD', c:'c-pd' }] },
+  ];
+  (function buildRankTable(){
+    const t = document.getElementById('rankTable');
+    t.innerHTML = RANK.map(r=>
+      `<tr class="${r.flag?'flag':''}">
+        <td class="name">${r.name} ${r.star?`<span class="star ${r.star}">&#9733;</span>`:''}</td>
+        <td class="status">${r.status.map(s=>`<span class="${s.c||''}">${s.t}</span>`).join('<br>')}</td>
+      </tr>`
+    ).join('');
+  })();
+
+  /* ================= PANEL C: Core/Support & Minecont split ================= */
+  mk('chartSplitCS', {
+    textStyle: baseText,
+    grid:{ left:4, right:4, top:22, bottom:14 },
+    xAxis:{ type:'category', data:['AVG 2025','AVG 2026'], axisTick:{show:false}, axisLabel:{ fontSize:9 }, axisLine:{ lineStyle:{ color:'#D7E6F4' } } },
+    yAxis:{ show:false },
+    series:[
+      { name:'Core', type:'bar', stack:'s', data:[38,43], itemStyle:{ color:'#1D7FE0' },
+        label:{ show:true, formatter:'{c}%', color:'#fff', fontWeight:700, fontSize:10 } },
+      { name:'Support', type:'bar', stack:'s', data:[62,57], itemStyle:{ color:'#3BA3F0' },
+        label:{ show:true, formatter:'{c}%', color:'#fff', fontWeight:700, fontSize:10 } },
+    ],
+    graphic:[
+      { type:'text', left:'20%', top:4, style:{ text:'11,5', fontWeight:800, fontSize:11, fill:'#16324F' } },
+      { type:'text', left:'68%', top:4, style:{ text:'10,9', fontWeight:800, fontSize:11, fill:'#16324F' } },
+    ]
+  });
+  mk('chartSplitMC', {
+    textStyle: baseText,
+    grid:{ left:4, right:4, top:22, bottom:14 },
+    xAxis:{ type:'category', data:['AVG 2025','AVG 2026'], axisTick:{show:false}, axisLabel:{ fontSize:9 }, axisLine:{ lineStyle:{ color:'#D7E6F4' } } },
+    yAxis:{ show:false },
+    series:[
+      { name:'Minecont', type:'bar', stack:'s', data:[54,59], itemStyle:{ color:'#16324F' },
+        label:{ show:true, formatter:'{c}%', color:'#fff', fontWeight:700, fontSize:10 } },
+      { name:'Non Minecont', type:'bar', stack:'s', data:[46,41], itemStyle:{ color:'#BBD1E6' },
+        label:{ show:true, formatter:'{c}%', color:'#16324F', fontWeight:700, fontSize:10 } },
+    ],
+    graphic:[
+      { type:'text', left:'20%', top:4, style:{ text:'11,5', fontWeight:800, fontSize:11, fill:'#16324F' } },
+      { type:'text', left:'68%', top:4, style:{ text:'10,9', fontWeight:800, fontSize:11, fill:'#16324F' } },
+    ]
+  });
+
+  /* ================= PANEL C: Core / Support quarterly trend ================= */
+  const Q_CATS = ["Q1'25","Q2'25","Q3'25","Q4'25","Q1'26","Q2'26","Q3'26"];
+  function lineChartOpt(seriesA, seriesB){
+    return {
+      textStyle: baseText,
+      grid:{ left:18, right:12, top:14, bottom:22 },
+      tooltip:{ trigger:'axis' },
+      xAxis:{ type:'category', data:Q_CATS, axisTick:{show:false},
+        axisLabel:{ fontSize:7.5, interval:0, rotate:45 }, axisLine:{ lineStyle:{ color:'#D7E6F4' } } },
+      yAxis:{ show:false },
+      series:[
+        { name:'Minecont', type:'line', data:seriesA, symbol:'circle', symbolSize:6,
+          lineStyle:{ color:'#16324F', width:2 }, itemStyle:{ color:'#16324F' },
+          label:{ show:true, position:'top', fontSize:8.5, fontWeight:600, color:'#16324F' } },
+        { name:'Non Minecont', type:'line', data:seriesB, symbol:'circle', symbolSize:6,
+          lineStyle:{ color:'#BBD1E6', width:2 }, itemStyle:{ color:'#7A96AC' },
+          label:{ show:true, position:'bottom', fontSize:8.5, fontWeight:600, color:'#7A96AC' } },
+      ],
+      markArea: undefined,
+    };
+  }
+  const coreOpt = lineChartOpt([4.3,3.0,3.3,4.0,2.7,3.0,5.7], [0.3,0.0,1.0,1.3,0.7,0.3,1.7]);
+  coreOpt.series[0].markArea = { silent:true, itemStyle:{ color:'rgba(226,91,76,.08)' },
+    data:[[{ xAxis:"Q2'26" },{ xAxis:"Q3'26" }]] };
+  mk('chartLineCore', coreOpt);
+
+  const supportOpt = lineChartOpt([3.0,2.3,2.7,2.0,3.0,3.3,1.7], [4.3,6.0,6.0,2.0,4.0,3.3,3.3]);
+  supportOpt.series[0].markArea = { silent:true, itemStyle:{ color:'rgba(226,91,76,.08)' },
+    data:[[{ xAxis:"Q2'26" },{ xAxis:"Q3'26" }]] };
+  mk('chartLineSupport', supportOpt);
+
+  /* ================= PANEL Top10: activity incident ================= */
+  const TOP10 = [
+    { name:'Hauling', a25:2.8, a26:2.6 },
+    { name:'Pengoperasian LV', a25:1.6, a26:1.2 },
+    { name:'Dumping', a25:0.9, a26:0.9 },
+    { name:'Loading', a25:0.5, a26:0.9 },
+    { name:'Dozing', a25:0.3, a26:0.9 },
+    { name:'CPP', a25:0.3, a26:0.6 },
+    { name:'Maintenance', a25:0.3, a26:0.4 },
+    { name:'Pit Service', a25:0.3, a26:0.4 },
+    { name:'Barging', a25:0.5, a26:0.2 },
+    { name:'Transport', a25:0.7, a26:0.0 },
+  ];
+  mk('chartTop10', {
+    textStyle: baseText,
+    grid:{ left:90, right:20, top:26, bottom:6 },
+    tooltip:{ trigger:'axis', axisPointer:{ type:'shadow' } },
+    legend:{ top:2, left:'center', itemWidth:11, itemHeight:11, textStyle:{ fontSize:9 } },
+    xAxis:{ type:'value', axisLabel:{ show:false }, axisLine:{ show:false }, axisTick:{ show:false },
+      splitLine:{ lineStyle:{ color:'#EAF3FC' } } },
+    yAxis:{ type:'category', inverse:true, data:TOP10.map(d=>d.name), axisTick:{show:false},
+      axisLine:{ lineStyle:{ color:'#BBD1E6' } }, axisLabel:{ fontSize:9 } },
+    series:[
+      { name:'AVG 2025', type:'bar', data:TOP10.map(d=>d.a25), itemStyle:{ color:'#F5D24A' }, barMaxWidth:7,
+        label:{ show:true, position:'right', fontSize:8.5 } },
+      { name:"AVG'26", type:'bar', data:TOP10.map(d=>d.a26), itemStyle:{ color:'#F5B04A' }, barMaxWidth:7,
+        label:{ show:true, position:'right', fontSize:8.5 } },
+    ]
+  });
+
+  /* ================= scale the fixed 1920x1080 canvas to fit any screen, no scroll ================= */
+  function fitStage(){
+    const wrapEl = document.getElementById('wrap');
+    const scale = Math.min(window.innerWidth / 1920, window.innerHeight / 1080);
+    wrapEl.style.transform = 'translate(-50%,-50%) scale(' + scale + ')';
+  }
+  fitStage();
+  window.addEventListener('resize', fitStage, { passive:true });
+</script>
+</body>
+</html>
