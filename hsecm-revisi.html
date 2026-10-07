@@ -130,6 +130,23 @@
   .btn-outline:hover{ background:var(--hazard); color:var(--coal); }
 
   /* ---- hero HUD ---- */
+  /* ---- Intro: Showreel.mp4 full screen before the opening slide ---- */
+  #intro{ position:fixed; inset:0; z-index:60; overflow:hidden; background:#000; --g:#3CE57A; }
+  #intro[hidden]{ display:none; }
+  .in-video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; background:#000; }
+  .in-skip{
+    position:absolute; right:28px; bottom:26px; z-index:3; font-family:'Plus Jakarta Sans','Source Sans 3',sans-serif; display:inline-flex; align-items:center; gap:10px; min-height:44px; padding:0 18px;
+    border:1px solid rgba(255,255,255,.4); border-radius:999px; background:rgba(0,0,0,.35); color:#fff; cursor:pointer;
+    font:600 clamp(.72rem,1.6vh,.9rem)/1 'Plus Jakarta Sans',sans-serif;
+  }
+  /* kept quiet so it does not compete with the reel's own corner graphics */
+  .in-skip{ opacity:.45; transition:opacity .2s, background .2s; }
+  .in-skip:hover, .in-skip:focus-visible{ opacity:1; background:rgba(0,0,0,.55); }
+  .in-skip:focus-visible{ outline:2px solid var(--g); outline-offset:3px; }
+  .in-skip kbd{ padding:2px 6px; border-radius:4px; background:rgba(255,255,255,.18); font:600 .8em 'Red Hat Mono',monospace; }
+  .in-progress{ position:absolute; left:0; right:0; bottom:0; z-index:3; height:3px; background:rgba(255,255,255,.15); }
+  .in-progress i{ display:block; height:100%; background:var(--g); transform-origin:left center; transform:scaleX(0); }
+
   /* ---- Opening: photo hero, copy on a dark-green scrim on the left, deck sections as the nav ---- */
   /* while the opening is on screen the side rail slides away and the arrow moves to the edge */
   .pit-rail{ transition:transform .5s cubic-bezier(.4,0,.2,1), opacity .4s; }
@@ -138,7 +155,7 @@
   /* the opening is the first slide, so there is no previous one to go back to */
   body.is-opening #prev{ opacity:0; pointer-events:none; }
   body.is-opening .nav-zone{ left:0; }
-  #slideOpening{ overflow:hidden; background:#0E2A1E; --op-green:#2BD46A; --op-green-d:#11803F; }
+  #slideOpening{ overflow:hidden; background:#0E2A1E; --op-green:#2BD46A; --op-green-d:#11803F; --op-ink:#fff; }
   .op-bg{ position:absolute; inset:0; background:url('bg0.png') 62% center / cover no-repeat; transform-origin:70% 45%; }
   #slideOpening.active .op-bg{ animation:opDrift 26s ease-in-out 1.6s infinite alternate; }
   @keyframes opDrift{ from{ transform:scale(1.04); } to{ transform:scale(1.11) translate(-1%, -.6%); } }
@@ -151,7 +168,7 @@
   }
   /* full-bleed: the slide covers the rail's column */
   #slideOpening{ inset:0; }
-  .op-inner{ position:relative; z-index:2; display:flex; flex-direction:column; padding:6vh 92px 7vh max(28px, 2.3vw); color:#fff; font-family:'Plus Jakarta Sans','Source Sans 3',sans-serif; }
+  .op-inner{ position:relative; z-index:2; display:flex; flex-direction:column; padding:6vh 92px 7vh max(28px, 2.3vw); color:var(--op-ink); font-family:'Plus Jakarta Sans','Source Sans 3',sans-serif; }
   .op-hud{ flex:1; min-height:0; display:flex; flex-direction:column; justify-content:center; padding-top:8vh; max-width:min(50vw, 820px); }
   .op-badge{ display:flex; align-items:center; gap:12px; margin-bottom:3.6vh; }
   .op-badge i{ width:3.2vh; min-width:24px; height:2px; background:var(--op-green); transform-origin:left center; }
@@ -169,8 +186,8 @@
   .op-title em{
     font-style:normal; font-family:inherit; font-weight:inherit; letter-spacing:inherit;
     background:linear-gradient(100deg, #3CE57A 0%, #3CE57A 40%, #CFFFE0 50%, #3CE57A 60%, #3CE57A 100%) 0 0 / 300% 100%;
-    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
     filter:drop-shadow(0 3px 14px rgba(0,0,0,.35));
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
   }
   #slideOpening.active .op-title em{ animation:opSheen 6s ease-in-out 2.4s infinite; }
   @keyframes opSheen{ 0%{ background-position:100% 0; } 35%, 100%{ background-position:0 0; } }
@@ -385,6 +402,66 @@
     0%, 82%, 100%{ transform:none; filter:none; }
     90%{ transform:rotate(16deg) scale(1.15); filter:drop-shadow(0 0 4px rgba(245,180,0,.75)); }
   }
+
+  /* ---- Rapor Mitra Kerja tab: quadrant map (Leading × LSI) and the quadrant table ---- */
+  .sp-panel.lp{ grid-template-columns:minmax(0,1fr) minmax(0,1fr); }
+  .rm-map{ flex:1; min-height:0; position:relative; }
+  .rm-map svg{ position:absolute; inset:0; width:100%; height:100%; overflow:visible; font-family:'Source Sans 3',sans-serif; }
+  .rm-map .q{ stroke:#fff; stroke-width:3; }
+  .rm-map .q-lbl{ font-size:15px; font-weight:700; fill:rgba(15,42,74,.38); }
+  .rm-map .q-crit{ font-size:10.5px; font-weight:600; fill:rgba(15,42,74,.5); }
+  .rm-map .axis{ stroke:#9AA6B4; stroke-width:1.4; fill:none; }
+  .rm-map .axis-lbl{ font-size:12px; font-weight:700; font-style:italic; fill:#4A5D73; }
+  .rm-map .q{ stroke:none; }
+  .rm-map .q-lbl{ font-style:italic; }
+  .rm-map .seg{ fill:none; stroke-width:2; stroke-linecap:round; }
+  .rm-map .seg.up{ stroke:#D7262B; } .rm-map .seg.down{ stroke:#1F9A4B; }
+  .rm-map .badge{ fill:#fff; stroke:#C9D3DE; stroke-width:1.2; }
+  .rm-map .mover .badge{ stroke-width:2; filter:drop-shadow(0 2px 3px rgba(15,42,74,.3)); }
+  .rm-map .badge-txt{ font-weight:800; fill:#0F2A4A; text-anchor:middle; }
+  .rm-map .site text{ font-weight:800; fill:#fff; text-anchor:middle; letter-spacing:.02em; }
+  /* the ghost's grey caption rule must not reach the site chip */
+  .rm-map .ghost .site text{ fill:#fff; font-weight:800; }
+  .rm-key i.site{ width:auto; height:auto; padding:0 6px; border-radius:999px; font-style:normal; font-weight:800; font-size:.85em; color:#fff; }
+  .rm-map .ghost{ opacity:.55; }
+  .rm-map .ghost image{ filter:grayscale(1); }
+  .rm-map .ghost text{ font-size:8.5px; font-weight:700; fill:#5B6B7E; text-anchor:middle; }
+  .rm-map .mover .name{ text-anchor:middle; font-size:10px; }
+  .rm-replay{
+    margin-left:auto; padding:2px 10px; border:1px solid #C9D3DE; border-radius:999px; background:#fff; cursor:pointer;
+    font:600 .95em 'Source Sans 3',sans-serif; color:var(--sp-ink);
+  }
+  .rm-replay:hover{ border-color:var(--hazard); color:var(--hazard); }
+  .rm-replay:focus-visible{ outline:2px solid var(--hazard); outline-offset:2px; }
+  .rm-map .ring{ fill:none; stroke:#D7262B; stroke-width:1.5; opacity:0; transform-box:fill-box; transform-origin:center; }
+  .rm-map .name{ font-size:10px; font-weight:700; fill:#0F2A4A; paint-order:stroke; stroke:rgba(255,255,255,.9); stroke-width:3px; }
+  .rm-key{ flex:none; display:flex; flex-wrap:wrap; gap:4px 16px; font-family:'Source Sans 3',sans-serif; font-size:clamp(.62rem,1.5vh,.82rem); color:var(--sp-ink); }
+  .rm-key span{ display:inline-flex; align-items:center; gap:6px; }
+  .rm-key i{ width:18px; height:2.5px; border-radius:2px; background:var(--c); }
+  .rm-key i.dot{ width:9px; height:9px; border-radius:50%; }
+  .rm-key em{ font-family:inherit; font-style:italic; color:#5B6B7E; }
+  .rm-tbl-wrap{ flex:1; min-height:0; }
+  .rm-tbl{ width:100%; height:100%; border-collapse:separate; border-spacing:0 2px; font-family:'Source Sans 3',sans-serif; font-size:clamp(.6rem,1.5vh,.86rem); color:var(--sp-ink); line-height:1.15; }
+  .rm-tbl th, .rm-tbl td{ padding:.25vh 8px; vertical-align:middle; }
+  .rm-tbl thead th{ font-weight:700; text-align:center; }
+  .rm-tbl thead th.lag{ background:#CFE8FA; border-radius:4px 4px 0 0; }
+  .rm-tbl thead th.lead{ background:#E6E1CF; border-radius:4px 4px 0 0; }
+  .rm-tbl thead small{ display:block; font-weight:500; font-size:.85em; color:#5B6B7E; }
+  .rm-tbl td.kq{ width:13%; font-weight:700; text-align:center; background:var(--qbg); border-radius:4px; }
+  .rm-tbl td.crit{ width:15%; font-size:.86em; color:#4A5D73; }
+  .rm-tbl td.who{ text-align:center; }
+  .rm-tbl td.who b{ display:block; font-weight:700; }
+  .rm-tbl .chip{ display:inline-block; min-width:1.9em; padding:0 3px; border-radius:3px; font-weight:700; font-size:.86em; color:#fff; background:var(--qc); }
+  .rm-tbl .arr{ margin:0 2px; color:#9AA6B4; font-size:.85em; }
+  .rm-tbl td.lag{ text-align:center; background:#E8F4FD; }
+  .rm-tbl td.lead{ text-align:center; font-weight:700; background:#F4F1E7; }
+  .rm-tbl td.lead.low{ color:#C21F24; }
+  .rm-tbl tr.grp-start td{ border-top:1px solid #E3E8EE; }
+  .rm-tbl td.empty{ text-align:center; color:#9AA6B4; }
+  .rm-note{ flex:none; font-family:'Source Sans 3',sans-serif; font-style:italic; font-size:clamp(.56rem,1.35vh,.76rem); color:#5B6B7E; }
+  /* loop: mitra kerja that end Q3 in Kuadran 1 keep a slow red ring */
+  #slideSafety.active #lpLeftCard.on .rm-map .ring{ animation:rmPing 2.6s ease-out 3s infinite; }
+  @keyframes rmPing{ 0%{ opacity:.8; transform:scale(1); } 100%{ opacity:0; transform:scale(2.6); } }
 
   /* ---- Incident Profile tab ---- */
   #slideSafety{ --ip-core:#1E78E0; --ip-support:#FFC52E; --ip-mine:#1E3F8F; --ip-gray:#B9C0C8; --ip-line:#1F5BB5; }
@@ -1399,7 +1476,7 @@
     .fade,.fade.on,.slide,.slide.active,.w{ animation:none; transition:none; opacity:1; transform:none; }
     #slideSafety .sp-tier::after, #slideSafety .sp-halo, #slideSafety .sp-val span, #slideSafety .sp-val i,
     #slideSafety .sp-alert, #slideSafety .sp-u-cell, #slideSafety .sp-kpi td,
-    #slideSafety .sp-yd::after, #slideSafety .lp-kpi i, #slideSafety .lp-star, #slideSafety .ip-dot::after, #slideSafety .ip-hl,
+    #slideSafety .sp-yd::after, #slideSafety .lp-kpi i, #slideSafety .lp-star, #slideSafety .rm-map .ring, #slideSafety .ip-dot::after, #slideSafety .ip-hl,
     #slideSafety .ip-hl span, #slideSafety .ip-rank-box, #slideSafety .ip-photo img,
     #slideJourney .jr-node, #slideJourney .jr-tile svg, #slideJourney .jr-root span, #slideJourney .jr-seg, #slideJourney .impact svg,
     .jr-panel .jr-node, .jr-panel .jr-tile svg, .jr-panel .jr-root span, .jr-panel .impact svg,
@@ -1486,7 +1563,7 @@
         <p class="sp-desc fade" data-step="1" id="spDesc">Tab ini menunjukkan <b>gambaran keseluruhan</b> performa keselamatan, mulai dari kejadian di puncak piramida hingga indikator fondasi, serta tren KPI utama untuk membantu manajemen melihat pola risiko, kekuatan pelaporan, dan pergerakan insiden dari 2025 hingga Q3 2026.</p>
         <div class="sp-tabs fade" data-step="1" id="spTabs">
           <button type="button" class="sp-tab is-on" data-tab="safety">Safety Performance</button>
-          <button type="button" class="sp-tab" data-tab="leading">Leading Performance</button>
+          <button type="button" class="sp-tab" data-tab="leading">Rapor Mitra Kerja</button>
           <button type="button" class="sp-tab" data-tab="incident">Incident Profile</button>
           <button type="button" class="sp-tab" aria-disabled="true">Major Case</button>
           <button type="button" class="sp-tab" data-tab="journey">Journey</button>
@@ -1512,14 +1589,13 @@
       <div class="sp-panel jr-panel" data-panel="journey" hidden><div class="jr-grid" id="jrTabGrid"></div></div>
       <div class="sp-panel lp" data-panel="leading" hidden>
         <div class="sp-card lp-left fade" data-step="2" id="lpLeftCard">
-          <div class="lp-bar has-badge"><span class="lp-badge">B</span>Leading Performance &amp; Rapor Mining Contractor YTD 2026</div>
-          <div class="lp-kpis" id="lpKpis"></div>
-          <div class="lp-bar">Leading Performance Mining Contractor Q3</div>
-          <div class="lp-tbl fade" data-step="3" id="lpHeatWrap"><table class="lp-heat" id="lpHeat"></table></div>
+          <div class="lp-bar has-badge"><span class="lp-badge">B</span>Pergerakan Kuadran Mitra Kerja Q1'26 → Q3'26</div>
+          <div class="rm-map" id="rmMap"></div>
+          <div class="rm-key" id="rmKey"></div>
         </div>
-        <div class="sp-card lp-right fade" data-step="4" id="lpRightCard">
-          <div class="lp-legend" id="lpLegend"></div>
-          <div class="lp-tbl"><table class="lp-ctr" id="lpCtr"></table></div>
+        <div class="sp-card lp-right fade" data-step="3" id="lpRightCard">
+          <div class="rm-tbl-wrap"><table class="rm-tbl" id="rmTable"></table></div>
+          <p class="rm-note">*LSI: Lagging Severity Index (scoring dengan pembobotan jumlah × severity incident)</p>
         </div>
       </div>
       <div class="sp-panel ip" data-panel="incident" hidden>
@@ -1809,6 +1885,12 @@
 </div>
 <div class="nav-zone"><div id="nav"></div></div>
 
+<div id="intro" role="dialog" aria-label="Video pembuka">
+  <video class="in-video" src="Showreel.mp4" muted playsinline preload="auto" aria-label="Showreel pembuka HSECM"></video>
+  <button type="button" class="in-skip">Lewati intro <kbd>Esc</kbd></button>
+  <div class="in-progress" aria-hidden="true"><i></i></div>
+</div>
+
 <div id="guide">
   <div class="guide-card">
     <h3>Cara menjalankan deck</h3>
@@ -2031,6 +2113,81 @@
       countTo(tl, [total], t+0.2, 0);
     });
     tl.fromTo(q('.sp-u-cell.hot'), {outlineColor:'rgba(224,32,32,0)'}, {outlineColor:'rgba(224,32,32,1)', duration:0.5, clearProps:'outlineColor'}, at+1.4);
+  }
+
+  // Loop for the Rapor map: after the entrance, the Q1 -> Q3 movement replays every few seconds
+  // while the card is on screen; it stops itself when the tab or slide is left.
+  const rmLoop = (function(){
+    let tl = null;
+    const visible = (root)=> !!root.offsetParent && document.getElementById('slideSafety').classList.contains('active');
+    function stop(){ if(tl){ tl.kill(); tl = null; } }
+    function start(root){
+      stop();
+      if(!hasGsap || REDUCE_MOTION || !visible(root)) return;
+      tl = gsap.timeline({ repeat:-1, repeatDelay:2.5, onRepeat:()=>{ if(!visible(root)) stop(); } });
+      rmMoveIn(tl, root, 0);
+    }
+    return { start, stop };
+  })();
+  // Rapor Mitra Kerja map: quadrants settle and the axes grow, then rmMoveIn sends every mitra
+  // from its Q1 position to Q3 along its own path, and the loop takes over once it has landed.
+  function rmMapIn(tl, root, at){
+    const q = (s)=> root.querySelectorAll(s);
+    tl.fromTo(q('.quad'), {opacity:0, scale:0.96, transformOrigin:'50% 50%'}, {opacity:1, scale:1, stagger:0.08, duration:0.5}, at);
+    tl.fromTo(q('.ax-y'), {scaleY:0, transformOrigin:'50% 100%'}, {scaleY:1, duration:0.6, ease:'power2.out'}, at+0.2);
+    tl.fromTo(q('.ax-x'), {scaleX:0, transformOrigin:'0% 50%'}, {scaleX:1, duration:0.6, ease:'power2.out'}, at+0.25);
+    tl.fromTo(q('.axis-lbl'), {opacity:0}, {opacity:1, duration:0.4}, at+0.5);
+    rmLoop.stop();
+    rmMoveIn(tl, root, at+0.7);
+    tl.fromTo(q('.rm-key > *'), {opacity:0}, {opacity:1, stagger:0.06, duration:0.3}, at+0.9);
+    tl.call(()=> gsap.delayedCall(2.5, ()=> rmLoop.start(root)), null, '>');
+  }
+  // The marker starts on its Q1 point, travels each segment in turn while that segment's line is
+  // drawn behind it, and settles on Q3; the earlier quarters stay as small ghost dots.
+  function rmMoveIn(tl, root, at){
+    const SEG = 0.75, GAP = 0.12, EACH = 0.14;
+    root.querySelectorAll('.rm-map .mitra').forEach((m, i)=>{
+      const mover = m.querySelector('.mover'), segs = Array.from(m.querySelectorAll('.seg')), ghosts = m.querySelectorAll('.ghost');
+      if(!mover || !segs.length) return;
+      const start = segs[0].getPointAtLength(0), t0 = at + i*EACH;
+      const place = (x, y)=> mover.setAttribute('transform', 'translate('+x.toFixed(1)+' '+y.toFixed(1)+')');
+      tl.call(()=> place(start.x, start.y), null, t0);
+      tl.fromTo(ghosts, {opacity:0, scale:0.4, transformOrigin:'50% 50%'}, {opacity:0.55, scale:1, stagger:SEG, duration:0.3}, t0);
+      tl.fromTo(mover, {opacity:0}, {opacity:1, duration:0.25}, t0);
+      segs.forEach((seg, k)=>{
+        const len = seg.getTotalLength(), t = t0 + 0.2 + k*(SEG+GAP), o = { p:0 };
+        // the arrowhead belongs to the finished segment: hidden while the line is still drawing
+        const head = seg.getAttribute('marker-end') || seg.dataset.head;
+        seg.dataset.head = head;
+        // hidden from the moment the sequence is built (and again at the start of every loop),
+        // so nothing shows before its turn
+        seg.removeAttribute('marker-end');
+        tl.call(()=> seg.removeAttribute('marker-end'), null, at);
+        gsap.set(seg, {opacity:0});
+        tl.set(seg, {opacity:1}, t);
+        tl.fromTo(seg, {strokeDasharray:len, strokeDashoffset:len}, {strokeDashoffset:0, duration:SEG, ease:'power2.inOut', clearProps:'strokeDasharray,strokeDashoffset'}, t);
+        tl.call(()=> seg.setAttribute('marker-end', head), null, t+SEG);
+        tl.fromTo(o, {p:0}, {p:1, duration:SEG, ease:'power2.inOut', onUpdate:()=>{ const pt = seg.getPointAtLength(o.p*len); place(pt.x, pt.y); }}, t);
+      });
+      // the last segment stops short of its point (room for the arrowhead); glide the rest of the way
+      const last = segs[segs.length-1], from = last.getPointAtLength(last.getTotalLength()), o2 = { p:0 };
+      const ex = +mover.dataset.x, ey = +mover.dataset.y;
+      tl.fromTo(o2, {p:0}, {p:1, duration:0.2, ease:'power1.out', onUpdate:()=> place(from.x + (ex-from.x)*o2.p, from.y + (ey-from.y)*o2.p)}, t0 + 0.2 + segs.length*(SEG+GAP) - GAP);
+    });
+  }
+  // Rapor table: quadrant labels first, then each mitra row with its quarter chips stepping
+  // K → K → K and the Q3 leading value counting up.
+  function rmTableIn(tl, root, at){
+    const q = (s)=> root.querySelectorAll(s);
+    tl.fromTo(q('.rm-tbl thead th'), {y:-8, opacity:0}, {y:0, opacity:1, stagger:0.06, duration:0.4}, at);
+    tl.fromTo(q('.rm-tbl td.kq, .rm-tbl td.crit'), {x:-12, opacity:0}, {x:0, opacity:1, stagger:0.05, duration:0.4}, at+0.15);
+    q('.rm-tbl tbody tr').forEach((tr, i)=>{
+      const t = at + 0.3 + i*0.08;
+      tl.fromTo(tr.querySelectorAll('td.who b, td.lag, td.lead, td.empty'), {opacity:0, y:6}, {opacity:1, y:0, stagger:0.05, duration:0.35}, t);
+      tl.fromTo(tr.querySelectorAll('.chip, .arr'), {opacity:0, scale:0.6}, {opacity:1, scale:1, stagger:0.06, duration:0.25}, t+0.1);
+      countTo(tl, tr.querySelectorAll('td.lead .n'), t+0.1, 0);
+    });
+    tl.fromTo(q('.rm-note'), {opacity:0}, {opacity:1, duration:0.4}, at+1.1);
   }
 
   // Leading Performance. KPI: each score counts up while its colour bar runs out beneath it.
@@ -2308,7 +2465,7 @@
         if(lp){
           tl.fromTo(lp, {y:22, opacity:0}, {y:0, opacity:1, duration:0.6}, 0);
           tl.fromTo(lp.querySelectorAll('.lp-bar'), {x:-16, opacity:0}, {x:0, opacity:1, stagger:0.15, duration:0.45}, 0.1);
-          lpKpiIn(tl, lp, 0.2);
+          rmMapIn(tl, lp, 0.2);
         }
         const ip=$id('ipMainCard');
         if(ip){
@@ -2323,9 +2480,10 @@
           tl.fromTo(mo, {y:22, opacity:0}, {y:0, opacity:1, duration:0.6}, 0);
           monthlyIn(tl, mo, 0.15);
         }
-        const lpl=$id('lpLeftCard');
-        if(lpl){
-          lpHeatIn(tl, lpl, 0.05);
+        const lpr=$id('lpRightCard');
+        if(lpr){
+          tl.fromTo(lpr, {x:24, opacity:0}, {x:0, opacity:1, duration:0.6}, 0);
+          rmTableIn(tl, lpr, 0.1);
         }
         tl.fromTo(all('#ipTrends, #ipTop'), {y:18, opacity:0}, {y:0, opacity:1, stagger:0.1, duration:0.55}, 0);
         const ipTr=$id('ipTrends'), ipTp=$id('ipTop');
@@ -2342,11 +2500,6 @@
         if(box){
           tl.fromTo(box, {x:24, opacity:0}, {x:0, opacity:1, duration:0.6}, 0.3);
           unitsIn(tl, box, 0.5);
-        }
-        const lr=$id('lpRightCard');
-        if(lr){
-          tl.fromTo(lr, {x:24, opacity:0}, {x:0, opacity:1, duration:0.6}, 0);
-          lpCtrIn(tl, lr, 0.1);
         }
         const ic=$id('ipCaseCard');
         if(ic){
@@ -2803,6 +2956,174 @@
     return { render };
   })();
 
+  // Rapor Mitra Kerja (from the report): quadrant per quarter Q1'26, Q2'26, Q3'26, lagging YTD
+  // 2026 and leading Q3 2026. Kuadran: 1 = leading < 80% & LSI >= 5, 2 = leading >= 80% & LSI >= 5,
+  // 3 = leading < 80% & LSI < 5, 4 = leading >= 80% & LSI < 5. Rows are grouped as in the report.
+  const RAPOR = {
+    header:{
+      kicker:'Fig. 01 · Rapor Mitra Kerja Overview',
+      title:'Rapor Mitra Kerja',
+      desc:'Rapor Mitra Kerja yang menjadi catatan utama adalah peningkatan Lagging di <b>PAMA BMO, MTN, PAMA GMO, BAR, dan KDC</b> secara jumlah dan severity yang masuk pada <b>Kuadran 1 &amp; Kuadran 2</b>. <b>PAMA BMO &amp; PAMA GMO</b> tidak terdapat perbaikan dari Q1. Mitra kerja pada <b>Kuadran 4</b> yang mengalami peningkatan Lagging di <b>MTL &amp; BUMA LMO</b> perlu dilakukan pendalaman karena skor leading &gt; 80% tetapi terdapat gap pada Incident.'
+    },
+    quadrants:{
+      1:{ crit:'Leading < 80%<br>LSI ≥ 5', c:'#D7262B', bg:'#FDE3E3' },
+      2:{ crit:'Leading ≥ 80%<br>LSI ≥ 5', c:'#EE8B1E', bg:'#FDEBD8' },
+      3:{ crit:'Leading < 80%<br>LSI < 5', c:'#C9A100', bg:'#FFF4C9' },
+      4:{ crit:'Leading ≥ 80%<br>LSI < 5', c:'#1F9A4B', bg:'#E2F4E6' }
+    },
+    // map positions per quarter [Q1, Q2, Q3] as fractions of the plot: x = % leading (left low),
+    // y = LSI (0 = top, highest). Read off the report's chart; the plot splits at x .583 / y .648.
+    split:{ x:0.583, y:0.648 },
+    // logo files in logo/, with their aspect ratio (width / height)
+    logos:{
+      'PAMA BMO':['logo/pama.png', .886], 'PAMA GMO':['logo/pama.png', .886],
+      'MTN':['logo/mtn.jpg', 1.48], 'BAR':['logo/bar.png', .92],
+      'BUMA LMO':['logo/buma.png', 2.8], 'BUMA BMO':['logo/buma.png', 2.8],
+      'FAD':['logo/fad.jpg', 2.58], 'MTL':['logo/mtl.png', 1.85], 'KDC':['logo/kdc.jpg', .964]
+    },
+    // one company on two sites: the site chip tells PAMA BMO from PAMA GMO and BUMA LMO from BUMA BMO
+    sites:{ 'PAMA BMO':'BMO', 'PAMA GMO':'GMO', 'BUMA LMO':'LMO', 'BUMA BMO':'BMO' },
+    siteColors:{ BMO:'#0F2D6B', GMO:'#1D7FE0', LMO:'#13896F' },
+    map:{
+      'PAMA BMO': [[.112,.560],[.266,.251],[.408,.070]],
+      'PAMA GMO': [[.266,.365],[.372,.202],[.524,.228]],
+      'MTN':      [[.211,.600],[.423,.930],[.429,.300]],
+      'BAR':      [[.613,.749],[.486,.717],[.444,.567]],
+      'BUMA LMO': [[.531,.430],[.529,.837],[.643,.837]],
+      'KDC':      [[.774,.837],[.793,.730],[.852,.550]],
+      'FAD':      [[.630,.935],[.719,.860],[.778,.925]],
+      'MTL':      [[.334,.925],[.478,.925],[.619,.893]],
+      'BUMA BMO': [[.539,.950],[.725,.950],[.861,.950]]
+    },
+    groups:[
+      [1, [ ['PAMA BMO', [1,1,1], ['11 PD','7 NM'], '75.11%'],
+            ['PAMA GMO', [1,1,2], ['2 MTI','1 FC','3 PD','10 NM'], '79.45%'],
+            ['MTN',      [1,3,1], ['1 MTI','2 FC','2 PD','1 NM'], '76.89%'],
+            ['BAR',      [4,3,1], ['4 PD','3 NM'], '75.82%'] ]],
+      [2, [ ['KDC',      [4,4,1], ['1 FC','2 PD','2 NM'], '85.22%'] ]],
+      [3, []],
+      [4, [ ['FAD',      [4,4,4], ['3 NM'], '80.85%'],
+            ['MTL',      [3,3,4], ['1 PD','3 NM'], '81.25%'],
+            ['BUMA LMO', [1,3,4], ['1 LTI','1 PD','2 NM'], '80.42%'],
+            ['BUMA BMO', [3,4,4], ['Zero Inc'], '85.41%'] ]]
+    ]
+  };
+  const raporView = (function(){
+    const Q = RAPOR.quadrants;
+    // worse = towards Kuadran 1; used to colour each path by where it ended up
+    const RISK = { 4:0, 3:1, 2:2, 1:3 };
+    const W = 600, H = 400, PAD = { l:34, r:10, t:6, b:34 };
+    const IW = W - PAD.l - PAD.r, IH = H - PAD.t - PAD.b;
+    const all = ()=> RAPOR.groups.flatMap(([, rows])=> rows);
+    const px = ([fx, fy])=> [PAD.l + fx*IW, PAD.t + fy*IH];
+    const sx = PAD.l + RAPOR.split.x*IW, sy = PAD.t + RAPOR.split.y*IH;
+    // quadrant of a plotted point, so a marker takes the colour of where it actually lands
+    const quadOf = ([fx, fy])=> fy < RAPOR.split.y ? (fx < RAPOR.split.x ? 1 : 2) : (fx < RAPOR.split.x ? 3 : 4);
+    const f1 = (v)=> v.toFixed(1);
+    // a white card holding the company logo (or its name when there is no logo), outlined in the
+    // colour of the quadrant it ends in; ghosts use a smaller, faded copy
+    const LOGO_H = 13, LOGO_MAXW = 32, PADX = 3.5, PADY = 2.5;
+    function badge(name, scale, ring){
+      const logo = RAPOR.logos[name], lh = LOGO_H*scale;
+      // wide word-marks are capped so a cluster of nearby mitra stays readable
+      const lw = logo ? Math.min(lh*logo[1], LOGO_MAXW*scale) : name.length*6.2*scale;
+      const lhh = logo ? lw/logo[1] : lh;
+      const w = lw + PADX*2*scale, hh = lh + PADY*2*scale;
+      const card = '<rect class="badge" x="'+f1(-w/2)+'" y="'+f1(-hh/2)+'" width="'+f1(w)+'" height="'+f1(hh)+'" rx="'+f1(4*scale)+'"'
+        + (ring ? ' style="stroke:'+ring+'"' : '')+'/>';
+      const inner = logo
+        ? '<image href="'+logo[0]+'" x="'+f1(-lw/2)+'" y="'+f1(-lhh/2)+'" width="'+f1(lw)+'" height="'+f1(lhh)+'" preserveAspectRatio="xMidYMid meet"/>'
+        : '<text class="badge-txt" y="'+f1(4*scale)+'" style="font-size:'+f1(11*scale)+'px">'+name+'</text>';
+      const site = RAPOR.sites[name], cs = Math.max(scale, 0.95);   // the site must stay legible on ghosts
+      const chip = site
+        ? '<g class="site" transform="translate('+f1(w/2-2*scale)+' '+f1(-hh/2+1*scale)+')">'
+          + '<rect x="'+f1(-11*cs)+'" y="'+f1(-6*cs)+'" width="'+f1(22*cs)+'" height="'+f1(11*cs)+'" rx="'+f1(5.5*cs)+'" fill="'+RAPOR.siteColors[site]+'"/>'
+          + '<text y="'+f1(2.6*cs)+'" style="font-size:'+f1(7.4*cs)+'px">'+site+'</text></g>'
+        : '';
+      return card + inner + chip;
+    }
+    function map(){
+      const GUT = 3;
+      let s = '<svg viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Peta kuadran pergerakan mitra kerja Q1 sampai Q3 2026">';
+      s += '<defs>'
+        + '<linearGradient id="rmAxX" x1="0" x2="1"><stop offset="0" stop-color="#3FAE52"/><stop offset=".5" stop-color="#F5A70A"/><stop offset="1" stop-color="#D7262B"/></linearGradient>'
+        + '<linearGradient id="rmAxY" x1="0" x2="0" y1="1" y2="0"><stop offset="0" stop-color="#3FAE52"/><stop offset=".5" stop-color="#F5A70A"/><stop offset="1" stop-color="#D7262B"/></linearGradient>'
+        + ['Up','Down'].map(k=> '<marker id="rmArr'+k+'" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5.5" markerHeight="5.5" orient="auto"><path d="M0 0L10 5L0 10z" fill="'+(k==='Up'?'#D7262B':'#1F9A4B')+'"/></marker>').join('')
+        + '</defs>';
+      const rects = { 1:[PAD.l, PAD.t, sx-PAD.l-GUT, sy-PAD.t-GUT], 2:[sx+GUT, PAD.t, W-PAD.r-sx-GUT, sy-PAD.t-GUT],
+                      3:[PAD.l, sy+GUT, sx-PAD.l-GUT, H-PAD.b-sy-GUT], 4:[sx+GUT, sy+GUT, W-PAD.r-sx-GUT, H-PAD.b-sy-GUT] };
+      [1,2,3,4].forEach(k=>{
+        const [x, y, w, hh] = rects[k], right = k===2 || k===4, bottom = k===3 || k===4;
+        s += '<g class="quad"><rect class="q" x="'+x+'" y="'+y+'" width="'+w+'" height="'+hh+'" fill="'+Q[k].bg+'"/>'
+          + '<text class="q-lbl" x="'+(right ? x+w-10 : x+10)+'" y="'+(bottom ? y+hh-10 : y+20)+'" text-anchor="'+(right?'end':'start')+'">Kuadran '+k+'</text></g>';
+      });
+      // gradient axes with arrowheads, as on the report: low risk green to high risk red
+      const ax = PAD.l - 16, ay = H - PAD.b + 12;
+      s += '<g class="axes">'
+        + '<rect class="ax ax-y" x="'+(ax-3)+'" y="'+(PAD.t+10)+'" width="6" height="'+(ay-PAD.t-10)+'" rx="2" fill="url(#rmAxY)"/>'
+        + '<path d="M'+(ax-8)+' '+(PAD.t+12)+' L'+ax+' '+(PAD.t-2)+' L'+(ax+8)+' '+(PAD.t+12)+'z" fill="#D7262B"/>'
+        + '<rect class="ax ax-x" x="'+ax+'" y="'+(ay-3)+'" width="'+(W-PAD.r-ax-10)+'" height="6" rx="2" fill="url(#rmAxX)"/>'
+        + '<path d="M'+(W-PAD.r-12)+' '+(ay-8)+' L'+(W-PAD.r+2)+' '+ay+' L'+(W-PAD.r-12)+' '+(ay+8)+'z" fill="#D7262B"/>'
+        + '<text class="axis-lbl" x="'+((PAD.l+W)/2)+'" y="'+(H-2)+'" text-anchor="middle">% Leading (Low To Highest)</text>'
+        + '<text class="axis-lbl" x="6" y="'+(H/2)+'" text-anchor="middle" transform="rotate(-90 6 '+(H/2)+')">Lagging Severity Index</text></g>';
+      all().forEach(([name])=>{
+        const pts = (RAPOR.map[name]||[]).map(px); if(pts.length < 2) return;
+        const end = pts[pts.length-1], q3 = quadOf(RAPOR.map[name][pts.length-1]);
+        let segs = '';
+        for(let i=1; i<pts.length; i++){
+          const a = pts[i-1], b = pts[i], up = b[1] < a[1] - 2;
+          // stop the line short of the next marker so its arrowhead stays visible
+          const dx = b[0]-a[0], dy = b[1]-a[1], len = Math.hypot(dx, dy) || 1, cut = Math.min(15, len/3);
+          const bx = b[0] - dx/len*cut, by = b[1] - dy/len*cut;
+          segs += '<path class="seg '+(up?'up':'down')+'" d="M'+f1(a[0])+' '+f1(a[1])+' L'+f1(bx)+' '+f1(by)+'" marker-end="url(#rmArr'+(up?'Up':'Down')+')"/>';
+        }
+        s += '<g class="mitra" data-q="'+q3+'">'
+          + pts.slice(0, -1).map((pt, i)=> '<g class="ghost" transform="translate('+f1(pt[0])+' '+f1(pt[1])+')">'+badge(name, 0.72, null)
+            + '<text y="'+(LOGO_H*0.72/2+12).toFixed(1)+'">Q'+(i+1)+'</text></g>').join('')
+          + segs
+          + (q3===1 ? '<circle class="ring" cx="'+f1(end[0])+'" cy="'+f1(end[1])+'" r="13"/>' : '')
+          + '<g class="mover" data-x="'+f1(end[0])+'" data-y="'+f1(end[1])+'">'+badge(name, 1, Q[q3].c)
+          + (RAPOR.logos[name] ? '<text class="name" y="'+(LOGO_H/2+12).toFixed(1)+'">'+name+'</text>' : '')+'</g></g>';
+      });
+      return s + '</svg>';
+    }
+    function key(){
+      return '<span><i style="--c:#D7262B"></i>Naik ke LSI lebih tinggi</span>'
+        + '<span><i style="--c:#1F9A4B"></i>Turun / leading membaik</span>'
+        + '<span><i class="dot" style="--c:#A9B4C2"></i>Posisi Q1 · Q2</span>'
+        + '<span>Site '+Object.keys(RAPOR.siteColors).map(k=> '<i class="site" style="--c:'+RAPOR.siteColors[k]+'">'+k+'</i>').join(' ')+'</span>'
+        + '<button type="button" class="rm-replay">Putar ulang pergerakan</button>';
+    }
+    function table(){
+      const chip = (k)=> '<span class="chip" style="--qc:'+Q[k].c+'">K'+k+'</span>';
+      const head = '<thead><tr><th colspan="2">Kuadran</th><th>Mitra Kerja<small>Q1\'26 → Q2\'26 → Q3\'26</small></th>'
+        + '<th class="lag">Lagging YTD 2026</th><th class="lead">Leading Q3 2026</th></tr></thead>';
+      const body = RAPOR.groups.map(([k, rows])=>{
+        const lead = '<td class="kq" rowspan="'+Math.max(rows.length,1)+'" style="--qbg:'+Q[k].bg+'">Kuadran '+k+'</td>'
+          + '<td class="crit" rowspan="'+Math.max(rows.length,1)+'">'+Q[k].crit+'</td>';
+        if(!rows.length) return '<tr class="grp-start">'+lead+'<td class="empty">-</td><td class="lag empty">-</td><td class="lead empty">-</td></tr>';
+        return rows.map(([name, path, lag, ld], i)=>
+          '<tr'+(i===0 ? ' class="grp-start"' : '')+'>'+(i===0 ? lead : '')
+          + '<td class="who"><b>'+name+'</b>'+path.map(chip).join('<span class="arr">→</span>')+'</td>'
+          + '<td class="lag">'+lag.join('<br>')+'</td>'
+          + '<td class="lead'+(parseFloat(ld) < 80 ? ' low' : '')+'"><span class="n">'+ld+'</span></td></tr>').join('');
+      }).join('');
+      return head + '<tbody>'+body+'</tbody>';
+    }
+    function render(){
+      const fill = (id, fn)=>{ const el = document.getElementById(id); if(el) el.innerHTML = fn(); };
+      fill('rmMap', map); fill('rmKey', key); fill('rmTable', table);
+      document.querySelectorAll('#rmMap .mover').forEach(m=> m.setAttribute('transform', 'translate('+m.dataset.x+' '+m.dataset.y+')'));
+      const replay = document.querySelector('#rmKey .rm-replay');
+      if(replay) replay.addEventListener('click', e=>{
+        e.stopPropagation();
+        if(!hasGsap || REDUCE_MOTION) return;
+        rmLoop.start(document.getElementById('lpLeftCard'));
+      });
+    }
+    return { render };
+  })();
+
   const LEADING = {
     header:{
       kicker:'Fig. 01 · Leading Performance Overview',
@@ -2976,10 +3297,8 @@
       if(key==='safety' && pyr && pyr.classList.contains('on')) pyramidIn(tabTl, pyr, 0.15);
       if(key==='leading'){
         const left = $id('lpLeftCard'), right = $id('lpRightCard');
-        const heatWrap = $id('lpHeatWrap');
-        if(left && left.classList.contains('on')) lpKpiIn(tabTl, left, 0.15);
-        if(heatWrap && heatWrap.classList.contains('on')) lpHeatIn(tabTl, heatWrap, 0.4);
-        if(right && right.classList.contains('on')) lpCtrIn(tabTl, right, 0.2);
+        if(left && left.classList.contains('on')) rmMapIn(tabTl, left, 0.15);
+        if(right && right.classList.contains('on')) rmTableIn(tabTl, right, 0.2);
       }
       if(key==='journey'){
         const panel = document.querySelector('#slideSafety .jr-panel');
@@ -3007,7 +3326,7 @@
     function init(){
       if(!$id('spTabs')) return;
       headers.safety = { kicker:$id('spKicker').textContent, title:$id('spTitle').textContent, desc:$id('spDesc').innerHTML };
-      headers.leading = LEADING.header;
+      headers.leading = RAPOR.header;
       headers.incident = INCIDENT.header;
       headers.journey = {
         kicker:'Fig. 01 · Journey Safety Performance Overview',
@@ -3656,6 +3975,47 @@
     if((document.querySelectorAll('.slide')[index]||{}).id!==spCards.SLIDE_ID) spCards.stop();
   }
 
+  // Intro: Showreel.mp4 plays full screen (it has no audio track, so muted autoplay is allowed),
+  // then hands over to the opening slide. Esc / Enter / Space / the button skip it; if the video
+  // cannot play, or the viewer asked for reduced motion, the deck opens straight away.
+  const intro = (function(){
+    const el = document.getElementById('intro');
+    const video = el ? el.querySelector('.in-video') : null;
+    const bar = el ? el.querySelector('.in-progress i') : null;
+    let done = false, onDone = null, raf = 0;
+    function finish(){
+      if(done) return; done = true;
+      cancelAnimationFrame(raf);
+      document.removeEventListener('keydown', onKey, true);
+      if(video) video.pause();
+      // release the decoder once hidden, the file is not needed again
+      const close = ()=>{ el.hidden = true; if(video){ video.removeAttribute('src'); video.load(); } };
+      if(hasGsap) gsap.to(el, {opacity:0, duration:0.5, ease:'power1.out', onComplete:close});
+      else close();
+      if(onDone) onDone();
+    }
+    function onKey(e){
+      if(['Escape','Enter',' ','ArrowRight','PageDown'].includes(e.key)){ e.preventDefault(); e.stopImmediatePropagation(); finish(); }
+      else e.stopImmediatePropagation();
+    }
+    function tick(){
+      if(video && video.duration) bar.style.transform = 'scaleX('+(video.currentTime/video.duration).toFixed(4)+')';
+      if(!done) raf = requestAnimationFrame(tick);
+    }
+    function play(cb){
+      onDone = cb;
+      if(!el || !video || REDUCE_MOTION){ done = true; if(el) el.hidden = true; return cb && cb(); }
+      document.addEventListener('keydown', onKey, true);
+      el.querySelector('.in-skip').addEventListener('click', e=>{ e.stopPropagation(); finish(); });
+      video.addEventListener('ended', finish);
+      video.addEventListener('error', finish);
+      const started = video.play();
+      if(started && started.catch) started.catch(finish);
+      raf = requestAnimationFrame(tick);
+    }
+    return { play, get running(){ return !done; } };
+  })();
+
   function initDeck(){
     const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
     const slides = Array.from(document.querySelectorAll('.slide'));
@@ -3743,7 +4103,7 @@
     document.getElementById('prev').addEventListener('click', e=>{ e.stopPropagation(); goTo(current-1); });
     document.addEventListener('click', e=>{
       if(guide.classList.contains('open')) return;
-      if(e.target.closest('button, a, input, textarea, .dot, .navbtn, #guide, .guide-btn, .nav-zone, .pit-rail, .sp-mo-ec')) return;
+      if(e.target.closest('button, a, input, textarea, .dot, .navbtn, #guide, .guide-btn, .nav-zone, .pit-rail, .sp-mo-ec, #intro')) return;
       nextStep();
     });
     document.addEventListener('keydown', e=>{
@@ -3766,11 +4126,15 @@
     function toggleGuide(){ guide.classList.toggle('open'); }
     document.getElementById('guideBtn').addEventListener('click', e=>{ e.stopPropagation(); toggleGuide(); });
     guide.addEventListener('click', e=>{ if(e.target===guide) closeGuide(); });
-    if(!sessionStorage.getItem('pit-guide-seen')){ openGuide(); sessionStorage.setItem('pit-guide-seen','1'); }
+    intro.play(()=>{
+      if(current===0){ pitMotion.play(0, 1, 0); }
+      if(!sessionStorage.getItem('pit-guide-seen')){ openGuide(); sessionStorage.setItem('pit-guide-seen','1'); }
+    });
   }
 
   safetyView.render();
   leadingView.render();
+  raporView.render();
   incidentView.render();
   journeyView.render();
   jrTab.build();
