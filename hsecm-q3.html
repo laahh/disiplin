@@ -4654,7 +4654,7 @@
             ['Pengukuran situasi disposal menggunakan drone → LMO/2026/8'],
             ['Dumping Material Lumpur — ground condition/amblas/rollover exposure']]
         ] },
-      { key:'partial', no:'02', title:'Masih Progress <em>(Partial)</em> — sudah berjalan namun belum full/standardized', tile:'Masih Progress <em>(Partial)</em>', count:17, gap:12, c:'#EE8B1E', bg:'#FDEFDF', icon:'gear',
+      { key:'partial', no:'02', title:'Masih Progress <em>(Partial)</em> — sudah berjalan namun belum full/standardized', tile:'Masih Progress <em>(Partial)</em>', count:50, gap:12, c:'#EE8B1E', bg:'#FDEFDF', icon:'gear',
         desc:'12 control confirmed signal → percepat closure hingga standardisasi.',
         note:'rekayasa masih progress dan incident sudah muncul → percepat pemenuhan hingga standarisasi.',
         rows:[
@@ -4678,7 +4678,7 @@
             ['Kelayakan kendaraan — collision saat manuver Bus']]
         ] },
       { key:'none', no:'03', title:'Belum Berjalan — actual 0', tile:'Belum Berjalan', count:59, gap:3, c:'#D7262B', bg:'#FDE6E6', icon:'stop',
-        desc:'5 control confirmed signal → segera procurement &amp; implementasi.',
+        desc:'3 control confirmed signal → segera procurement &amp; implementasi.',
         note:'rekayasa belum berjalan tetapi incident sudah ada → segera procurement &amp; implementasi.',
         rows:[
           ['PAMA – BMO 2',
@@ -4913,16 +4913,16 @@
   // Kelayakan: higher is better; MFR, ASR and PAK: lower is better.
   const HEALTH2 = {
     ind:[
-      ['MTL',      ['84.12','86.00'],  ['0.00','0.00'], ['-','-'],          ['0.00','0.00']],
-      ['BUMA LMO', ['96.21','95.35'],  ['0.02','0.02'], ['92.39','92.39'],  ['0.00','0.00']],
-      ['BUMA BMO', ['91.02','91.02'],  ['0.00','0.00'], ['0.00','0.00'],          ['0.00','0.00']],
-      ['PAMA BMO', ['85.67','83.21'],  ['0.04','0.03'], ['85.62','85.62'],  ['0.00','0.00']],
-      ['PAMA GMO', ['92.13','90.72'],  ['0.03','0.05'], ['175.05','175.05'],['0.00','0.00']],
-      ['MTN SMO',  ['96.04','95.13'],  ['0.00','0.01'], ['61.86','61.86'],  ['0.00','0.00']],
-      ['KDC BMO',  ['89.72','88.51'],  ['0.00','0.00'], ['0.00','0.00'],    ['0.00','0.00']],
-      ['KDC GMO',  ['94.35','92.19'],  ['0.00','0.01'], ['37.91','37.91'],  ['0.00','0.00']],
-      ['FAD LMO',  ['99.12','100.00'], ['0.00','0.00'], ['13.24','13.24'],  ['0.00','0.00']],
-      ['BAR BMO',  ['91.05','90.34'],  ['0.00','0.00'], ['0.00','0.00'],    ['0.00','0.00']]
+      ['MTL',      ['90.70','73.44'], ['6.01','0.00'], ['0.00','5.00'], ['0.00','0.00']],
+      ['BUMA LMO', ['95.10','70.99'], ['188.77','92.39'], ['98.02','46.20'], ['0.00','0.00']],
+      ['BUMA BMO', ['70.40','70.99'], ['3.50','0.00'], ['3.50','0.00'], ['0.00','0.00']],
+      ['PAMA BMO', ['80.80','84.95'], ['74.53','85.62'], ['6.82','109.08'], ['0.00','0.00']],
+      ['PAMA GMO', ['96.60','88.84'], ['141.18','175.05'], ['1.43','9.75'], ['0.00','0.00']],
+      ['MTN SMO',  ['90.90','82.23'], ['69.52','61.86'], ['68.45','63.03'], ['0.00','0.00']],
+      ['KDC BMO',  ['89.30','82.11'], ['0.00','0.00'], ['0.00','0.00'], ['0.00','0.00']],
+      ['KDC GMO',  ['90.30','87.30'], ['0.00','37.91'], ['0.00','31.59'], ['0.00','0.00']],
+      ['FAD LMO',  ['99.00','72.03'], ['37.59','13.24'], ['0.00','22.69'], ['0.00','0.00']],
+      ['BAR BMO',  ['97.60','87.18'], ['0.00','0.00'], ['0.00','503.84'], ['0.00','0.00']]
     ],
     // Q3 summary: [icon, label, value, trend ('up'|'down'|'eq'), colour]
     sum:[ ['shield','<b>Rasio Kelayakan Kerja</b> (average)','91,25%','down','#E0313A'],
@@ -5117,7 +5117,7 @@
     focus:[
       { name:'Leadership', icon:'people', items:[['Digitalisasi & Integrasi Data OHS Scorecard','HSPA & Minetech'],['Perkuatan Pengelolaan Tools termasuk Inventarisasi & Inspeksi Tools','PNC, SOD, MNO']] },
       { name:'People', icon:'helmet', items:[['Implementasi BIMTEK dan peningkatan kapabilitas pengawasan RIC','SOD & HSECT'],['Utilisasi WELL terintegrasi dengan MCU dan Working Permit','HSPA, SOD, HSECT, MNO']] },
-      { name:'Process', icon:'gear', items:[['Kontrol aktivitas pekerja di Luar Kabin melalui intervensi BeSigma','OHS, GNH, MNO'],['Antisipasi geoteknikal hazard dengan peningkatan utilisasi Besigma','GNH'],['Percepatan Pemenuhan Prioritas Rekayasa Engineering','SMT, OHS, MNO'],['Perkuatan Pengelolaan Fatigue dari pra-pekerjaan hingga pasca-pekerjaan','HSPA, SOD, MNO']] },
+      { name:'Process', icon:'gear', items:[['Kontrol aktivitas pekerja di Luar Kabin melalui intervensi BeSigma','OHS, GNH, MNO'],['Antisipasi geoteknikal hazard dengan peningkatan utilisasi Besigma','GNH',"MNO"],['Percepatan Pemenuhan Prioritas Rekayasa Engineering','SMT, OHS, MNO'],['Perkuatan Pengelolaan Fatigue dari pra-pekerjaan hingga pasca-pekerjaan','HSPA, SOD, MNO']] },
       { name:'Technology', icon:'monitor', items:[['Perbaikan mirroring & connectivity kondisi CCTV terutama pada area kritis','IT, MNO']] }
     ]
   };
