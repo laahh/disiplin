@@ -1634,6 +1634,9 @@
   .hx-ring b{ font-weight:800; color:#0F2D6B; font-size:clamp(1rem,3vh,1.8rem); }
   .hx-ring{ height:min(100%, 15vh); }
   .hx-ring b span{ font-size:inherit; }
+  .hx-inst{ grid-template-rows:minmax(0,1fr) auto; gap:.8vh; }
+  .hx-inst-note{ max-width:100%; padding:.5vh 10px; border-radius:6px; background:#FFF4DE; border:1px solid #F5D08A; color:#7A4A00; text-align:center; font-size:clamp(.56rem,1.35vh,.8rem); line-height:1.25; }
+  .hx-inst-note b{ color:#B85C00; }
   .hx-ring span{ font-size:clamp(.5rem,1.25vh,.74rem); }
   .hx-util{ flex:1; min-height:0; display:flex; align-items:center; justify-content:center; gap:10px; padding:.4vh 8px; }
   .hx-util .ic{ width:clamp(30px,6vh,56px); height:clamp(30px,6vh,56px); color:var(--hf-green-d); } .hx-util .ic svg{ width:100%; height:100%; fill:currentColor; }
@@ -4925,11 +4928,11 @@
       ['BAR BMO',  ['97.60','87.18'], ['0.00','0.00'], ['0.00','503.84'], ['0.00','0.00']]
     ],
     // Q3 summary: [icon, label, value, trend ('up'|'down'|'eq'), colour]
-    sum:[ ['shield','<b>Rasio Kelayakan Kerja</b> (average)','91,25%','down','#E0313A'],
-          ['people','<b>MFR</b> (average)','0,012','up','#E0313A'],
-          ['bed','<b>ASR</b> (average)','51,79','eq','#F2A20C'],
+    sum:[ ['shield','<b>Rasio Kelayakan Kerja</b> (average)','80,01%','down','#E0313A'],
+          ['people','<b>MFR</b> (average)','46,61','down','#1F9A4B'],
+          ['bed','<b>ASR</b> (average)','79,12','up','#E0313A'],
           ['target','<b>Rasio PAK</b> (average)','0,00','eq','#F2A20C'] ],
-    install:{ pct:100, label:'Terinstal', sub:'(semua site)' },
+    install:{ pct:100, label:'Terinstal', sub:'(semua site)', note:'Ada <b>45 orang</b> karyawan baru yang belum install' },
     util:{ users:'1.130', label:'pengguna aktif per hari' },
     todo:[ ['2.1','Pencatatan Menu Catering & Nutrisi dari Masing-masing Vendor Makanan'],
            ['2.2','Edukasi secara berkala'],
@@ -4938,7 +4941,8 @@
     incidents:{ total:9, roster:7, since:'Pelanggaran (sejak Jul 2025) · 77,8%',
       violations:[ ['On-site >71 hr:','2','(22,2%)'], ['Cuti <12 hr:','5','(55,6%)'], ['Shift >13 hr beruntun:','1','(11,1%)'] ] },
     next:{ title:'Compliance terhadap desain roster, waktu kerja dan istirahat sesuai ketentuan yang berlaku',
-      items:[ 'Penerapan desain roster sesuai perundangan (antara lain UU No. 13 Tahun 2003).',
+      items:[
+            ' Penerapan terkait desain roster, waktu kerja & istirahat sesuai UU No 13 Tahun 2003, Kepmenakertrans No. 234 ',
               'Monitoring jam kerja dan periode istirahat di setiap site.',
               'Tindak lanjut pelanggaran roster dan pencegahan recurrence.' ] }
   };
@@ -4984,7 +4988,8 @@
       $('hxSum').innerHTML = sum();
       const I = HEALTH2.install, R = 15.915;
       $('hxInst').innerHTML = '<div class="hx-ring"><svg viewBox="0 0 42 42"><circle cx="21" cy="21" r="'+R+'" stroke="#E3ECE6"/><circle class="arc" cx="21" cy="21" r="'+R+'" stroke="#11803F" stroke-dasharray="'+I.pct+' '+(100-I.pct)+'"/></svg>'
-        + '<div><b><span class="n">'+I.pct+'%</span></b><span>'+I.label+'<br>'+I.sub+'</span></div></div>';
+        + '<div><b><span class="n">'+I.pct+'%</span></b><span>'+I.label+'<br>'+I.sub+'</span></div></div>'
+        + (I.note ? '<p class="hx-inst-note">'+I.note+'</p>' : '');
       $('hxUtil').innerHTML = '<span class="ic">'+svg('bars')+'</span><div><b class="n">'+HEALTH2.util.users+'</b><span>'+HEALTH2.util.label+'</span></div>';
       $('hxTodo').innerHTML = HEALTH2.todo.map(([k, t])=> '<li><i>'+k+'</i><span>'+t+'</span></li>').join('');
       const F = HEALTH2.incidents;
