@@ -3386,6 +3386,119 @@
   /* Risk Transformation: key-project media is a muted looping video */
   .hs-tv-ec .ec-photo-v{ position:relative; min-height:0; overflow:hidden; border-radius:12px; background:#0F1B24; }
   .hs-tv-ec .ec-vid{ display:block; width:100%; height:100%; object-fit:cover; pointer-events:none; }
+
+  /* Risk Transformation detail, tidied: back button clear of the ring, text as one column of cards,
+     a status summary filling the gap, a caption over the video */
+  .hs-tv-ec .ec-exp .ec-back{ right:18px !important; top:1.5vh !important; }
+  .hs-tv-ec .ec-c.ec-big{ grid-template-columns:minmax(0,1.25fr) minmax(0,1fr) !important; grid-template-rows:auto auto auto auto minmax(0,1fr) auto !important; gap:1.2vh 20px !important; padding:1.4vh 20px 1.4vh !important; }
+  .hs-tv-ec .ec-c.ec-big > header{ padding-right:230px; padding-bottom:1vh; }
+  .hs-tv-ec .ec-c.ec-big .ec-ring{ width:clamp(50px,7vh,70px) !important; }
+  .hs-tv-ec .ec-c.ec-big .ec-photo{ grid-row:2 / 6 !important; border-radius:16px !important; box-shadow:0 14px 34px rgba(15,27,36,.22) !important; }
+  .hs-tv-ec .ec-c.ec-big .ec-prog, .hs-tv-ec .ec-c.ec-big .ec-stats{ padding:1vh 14px; border-radius:14px; background:#F7F9FA; border:1px solid var(--rt-line); }
+  .hs-tv-ec .ec-c.ec-big .ec-prog ul{ gap:.8vh; }
+  .hs-tv-ec .ec-c.ec-big .ec-hz, .hs-tv-ec .ec-c.ec-big .ec-rnd{ padding:1vh 14px !important; border-radius:14px !important; }
+  .hs-tv-ec .ec-c.ec-big .ec-rnd{ border:1px solid var(--rt-line); }
+  .ec-sum{ display:none; }
+  .hs-tv-ec .ec-c.ec-big .ec-sum{ grid-column:2; grid-row:5; align-self:end; display:grid; grid-template-columns:1.1fr 1fr 1fr; gap:10px; }
+  .ec-sum > div{ display:flex; flex-direction:column; justify-content:center; gap:.4vh; padding:1.1vh 14px; border-radius:14px; background:#fff; border:1px solid var(--rt-line); box-shadow:0 6px 16px rgba(20,26,34,.05); min-width:0; }
+  .ec-sum small{ font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:.78em; letter-spacing:.08em; text-transform:uppercase; color:var(--rt-mute); }
+  .ec-sum .pc b{ font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:2.1em; line-height:1; color:var(--rt-gd); }
+  .ec-sum .bar{ height:7px; border-radius:4px; background:#EDF0F2; overflow:hidden; }
+  .ec-sum .bar i{ display:block; height:100%; border-radius:4px; background:linear-gradient(90deg,var(--rt-gd),#7BC143); }
+  .ec-sum .st b{ font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:1em; line-height:1.25; color:var(--rt-ink); }
+  .ec-sum .st.now{ background:linear-gradient(135deg,#EAF6EC,#fff); border-color:rgba(31,154,58,.3); }
+  .ec-sum .st.now b{ color:var(--rt-gd); }
+  .ec-cap{ position:absolute; left:0; right:0; bottom:0; display:flex; align-items:center; gap:10px; padding:2.6vh 18px 1.4vh;
+    background:linear-gradient(180deg,transparent,rgba(8,16,22,.78)); color:#fff; font-family:'Plus Jakarta Sans',sans-serif; }
+  .ec-cap b{ font-weight:800; font-size:1.25em; }
+  .ec-cap small{ margin-left:auto; font-weight:600; opacity:.8; }
+  .ec-cap .live{ display:inline-flex; align-items:center; gap:6px; padding:2px 10px; border-radius:999px; background:#E0313A; font-weight:800; font-size:.75em; letter-spacing:.1em; }
+  .ec-cap .live::before{ content:''; width:7px; height:7px; border-radius:50%; background:#fff; animation:exBlink 1.2s ease-in-out infinite; }
+
+  /* progress pipeline: each arrow sits centred in the gap between two stages */
+  .hs-tv-in.hs-tv-ec .eg-prog{ display:flex !important; flex-direction:row !important; align-items:center; padding:1.1vh 28px 1.1vh 22px; }
+  .hs-tv-in.hs-tv-ec .eg-prog li{ flex:none; padding:0 !important; grid-template-columns:auto auto; }
+  .hs-tv-in.hs-tv-ec .eg-prog li + li{ flex:1 1 0; grid-template-columns:minmax(28px,1fr) auto auto; }
+  .hs-tv-in.hs-tv-ec .eg-prog li + li b{ grid-column:2; }
+  .hs-tv-in.hs-tv-ec .eg-prog li + li > span:nth-child(2), .hs-tv-in.hs-tv-ec .eg-prog li + li .fr{ grid-column:3; }
+  .hs-tv-in.hs-tv-ec .eg-prog li + li::before{ position:static !important; grid-column:1; grid-row:1 / 3; justify-self:center; align-self:center;
+    transform:rotate(45deg) !important; width:12px; height:12px; margin-left:-6px; }
+
+  /* flow: a dashed track runs toward each arrow and the arrows pulse forward one after another */
+  .hs-tv-in.hs-tv-ec .eg-prog li + li::after{ content:''; grid-column:1; grid-row:1 / 3; align-self:center; justify-self:stretch; height:2px; margin:0 26px 0 10px;
+    background:repeating-linear-gradient(90deg, rgba(31,154,58,.55) 0 6px, transparent 6px 12px); background-size:24px 2px; z-index:0; }
+  .hs-tv-in.hs-tv-ec .eg-prog li + li::before{ z-index:1; }
+  #slideStable.active .hs-tv-in.hs-tv-ec .eg-prog li + li::after{ animation:rtTrack 1s linear infinite; }
+  #slideStable.active .hs-tv-in.hs-tv-ec .eg-prog li + li::before{ animation:rtArrow 2.4s ease-in-out infinite; }
+  #slideStable.active .hs-tv-in.hs-tv-ec .eg-prog li:nth-child(3)::before{ animation-delay:.8s; }
+  #slideStable.active .hs-tv-in.hs-tv-ec .eg-prog li:nth-child(4)::before{ animation-delay:1.6s; }
+  @keyframes rtTrack{ from{ background-position:0 0; } to{ background-position:24px 0; } }
+  @keyframes rtArrow{
+    0%,100%{ transform:translateX(-4px) rotate(45deg); border-color:rgba(31,154,58,.45); }
+    35%{ transform:translateX(8px) rotate(45deg); border-color:#1F9A3A; filter:drop-shadow(0 0 4px rgba(31,154,58,.7)); }
+    60%{ transform:translateX(4px) rotate(45deg); border-color:#1F9A3A; } }
+  @media (prefers-reduced-motion: reduce){ .hs-tv-in.hs-tv-ec .eg-prog li::before, .hs-tv-in.hs-tv-ec .eg-prog li::after{ animation:none !important; } }
+
+  /* ---- Risk Transformation: distribution of risk + autonomy roadmap ---- */
+  .hs-tv-in.hs-tv-rt > .rt-grid{ display:grid; grid-template-columns:minmax(0,760fr) minmax(0,1000fr); gap:22px; font-family:'Source Sans 3',sans-serif; color:#141A22; }
+  .rt-left, .rt-right{ min-height:0; display:flex; flex-direction:column; gap:10px; }
+  .rt-chip{ align-self:flex-start; padding:4px 14px; border-radius:8px; background:#E9ECEF; font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-style:italic; font-size:19px; }
+  .rt-chip b{ font-weight:800; }
+  .rt-zones{ display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:8px; }
+  .rt-zones span{ display:flex; flex-direction:column; gap:4px; }
+  .rt-zones b{ display:flex; align-items:center; gap:6px; padding:5px 8px; border-radius:7px; color:#fff; font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:13px; }
+  .rt-zones .ic{ font-style:normal; display:grid; place-items:center; width:20px; height:20px; border-radius:50%; background:rgba(255,255,255,.25); font-size:12px; }
+  .rt-zones small{ font-size:11.5px; line-height:1.25; color:#3C444C; padding:0 4px; }
+  .rt-zones .z1 b{ background:#1F8A3C; } .rt-zones .z2 b{ background:#1E5BB8; } .rt-zones .z3 b{ background:#F2B705; color:#141A22; } .rt-zones .z4 b{ background:#F07A1A; } .rt-zones .z5 b{ background:#D6243A; }
+  .rt-chart{ position:relative; flex:1; min-height:0; margin-left:56px; }
+  .rt-svg{ position:absolute; left:0; top:0; width:100%; height:calc(100% - 26px); overflow:visible; }
+  .rt-axis-y{ position:absolute; left:-58px; top:12%; font-size:12px; font-weight:700; line-height:1.15; }
+  .rt-axis-x{ position:absolute; left:0; right:0; bottom:0; display:flex; justify-content:space-between; font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:12.5px; color:#16294F; }
+  .rt-axis-x span:first-child{ color:#1F7A2E; } .rt-axis-x span:last-child{ color:#C8102E; }
+  .rt-tag{ position:absolute; display:flex; flex-direction:column; align-items:center; padding:3px 9px; border-radius:7px; background:#fff; border:1.5px solid #2A5BD7; font-size:11px; line-height:1.2; box-shadow:0 3px 8px rgba(20,26,34,.08); }
+  .rt-tag b{ font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:12.5px; }
+  .rt-tag.dark{ border-color:#1F7A2E; } .rt-tag.or{ border-color:#F28C28; } .rt-tag.rd{ border-color:#D6243A; }
+  .rt-warn{ position:absolute; right:-6px; top:46%; width:150px; padding:6px 9px; border-radius:9px; background:#fff; border:2px solid #D6243A; font-size:11px; line-height:1.25; color:#3C444C; box-shadow:0 4px 12px rgba(214,36,58,.15); }
+  .rt-warn b{ display:flex; gap:6px; color:#C8102E; font-family:'Plus Jakarta Sans',sans-serif; font-size:12px; line-height:1.15; margin-bottom:3px; }
+  .rt-warn i{ flex:none; display:grid; place-items:center; width:18px; height:18px; border-radius:50%; background:#D6243A; color:#fff; font-style:normal; }
+  .rt-legend{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; padding:8px 12px; border-radius:12px; background:#fff; border:1px solid rgba(20,26,34,.08); }
+  .rt-legend span{ display:grid; grid-template-columns:auto 1fr; column-gap:8px; align-items:center; font-size:11px; line-height:1.2; color:#4A525C; }
+  .rt-legend b{ font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:12.5px; color:#141A22; }
+  .rt-legend small{ grid-column:2; }
+  .rt-legend i{ grid-row:1 / 3; width:26px; height:4px; border-radius:2px; }
+  .rt-legend .l1{ background:#D6243A; } .rt-legend .l2{ background:#F28C28; } .rt-legend .l3{ background:#1F7A2E; }
+  .rt-legend .l4{ background:repeating-linear-gradient(90deg,#2A5BD7 0 7px,transparent 7px 11px); }
+  .rt-concl{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; padding:10px; border-radius:14px; border:2px solid #4A5D2E; background:#fff; }
+  .rt-concl > div{ position:relative; display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:10px; background:#F6F8F7; }
+  .rt-concl em{ position:absolute; left:-4px; top:-8px; display:grid; place-items:center; width:24px; height:24px; border-radius:50%; background:#E2F3E5; color:#147A2C; font-style:normal; font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:13px; }
+  .rt-concl .ic{ flex:none; display:grid; place-items:center; width:40px; height:40px; color:#1F8A3C; }
+  .rt-concl .ic svg{ width:100%; height:100%; fill:currentColor; }
+  .rt-concl p{ font-size:12px; line-height:1.3; color:#3C444C; }
+  .rt-concl p b{ display:block; font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:14px; color:#141A22; }
+  .rt-road{ margin:0; flex:none; height:240px; border-radius:14px; overflow:hidden; background:#fff; box-shadow:0 4px 14px rgba(20,26,34,.06); }
+  .rt-road img{ width:100%; height:100%; object-fit:contain; display:block; }
+  .rt-low{ flex:1; min-height:0; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.25fr); gap:16px; }
+  .rt-cc{ min-height:0; display:flex; flex-direction:column; gap:8px; }
+  .rt-slot{ flex:1; min-height:0; display:flex; }
+  .rt-slot > .st-cc{ flex:1; padding:12px 14px !important; font-size:13px; }
+  .rt-slot > .st-cc > .st-h{ display:none; }
+  .rt-ccv{ min-height:0; display:flex; flex-direction:column; gap:6px; }
+  .rt-ccv h4{ font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:19px; }
+  .rt-tl{ position:relative; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:8px; padding-top:16px; }
+  .rt-tl .line{ position:absolute; left:0; right:14px; top:2px; height:5px; border-radius:3px; background:linear-gradient(90deg,#3E6FBE,#2A5BD7); }
+  .rt-tl .line::after{ content:''; position:absolute; right:-14px; top:-6px; border:8px solid transparent; border-left:14px solid #2A5BD7; }
+  .rt-tl span{ display:flex; flex-direction:column; align-items:center; text-align:center; font-size:11.5px; line-height:1.25; color:#3C444C; }
+  .rt-tl b{ margin-bottom:4px; padding:3px 12px; border-radius:4px; background:#0F2D6B; color:#fff; font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:12.5px; }
+  .rt-tl .now b{ background:#1F9A3A; box-shadow:0 0 0 3px rgba(31,154,58,.2); }
+  .rt-mea{ display:grid; grid-template-columns:1fr auto; align-items:center; padding:6px 14px; border-radius:10px; background:linear-gradient(115deg,#13662A,#1F8A3C); color:#fff; }
+  .rt-mea b{ font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:18px; }
+  .rt-mea small{ grid-column:1; font-size:10.5px; opacity:.85; }
+  .rt-mea span{ grid-row:1 / 3; grid-column:2; padding:2px 10px; border-radius:999px; background:#9BE15D; color:#0B3A18; font-weight:800; font-size:11px; }
+  .rt-ccv h5{ font-size:12.5px; font-weight:600; } .rt-ccv h5 b{ font-weight:800; }
+  .rt-uc{ display:block; width:100%; flex:1 1 0; min-height:0; object-fit:contain; object-position:left center; border-radius:8px; background:#fff; }
+  #slideStable.active .hs-tv-rt .rt-tail{ animation:exBlink 1.3s ease-in-out infinite; }
+  #slideStable.active .hs-tv-rt .rt-warn{ animation:exGlow 2s ease-in-out infinite; }
+  #slideStable.active .hs-tv-rt .rt-tl .now b{ animation:rtNow 2.4s ease-in-out infinite; }
 </style>
 </head>
 <body>
@@ -3611,6 +3724,61 @@
       </div>
     </div>
   </section>
+
+  <!-- Risk Transformation tab content (cloned into the How Stable tab) -->
+  <div class="jr-source" id="rtSrc" hidden aria-hidden="true"><div class="rt-grid">
+    <section class="rt-left">
+      <h3 class="rt-chip"><b>Distribusi Risiko:</b> Lagging x Leading</h3>
+      <div class="rt-zones">
+        <span class="z1"><b><i class="ic">&#10047;</i>Leading Controls</b><small>Penerapan tata kelola, kompetensi, proses, dan teknologi.</small></span>
+        <span class="z2"><b><i class="ic">&#9906;</i>Hazard Identification</b><small>Deteksi bahaya lebih aktif dan meningkatkan visibilitas risiko.</small></span>
+        <span class="z3"><b><i class="ic">&#9737;</i>Critical Exposure</b><small>Area paparan kritis yang memerlukan pengendalian kuat, terutama kepatuhan terhadap Golden Rules.</small></span>
+        <span class="z4"><b><i class="ic">&#9888;</i>Lagging Events</b><small>Kejadian yang sudah terjadi dengan konsekuensi menengah.</small></span>
+        <span class="z5"><b><i class="ic">&#9832;</i>Serious Outcome</b><small>Kejadian dengan konsekuensi berat yang harus dicegah sepenuhnya.</small></span>
+      </div>
+      <div class="rt-chart"><svg class="rt-svg" viewBox="0 0 760 330" preserveAspectRatio="none"></svg>
+        <div class="rt-axis-y">Proporsi<br>Temuan /<br>Kejadian</div>
+        <div class="rt-tag" style="left:24%;top:7%"><b>2027+ Proyeksi</b></div>
+        <div class="rt-tag" style="left:21%;top:24%"><small>Hazard Report</small><b>108.227 (17,3)</b></div>
+        <div class="rt-tag" style="left:47%;top:10%"><small>Golden Rules</small><b>19,7</b></div>
+        <div class="rt-tag dark" style="left:54%;top:26%"><b>2026 Aktual</b></div>
+        <div class="rt-tag or" style="left:61%;top:42%"><b>2023–2025</b></div>
+        <div class="rt-tag rd" style="left:68%;top:56%"><b>2021–2022</b></div>
+        <div class="rt-tag" style="left:9%;top:60%"><small>Leading Indicator</small><b>2026: 80%</b><small>(+2% dari Q2 2026)</small></div>
+        <div class="rt-warn"><b><i>!</i>Ekor kanan masih mungkin muncul</b><small>Meski indikator membaik, residual risk dan incident outlier tetap dapat terjadi.</small></div>
+        <div class="rt-axis-x"><span>Pencegahan / Kontrol Awal</span><span>Spektrum Risiko &amp; Eskalasi Kejadian</span><span>Kejadian / Konsekuensi Tinggi</span></div>
+      </div>
+      <div class="rt-legend">
+        <span><i class="l1"></i><b>2021–2022</b><small>Risiko lebih tinggi, ekor kanan lebih tebal.</small></span>
+        <span><i class="l2"></i><b>2023–2025</b><small>Perbaikan mulai terlihat, risiko lebih terkendali.</small></span>
+        <span><i class="l3"></i><b>2026 Aktual</b><small>Peningkatan signifikan, namun ekor kanan tetap ada.</small></span>
+        <span><i class="l4"></i><b>2027+ Proyeksi</b><small>Potensi perbaikan lanjutan, namun tetap tidak nol.</small></span>
+      </div>
+      <div class="rt-concl">
+        <div><em>1</em><span class="ic"><svg viewBox="0 0 24 24"><path d="M4 20h3v-7H4zm6.5 0h3V8h-3zM17 20h3V4h-3z"/></svg></span><p><b>Leading controls makin kuat</b>dari 2021 hingga 2026.</p></div>
+        <div><em>2</em><span class="ic"><svg viewBox="0 0 24 24"><path d="M19.4 13a7.5 7.5 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a7.3 7.3 0 0 0-1.7-1L15 3h-4l-.4 2.9a7.3 7.3 0 0 0-1.7 1l-2.5-1-2 3.5L6.6 11a7.5 7.5 0 0 0 0 2l-2.1 1.6 2 3.5 2.5-1a7.3 7.3 0 0 0 1.7 1L11 21h4l.4-2.9a7.3 7.3 0 0 0 1.7-1l2.5 1 2-3.5zM13 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z"/></svg></span><p><b>Distribusi risiko makin terkendali,</b>tetapi belum menghilangkan seluruh potensi kejadian.</p></div>
+        <div><em>3</em><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10h-2a8 8 0 1 1-8-8zm0 4a6 6 0 1 0 6 6h-2a4 4 0 1 1-4-4zm0 4a2 2 0 1 0 2 2l7-7-1.4-1.4-7 7A2 2 0 0 0 12 10z"/></svg></span><p><b>Proyeksi 2027+ menunjukkan perbaikan lanjutan,</b>namun memerlukan perkuatan critical control dan rekayasa.</p></div>
+      </div>
+    </section>
+    <section class="rt-right">
+      <figure class="rt-road"><img src="mom/rt-roadmap.jpg" alt="Autonomy maturity Level 0 sampai Level 5, safety incident rate turun dan autonomous capability naik"></figure>
+      <div class="rt-low">
+        <div class="rt-cc"><h3 class="rt-chip">Critical Control</h3><div class="rt-slot" data-clone="#stCc"></div></div>
+        <div class="rt-ccv">
+          <h4>Implementasi CCV</h4>
+          <div class="rt-tl"><i class="line"></i>
+            <span><b>2025</b>Trial &amp; Rollout<br>3 Aktivitas Kritis</span>
+            <span><b>Q1 2026</b>Perluasan Trial<br>15 Aktivitas Kritis lainnya</span>
+            <span class="now"><b>Q3 2026</b>Pendetailan CPP<br>Pengembangan Critical Control CPP</span>
+            <span><b>Q4 2026</b>Analytic &amp;<br>Expand</span>
+          </div>
+          <div class="rt-mea"><b>Mining Eyes Analytics</b><small>Continuous improvement from CCTV using computer vision technology</small><span>LIVE</span></div>
+          <img class="rt-uc" src="mom/mea-dinamis.jpg" alt="Use case MEA lokasi dinamis">
+          <img class="rt-uc" src="mom/mea-statis.jpg" alt="Use case MEA lokasi statis">
+        </div>
+      </div>
+    </section>
+  </div></div>
 
   <section class="slide" id="slideStable" data-steps="1" data-section="B · Executive Performance">
     <div class="hs-deco" aria-hidden="true">
@@ -7967,7 +8135,7 @@
   // (one source of data and markup), drawn at slide size and scaled to the panel
   const hsTabCopy = (function(){
     const SRC = {
-      strans:{ sel:'#ecGrid', cls:'hs-tv-ec', prep:()=> engCtrl.build() },
+      strans:{ sel:'#rtSrc .rt-grid', cls:'hs-tv-rt' },
       auto:{ sel:'#slideTransform .st-grid', cls:'hs-tv-st' },
       next:{ sel:'#slideCross .cd-grid', cls:'hs-tv-cd' }
     };
@@ -7994,6 +8162,12 @@
         el.style.removeProperty('opacity'); el.style.removeProperty('transform'); el.style.removeProperty('visibility');
       });
       const inner = document.createElement('div'); inner.className = 'hs-tv-in ' + cfg.cls; inner.appendChild(c);
+      c.querySelectorAll('[data-clone]').forEach(slot=>{
+        const src2 = document.querySelector(slot.dataset.clone); if(!src2) return;
+        const k = src2.cloneNode(true); k.removeAttribute('id'); k.classList.remove('fade'); k.classList.add('on');
+        k.querySelectorAll('[id]').forEach(e=> e.removeAttribute('id')); slot.appendChild(k);
+      });
+      c.querySelectorAll('.rt-svg').forEach(rtCurves);
       c.querySelectorAll('.eg-prog li').forEach(li=>{ const i = li.querySelector('.bar i'); if(i) li.style.setProperty('--w', i.style.getPropertyValue('--w')); });
       const zoom = document.getElementById('mmZoom');
       inner.querySelectorAll('.mm-shot').forEach(btn=> btn.addEventListener('click', e=>{
@@ -8001,7 +8175,7 @@
         const img = zoom.querySelector('img'); img.src = btn.dataset.zoom; img.alt = (btn.querySelector('img')||{}).alt || ''; zoom.classList.add('open');
       }));
       tv.appendChild(inner);
-      if(view === 'strans'){
+      if(view === 'strans' && c.matches('.ec-grid')){
         // key-project photos become a looping video (placeholder for now), playing on its own
         c.querySelectorAll('.ec-photo').forEach(btn=>{
           const v = document.createElement('video');
@@ -8011,7 +8185,18 @@
           const div = document.createElement('div'); div.className = btn.className.replace('mm-shot', '').trim() + ' ec-photo-v';
           div.appendChild(v); btn.replaceWith(div);
           v.play().catch(()=>{});
+          // a stalled or failed load (several players opening the same file at once) is retried
+          const retry = ()=>{ v.load(); v.play().catch(()=>{}); };
+          v.addEventListener('error', retry); v.addEventListener('stalled', ()=> setTimeout(()=>{ if(v.readyState < 2) retry(); }, 800));
         });
+        // watchdog: keep every key-project video playing while the tab is shown
+        setInterval(()=>{
+          document.querySelectorAll('#hsTv .ec-vid').forEach(v=>{
+            if(!v.offsetParent) return;
+            if(v.readyState < 2 && (v._wait = (v._wait||0) + 1) > 2){ v._wait = 0; v.load(); }
+            if(v.paused) v.play().catch(()=>{});
+          });
+        }, 1500);
         ecDetail(c);
       }
       return inner;
@@ -8045,6 +8230,19 @@
           const img = zoom.querySelector('img'); img.src = btn.dataset.zoom; zoom.classList.add('open');
         }));
         box.innerHTML = ''; box.appendChild(big);
+        // detail extras: a status summary under the text and a caption over the video
+        (function(){
+          const pct = parseInt((big.querySelector('.ec-ring em')||{}).textContent, 10) || 0;
+          const qs = Array.from(big.querySelectorAll('.ec-q li')), now = qs.findIndex(li=> li.classList.contains('now'));
+          const txt = (li)=> li ? li.querySelector('b').textContent + ' · ' + li.querySelector('span').textContent : '–';
+          const sum = document.createElement('div'); sum.className = 'ec-sum';
+          sum.innerHTML = '<div class="pc"><small>Progress keseluruhan</small><b>' + pct + '%</b><span class="bar"><i style="width:' + pct + '%"></i></span></div>'
+            + '<div class="st now"><small>Tahap saat ini</small><b>' + txt(qs[now]) + '</b></div>'
+            + '<div class="st"><small>Tahap berikutnya</small><b>' + txt(qs[now + 1]) + '</b></div>';
+          big.appendChild(sum);
+          const media = big.querySelector('.ec-photo-v'), name = (big.querySelector('header b')||{}).textContent || '';
+          if(media){ const cap = document.createElement('div'); cap.className = 'ec-cap'; cap.innerHTML = '<span class="live">LIVE</span><b>' + name + '</b><small>Key Project · Risk Transformation</small>'; media.appendChild(cap); }
+        })();
         const from = rectIn(card), fromPhoto = rectIn(card.querySelector('.ec-photo'));
         exp.hidden = false;
         if(!hasGsap || REDUCE_MOTION) return;
@@ -8070,6 +8268,9 @@
           t2.fromTo(q('.ec-ring .arc'), { strokeDasharray:'0 100' }, { strokeDasharray:(i, el)=> el.getAttribute('stroke-dasharray'), duration:1, ease:'power2.out' }, .1);
           t2.fromTo(q('.ec-prog h5, .ec-prog li, .ec-stats span, .ec-hz, .ec-rnd'), { x:30, opacity:0 }, { x:0, opacity:1, stagger:.07 }, .15);
           t2.fromTo(q('.ec-q li'), { y:20, opacity:0, scale:.9 }, { y:0, opacity:1, scale:1, stagger:.07, ease:'back.out(1.6)' }, .35);
+          t2.fromTo(q('.ec-sum > *'), { y:16, opacity:0 }, { y:0, opacity:1, stagger:.08 }, .3);
+          t2.fromTo(q('.ec-sum .bar i'), { scaleX:0 }, { scaleX:1, duration:1, ease:'power2.out', transformOrigin:'left center' }, .45);
+          t2.fromTo(q('.ec-cap'), { y:20, opacity:0 }, { y:0, opacity:1 }, .25);
           t2.fromTo(back, { x:20, opacity:0 }, { x:0, opacity:1 }, .2);
         }, null, .72);
         gsap.set([box, back], { opacity:0 });
@@ -8122,10 +8323,36 @@
       tl.fromTo(q('.eg-prog .bar i, .eg-std td.bar i'), {scaleX:0}, {scaleX:1, stagger:0.03, duration:0.8, ease:'power3.out'}, 0.3);
       tl.fromTo(q('.ec-c'), {y:18, opacity:0}, {y:0, opacity:1, stagger:0.12, duration:0.5}, 0.2);
       tl.fromTo(q('.ec-ring .arc'), {strokeDasharray:'0 100'}, {strokeDasharray:(i, el)=> el.getAttribute('stroke-dasharray'), stagger:0.1, duration:1, ease:'power2.out'}, 0.4);
+      tl.fromTo(q('.rt-zones > span, .rt-concl > div, .rt-legend > span'), {y:12, opacity:0}, {y:0, opacity:1, stagger:0.05, duration:0.4}, 0.15);
+      q('.rt-line').forEach((pth, i)=>{ const L = pth.getTotalLength(); tl.fromTo(pth, {strokeDasharray:L+' '+L, strokeDashoffset:L}, {strokeDashoffset:0, duration:1.2, ease:'power2.out', clearProps:'strokeDasharray,strokeDashoffset'}, 0.3 + i*0.15); });
+      tl.fromTo(q('.rt-area'), {opacity:0}, {opacity:1, duration:1}, 0.3);
+      tl.fromTo(q('.rt-dot, .rt-tag, .rt-warn'), {scale:0.6, opacity:0}, {scale:1, opacity:1, stagger:0.05, duration:0.35, ease:'back.out(2)', transformOrigin:'center'}, 1.1);
+      tl.fromTo(q('.rt-tl > span'), {y:10, opacity:0}, {y:0, opacity:1, stagger:0.1, duration:0.4}, 0.4);
       tl.fromTo(q('.cd-badge'), {scale:0, rotate:-60}, {scale:1, rotate:0, stagger:0.12, duration:0.5, ease:'back.out(1.8)'}, 0.2);
     }
     return { show };
   })();
+  // Risk Transformation: lagging x leading risk distribution, four skewed bell curves on five zones
+  function rtCurves(svg){
+    const W = 760, H = 330, base = 300, NS = 'http://www.w3.org/2000/svg';
+    // [peak x, height, left spread, right spread, colour, dashed]
+    const C = [['l1', 0.53, 150, 110, 210, '#D6243A'], ['l2', 0.47, 175, 105, 175, '#F28C28'], ['l3', 0.43, 205, 100, 145, '#1F7A2E'], ['l4', 0.38, 230, 92, 120, '#2A5BD7', true]];
+    const pt = (mu, h, sl, sr, x)=>{ const sd = x < mu*W ? sl : sr; return base - h * Math.exp(-Math.pow((x - mu*W)/sd, 2)); };
+    const path = (mu, h, sl, sr)=>{ let d = ''; for(let x = 0; x <= W; x += 6) d += (x ? 'L' : 'M') + x + ' ' + pt(mu, h, sl, sr, x).toFixed(1) + ' '; return d; };
+    let html = '<defs><linearGradient id="rtZ" x1="0" x2="1"><stop offset="0" stop-color="#E7F5E3"/><stop offset=".2" stop-color="#E5F1FB"/><stop offset=".42" stop-color="#FFF6D6"/><stop offset=".62" stop-color="#FDEBDD"/><stop offset="1" stop-color="#FBE3E5"/></linearGradient>'
+      + '<linearGradient id="rtF" x1="0" x2="1"><stop offset="0" stop-color="#3FA84A" stop-opacity=".55"/><stop offset=".45" stop-color="#F5C518" stop-opacity=".55"/><stop offset=".7" stop-color="#F28C28" stop-opacity=".5"/><stop offset="1" stop-color="#D6243A" stop-opacity=".45"/></linearGradient></defs>'
+      + '<rect x="0" y="0" width="' + W + '" height="' + base + '" fill="url(#rtZ)" rx="10"/>';
+    [0.2, 0.4, 0.6, 0.8].forEach(f=> html += '<line x1="' + f*W + '" y1="0" x2="' + f*W + '" y2="' + base + '" stroke="#fff" stroke-width="3"/>');
+    const red = C[0];
+    html += '<path class="rt-area" d="' + path(red[1], red[2], red[3], red[4]) + 'L' + W + ' ' + base + ' L0 ' + base + 'Z" fill="url(#rtF)"/>';
+    C.forEach(([k, mu, h, sl, sr, col, dash])=> html += '<path class="rt-line ' + k + '" d="' + path(mu, h, sl, sr) + '" fill="none" stroke="' + col + '" stroke-width="' + (k==='l3' ? 4 : 3) + '"' + (dash ? ' stroke-dasharray="10 7"' : '') + '/>');
+    // markers on the curves
+    [[C[3], .3], [C[3], .38], [C[2], .44], [C[2], .48], [C[1], .58], [C[0], .66], [C[2], .21]].forEach(([c, f])=>{
+      const y = pt(c[1], c[2], c[3], c[4], f*W); html += '<circle class="rt-dot" cx="' + f*W + '" cy="' + y.toFixed(1) + '" r="6" fill="' + c[5] + '" stroke="#fff" stroke-width="2"/>'; });
+    html += '<circle class="rt-tail" cx="' + 0.86*W + '" cy="' + (base-14) + '" r="18" fill="none" stroke="#D6243A" stroke-width="2" stroke-dasharray="4 4"/>';
+    html += '<line x1="0" y1="' + (base+14) + '" x2="' + W + '" y2="' + (base+14) + '" stroke="#16294F" stroke-width="2.5" marker-end="url(#rtA)"/>';
+    svg.innerHTML = html;
+  }
   // How Stable Are We? tabs: swap the panel view; the slide's step state is kept
   (function(){
     const grid = document.getElementById('hsGrid'), bar = document.getElementById('hsTabs');
