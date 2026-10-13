@@ -3340,6 +3340,52 @@
   /* lagging header and leading summary */
   #slideStable.active .hs-grid[data-view="overview"] #exStage .ex-h em{ display:inline-block; animation:exBob 1.6s ease-in-out infinite; }
   @media (prefers-reduced-motion: reduce){ #exStage *{ animation:none !important; } }
+
+  /* Risk Transformation, refined: white cards, calmer palette, green timeline, softer hazard boxes */
+  .hs-tv-ec{ --rt-ink:#16212B; --rt-mute:#6B7580; --rt-line:#E6EAEE; --rt-g:#1F9A3A; --rt-gd:#147A2C; --rt-soft:#F3F8F4; }
+  .hs-tv-ec .ec-kp{ gap:1.2vh 16px; }
+  .hs-tv-ec .ec-c{ background:#fff !important; border:1px solid var(--rt-line) !important; border-radius:18px !important; padding:1vh 14px .9vh !important; gap:.55vh !important;
+    box-shadow:0 1px 2px rgba(20,26,34,.04), 0 12px 30px rgba(20,26,34,.06) !important; transition:transform .25s, box-shadow .25s; }
+  .hs-tv-ec .ec-c:not(.ec-big):hover{ transform:translateY(-3px); box-shadow:0 0 0 2px rgba(31,154,58,.35), 0 18px 36px rgba(20,26,34,.12) !important; }
+  .hs-tv-ec .ec-c header{ gap:10px; padding-bottom:.4vh; border-bottom:1px solid var(--rt-line); }
+  .hs-tv-ec .ec-c header .ic{ border:0 !important; border-radius:10px !important; background:var(--rt-soft); color:var(--rt-gd) !important; }
+  .hs-tv-ec .ec-c header i{ background:var(--rt-g) !important; border-radius:6px; }
+  .hs-tv-ec .ec-c header b{ color:var(--rt-ink) !important; letter-spacing:.01em !important; }
+  .hs-tv-ec .ec-c > header::after{ background:#fff !important; color:var(--rt-gd) !important; border:1px solid rgba(31,154,58,.35); font-size:.74em !important; }
+  .hs-tv-ec .ec-ring circle{ fill:#fff; stroke:#EDF0F2 !important; }
+  .hs-tv-ec .ec-ring circle.arc{ stroke:var(--rt-g) !important; }
+  .hs-tv-ec .ec-c[data-no="1"] .ec-ring circle.arc, .hs-tv-ec .ec-c[data-no="4"] .ec-ring circle.arc{ stroke:#F29A1F !important; }
+  .hs-tv-ec .ec-body{ gap:14px !important; }
+  .hs-tv-ec .ec-photo{ border-radius:12px !important; box-shadow:none !important; }
+  .hs-tv-ec .ec-c h5, .hs-tv-ec .ec-c small{ color:var(--rt-mute) !important; letter-spacing:.08em !important; font-size:.8em !important; }
+  .hs-tv-ec .ec-prog li{ color:var(--rt-ink); line-height:1.25; }
+  .hs-tv-ec .ec-ring{ width:clamp(36px,5vh,50px) !important; }
+  .hs-tv-ec .ec-stats{ gap:.4vh !important; }
+  .hs-tv-ec .ec-stats span{ padding:.3vh 8px !important; }
+  .hs-tv-ec .ec-prog li::before{ background:var(--rt-g) !important; }
+  .hs-tv-ec .ec-stats span{ border-color:var(--rt-line) !important; border-radius:12px !important; background:var(--rt-soft) !important; }
+  .hs-tv-ec .ec-hz{ background:#FFF4F4 !important; border:1px solid #F7D5D8; border-left:3px solid #E0313A !important; border-radius:10px !important; padding:.35vh 10px !important; }
+  .hs-tv-ec .ec-hz .w{ background:#E0313A !important; border-radius:7px !important; }
+  .hs-tv-ec .ec-hz small{ color:#C8102E !important; }
+  .hs-tv-ec .ec-hz p{ color:var(--rt-ink); }
+  .hs-tv-ec .ec-rnd{ padding:.25vh 10px; border-radius:10px; background:#F7F9FA; }
+  .hs-tv-ec .ec-rnd p{ color:#4A525C !important; }
+  /* timeline: past = soft green, current = solid green with a pulse, next = neutral */
+  .hs-tv-ec .ec-q{ gap:6px !important; }
+  .hs-tv-ec .ec-q li{ border:1px solid var(--rt-line) !important; border-radius:9px !important; background:#fff !important; box-shadow:none !important; }
+  .hs-tv-ec .ec-q b{ background:#EEF1F3 !important; color:var(--rt-mute) !important; }
+  .hs-tv-ec .ec-q li.done b{ background:#DDF0E1 !important; color:var(--rt-gd) !important; }
+  .hs-tv-ec .ec-q li.now{ border-color:var(--rt-g) !important; box-shadow:0 0 0 3px rgba(31,154,58,.15) !important; }
+  .hs-tv-ec .ec-q li.now b{ background:linear-gradient(115deg,var(--rt-gd),var(--rt-g)) !important; color:#fff !important; }
+  .hs-tv-ec .ec-q li.now span{ color:var(--rt-gd); font-weight:800; }
+  #slideStable.active .hs-tv-ec .ec-q li.now{ animation:rtNow 2.4s ease-in-out infinite; }
+  @keyframes rtNow{ 0%,100%{ box-shadow:0 0 0 3px rgba(31,154,58,.15); } 50%{ box-shadow:0 0 0 6px rgba(31,154,58,.08); } }
+  /* progress strip: lighter divider, arrows in brand green */
+  .hs-tv-ec .ec-prog-card{ border-radius:18px !important; }
+  .hs-tv-ec .eg-prog li + li::before{ border-color:rgba(31,154,58,.45) !important; }
+  /* Risk Transformation: key-project media is a muted looping video */
+  .hs-tv-ec .ec-photo-v{ position:relative; min-height:0; overflow:hidden; border-radius:12px; background:#0F1B24; }
+  .hs-tv-ec .ec-vid{ display:block; width:100%; height:100%; object-fit:cover; pointer-events:none; }
 </style>
 </head>
 <body>
@@ -7922,7 +7968,7 @@
   const hsTabCopy = (function(){
     const SRC = {
       strans:{ sel:'#ecGrid', cls:'hs-tv-ec', prep:()=> engCtrl.build() },
-      auto:{ sel:'#slideTransform .da-grid', cls:'hs-tv-da' },
+      auto:{ sel:'#slideTransform .st-grid', cls:'hs-tv-st' },
       next:{ sel:'#slideCross .cd-grid', cls:'hs-tv-cd' }
     };
     const W = 1790, H = 690;
@@ -7955,7 +8001,19 @@
         const img = zoom.querySelector('img'); img.src = btn.dataset.zoom; img.alt = (btn.querySelector('img')||{}).alt || ''; zoom.classList.add('open');
       }));
       tv.appendChild(inner);
-      if(view === 'strans') ecDetail(c);
+      if(view === 'strans'){
+        // key-project photos become a looping video (placeholder for now), playing on its own
+        c.querySelectorAll('.ec-photo').forEach(btn=>{
+          const v = document.createElement('video');
+          v.src = 'videoloop.mp4'; v.muted = true; v.loop = true; v.autoplay = true; v.playsInline = true;
+          v.setAttribute('muted', ''); v.setAttribute('playsinline', ''); v.setAttribute('preload', 'auto');
+          v.className = 'ec-vid';
+          const div = document.createElement('div'); div.className = btn.className.replace('mm-shot', '').trim() + ' ec-photo-v';
+          div.appendChild(v); btn.replaceWith(div);
+          v.play().catch(()=>{});
+        });
+        ecDetail(c);
+      }
       return inner;
     }
     // Risk Transformation: a key-project card grows in place into a detail layout (big photo + full info);
@@ -7981,6 +8039,7 @@
         if(open) return;
         open = card;
         big = card.cloneNode(true); big.classList.add('ec-big');
+        big.querySelectorAll('video').forEach(v=>{ v.muted = true; v.play().catch(()=>{}); });
         big.querySelectorAll('.mm-shot').forEach(btn=> btn.addEventListener('click', e=>{
           e.stopPropagation(); const zoom = document.getElementById('mmZoom'); if(!zoom) return;
           const img = zoom.querySelector('img'); img.src = btn.dataset.zoom; zoom.classList.add('open');
