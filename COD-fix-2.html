@@ -3499,6 +3499,26 @@
   #slideStable.active .hs-tv-rt .rt-tail{ animation:exBlink 1.3s ease-in-out infinite; }
   #slideStable.active .hs-tv-rt .rt-warn{ animation:exGlow 2s ease-in-out infinite; }
   #slideStable.active .hs-tv-rt .rt-tl .now b{ animation:rtNow 2.4s ease-in-out infinite; }
+
+  /* Risk Transformation, closer to the reference: roadmap fills the right column at its own ratio,
+     use-case strips span the CCV column, single-line zone labels, compact critical control */
+  .hs-tv-in.hs-tv-rt > .rt-grid{ grid-template-columns:minmax(0,950fr) minmax(0,820fr) !important; gap:20px !important; }
+  .hs-tv-rt .rt-road{ height:auto !important; border-radius:12px; box-shadow:none !important; background:transparent !important; }
+  .hs-tv-rt .rt-road img{ height:auto !important; }
+  .hs-tv-rt .rt-low{ grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr) !important; gap:14px !important; }
+  .hs-tv-rt .rt-zones b{ white-space:nowrap; font-size:12.5px; padding:6px 8px; }
+  .hs-tv-rt .rt-zones b .ic{ flex:none; }
+  .hs-tv-rt .rt-ccv{ gap:5px !important; }
+  .hs-tv-rt .rt-ccv h4{ font-size:17px !important; }
+  .hs-tv-rt .rt-tl{ padding-top:12px !important; }
+  .hs-tv-rt .rt-tl span{ font-size:10.5px !important; }
+  .hs-tv-rt .rt-tl b{ font-size:11.5px !important; padding:2px 10px !important; }
+  .hs-tv-rt .rt-mea{ padding:4px 12px !important; }
+  .hs-tv-rt .rt-mea b{ font-size:16px !important; }
+  .hs-tv-rt .rt-uc{ flex:1 1 0 !important; width:100% !important; object-fit:contain !important; object-position:center top !important; box-shadow:none !important; }
+  .hs-tv-rt .rt-slot > .st-cc{ gap:6px !important; font-size:12px !important; }
+  .hs-tv-rt .rt-slot .st-flow{ flex:1 1 0; min-height:0; }
+  .hs-tv-rt .rt-slot .st-key{ margin-top:auto; }
 </style>
 </head>
 <body>
