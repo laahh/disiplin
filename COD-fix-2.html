@@ -2437,7 +2437,7 @@
   .hs-grid[data-view="safety"] .hs-safety{ display:none; }
   .hs-grid[data-view="safety"] .hs-saf-detail{
     flex:1; min-height:0; display:grid; grid-template-columns:minmax(0,1.04fr) minmax(0,1fr);
-    grid-template-rows:minmax(0,.98fr) minmax(0,1fr) minmax(0,1fr); gap:1.2vh 16px;
+    grid-template-rows:minmax(0,.82fr) minmax(0,.86fr) minmax(0,1.45fr); gap:1.2vh 16px;
   }
   /* left column: the KPI strip across the full width, the Fig. 01 panel taking the rest of the height */
   .hs-saf-left{ grid-column:1; grid-row:1 / 3; min-height:0; display:flex; flex-direction:column; gap:1vh; }
@@ -2474,8 +2474,14 @@
   .hs-thumb-in{ position:absolute; left:0; top:0; transform-origin:0 0; display:flex; flex-direction:column; }
   .hs-thumb-in > *{ flex:1; min-height:0; }
   .hs-thumb-in > .sp-card{ box-shadow:none; border:0; }
-  .hs-saf-rapor{ grid-column:2; grid-row:2 / 4; min-height:0; display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,1fr); gap:10px; }
-  .hs-saf-inc{ grid-column:1; grid-row:3; min-height:0; display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); gap:10px; }
+  .hs-saf-rapor{ grid-column:2; grid-row:2 / 4; min-height:0; display:grid; grid-template-columns:minmax(0,1fr); gap:10px; }
+  .hs-saf-inc{ grid-column:1; grid-row:3; min-height:0; display:grid; grid-template-columns:minmax(0,1fr); gap:10px; }
+  /* tab thumbnails stay lean: the monthly trend and the pareto only open in the detail modal */
+  .hs-saf-detail .hs-thumb .sp-mo-card{ display:none !important; }
+  .hs-saf-detail .hs-thumb .sp-panel[data-panel="safety"]{ grid-template-columns:minmax(0,1fr) minmax(0,1.1fr) !important; }
+  .hs-saf-detail .hs-thumb .sp-kpi-card{ grid-row:1 / 3 !important; }
+  .hs-saf-detail .hs-thumb[data-more]::after{ content:'Detail ' attr(data-more) ' ↗'; position:absolute; right:10px; bottom:10px; z-index:3; padding:4px 12px; border-radius:999px;
+    background:linear-gradient(115deg,var(--cv-green-d),var(--cv-green)); color:#fff; font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:clamp(.56rem,1.3vh,.74rem); box-shadow:0 4px 12px rgba(31,154,58,.35); pointer-events:none; }
   /* top of the left column: the KPI strip and Status Siaga 1 side by side */
   .hs-top{ flex:none; display:grid; grid-template-columns:minmax(0,1fr); }
   .hs-siaga{ min-width:0; display:flex; padding:.5vh 10px; border:2px solid #C00000; border-radius:12px; background:#fff; }
@@ -3100,6 +3106,240 @@
   .hs-grid[data-view="overview"] .hs-k{ justify-content:center; gap:1vh; }
   .hs-grid[data-view="overview"] .hs-k.empty i{ opacity:.5; }
   .hs-grid[data-view="overview"] .hs-sec-head p{ display:none; }
+
+  /* Overview: Safety Stability card morphs into the full safety panel */
+  #hsGrid{ position:relative; }
+  .hs-grid[data-view="overview"] #hsSafety{ cursor:zoom-in; transition:box-shadow .2s; }
+  .hs-grid[data-view="overview"] #hsSafety:hover{ box-shadow:0 0 0 2px var(--cv-green), 0 14px 34px rgba(20,26,34,.14) !important; }
+  .hs-grid[data-view="overview"] #hsSafety .hs-sec-head::after{ content:'Klik untuk detail \2197'; margin-left:auto; padding:3px 12px; border-radius:999px; background:linear-gradient(115deg,var(--cv-green-d),var(--cv-green)); color:#fff; font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:clamp(.56rem,1.3vh,.74rem); }
+  .hs-exp{ position:absolute; z-index:6; left:0; top:0; width:100%; height:100%; display:flex; flex-direction:column; gap:1vh; padding:1.2vh 16px 1.4vh; overflow:hidden;
+    border-radius:16px; background:rgba(255,255,255,.97); border:1px solid rgba(255,255,255,.95); box-shadow:0 1px 2px rgba(20,26,34,.05), 0 20px 50px rgba(20,26,34,.16);
+    --sp-ink:#141A22; --sp-green:#2E9E5B; --lp-navy:#0F2D6B; }
+  .hs-exp[hidden]{ display:none; }
+  .hs-exp-h{ flex:none; display:flex; align-items:center; gap:14px; }
+  .hs-exp-h b{ flex:1; font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:clamp(.9rem,2.3vh,1.3rem); letter-spacing:-.02em; }
+  .hs-exp-back{ display:inline-flex; align-items:center; gap:6px; padding:6px 16px 6px 10px; border-radius:999px; border:1px solid rgba(20,26,34,.14); background:#fff; color:var(--cv-green-d); font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:clamp(.66rem,1.5vh,.86rem); cursor:pointer; }
+  .hs-exp-back svg{ width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:2.6; stroke-linecap:round; stroke-linejoin:round; }
+  .hs-exp-back:hover{ background:var(--cv-green); border-color:var(--cv-green); color:#fff; }
+  .hs-exp-box{ position:relative; flex:1; min-height:0; overflow:hidden; }
+  .hs-exp-in{ position:absolute; left:0; top:0; transform-origin:0 0; display:flex; flex-direction:column; }
+  .hs-exp-in > .sp-panel{ flex:1; min-height:0; }
+
+  /* expanded views: Health and Division cards are clickable too; the Division copy uses the tab's layout */
+  .hs-grid[data-view="overview"] #hsHealth, .hs-grid[data-view="overview"] #hsDiv{ cursor:zoom-in; transition:box-shadow .2s; }
+  .hs-grid[data-view="overview"] #hsHealth:hover, .hs-grid[data-view="overview"] #hsDiv:hover{ box-shadow:0 0 0 2px var(--cv-green), 0 14px 34px rgba(20,26,34,.14) !important; }
+  .hs-grid[data-view="overview"] #hsDiv .hs-sec-head::after{ content:'Klik untuk detail \2197'; margin-left:auto; padding:3px 12px; border-radius:999px; background:linear-gradient(115deg,var(--cv-green-d),var(--cv-green)); color:#fff; font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:clamp(.56rem,1.3vh,.74rem); }
+  .hs-grid[data-view="overview"] #hsHealth{ position:relative; }
+  .hs-grid[data-view="overview"] #hsHealth::after{ content:'Klik untuk detail \2197'; position:absolute; right:12px; top:-11px; padding:3px 12px; border-radius:999px; background:linear-gradient(115deg,var(--cv-green-d),var(--cv-green)); color:#fff; font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:clamp(.56rem,1.3vh,.74rem); box-shadow:0 4px 10px rgba(31,154,58,.3); }
+  .hs-exp-div{ height:100%; }
+  .hs-exp-div{
+    display:grid; grid-template-columns:minmax(0,1.72fr) minmax(0,1fr); grid-template-rows:auto minmax(0,1.08fr) minmax(0,1fr); gap:1.2vh 18px;
+  }
+  .hs-exp-div > .hs-sec-head{ grid-column:1 / -1; }
+  .hs-exp-div .hs-div-detail{ display:contents; }
+  .hs-exp-div .hs-kpis{ grid-column:1; grid-row:2; gap:7px; }
+  .hs-exp-div .hs-k{ padding:.7vh 7px .6vh; font-size:clamp(.5rem,1.15vh,.68rem); }
+  .hs-exp-div .hs-k-mid{ gap:5px; }
+  .hs-exp-div .hs-k-mid div{ flex:1; }
+  .hs-exp-div .hs-k-mid div + div{ padding-left:4px; }
+  .hs-exp-div .hs-lv{ width:clamp(26px,4vh,38px); height:clamp(26px,4vh,38px); border-radius:8px; font-size:clamp(.74rem,1.9vh,1.04rem); }
+  .hs-exp-div .hs-k-mid strong{ font-size:clamp(.64rem,1.65vh,.92rem); letter-spacing:-.02em; }
+  .hs-exp-div .hs-k-mid small{ font-size:.8em; }
+  .hs-exp-div .hs-reg{ grid-column:1; grid-row:3; }
+  .hs-exp-div .hs-site{ grid-column:2; grid-row:2; }
+  .hs-exp-div .hs-sup{ grid-column:2; grid-row:3; }
+  /* undo the Overview declutter inside the expanded Division copy */
+  .hs-exp .hs-k p{ display:block !important; }
+  .hs-exp .hs-scale{ display:block !important; }
+  .hs-exp .hs-k{ justify-content:flex-start !important; }
+
+  /* How Stable tabs 2-4: copied slide content in one scaled panel */
+  .hs-tv{ display:none; }
+  .hs-grid[data-view="strans"], .hs-grid[data-view="auto"], .hs-grid[data-view="next"]{ grid-template-columns:minmax(0,1fr); }
+  .hs-grid[data-view="strans"] > :not(.hs-tv), .hs-grid[data-view="auto"] > :not(.hs-tv), .hs-grid[data-view="next"] > :not(.hs-tv){ display:none !important; }
+  .hs-grid[data-view="strans"] .hs-tv, .hs-grid[data-view="auto"] .hs-tv, .hs-grid[data-view="next"] .hs-tv{ display:block; position:relative; min-height:0; overflow:hidden; }
+  .hs-tv-in{ position:absolute; left:0; top:0; transform-origin:0 0; display:flex; flex-direction:column;
+    --mm-line:rgba(20,26,34,.08); --mm-mute:#5B646D; --st-navy:#16294F; --st-dg:#1F5E2A; font-family:'Source Sans 3',sans-serif; color:var(--cv-ink); }
+  .hs-tv-in[hidden]{ display:none; }
+  .hs-tv-in > *{ flex:1; min-height:0; }
+  .hs-tv-in.hs-tv-da > .da-grid{ display:grid; }
+  .hs-tv-in.hs-tv-ec > .ec-grid{ display:grid; }
+  /* Risk Transformation tab: no standardisation table; progress runs as one strip above the key projects */
+  .hs-tv-ec > .ec-grid{ grid-template-columns:minmax(0,1fr); grid-template-rows:auto minmax(0,1fr); gap:1.2vh; }
+  .hs-tv-ec .ec-std-card{ display:none !important; }
+  /* progress as a dark pipeline banner: four ring gauges linked by arrows */
+  .hs-tv-ec .ec-left{ flex-direction:row; }
+  .hs-tv-ec .ec-prog-card{ flex:1; display:grid; grid-template-columns:auto minmax(0,1fr); align-items:center; border:0 !important; border-radius:18px !important; overflow:hidden;
+    background:#fff !important; border:1px solid rgba(20,26,34,.08) !important; --eg-g:#1F9A3A; --eg-a:#F29A1F; --eg-r:#D7262B;
+    box-shadow:0 1px 2px rgba(20,26,34,.04), 0 10px 26px rgba(20,26,34,.07) !important; color:#141A22; }
+  .hs-tv-ec .ec-prog-card .eg-band{ height:100%; padding:1.2vh 26px 1.2vh 22px; border:0; border-right:1px solid #EEF1F3 !important; background:#F7F9F8 !important; color:#141A22; }
+  .hs-tv-ec .ec-prog-card .eg-band b{ color:#141A22; font-size:clamp(.9rem,2.3vh,1.3rem); }
+  .hs-tv-ec .ec-prog-card .eg-band small{ color:#6B737C !important; }
+  .hs-tv-ec .ec-prog-card .eg-no{ background:var(--cv-green) !important; color:#fff !important; box-shadow:none !important; }
+  .hs-tv-ec .eg-prog{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:0; padding:1.1vh 18px; }
+  .hs-tv-ec .eg-prog li{ position:relative; display:grid; grid-template-columns:auto minmax(0,1fr); grid-template-rows:auto auto; column-gap:12px; row-gap:.2vh; align-items:center; padding:0 26px 0 14px; color:#141A22; }
+  .hs-tv-ec .eg-prog li + li::before{ content:''; position:absolute; left:-6px; top:50%; width:12px; height:12px; border-top:2px solid #C9CFD3; border-right:2px solid #C9CFD3; transform:translateY(-50%) rotate(45deg); }
+  .hs-tv-ec .eg-prog .ic{ display:none; }
+  .hs-tv-ec .eg-prog li > span:nth-child(2){ grid-column:2; grid-row:1; align-self:end; font-weight:700; font-size:1.02em; }
+  .hs-tv-ec .eg-prog .fr{ grid-column:2; grid-row:2; align-self:start; color:#868F98 !important; font-size:.86em; }
+  .hs-tv-ec .eg-prog .bar{ display:none; }
+  .hs-tv-ec .eg-prog b{ grid-column:1; grid-row:1 / 3; display:flex; align-items:center; justify-content:center; width:clamp(54px,8vh,74px); aspect-ratio:1; border-radius:50%; text-align:center;
+    background:radial-gradient(closest-side, #fff 76%, transparent 78% 100%), conic-gradient(var(--c) var(--w,0%), #ECEFF1 0);
+    color:#141A22 !important; font-family:'Plus Jakarta Sans',sans-serif; font-size:clamp(.62rem,1.45vh,.82rem); letter-spacing:-.02em; }
+
+  /* Risk Transformation: key-project cards open in place into a detail layout */
+  .hs-tv-ec .ec-host{ position:relative; }
+  .hs-tv-ec .ec-c{ cursor:zoom-in; transition:box-shadow .2s; }
+  .hs-tv-ec .ec-c:hover{ box-shadow:0 0 0 2px var(--cv-green), 0 12px 28px rgba(20,26,34,.14); }
+  .hs-tv-ec .ec-c > header::after{ content:'Detail \2197'; order:3; padding:2px 10px; border-radius:999px; background:linear-gradient(115deg,var(--cv-green-d),var(--cv-green)); color:#fff; font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:.8em; }
+  .ec-exp{ position:absolute; z-index:5; left:0; top:0; width:100%; height:100%; display:flex; flex-direction:column; overflow:hidden;
+    border-radius:18px; background:linear-gradient(180deg,#FBFAF5,#F3F1E8); border:1px solid #DDD8C6; box-shadow:0 20px 50px rgba(20,26,34,.18); }
+  .ec-exp[hidden]{ display:none; }
+  .ec-back{ position:absolute; z-index:2; right:110px; top:1.6vh; display:inline-flex; align-items:center; gap:6px; padding:5px 16px 5px 10px; border-radius:999px; border:1px solid rgba(20,26,34,.14); background:#fff; color:var(--cv-green-d); font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:clamp(.66rem,1.5vh,.86rem); cursor:pointer; }
+  .ec-back svg{ width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:2.6; stroke-linecap:round; stroke-linejoin:round; }
+  .ec-back:hover{ background:var(--cv-green); border-color:var(--cv-green); color:#fff; }
+  .ec-exp-box{ flex:1; min-height:0; display:flex; }
+  .ec-c.ec-big{ flex:1; cursor:default; background:transparent !important; border:0 !important; box-shadow:none !important; display:grid !important; grid-template-columns:minmax(0,1.2fr) minmax(0,1fr); grid-template-rows:auto auto auto auto minmax(0,1fr) auto; gap:1.6vh 22px; padding:1.6vh 22px; font-size:clamp(.7rem,1.8vh,1.02rem); }
+  .ec-c.ec-big:hover{ box-shadow:0 1px 2px rgba(20,26,34,.04), 0 10px 26px rgba(20,26,34,.08); }
+  .ec-c.ec-big > header{ grid-column:1 / -1; }
+  .ec-c.ec-big > header::after{ display:none; }
+  .ec-c.ec-big > header b{ font-size:clamp(1.1rem,3vh,1.7rem); }
+  .ec-c.ec-big .ec-ring{ width:clamp(56px,8.5vh,84px); }
+  .ec-c.ec-big .ec-ring em{ font-size:clamp(.9rem,2.2vh,1.25rem); }
+  .ec-c.ec-big .ec-body{ display:contents; }
+  .ec-c.ec-big .ec-photo{ grid-column:1; grid-row:2 / 6; border-radius:12px; }
+  .ec-c.ec-big .ec-prog, .ec-c.ec-big .ec-stats{ grid-column:2; grid-row:2; align-self:start; }
+  .ec-c.ec-big .ec-prog ul{ gap:1vh; margin-top:.8vh; }
+  .ec-c.ec-big .ec-stats span{ padding:1vh 14px; }
+  .ec-c.ec-big .ec-hz{ grid-column:2; grid-row:3; padding:1vh 14px; }
+  .ec-c.ec-big .ec-rnd{ grid-column:2; grid-row:4; }
+  .ec-c.ec-big .ec-q{ grid-column:1 / -1; grid-row:6; gap:6px; }
+  .ec-c.ec-big .ec-q b{ padding:.4vh 0; }
+  .ec-c.ec-big .ec-q span{ padding:.7vh 6px; }
+
+  /* ---- Executive Summary: components from other slides on one scaled canvas ---- */
+  #slideExec{ padding:2.2vh 56px 2.2vh 56px; --hs-red:#D6243A; --hs-amber:#E08A00; --hs-green:#16812F; --mm-line:rgba(20,26,34,.08);
+    --sp-ink:#141A22; --sp-green:#2E9E5B; --hf-green:#11803F; --hf-green-d:#0B6A33; --hf-orange:#F58220; --hf-red:#E0313A; --hf-purple:#8E3FD1; --hf-soft:#F4F8F5; }
+  #slideExec .slide-inner{ display:flex; flex-direction:column; gap:1.4vh; height:100%; min-height:0; font-family:'Source Sans 3',sans-serif; color:#141A22; }
+  .ex-head{ flex:none; display:flex; align-items:center; justify-content:space-between; gap:20px; }
+  .ex-title{ font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-style:italic; font-size:clamp(1.8rem,5.4vh,3.2rem); letter-spacing:-.02em; line-height:1; }
+  .ex-sub{ margin-top:.8vh; display:flex; align-items:center; gap:10px; font-family:'Plus Jakarta Sans',sans-serif; font-style:italic; font-size:clamp(.8rem,2vh,1.15rem); color:#6B737C; text-transform:uppercase; letter-spacing:.02em; }
+  .ex-sub b{ color:var(--cv-green); font-style:normal; text-transform:none; }
+  .ex-sub i{ width:2px; height:1.2em; background:#6B737C; }
+  .ex-logos{ display:flex; align-items:center; gap:28px; }
+  .ex-logos img{ height:clamp(34px,6vh,64px); width:auto; }
+  .ex-box{ position:relative; flex:1; min-height:0; overflow:hidden; }
+  .ex-stage{ position:absolute; left:0; top:0; width:1790px; height:770px; transform-origin:0 0; display:grid; grid-template-columns:minmax(0,460fr) minmax(0,600fr) minmax(0,700fr); gap:16px;
+    padding:16px; border-radius:20px; background:rgba(255,255,255,.72); border:1px solid rgba(255,255,255,.95); box-shadow:0 14px 40px rgba(20,26,34,.08); font-size:14px; }
+  .ex-col{ min-width:0; min-height:0; display:flex; flex-direction:column; gap:10px; }
+  .ex-card{ min-height:0; border-radius:14px; background:#fff; border:1px solid var(--mm-line); box-shadow:0 4px 14px rgba(20,26,34,.05); }
+  .ex-chip{ flex:none; align-self:flex-start; padding:4px 14px; border-radius:8px; background:#ECEEF1; font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-style:italic; font-size:20px; }
+  .ex-h{ flex:none; font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-style:italic; font-size:20px; }
+  .ex-h span{ font-weight:600; font-style:normal; color:#4A525C; }
+  .ex-h b{ color:#E08A00; } .ex-h em{ font-style:normal; color:var(--cv-green); font-weight:800; }
+  .ex-chart-card{ flex:1; display:flex; flex-direction:column; gap:6px; padding:10px 12px; }
+  .ex-chart{ flex:1; min-height:0; }
+  .ex-siaga{ flex:none; height:236px; }
+  .ex-siaga .hs-siaga{ height:100%; font-size:16px; }
+  .ex-siaga .hs-siaga table{ font-size:17px; }
+  .ex-pyr{ flex:1; display:flex !important; padding:8px 12px; }
+  .ex-pyr .sp-card{ flex:1; box-shadow:none !important; border:0 !important; padding:0 !important; }
+  .ex-pil{ flex:none; height:232px; }
+  .ex-pil .hs-pil{ height:100%; font-size:15px; }
+  .ex-pil .hs-pil table{ font-size:12px; }
+  .ex-pil .hs-pil td:not(.q3){ display:none; }
+  .ex-pil .hs-pil th{ padding:0 6px; }
+  .ex-pil .hs-pil header b{ font-size:15px !important; }
+  .ex-pil .hs-pil header span{ font-size:11px; }
+  .ex-health{ flex:none; }
+  .ex-health .hs-health{ display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; font-size:16px; }
+  .ex-health .hs-ht{ padding:12px 16px; }
+  .ex-health .hs-ht b{ font-size:28px; }
+  .ex-health .hs-ht small{ font-size:13px; }
+  .ex-hrow{ flex:none; height:176px; display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,.8fr) minmax(0,1.3fr); gap:10px; }
+  .ex-hc{ padding:0 !important; position:static !important; transform:none !important; min-height:0; overflow:hidden; display:flex; font-size:14px; }
+  .ex-hc > *{ flex:1; min-width:0; }
+  .ex-hc:not(.ex-inc) > *{ width:100%; flex:none; }
+  .ex-hc .hx-inst, .ex-hc .hx-util{ flex:1; min-height:0; }
+  .ex-hc:not(.ex-inc){ font-size:12px; }
+  .ex-hc .hf-box-h{ font-size:12.5px !important; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .ex-hc .hx-inst{ zoom:.7; }
+  /* the three tiles share the row height */
+  .ex-hrow{ align-items:stretch; }
+  .ex-hc:not(.ex-inc) > *{ height:100%; display:flex; flex-direction:column; }
+  .ex-hc .hx-util{ display:flex; align-items:center; justify-content:center; }
+  .ex-inc > *{ zoom:1 !important; height:100%; }
+  .ex-inc .hx-inc{ height:100%; grid-template-rows:auto minmax(0,1fr) !important; align-content:stretch !important; }
+  .ex-inc .hx-viol{ display:flex; flex-direction:column; justify-content:center; }
+  .ex-pyr .sp-val{ font-size:12px !important; }
+  .ex-inc > *{ zoom:.82; }
+  .ex-inc .hx-inc{ display:grid !important; grid-template-columns:minmax(0,1fr); grid-template-rows:auto auto; gap:6px; }
+  .ex-inc .hx-inc > .hx-h, .ex-inc .hx-inc > .hx-gt, .ex-inc .hx-inc > .hx-h + .hx-big{ display:none !important; }
+  .ex-inc .hx-inc{ align-content:start; }
+  .ex-kpi-h{ flex:none; display:grid; grid-template-columns:minmax(0,1fr) 130px; gap:10px; }
+  .ex-kpi-h span{ padding:6px 10px; border-radius:6px; background:#0F2D6B; color:#fff; text-align:center; font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:14px; }
+  .ex-kpi-h span + span{ background:#8F8A55; }
+  .ex-reg{ flex:1; min-height:0; overflow:hidden; }
+  .ex-reg .hs-reg{ display:flex !important; flex-direction:column; gap:0; height:100%; }
+  .ex-reg .hs-rg-col{ display:contents; }
+  .ex-reg .hs-rg-row{ flex:1 1 0; min-height:0; width:100%; font-size:12.5px; line-height:1.15; grid-template-columns:minmax(0,1fr) 60px 70px; }
+  .ex-reg .hs-rg-row > span{ padding:2px 8px; }
+  .ex-kpi-h{ grid-template-columns:minmax(0,1fr) 130px; }
+
+  /* Overview tab = Executive Summary canvas; the old overview cards stay hidden as copy sources */
+  .ex-box{ --hs-red:#D6243A; --hs-amber:#E08A00; --hs-green:#16812F; --mm-line:rgba(20,26,34,.08);
+    --sp-ink:#141A22; --sp-green:#2E9E5B; --hf-green:#11803F; --hf-green-d:#0B6A33; --hf-orange:#F58220; --hf-red:#E0313A; --hf-purple:#8E3FD1; --hf-soft:#F4F8F5; }
+  .hs-grid .ex-box{ display:none; }
+  .hs-grid[data-view="overview"]{ display:block; }
+  .hs-grid[data-view="overview"] > :not(.ex-box):not(.hs-exp){ display:none !important; }
+  #exStage .ex-click{ cursor:zoom-in; transition:box-shadow .2s, outline-color .2s; outline:2px solid transparent; outline-offset:3px; border-radius:12px; }
+  #exStage .ex-click:hover{ outline-color:var(--cv-green); box-shadow:0 12px 28px rgba(20,26,34,.14); }
+  .hs-grid[data-view="overview"] > .ex-box{ display:block; height:100%; }
+
+
+
+  /* KPI table in two columns, as in the report (01-07 left, 08-12 right) */
+  .ex-reg .hs-reg{ display:grid !important; grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 16px; align-items:stretch !important; }
+  .ex-reg .hs-rg-col{ display:flex !important; flex-direction:column; min-height:0; }
+  .ex-reg .hs-rg-row{ flex:1 1 0 !important; min-height:auto !important; font-size:12.5px; grid-template-columns:minmax(0,1fr) 52px 64px; }
+  .ex-reg .hs-rg-col:last-child::after{ content:''; flex:2 1 0; }
+  .ex-kpi-h{ grid-template-columns:minmax(0,1fr) !important; }
+  .ex-kpi-h span + span{ display:none; }
+  .ex-pyr .sp-pyr h3{ font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-style:italic; font-size:20px; line-height:1.15; }
+
+  /* Overview loops: red flags blink, warning boxes pulse, the pyramid catches a sheen; only while visible */
+  @keyframes exBlink{ 0%,100%{ opacity:1; } 50%{ opacity:.35; } }
+  @keyframes exGlow{ 0%,100%{ box-shadow:0 0 0 0 rgba(214,36,58,0); } 50%{ box-shadow:0 0 0 4px rgba(214,36,58,.22), 0 0 18px rgba(214,36,58,.35); } }
+  @keyframes exCell{ 0%,100%{ filter:none; } 50%{ filter:brightness(1.25) saturate(1.2); box-shadow:inset 0 0 0 2px rgba(255,255,255,.75); } }
+  @keyframes exBob{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-3px); } }
+  @keyframes exStripe{ from{ background-position:0 0; } to{ background-position:40px 0; } }
+  #slideStable.active .hs-grid[data-view="overview"]:not(.is-exp) #exStage{
+    --a1:exBlink 1.4s ease-in-out infinite; }
+  /* pyramid */
+  #slideStable.active .hs-grid[data-view="overview"] #exStage .sp-alert{ animation:spAlertBlink 1.3s ease-in-out infinite; }
+  #slideStable.active .hs-grid[data-view="overview"] #exStage .sp-val.up span{ animation:spFlag 2.2s ease-in-out infinite; color:#E02020; }
+  #slideStable.active .hs-grid[data-view="overview"] #exStage .sp-val.up i{ animation:spFlagBar 2.2s ease-in-out infinite; }
+  #slideStable.active .hs-grid[data-view="overview"] #exStage .sp-tier::after{ animation:spSheen 6s ease-in-out calc(var(--k) * .08s) infinite; }
+  /* status siaga 1 */
+  #slideStable.active .hs-grid[data-view="overview"] #exStage .hs-siaga{ animation:exGlow 2s ease-in-out infinite; }
+  #slideStable.active .hs-grid[data-view="overview"] #exStage .hs-siaga h5, #slideStable.active .hs-grid[data-view="overview"] #exStage .hs-siaga td span{ animation:exBlink 1.4s ease-in-out infinite; }
+  /* leading: red cells blink, amber softly */
+  #slideStable.active .hs-grid[data-view="overview"] #exStage .hs-pil td.rd{ animation:exBlink 1.3s ease-in-out infinite; }
+  #slideStable.active .hs-grid[data-view="overview"] #exStage .hs-pil td.yl{ animation:exCell 2.6s ease-in-out infinite; }
+  #slideStable.active .hs-grid[data-view="overview"] #exStage .hs-pil header span i{ animation:exBlink 1.6s ease-in-out infinite; }
+  /* health: trend arrows nod, the roster gap and its violations pulse */
+  #slideStable.active .hs-grid[data-view="overview"] #exStage .hs-ht .hs-up, #slideStable.active .hs-grid[data-view="overview"] #exStage .hs-ht .hs-down{ animation:exBlink 1.4s ease-in-out infinite; }
+  #slideStable.active .hs-grid[data-view="overview"] #exStage .hx-viol{ animation:exGlow 2.2s ease-in-out infinite; }
+  #slideStable.active .hs-grid[data-view="overview"] #exStage .hx-big b{ animation:exBlink 1.6s ease-in-out infinite; }
+  #slideStable.active .hs-grid[data-view="overview"] #exStage .hx-viol li b{ animation:exBlink 1.4s ease-in-out infinite; }
+  /* division KPI: L1 rows flag red, L2 amber shimmer */
+  #slideStable.active .hs-grid[data-view="overview"] #exStage .hs-rg-row.lv-l1 .lv{ animation:exBlink 1.2s ease-in-out infinite; }
+  #slideStable.active .hs-grid[data-view="overview"] #exStage .hs-rg-row.lv-l1{ background:linear-gradient(90deg, rgba(214,36,58,.08), transparent 70%); }
+  #slideStable.active .hs-grid[data-view="overview"] #exStage .hs-rg-row.lv-l1 .v{ color:#C8102E; font-weight:800; animation:exBlink 1.2s ease-in-out infinite; }
+  #slideStable.active .hs-grid[data-view="overview"] #exStage .hs-rg-row.lv-l2 .lv{ animation:exCell 2.4s ease-in-out infinite; }
+  /* lagging header and leading summary */
+  #slideStable.active .hs-grid[data-view="overview"] #exStage .ex-h em{ display:inline-block; animation:exBob 1.6s ease-in-out infinite; }
+  @media (prefers-reduced-motion: reduce){ #exStage *{ animation:none !important; } }
 </style>
 </head>
 <body>
@@ -3326,7 +3566,7 @@
     </div>
   </section>
 
-  <section class="slide" id="slideStable" data-steps="5" data-section="B · Executive Performance">
+  <section class="slide" id="slideStable" data-steps="1" data-section="B · Executive Performance">
     <div class="hs-deco" aria-hidden="true">
       <i class="photo"></i><i class="wash"></i>
       <svg class="slash" viewBox="0 0 1672 941" preserveAspectRatio="xMidYMid slice">
@@ -3354,12 +3594,34 @@
       </div>
       <div class="sp-tabs fade" data-step="1" id="hsTabs">
         <button type="button" class="sp-tab is-on" data-view="overview" aria-pressed="true">Overview</button>
-        <button type="button" class="sp-tab" data-view="mom" aria-pressed="false">Detail MoM</button>
-        <button type="button" class="sp-tab" data-view="safety" aria-pressed="false">Safety Stability</button>
-        <button type="button" class="sp-tab" data-view="health" aria-pressed="false">Health Stability</button>
-        <button type="button" class="sp-tab" data-view="division" aria-pressed="false">Division Performance</button>
+        <button type="button" class="sp-tab" data-view="strans" aria-pressed="false">Risk Transformation</button>
+        <button type="button" class="sp-tab" data-view="auto" aria-pressed="false">Automation</button>
+        <button type="button" class="sp-tab" data-view="next" aria-pressed="false">Next To Do</button>
       </div>
       <div class="hs-grid" id="hsGrid" data-view="overview">
+      <div class="ex-box" id="exBox"><div class="ex-stage" id="exStage">
+        <section class="ex-col ex-l">
+          <div class="ex-card ex-chart-card"><h3 class="ex-chip">Safety Stability</h3><div class="ex-chart" id="exChart" role="img" aria-label="Tren AFR, LTISR dan incident rate 2017 sampai Q3 2026"></div></div>
+          <div class="ex-slot ex-siaga" data-src="#hsSiaga"></div>
+        </section>
+        <section class="ex-col ex-m">
+          <div class="ex-card ex-pyr sp-panel" data-panel="safety" data-src="#spPyrCard"></div>
+          <h3 class="ex-h">Leading Indicator Q3 2026 <span>| <b>80%</b> <em>&#9650; 2%</em> dari Q2 2026</span></h3>
+          <div class="ex-slot ex-pil" data-src="#hsPil"></div>
+        </section>
+        <section class="ex-col ex-r">
+          <h3 class="ex-chip">Health Stability</h3>
+          <div class="ex-slot ex-health" data-src="#hsHealthRow"></div>
+          <div class="ex-hrow">
+            <div class="ex-slot hs-hcopy ex-hc" data-src="#slideHealth .hx-bottom .hf-box:nth-child(1)"></div>
+            <div class="ex-slot hs-hcopy ex-hc" data-src="#slideHealth .hx-bottom .hf-box:nth-child(2)"></div>
+            <div class="ex-slot hs-hcopy ex-hc ex-inc" data-src="#hxInc"></div>
+          </div>
+          <h3 class="ex-chip">OHS Division Performance</h3>
+          <div class="ex-kpi-h"><span>OHS Division Key Performance Indicator</span><span>Score</span></div>
+          <div class="ex-slot ex-reg" data-src="#hsReg"></div>
+        </section>
+      </div></div>
         <aside class="mm-card hs-mom fade" data-step="2" id="hsMom">
           <h3>Minutes of Meeting COD Q2'2026</h3>
           <div class="hs-mom-list" id="hsMomList"></div>
@@ -3377,16 +3639,14 @@
                 <div class="hs-top">
                   <div class="hs-siaga" id="hsSiaga" data-title="Status Siaga 1"></div>
                 </div>
-                <div class="hs-thumb" data-src="safety" data-w="1260" data-h="520" data-title="Piramida Keselamatan, Tren Insiden & KPI Utama"></div>
+                <div class="hs-thumb" data-src="safety" data-w="1180" data-h="520" data-more="+ Tren Insiden per Bulan" data-title="Piramida Keselamatan, Tren Insiden per Bulan &amp; KPI Utama"></div>
               </div>
               <div class="hs-pil" id="hsPil" data-title="Leading Indicator Q3 2026"></div>
               <div class="hs-saf-rapor">
-                <div class="hs-thumb" data-src="rmmap" data-w="540" data-title="Pergerakan Kuadran Mitra Kerja Q1'26 → Q3'26"></div>
-                <div class="hs-thumb" data-src="rmtable" data-w="470" data-h="700" data-title="Rapor Kuadran Mitra Kerja"></div>
+                <div class="hs-thumb" data-src="rmmap" data-w="700" data-h="560" data-maxw="820" data-more="+ Tabel Rapor Kuadran" data-title="Pergerakan Kuadran Mitra Kerja Q1'26 → Q3'26 &amp; Rapor Kuadran"></div>
               </div>
               <div class="hs-saf-inc">
-                <div class="hs-thumb" data-src="ipmain" data-w="760" data-h="400" data-title="Profil Incident Based on Activity Q1 – Q3"></div>
-                <div class="hs-thumb" data-src="ippareto" data-w="560" data-h="330" data-title="Pareto Activity Related to Incident YTD 2026"></div>
+                <div class="hs-thumb" data-src="ipmain" data-w="1180" data-h="540" data-maxw="1560" data-more="+ Pareto Activity" data-title="Profil Incident Based on Activity Q1 – Q3 &amp; Pareto Activity YTD 2026"></div>
               </div>
             </div>
           </section>
@@ -3515,7 +3775,7 @@
       <div class="ec-grid ec-scope" id="ecGrid">
         <div class="ec-left" id="ecLeft"></div>
         <div class="ec-right">
-          <h3 class="ec-kp-h" id="ecKpHead">Key Project</h3>
+          <!-- <h3 class="ec-kp-h" id="ecKpHead">Key Project</h3> -->
           <div class="ec-kp" id="ecKp"></div>
         </div>
       </div>
@@ -4722,6 +4982,7 @@
         if(t) tl.fromTo(t, {x:28, opacity:0}, {x:0, opacity:1, duration:0.5}, 0.08);
         if(d) tl.fromTo(d, {x:28, opacity:0}, {x:0, opacity:1, duration:0.45}, 0.16);
         tl.fromTo(q('#hsTabs .sp-tab'), {y:12, opacity:0}, {y:0, opacity:1, stagger:0.07, ease:'back.out(1.3)'}, 0.24);
+        if($id('hsGrid').dataset.view==='overview') execView.show(tl);
       }
       if(n>=2 && prev<2){
         card('hsMom', 0);
@@ -7313,7 +7574,10 @@
       // fill the box at the design width, unless that would squash the copy below its minimum height
       const W = +box.dataset.w, H = +box.dataset.h || 0;
       const k = Math.min(box.clientWidth / W, H ? box.clientHeight / H : Infinity);
-      inner.style.width = (box.clientWidth / k) + 'px';
+      // data-maxw caps how wide the copy may stretch, so charts are not flattened; it is centred instead
+      const maxw = +box.dataset.maxw || Infinity, w = Math.min(box.clientWidth / k, maxw);
+      inner.style.width = w + 'px';
+      inner.style.left = ((box.clientWidth - w * k) / 2) + 'px';
       inner.style.height = (box.clientHeight / k) + 'px';
       inner.style.transform = 'scale(' + k + ')';
     }
@@ -7376,7 +7640,9 @@
     }
 
     // design size of each card in the modal: [width, height]
-    const MODAL_SIZE = { safety:[1260,580], rmmap:[760,600], rmtable:[620,640], ipmain:[980,560], ippareto:[900,520] };
+    const MODAL_SIZE = { safety:[1260,580], rmmap:[1480,680], rmtable:[620,640], ipmain:[1560,640], ippareto:[900,520] };
+    // the incident thumbnail opens the whole Incident Profile panel, pareto included
+    const MODAL_SRC = { ipmain:'#slideSafety .sp-panel.ip', rmmap:'#slideSafety .sp-panel.lp' };
     const modal = document.getElementById('hsModal');
     let mTl = null, mLoop = null;
     function closeModal(){
@@ -7389,7 +7655,7 @@
     function openModal(card){
       const src = card.dataset.src;
       // Fig. 01 cards get a new copy (charts redrawn); the tab's own cards are copied as rendered
-      const copy = src ? copyOf(SRC[src]) : card.cloneNode(true);
+      const copy = src ? copyOf(MODAL_SRC[src] || SRC[src]) : card.cloneNode(true);
       if(!copy) return;
       copy.removeAttribute('id'); copy.querySelectorAll('[id]').forEach(el=> el.removeAttribute('id'));
       const [W, H] = src ? MODAL_SIZE[src] : [card.offsetWidth, card.offsetHeight];
@@ -7412,6 +7678,8 @@
         mTl = gsap.timeline({ defaults:{ duration:0.5, ease:'power3.out' } });
         mTl.fromTo(body, {scale:0.94, opacity:0}, {scale:1, opacity:1, duration:0.35}, 0);
         if(src) enter(mTl, src, inner);
+        if(src==='ipmain') paretoIn(mTl, inner, 0.6);
+        if(src==='rmmap') rmTableIn(mTl, inner, 0.4);
         if(src==='rmmap') mTl.call(()=>{ if(modal.classList.contains('open')) mLoop = loopMap(inner, ()=> modal.classList.contains('open')); }, null, '>');
       });
     }
@@ -7510,21 +7778,313 @@
     }
     return { show };
   })();
+  // Overview: Safety, Health and Division cards each grow in place into their full detail view
+  // and shrink back on "Kembali"; no modal, no slide change. One panel is open at a time.
+  const hsSafExpand = (function(){
+    const grid = document.getElementById('hsGrid');
+    if(!grid) return { close(){} };
+    const clean = (c, idToClass)=>{
+      [c].concat(Array.from(c.querySelectorAll('*'))).forEach(el=>{
+        if(el.id){ const k = idToClass(el.id); if(k) el.classList.add(k); el.removeAttribute('id'); }
+        el.classList.remove('fade'); el.classList.add('on'); el.removeAttribute('data-step');
+        el.style.removeProperty('opacity'); el.style.removeProperty('transform'); el.style.removeProperty('visibility');
+      });
+      return c;
+    };
+    const ID_CLASSES = { spPyrCard:'sp-pyr-card', spMoCard:'sp-mo-card', spKpiCard:'sp-kpi-card' };
+    const VIEWS = {
+      hsSafety:{ tag:'Safety Stability', title:'Piramida Keselamatan, Tren Insiden per Bulan &amp; KPI Utama', W:1500, H:640,
+        build(){
+          const src = document.querySelector('#slideSafety .sp-panel[data-panel="safety"]'); if(!src) return null;
+          const c = clean(src.cloneNode(true), (id)=> ID_CLASSES[id]); c.hidden = false;
+          c.querySelectorAll('.sp-mo-ec').forEach(el=>{ el.removeAttribute('_echarts_instance_'); el.innerHTML = ''; });
+          const inner = document.createElement('div'); inner.className = 'hs-exp-in'; inner.appendChild(c); return inner;
+        },
+        enter(t, root){
+          const q = (s)=> root.querySelector(s);
+          t.fromTo(root.querySelectorAll('.sp-card'), { y:20, opacity:0 }, { y:0, opacity:1, stagger:.12 }, 0);
+          if(q('.sp-pyr-card')) pyramidIn(t, q('.sp-pyr-card'), .1);
+          if(q('.sp-mo-card')) monthlyIn(t, q('.sp-mo-card'), .3);
+          if(q('.sp-kpi-card')) kpiIn(t, q('.sp-kpi-card'), .4);
+        } },
+      hsHealth:{ tag:'Health Stability', title:'Sehat &amp; Layak Kerja — Health &amp; Fatigue Management', W:1720, H:740,
+        build(){
+          const src = document.querySelector('#slideHealth .hf-grid'); if(!src) return null;
+          const c = clean(src.cloneNode(true), (id)=> 'id-' + id);
+          const inner = document.createElement('div'); inner.className = 'hs-exp-in hs-hcopy'; inner.appendChild(c); return inner;
+        },
+        enter(t, root){
+          const q = (s)=> root.querySelectorAll(s);
+          t.fromTo(q('.hf-half'), { y:20, opacity:0 }, { y:0, opacity:1, stagger:.14 }, 0);
+          t.fromTo(q('.hx-tbl tbody tr, .hf-roster tbody tr'), { x:12, opacity:0 }, { x:0, opacity:1, stagger:.025, duration:.35 }, .2);
+          t.fromTo(q('.hx-sum > *, .hf-phases > *, .hx-inc > *, .hf-hl > *, .hx-bottom .hf-box'), { y:10, opacity:0 }, { y:0, opacity:1, stagger:.04, duration:.4 }, .35);
+        } },
+      hsDiv:{ tag:'Division Performance', title:'KPI Divisi, Progress Improvement per Site &amp; Support Needed', W:1700, H:740,
+        build(){
+          const sec = document.getElementById('hsDiv'); if(!sec) return null;
+          const wrap = document.createElement('div'); wrap.className = 'hs-exp-div';
+          ['.hs-kpis', '.hs-div-detail'].forEach(sel=>{ const el = sec.querySelector(sel); if(el) wrap.appendChild(clean(el.cloneNode(true), ()=> null)); });
+          const inner = document.createElement('div'); inner.className = 'hs-exp-in'; inner.appendChild(wrap); return inner;
+        },
+        enter(t, root){
+          const q = (s)=> root.querySelectorAll(s);
+          t.fromTo(q('.hs-k'), { y:16, opacity:0 }, { y:0, opacity:1, stagger:.04, duration:.4 }, 0);
+          t.fromTo(q('.hs-lv'), { scale:0, rotate:-45 }, { scale:1, rotate:0, stagger:.04, duration:.45, ease:'back.out(1.8)' }, .2);
+          t.fromTo(q('.hs-bar i'), { scaleX:0 }, { scaleX:1, stagger:.04, duration:.7 }, .3);
+          t.fromTo(q('.hs-rg-row, .hs-site-row, .hs-sup li'), { x:12, opacity:0 }, { x:0, opacity:1, stagger:.02, duration:.3 }, .3);
+          t.fromTo(q('.hs-site-row .bar i'), { scaleX:0 }, { scaleX:1, stagger:.03, duration:.7, ease:'power3.out' }, .5);
+        } }
+    };
+    const exp = document.createElement('div'); exp.className = 'hs-exp'; exp.hidden = true;
+    exp.innerHTML = '<header class="hs-exp-h"><span class="hs-tag"></span><b></b>'
+      + '<button type="button" class="hs-exp-back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 8 12l7 7"/></svg>Kembali ke Overview</button></header>'
+      + '<div class="hs-exp-box"></div>';
+    grid.appendChild(exp);
+    const box = exp.querySelector('.hs-exp-box'), head = exp.querySelector('.hs-exp-h');
+    let inner = null, cur = null, tl = null;
+    function fit(){
+      if(!inner || !cur || !box.clientWidth) return;
+      const v = VIEWS[cur], k = Math.min(box.clientWidth / v.W, box.clientHeight / v.H);
+      inner.style.width = (box.clientWidth / k) + 'px'; inner.style.height = (box.clientHeight / k) + 'px';
+      inner.style.transform = 'scale(' + k + ')';
+    }
+    if('ResizeObserver' in window) new ResizeObserver(fit).observe(box);
+    const rectOf = (el)=>{ const g = grid.getBoundingClientRect(), r = el.getBoundingClientRect(); return { left:r.left-g.left, top:r.top-g.top, width:r.width, height:r.height }; };
+    const others = (card)=> Array.from(grid.querySelectorAll('.hs-mom, #hsSafety, #hsHealth, #hsDiv, #exStage .ex-col > *, #exStage .ex-hrow > *'))
+      .filter(el=> el!==card && !el.contains(card) && !(card && card.contains(el)));
+    let curCard = null;
+    function show(id, src){
+      if(cur || grid.dataset.view !== 'overview') return;
+      const v = VIEWS[id], card = src || document.getElementById(id); if(!v || !card) return;
+      curCard = card;
+      inner = v.build(); if(!inner) return;
+      cur = id;
+      exp.querySelector('.hs-tag').textContent = v.tag; head.querySelector('b').innerHTML = v.title;
+      box.innerHTML = ''; box.appendChild(inner);
+      const from = rectOf(card);
+      exp.hidden = false; grid.classList.add('is-exp');
+      const charts = ()=> inner && inner.querySelectorAll('.sp-mo-ec').forEach(el=> moChart.play(el));
+      if(!hasGsap || REDUCE_MOTION){ fit(); charts(); return; }
+      if(tl) tl.kill();
+      tl = gsap.timeline({ defaults:{ ease:'power3.inOut' } });
+      tl.to(others(card), { opacity:0, scale:.96, duration:.35, ease:'power2.in' }, 0);
+      tl.to(card, { opacity:0, duration:.2 }, 0);
+      tl.fromTo(exp, { left:from.left, top:from.top, width:from.width, height:from.height, opacity:1 },
+        { left:0, top:0, width:grid.clientWidth, height:grid.clientHeight, duration:.7, onUpdate:fit,
+          onComplete:()=>{ gsap.set(exp, { clearProps:'left,top,width,height' }); fit(); } }, .1);
+      tl.fromTo(head, { y:-10, opacity:0 }, { y:0, opacity:1, duration:.4, ease:'power3.out' }, .55);
+      tl.fromTo(box, { opacity:0 }, { opacity:1, duration:.35 }, .7);
+      tl.call(()=>{
+        if(!inner) return; fit();
+        const t2 = gsap.timeline({ defaults:{ duration:0.5, ease:'power3.out' } });
+        v.enter(t2, inner);
+      }, null, .75);
+    }
+    function reset(card){
+      exp.hidden = true; grid.classList.remove('is-exp');
+      if(hasGsap) gsap.set([exp, head, box].concat(card ? [card] : [], others(card)), { clearProps:'all' });
+      box.innerHTML = ''; inner = null;
+    }
+    function close(instant){
+      if(!cur) return;
+      const card = curCard || document.getElementById(cur); cur = null;
+      if(tl) tl.kill();
+      if(instant || !hasGsap || REDUCE_MOTION){ reset(card); return; }
+      const to = rectOf(card), g = grid.getBoundingClientRect(), e = exp.getBoundingClientRect();
+      gsap.set(exp, { left:e.left-g.left, top:e.top-g.top, width:e.width, height:e.height });
+      // reset once, from the timeline or from a timer if the tween is throttled or interrupted
+      let done = false; const finish = ()=>{ if(done || cur) return; done = true; reset(card); };
+      setTimeout(finish, 1100);
+      tl = gsap.timeline({ defaults:{ ease:'power3.inOut' }, onComplete:finish });
+      tl.to([box, head], { opacity:0, duration:.25 }, 0);
+      tl.to(exp, { left:to.left, top:to.top, width:to.width, height:to.height, duration:.6 }, .15);
+      tl.to(card, { opacity:1, duration:.25 }, .6);
+      tl.to(others(card), { opacity:1, scale:1, duration:.4, ease:'power2.out' }, .5);
+      tl.to(exp, { opacity:0, duration:.2 }, .7);
+    }
+    Object.keys(VIEWS).forEach(id=>{
+      const card = document.getElementById(id); if(!card) return;
+      card.addEventListener('click', e=>{ if(grid.dataset.view !== 'overview') return; e.stopPropagation(); show(id); });
+    });
+    // Executive Summary cards open the same detail views
+    const EX = { hsSafety:'.ex-chart-card, .ex-siaga, .ex-pyr, .ex-pil', hsHealth:'.ex-health, .ex-hrow > *', hsDiv:'.ex-reg, .ex-kpi-h' };
+    Object.keys(EX).forEach(id=> document.querySelectorAll('#exStage ' + EX[id].split(', ').join(', #exStage ')).forEach(el=>{
+      el.classList.add('ex-click');
+      el.addEventListener('click', e=>{ if(grid.dataset.view !== 'overview') return; e.stopPropagation(); show(id, el); });
+    }));
+    exp.addEventListener('click', e=> e.stopPropagation());
+    exp.querySelector('.hs-exp-back').addEventListener('click', e=>{ e.stopPropagation(); close(); });
+    document.addEventListener('keydown', e=>{ if(cur && e.key==='Escape'){ e.stopPropagation(); e.preventDefault(); close(); } }, true);
+    return { close };
+  })();
+  // How Stable Are We? tabs Safety Transformation / Automasi / Next To Do: copies of those slides' content
+  // (one source of data and markup), drawn at slide size and scaled to the panel
+  const hsTabCopy = (function(){
+    const SRC = {
+      strans:{ sel:'#ecGrid', cls:'hs-tv-ec', prep:()=> engCtrl.build() },
+      auto:{ sel:'#slideTransform .da-grid', cls:'hs-tv-da' },
+      next:{ sel:'#slideCross .cd-grid', cls:'hs-tv-cd' }
+    };
+    const W = 1790, H = 690;
+    const grid = document.getElementById('hsGrid');
+    const tv = document.createElement('div'); tv.className = 'hs-tv'; tv.id = 'hsTv';
+    if(grid) grid.appendChild(tv);
+    const built = {};
+    let curIn = null;
+    function fit(){
+      if(!curIn || !tv.clientWidth) return;
+      const k = Math.min(tv.clientWidth / W, tv.clientHeight / H);
+      curIn.style.width = (tv.clientWidth / k) + 'px'; curIn.style.height = (tv.clientHeight / k) + 'px';
+      curIn.style.transform = 'scale(' + k + ')';
+    }
+    if('ResizeObserver' in window) new ResizeObserver(fit).observe(tv);
+    function build(view){
+      const cfg = SRC[view]; if(cfg.prep) cfg.prep();
+      const src = document.querySelector(cfg.sel); if(!src) return null;
+      const c = src.cloneNode(true);
+      [c].concat(Array.from(c.querySelectorAll('*'))).forEach(el=>{
+        el.removeAttribute('id'); el.removeAttribute('data-step');
+        el.classList.remove('fade'); el.classList.add('on');
+        el.style.removeProperty('opacity'); el.style.removeProperty('transform'); el.style.removeProperty('visibility');
+      });
+      const inner = document.createElement('div'); inner.className = 'hs-tv-in ' + cfg.cls; inner.appendChild(c);
+      c.querySelectorAll('.eg-prog li').forEach(li=>{ const i = li.querySelector('.bar i'); if(i) li.style.setProperty('--w', i.style.getPropertyValue('--w')); });
+      const zoom = document.getElementById('mmZoom');
+      inner.querySelectorAll('.mm-shot').forEach(btn=> btn.addEventListener('click', e=>{
+        e.stopPropagation(); if(!zoom) return;
+        const img = zoom.querySelector('img'); img.src = btn.dataset.zoom; img.alt = (btn.querySelector('img')||{}).alt || ''; zoom.classList.add('open');
+      }));
+      tv.appendChild(inner);
+      if(view === 'strans') ecDetail(c);
+      return inner;
+    }
+    // Risk Transformation: a key-project card grows in place into a detail layout (big photo + full info);
+    // positions are in the copy's own units because the copy is scaled with a transform
+    let ecClose = ()=>{};
+    function ecDetail(root){
+      const host = root.querySelector('.ec-right') || root; host.classList.add('ec-host');
+      const exp = document.createElement('div'); exp.className = 'ec-exp'; exp.hidden = true;
+      exp.innerHTML = '<button type="button" class="ec-back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 8 12l7 7"/></svg>Kembali ke Key Project</button><div class="ec-exp-box"></div>';
+      host.appendChild(exp);
+      const box = exp.querySelector('.ec-exp-box'), back = exp.querySelector('.ec-back');
+      let open = null, big = null, tl = null;
+      // rects in the copy's own (unscaled) units, relative to the host
+      const rectIn = (el)=>{ const h = host.getBoundingClientRect(), r = el.getBoundingClientRect(), k = h.width / host.offsetWidth || 1;
+        return { left:(r.left-h.left)/k, top:(r.top-h.top)/k, width:r.width/k, height:r.height/k }; };
+      const others = (card)=> Array.from(host.querySelectorAll('.ec-c, .ec-kp-h')).filter(el=> el!==card && !exp.contains(el));
+      // each other card flies away from the clicked one
+      const away = (card)=>{ const c = rectIn(card), cx = c.left + c.width/2, cy = c.top + c.height/2;
+        return (i, el)=>{ const r = rectIn(el), dx = (r.left + r.width/2) - cx, dy = (r.top + r.height/2) - cy; return { x:dx*.18, y:dy*.18 }; }; };
+      // FLIP: the photo travels from the small card into its place in the detail layout
+      function flip(from, to){ return { x:from.left - to.left, y:from.top - to.top, scaleX:from.width / to.width, scaleY:from.height / to.height }; }
+      function show(card){
+        if(open) return;
+        open = card;
+        big = card.cloneNode(true); big.classList.add('ec-big');
+        big.querySelectorAll('.mm-shot').forEach(btn=> btn.addEventListener('click', e=>{
+          e.stopPropagation(); const zoom = document.getElementById('mmZoom'); if(!zoom) return;
+          const img = zoom.querySelector('img'); img.src = btn.dataset.zoom; zoom.classList.add('open');
+        }));
+        box.innerHTML = ''; box.appendChild(big);
+        const from = rectIn(card), fromPhoto = rectIn(card.querySelector('.ec-photo'));
+        exp.hidden = false;
+        if(!hasGsap || REDUCE_MOTION) return;
+        if(tl) tl.kill();
+        const off = away(card), os = others(card);
+        tl = gsap.timeline({ defaults:{ ease:'power3.inOut' } });
+        // 1. the rest scatters, blurring out
+        os.forEach((el, n)=>{ const v = off(n, el); tl.to(el, { x:v.x, y:v.y, scale:.88, opacity:0, filter:'blur(4px)', duration:.45, ease:'power2.in' }, n*.04); });
+        tl.to(card, { opacity:0, duration:.15 }, .05);
+        // 2. the card surface grows to fill the area
+        tl.fromTo(exp, { left:from.left, top:from.top, width:from.width, height:from.height, borderRadius:14, opacity:1 },
+          { left:0, top:0, width:host.offsetWidth, height:host.offsetHeight, borderRadius:18, duration:.6, ease:'expo.inOut',
+            onComplete:()=> gsap.set(exp, { clearProps:'left,top,width,height' }) }, .12);
+        // 3. the photo flies into place, then the details rise in
+        tl.call(()=>{
+          const ph = big.querySelector('.ec-photo'); if(!ph) return;
+          gsap.set(box, { opacity:1 });
+          const to = rectIn(ph);
+          gsap.fromTo(ph, Object.assign({ transformOrigin:'0 0' }, flip(fromPhoto, to)), { x:0, y:0, scaleX:1, scaleY:1, duration:.7, ease:'expo.out', clearProps:'transform' });
+          const q = (sel)=> big.querySelectorAll(sel);
+          const t2 = gsap.timeline({ defaults:{ duration:.5, ease:'power3.out' } });
+          t2.fromTo(q('header > *'), { y:-12, opacity:0 }, { y:0, opacity:1, stagger:.05 }, 0);
+          t2.fromTo(q('.ec-ring .arc'), { strokeDasharray:'0 100' }, { strokeDasharray:(i, el)=> el.getAttribute('stroke-dasharray'), duration:1, ease:'power2.out' }, .1);
+          t2.fromTo(q('.ec-prog h5, .ec-prog li, .ec-stats span, .ec-hz, .ec-rnd'), { x:30, opacity:0 }, { x:0, opacity:1, stagger:.07 }, .15);
+          t2.fromTo(q('.ec-q li'), { y:20, opacity:0, scale:.9 }, { y:0, opacity:1, scale:1, stagger:.07, ease:'back.out(1.6)' }, .35);
+          t2.fromTo(back, { x:20, opacity:0 }, { x:0, opacity:1 }, .2);
+        }, null, .72);
+        gsap.set([box, back], { opacity:0 });
+      }
+      function reset(card){
+        exp.hidden = true; box.innerHTML = ''; big = null;
+        if(hasGsap) gsap.set([exp, back, box].concat(card ? [card] : [], others(card)), { clearProps:'all' });
+      }
+      function close(instant){
+        if(!open) return;
+        const card = open; open = null;
+        if(tl) tl.kill();
+        if(instant || !hasGsap || REDUCE_MOTION){ reset(card); return; }
+        const to = rectIn(card), toPhoto = rectIn(card.querySelector('.ec-photo')), ph = big && big.querySelector('.ec-photo');
+        const off = away(card), os = others(card);
+        gsap.set(exp, { left:0, top:0, width:host.offsetWidth, height:host.offsetHeight });
+        let done = false; const finish = ()=>{ if(done || open) return; done = true; reset(card); };
+        setTimeout(finish, 1500);
+        tl = gsap.timeline({ defaults:{ ease:'power3.inOut' }, onComplete:finish });
+        // 1. details drop away, the photo flies back toward its card
+        tl.to(big ? big.querySelectorAll('header > *, .ec-prog, .ec-stats, .ec-hz, .ec-rnd, .ec-q') : [], { opacity:0, y:10, stagger:.02, duration:.25, ease:'power2.in' }, 0);
+        tl.to(back, { opacity:0, duration:.2 }, 0);
+        if(ph){ const from = rectIn(ph); tl.to(ph, Object.assign({ transformOrigin:'0 0', duration:.55, ease:'expo.inOut' }, flip(toPhoto, from)), .1); }
+        // 2. the surface shrinks into the card, the others fly back in
+        tl.to(exp, { left:to.left, top:to.top, width:to.width, height:to.height, borderRadius:14, duration:.55, ease:'expo.inOut' }, .15);
+        tl.to(card, { opacity:1, duration:.2 }, .62);
+        tl.to(exp, { opacity:0, duration:.15 }, .66);
+        os.forEach((el, n)=>{ const v = off(n, el);
+          tl.fromTo(el, { x:v.x, y:v.y, scale:.88, opacity:0, filter:'blur(4px)' }, { x:0, y:0, scale:1, opacity:1, filter:'blur(0px)', duration:.5, ease:'power3.out' }, .42 + n*.05); });
+      }
+      host.querySelectorAll('.ec-c').forEach(card=> card.addEventListener('click', e=>{ e.stopPropagation(); show(card); }));
+      exp.addEventListener('click', e=> e.stopPropagation());
+      back.addEventListener('click', e=>{ e.stopPropagation(); close(); });
+      document.addEventListener('keydown', e=>{ if(open && e.key==='Escape'){ e.stopPropagation(); e.preventDefault(); close(); } }, true);
+      ecClose = close;
+    }
+    function show(view){
+      ecClose(true);
+      if(!SRC[view]){ Object.values(built).forEach(el=> el.hidden = true); curIn = null; return; }
+      const inner = built[view] || (built[view] = build(view)); if(!inner) return;
+      Object.values(built).forEach(el=> el.hidden = el !== inner);
+      curIn = inner; fit();
+      if(!hasGsap || REDUCE_MOTION) return;
+      const q = (sel)=> inner.querySelectorAll(sel);
+      const tl = gsap.timeline({ defaults:{ duration:0.5, ease:'power3.out' } });
+      tl.fromTo(inner.firstElementChild.children, {y:20, opacity:0}, {y:0, opacity:1, stagger:0.1}, 0);
+      tl.fromTo(q('.mm-shot img'), {scale:1.1, opacity:0}, {scale:1, opacity:1, stagger:0.06, duration:0.8, ease:'power2.out', clearProps:'transform'}, 0.1);
+      tl.fromTo(q('.st-rm-c, .st-loc, .st-ph, .da-steps li, .da-row li, .da-ben li, .cd-row'), {y:10, opacity:0}, {y:0, opacity:1, stagger:0.025, duration:0.35}, 0.25);
+      tl.fromTo(q('.st-bar i, .st-tline .track i'), {scaleX:0}, {scaleX:1, duration:0.8}, 0.4);
+      tl.fromTo(q('.eg-prog .bar i, .eg-std td.bar i'), {scaleX:0}, {scaleX:1, stagger:0.03, duration:0.8, ease:'power3.out'}, 0.3);
+      tl.fromTo(q('.ec-c'), {y:18, opacity:0}, {y:0, opacity:1, stagger:0.12, duration:0.5}, 0.2);
+      tl.fromTo(q('.ec-ring .arc'), {strokeDasharray:'0 100'}, {strokeDasharray:(i, el)=> el.getAttribute('stroke-dasharray'), stagger:0.1, duration:1, ease:'power2.out'}, 0.4);
+      tl.fromTo(q('.cd-badge'), {scale:0, rotate:-60}, {scale:1, rotate:0, stagger:0.12, duration:0.5, ease:'back.out(1.8)'}, 0.2);
+    }
+    return { show };
+  })();
   // How Stable Are We? tabs: swap the panel view; the slide's step state is kept
   (function(){
     const grid = document.getElementById('hsGrid'), bar = document.getElementById('hsTabs');
     if(!grid || !bar) return;
-    const SECTIONS = { overview:['hsMom','hsSafety','hsHealth','hsDiv'], mom:['hsMom'], safety:['hsSafety'], health:['hsHealth'], division:['hsDiv'] };
+    const SECTIONS = { overview:['hsMom','hsSafety','hsHealth','hsDiv'], mom:['hsMom'], safety:['hsSafety'], health:['hsHealth'], division:['hsDiv'], strans:[], auto:[], next:[] };
     bar.querySelectorAll('[data-view]').forEach(btn=> btn.addEventListener('click', e=>{
       e.stopPropagation();
       const view = btn.dataset.view;
       if(grid.dataset.view===view) return;
       bar.querySelectorAll('[data-view]').forEach(b=>{ const on = b===btn; b.classList.toggle('is-on', on); b.setAttribute('aria-pressed', String(on)); });
+      hsSafExpand.close(true);
       grid.dataset.view = view;
       hsThumbs.closeModal();
       if(view==='safety') hsThumbs.show(); else hsThumbs.stop();
       if(view==='health') hsHealthCopy.show();
       if(view==='mom') hsMomCopy.show();
+      hsTabCopy.show(view);
+      if(view==='overview') execView.show(hasGsap && !REDUCE_MOTION ? gsap.timeline({ defaults:{ duration:0.5, ease:'power3.out' } }) : null);
       const els = SECTIONS[view].map(id=> document.getElementById(id)).filter(Boolean);
       // a detail tab always shows its section, even before the presenter has stepped to it
       if(view!=='overview') els.forEach(el=> el.classList.add('on'));
@@ -7894,6 +8454,125 @@
     const sup = '<div class="cd-sup">'+svg('hand')+'Support Needed</div>';
     fill('cdTrans', head(S.trans) + '<div class="cd-body">' + sup + colh + '<div class="cd-rows">' + S.trans.rows.map(row).join('') + '</div></div>');
     fill('cdAuto', head(S.auto) + '<div class="cd-body">' + sup + colh + '<div class="cd-rows">' + S.auto.rows.map(row).join('') + '</div></div>');
+  })();
+  // Executive Summary: one canvas assembled from copies of existing components, scaled to the slide
+  const EXEC_TREND = {
+    cats:['2017','2018','2019','2020','2021','2022','2023','2024','2025',"Q1'26","Q2'26","Q3'26"],
+    afr:[6.40,4.31,3.61,2.10,1.48,1.14,0.97,1.25,1.03,1.19,1.40,1.58],
+    ltisr:[282.14,0.13,114.12,75.67,122.27,0,0,0,0,356.89,0,1.41],
+    // incident rate split: nearmiss, injury, non injury
+    nm:[13.1,18.3,14.0,7.6,6.2,5.6,5.5,9.2,6.9,5.3,4.3,6.0],
+    inj:[5.2,3.1,2.9,3.0,1.0,1.0,0.5,0.9,0.8,0.7,0.7,1.0],
+    non:[17.7,15.8,13.4,5.3,5.1,4.3,4.3,5.1,3.8,4.3,5.0,5.3]
+  };
+  const execView = (function(){
+    const W = 1790, H = 770;
+    let built = false;
+    function fit(){
+      const box = document.getElementById('exBox'), st = document.getElementById('exStage'); if(!box || !st || !box.clientWidth) return;
+      // keep the design height, stretch the canvas so it spans the full width of the tab bar
+      const k = Math.min(box.clientWidth / W, box.clientHeight / H);
+      st.style.width = (box.clientWidth / k) + 'px';
+      st.style.transform = 'scale(' + k + ')';
+    }
+    function copy(slot){
+      const src = document.querySelector(slot.dataset.src); if(!src) return;
+      const c = src.cloneNode(true);
+      [c].concat(Array.from(c.querySelectorAll('*'))).forEach(el=>{
+        if(el.id){ if(el.id==='spPyrCard') el.classList.add('sp-pyr-card'); el.classList.add('id-' + el.id); el.removeAttribute('id'); }
+        el.removeAttribute('data-step'); el.removeAttribute('data-title'); el.removeAttribute('role'); el.removeAttribute('tabindex');
+        el.classList.remove('fade'); el.classList.add('on');
+        el.style.removeProperty('opacity'); el.style.removeProperty('transform'); el.style.removeProperty('visibility');
+      });
+      slot.appendChild(c);
+    }
+    const fmt = (v)=> v.toFixed(2).replace('.', ',');
+    const f1 = (v)=> v.toFixed(1).replace('.', ',');
+    // walking cursor + periodic redraw; pauses when the slide, tab or a detail view is not showing
+    let loopTimer = null;
+    function loop(){
+      if(loopTimer) clearInterval(loopTimer);
+      let i = 0, rounds = 0;
+      const visible = ()=>{ const sl = document.getElementById('slideStable'), g = document.getElementById('hsGrid');
+        return sl && sl.classList.contains('active') && g && g.dataset.view === 'overview' && !g.classList.contains('is-exp'); };
+      loopTimer = setInterval(()=>{
+        const el = document.getElementById('exChart'), c = el && typeof echarts !== 'undefined' && echarts.getInstanceByDom(el);
+        if(!c) return;
+        if(!visible()){ c.dispatchAction({ type:'hideTip' }); return; }
+        const n = EXEC_TREND.cats.length;
+        if(i >= n){ i = 0; rounds++; c.dispatchAction({ type:'hideTip' }); if(rounds % 2 === 0){ chart(); return; } }
+        c.dispatchAction({ type:'showTip', seriesIndex:2, dataIndex:i });
+        i++;
+      }, 1100);
+    }
+    function chart(){
+      const el = document.getElementById('exChart'); if(typeof echarts==='undefined' || !el || !el.clientHeight) return;
+      const T = EXEC_TREND, last = T.cats.length - 1;
+      const c = echarts.getInstanceByDom(el) || echarts.init(el, null, { renderer:'canvas' });
+      c.clear();
+      const total = T.nm.map((v, i)=> +(v + T.inj[i] + T.non[i]).toFixed(1));
+      const ax = (gi, show)=> ({ type:'category', gridIndex:gi, data:T.cats, axisTick:{ show:false }, axisLine:{ show:show, lineStyle:{ color:'#C9CED3' } },
+        axisLabel:{ show:show, interval:0, fontSize:11, fontWeight:600, color:'#141A22' } });
+      const lbl = (pos, color)=> ({ show:true, position:pos, fontSize:12, fontWeight:700, color:color, formatter:(p)=> fmt(p.value) });
+      const hl = { silent:true, itemStyle:{ color:'rgba(214,36,58,.10)' }, data:[[{ xAxis:T.cats[last] }, { xAxis:T.cats[last] }]] };
+      c.setOption({
+        animationDuration:900, textStyle:{ fontFamily:"'Source Sans 3', sans-serif" },
+        tooltip:{ trigger:'axis', confine:true, axisPointer:{ type:'shadow', shadowStyle:{ color:'rgba(31,154,58,.08)' } }, textStyle:{ fontSize:12 },
+          formatter:(ps)=>{ const i = ps[0].dataIndex; return '<b>'+T.cats[i]+'</b><br>AFR: <b>'+fmt(T.afr[i])+'</b><br>LTISR: <b>'+fmt(T.ltisr[i])+'</b><br>Incident rate: <b>'+f1(total[i])+'</b>'; } },
+        legend:[{ top:0, right:0, itemWidth:18, itemHeight:8, textStyle:{ fontSize:12 }, data:['LTISR','AFR'] },
+                { top:'49%', right:0, orient:'vertical', icon:'rect', itemWidth:14, itemHeight:10, textStyle:{ fontSize:12 }, data:['Nearmiss','Injury','Non Injury'] }],
+        grid:[{ left:16, right:16, top:'6%', height:'15%' }, { left:16, right:16, top:'26%', height:'14%' }, { left:16, right:16, top:'50%', bottom:22 }],
+        xAxis:[ax(0,false), ax(1,false), ax(2,true)],
+        yAxis:[0,1,2].map(i=> ({ type:'value', gridIndex:i, show:false, scale:i<2 })),
+        series:[
+          { name:'AFR', type:'line', xAxisIndex:0, yAxisIndex:0, data:T.afr, symbol:'circle', symbolSize:7, lineStyle:{ color:'#D6243A', width:2.4 }, itemStyle:{ color:'#D6243A' },
+            label:Object.assign(lbl('top', '#141A22'), { formatter:(p)=> fmt(p.value) }), markArea:hl },
+          { name:'LTISR', type:'line', xAxisIndex:1, yAxisIndex:1, data:T.ltisr, symbol:'circle', symbolSize:7, lineStyle:{ color:'#141A22', width:2.4 }, itemStyle:{ color:'#141A22' },
+            label:Object.assign(lbl('top', '#141A22'), { formatter:(p)=> fmt(p.value), color:(p)=> p.value>300 ? '#D6243A' : '#141A22' }), markArea:hl },
+          { name:'Non Injury', type:'bar', stack:'r', xAxisIndex:2, yAxisIndex:2, data:T.non, barWidth:'62%', itemStyle:{ color:'#F5A623' },
+            label:{ show:true, position:'inside', fontSize:11, fontWeight:700, color:'#141A22', formatter:(p)=> f1(p.value) }, markArea:hl },
+          { name:'Injury', type:'bar', stack:'r', xAxisIndex:2, yAxisIndex:2, data:T.inj, itemStyle:{ color:'#E3262F' },
+            label:{ show:true, position:'inside', fontSize:10, fontWeight:700, color:'#fff', formatter:(p)=> f1(p.value) } },
+          { name:'Nearmiss', type:'bar', stack:'r', xAxisIndex:2, yAxisIndex:2, data:T.nm, itemStyle:{ color:'#D9DCDF' },
+            label:{ show:true, position:'inside', fontSize:11, color:'#4A525C', formatter:(p)=> f1(p.value) } },
+          { name:'AFR flow', type:'lines', coordinateSystem:'cartesian2d', xAxisIndex:0, yAxisIndex:0, polyline:true, silent:true, z:4,
+            data:[{ coords:T.afr.map((v, i)=> [i, v]) }], lineStyle:{ width:0, opacity:0 },
+            effect:{ show:true, period:3.5, trailLength:0, symbol:'circle', symbolSize:7, color:'#FF5A6E', loop:true } },
+          { name:'LTISR flow', type:'lines', coordinateSystem:'cartesian2d', xAxisIndex:1, yAxisIndex:1, polyline:true, silent:true, z:4,
+            data:[{ coords:T.ltisr.map((v, i)=> [i, v]) }], lineStyle:{ width:0, opacity:0 },
+            effect:{ show:true, period:4.2, trailLength:0, symbol:'circle', symbolSize:7, color:'#6B7A88', loop:true } },
+          { name:'AFR now', type:'effectScatter', xAxisIndex:0, yAxisIndex:0, data:[[last, T.afr[last]]], symbolSize:9, silent:true, z:6,
+            itemStyle:{ color:'#D6243A' }, rippleEffect:{ scale:4, brushType:'stroke', period:2.2 }, tooltip:{ show:false } },
+          { name:'LTISR flags', type:'effectScatter', xAxisIndex:1, yAxisIndex:1, silent:true, z:6, symbolSize:9,
+            data:[[T.ltisr.indexOf(Math.max.apply(null, T.ltisr)), Math.max.apply(null, T.ltisr)], [last, T.ltisr[last]]],
+            itemStyle:{ color:'#D6243A' }, rippleEffect:{ scale:4, brushType:'stroke', period:2.2 }, tooltip:{ show:false } },
+          { name:'Injury now', type:'effectScatter', xAxisIndex:2, yAxisIndex:2, silent:true, z:6, symbolSize:7,
+            data:[[last, T.non[last] + T.inj[last]]], itemStyle:{ color:'#E3262F' }, rippleEffect:{ scale:3.5, brushType:'stroke', period:2.4 }, tooltip:{ show:false } },
+          { name:'Total', type:'scatter', xAxisIndex:2, yAxisIndex:2, data:total, symbolSize:0, silent:true,
+            label:{ show:true, position:'top', fontSize:12, fontWeight:700, color:'#141A22', formatter:(p)=> f1(p.value) } }
+        ]
+      });
+    }
+    function build(){
+      if(built) return; built = true;
+      document.querySelectorAll('#exStage .ex-slot, #exStage .ex-pyr').forEach(copy);
+      // the pyramid card carries the section title itself
+      document.querySelectorAll('#exStage .hs-rg-row').forEach(r=>{ const lv = (r.querySelector('.lv')||{}).textContent; if(lv) r.classList.add('lv-' + lv.trim().toLowerCase()); });
+      const ph = document.querySelector('#exStage .ex-pyr .sp-pyr h3'); if(ph) ph.innerHTML = 'Lagging Indicator<br>Q3 2026';
+      const box = document.getElementById('exBox');
+      if('ResizeObserver' in window) new ResizeObserver(()=>{ fit(); const c = echarts.getInstanceByDom(document.getElementById('exChart')); if(c) c.resize(); }).observe(box);
+    }
+    function show(tl){
+      build(); fit();
+      requestAnimationFrame(()=>{ chart(); loop(); });
+      if(!tl) return;
+      const q = (sel)=> document.querySelectorAll('#exBox ' + sel);
+      tl.fromTo(q('.ex-col > *'), {y:18, opacity:0}, {y:0, opacity:1, stagger:0.05, duration:0.5}, 0.2);
+      const pyr = document.querySelector('#exStage .sp-pyr-card'); if(pyr) pyramidIn(tl, pyr, 0.5);
+      tl.fromTo(q('.hs-pil tr, .hs-rg-row'), {x:12, opacity:0}, {x:0, opacity:1, stagger:0.02, duration:0.3}, 0.7);
+      tl.fromTo(q('.hs-ht, .hs-siaga td'), {scale:.9, opacity:0}, {scale:1, opacity:1, stagger:0.04, duration:0.4, ease:'back.out(1.6)'}, 0.6);
+    }
+    return { show, fit };
   })();
   safetyView.render();
   leadingView.render();

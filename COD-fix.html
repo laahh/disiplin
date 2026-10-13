@@ -3052,6 +3052,34 @@
     font-family:'Source Sans 3',sans-serif; color:#141A22;
     --mm-ink:#141A22; --mm-mute:#5B646D; --mm-line:rgba(20,26,34,.08); --mm-amber:#C77800; --mm-amber-bg:#FFF2D6; --mm-done:#16712C; --mm-done-bg:#E2F3E5; --mm-red:#C8102E; }
   .hs-mcopy > .mm-groups{ flex:1; min-height:0; }
+  /* Overview: every section (MoM, Safety, Health, Division) collapses to its header */
+  .hs-col-btn{ display:none; flex:none; margin-left:auto; width:30px; height:30px; border-radius:50%; border:1px solid rgba(20,26,34,.14); background:#fff; color:var(--cv-green-d); cursor:pointer; place-items:center; box-shadow:0 2px 6px rgba(20,26,34,.08); transition:transform .3s, background .2s, color .2s; }
+  .hs-col-btn svg{ width:14px; height:14px; fill:none; stroke:currentColor; stroke-width:2.6; stroke-linecap:round; stroke-linejoin:round; }
+  .hs-col-btn:hover{ background:var(--cv-green); border-color:var(--cv-green); color:#fff; }
+  .hs-col-btn:focus-visible{ outline:3px solid var(--cv-green); outline-offset:2px; }
+  .hs-grid[data-view="overview"] .hs-col-btn{ display:grid; }
+  .hs-grid[data-view="overview"] [data-col]{ cursor:pointer; }
+  .hs-grid[data-view="overview"] .is-col .hs-col-btn{ transform:rotate(-90deg); }
+  .hs-grid[data-view="overview"] .hs-mom > h3{ display:flex; align-items:center; gap:10px; }
+  /* main column stacks as flex so collapsed sections give their space to the open ones */
+  .hs-grid[data-view="overview"] .hs-main{ display:flex; flex-direction:column; }
+  .hs-grid[data-view="overview"] #hsSafety, .hs-grid[data-view="overview"] #hsHealth{ flex:none; }
+  .hs-grid[data-view="overview"] #hsDiv{ flex:1 1 0; min-height:0; }
+  .hs-grid[data-view="overview"] #hsHealth:not(.is-col) .hs-col-btn{ position:absolute; right:10px; top:10px; }
+  .hs-grid[data-view="overview"] #hsHealth:not(.is-col){ padding-right:52px; }
+  .hs-grid[data-view="overview"] .hs-sec.is-col > :not(.hs-sec-head){ display:none !important; }
+  .hs-grid[data-view="overview"] .hs-sec.is-col{ flex:none !important; }
+  .hs-grid[data-view="overview"] #hsHealth.is-col .hs-sec-head{ width:100%; flex-direction:row; align-items:center; }
+  .hs-grid[data-view="overview"] .hs-sec.is-col .hs-sec-head p{ display:none; }
+  .hs-grid[data-view="overview"] .hs-sec.is-col::after{ content:'Klik untuk membuka'; position:absolute; right:58px; top:50%; transform:translateY(-50%); font-family:'Plus Jakarta Sans',sans-serif; font-weight:600; font-size:.72rem; color:#868F98; }
+  .hs-grid[data-view="overview"] .hs-sec{ position:relative; }
+  /* MoM collapses to a narrow vertical strip */
+  .hs-grid[data-view="overview"].mom-col{ grid-template-columns:52px minmax(0,1fr); }
+  .hs-grid[data-view="overview"] .hs-mom.is-col{ padding:1.2vh 0; align-items:center; }
+  .hs-grid[data-view="overview"] .hs-mom.is-col > :not(h3){ display:none !important; }
+  .hs-grid[data-view="overview"] .hs-mom.is-col > h3{ flex-direction:row; writing-mode:vertical-rl; gap:14px; white-space:nowrap; font-size:clamp(.78rem,1.9vh,1rem); }
+  .hs-grid[data-view="overview"] .hs-mom.is-col .hs-col-btn{ margin:0; transform:rotate(-90deg); writing-mode:horizontal-tb; }
+  .hs-grid{ transition:grid-template-columns .35s ease; }
 </style>
 </head>
 <body>
@@ -7219,6 +7247,35 @@
     return { render };
   })();
   stableView.render();
+  // Overview collapsibles: click a section header (or its chevron) to fold it to that header
+  (function(){
+    const grid = document.getElementById('hsGrid'); if(!grid) return;
+    const CHEV = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+    const SECS = [['hsMom','#hsMom > h3'],['hsSafety','#hsSafety > .hs-sec-head'],['hsHealth','#hsHealth > .hs-sec-head'],['hsDiv','#hsDiv > .hs-sec-head']];
+    SECS.forEach(([id, sel])=>{
+      const sec = document.getElementById(id), head = document.querySelector(sel); if(!sec || !head) return;
+      head.dataset.col = id;
+      const btn = document.createElement('button');
+      btn.type = 'button'; btn.className = 'hs-col-btn'; btn.innerHTML = CHEV;
+      btn.setAttribute('aria-expanded', 'true'); btn.setAttribute('aria-label', 'Lipat / buka bagian');
+      head.appendChild(btn);
+      const toggle = (e)=>{
+        e.stopPropagation();
+        if(grid.dataset.view !== 'overview') return;
+        const col = !sec.classList.contains('is-col');
+        sec.classList.toggle('is-col', col);
+        btn.setAttribute('aria-expanded', String(!col));
+        if(id==='hsMom') grid.classList.toggle('mom-col', col);
+        if(!col && hasGsap && !REDUCE_MOTION){
+          const kids = Array.from(sec.children).filter(el=> el!==head);
+          gsap.fromTo(kids, {y:10, opacity:0}, {y:0, opacity:1, stagger:0.05, duration:0.4, ease:'power3.out'});
+        }
+      };
+      head.addEventListener('click', toggle);
+      // the header is inside the slide; keep keyboard focus on the chevron working too
+      btn.addEventListener('keydown', e=>{ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); toggle(e); } });
+    });
+  })();
   // Safety tab thumbnails: copies of the Safety Performance slide's cards (one source of data and
   // markup), drawn at a design width and scaled down to fill their box; charts are redrawn on the copy.
   const hsThumbs = (function(){
