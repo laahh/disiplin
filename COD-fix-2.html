@@ -3155,9 +3155,9 @@
 
   /* How Stable tabs 2-4: copied slide content in one scaled panel */
   .hs-tv{ display:none; }
-  .hs-grid[data-view="strans"], .hs-grid[data-view="auto"], .hs-grid[data-view="next"]{ grid-template-columns:minmax(0,1fr); }
-  .hs-grid[data-view="strans"] > :not(.hs-tv), .hs-grid[data-view="auto"] > :not(.hs-tv), .hs-grid[data-view="next"] > :not(.hs-tv){ display:none !important; }
-  .hs-grid[data-view="strans"] .hs-tv, .hs-grid[data-view="auto"] .hs-tv, .hs-grid[data-view="next"] .hs-tv{ display:block; position:relative; min-height:0; overflow:hidden; }
+  .hs-grid[data-view="strans"], .hs-grid[data-view="auto"], .hs-grid[data-view="next"], .hs-grid[data-view="ov2"]{ grid-template-columns:minmax(0,1fr); }
+  .hs-grid[data-view="strans"] > :not(.hs-tv), .hs-grid[data-view="auto"] > :not(.hs-tv), .hs-grid[data-view="next"] > :not(.hs-tv), .hs-grid[data-view="ov2"] > :not(.hs-tv){ display:none !important; }
+  .hs-grid[data-view="strans"] .hs-tv, .hs-grid[data-view="auto"] .hs-tv, .hs-grid[data-view="next"] .hs-tv, .hs-grid[data-view="ov2"] .hs-tv{ display:block; position:relative; min-height:0; overflow:hidden; }
   .hs-tv-in{ position:absolute; left:0; top:0; transform-origin:0 0; display:flex; flex-direction:column;
     --mm-line:rgba(20,26,34,.08); --mm-mute:#5B646D; --st-navy:#16294F; --st-dg:#1F5E2A; font-family:'Source Sans 3',sans-serif; color:var(--cv-ink); }
   .hs-tv-in[hidden]{ display:none; }
@@ -3239,7 +3239,7 @@
   .ex-h b{ color:#E08A00; } .ex-h em{ font-style:normal; color:var(--cv-green); font-weight:800; }
   .ex-chart-card{ flex:1; display:flex; flex-direction:column; gap:6px; padding:10px 12px; }
   .ex-chart{ flex:1; min-height:0; }
-  .ex-siaga{ flex:none; height:236px; }
+  .ex-siaga{ flex:none; height:200px; }
   .ex-siaga .hs-siaga{ height:100%; font-size:16px; }
   .ex-siaga .hs-siaga table{ font-size:17px; }
   .ex-pyr{ flex:1; display:flex !important; padding:8px 12px; }
@@ -3612,6 +3612,181 @@
   #slideStable.active .hs-grid[data-view="auto"] .au-stage i{ animation:rtPop 2.4s ease-in-out infinite; }
   #slideStable.active .hs-grid[data-view="auto"] .au-col.hz h5 i{ animation:exBlink 1.4s ease-in-out infinite; }
   #slideStable.active .hs-grid[data-view="auto"] .au-next-h i{ animation:rtPop 2.4s ease-in-out infinite; }
+
+  /* Automation: clickable project cards and their in-place detail */
+  .hs-tv-au .au-c{ cursor:zoom-in; transition:transform .25s, box-shadow .25s; }
+  .hs-tv-au .au-c:not(.au-big):hover{ transform:translateY(-3px); box-shadow:0 0 0 2px rgba(22,65,143,.35), 0 16px 34px rgba(15,45,107,.16); }
+  .hs-tv-au .au-c:not(.au-big) .au-stage::after{ content:'Detail \2197'; margin-left:auto; flex:none; padding:2px 10px; border-radius:999px; background:#fff; color:#16418F; border:1px solid rgba(22,65,143,.3); font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:11px; }
+  .au-exp{ position:absolute; z-index:5; left:0; top:0; width:100%; height:100%; display:flex; overflow:hidden; border-radius:16px; background:#fff; border:1px solid #DCE3EA; box-shadow:0 22px 50px rgba(15,45,107,.18); }
+  .au-exp[hidden]{ display:none; }
+  .au-exp-box{ flex:1; min-height:0; display:flex; }
+  .au-back{ position:absolute; z-index:3; right:16px; bottom:14px; display:inline-flex; align-items:center; gap:6px; padding:7px 18px 7px 12px; border-radius:999px; border:1px solid rgba(22,65,143,.25); background:#fff; color:#16418F; font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:13px; cursor:pointer; box-shadow:0 6px 16px rgba(15,45,107,.12); }
+  .au-back svg{ width:16px; height:16px; fill:none; stroke:currentColor; stroke-width:2.6; stroke-linecap:round; stroke-linejoin:round; }
+  .au-back:hover{ background:#16418F; color:#fff; }
+  .au-c.au-big{ flex:1; cursor:default; border:0 !important; box-shadow:none !important; border-radius:0 !important; display:grid !important; grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); grid-template-rows:auto minmax(0,1fr) auto; }
+  .au-c.au-big > header{ grid-column:1 / -1; }
+  .au-c.au-big > header > em{ width:70px; font-size:36px; }
+  .au-c.au-big > header > div b{ font-size:30px; }
+  .au-c.au-big > header > div small{ font-size:16px; }
+  .au-c.au-big .au-stage{ width:30%; }
+  .au-c.au-big .au-stage b{ font-size:16px; }
+  .au-c.au-big .au-body{ display:contents; }
+  .au-c.au-big .au-media{ grid-column:1; grid-row:2 / 4; margin:14px 0 14px 14px; border-radius:14px; box-shadow:0 14px 34px rgba(15,27,36,.22); }
+  .au-c.au-big .au-col{ grid-column:2; overflow:visible; font-size:14.5px; line-height:1.35; padding:0 16px !important; border-left:0 !important; }
+  .au-c.au-big .au-col h5{ font-size:15px; padding:6px 10px; }
+  .au-c.au-big .au-col h5 i{ width:28px; height:28px; }
+  .au-c.au-big .au-col ul{ gap:6px; }
+  .au-c.au-big .au-col li::before{ top:.55em; width:6px; height:6px; }
+  .au-c.au-big{ grid-template-rows:auto auto auto auto minmax(0,1fr) auto; row-gap:12px; }
+  .au-c.au-big .au-media{ grid-row:2 / 7; }
+  .au-c.au-big .au-col.hz{ grid-row:2; margin-top:14px; }
+  .au-c.au-big .au-col.pg{ grid-row:3; }
+  .au-c.au-big .au-col.rd{ grid-row:4; }
+  .au-big-next{ grid-column:2; grid-row:6; display:flex; flex-direction:column; gap:2px; margin:0 16px 64px; padding:10px 14px; border-radius:12px; background:linear-gradient(115deg,#EAF2FD,#E9F6E9); border-left:4px solid #16418F; }
+  .au-big-next small{ font-family:'Plus Jakarta Sans',sans-serif; font-weight:700; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:#6B7580; }
+  .au-big-next b{ font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:16px; color:#0F2D6B; }
+  .au-big-next span{ font-size:14px; color:#3C444C; }
+
+  /* detail: three columns - media | progress | hazard + R&D + next step */
+  .au-c.au-big{ grid-template-columns:minmax(0,1.05fr) minmax(0,1fr) minmax(0,.85fr) !important; grid-template-rows:auto auto auto minmax(0,1fr) auto !important; }
+  .au-c.au-big .au-media{ grid-row:2 / 6 !important; }
+  .au-c.au-big .au-col{ font-size:15.5px !important; line-height:1.4 !important; }
+  .au-c.au-big .au-col ul{ gap:9px !important; }
+  .au-c.au-big .au-col.pg{ grid-column:2 !important; grid-row:2 / 6 !important; margin-top:14px; }
+  .au-c.au-big .au-col.hz{ grid-column:3 !important; grid-row:2 !important; }
+  .au-c.au-big .au-col.rd{ grid-column:3 !important; grid-row:3 !important; }
+  .au-c.au-big .au-big-next{ grid-column:3 !important; grid-row:5 !important; }
+  .au-c.au-big .au-col.hz, .au-c.au-big .au-col.rd{ padding-left:0 !important; }
+
+  /* Safety Stability card: combined incident / AFR / LTISR chart over the four eras, phase narrative below */
+  .ex-chart-card{ gap:4px !important; }
+  .ex-chart{ flex:1.25 1 0 !important; position:relative; }
+  .ex-chart::before{ content:'Jumlah Insiden'; position:absolute; left:-2px; top:44%; z-index:2; writing-mode:vertical-rl; transform:rotate(180deg); font-size:10px; font-weight:800; color:#16294F; }
+  .ex-chart::after{ content:'AFR & LTISR'; position:absolute; right:-2px; top:40%; z-index:2; writing-mode:vertical-rl; font-size:10px; font-weight:800; color:#16294F; }
+  .ex-phase{ position:relative; flex:1 1 0; min-height:0; margin:0 0 0 34px; border-radius:0 0 10px 10px; overflow:hidden;
+    background:linear-gradient(90deg, rgba(244,90,90,.10) 0 25%, rgba(63,168,74,.09) 25% 58.3%, rgba(42,111,215,.09) 58.3% 91.6%, rgba(245,166,35,.14) 91.6%); }
+  .ex-ph-cols{ position:absolute; inset:0 0 auto 0; display:grid; grid-template-columns:25fr 33.3fr 33.3fr 8.4fr; text-align:center; font-size:10.5px; line-height:1.2; color:#3C444C; }
+  .ex-ph-cols span{ display:flex; flex-direction:column; align-items:center; padding:5px 3px 0; }
+  .ex-ph-cols b{ font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:12.5px; }
+  .ex-ph-cols .p1 b{ color:#C8102E; } .ex-ph-cols .p2 b{ color:#16294F; } .ex-ph-cols .p3 b{ color:#1E4FD0; } .ex-ph-cols .p4 b{ color:#141A22; }
+  .ex-ph-cols em{ margin-top:5px; font-family:'Source Sans 3',sans-serif; font-style:normal; font-weight:800; color:#16294F; font-size:10px; }
+  .ex-ph-cols .p4{ font-size:8.5px; }
+  .ex-ph-cols .p4 b{ font-size:10px; } .ex-ph-cols .p4 i{ font-weight:800; font-style:italic; }
+  .ex-ph-svg{ position:absolute; left:0; right:0; bottom:0; width:100%; height:62%; }
+  .ex-ph-labels span{ position:absolute; font-size:10px; line-height:1.15; }
+  .ex-ph-labels .perf{ left:16%; bottom:34%; font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:11px; color:#7A4A00; }
+  .ex-ph-labels .dist{ left:22%; bottom:5%; color:#4A525C; font-weight:600; }
+  .ex-ph-labels .tail{ right:12%; bottom:15%; text-align:right; display:flex; flex-direction:column; }
+  .ex-ph-labels .tail b{ color:#C8102E; font-family:'Plus Jakarta Sans',sans-serif; font-size:11px; }
+  .ex-ph-labels .tail small{ font-style:italic; color:#C8102E; font-size:8.5px; }
+  .ex-ph-labels .lti{ bottom:8%; padding:1px 4px; border:1.5px solid #D6243A; border-radius:5px; background:#fff; color:#C8102E; font-weight:800; font-size:8.5px; text-align:center; }
+  .ex-ph-labels .lti.q1{ right:3%; bottom:24%; } .ex-ph-labels .lti.q3{ right:-1px; bottom:2%; display:none; }
+  .ex-ph-labels .ax{ display:none; }
+  #slideStable.active .hs-grid[data-view="overview"] .ex-tail{ animation:exBlink 1.2s ease-in-out infinite; }
+  #slideStable.active .hs-grid[data-view="overview"] .ex-next{ animation:rtDash 1.1s linear infinite; }
+  #slideStable.active .hs-grid[data-view="overview"] .ex-perf{ stroke-dasharray:420; animation:exPerf 6s ease-in-out infinite; }
+  @keyframes exPerf{ 0%{ stroke-dashoffset:420; } 35%,85%{ stroke-dashoffset:0; } 100%{ stroke-dashoffset:-420; } }
+  /* Safety Stability card takes the full left column; the phase band gets more height */
+  .ex-chart{ flex:1.15 1 0 !important; }
+  .ex-phase{ flex:1 1 0 !important; }
+  .ex-ph-labels .lti.q3{ display:block !important; }
+  .ex-ph-cols .p4{ font-size:9.5px !important; } .ex-ph-cols .p4 b{ font-size:11px !important; }
+
+  /* ---- Overview 2: lagging/leading on the left, risk funnel and control impact on the right ---- */
+  .hs-tv-in.hs-tv-ov2 > .ov2-grid{ display:grid; grid-template-columns:minmax(0,880fr) 34px minmax(0,880fr); gap:12px; font-family:'Source Sans 3',sans-serif; color:#141A22; }
+  .ov2-left, .ov2-right{ min-height:0; display:flex; flex-direction:column; gap:6px; padding:10px 16px; border-radius:16px; background:#fff; border:1px solid rgba(20,26,34,.08); box-shadow:0 10px 26px rgba(20,26,34,.06); }
+  .ov2-sub{ font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-style:italic; font-size:17px; line-height:1.1; }
+  .ov2-chartwrap{ flex:1; min-height:0; display:flex; flex-direction:column; }
+  .ov2-chartwrap .ov2-chart{ flex:1.2 1 0; min-height:0; position:relative; }
+  .ov2-phase{ flex:1 1 0; min-height:0; display:flex; }
+  .ov2-phase > .ex-phase{ flex:1; margin-left:34px; }
+  .ov2-lead{ flex:none; display:grid; grid-template-columns:repeat(4,minmax(0,1fr)) minmax(0,1.15fr); gap:10px; }
+  .ov-li{ display:flex; flex-direction:column; align-items:center; text-align:center; padding:3px 4px; }
+  .ov-li b{ font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:27px; line-height:1; }
+  .ov-li strong{ font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:15px; }
+  .ov-li small{ font-size:12px; color:#4A525C; } .ov-li small em{ font-style:normal; color:#16A34A; font-weight:800; }
+  .ov-li.all{ border-radius:12px; background:#EEF1F3; }
+  .ov2-arrow{ align-self:center; width:0; height:0; border-top:26px solid transparent; border-bottom:26px solid transparent; border-left:28px solid #16294F; }
+  .ov2-funnel{ position:relative; flex:none; height:250px; display:grid; grid-template-columns:200px 90px minmax(0,1fr) 110px; align-items:center; }
+  .ov-cone{ width:90px !important; margin-right:-2px; }
+  .ov-in{ width:200px; height:200px; }
+  .ov-cone{ width:70px; height:230px; }
+  .ov-ctls{ height:96px; display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); border-radius:0 10px 10px 0; overflow:hidden; box-shadow:0 8px 20px rgba(20,26,34,.12); }
+  .ov-ctl{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; padding:6px; text-align:center; color:#fff; background:var(--c); }
+  .ov-ctl i{ display:grid; place-items:center; width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,.2); }
+  .ov-ctl i svg{ width:60%; height:60%; fill:currentColor; }
+  .ov-ctl b{ font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:12px; line-height:1.15; }
+  .ov-out{ width:110px; height:150px; }
+  .ov2-brackets{ flex:none; display:grid; grid-template-columns:200px minmax(0,1fr) 150px; gap:14px; text-align:center; font-size:12px; line-height:1.25; color:#3C444C; }
+  .ov2-brackets .br{ padding-top:8px; border-top:3px solid; border-radius:4px 4px 0 0; }
+  .ov2-brackets .br b{ display:block; font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:15px; }
+  .ov2-brackets .red{ border-color:#D6243A; } .ov2-brackets .red b{ color:#C8102E; }
+  .ov2-brackets .blue{ border-color:#2F6FB8; } .ov2-brackets .blue b{ color:#1D4F8F; }
+  .ov2-tag{ align-self:center; font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-style:italic; font-size:15px; color:#16812F; }
+  .ov2-impact{ flex:none; display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; }
+  .ov-imp{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; padding:10px 6px; border-radius:12px; background:#F1F5F9; border:1px solid #DCE3EA; text-align:center; }
+  .ov-imp b{ font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:26px; line-height:1; color:#16294F; }
+  .ov-imp:nth-child(-n+3) b{ color:#16812F; }
+  .ov-imp span{ font-size:12px; line-height:1.2; color:#3C444C; }
+  .ov2-out2{ flex:none; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+  .ov-box{ padding:8px 14px; border-radius:10px; }
+  .ov-box h5{ font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-style:italic; font-size:14px; margin-bottom:4px; color:#C8102E; text-align:center; }
+  .ov-box ul{ list-style:none; display:flex; flex-direction:column; gap:3px; font-size:14px; }
+  .ov-box li::before{ content:'\2022'; margin-right:6px; color:#C8102E; font-weight:800; }
+  .ov-box li b{ color:#C8102E; }
+  .ov-box.pink{ background:#FDE8EB; } .ov-box.orange{ background:#FDEBD6; border:1.5px solid #F28C28; }
+  .ov2-note{ flex:1; min-height:0; font-size:14px; line-height:1.45; font-style:italic; color:#3C444C; }
+  .ov2-note b{ color:#C8102E; font-style:normal; }
+  /* loops: inherent-risk dots drift toward the funnel, residual dots pulse out, controls glow in turn */
+  @keyframes ovDrift{ 0%,100%{ transform:translate(0,0); } 50%{ transform:translate(10px,-4px); } }
+  @keyframes ovPulse{ 0%,100%{ opacity:.55; transform:scale(.85); } 50%{ opacity:1; transform:scale(1.1); } }
+  @keyframes ovGlow{ 0%,100%{ filter:none; } 50%{ filter:brightness(1.25); } }
+  .ov-dot, .ov-rdot{ transform-box:fill-box; transform-origin:center; }
+  #slideStable.active .hs-grid[data-view="ov2"] .ov-dot{ animation:ovDrift 3.2s ease-in-out var(--d) infinite; }
+  #slideStable.active .hs-grid[data-view="ov2"] .ov-rdot{ animation:ovPulse 1.8s ease-in-out var(--d) infinite; }
+  #slideStable.active .hs-grid[data-view="ov2"] .ov-ctl{ animation:ovGlow 3s ease-in-out infinite; }
+  #slideStable.active .hs-grid[data-view="ov2"] .ov-ctl:nth-child(2){ animation-delay:.6s; } #slideStable.active .hs-grid[data-view="ov2"] .ov-ctl:nth-child(3){ animation-delay:1.2s; }
+  #slideStable.active .hs-grid[data-view="ov2"] .ov-ctl:nth-child(4){ animation-delay:1.8s; } #slideStable.active .hs-grid[data-view="ov2"] .ov-ctl:nth-child(5){ animation-delay:2.4s; }
+  #slideStable.active .hs-grid[data-view="ov2"] .ov-box.orange{ animation:exGlow 2.4s ease-in-out infinite; }
+  .ov2-funnel2{ position:relative; flex:none; width:100%; aspect-ratio:2137 / 736; }
+  .ov2-funnel2 img{ display:block; width:100%; height:100%; object-fit:contain; mix-blend-mode:multiply; }
+  .ov-bub{ position:absolute; inset:0; pointer-events:none; }
+  .ov-bub i{ position:absolute; display:block; border-radius:50%; box-shadow:inset -3px -4px 6px rgba(0,0,0,.18), inset 3px 3px 6px rgba(255,255,255,.35); }
+  /* funnel suction: a glowing ring pulls at the mouth; caught risks flash at the control bands */
+  .ov-bub .ov-mouth{ position:absolute; left:23%; top:41%; width:6%; height:62%; transform:translate(-50%,-50%); border-radius:50%;
+    background:radial-gradient(closest-side, rgba(120,190,255,.55), rgba(120,190,255,0) 70%); }
+  #slideStable.active .hs-grid[data-view="ov2"] .ov-bub .ov-mouth{ animation:ovSuck 1.4s ease-in-out infinite; }
+  @keyframes ovSuck{ 0%,100%{ transform:translate(-50%,-50%) scale(.85); opacity:.5; } 50%{ transform:translate(-50%,-50%) scale(1.15); opacity:1; } }
+  .ov-bub .ov-exit{ position:absolute; left:80.5%; top:44%; width:30px; height:30px; margin:-15px 0 0 -15px; border-radius:50%; border:2px solid #F28C28; opacity:0; }
+  .ov-bub i.zap{ width:26px; height:26px; margin:-13px 0 0 -13px; background:none; box-shadow:none; border:2px solid #fff; outline:2px solid rgba(31,154,58,.7); border-radius:50%; }
+
+  /* phase band + leading row: looping storytelling (Overview and Overview 2) */
+  @keyframes phCol{ 0%,100%{ opacity:.55; transform:translateY(4px); } 12%,30%{ opacity:1; transform:none; } 45%{ opacity:.8; } }
+  @keyframes phSweep{ 0%{ left:-20%; opacity:0; } 8%{ opacity:1; } 92%{ opacity:1; } 100%{ left:100%; opacity:0; } }
+  @keyframes phDist{ 0%,100%{ transform:scaleY(.82); } 50%{ transform:scaleY(1.06); } }
+  @keyframes phTag{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-4px); } }
+  @keyframes phBox{ 0%,100%{ box-shadow:0 0 0 0 rgba(214,36,58,0); } 50%{ box-shadow:0 0 0 4px rgba(214,36,58,.18); } }
+  @keyframes liPop{ 0%,70%,100%{ transform:scale(1); } 80%{ transform:scale(1.12); } }
+  @keyframes liArrow{ 0%,100%{ transform:translateY(0); opacity:.7; } 50%{ transform:translateY(-3px); opacity:1; } }
+  #slideStable.active .ex-phase .ex-ph-cols span{ animation:phCol 9s ease-in-out infinite; }
+  #slideStable.active .ex-phase .ex-ph-cols span:nth-child(2){ animation-delay:2.2s; }
+  #slideStable.active .ex-phase .ex-ph-cols span:nth-child(3){ animation-delay:4.4s; }
+  #slideStable.active .ex-phase .ex-ph-cols span:nth-child(4){ animation-delay:6.6s; }
+  .ex-phase::after{ content:''; position:absolute; top:0; bottom:0; width:16%; pointer-events:none;
+    background:linear-gradient(90deg, transparent, rgba(255,255,255,.55), transparent); opacity:0; }
+  #slideStable.active .ex-phase::after{ animation:phSweep 9s linear infinite; }
+  .ex-phase .ex-dist{ transform-box:fill-box; transform-origin:50% 100%; }
+  #slideStable.active .ex-phase .ex-dist{ animation:phDist 4.5s ease-in-out infinite; }
+  #slideStable.active .ex-phase .ex-perf{ stroke-dasharray:420; animation:exPerf 9s ease-in-out infinite !important; }
+  #slideStable.active .ex-phase .ex-next{ animation:rtDash 1.1s linear infinite; }
+  #slideStable.active .ex-phase .ex-tail{ animation:exBlink 1.2s ease-in-out infinite; }
+  #slideStable.active .ex-phase .ex-ph-labels .perf, #slideStable.active .ex-phase .ex-ph-labels .tail{ animation:phTag 3s ease-in-out infinite; }
+  #slideStable.active .ex-phase .ex-ph-labels .lti{ animation:phBox 1.8s ease-in-out infinite; }
+  #slideStable.active .ov-li{ animation:liPop 6s ease-in-out infinite; }
+  #slideStable.active .ov-li:nth-child(2){ animation-delay:1.2s; } #slideStable.active .ov-li:nth-child(3){ animation-delay:2.4s; }
+  #slideStable.active .ov-li:nth-child(4){ animation-delay:3.6s; } #slideStable.active .ov-li:nth-child(5){ animation-delay:4.8s; }
+  #slideStable.active .ov-li small em{ display:inline-block; animation:liArrow 1.6s ease-in-out infinite; }
+  @media (prefers-reduced-motion: reduce){ .ex-phase *, .ex-phase::after, .ov-li, .ov-li *{ animation:none !important; } }
 </style>
 </head>
 <body>
@@ -3896,6 +4071,28 @@
   <!-- Automation tab content (rendered from AUTOPROJ, cloned into the How Stable tab) -->
   <div class="jr-source" id="auSrc" hidden aria-hidden="true"><div class="au-grid" id="auGrid"></div></div>
 
+  <!-- Overview 2 tab content (cloned into the How Stable tab) -->
+  <div class="jr-source" id="ov2Src" hidden aria-hidden="true"><div class="ov2-grid">
+    <section class="ov2-left">
+      <h3 class="ex-chip">Safety Stability</h3>
+      <h4 class="ov2-sub">Lagging Indicator Q3 2026</h4>
+      <div class="ov2-chartwrap"><div class="ex-chart ov2-chart" role="img" aria-label="Jumlah insiden, AFR dan LTISR 2017 sampai Q3 2026"></div><div class="ov2-phase"></div></div>
+      <h4 class="ov2-sub">Leading Indicator Q3 2026</h4>
+      <div class="ov2-lead"><div class="ov-li"><b style="color:#16A34A"><span class="n">96</span>%</b><strong>LEADERSHIP</strong><small><em>&#9650; 1%</em> dari Q2 2026</small></div><div class="ov-li"><b style="color:#E0A100"><span class="n">85</span>%</b><strong>PEOPLE</strong><small><em>&#9650; 3%</em> dari Q2 2026</small></div><div class="ov-li"><b style="color:#D6243A"><span class="n">72</span>%</b><strong>PROCESS</strong><small><em>&#9650; 1%</em> dari Q2 2026</small></div><div class="ov-li"><b style="color:#D6243A"><span class="n">67</span>%</b><strong>TECHNOLOGY</strong><small><em>&#9650; 2%</em> dari Q2 2026</small></div><div class="ov-li all"><b style="color:#E0A100"><span class="n">80</span>%</b><strong>OVERALL</strong><small><em>&#9650; 1%</em> dari Q2 2026</small></div></div>
+    </section>
+    <div class="ov2-arrow" aria-hidden="true"></div>
+    <section class="ov2-right">
+      <div class="ov2-funnel2"><img src="corong.png" alt="Inherent risk melewati kontrol Leadership, People, Process, Technology dan Engineering menjadi residual risk"><div class="ov-bub" aria-hidden="true"></div></div>
+      <h4 class="ov2-tag green">Control Impact</h4>
+      <div class="ov2-impact"><div class="ov-imp"><b>&#8593; 28%</b><span>Partisipasi SAP<br>YTD 2026 vs 2025</span></div><div class="ov-imp"><b>&#8593; 46%</b><span>Partisipasi TBC<br>YTD 2026 vs 2025</span></div><div class="ov-imp"><b>&#8593; 59%</b><span>Pelaporan<br>Pengawasan Berjarak</span></div><div class="ov-imp"><b>292</b><span>Implementasi<br>Rekayasa Engineering</span></div><div class="ov-imp"><b>54</b><span>Total CCV</span></div></div>
+      <div class="ov2-out2">
+        <div class="ov-box pink"><h5>Lagging Outcome</h5><ul><li><b>2 LTI</b> di Q1 &amp; Q3 2026</li><li><b>Avg 0.67 Injury</b> case setiap Quarter</li></ul></div>
+        <div class="ov-box orange"><h5>Underlying Risk</h5><ul><li><b>16% Peningkatan Blindspot Golden Rules</b> dibandingkan di 2025</li><li><b>3% Blindspot TBC</b> masih terjadi di 2026</li></ul></div>
+      </div>
+      <p class="ov2-note">Kontrol terhadap lagging yang sudah berjalan sudah banyak dilakukan dan berdampak pada peningkatan leading, peningkatan pelaporan hazard, peningkatan identifikasi TBC &amp; GR; tetapi lagging masih mencatatkan LTI &amp; Injury yang perlu <b>Fatal Prevention control</b> lanjutan.</p>
+    </section>
+  </div></div>
+
   <section class="slide" id="slideStable" data-steps="1" data-section="B · Executive Performance">
     <div class="hs-deco" aria-hidden="true">
       <i class="photo"></i><i class="wash"></i>
@@ -3924,6 +4121,7 @@
       </div>
       <div class="sp-tabs fade" data-step="1" id="hsTabs">
         <button type="button" class="sp-tab is-on" data-view="overview" aria-pressed="true">Overview</button>
+        <button type="button" class="sp-tab" data-view="ov2" aria-pressed="false">Overview 2</button>
         <button type="button" class="sp-tab" data-view="strans" aria-pressed="false">Risk Transformation</button>
         <button type="button" class="sp-tab" data-view="auto" aria-pressed="false">Automation</button>
         <button type="button" class="sp-tab" data-view="next" aria-pressed="false">Next To Do</button>
@@ -3931,8 +4129,33 @@
       <div class="hs-grid" id="hsGrid" data-view="overview">
       <div class="ex-box" id="exBox"><div class="ex-stage" id="exStage">
         <section class="ex-col ex-l">
-          <div class="ex-card ex-chart-card"><h3 class="ex-chip">Safety Stability</h3><div class="ex-chart" id="exChart" role="img" aria-label="Tren AFR, LTISR dan incident rate 2017 sampai Q3 2026"></div></div>
-          <div class="ex-slot ex-siaga" data-src="#hsSiaga"></div>
+          <div class="ex-card ex-chart-card"><h3 class="ex-chip">Safety Stability</h3>
+            <div class="ex-chart" id="exChart" role="img" aria-label="Jumlah insiden, AFR dan LTISR 2017 sampai Q3 2026"></div>
+            <div class="ex-phase">
+              <div class="ex-ph-cols">
+                <span class="p1"><b>2017 – 2019</b>Risiko tinggi<br>(ekor kanan panjang)</span>
+                <span class="p2"><b>2020 – 2023</b>Perbaikan signifikan<br>(mendekati titik jenuh)<em>Tambahan kontrol memberi hasil signifikan</em></span>
+                <span class="p3"><b>2024 – 2026</b>Stabil rendah<br>(dampak kontrol terasa)</span>
+                <span class="p4"><b>Next Phase</b><i>Automation &amp; Engineering</i>untuk menurunkan tail risk lebih lanjut</span>
+              </div>
+              <svg class="ex-ph-svg" viewBox="0 0 400 120" preserveAspectRatio="none" aria-hidden="true">
+                <defs>
+                  <linearGradient id="exDist" x1="0" x2="1"><stop offset="0" stop-color="#F7B9B9" stop-opacity=".85"/><stop offset=".7" stop-color="#FBD9D6" stop-opacity=".55"/><stop offset="1" stop-color="#FDECEA" stop-opacity=".2"/></linearGradient>
+                  <marker id="exArr" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0 10 5 0 10z" fill="#3FA84A"/></marker>
+                </defs>
+                <path class="ex-dist" d="M0 118 C40 92 70 66 120 64 S220 92 300 108 S380 116 400 117 L400 120 L0 120Z" fill="url(#exDist)"/>
+                <path class="ex-perf" d="M0 92 C14 50 40 44 70 46 S140 72 200 80 S300 84 336 83" fill="none" stroke="#F2B705" stroke-width="3" stroke-linecap="round"/>
+                <path class="ex-next" d="M336 83 C356 76 376 64 398 50" fill="none" stroke="#3FA84A" stroke-width="2.6" stroke-dasharray="7 5" marker-end="url(#exArr)"/>
+                <circle class="ex-tail" cx="346" cy="117" r="4" fill="#D6243A"/><circle class="ex-tail" cx="392" cy="117" r="4" fill="#D6243A"/>
+              </svg>
+              <div class="ex-ph-labels">
+                <span class="perf">Performa<br>Keselamatan</span>
+                <span class="dist">Distribusi Risiko Insiden</span>
+                <span class="tail"><b>Residual / Tail Risk</b><small>(masih ada meskipun kontrol sudah kuat)</small></span>
+                <span class="lti q1">LTI Q1'26<br>(356,89)</span><span class="lti q3">LTI Q3'26<br>(1,41)</span>
+                <span class="ax good">Lebih Baik<small>(risiko lebih rendah)</small></span><span class="ax bad">Lebih Buruk<small>(risiko lebih tinggi)</small></span>
+              </div>
+            </div></div>
         </section>
         <section class="ex-col ex-m">
           <div class="ex-card ex-pyr sp-panel" data-panel="safety" data-src="#spPyrCard"></div>
@@ -8237,7 +8460,7 @@
       card.addEventListener('click', e=>{ if(grid.dataset.view !== 'overview') return; e.stopPropagation(); show(id); });
     });
     // Executive Summary cards open the same detail views
-    const EX = { hsSafety:'.ex-chart-card, .ex-siaga, .ex-pyr, .ex-pil', hsHealth:'.ex-health, .ex-hrow > *', hsDiv:'.ex-reg, .ex-kpi-h' };
+    const EX = { hsSafety:'.ex-chart-card, .ex-pyr, .ex-pil', hsHealth:'.ex-health, .ex-hrow > *', hsDiv:'.ex-reg, .ex-kpi-h' };
     Object.keys(EX).forEach(id=> document.querySelectorAll('#exStage ' + EX[id].split(', ').join(', #exStage ')).forEach(el=>{
       el.classList.add('ex-click');
       el.addEventListener('click', e=>{ if(grid.dataset.view !== 'overview') return; e.stopPropagation(); show(id, el); });
@@ -8249,11 +8472,72 @@
   })();
   // How Stable Are We? tabs Safety Transformation / Automasi / Next To Do: copies of those slides' content
   // (one source of data and markup), drawn at slide size and scaled to the panel
+  // Overview 2 funnel: risk bubbles are drawn in, vanish inside the controls, and a few small ones leave as residual risk
+  function ov2Bubbles(root){
+    const host = root.querySelector('.ov-bub'); if(!host || host._run) return; host._run = true;
+    if(!host.querySelector('.ov-mouth')) host.insertAdjacentHTML('beforeend', '<span class="ov-mouth"></span><span class="ov-exit"></span>');
+    const COLS = ['#E3262F', '#F05A28', '#F7A21B', '#F9C80E', '#E3262F', '#F28C28', '#D6243A'];
+    const MOUTH = { x:23, y:41 }, EXIT = { x:80.5, y:44 };
+    // control bands along the tube: each one catches part of what passes through it
+    const GATES = [37.5, 46.5, 55, 64.5, 75], CATCH = 0.42;
+    const tubeY = (x)=> MOUTH.y + (EXIT.y - MOUTH.y) * (x - MOUTH.x) / (EXIT.x - MOUTH.x);
+    const alive = ()=> host.isConnected && host.offsetParent && document.getElementById('slideStable').classList.contains('active');
+    const mk = (cls, css)=>{ const e = document.createElement('i'); if(cls) e.className = cls; e.style.cssText = css; host.appendChild(e); return e; };
+    function zap(x){
+      const z = mk('zap', 'left:'+x+'%;top:'+tubeY(x)+'%');
+      gsap.fromTo(z, { scale:.2, opacity:.9 }, { scale:1.6, opacity:0, duration:.55, ease:'power2.out', onComplete:()=> z.remove() });
+    }
+    function bubble(){
+      if(!alive() || !hasGsap) return;
+      const r = 8 + Math.random()*24, col = COLS[Math.random()*COLS.length|0];
+      const sx = 1 + Math.random()*17, sy = 4 + Math.random()*52;
+      const b = mk('', 'width:'+r+'px;height:'+r+'px;background:'+col+';left:'+sx+'%;top:'+sy+'%');
+      gsap.set(b, { xPercent:-50, yPercent:-50 });
+      const tl = gsap.timeline({ onComplete:()=> b.remove() });
+      // 1. appear and crowd, 2. get pulled in along a curve, accelerating, 3. squeeze into the mouth
+      const midx = (sx + MOUTH.x)/2 + 2, midy = sy + (MOUTH.y - sy)*.35 + (Math.random()*10 - 5);
+      tl.fromTo(b, { scale:0, opacity:0 }, { scale:1, opacity:.95, duration:.45, ease:'back.out(2.2)' })
+        .to(b, { x:'+='+(Math.random()*10-5), y:'+='+(Math.random()*10-5), duration:.5 + Math.random()*.9, ease:'sine.inOut' })
+        .to(b, { left:midx+'%', top:midy+'%', scale:.75, duration:.7, ease:'power1.in' })
+        .to(b, { left:MOUTH.x+'%', top:(MOUTH.y - 6 + Math.random()*12)+'%', scale:.3, duration:.45, ease:'power3.in' })
+        .to(b, { scaleX:.12, scaleY:.4, opacity:.55, duration:.12 });
+      // 4. travel through the tube; each control may stop it
+      let x = MOUTH.x, caught = false;
+      tl.set(b, { left:MOUTH.x+1+'%', top:tubeY(MOUTH.x+1)+'%', scale:.22, opacity:.45 });
+      for(const g of GATES){
+        if(caught) break;
+        tl.to(b, { left:g+'%', top:tubeY(g)+'%', duration:.32 + (g - x)*.012, ease:'none' }); x = g;
+        if(Math.random() < CATCH){ caught = true; tl.call(()=> zap(g)).to(b, { opacity:0, scale:0, duration:.15 }); }
+      }
+      // 5. the few that make it through leave as small residual risk
+      if(!caught){
+        tl.to(b, { left:EXIT.x+'%', top:EXIT.y+'%', duration:.25, ease:'none' })
+          .to(b, { scale:.5, opacity:1, duration:.2, ease:'back.out(3)' })
+          .call(()=>{ const e = host.querySelector('.ov-exit'); if(e) gsap.fromTo(e, { scale:.4, opacity:.8 }, { scale:1.4, opacity:0, duration:.6 }); })
+          .to(b, { left:(87 + Math.random()*10)+'%', top:(EXIT.y - 10 + Math.random()*20)+'%', duration:1.8, ease:'power1.out' })
+          .to(b, { opacity:0, duration:.7 }, '-=.6');
+      }
+    }
+    (function loop(){
+      if(!host.isConnected){ host._run = false; return; }
+      if(alive()){ bubble(); if(Math.random() < .45) bubble(); }
+      setTimeout(loop, 130 + Math.random()*150);
+    })();
+  }
+  function relinkDefs(root, tag){
+    root.querySelectorAll('defs [data-oid], defs [id]').forEach(d=>{
+      const old = d.getAttribute('data-oid') || d.id, nid = old + '-' + tag; d.id = nid; d.removeAttribute('data-oid');
+      root.querySelectorAll('[fill],[stroke],[marker-end],[marker-start]').forEach(el=> ['fill','stroke','marker-end','marker-start'].forEach(a=>{
+        const v = el.getAttribute(a); if(v && v.indexOf('#'+old+')') > -1) el.setAttribute(a, v.replace('#'+old+')', '#'+nid+')'));
+      }));
+    });
+  }
   const hsTabCopy = (function(){
     const SRC = {
       strans:{ sel:'#rtSrc .rt-grid', cls:'hs-tv-rt' },
       auto:{ sel:'#auGrid', cls:'hs-tv-au' },
-      next:{ sel:'#slideCross .cd-grid', cls:'hs-tv-cd' }
+      next:{ sel:'#slideCross .cd-grid', cls:'hs-tv-cd' },
+      ov2:{ sel:'#ov2Src .ov2-grid', cls:'hs-tv-ov2' }
     };
     const W = 1790, H = 690;
     const grid = document.getElementById('hsGrid');
@@ -8273,11 +8557,13 @@
       const src = document.querySelector(cfg.sel); if(!src) return null;
       const c = src.cloneNode(true);
       [c].concat(Array.from(c.querySelectorAll('*'))).forEach(el=>{
+        if(el.id && el.closest('defs')) el.setAttribute('data-oid', el.id);
         el.removeAttribute('id'); el.removeAttribute('data-step');
         el.classList.remove('fade'); el.classList.add('on');
         el.style.removeProperty('opacity'); el.style.removeProperty('transform'); el.style.removeProperty('visibility');
       });
       const inner = document.createElement('div'); inner.className = 'hs-tv-in ' + cfg.cls; inner.appendChild(c);
+      relinkDefs(inner, view);
       c.querySelectorAll('[data-clone]').forEach(slot=>{
         const src2 = document.querySelector(slot.dataset.clone); if(!src2) return;
         const k = src2.cloneNode(true); k.removeAttribute('id'); k.classList.remove('fade'); k.classList.add('on');
@@ -8292,6 +8578,7 @@
         const img = zoom.querySelector('img'); img.src = btn.dataset.zoom; img.alt = (btn.querySelector('img')||{}).alt || ''; zoom.classList.add('open');
       }));
       tv.appendChild(inner);
+      if(c.matches('.au-grid')) auDetail(c);
       if(view === 'strans' && c.matches('.ec-grid')){
         // key-project photos become a looping video (placeholder for now), playing on its own
         c.querySelectorAll('.ec-photo').forEach(btn=>{
@@ -8320,6 +8607,86 @@
     }
     // Risk Transformation: a key-project card grows in place into a detail layout (big photo + full info);
     // positions are in the copy's own units because the copy is scaled with a transform
+    // Automation: a project card grows in place into its detail (big media, three info panels, next step)
+    let auClose = ()=>{};
+    function auDetail(root){
+      const host = root.querySelector('.au-cards'); if(!host) return;
+      host.style.position = 'relative';
+      const exp = document.createElement('div'); exp.className = 'au-exp'; exp.hidden = true;
+      exp.innerHTML = '<button type="button" class="au-back"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 8 12l7 7"/></svg>Kembali ke semua proyek</button><div class="au-exp-box"></div>';
+      host.appendChild(exp);
+      const box = exp.querySelector('.au-exp-box'), back = exp.querySelector('.au-back');
+      let open = null, big = null, tl = null;
+      const rectIn = (el)=>{ const h = host.getBoundingClientRect(), r = el.getBoundingClientRect(), k = h.width / host.offsetWidth || 1;
+        return { left:(r.left-h.left)/k, top:(r.top-h.top)/k, width:r.width/k, height:r.height/k }; };
+      const others = (card)=> Array.from(host.querySelectorAll('.au-c')).filter(el=> el!==card && !exp.contains(el));
+      const away = (card)=>{ const c = rectIn(card), cx = c.left + c.width/2, cy = c.top + c.height/2;
+        return (el)=>{ const r = rectIn(el); return { x:((r.left + r.width/2) - cx)*.2, y:((r.top + r.height/2) - cy)*.2 }; }; };
+      const flip = (a, b)=> ({ x:a.left - b.left, y:a.top - b.top, scaleX:a.width / b.width, scaleY:a.height / b.height });
+      function show(card){
+        if(open) return;
+        open = card;
+        const i = Array.from(host.querySelectorAll('.au-c')).indexOf(card), nx = (AUTOPROJ.next[i] || []);
+        big = card.cloneNode(true); big.classList.add('au-big');
+        big.insertAdjacentHTML('beforeend', '<div class="au-big-next"><small>Next step</small><b>' + (nx[0]||'') + '</b><span>' + (nx[1]||'') + '</span></div>');
+        const bv = big.querySelector('video'), cv = card.querySelector('video');
+        if(bv){ bv.muted = true; if(cv) try{ bv.currentTime = cv.currentTime; }catch(e){} bv.play().catch(()=>{}); }
+        box.innerHTML = ''; box.appendChild(big);
+        const from = rectIn(card), fromMedia = rectIn(card.querySelector('.au-media'));
+        exp.hidden = false;
+        if(!hasGsap || REDUCE_MOTION) return;
+        if(tl) tl.kill();
+        const off = away(card), os = others(card);
+        tl = gsap.timeline({ defaults:{ ease:'power3.inOut' } });
+        os.forEach((el, n)=>{ const v = off(el); tl.to(el, { x:v.x, y:v.y, scale:.9, opacity:0, filter:'blur(4px)', duration:.42, ease:'power2.in' }, n*.04); });
+        tl.to(card, { opacity:0, duration:.15 }, .05);
+        tl.fromTo(exp, { left:from.left, top:from.top, width:from.width, height:from.height, opacity:1 },
+          { left:0, top:0, width:host.offsetWidth, height:host.offsetHeight, duration:.6, ease:'expo.inOut',
+            onComplete:()=> gsap.set(exp, { clearProps:'left,top,width,height' }) }, .1);
+        gsap.set([box, back], { opacity:0 });
+        tl.call(()=>{
+          gsap.set(box, { opacity:1 });
+          const m = big.querySelector('.au-media');
+          if(m) gsap.fromTo(m, Object.assign({ transformOrigin:'0 0' }, flip(fromMedia, rectIn(m))), { x:0, y:0, scaleX:1, scaleY:1, duration:.7, ease:'expo.out', clearProps:'transform' });
+          const q = (sel)=> big.querySelectorAll(sel);
+          const t2 = gsap.timeline({ defaults:{ duration:.5, ease:'power3.out' } });
+          t2.fromTo(q('header > *'), { y:-12, opacity:0 }, { y:0, opacity:1, stagger:.06 }, 0);
+          t2.fromTo(q('.au-col'), { x:30, opacity:0 }, { x:0, opacity:1, stagger:.1 }, .15);
+          t2.fromTo(q('.au-col li'), { x:12, opacity:0 }, { x:0, opacity:1, stagger:.03, duration:.35 }, .3);
+          t2.fromTo(q('.au-big-next'), { y:16, opacity:0 }, { y:0, opacity:1 }, .5);
+          t2.fromTo(back, { x:20, opacity:0 }, { x:0, opacity:1 }, .2);
+        }, null, .68);
+      }
+      function reset(card){
+        exp.hidden = true; box.innerHTML = ''; big = null;
+        if(hasGsap) gsap.set([exp, back, box].concat(card ? [card] : [], others(card)), { clearProps:'all' });
+      }
+      function close(instant){
+        if(!open) return;
+        const card = open; open = null;
+        if(tl) tl.kill();
+        if(instant || !hasGsap || REDUCE_MOTION){ reset(card); return; }
+        const to = rectIn(card), toMedia = rectIn(card.querySelector('.au-media')), m = big && big.querySelector('.au-media');
+        const off = away(card), os = others(card);
+        gsap.set(exp, { left:0, top:0, width:host.offsetWidth, height:host.offsetHeight });
+        let done = false; const finish = ()=>{ if(done || open) return; done = true; reset(card); };
+        setTimeout(finish, 1500);
+        tl = gsap.timeline({ defaults:{ ease:'power3.inOut' }, onComplete:finish });
+        tl.to(big ? big.querySelectorAll('header > *, .au-col, .au-big-next') : [], { opacity:0, y:10, stagger:.02, duration:.25, ease:'power2.in' }, 0);
+        tl.to(back, { opacity:0, duration:.2 }, 0);
+        if(m) tl.to(m, Object.assign({ transformOrigin:'0 0', duration:.55, ease:'expo.inOut' }, flip(toMedia, rectIn(m))), .1);
+        tl.to(exp, { left:to.left, top:to.top, width:to.width, height:to.height, duration:.55, ease:'expo.inOut' }, .15);
+        tl.to(card, { opacity:1, duration:.2 }, .62);
+        tl.to(exp, { opacity:0, duration:.15 }, .66);
+        os.forEach((el, n)=>{ const v = off(el);
+          tl.fromTo(el, { x:v.x, y:v.y, scale:.9, opacity:0, filter:'blur(4px)' }, { x:0, y:0, scale:1, opacity:1, filter:'blur(0px)', duration:.5, ease:'power3.out' }, .42 + n*.05); });
+      }
+      host.querySelectorAll('.au-c').forEach(card=> card.addEventListener('click', e=>{ e.stopPropagation(); show(card); }));
+      exp.addEventListener('click', e=> e.stopPropagation());
+      back.addEventListener('click', e=>{ e.stopPropagation(); close(); });
+      document.addEventListener('keydown', e=>{ if(open && e.key==='Escape'){ e.stopPropagation(); e.preventDefault(); close(); } }, true);
+      auClose = close;
+    }
     let ecClose = ()=>{};
     function ecDetail(root){
       const host = root.querySelector('.ec-right') || root; host.classList.add('ec-host');
@@ -8425,11 +8792,17 @@
       ecClose = close;
     }
     function show(view){
-      ecClose(true);
+      ecClose(true); auClose(true);
       if(!SRC[view]){ Object.values(built).forEach(el=> el.hidden = true); curIn = null; return; }
       const inner = built[view] || (built[view] = build(view)); if(!inner) return;
       Object.values(built).forEach(el=> el.hidden = el !== inner);
       curIn = inner; fit();
+      if(view === 'ov2'){
+        const ph = inner.querySelector('.ov2-phase');
+        if(ph && !ph.firstChild){ const srcPh = document.querySelector('#exStage .ex-phase'); if(srcPh){ const k = srcPh.cloneNode(true); k.querySelectorAll('defs [id]').forEach(d=> d.setAttribute('data-oid', d.id)); ph.appendChild(k); relinkDefs(ph, 'ov2p'); } }
+        requestAnimationFrame(()=> inner.querySelectorAll('.ov2-chart').forEach(el=> execView.chart(el)));
+        ov2Bubbles(inner);
+      }
       if(!hasGsap || REDUCE_MOTION) return;
       const q = (sel)=> inner.querySelectorAll(sel);
       const tl = gsap.timeline({ defaults:{ duration:0.5, ease:'power3.out' } });
@@ -8444,6 +8817,11 @@
       q('.rt-line').forEach((pth, i)=>{ const L = pth.getTotalLength(); tl.fromTo(pth, {strokeDasharray:L+' '+L, strokeDashoffset:L}, {strokeDashoffset:0, duration:1.2, ease:'power2.out', clearProps:'strokeDasharray,strokeDashoffset'}, 0.3 + i*0.15); });
       tl.fromTo(q('.rt-area'), {opacity:0}, {opacity:1, duration:1}, 0.3);
       tl.fromTo(q('.rt-dot, .rt-tag, .rt-warn'), {scale:0.6, opacity:0}, {scale:1, opacity:1, stagger:0.05, duration:0.35, ease:'back.out(2)', transformOrigin:'center'}, 1.1);
+      tl.fromTo(q('.ov2-left > *, .ov2-right > *'), {y:16, opacity:0}, {y:0, opacity:1, stagger:0.06, duration:0.45}, 0.05);
+      tl.fromTo(q('.ov-dot'), {scale:0, transformOrigin:'center', opacity:0}, {scale:1, opacity:1, stagger:0.02, duration:0.4, ease:'back.out(2)'}, 0.2);
+      tl.fromTo(q('.ov-ctl'), {y:14, opacity:0}, {y:0, opacity:1, stagger:0.1, duration:0.4}, 0.45);
+      tl.fromTo(q('.ov-imp, .ov-li'), {y:12, opacity:0, scale:.94}, {y:0, opacity:1, scale:1, stagger:0.06, duration:0.4, ease:'back.out(1.6)'}, 0.6);
+      countTo(tl, q('.ov-li .n'), 0.7, 0.06);
       tl.fromTo(q('.au-c'), {y:20, opacity:0}, {y:0, opacity:1, stagger:0.12, duration:0.5}, 0.05);
       tl.fromTo(q('.au-c header > *'), {x:-14, opacity:0}, {x:0, opacity:1, stagger:0.03, duration:0.35}, 0.2);
       tl.fromTo(q('.au-col li'), {x:10, opacity:0}, {x:0, opacity:1, stagger:0.012, duration:0.3}, 0.35);
@@ -8531,7 +8909,7 @@
   (function(){
     const grid = document.getElementById('hsGrid'), bar = document.getElementById('hsTabs');
     if(!grid || !bar) return;
-    const SECTIONS = { overview:['hsMom','hsSafety','hsHealth','hsDiv'], mom:['hsMom'], safety:['hsSafety'], health:['hsHealth'], division:['hsDiv'], strans:[], auto:[], next:[] };
+    const SECTIONS = { overview:['hsMom','hsSafety','hsHealth','hsDiv'], mom:['hsMom'], safety:['hsSafety'], health:['hsHealth'], division:['hsDiv'], strans:[], auto:[], next:[], ov2:[] };
     bar.querySelectorAll('[data-view]').forEach(btn=> btn.addEventListener('click', e=>{
       e.stopPropagation();
       const view = btn.dataset.view;
@@ -8959,59 +9337,79 @@
         const el = document.getElementById('exChart'), c = el && typeof echarts !== 'undefined' && echarts.getInstanceByDom(el);
         if(!c) return;
         if(!visible()){ c.dispatchAction({ type:'hideTip' }); return; }
+        if(el._rev) return;
         const n = EXEC_TREND.cats.length;
-        if(i >= n){ i = 0; rounds++; c.dispatchAction({ type:'hideTip' }); if(rounds % 2 === 0){ chart(); return; } }
-        c.dispatchAction({ type:'showTip', seriesIndex:2, dataIndex:i });
+        if(i >= n){ i = 0; rounds++; c.dispatchAction({ type:'hideTip' });  }
+        c.dispatchAction({ type:'showTip', seriesIndex:0, dataIndex:i });
         i++;
       }, 1100);
     }
-    function chart(){
-      const el = document.getElementById('exChart'); if(typeof echarts==='undefined' || !el || !el.clientHeight) return;
+    function chart(target){
+      const el = target || document.getElementById('exChart'); if(typeof echarts==='undefined' || !el || !el.clientHeight) return;
       const T = EXEC_TREND, last = T.cats.length - 1;
       const c = echarts.getInstanceByDom(el) || echarts.init(el, null, { renderer:'canvas' });
       c.clear();
       const total = T.nm.map((v, i)=> +(v + T.inj[i] + T.non[i]).toFixed(1));
-      const ax = (gi, show)=> ({ type:'category', gridIndex:gi, data:T.cats, axisTick:{ show:false }, axisLine:{ show:show, lineStyle:{ color:'#C9CED3' } },
-        axisLabel:{ show:show, interval:0, fontSize:11, fontWeight:600, color:'#141A22' } });
-      const lbl = (pos, color)=> ({ show:true, position:pos, fontSize:12, fontWeight:700, color:color, formatter:(p)=> fmt(p.value) });
-      const hl = { silent:true, itemStyle:{ color:'rgba(214,36,58,.10)' }, data:[[{ xAxis:T.cats[last] }, { xAxis:T.cats[last] }]] };
+      const peak = T.ltisr.indexOf(Math.max.apply(null, T.ltisr));
+      // era bands, as category ranges
+      const band = (a, b, col)=> [{ xAxis:T.cats[a], itemStyle:{ color:col } }, { xAxis:T.cats[b] }];
       c.setOption({
         animationDuration:900, textStyle:{ fontFamily:"'Source Sans 3', sans-serif" },
         tooltip:{ trigger:'axis', confine:true, axisPointer:{ type:'shadow', shadowStyle:{ color:'rgba(31,154,58,.08)' } }, textStyle:{ fontSize:12 },
-          formatter:(ps)=>{ const i = ps[0].dataIndex; return '<b>'+T.cats[i]+'</b><br>AFR: <b>'+fmt(T.afr[i])+'</b><br>LTISR: <b>'+fmt(T.ltisr[i])+'</b><br>Incident rate: <b>'+f1(total[i])+'</b>'; } },
-        legend:[{ top:0, right:0, itemWidth:18, itemHeight:8, textStyle:{ fontSize:12 }, data:['LTISR','AFR'] },
-                { top:'49%', right:0, orient:'vertical', icon:'rect', itemWidth:14, itemHeight:10, textStyle:{ fontSize:12 }, data:['Nearmiss','Injury','Non Injury'] }],
-        grid:[{ left:16, right:16, top:'6%', height:'15%' }, { left:16, right:16, top:'26%', height:'14%' }, { left:16, right:16, top:'50%', bottom:22 }],
-        xAxis:[ax(0,false), ax(1,false), ax(2,true)],
-        yAxis:[0,1,2].map(i=> ({ type:'value', gridIndex:i, show:false, scale:i<2 })),
+          formatter:(ps)=>{ const i = ps[0].dataIndex; return '<b>'+T.cats[i]+'</b><br>Jumlah insiden: <b>'+f1(total[i])+'</b><br>AFR: <b>'+fmt(T.afr[i])+'</b><br>LTISR: <b>'+fmt(T.ltisr[i])+'</b>'; } },
+        grid:{ left:34, right:34, top:16, bottom:22 },
+        xAxis:{ type:'category', data:T.cats, axisTick:{ show:false }, axisLine:{ lineStyle:{ color:'#16294F', width:1.5 } },
+          axisLabel:{ interval:0, fontSize:11, fontWeight:600, color:'#141A22' } },
+        yAxis:[
+          { type:'value', min:0, max:75, interval:15, name:'Jumlah\nInsiden', nameLocation:'middle', nameGap:22, nameRotate:0, nameTextStyle:{ fontSize:0 },
+            axisLine:{ show:true, lineStyle:{ color:'#16294F', width:1.5 } }, axisLabel:{ fontSize:10, color:'#16294F' }, splitLine:{ show:false } },
+          { type:'value', min:-26, max:7.2, show:false },
+          { type:'value', min:-300, max:600, interval:100, position:'right', axisLine:{ show:true, lineStyle:{ color:'#16294F', width:1.5 } },
+            axisLabel:{ fontSize:10, color:'#16294F', formatter:(v)=> v>=0 ? v : '' }, splitLine:{ show:false } }
+        ],
         series:[
-          { name:'AFR', type:'line', xAxisIndex:0, yAxisIndex:0, data:T.afr, symbol:'circle', symbolSize:7, lineStyle:{ color:'#D6243A', width:2.4 }, itemStyle:{ color:'#D6243A' },
-            label:Object.assign(lbl('top', '#141A22'), { formatter:(p)=> fmt(p.value) }), markArea:hl },
-          { name:'LTISR', type:'line', xAxisIndex:1, yAxisIndex:1, data:T.ltisr, symbol:'circle', symbolSize:7, lineStyle:{ color:'#141A22', width:2.4 }, itemStyle:{ color:'#141A22' },
-            label:Object.assign(lbl('top', '#141A22'), { formatter:(p)=> fmt(p.value), color:(p)=> p.value>300 ? '#D6243A' : '#141A22' }), markArea:hl },
-          { name:'Non Injury', type:'bar', stack:'r', xAxisIndex:2, yAxisIndex:2, data:T.non, barWidth:'62%', itemStyle:{ color:'#F5A623' },
-            label:{ show:true, position:'inside', fontSize:11, fontWeight:700, color:'#141A22', formatter:(p)=> f1(p.value) }, markArea:hl },
-          { name:'Injury', type:'bar', stack:'r', xAxisIndex:2, yAxisIndex:2, data:T.inj, itemStyle:{ color:'#E3262F' },
+          { name:'Non Injury', type:'bar', stack:'r', data:T.non, barWidth:'64%', itemStyle:{ color:'#F7BE16' },
+            label:{ show:true, position:'inside', fontSize:10.5, fontWeight:700, color:'#141A22', formatter:(p)=> f1(p.value) },
+            markArea:{ silent:true, data:[band(0,2,'rgba(244,90,90,.12)'), band(3,6,'rgba(63,168,74,.10)'), band(7,10,'rgba(42,111,215,.10)'), band(11,11,'rgba(245,166,35,.16)')] } },
+          { name:'Injury', type:'bar', stack:'r', data:T.inj, itemStyle:{ color:'#E3262F' },
             label:{ show:true, position:'inside', fontSize:10, fontWeight:700, color:'#fff', formatter:(p)=> f1(p.value) } },
-          { name:'Nearmiss', type:'bar', stack:'r', xAxisIndex:2, yAxisIndex:2, data:T.nm, itemStyle:{ color:'#D9DCDF' },
-            label:{ show:true, position:'inside', fontSize:11, color:'#4A525C', formatter:(p)=> f1(p.value) } },
-          { name:'AFR flow', type:'lines', coordinateSystem:'cartesian2d', xAxisIndex:0, yAxisIndex:0, polyline:true, silent:true, z:4,
-            data:[{ coords:T.afr.map((v, i)=> [i, v]) }], lineStyle:{ width:0, opacity:0 },
-            effect:{ show:true, period:3.5, trailLength:0, symbol:'circle', symbolSize:7, color:'#FF5A6E', loop:true } },
-          { name:'LTISR flow', type:'lines', coordinateSystem:'cartesian2d', xAxisIndex:1, yAxisIndex:1, polyline:true, silent:true, z:4,
-            data:[{ coords:T.ltisr.map((v, i)=> [i, v]) }], lineStyle:{ width:0, opacity:0 },
-            effect:{ show:true, period:4.2, trailLength:0, symbol:'circle', symbolSize:7, color:'#6B7A88', loop:true } },
-          { name:'AFR now', type:'effectScatter', xAxisIndex:0, yAxisIndex:0, data:[[last, T.afr[last]]], symbolSize:9, silent:true, z:6,
-            itemStyle:{ color:'#D6243A' }, rippleEffect:{ scale:4, brushType:'stroke', period:2.2 }, tooltip:{ show:false } },
-          { name:'LTISR flags', type:'effectScatter', xAxisIndex:1, yAxisIndex:1, silent:true, z:6, symbolSize:9,
-            data:[[T.ltisr.indexOf(Math.max.apply(null, T.ltisr)), Math.max.apply(null, T.ltisr)], [last, T.ltisr[last]]],
-            itemStyle:{ color:'#D6243A' }, rippleEffect:{ scale:4, brushType:'stroke', period:2.2 }, tooltip:{ show:false } },
-          { name:'Injury now', type:'effectScatter', xAxisIndex:2, yAxisIndex:2, silent:true, z:6, symbolSize:7,
-            data:[[last, T.non[last] + T.inj[last]]], itemStyle:{ color:'#E3262F' }, rippleEffect:{ scale:3.5, brushType:'stroke', period:2.4 }, tooltip:{ show:false } },
-          { name:'Total', type:'scatter', xAxisIndex:2, yAxisIndex:2, data:total, symbolSize:0, silent:true,
-            label:{ show:true, position:'top', fontSize:12, fontWeight:700, color:'#141A22', formatter:(p)=> f1(p.value) } }
+          { name:'Nearmiss', type:'bar', stack:'r', data:T.nm, itemStyle:{ color:'#D3D6DA', borderRadius:[2,2,0,0] },
+            label:{ show:true, position:'inside', fontSize:10.5, color:'#3C444C', formatter:(p)=> f1(p.value) } },
+          { name:'Total', type:'scatter', data:total, symbolSize:0, silent:true,
+            label:{ show:true, position:'top', fontSize:11, fontWeight:800, color:'#141A22', formatter:(p)=> f1(p.value) } },
+          { name:'AFR', type:'line', yAxisIndex:1, data:T.afr, symbol:'diamond', symbolSize:9, lineStyle:{ color:'#E3262F', width:2.4 }, itemStyle:{ color:'#E3262F' },
+            label:{ show:true, position:'top', fontSize:11, fontWeight:800, color:'#E3262F', formatter:(p)=> p.dataIndex===last ? '' : fmt(p.value) }, z:5,
+            markPoint:{ symbol:'circle', symbolSize:1, label:{ show:true, color:'#E3262F', fontSize:15, fontWeight:800, offset:[0,-14], formatter:fmt(T.afr[last]) },
+              data:[{ coord:[last, T.afr[last]] }] } },
+          { name:'LTISR', type:'line', yAxisIndex:2, data:T.ltisr, symbol:'diamond', symbolSize:9, lineStyle:{ color:'#141A22', width:2.2 }, itemStyle:{ color:'#141A22' },
+            label:{ show:true, position:'top', fontSize:11, fontWeight:800, color:'#141A22', formatter:(p)=> fmt(p.value) }, z:5 },
+          { name:'AFR now', type:'effectScatter', yAxisIndex:1, data:[[last, T.afr[last]]], symbolSize:9, silent:true, z:6,
+            itemStyle:{ color:'#E3262F' }, rippleEffect:{ scale:4, brushType:'stroke', period:2.2 }, tooltip:{ show:false } },
+          { name:'LTISR flags', type:'effectScatter', yAxisIndex:2, data:[[peak, T.ltisr[peak]], [last, T.ltisr[last]]], symbolSize:9, silent:true, z:6,
+            itemStyle:{ color:'#141A22' }, rippleEffect:{ scale:3.5, brushType:'stroke', period:2.4 }, tooltip:{ show:false } }
         ]
       });
+      // one smooth sweep left to right (as on the Disiplin chart): the lines draw continuously, each
+      // year's bar rises as the line reaches it, the flags appear when the sweep ends
+      const DUR = 10000, n = last + 1, at = (i)=> (i + .15) / n * DUR;
+      const opt = c.getOption(); c.clear();
+      opt.animation = true;
+      opt.series.forEach(sr=>{
+        if(sr.type === 'bar' || (sr.type === 'scatter')){ sr.animationDuration = 1300; sr.animationEasing = 'cubicOut'; sr.animationDelay = at; }
+        else if(sr.type === 'line'){ sr.animationDuration = DUR; sr.animationEasing = 'linear'; sr.animationDelay = 0;
+          if(sr.markPoint) sr.markPoint.animationDelay = DUR; }
+        else if(sr.type === 'effectScatter'){ sr.animationDelay = DUR; sr.animationDuration = 900; }
+      });
+      c.setOption(opt);
+      el._rev = true; clearTimeout(el._revT); el._revT = setTimeout(()=>{ el._rev = null; }, DUR + 800);
+      // replay the sweep after a pause, for as long as this chart is on screen
+      clearTimeout(el._loopT);
+      el._loopT = setTimeout(function again(){
+        const sl = document.getElementById('slideStable');
+        if(!el.isConnected) return;
+        if(el.offsetParent && sl && sl.classList.contains('active')) chart(el);
+        else el._loopT = setTimeout(again, 1500);
+      }, DUR + 4500);
     }
     function build(){
       if(built) return; built = true;
@@ -9032,7 +9430,7 @@
       tl.fromTo(q('.hs-pil tr, .hs-rg-row'), {x:12, opacity:0}, {x:0, opacity:1, stagger:0.02, duration:0.3}, 0.7);
       tl.fromTo(q('.hs-ht, .hs-siaga td'), {scale:.9, opacity:0}, {scale:1, opacity:1, stagger:0.04, duration:0.4, ease:'back.out(1.6)'}, 0.6);
     }
-    return { show, fit };
+    return { show, fit, chart };
   })();
   safetyView.render();
   leadingView.render();
