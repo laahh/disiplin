@@ -4581,6 +4581,29 @@
   /* plateau highlight: no box frame or tint, only the plateau / incident / breakthrough marks */
   .ov2-callout{ background:none !important; animation:none !important; }
   .ov2-callout::before{ display:none !important; }
+  /* Evolution strip: sits right under the note and takes the remaining height */
+  .ov2-evo{ flex:1 1 auto !important; margin-top:10px !important; min-height:0; grid-template-columns:190px 1fr 34px 1fr 34px 1fr !important; border-radius:12px; }
+  .ov2-evo .t{ font-size:19px !important; padding:10px 18px !important; }
+  .ov2-evo .evs{ gap:10px !important; padding:10px 8px !important; }
+  .ov2-evo .evs svg{ width:40px !important; height:40px !important; }
+  .ov2-evo .evs b{ font-size:20px !important; }
+  .ov2-evo .eva{ border-top-width:11px !important; border-bottom-width:11px !important; border-left-width:14px !important; }
+  .ov2-next{ flex:none; display:flex; align-items:center; justify-content:center; gap:10px; margin:8px 0 -2px; font:800 17px/1.2 'Plus Jakarta Sans',sans-serif; color:#0F2D6B; }
+  .ov2-next::before, .ov2-next::after{ content:''; flex:1; height:2px; background:linear-gradient(90deg,transparent,#9CC2E8); }
+  .ov2-next::after{ background:linear-gradient(90deg,#9CC2E8,transparent); }
+  .ov2-next span{ display:inline-flex; align-items:center; gap:8px; padding:6px 18px; border-radius:999px; background:#EAF2FD; border:1.5px solid #9CC2E8; }
+  .ov2-next span::after{ content:'▼'; color:#1F9A3A; font-size:12px; animation:liArrow 1.4s ease-in-out infinite; display:inline-block; }
+  .ov2-next b{ color:#1F9A3A; }
+  .ov2-next{ margin:4px 0 0 !important; font-size:15px !important; } .ov2-next span{ padding:4px 16px !important; }
+  .ov2-evo{ margin-top:6px !important; } .ov2-evo .t{ font-size:16px !important; } .ov2-evo .evs{ gap:6px !important; padding:6px !important; }
+  .ov2-evo .evs svg{ width:32px !important; height:32px !important; } .ov2-evo .evs b{ font-size:18px !important; }
+  /* Evolution strip: fixed compact height, never pushed out of the card */
+  .ov2-evo{ flex:none !important; height:66px; margin-top:6px !important; }
+  .ov2-evo .evs{ flex-direction:row !important; gap:10px !important; padding:0 8px !important; }
+  .ov2-evo .evs svg{ width:30px !important; height:30px !important; flex:none; } .ov2-evo .evs b{ font-size:17px !important; white-space:nowrap; }
+  .hs-tv-ov2 .ov2-right{ overflow:hidden; } .hs-tv-ov2 .ov2-note{ flex:1 1 auto !important; min-height:0; overflow:hidden; }
+  .hs-tv-ov2 .ov2-note{ flex:none !important; overflow:visible; font-size:12.5px !important; line-height:1.35; padding-top:2px; }
+  .hs-tv-ov2 .ov2-out2{ margin-top:40px !important; } .hs-tv-ov2 .ov2-right{ gap:6px !important; } .ov2-evo{ height:58px; margin-top:auto !important; }
 </style>
 </head>
 <body>
@@ -4894,6 +4917,7 @@
         <div class="ov-box orange"><h5>Underlying Risk</h5><ul><li><b>16% Peningkatan Blindspot Golden Rules</b> dibandingkan di 2025</li><li><b>3% Blindspot TBC</b> masih terjadi di 2026</li></ul></div>
       </div>
       <p class="ov2-note">Kontrol terhadap lagging yang sudah berjalan sudah banyak dilakukan dan berdampak pada peningkatan leading, peningkatan pelaporan hazard, peningkatan identifikasi TBC &amp; GR; tetapi lagging masih mencatatkan LTI &amp; Injury yang perlu <b>Fatal Prevention control</b> lanjutan.</p>
+      <p class="ov2-next"><span>Sehingga kita perlu <b>kontrol lanjutan</b></span></p>
       <div class="ov2-evo"><div class="t">Control Capability<br>Evolution</div><div class="evs"><svg viewBox="0 0 24 24"><path d="M4 4h4v2H6v2H4zm12 0h4v4h-2V6h-2zM4 16h2v2h2v2H4zm14 2v-2h2v4h-4v-2zM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8zm0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/></svg><b>Detect Earlier</b></div><i class="eva"></i><div class="evs"><svg viewBox="0 0 24 24"><path d="M11 13h2v9h-2zM12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6zM7.8 7.8a6 6 0 0 0 0 8.4l-1.4 1.4a8 8 0 0 1 0-11.2zm8.4 0 1.4-1.4a8 8 0 0 1 0 11.2l-1.4-1.4a6 6 0 0 0 0-8.4z"/></svg><b>Intervene Faster</b></div><i class="eva"></i><div class="evs pv"><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3zm-1.2 14.2-3.5-3.5 1.4-1.4 2.1 2.1 4.9-4.9 1.4 1.4-6.3 6.3z"/></svg><b>Prevent Better</b></div></div>
     </section>
     <svg class="ov2-links" aria-hidden="true"></svg>
@@ -9486,7 +9510,6 @@
     const top = Math.min(ob[0].t, ob[1].t), x0 = fun.l + fun.w * .875, y0 = Math.min(fun.b - 2, top - 56), ym = top - 40, c0 = ob[0].l + ob[0].w / 2, c1 = ob[1].l + ob[1].w / 2;
     svg.innerHTML = '<defs><marker id="ov2Arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10z" fill="#16294F"/></marker>'
       + '<marker id="ov2ArrO" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 10 5 0 10z" fill="#E8762B"/></marker></defs>'
-      + '<path class="lk cb" d="M' + cx + ' ' + box.t + ' V' + (cv.b - cv.h * .3) + '"/>'
       + '<path class="lk main cb" d="M' + box.r + ' ' + my + ' H' + xm + ' V' + fy + ' H' + (fun.l + 6) + '" marker-end="url(#ov2Arr)"/>'
       + (hz ? '<path class="lk" d="M' + hz.r + ' ' + (hz.t + hz.h * .55) + ' H' + (xm + 8) + ' V' + ym + ' H' + (ob[0].l + ob[0].w * .18) + '" marker-end="url(#ov2Arr)"/>' : '')
       + '<path class="lk ci" d="M' + (ci.l + ci.w / 2) + ' ' + ci.b + ' V' + (fun.t + fun.h * .16) + '" marker-end="url(#ov2Arr)"/>'
@@ -9862,6 +9885,7 @@
       tl.fromTo(q('.ov2-left > *, .ov2-right > *'), {y:16, opacity:0}, {y:0, opacity:1, stagger:0.06, duration:0.45}, 0.05);
       tl.fromTo(q('.ov-dot'), {scale:0, transformOrigin:'center', opacity:0}, {scale:1, opacity:1, stagger:0.02, duration:0.4, ease:'back.out(2)'}, 0.2);
       tl.fromTo(q('.ov-ctl'), {y:14, opacity:0}, {y:0, opacity:1, stagger:0.1, duration:0.4}, 0.45);
+      tl.fromTo(q('.ov2-next'), {y:10, opacity:0}, {y:0, opacity:1, duration:0.4}, 0.8);
       tl.fromTo(q('.ov2-evo .evs'), {y:12, opacity:0}, {y:0, opacity:1, stagger:0.15, duration:0.4}, 0.9);
       tl.fromTo(q('.ov-imp, .ov-li'), {y:12, opacity:0, scale:.94}, {y:0, opacity:1, scale:1, stagger:0.06, duration:0.4, ease:'back.out(1.6)'}, 0.6);
       countTo(tl, q('.ov-li .n'), 0.7, 0.06);
