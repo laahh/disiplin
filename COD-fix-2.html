@@ -4397,6 +4397,156 @@
   .ov2-grid .ov2-links .lk.cb{ transition:opacity .5s; } .ov2-grid.pl-wait .ov2-links .lk.cb{ opacity:0; }
 
   .sm-panel .list .grp{ padding:8px 18px 5px; background:#F3F7F4; border-bottom:1px solid var(--sm-line); color:var(--cv-green-d); font:800 11px/1.2 'Plus Jakarta Sans',sans-serif; letter-spacing:.1em; text-transform:uppercase; }
+
+  /* ---- MIR detail dashboard inside the map card ---- */
+  .ccx-stage.mx{ grid-template-columns:600px 1fr; grid-template-rows:minmax(0,1fr) 78px; gap:14px; }
+  .mx-hero{ position:relative; overflow:hidden; background:#0F2D6B; }
+  .mx-hero > img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; animation:smKen 16s ease-in-out infinite alternate; }
+  .mx-hero .sh{ position:absolute; inset:0; background:linear-gradient(180deg,rgba(10,30,70,.82) 0%,rgba(10,30,70,.15) 34%,rgba(10,30,70,0) 55%); }
+  .mx-hero .tag{ position:absolute; left:20px; top:16px; width:62%; color:#fff; font:600 18px/1.35 'Plus Jakarta Sans',sans-serif; text-shadow:0 2px 6px rgba(0,0,0,.4); }
+  .mx-zone{ position:absolute; left:4%; right:2%; top:38%; height:26%; }
+  .mx-zone .z{ stroke:#fff; stroke-width:1.5; stroke-dasharray:6 4; vector-effect:non-scaling-stroke; }
+  .mx-zone .g{ fill:rgba(46,200,90,.55); } .mx-zone .y{ fill:rgba(245,205,30,.6); } .mx-zone .r{ fill:rgba(230,50,50,.6); animation:exBlink 1.6s ease-in-out infinite; }
+  .mx-zone .lim{ stroke:#fff; stroke-width:3; fill:none; vector-effect:non-scaling-stroke; }
+  .mx-hero .rover{ position:absolute; left:12%; top:42%; animation:mxRove 7s ease-in-out infinite; }
+  .mx-hero .rover i{ display:block; width:22px; height:22px; border-radius:50% 50% 50% 0; transform:rotate(-45deg); background:#1F9A3A; border:3px solid #fff; box-shadow:0 0 0 0 rgba(46,200,90,.7); animation:tmPing 2s ease-out infinite; }
+  @keyframes mxRove{ 0%,100%{ left:12%; } 50%{ left:62%; } 70%{ left:66%; } }
+  .mx-hero .lb{ position:absolute; padding:5px 12px; border-radius:6px; background:#0F2D6B; border:1.5px solid #fff; color:#fff; font:700 13px/1 'Plus Jakarta Sans',sans-serif; box-shadow:0 4px 10px rgba(0,0,0,.3); }
+  .mx-hero .lb.red{ background:#D6243A; }
+  .mx-hero .l1{ left:4%; top:31%; } .mx-hero .l2{ left:34%; top:33%; } .mx-hero .l3{ right:4%; top:31%; } .mx-hero .l4{ right:4%; top:68%; }
+  .mx-apa{ position:absolute; left:14px; right:14px; bottom:14px; border-radius:12px; overflow:hidden; background:rgba(255,255,255,.95); box-shadow:0 8px 20px rgba(0,0,0,.25); }
+  .mx-apa h4, .mx-h{ display:flex; align-items:center; gap:10px; padding:7px 14px; background:linear-gradient(115deg,#0F2D6B,#1E4FA8); color:#fff; font:800 21px/1.1 'Plus Jakarta Sans',sans-serif; }
+  .mx-apa h4 i, .mx-h i{ display:grid; place-items:center; width:32px; height:32px; border-radius:50%; background:#fff; }
+  .mx-apa h4 svg, .mx-h svg{ width:18px; height:18px; fill:#1E4FA8; }
+  .mx-apa h4 em, .mx-h em{ display:grid; place-items:center; width:28px; height:28px; border-radius:5px; background:#fff; color:#0F2D6B; font-style:normal; font-size:17px; }
+  .mx-apa p{ padding:9px 16px 11px; font-size:16px; line-height:1.4; }
+  .mx-r{ min-height:0; display:flex; flex-direction:column; gap:14px; }
+  .mx-cara{ flex:1.15 1 0; min-height:0; display:flex; flex-direction:column; overflow:hidden; }
+  .mx-steps{ flex:1; min-height:0; display:grid; grid-template-columns:1fr 22px 1fr 22px 1fr 22px 1fr; gap:4px; padding:10px 12px; }
+  .mx-step{ min-height:0; display:flex; flex-direction:column; gap:6px; border-radius:10px; background:linear-gradient(180deg,#EEF4FB,#fff); padding:8px 10px; }
+  .mx-step .h{ display:flex; gap:8px; align-items:center; }
+  .mx-step .n{ flex:none; display:grid; place-items:center; width:26px; height:26px; border-radius:50%; background:#1E4FA8; color:#fff; font:800 13px 'Plus Jakarta Sans',sans-serif; }
+  .mx-step b{ font:800 15px/1.15 'Plus Jakarta Sans',sans-serif; color:#0F2D6B; }
+  .mx-step .art{ flex:1; min-height:0; display:grid; place-items:center; border-radius:8px; background:linear-gradient(160deg,#DCE9F7,#C3D8F0); }
+  .mx-step .art svg{ height:62%; width:auto; fill:#1E4FA8; animation:hmBob 3s ease-in-out infinite; }
+  .mx-step:nth-of-type(2) .art svg{ fill:#C99A10; } .mx-step:nth-of-type(4) .art svg{ fill:#16294F; }
+  .mx-step p{ font-size:13.5px; line-height:1.3; color:#3C444C; text-align:center; }
+  .mx-arr{ align-self:center; text-align:center; font:800 30px/1 'Plus Jakarta Sans',sans-serif; color:#1E4FA8; animation:tmBlink 1.4s ease-in-out infinite; }
+  .mx-row{ flex:1 1 0; min-height:0; display:grid; grid-template-columns:1fr 1.25fr; gap:14px; }
+  .mx-rk, .mx-mf{ min-height:0; display:flex; flex-direction:column; overflow:hidden; }
+  .mx-h.red{ background:linear-gradient(115deg,#0F2D6B,#1E4FA8); } .mx-h.red i svg{ fill:#D6243A; }
+  .mx-h.grn i svg{ fill:#1F9A3A; }
+  .mx-rk ul{ flex:1; list-style:none; display:flex; flex-direction:column; justify-content:space-around; gap:6px; padding:8px 12px; }
+  .mx-rk li{ display:flex; align-items:center; gap:14px; padding:7px 12px; border-radius:8px; background:#FDECEE; font-size:15.5px; }
+  .mx-rk li i svg{ width:32px; height:24px; fill:#D6243A; }
+  .mx-bns{ flex:1; display:grid; grid-template-columns:repeat(3,1fr); gap:10px; padding:10px 12px; }
+  .mx-bn{ display:flex; gap:10px; padding:10px; border-radius:10px; background:#F3F7FB; border:1px solid #DCE3EA; }
+  .mx-bn i{ flex:none; display:grid; place-items:center; width:40px; height:40px; border-radius:50%; }
+  .mx-bn.s i{ background:#1E4FA8; } .mx-bn.c i{ background:#12876F; } .mx-bn.p i{ background:#1F9A3A; }
+  .mx-bn i svg{ width:22px; height:22px; fill:#fff; }
+  .mx-bn b{ display:block; font:800 18px/1.1 'Plus Jakarta Sans',sans-serif; color:#0F2D6B; } .mx-bn.c b{ color:#12876F; } .mx-bn.p b{ color:#147A2C; }
+  .mx-bn p{ font-size:13.5px; line-height:1.3; color:#3C444C; margin-top:3px; }
+  .mx-hl{ grid-column:1 / -1; display:grid; grid-template-columns:330px repeat(4,1fr); align-items:center; overflow:hidden; }
+  .mx-hl h4{ align-self:stretch; display:flex; align-items:center; gap:12px; padding:0 22px; background:linear-gradient(115deg,#0F2D6B,#1E4FA8); color:#fff; font:800 21px 'Plus Jakarta Sans',sans-serif; clip-path:polygon(0 0,92% 0,100% 50%,92% 100%,0 100%); }
+  .mx-hl h4 svg{ width:30px; height:30px; fill:#fff; }
+  .mx-hl > div{ display:flex; align-items:center; gap:12px; padding:0 16px; border-left:1px solid #DCE3EA; font-size:14.5px; line-height:1.3; color:#16294F; }
+  .mx-hl > div i svg{ width:34px; height:34px; fill:#1E4FA8; }
+  .mx-hl > div b{ font-weight:800; }
+
+  /* ---- MIR detail v2: illustrated MIR visual (mir.png) + info column ---- */
+  .ccx-stage.mx2{ grid-template-columns:720px 1fr; grid-template-rows:minmax(0,1fr); }
+  .mxv{ position:relative; overflow:hidden; background:#EAF4EE; }
+  .mxv > img{ position:absolute; inset:0; width:100%; height:100%; object-fit:fill; }
+  .mxv .hd{ position:absolute; display:flex; flex-direction:column; justify-content:center; color:#fff; }
+  .mxv .hd b{ font:800 27px/1.05 'Plus Jakarta Sans',sans-serif; letter-spacing:-.01em; } .mxv .hd small{ font:700 15px/1.3 'Plus Jakarta Sans',sans-serif; color:#BFF0C8; }
+  .mxv .bar{ position:absolute; display:flex; align-items:center; padding:0 12px; color:#fff; font:800 14.5px/1 'Plus Jakarta Sans',sans-serif; white-space:nowrap; }
+  .mxv .warn{ position:absolute; display:grid; place-items:center; width:30px; height:30px; margin:-15px; border-radius:50%; background:#D6243A; color:#fff; font:900 18px/1 'Plus Jakarta Sans',sans-serif; box-shadow:0 0 0 4px rgba(214,36,58,.35); animation:exBlink 1.2s ease-in-out infinite; }
+  .mxv .tab{ position:absolute; padding:5px 14px; border-radius:8px 8px 8px 0; background:linear-gradient(115deg,#0E4F2C,#1F9A3A); color:#fff; font:800 14px/1 'Plus Jakarta Sans',sans-serif; }
+  .mxv .cp{ position:absolute; top:90.5%; transform:translateX(-50%); text-align:center; font:700 12.5px/1.2 'Plus Jakarta Sans',sans-serif; color:#16294F; white-space:nowrap; }
+  .mx2 .mx-r{ gap:10px; }
+  .mx2 .mx-apa{ position:static; flex:none; box-shadow:0 8px 22px rgba(20,26,34,.07); border:1px solid #DCE3EA; }
+  .mx2 .mx-apa p{ padding:7px 16px 9px; font-size:15px; }
+  .mx2 .mx-cara{ flex:1 1 0; }
+  .mx2 .mx-step .art{ min-height:0; } .mx2 .mx-step p{ font-size:12.5px; } .mx2 .mx-step b{ font-size:14px; }
+  .mx2 .mx-row{ flex:1 1 0; }
+  .mx2 .mx-rk li{ font-size:14.5px; padding:6px 12px; }
+  .mx2 .mx-bn p{ font-size:12.5px; }
+  .mx2 .mx-hl{ grid-column:auto; flex:none; height:64px; grid-template-columns:150px repeat(4,1fr); }
+  .mx2 .mx-hl h4{ font-size:17px; padding:0 14px; } .mx2 .mx-hl h4 svg{ width:22px; height:22px; }
+  .mx2 .mx-hl > div{ font-size:12.5px; gap:8px; padding:0 10px; } .mx2 .mx-hl > div i svg{ width:26px; height:26px; }
+
+  /* ---- MIR detail v3: clean white cards, round icon headers, full-width highlight ---- */
+  .ccx-stage.mx2{ grid-template-columns:680px 1fr; grid-template-rows:minmax(0,1fr) 62px; gap:14px 16px; }
+  .mx2 .mxv{ background:#F2F8F3; }
+  .mx2 .mxv .tab{ background:none; color:#147A2C; padding:0; font-size:17px; }
+  .mx2 .mx-r{ gap:12px; }
+  .mx2 .mx-apa, .mx2 .mx-cara, .mx2 .mx-rk, .mx2 .mx-mf{ background:#fff; border:1px solid #E3E9EF; border-radius:16px; box-shadow:0 6px 18px rgba(20,26,34,.05); }
+  .mx2 .mx-h, .mx2 .mx-apa h4{ background:none !important; color:#0F2D6B; padding:12px 18px 4px; font-size:21px; gap:12px; }
+  .mx2 .mx-h em, .mx2 .mx-apa h4 em{ display:none; }
+  .mx2 .mx-h i, .mx2 .mx-apa h4 i{ width:36px; height:36px; background:#1E4FA8; }
+  .mx2 .mx-h i svg, .mx2 .mx-apa h4 i svg{ width:20px; height:20px; fill:#fff !important; }
+  .mx2 .mx-h.red i{ background:#D6243A; } .mx2 .mx-h.grn i{ background:#1F9A3A; }
+  .mx2 .mx-apa p{ padding:0 18px 12px 66px; font-size:15.5px; color:#3C444C; }
+  .mx2 .mx-steps{ padding:6px 14px 12px; gap:6px; }
+  .mx2 .mx-step{ background:#F7F9FC; border:1px solid #E8EDF3; padding:10px 12px; gap:4px; }
+  .mx2 .mx-step .h{ align-items:flex-start; } .mx2 .mx-step b{ font-size:14px; }
+  .mx2 .mx-step .art{ background:none; } .mx2 .mx-step .art svg{ height:56%; max-height:60px; }
+  .mx2 .mx-step p{ font-size:14px; line-height:1.35; color:#3C444C; }
+  .mx2 .mx-arr{ font-size:26px; }
+  .mx2 .mx-row{ gap:14px; }
+  .mx2 .mx-rk ul{ padding:6px 14px 12px; gap:8px; justify-content:flex-start; }
+  .mx2 .mx-rk li{ background:#FDEDEF; border-radius:10px; padding:9px 14px; font-size:14.5px; }
+  .mx2 .mx-bns{ padding:6px 14px 12px; gap:10px; }
+  .mx2 .mx-bn{ flex-direction:column; align-items:flex-start; background:#F5F8FB; border:1px solid #E8EDF3; }
+  .mx2 .mx-bn{ display:grid; grid-template-columns:40px 1fr; align-content:start; }
+  .mx2 .mx-bn p{ font-size:13px; }
+  .mx2 .mx-hl{ grid-column:1 / -1; height:auto; grid-template-columns:200px repeat(4,1fr); background:#fff; border:1px solid #E3E9EF; border-radius:14px; box-shadow:0 6px 18px rgba(20,26,34,.05); }
+  .mx2 .mx-hl h4{ background:none; clip-path:none; color:#1E4FA8; font-size:20px; }
+  .mx2 .mx-hl h4 svg{ fill:#1E4FA8; width:26px; height:26px; }
+  .mx2 .mx-hl > div{ font-size:14px; gap:12px; padding:0 18px; } .mx2 .mx-hl > div i svg{ width:30px; height:30px; }
+  .mx2 .mx-hl > div b{ color:#0F2D6B; font-size:16px; }
+  .mx2 .mx-step .art svg{ height:52px !important; max-height:none; width:52px; } .mx2 .mx-step .art{ min-height:60px; } .mx2 .mx-bn p{ font-size:13.5px; } .mx2 .mx-bn b{ font-size:17px; }
+  .mx2 .mxv .cp{ top:89.2%; }
+
+  /* ---- MIR detail v4: richer cards, larger type, icon medallions ---- */
+  .ccx-stage.mx2 .mx-apa{ display:grid; grid-template-columns:auto 1fr; align-items:center; gap:4px 18px; padding:14px 22px; background:linear-gradient(110deg,#EEF4FC 0%,#fff 55%); border-left:5px solid #1E4FA8; }
+  .ccx-stage.mx2 .mx-apa h4{ padding:0; font-size:22px; white-space:nowrap; }
+  .ccx-stage.mx2 .mx-apa p{ padding:0; font-size:17px; line-height:1.45; color:#2B3440; }
+  .ccx-stage.mx2 .mx-h{ font-size:23px; padding:14px 20px 6px; }
+  .ccx-stage.mx2 .mx-h i{ width:40px; height:40px; box-shadow:0 6px 14px rgba(30,79,168,.3); }
+  .ccx-stage.mx2 .mx-h.red i{ box-shadow:0 6px 14px rgba(214,36,58,.3); } .ccx-stage.mx2 .mx-h.grn i{ box-shadow:0 6px 14px rgba(31,154,58,.3); }
+  .ccx-stage.mx2 .mx-steps{ grid-template-columns:1fr 34px 1fr 34px 1fr 34px 1fr; padding:8px 18px 16px; gap:0; }
+  .ccx-stage.mx2 .mx-step{ position:relative; background:linear-gradient(180deg,#F4F8FE,#fff); border:1px solid #E1E8F2; border-radius:14px; padding:14px 14px 12px; align-items:center; text-align:center; gap:8px; transition:transform .25s, box-shadow .25s; }
+  .ccx-stage.mx2 .mx-step:hover{ transform:translateY(-4px); box-shadow:0 12px 26px rgba(30,79,168,.15); }
+  .ccx-stage.mx2 .mx-step .h{ flex-direction:column; align-items:center; gap:6px; }
+  .ccx-stage.mx2 .mx-step .n{ position:absolute; left:12px; top:12px; width:28px; height:28px; font-size:14px; }
+  .ccx-stage.mx2 .mx-step b{ font-size:16.5px; line-height:1.2; padding:0 20px; }
+  .ccx-stage.mx2 .mx-step .art{ order:-1; flex:none; min-height:0; }
+  .ccx-stage.mx2 .mx-step .art svg{ width:84px !important; height:84px !important; padding:20px; border-radius:50%; fill:#fff !important; background:linear-gradient(140deg,#2F6FD6,#0F2D6B); box-shadow:0 0 0 7px #E3ECFA, 0 10px 22px rgba(15,45,107,.25); animation:mxPulse 2.8s ease-in-out infinite; }
+  .ccx-stage.mx2 .mx-step:nth-of-type(2) .art svg{ background:linear-gradient(140deg,#F5B71C,#C98A00); box-shadow:0 0 0 7px #FDF1D3, 0 10px 22px rgba(201,138,0,.25); animation-delay:.5s; }
+  .ccx-stage.mx2 .mx-step:nth-of-type(3) .art svg{ background:linear-gradient(140deg,#2BA6A0,#12706B); box-shadow:0 0 0 7px #DDF3F1, 0 10px 22px rgba(18,112,107,.25); animation-delay:1s; }
+  .ccx-stage.mx2 .mx-step:nth-of-type(4) .art svg{ background:linear-gradient(140deg,#2FB34A,#147A2C); box-shadow:0 0 0 7px #DFF3E2, 0 10px 22px rgba(20,122,44,.25); animation-delay:1.5s; }
+  @keyframes mxPulse{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.06); } }
+  .ccx-stage.mx2 .mx-step p{ font-size:15px; line-height:1.4; color:#3C444C; }
+  .ccx-stage.mx2 .mx-arr{ display:grid; place-items:center; align-self:center; justify-self:center; width:28px; height:28px; border-radius:50%; background:#1E4FA8; color:#fff; font-size:22px; line-height:1; box-shadow:0 4px 10px rgba(30,79,168,.35); }
+  .ccx-stage.mx2 .mx-rk ul{ justify-content:space-evenly; padding:6px 18px 16px; gap:10px; }
+  .ccx-stage.mx2 .mx-rk li{ gap:16px; padding:12px 16px; font-size:17px; font-weight:600; color:#2B3440; background:linear-gradient(90deg,#FDE6E9,#FFF6F7); border-left:4px solid #D6243A; border-radius:10px; }
+  .ccx-stage.mx2 .mx-rk li i{ flex:none; display:grid; place-items:center; width:40px; height:40px; border-radius:50%; background:#fff; box-shadow:0 4px 10px rgba(214,36,58,.2); }
+  .ccx-stage.mx2 .mx-rk li i svg{ width:24px; height:22px; }
+  .ccx-stage.mx2 .mx-bns{ padding:6px 18px 16px; gap:14px; }
+  .ccx-stage.mx2 .mx-bn{ display:flex !important; flex-direction:column; align-items:center; justify-content:center; text-align:center; gap:12px; padding:18px 14px; border-radius:14px; border:0; border-top:4px solid #1E4FA8; background:linear-gradient(180deg,#EEF4FC,#fff); }
+  .ccx-stage.mx2 .mx-bn.c{ border-top-color:#12876F; background:linear-gradient(180deg,#E6F5F1,#fff); } .ccx-stage.mx2 .mx-bn.p{ border-top-color:#1F9A3A; background:linear-gradient(180deg,#E9F6EA,#fff); }
+  .ccx-stage.mx2 .mx-bn i{ width:62px; height:62px; box-shadow:0 0 0 6px rgba(255,255,255,.9), 0 8px 18px rgba(20,26,34,.18); }
+  .ccx-stage.mx2 .mx-bn i svg{ width:30px; height:30px; }
+  .ccx-stage.mx2 .mx-bn b{ font-size:21px; } .ccx-stage.mx2 .mx-bn p{ font-size:15px; line-height:1.4; margin-top:6px; }
+  .ccx-stage.mx2 .mx-hl{ background:linear-gradient(90deg,#0F2D6B,#1E4FA8 22%,#fff 22.1%); border:0; }
+  .ccx-stage.mx2 .mx-hl h4{ color:#fff; font-size:21px; } .ccx-stage.mx2 .mx-hl h4 svg{ fill:#fff; }
+  .ccx-stage.mx2 .mx-hl > div{ font-size:13px; color:#4A525C; gap:14px; }
+  .ccx-stage.mx2 .mx-hl > div i{ display:grid; place-items:center; width:40px; height:40px; border-radius:50%; background:#EAF1FB; flex:none; }
+  .ccx-stage.mx2 .mx-hl > div i svg{ width:22px; height:22px; }
+  .ccx-stage.mx2 .mx-hl > div b{ display:block; font-size:21px; line-height:1.15; color:#0F2D6B; }
+  .ccx-stage.mx2 .mx-hl > div:nth-of-type(3) b, .ccx-stage.mx2 .mx-hl > div:nth-of-type(4) b{ color:#1F9A3A; }
+  .ccx-stage.mx2 .mx-hl > div br{ display:none; }
 </style>
 </head>
 <body>
@@ -10353,12 +10503,13 @@
   }
   // Critical Control dashboard: the detail shown for the Critical Control and Mining Eyes points
   const SM_CCX = '<div class="ccx-stage"><div class="ccx-c1"><section class="ccx-sec ccx-cc"><h4 class="ccx-chip">Critical Control</h4><p>A phased automation path <b>focused on critical risk barriers</b> (CCV/CRM, Layer 5 contact defense) to <b>prevent serious events</b> (Fatal + LTI / RWI). All <b>can detect</b> and <b>intervened</b> through <b>Mining Eyes Analytic</b>.</p><div class="ccx-dia"><svg viewBox="0 0 150 100"><path d="M75 6 L122 62 H28 Z" fill="#fff" stroke="#C8102E" stroke-width="3"/><path d="M28 66 H122 L140 94 H10 Z" fill="#fff" stroke="#6B7580" stroke-width="2"/><text x="75" y="40" text-anchor="middle" fill="#C8102E" font-size="9" font-weight="800">High</text><text x="75" y="50" text-anchor="middle" fill="#C8102E" font-size="9" font-weight="800">Severity</text><text x="75" y="60" text-anchor="middle" fill="#C8102E" font-size="9" font-weight="800">Accident</text><text x="75" y="79" text-anchor="middle" fill="#4A525C" font-size="7.5" font-weight="700">High Risk/HIPO</text><text x="75" y="88" text-anchor="middle" fill="#4A525C" font-size="7.5" font-weight="700">Activity</text></svg><div class="ccx-ccv"><b>CCV</b><span class="ar"></span><div>Critical Risk Barrier Checklist</div><span class="ar"></span><div>IPLS Layer 5</div></div></div><p class="sm">There are <b>33 high-risk activity + 29 CCV</b> that are used as mining eyes analytic use cases.</p><div class="ccx-kp"><small>Key project</small><b>ENHANCED MINING EYES ANALYTIC</b></div></section><section class="ccx-sec ccx-road"><div class="ccx-tl y25"><span class="tg">2025</span><div class="bd"><i><svg viewBox="0 0 24 24"><path d="M19.4 13a7.5 7.5 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a7.3 7.3 0 0 0-1.7-1L15 3h-4l-.4 2.9a7.3 7.3 0 0 0-1.7 1l-2.5-1-2 3.5L6.6 11a7.5 7.5 0 0 0 0 2l-2.1 1.6 2 3.5 2.5-1a7.3 7.3 0 0 0 1.7 1L11 21h4l.4-2.9a7.3 7.3 0 0 0 1.7-1l2.5 1 2-3.5zM13 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z"/></svg></i><div><b>Trial &amp; Roll Out Awal</b><p>Trial CCV pada aktivitas awal (dumping, disposal, tunnel, refueling, loading-unloading transhipment). Roll out 3 aktivitas kritis hasil trial.</p></div></div></div><div class="ccx-tl q1"><span class="tg">Q1 2026</span><div class="bd"><i><svg viewBox="0 0 24 24"><path d="M4 20h3v-7H4zm6.5 0h3V8h-3zM17 20h3V4h-3z"/></svg></i><div><b>Perluasan Trial</b><p>Trial CCV pada 15 aktivitas kritis lainnya berdasarkan mapping prioritas aktivitas.</p></div></div></div><div class="ccx-tl q2"><span class="tg">Q2 2026</span><div class="bd"><i><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.6"/><circle cx="5" cy="18" r="2.6"/><circle cx="19" cy="18" r="2.6"/><path d="M11 7 6 16M13 7l5 9M7.6 18h8.8" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></i><div><b>Roll Out Sistem</b><p>Roll out 15 aktivitas kritis lainnya ke dalam sistem.</p></div></div></div><div class="ccx-tl q3"><span class="tg">Q3 2026</span><div class="bd"><i><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6zm8 1.5V8h4.5zM9 12h8v2H9zm0 4h8v2H9z"/></svg></i><div><b>Pendetailan CPP</b><p>Pengembangan item critical control berbasis detail aktivitas kritis di area Coal Processing Plant (CPP).</p></div></div></div><div class="ccx-tl q4"><span class="tg">Q4 2026</span><div class="bd"><i><svg viewBox="0 0 24 24"><path d="M3 3h18v18H3zm3 13 4-4 3 3 5-6-1.5-1.2L13 12l-3-3-5 5z"/></svg></i><div><b>Analitik &amp; Perluasan</b><p>Penyaringan item critical control ke dalam analytic model &amp; perluasan CCV yang dimulai dari aktivitas di area CPP ke aktivitas di area lain.</p></div></div></div></section></div><section class="ccx-sec ccx-mea"><header><div><b>Mining Eyes Analytics</b><small>Continuous improvement from CCTV using computer vision technology</small></div><span class="live">LIVE</span></header><div class="ccx-mea-in"><div class="ccx-stat"><div><small>Previous development</small><b>7 use case – 23%</b><span>(Done)</span></div><div><small>In total</small><b>30 use cases</b><span>mapped across multiple locations</span></div></div><div class="ccx-loc"><h5>Lokasi Dinamis – 24 use cases</h5><div class="ch c5"><span><b>Pit (Front)</b><small>6 use cases</small></span><span><b>Pit (Disposal)</b><small>8 use cases</small></span><span><b>Pit (Blasting)</b><small>5 use cases</small></span><span><b>Pit (Mine road)</b><small>6 use cases</small></span><span><b>Pit (Pompa)</b><small>5 use cases</small></span></div><p><b>Karakteristik:</b> Cangkupan area pengawasan menyebabkan <b>keterbatasan deteksi pada objek berukuran kecil</b>.</p></div><div class="ccx-loc st"><h5>Lokasi Statis – 24 use cases <em>Prioritas Development</em></h5><div class="ch c6"><span><b>Hauling</b><small>6 use cases</small></span><span><b>Crossing</b><small>7 use cases</small></span><span><b>CPP</b><small>6 use cases</small></span><span><b>Workshop</b><small>1 use cases</small></span><span><b>Mess</b><small>1 use cases</small></span><span><b>Jetty</b><small>3 use cases</small></span></div><p><b>Karakteristik:</b> Cangkupan area pengawasan yang terbatas <b>mendukung identifikasi objek yang lebih presisi</b>.</p></div><div class="ccx-loc"><h5>Lokasi Sementara – 5 use cases</h5><div class="ch c2"><span><b>Kontruksi</b><small>2 use cases</small></span><span><b>Maintenance</b><small>3 use cases</small></span></div><p><b>Karakteristik:</b> Aktivitas tidak repetitif.</p></div><div class="ccx-met"><h5>% Metode Pengawasan YTD 2026</h5><div class="bar"><span class="a" style="width:50.6%">Berjarak 50,6%</span><span class="b">Langsung 49,4%</span></div><p><b>Pengawasan berjarak:</b> Mining Eyes 66,72% · Others 33,28% · TBC 57,8% <em>Can maximize resources &amp; objectivity through automated detection</em></p><p><b>Pengawasan langsung:</b> TBC 57,8%</p></div></div></section><section class="ccx-sec ccx-dev"><h4>Progress Development MEA × IT Corp</h4><div class="ccx-ph done"><div class="hd"><div><small>Phase 1</small><b>Hauling Analytics</b><span>LV Monitoring · Aktif berjalan sejak Q1 2026</span></div><em>Done development</em></div><ol><li><span class="n">1</span><span class="t">Jarak Tidak Aman Antar LV</span><span class="c">Hauling Road</span></li><li><span class="n">2</span><span class="t">Kecepatan LV</span><span class="c">Hauling Road</span></li><li><span class="n">3</span><span class="t">LV Melintas Jalur Berlawanan</span><span class="c">Hauling Road</span></li><li><span class="n">4</span><span class="t">Idle Time LV</span><span class="c">Hauling Road</span></li><li><span class="n">5</span><span class="t">Penggunaan Buggy-Whip LV</span><span class="c">Hauling Road</span></li></ol></div><div class="ccx-ph plan"><div class="hd"><div><small>Phase 2</small><b>Crossing Analytics</b><span>DT Monitoring · Target go-live: Q3 2026</span></div><em>On plan</em></div><ol><li><span class="n">1</span><span class="t">Jarak Tidak Aman Iring &amp; Antri DT</span><span class="c">Keselamatan</span><em class="hi">Tinggi</em></li><li><span class="n">2</span><span class="t">DT Melintas Jalur Berlawanan</span><span class="c">Keselamatan</span><em class="hi">Tinggi</em></li><li><span class="n">3</span><span class="t">Kecepatan DT di Zona Crossing</span><span class="c">Keselamatan</span><em class="hi">Tinggi</em></li><li><span class="n">4</span><span class="t">Pelanggaran Lalu Lintas (Rambu Stop)</span><span class="c">Keselamatan</span><em class="hi">Tinggi</em></li><li><span class="n">5</span><span class="t">Deteksi Waktu Tunggu DT</span><span class="c">Operasional</span><em class="md">Sedang</em></li><li><span class="n">6</span><span class="t">Menghitung DT yang Melintas</span><span class="c">Operasional</span><em class="md">Sedang</em></li></ol></div><div class="ccx-tline"><i></i><div><b>Q1 2026</b><strong>Phase 1: Done Development</strong><span>Aktif sejak Q1 2026 · Change management aktif</span></div><div class="r"><b>Q3 2026</b><strong>Phase 2: Go-Live Target</strong><span>On plan – persiapan menuju go-live</span></div></div></section></div>';
+  const SM_MIR = '<div class="ccx-stage mx mx2"><section class="mxv ccx-sec"><img src="mom/mir-visual.jpg" alt="Dozer di disposal tanpa dan dengan MIR, serta komponen sistem MIR"><span class="bar dk" style="left:3.38%;top:1.03%;width:33.82%;height:5.11%;">Sebelum: dumping tanpa batas presisi</span><span class="bar gr" style="left:51.30%;top:1.03%;width:44.53%;height:5.11%;">Dengan MIR: zona dumping terpantau</span><span class="warn" style="left:28.18%;top:28.86%;">!</span><span class="tab" style="left:3.38%;top:69.48%;">Komponen sistem</span><span class="cp" style="left:11.27%">Base station</span><span class="cp" style="left:29.88%">RTK rover<br>di unit/kabin</span><span class="cp" style="left:47.35%">Sound alert<br>&amp; sensor</span><span class="cp" style="left:64.26%">Gateway<br>4G/5G</span><span class="cp" style="left:85.46%">Dashboard<br>monitoring</span></section><div class="mx-r"><div class="mx-apa"><h4 class="mx-h blu"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h9l5 5v15H6zm8 1.5V8h4.5zM9 12h8v2H9zm0 4h8v2H9z"/></svg></i><em>1</em>Apa itu?</h4><p>Sistem monitoring disposal berbasis positioning yang membantu memastikan aktivitas dumping berlangsung pada area yang <b>tepat, aman</b>, dan <b>sesuai batas disposal</b>.</p></div><section class="mx-cara ccx-sec"><h4 class="mx-h"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.4 13a7.5 7.5 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a7.3 7.3 0 0 0-1.7-1L15 3h-4l-.4 2.9a7.3 7.3 0 0 0-1.7 1l-2.5-1-2 3.5L6.6 11a7.5 7.5 0 0 0 0 2l-2.1 1.6 2 3.5 2.5-1a7.3 7.3 0 0 0 1.7 1L11 21h4l.4-2.9a7.3 7.3 0 0 0 1.7-1l2.5 1 2-3.5zM13 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z"/></svg></i><em>2</em>Cara kerja singkat</h4><div class="mx-steps"><div class="mx-step"><div class="h"><span class="n">1</span><b>Base station &amp; RTK</b></div><div class="art"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a5 3 0 0 1 5 3v1H7V5a5 3 0 0 1 5-3zm-1 5h2v5h-2zm0 5h2l4 10h-2.2L12 15.5 9.2 22H7z"/></svg></div><p>Menyediakan koreksi posisi presisi (centimeter level).</p></div><span class="mx-arr">&#8250;</span><div class="mx-step"><div class="h"><span class="n">2</span><b>Rover membaca posisi aktual</b></div><div class="art"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 9h12v7H1zm12 2h5l4 3v2h-9zM5 19a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm13 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zM3 6l8-2 2 5H3z"/></svg></div><p>Rover di unit/kabin membaca posisi aktual saat dumping.</p></div><span class="mx-arr">&#8250;</span><div class="mx-step"><div class="h"><span class="n">3</span><b>Gateway mengirim data</b></div><div class="art"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13h16v7H4zm3 3v1h2v-1zm4 0v1h2v-1zM7 4h2v9H7zm8 0h2v9h-2z"/><path d="M18 3a6 6 0 0 1 3 3M18 6a2 2 0 0 1 1 1" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></div><p>Data posisi dikirim melalui gateway (4G/5G) ke sistem secara real-time.</p></div><span class="mx-arr">&#8250;</span><div class="mx-step"><div class="h"><span class="n">4</span><b>Dashboard memonitor kepatuhan disposal</b></div><div class="art"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18v12H3zm2 2v8h14V6zm2 6 3-3 2 2 4-4 1 1-5 5-2-2-2 2zM8 18h8v2H8z"/></svg></div><p>Dashboard memantau posisi unit dan kepatuhan terhadap batas disposal.</p></div></div></section><div class="mx-row"><section class="mx-rk ccx-sec"><h4 class="mx-h red"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V9h2v4z"/></svg></i><em>3</em>Risiko yang dikendalikan</h4><ul><li><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 9h12v7H1zm12 2h5l4 3v2h-9zM5 19a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm13 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zM3 6l8-2 2 5H3z"/></svg></i><span>Deviasi dumping di disposal kering</span></li><li><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 9h12v7H1zm12 2h5l4 3v2h-9zM5 19a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm13 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zM3 6l8-2 2 5H3z"/></svg></i><span>Unit terperosok / keluar batas dumping</span></li><li><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg></i><span>Ketidaksesuaian posisi disposal</span></li></ul></section><section class="mx-mf ccx-sec"><h4 class="mx-h grn"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 10 10h-2a8 8 0 1 1-8-8zm0 4a6 6 0 1 0 6 6h-2a4 4 0 1 1-4-4zm0 4a2 2 0 1 0 2 2l7-7-1.4-1.4-7 7A2 2 0 0 0 12 10z"/></svg></i><em>4</em>Manfaat utama</h4><div class="mx-bns"><div class="mx-bn s"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3zm1 14h-2v-2h2zm0-4h-2V7h2z"/></svg></i><div><b>Safety</b><p>Membantu operator menjaga batas aman dumping.</p></div></div><div class="mx-bn c"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h18v18H3zm3 13h2v-5H6zm4 0h2V8h-2zm4 0h2v-7h-2z"/></svg></i><div><b>Control</b><p>Posisi disposal termonitor lebih baik.</p></div></div><div class="mx-bn p"><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.4 13a7.5 7.5 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a7.3 7.3 0 0 0-1.7-1L15 3h-4l-.4 2.9a7.3 7.3 0 0 0-1.7 1l-2.5-1-2 3.5L6.6 11a7.5 7.5 0 0 0 0 2l-2.1 1.6 2 3.5 2.5-1a7.3 7.3 0 0 0 1.7 1L11 21h4l.4-2.9a7.3 7.3 0 0 0 1.7-1l2.5 1 2-3.5zM13 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z"/></svg></i><div><b>Productivity</b><p>Mendukung keputusan operasional lebih cepat.</p></div></div></div></section></div></div><section class="mx-hl ccx-sec"><h4><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3h18v18H3zm3 13h2v-5H6zm4 0h2V8h-2zm4 0h2v-7h-2z"/></svg>Highlight</h4><div><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h2v2h6V2h2v2h3v18H4V4h3zm-1 8v10h12V10zm2 2h3v3H8z"/></svg></i><span>Go live<br><b>Mei 2026</b></span></div><div><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2h6v5H9zM3 15h6v5H3zm12 0h6v5h-6zM11 7h2v4h6v4h-2v-2H7v2H5v-4h6z"/></svg></i><span><b>14 RTK unit</b>, 5 rover,<br>1 gateway, 1 base station</span></div><div><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 13h2v9h-2zM12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6zM7.8 7.8a6 6 0 0 0 0 8.4l-1.4 1.4a8 8 0 0 1 0-11.2zm8.4 0 1.4-1.4a8 8 0 0 1 0 11.2l-1.4-1.4a6 6 0 0 0 0-8.4z"/></svg></i><span>RTK FIX rover/kabin<br><b>99%</b></span></div><div><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10.6 13.4a1 1 0 0 1 0-1.4l3.6-3.6a3 3 0 0 1 4.2 4.2l-2 2-1.4-1.4 2-2a1 1 0 0 0-1.4-1.4L12 13.4a1 1 0 0 1-1.4 0zm2.8-2.8a1 1 0 0 1 0 1.4l-3.6 3.6a3 3 0 0 1-4.2-4.2l2-2 1.4 1.4-2 2a1 1 0 0 0 1.4 1.4L12 10.6a1 1 0 0 1 1.4 0z"/></svg></i><span>Gateway connectivity &amp;<br>sound alert <b>100%</b></span></div></section></div>';
   function smRichHtml(a, prev, next){
     const P = a.P;
     return '<div class="smc-in">'
       + '<header class="smc-h"><div class="smc-band"><span class="no">' + a.no + '</span><div><b>' + P.name + '</b><small>' + P.sub + '</small></div></div>'
       + '<div class="smc-stg"><i>' + (a.icon || '') + '</i><span><small>Tahap saat ini:</small><b>' + P.stage + '</b></span></div></header>'
-      + '<div class="smc-rich">' + SM_CCX + '</div>'
+      + '<div class="smc-rich">' + (a.rich === 'mir' ? SM_MIR : SM_CCX) + '</div>'
       + '<footer class="smc-f"><button type="button" class="smc-btn" data-go="' + prev.id + '">' + SM_SVG.back + prev.name + '</button>'
       + '<button type="button" class="smc-btn main" data-go="">' + SM_SVG.back + 'Kembali ke peta</button>'
       + '<button type="button" class="smc-btn" data-go="' + next.id + '">' + next.name + SM_SVG.next + '</button></footer></div>';
@@ -10502,13 +10653,18 @@
       tl.fromTo(q('.ccx-sec'), { y:30, opacity:0 }, { y:0, opacity:1, stagger:.12, duration:.6, ease:'power3.out' }, .55);
       tl.fromTo(q('.ccx-tl, .ccx-loc, .ccx-ph'), { x:24, opacity:0 }, { x:0, opacity:1, stagger:.06, duration:.45 }, .8);
       tl.fromTo(q('.ccx-ph li, .ccx-loc .ch span'), { x:12, opacity:0 }, { x:0, opacity:1, stagger:.02, duration:.3 }, 1.0);
+      tl.fromTo(q('.mx-step'), { y:22, opacity:0 }, { y:0, opacity:1, stagger:.12, duration:.45, ease:'back.out(1.5)' }, .9);
+      tl.fromTo(q('.mx-rk li, .mx-bn, .mx-hl > div'), { x:16, opacity:0 }, { x:0, opacity:1, stagger:.06, duration:.35 }, 1.2);
+      tl.fromTo(q('.mx-zone .z'), { opacity:0 }, { opacity:1, stagger:.25, duration:.6 }, .9);
+      tl.fromTo(q('.mxv .hd, .mxv .bar, .mxv .tab, .mxv .cp'), { y:10, opacity:0 }, { y:0, opacity:1, stagger:.06, duration:.4 }, 1.0);
+      tl.fromTo(q('.mx-hero .lb'), { scale:.6, opacity:0 }, { scale:1, opacity:1, stagger:.12, duration:.4, ease:'back.out(2)' }, 1.3);
       tl.fromTo(q('.ccx-met .bar .a'), { width:'0%' }, { width:'50.6%', duration:1.2, ease:'power3.out' }, 1.1);
     }
     // the dashboard is drawn at a fixed design size and scaled into the card
     function fitRich(){
       const box = det.querySelector('.smc-rich'), st = box && box.firstElementChild; if(!st) return;
       const k = Math.min(box.clientWidth / 1800, box.clientHeight / 720);
-      st.style.transform = 'scale(' + k + ')'; st.style.left = ((box.clientWidth - 1800 * k) / 2) + 'px';
+      st.style.transform = 'scale(' + k + ')'; st.style.left = '0px'; st.style.width = (box.clientWidth / k) + 'px';
     }
     window.addEventListener('resize', ()=>{ if(detOpen) fitRich(); });
     function hideDet(){ clearTimeout(detT); if(hasGsap) gsap.killTweensOf(det); det.hidden = true; detOpen = false; gridEl.classList.remove('det-on'); if(hasGsap) gsap.set(det, { clearProps:'clipPath' }); }
@@ -10631,7 +10787,7 @@
       'Crossing &amp; gate hauling', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V9h2v4z"/></svg>', [120,622], [298,520], [[230,500],[340,500],[340,560],[230,560]], ''));
     AREAS[3].name = 'MIR';
     AREAS.forEach(a=> a.cats = CAT[a.id] || (a.id === 'ccv' ? ['cc'] : ['eng','auto']));
-    AREAS.forEach(a=>{ if(a.id === 'ccv' || a.id === 'eyes') a.rich = true; });
+    AREAS.forEach(a=>{ if(a.id === 'ccv' || a.id === 'eyes') a.rich = true; if(a.id === 'mir') a.rich = 'mir'; });
     const ORDER = ['ccv','eyes','mg','mir','arcas','rover','pump','haul','obds'];
     AREAS.sort((x, y)=> ORDER.indexOf(x.id) - ORDER.indexOf(y.id));
     return makeSiteMap({ pre:'sm', slide:'slideMap', w:1672, h:941, areas:AREAS, tilt:false, cats:CATS, fx:'<g class="tm-wifi" data-t="pump" transform="translate(860 378) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-net"><path d="M420 58 C 480 70, 560 95, 620 112"/><path d="M620 112 C 560 200, 460 280, 385 340"/><path d="M620 112 C 900 140, 1250 200, 1500 305"/><path d="M385 340 C 420 420, 440 480, 460 525"/><path d="M460 525 C 580 560, 690 590, 780 612"/><path d="M780 612 C 900 560, 1040 500, 1160 455"/></g><g class="tm-rings" data-t="haul"><ellipse cx="287" cy="428" rx="40" ry="11"/><ellipse cx="415" cy="438" rx="38" ry="11"/><ellipse cx="965" cy="310" rx="30" ry="9"/><ellipse cx="60" cy="398" rx="36" ry="10"/><ellipse cx="1205" cy="640" rx="36" ry="10"/></g><ellipse class="tm-bubble" data-t="arcas" cx="780" cy="616" rx="62" ry="40"/><g class="tm-radar" data-t="arcas"><path d="M850 600 a18 18 0 0 1 0 28"/><path d="M862 591 a32 32 0 0 1 0 46"/><path d="M874 582 a46 46 0 0 1 0 64"/></g><g class="tm-cv" data-t="eyes"><rect x="478" y="336" width="62" height="40" rx="4"/><rect x="250" y="398" width="70" height="40" rx="4"/><rect x="380" y="410" width="70" height="40" rx="4"/></g><g class="tm-signal" data-t="eyes"><path d="M398 40 a26 26 0 0 0 0 36"/><path d="M386 30 a42 42 0 0 0 0 56"/><path d="M442 40 a26 26 0 0 1 0 36"/><path d="M454 30 a42 42 0 0 1 0 56"/></g><g class="tm-grid" data-t="mg"><path d="M300 364 L440 364 L462 388 L280 388 Z"/><path d="M325 364 L310 388 M355 364 L345 388 M385 364 L380 388 M415 364 L417 388 M290 376 L452 376"/></g><g class="tm-holo" data-t="mg"><rect x="430" y="262" width="96" height="64" rx="6"/><circle cx="458" cy="294" r="11"/><path d="M458 280 v28 M444 294 h28 M484 316 l17 -32 l17 32 z"/></g><path class="tm-mesh" data-t="mir" d="M1250 340 C 1330 305, 1420 296, 1500 296 S 1610 300, 1668 318"/><g class="tm-pins" data-t="mir"><g transform="translate(1290 294)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1360 277)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1430 270)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1560 270)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1630 278)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g></g><g class="tm-wifi" data-t="rover" transform="translate(1160 418) scale(0.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="arcas" transform="translate(780 568) scale(0.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="haul" transform="translate(415 398) scale(0.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="haul" transform="translate(287 388) scale(0.7)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-chev" data-t="haul"><path d="M560 545 l16 -10 l16 10" transform="rotate(75 576 540)"/><path d="M585 552 l16 -10 l16 10" transform="rotate(75 601 547)"/></g>',
