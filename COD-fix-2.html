@@ -4560,6 +4560,27 @@
   .ccx-stage.mx2 .mxv > img{ object-fit:cover; }
   .sm-det .mx-full{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
   .sm-det .mx-full img{ max-width:100%; max-height:100%; width:auto; height:auto; border-radius:14px; box-shadow:0 12px 30px rgba(20,26,34,.15); }
+  .sm-det .mx-full img{ width:100%; height:100%; max-width:none; max-height:none; object-fit:fill; border-radius:12px; }
+
+  /* Overview: Control Capability Evolution strip under the closing note */
+  .hs-tv-ov2 .ov2-note{ flex:none !important; font-size:15px !important; line-height:1.4; padding-top:8px; }
+  .ov2-evo{ flex:none; margin-top:auto; display:grid; grid-template-columns:150px 1fr 26px 1fr 26px 1fr; align-items:stretch; border:1px solid #DCE3EA; border-radius:10px; overflow:hidden; background:#fff; }
+  .ov2-evo .t{ display:flex; align-items:center; padding:8px 14px; font:800 italic 14px/1.2 'Plus Jakarta Sans',sans-serif; color:#141A22; border-right:1px solid #DCE3EA; }
+  .ov2-evo .evs{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; padding:8px 6px; }
+  .ov2-evo .evs svg{ width:26px; height:26px; fill:#4A525C; }
+  .ov2-evo .evs b{ font:700 15px/1 'Plus Jakarta Sans',sans-serif; color:#141A22; }
+  .ov2-evo .evs.pv{ background:linear-gradient(115deg,#E4F3E0,#CDEBC5); } .ov2-evo .evs.pv svg{ fill:#1F9A3A; } .ov2-evo .evs.pv b{ color:#147A2C; }
+  .ov2-evo .eva{ align-self:center; justify-self:center; width:0; height:0; border-top:7px solid transparent; border-bottom:7px solid transparent; border-left:9px solid #9AA3AD; }
+  #slideStable.active .ov2-evo .evs{ animation:ov2Evo 4.5s ease-in-out infinite; }
+  #slideStable.active .ov2-evo .evs:nth-of-type(2){ animation-delay:1.5s; } #slideStable.active .ov2-evo .evs:nth-of-type(3){ animation-delay:3s; }
+  @keyframes ov2Evo{ 0%,100%{ transform:translateY(0); } 15%{ transform:translateY(-4px); } 30%{ transform:translateY(0); } }
+  .ov2-evo .evs{ background:#fff; } .ov2-evo .evs.pv{ background:linear-gradient(115deg,#E4F3E0,#CDEBC5); }
+  .hs-tv-ov2 .ov2-out2{ margin-top:46px !important; } .hs-tv-ov2 .ov2-out2 .ov-box{ padding:7px 14px !important; }
+  .hs-tv-ov2 .ov2-out2 .ov-box ul{ font-size:14.5px !important; } .hs-tv-ov2 .ov2-out2 .ov-box li b{ font-size:16.5px !important; }
+  .hs-tv-ov2 .ov2-note{ font-size:13.5px !important; padding-top:4px; } .ov2-evo .evs{ padding:5px 6px; } .ov2-evo .evs svg{ width:22px; height:22px; } .ov2-evo .evs b{ font-size:14px; }
+  /* plateau highlight: no box frame or tint, only the plateau / incident / breakthrough marks */
+  .ov2-callout{ background:none !important; animation:none !important; }
+  .ov2-callout::before{ display:none !important; }
 </style>
 </head>
 <body>
@@ -4873,6 +4894,7 @@
         <div class="ov-box orange"><h5>Underlying Risk</h5><ul><li><b>16% Peningkatan Blindspot Golden Rules</b> dibandingkan di 2025</li><li><b>3% Blindspot TBC</b> masih terjadi di 2026</li></ul></div>
       </div>
       <p class="ov2-note">Kontrol terhadap lagging yang sudah berjalan sudah banyak dilakukan dan berdampak pada peningkatan leading, peningkatan pelaporan hazard, peningkatan identifikasi TBC &amp; GR; tetapi lagging masih mencatatkan LTI &amp; Injury yang perlu <b>Fatal Prevention control</b> lanjutan.</p>
+      <div class="ov2-evo"><div class="t">Control Capability<br>Evolution</div><div class="evs"><svg viewBox="0 0 24 24"><path d="M4 4h4v2H6v2H4zm12 0h4v4h-2V6h-2zM4 16h2v2h2v2H4zm14 2v-2h2v4h-4v-2zM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8zm0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/></svg><b>Detect Earlier</b></div><i class="eva"></i><div class="evs"><svg viewBox="0 0 24 24"><path d="M11 13h2v9h-2zM12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6zM7.8 7.8a6 6 0 0 0 0 8.4l-1.4 1.4a8 8 0 0 1 0-11.2zm8.4 0 1.4-1.4a8 8 0 0 1 0 11.2l-1.4-1.4a6 6 0 0 0 0-8.4z"/></svg><b>Intervene Faster</b></div><i class="eva"></i><div class="evs pv"><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3zm-1.2 14.2-3.5-3.5 1.4-1.4 2.1 2.1 4.9-4.9 1.4 1.4-6.3 6.3z"/></svg><b>Prevent Better</b></div></div>
     </section>
     <svg class="ov2-links" aria-hidden="true"></svg>
   </div></div>
@@ -9477,7 +9499,7 @@
     const COLS = ['#E3262F', '#F05A28', '#F7A21B', '#F9C80E', '#E3262F', '#F28C28', '#D6243A'];
     const MOUTH = { x:23, y:41 }, EXIT = { x:80.5, y:44 };
     // control bands along the tube: each one catches part of what passes through it
-    const GATES = [37.5, 46.5, 55, 64.5, 75], CATCH = 0.42;
+    const GATES = [37.5, 46.5, 55, 64.5, 75], CATCH = 0.2;  // about 1 in 3 makes it through
     const tubeY = (x)=> MOUTH.y + (EXIT.y - MOUTH.y) * (x - MOUTH.x) / (EXIT.x - MOUTH.x);
     const alive = ()=> host.isConnected && host.offsetParent && document.getElementById('slideStable').classList.contains('active');
     const mk = (cls, css)=>{ const e = document.createElement('i'); if(cls) e.className = cls; e.style.cssText = css; host.appendChild(e); return e; };
@@ -9510,9 +9532,9 @@
       // 5. the few that make it through leave as small residual risk
       if(!caught){
         tl.to(b, { left:EXIT.x+'%', top:EXIT.y+'%', duration:.25, ease:'none' })
-          .to(b, { scale:.5, opacity:1, duration:.2, ease:'back.out(3)' })
+          .to(b, { scale:.45 + Math.random()*.35, opacity:1, duration:.2, ease:'back.out(3)' })
           .call(()=>{ const e = host.querySelector('.ov-exit'); if(e) gsap.fromTo(e, { scale:.4, opacity:.8 }, { scale:1.4, opacity:0, duration:.6 }); })
-          .to(b, { left:(87 + Math.random()*10)+'%', top:(EXIT.y - 10 + Math.random()*20)+'%', duration:1.8, ease:'power1.out' })
+          .to(b, { left:(86 + Math.random()*13)+'%', top:(EXIT.y - 18 + Math.random()*36)+'%', duration:1.6 + Math.random()*.8, ease:'power1.out' })
           .to(b, { opacity:0, duration:.7 }, '-=.6');
       }
     }
@@ -9840,6 +9862,7 @@
       tl.fromTo(q('.ov2-left > *, .ov2-right > *'), {y:16, opacity:0}, {y:0, opacity:1, stagger:0.06, duration:0.45}, 0.05);
       tl.fromTo(q('.ov-dot'), {scale:0, transformOrigin:'center', opacity:0}, {scale:1, opacity:1, stagger:0.02, duration:0.4, ease:'back.out(2)'}, 0.2);
       tl.fromTo(q('.ov-ctl'), {y:14, opacity:0}, {y:0, opacity:1, stagger:0.1, duration:0.4}, 0.45);
+      tl.fromTo(q('.ov2-evo .evs'), {y:12, opacity:0}, {y:0, opacity:1, stagger:0.15, duration:0.4}, 0.9);
       tl.fromTo(q('.ov-imp, .ov-li'), {y:12, opacity:0, scale:.94}, {y:0, opacity:1, scale:1, stagger:0.06, duration:0.4, ease:'back.out(1.6)'}, 0.6);
       countTo(tl, q('.ov-li .n'), 0.7, 0.06);
       tl.fromTo(q('.au-c'), {y:20, opacity:0}, {y:0, opacity:1, stagger:0.12, duration:0.5}, 0.05);
@@ -10802,7 +10825,7 @@
       'Crossing &amp; gate hauling', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V9h2v4z"/></svg>', [120,622], [298,520], [[230,500],[340,500],[340,560],[230,560]], ''));
     AREAS[3].name = 'MIR';
     AREAS.forEach(a=> a.cats = CAT[a.id] || (a.id === 'ccv' ? ['cc'] : ['eng','auto']));
-    AREAS.forEach(a=>{ if(a.id === 'ccv' || a.id === 'eyes') a.rich = true; if(a.id === 'mir') a.rich = 'mir'; });
+    AREAS.forEach(a=>{ if(a.id === 'ccv' || a.id === 'eyes') a.rich = true; if(a.id === 'mir' || a.id === 'mg') a.rich = 'mir'; });
     const ORDER = ['ccv','eyes','mg','mir','arcas','rover','pump','haul','obds'];
     AREAS.sort((x, y)=> ORDER.indexOf(x.id) - ORDER.indexOf(y.id));
     return makeSiteMap({ pre:'sm', slide:'slideMap', w:1672, h:941, areas:AREAS, tilt:false, cats:CATS, fx:'<g class="tm-wifi" data-t="pump" transform="translate(860 378) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-net"><path d="M420 58 C 480 70, 560 95, 620 112"/><path d="M620 112 C 560 200, 460 280, 385 340"/><path d="M620 112 C 900 140, 1250 200, 1500 305"/><path d="M385 340 C 420 420, 440 480, 460 525"/><path d="M460 525 C 580 560, 690 590, 780 612"/><path d="M780 612 C 900 560, 1040 500, 1160 455"/></g><g class="tm-rings" data-t="haul"><ellipse cx="287" cy="428" rx="40" ry="11"/><ellipse cx="415" cy="438" rx="38" ry="11"/><ellipse cx="965" cy="310" rx="30" ry="9"/><ellipse cx="60" cy="398" rx="36" ry="10"/><ellipse cx="1205" cy="640" rx="36" ry="10"/></g><ellipse class="tm-bubble" data-t="arcas" cx="780" cy="616" rx="62" ry="40"/><g class="tm-radar" data-t="arcas"><path d="M850 600 a18 18 0 0 1 0 28"/><path d="M862 591 a32 32 0 0 1 0 46"/><path d="M874 582 a46 46 0 0 1 0 64"/></g><g class="tm-cv" data-t="eyes"><rect x="478" y="336" width="62" height="40" rx="4"/><rect x="250" y="398" width="70" height="40" rx="4"/><rect x="380" y="410" width="70" height="40" rx="4"/></g><g class="tm-signal" data-t="eyes"><path d="M398 40 a26 26 0 0 0 0 36"/><path d="M386 30 a42 42 0 0 0 0 56"/><path d="M442 40 a26 26 0 0 1 0 36"/><path d="M454 30 a42 42 0 0 1 0 56"/></g><g class="tm-grid" data-t="mg"><path d="M300 364 L440 364 L462 388 L280 388 Z"/><path d="M325 364 L310 388 M355 364 L345 388 M385 364 L380 388 M415 364 L417 388 M290 376 L452 376"/></g><g class="tm-holo" data-t="mg"><rect x="430" y="262" width="96" height="64" rx="6"/><circle cx="458" cy="294" r="11"/><path d="M458 280 v28 M444 294 h28 M484 316 l17 -32 l17 32 z"/></g><path class="tm-mesh" data-t="mir" d="M1250 340 C 1330 305, 1420 296, 1500 296 S 1610 300, 1668 318"/><g class="tm-pins" data-t="mir"><g transform="translate(1290 294)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1360 277)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1430 270)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1560 270)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1630 278)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g></g><g class="tm-wifi" data-t="rover" transform="translate(1160 418) scale(0.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="arcas" transform="translate(780 568) scale(0.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="haul" transform="translate(415 398) scale(0.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="haul" transform="translate(287 388) scale(0.7)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-chev" data-t="haul"><path d="M560 545 l16 -10 l16 10" transform="rotate(75 576 540)"/><path d="M585 552 l16 -10 l16 10" transform="rotate(75 601 547)"/></g>',
