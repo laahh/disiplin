@@ -3790,11 +3790,11 @@
   @media (prefers-reduced-motion: reduce){ .ex-phase *, .ex-phase::after, .ov-li, .ov-li *{ animation:none !important; } }
 
   /* ---- Site map slide: deck header + 2.5D map card + detail panel ---- */
-  #slideMap{ padding:2.4vh 72px 2.6vh 64px; --sm-ok:#16812F; --sm-warn:#D98A00; --sm-crit:#D6243A; --sm-line:rgba(20,26,34,.1); }
-  #slideMap .slide-inner{ display:flex; flex-direction:column; gap:1.2vh; height:100%; min-height:0; font-family:'Source Sans 3',sans-serif; color:var(--cv-ink); }
-  #slideMap .sp-title{ font-size:clamp(1.6rem,5.2vh,3.1rem); margin:.4vh 0 .6vh; }
-  #slideMap .sp-title em{ font-family:inherit; font-style:normal; color:var(--cv-green); }
-  #slideMap .sp-desc{ padding-left:14px; border-left:3px solid var(--cv-lime); font-size:clamp(.7rem,1.7vh,.96rem); }
+  #slideMap, #slideMine{ padding:2.4vh 72px 2.6vh 64px; --sm-ok:#16812F; --sm-warn:#D98A00; --sm-crit:#D6243A; --sm-line:rgba(20,26,34,.1); }
+  #slideMap .slide-inner, #slideMine .slide-inner{ display:flex; flex-direction:column; gap:1.2vh; height:100%; min-height:0; font-family:'Source Sans 3',sans-serif; color:var(--cv-ink); }
+  #slideMap .sp-title, #slideMine .sp-title{ font-size:clamp(1.6rem,5.2vh,3.1rem); margin:.4vh 0 .6vh; }
+  #slideMap .sp-title em, #slideMine .sp-title em{ font-family:inherit; font-style:normal; color:var(--cv-green); }
+  #slideMap .sp-desc, #slideMine .sp-desc{ padding-left:14px; border-left:3px solid var(--cv-lime); font-size:clamp(.7rem,1.7vh,.96rem); }
   .sm-grid{ flex:1; min-height:0; display:grid; align-items:start; grid-template-columns:minmax(0,1fr) clamp(300px,24vw,400px); gap:16px; }
   .sm-left{ min-width:0; min-height:0; display:flex; flex-direction:column; gap:10px; }
   .sm-tools{ flex:none; display:flex; flex-wrap:wrap; align-items:center; gap:8px; }
@@ -3812,7 +3812,7 @@
   .sm-cam{ position:absolute; left:0; top:0; width:100%; height:100%; max-width:none; transform-origin:0 0; transform-style:preserve-3d; will-change:transform; transition:transform .95s cubic-bezier(.22,.8,.2,1); }
   .sm-cam.instant{ transition:none; }
   .sm-cam img{ position:absolute; inset:0; width:100%; height:100%; max-width:none; display:block; object-fit:fill; pointer-events:none; }
-  .sm-cam svg{ position:absolute; inset:0; width:100%; height:100%; overflow:visible; }
+  .sm-cam > svg{ position:absolute; inset:0; width:100%; height:100%; overflow:visible; }
   .sm-hs{ fill:transparent; stroke:transparent; stroke-width:3; cursor:pointer; transition:fill .2s, stroke .2s; vector-effect:non-scaling-stroke; }
   .sm-hs:hover, .sm-hs.hover{ fill:rgba(123,193,67,.24); stroke:#7BC143; }
   .sm-hs.active{ fill:transparent; stroke:#9BE15D; stroke-width:2.5; }
@@ -3974,6 +3974,97 @@
   .hs-solo-slide .sp-title em{ font-family:inherit; font-style:normal; font-weight:inherit; color:var(--cv-green); }
   .hs-solo-slide .sp-desc{ padding-left:14px; border-left:3px solid var(--cv-lime); font-size:clamp(.7rem,1.7vh,.96rem); }
   .hs-grid.hs-solo{ grid-template-columns:minmax(0,1fr); }
+
+  /* Site map: automation technology pins and project detail */
+  .sm-legend .tech{ background:#3D7BF0; box-shadow:0 0 0 3px rgba(61,123,240,.2); }
+  .sm-pin.tech{ --pc:#4F8DF5; }
+  .sm-pin.tech .tag{ font-size:13px; padding:4px 11px 4px 4px; }
+  .sm-pin.tech .no{ width:21px; height:21px; color:#fff; font-size:12px; }
+  .sm-hs.tech:hover, .sm-hs.tech.hover{ fill:rgba(79,141,245,.22); stroke:#7FB0FF; }
+  .sm-hs.tech.active{ stroke:#9CC2FF; }
+  .sm-panel .dotst.tech{ background:#3D7BF0; }
+  .sm-panel .item .stg{ display:inline-block; margin-top:4px; padding:2px 8px; border-radius:999px; background:#EAF1FE; color:#16418F; font:700 10.5px/1.3 'Plus Jakarta Sans',sans-serif; }
+  .sm-panel .chip.loc{ color:#16418F; border-color:rgba(22,65,143,.25); background:#EAF1FE; }
+  .sm-panel .stage{ display:flex; flex-direction:column; gap:2px; padding:8px 12px; border-radius:10px; background:linear-gradient(115deg,#16418F,#2A5BD7); color:#fff; }
+  .sm-panel .stage small{ font:700 10px/1 'Plus Jakarta Sans',sans-serif; letter-spacing:.12em; text-transform:uppercase; opacity:.8; }
+  .sm-panel .stage b{ font:800 14px/1.25 'Plus Jakarta Sans',sans-serif; }
+  .sm-panel .media{ border-radius:12px; overflow:hidden; aspect-ratio:16/8; background:#0D1211; }
+  .sm-panel .media img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .sm-panel ul.prog li::before{ background:#2A5BD7; }
+  .sm-panel ul.risk li{ font-size:13px; line-height:1.35; }
+  .sm-panel .nxt{ display:flex; flex-direction:column; gap:2px; padding:9px 12px; border-radius:10px; background:linear-gradient(115deg,#EAF2FD,#E9F6E9); border-left:4px solid #16418F; }
+  .sm-panel .nxt small{ font:700 10.5px/1 'Plus Jakarta Sans',sans-serif; letter-spacing:.1em; text-transform:uppercase; color:#6B7580; }
+  .sm-panel .nxt b{ font:800 13.5px/1.3 'Plus Jakarta Sans',sans-serif; color:#0F2D6B; }
+
+  /* ---- Map 2: technology labels over the operations picture ---- */
+  .sm-pin.lbl{ transform:translate(-50%,-50%) translateZ(30px) scale(var(--inv,1)); pointer-events:auto; cursor:pointer; }
+  .sm-pin.lbl .tag{ gap:9px; padding:5px 14px 5px 5px; border-radius:10px; background:rgba(6,34,20,.86); border:1.5px solid rgba(123,193,67,.85); color:#F2FBEF;
+    font:800 14px/1 'Plus Jakarta Sans',sans-serif; box-shadow:0 0 0 1px rgba(0,0,0,.25), 0 0 18px rgba(46,230,120,.35), 0 8px 18px rgba(0,0,0,.35); transition:transform .2s, background .2s; }
+  .sm-pin.lbl .nm{ display:inline !important; }
+  .sm-pin.lbl .ic{ display:grid; place-items:center; width:28px; height:28px; border-radius:7px; background:linear-gradient(135deg,#1F9A3A,#147A2C); }
+  .sm-pin.lbl .ic svg{ width:17px; height:17px; fill:#fff; fill-rule:evenodd; }
+  .sm-pin.lbl.hover .tag, .sm-pin.lbl.active .tag{ background:rgba(16,96,46,.94); transform:scale(1.06); }
+  .sm-pin.lbl.dim{ opacity:.3; }
+  .tm-vp .sm-hs:hover, .tm-vp .sm-hs.hover{ fill:rgba(46,230,120,.16); stroke:#5CF08E; }
+  .tm-vp .sm-hs.active{ stroke:#7CFFA6; }
+  .tm-fx{ pointer-events:none; }
+  .tm-fx *{ vector-effect:non-scaling-stroke; }
+  .tm-fx .sm-link{ stroke:#5CF08E; stroke-width:2; opacity:.9; filter:drop-shadow(0 0 3px rgba(46,230,120,.8)); }
+  .tm-fx .sm-anchor{ fill:rgba(46,230,120,.25); stroke:#5CF08E; stroke-width:2; transform-box:fill-box; transform-origin:center; animation:tmPing 2.2s ease-out infinite; }
+  .tm-fx .sm-anchor-in{ fill:#7CFFA6; }
+  .tm-net path{ fill:none; stroke:#4BE58A; stroke-width:2.2; stroke-dasharray:3 9; stroke-linecap:round; opacity:.85; filter:drop-shadow(0 0 4px rgba(46,230,120,.9)); animation:tmFlow 1.6s linear infinite; }
+  .tm-rings ellipse{ fill:rgba(46,230,120,.08); stroke:#4BE58A; stroke-width:2.4; transform-box:fill-box; transform-origin:center; animation:tmRing 2.4s ease-in-out infinite; filter:drop-shadow(0 0 5px rgba(46,230,120,.8)); }
+  .tm-rings ellipse:nth-child(2){ animation-delay:.6s; } .tm-rings ellipse:nth-child(3){ animation-delay:1.2s; }
+  .tm-bubble{ fill:rgba(46,230,120,.10); stroke:#5CF08E; stroke-width:2.5; filter:drop-shadow(0 0 8px rgba(46,230,120,.9)); animation:tmBreath 3s ease-in-out infinite; }
+  .tm-radar path{ fill:none; stroke:#FF4D4D; stroke-width:3; stroke-linecap:round; filter:drop-shadow(0 0 4px rgba(255,60,60,.9)); animation:tmRadar 1.4s ease-out infinite; }
+  .tm-radar path:nth-child(2){ animation-delay:.2s; } .tm-radar path:nth-child(3){ animation-delay:.4s; }
+  .tm-warnbox{ fill:rgba(255,60,60,.12); stroke:#FF4D4D; stroke-width:2; animation:tmBlink 1.2s ease-in-out infinite; }
+  .tm-warn{ fill:#FF4D4D; animation:tmBlink 1.2s ease-in-out infinite; }
+  .tm-cv rect{ fill:rgba(46,230,120,.10); stroke:#4BE58A; stroke-width:2; animation:tmBlink 2.6s ease-in-out infinite; }
+  .tm-grid path{ fill:rgba(46,230,120,.14); stroke:#4BE58A; stroke-width:1.6; }
+  .tm-holo rect{ fill:rgba(16,60,40,.45); stroke:#4BE58A; stroke-width:1.8; } .tm-holo circle, .tm-holo path{ fill:none; stroke:#7CFFA6; stroke-width:1.6; }
+  .tm-holo{ animation:tmBreath 3.4s ease-in-out infinite; }
+  .tm-mesh{ fill:none; stroke:#4BE58A; stroke-width:2.4; stroke-dasharray:8 6; filter:drop-shadow(0 0 4px rgba(46,230,120,.9)); animation:tmFlow 2.4s linear infinite; }
+  .tm-pins path{ fill:#2FD86F; stroke:#063; stroke-width:1; animation:tmBob 2.4s ease-in-out infinite; }
+  .tm-pins g:nth-child(2n) path{ animation-delay:.5s; } .tm-pins g:nth-child(3n) path{ animation-delay:1s; }
+  .tm-wifi path{ fill:none; stroke:#5CF08E; stroke-width:3; stroke-linecap:round; } .tm-wifi circle{ fill:#5CF08E; }
+  .tm-wifi path{ animation:tmBlink 1.6s ease-in-out infinite; } .tm-wifi path:nth-child(2){ animation-delay:.25s; }
+  .tm-chev path{ fill:none; stroke:#5CF08E; stroke-width:5; stroke-linecap:round; stroke-linejoin:round; animation:tmBlink 1.2s ease-in-out infinite; }
+  .tm-chev path:nth-child(2){ animation-delay:.3s; }
+  @keyframes tmFlow{ to{ stroke-dashoffset:-24; } }
+  @keyframes tmRing{ 0%,100%{ transform:scale(1); opacity:.9; } 50%{ transform:scale(1.08); opacity:.55; } }
+  @keyframes tmBreath{ 0%,100%{ opacity:.95; } 50%{ opacity:.55; } }
+  @keyframes tmRadar{ 0%{ opacity:0; } 30%{ opacity:1; } 100%{ opacity:0; } }
+  @keyframes tmBlink{ 0%,100%{ opacity:1; } 50%{ opacity:.35; } }
+  @keyframes tmBob{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-5px); } }
+  @keyframes tmPing{ 0%{ transform:scale(.8); opacity:1; } 100%{ transform:scale(2.2); opacity:0; } }
+  @media (prefers-reduced-motion: reduce){ .tm-fx *{ animation:none !important; } }
+
+  /* site maps: tidy panel (thin scrollbar, compact rows when the list is long) */
+  .sm-panel{ scrollbar-width:thin; scrollbar-color:rgba(20,26,34,.18) transparent; }
+  #slideMine .sm-panel .item{ padding:clamp(5px,.85vh,9px) 18px; }
+  #slideMine .sm-panel .item .stg{ margin-top:3px; }
+  #slideMine .sm-panel .ph{ padding:14px 18px 10px; }
+  #slideMine .sm-legend{ margin-left:auto; }
+  .tm-fx .sm-link{ stroke-width:2.4; stroke-linecap:round; }
+
+  /* map 2 toolbar: category menu + view buttons */
+  #slideMine .sm-tools{ flex-wrap:nowrap; justify-content:space-between; }
+  .sm-cats{ display:flex; flex-wrap:wrap; gap:6px; padding:4px; border-radius:999px; background:rgba(255,255,255,.75); border:1px solid rgba(20,26,34,.08); box-shadow:0 2px 10px rgba(20,26,34,.06); }
+  .sm-cat{ display:inline-flex; align-items:center; gap:8px; padding:8px 16px; border:0; border-radius:999px; background:transparent; color:var(--cv-ink); font:700 13.5px/1 'Plus Jakarta Sans',sans-serif; cursor:pointer; transition:background .2s, color .2s; }
+  .sm-cat i{ font-style:normal; display:grid; place-items:center; min-width:20px; height:20px; padding:0 5px; border-radius:999px; background:rgba(31,154,58,.12); color:var(--cv-green-d); font-size:11px; }
+  .sm-cat:hover{ background:rgba(31,154,58,.08); }
+  .sm-cat.is-on{ background:linear-gradient(115deg,var(--cv-green-d),var(--cv-green)); color:#fff; box-shadow:0 4px 12px rgba(31,154,58,.3); }
+  .sm-cat.is-on i{ background:rgba(255,255,255,.25); color:#fff; }
+  .sm-tools-r{ display:flex; gap:8px; flex:none; }
+  #slideMine .sm-tools-r .sm-btn{ padding:8px 13px; font-size:12.5px; }
+  /* filtered out: hotspot gone, label and its effects fade away */
+  .sm-hs.off{ display:none; }
+  .sm-pin.off{ opacity:0 !important; pointer-events:none !important; }
+  .sm-pin{ transition:transform .95s cubic-bezier(.22,.8,.2,1), opacity .35s; }
+  .tm-fx [data-t]{ transition:opacity .4s; }
+  .tm-fx [data-t].off{ opacity:.06 !important; animation-play-state:paused; }
+  .sm-vp.filtered .tm-net{ opacity:.25; transition:opacity .4s; }
 </style>
 </head>
 <body>
@@ -3989,10 +4080,10 @@
   <span class="rail-brand mono">OHS DIVISI</span>
   <div class="rail-letters" id="railLetters">
     <button type="button" data-jump="0">H</button>
-    <button type="button" data-jump="8">S</button>
-    <button type="button" data-jump="9">C</button>
-    <!-- <button type="button" data-jump="12">C</button> -->
-    <button type="button" data-jump="12">M</button>
+    <button type="button" data-jump="9">S</button>
+    <button type="button" data-jump="10">C</button>
+    <!-- <button type="button" data-jump="13">C</button> -->
+    <button type="button" data-jump="13">M</button>
   </div>
   <div class="rail-progress"><i id="progressFill"></i></div>
   <div class="rail-step" id="railStep">01</div>
@@ -4434,21 +4525,21 @@
       <div class="sp-head">
         <p class="kicker mono fade" data-step="1" id="smKicker">OHS Division · Peta Interaktif Site Tambang</p>
         <h2 class="sp-title fade" data-step="1" id="smTitle">Peta Interaktif <em>Site Tambang</em></h2>
-        <p class="sp-desc fade" data-step="1" id="smDesc">Klik area pada peta untuk zoom dan membaca <b>risiko utama</b>, <b>kontrol kritis</b>, dan <b>indikator HSE</b> per area · scroll untuk zoom · seret untuk geser · Esc untuk kembali.</p>
+        <p class="sp-desc fade" data-step="1" id="smDesc">Sebaran <b>teknologi safety automation</b> di site: klik pin untuk melihat <b>bahaya yang dikendalikan</b>, <b>progress</b>, dan <b>next step</b> tiap teknologi · scroll untuk zoom · seret untuk geser · Esc untuk kembali.</p>
       </div>
       <div class="sm-grid fade" data-step="1" id="smGrid">
         <div class="sm-left">
           <div class="sm-tools">
-            <button class="sm-btn" id="smBtnLabels" aria-pressed="false" type="button">Label area</button>
+            <button class="sm-btn" id="smBtnLabels" aria-pressed="true" type="button">Label area</button>
             <button class="sm-btn" id="smBtnTilt" aria-pressed="true" type="button">Efek 3D</button>
             <button class="sm-btn" id="smBtnReset" type="button">Lihat seluruh site</button>
-            <span class="sm-legend"><i class="crit"></i>Kritis<i class="warn"></i>Waspada<i class="ok"></i>Normal</span>
+            <span class="sm-legend"><i class="tech"></i>Teknologi automation (ARCAS · Machine Guidance · MIR · Remote Dozer)</span>
           </div>
-          <div class="sm-vp" id="smVp" aria-label="Peta site tambang. Klik area untuk melihat detail.">
+          <div class="sm-vp labels" id="smVp" aria-label="Peta site tambang. Klik teknologi untuk melihat detail.">
             <div class="sm-tilt" id="smTiltEl">
               <div class="sm-cam" id="smCam">
-                <img src="mom/site-map.jpg" alt="Ilustrasi site tambang: open pit, hauling road, coal processing plant, stockpile, settling pond, workshop, fuel station, perkantoran, dan pelabuhan" draggable="false">
-                <svg viewBox="0 0 1916 821" preserveAspectRatio="none">
+                <img src="mom/tambang2.jpg" alt="Site tambang: open pit, hauling road, disposal, stockpile dan CPP, workshop, perkantoran, dan pelabuhan dengan ship loader" draggable="false">
+                <svg viewBox="0 0 1672 941" preserveAspectRatio="none">
                   <path class="sm-shade" id="smShade" fill-rule="evenodd" d=""></path>
                   <g id="smPolys"></g>
                 </svg>
@@ -4463,6 +4554,47 @@
           </div>
         </div>
         <aside class="sm-panel" id="smPanel" aria-live="polite"></aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" id="slideMine" data-steps="1" data-section="B · Site Map">
+    <div class="slide-inner">
+      <div class="sp-head">
+        <p class="kicker mono fade" data-step="1" id="tmKicker">OHS Division · Peta Teknologi Operasi Tambang</p>
+        <h2 class="sp-title fade" data-step="1" id="tmTitle">Teknologi <em>Operasi Tambang</em></h2>
+        <p class="sp-desc fade" data-step="1" id="tmDesc">Teknologi keselamatan yang bekerja di sepanjang operasi, dari <b>control room</b> hingga <b>hauling road</b>: klik label untuk melihat <b>bahaya yang dikendalikan</b>, <b>progress</b>, dan <b>next step</b> tiap teknologi · scroll untuk zoom · seret untuk geser · Esc untuk kembali.</p>
+      </div>
+      <div class="sm-grid fade" data-step="1" id="tmGrid">
+        <div class="sm-left">
+          <div class="sm-tools">
+            <div class="sm-cats" id="tmCats" role="group" aria-label="Kategori teknologi"></div>
+            <span class="sm-tools-r">
+              <button class="sm-btn" id="tmBtnLabels" aria-pressed="true" type="button">Label area</button>
+              <button class="sm-btn" id="tmBtnTilt" aria-pressed="false" type="button">Efek 3D</button>
+              <button class="sm-btn" id="tmBtnReset" type="button">Lihat seluruh site</button>
+            </span>
+          </div>
+          <div class="sm-vp labels tm-vp" id="tmVp" aria-label="Peta site tambang. Klik teknologi untuk melihat detail.">
+            <div class="sm-tilt" id="tmTiltEl">
+              <div class="sm-cam" id="tmCam">
+                <img src="mom/tambang.jpg" alt="Operasi tambang: control room, tower CCTV, excavator, disposal, dump truck di hauling road, remote dozer, dan charging station" draggable="false">
+                <svg viewBox="0 0 1672 941" preserveAspectRatio="none">
+                  <g class="tm-fx" id="tmFx"></g>
+                  <path class="sm-shade" id="tmShade" fill-rule="evenodd" d=""></path>
+                  <g id="tmPolys"></g>
+                </svg>
+                <div id="tmPins"></div>
+              </div>
+            </div>
+            <div class="sm-hud" id="tmHud">ZOOM 1.0×</div>
+            <div class="sm-zoom">
+              <button type="button" id="tmZin" aria-label="Perbesar">+</button>
+              <button type="button" id="tmZout" aria-label="Perkecil">−</button>
+            </div>
+          </div>
+        </div>
+        <aside class="sm-panel" id="tmPanel" aria-live="polite"></aside>
       </div>
     </div>
   </section>
@@ -5839,7 +5971,7 @@
       killSlide(index);
       const tl = gsap.timeline({ defaults:{ duration:0.5, ease:'power3.out' } });
       tls.set(index, tl);
-      const fns = [opening, stable, rtslide, auslide, sitemap, opstab, transform, crossdiv, safety, engineering, health, hjourney, nextdo, berbagi];
+      const fns = [opening, stable, rtslide, auslide, sitemap, minemap, opstab, transform, crossdiv, safety, engineering, health, hjourney, nextdo, berbagi];
       if(fns[index]) fns[index](tl, n, prev);
     }
     // How Stable Are We?: header, MoM items, then safety tiles and rings, health tiles, KPI cards
@@ -5925,21 +6057,25 @@
       return function(tl, n, prev){
         if(!(n>=1 && prev<1)) return;
         tl.fromTo(['#'+pre+'Kicker','#'+pre+'Title','#'+pre+'Desc'], {x:28, opacity:0}, {x:0, opacity:1, stagger:0.08, duration:0.45}, 0);
-        tl.call(()=> hsTabCopy.mount(view, $id(pre+'Host')), null, 0.05);
+        hsTabCopy.mount(view, $id(pre+'Host'));
       };
     }
     const rtslide = soloView('rt', 'strans'), auslide = soloView('au', 'auto');
     // Site map: header, then the map settles and the pins drop in one after another
-    function sitemap(tl, n, prev){
-      if(!(n>=1 && prev<1)) return;
-      siteMap.reset();
-      tl.fromTo(['#smKicker','#smTitle','#smDesc'], {x:28, opacity:0}, {x:0, opacity:1, stagger:0.08, duration:0.45}, 0);
-      tl.fromTo('#smGrid', {y:22, opacity:0}, {y:0, opacity:1, duration:0.6}, 0.15);
-      tl.fromTo('#smCam img', {scale:1.08, opacity:0}, {scale:1, opacity:1, duration:1.2, ease:'power2.out', clearProps:'transform'}, 0.2);
-      tl.fromTo(siteMap.pins(), {y:-30, opacity:0}, {y:0, opacity:1, stagger:0.06, duration:0.5, ease:'back.out(2)', clearProps:'transform'}, 0.7);
-      tl.fromTo('#smPanel .item', {x:16, opacity:0}, {x:0, opacity:1, stagger:0.04, duration:0.35}, 0.6);
-      tl.call(()=> siteMap.refit(), null, 0.05);
+    function mapIn(pre, map){
+      return function(tl, n, prev){
+        if(!(n>=1 && prev<1)) return;
+        const m = map(); m.reset();
+        tl.fromTo(['#'+pre+'Kicker','#'+pre+'Title','#'+pre+'Desc'], {x:28, opacity:0}, {x:0, opacity:1, stagger:0.08, duration:0.45}, 0);
+        tl.fromTo('#'+pre+'Grid', {y:22, opacity:0}, {y:0, opacity:1, duration:0.6}, 0.15);
+        tl.fromTo('#'+pre+'Cam img', {scale:1.08, opacity:0}, {scale:1, opacity:1, duration:1.2, ease:'power2.out', clearProps:'transform'}, 0.2);
+        tl.fromTo('#'+pre+'Fx > *', {opacity:0}, {opacity:1, stagger:0.04, duration:0.5}, 0.9);
+        tl.fromTo(m.pins(), {y:-30, opacity:0}, {y:0, opacity:1, stagger:0.08, duration:0.5, ease:'back.out(2)', clearProps:'transform'}, 0.7);
+        tl.fromTo('#'+pre+'Panel .item', {x:16, opacity:0}, {x:0, opacity:1, stagger:0.04, duration:0.35}, 0.6);
+        tl.call(()=> m.refit(), null, 0.05);
+      };
     }
+    const sitemap = mapIn('sm', ()=> siteMap), minemap = mapIn('tm', ()=> mineMap);
     // Operational Stability: header, the Major Case bowtie, the two Journey cards, then the Golden Rules table
     function opstab(tl, n, prev){
       const q = (sel)=> document.querySelectorAll('#slideOpStab '+sel);
@@ -8258,7 +8394,7 @@
       else if(e.key==='r' || e.key==='R') goTo(0);
       else if(e.key==='u' || e.key==='U'){ replaySlide(current); applyFades(slides[current],0); setStep(1,{prev:0}); }
       else if(/^[a-eA-E]$/.test(e.key)){
-        const map={ a:0, b:8, c:9, d:9, e:12 }; goTo(map[e.key.toLowerCase()]);
+        const map={ a:0, b:9, c:10, d:10, e:13 }; goTo(map[e.key.toLowerCase()]);
       }
     });
     function openGuide(){ guide.classList.add('open'); }
@@ -9814,90 +9950,38 @@
     return { show, fit, chart };
   })();
   // Site map slide: interactive 2.5D image map (ported from the standalone prototype), deck-styled
-  const siteMap = (function(){
-    const IMG_W = 1916, IMG_H = 821;
-    const AREAS = [
- {id:"pit", name:"Open Pit", cat:"Penambangan", st:"warn",
-  poly:[[230,170],[1090,175],[1100,280],[930,370],[620,440],[300,410],[190,330]], pin:[640,230],
-  desc:"Area penggalian batubara dan overburden dengan sistem jenjang (bench). Excavator memuat material ke dump truck, lalu truck keluar lewat ramp ke hauling road.",
-  risks:["Longsor dinding / highwall failure","Interaksi unit besar dan kendaraan kecil","Area peledakan (blasting)"],
-  ctrl:["Inspeksi geoteknik tiap shift","Radius aman dan sirene sebelum blasting","Komunikasi radio dan izin masuk area"],
-  kpi:[["2","Insiden 30 hari"],["148","SAP minggu ini"],["86%","Coverage area"]]},
- {id:"survey", name:"Survey & Monitoring Lereng", cat:"Geoteknik", st:"ok",
-  poly:[[5,165],[290,165],[290,265],[5,265]], pin:[150,200],
-  desc:"Pemindaian lereng dengan radar dan GNSS. Warna pada permukaan menunjukkan pergerakan lereng; merah berarti pergerakan paling besar.",
-  risks:["Bekerja dekat tepi lereng","Peringatan pergerakan terlambat ditindaklanjuti"],
-  ctrl:["Slope stability radar 24 jam","Batas alarm dan prosedur evakuasi"],
-  kpi:[["0","Insiden 30 hari"],["21","SAP minggu ini"],["100%","Coverage area"]]},
- {id:"ctrl", name:"Mine Control Room", cat:"Operasi", st:"ok",
-  poly:[[675,125],[860,125],[860,188],[675,188]], pin:[768,140],
-  desc:"Pusat dispatch dan pemantauan armada. Data posisi unit, DMS, dan cuaca dikumpulkan di sini untuk mengatur lalu lintas tambang.",
-  risks:["Gangguan komunikasi radio dan jaringan","Kelelahan operator dispatch"],
-  ctrl:["Jaringan cadangan dan genset","Rotasi shift dispatcher"],
-  kpi:[["0","Insiden 30 hari"],["12","SAP minggu ini"],["100%","Coverage area"]]},
- {id:"road", name:"Hauling Road", cat:"Transportasi", st:"crit",
-  poly:[[0,345],[250,410],[560,455],[850,505],[1250,585],[1240,612],[850,545],[560,495],[250,450],[0,390]], pin:[560,470],
-  desc:"Jalan angkut dari pit menuju CPP dan stockpile. Area dengan lalu lintas unit paling padat sehingga paling sering menjadi lokasi temuan perilaku berkendara.",
-  risks:["Kecepatan berlebih dan jarak beriringan","Fatigue pengemudi","Jalan licin setelah hujan"],
-  ctrl:["DMS dan batas kecepatan per segmen","Penyiraman dan grading jalan","Fatigue check sebelum shift"],
-  kpi:[["5","Insiden 30 hari"],["231","SAP minggu ini"],["72%","Coverage area"]]},
- {id:"cpp", name:"Coal Processing Plant", cat:"Pengolahan", st:"warn",
-  poly:[[1200,295],[1570,295],[1570,410],[1200,410]], pin:[1385,320],
-  desc:"Crusher dan conveyor yang memecah batubara ke ukuran produk lalu mengalirkannya ke stockpile dan pelabuhan.",
-  risks:["Terjepit conveyor yang bergerak","Paparan debu dan bising","Pekerjaan perawatan tanpa isolasi energi"],
-  ctrl:["LOTO sebelum perawatan","Guarding dan pull-wire conveyor","APD pernapasan dan pendengaran"],
-  kpi:[["1","Insiden 30 hari"],["64","SAP minggu ini"],["91%","Coverage area"]]},
- {id:"stock", name:"Stockpile Batubara", cat:"Pengolahan", st:"warn",
-  poly:[[1080,410],[1530,410],[1530,535],[1080,535]], pin:[1230,440],
-  desc:"Timbunan batubara ROM dan produk sebelum dimuat ke kapal. Suhu timbunan dipantau untuk mencegah swabakar.",
-  risks:["Swabakar (self-heating)","Unit tergelincir di lereng timbunan","Debu saat angin kencang"],
-  ctrl:["Monitoring suhu timbunan","Batas tinggi dan sudut timbunan","Water spray"],
-  kpi:[["0","Insiden 30 hari"],["38","SAP minggu ini"],["88%","Coverage area"]]},
- {id:"dump", name:"Disposal & Reklamasi", cat:"Lingkungan", st:"ok",
-  poly:[[1430,255],[1905,255],[1905,345],[1430,345]], pin:[1700,275],
-  desc:"Area penimbunan overburden yang dibentuk ulang lalu ditanami kembali. Grid hijau menggambarkan pemodelan desain lahan.",
-  risks:["Unit terlalu dekat tepi dumping","Tanah lunak setelah hujan"],
-  ctrl:["Tanggul pengaman (safety berm)","Pemandu dumping (spotter)"],
-  kpi:[["0","Insiden 30 hari"],["27","SAP minggu ini"],["79%","Coverage area"]]},
- {id:"pond", name:"Settling Pond", cat:"Lingkungan", st:"ok",
-  poly:[[1590,375],[1912,375],[1912,495],[1590,495]], pin:[1760,400],
-  desc:"Kolam pengendapan air tambang. Air diolah sampai pH dan TSS memenuhi baku mutu sebelum dilepas ke lingkungan.",
-  risks:["Tenggelam saat sampling","Kualitas air di luar baku mutu"],
-  ctrl:["Pagar dan pelampung keselamatan","Sampling harian pH dan TSS"],
-  kpi:[["0","Insiden 30 hari"],["9","SAP minggu ini"],["95%","Coverage area"]]},
- {id:"ws", name:"Workshop Alat Berat", cat:"Maintenance", st:"warn",
-  poly:[[370,535],[705,535],[705,612],[370,612]], pin:[540,550],
-  desc:"Tempat perawatan dan perbaikan dump truck dan excavator, termasuk penggantian ban berukuran besar.",
-  risks:["Bekerja di bawah beban terangkat","Ledakan ban saat pengisian angin","Energi tersimpan pada hidrolik"],
-  ctrl:["LOTO dan blocking","Tire cage dan jarak aman","Inspeksi alat angkat"],
-  kpi:[["1","Insiden 30 hari"],["52","SAP minggu ini"],["94%","Coverage area"]]},
- {id:"fuel", name:"Fuel Station", cat:"Fasilitas", st:"ok",
-  poly:[[865,565],[1100,565],[1100,712],[865,712]], pin:[985,600],
-  desc:"Tangki dan titik pengisian bahan bakar untuk unit tambang dan fuel truck.",
-  risks:["Kebakaran dan ledakan","Tumpahan bahan bakar ke tanah"],
-  ctrl:["Grounding dan larangan sumber api","Spill kit dan bund wall"],
-  kpi:[["0","Insiden 30 hari"],["17","SAP minggu ini"],["100%","Coverage area"]]},
- {id:"off", name:"Office & Mess", cat:"Fasilitas", st:"ok",
-  poly:[[0,505],[315,505],[315,635],[0,635]], pin:[160,530],
-  desc:"Perkantoran, ruang briefing, dan mess karyawan. Titik kumpul evakuasi utama berada di area ini.",
-  risks:["Lalu lintas kendaraan ringan di parkiran","Kebersihan dan sanitasi mess"],
-  ctrl:["Jalur pejalan kaki terpisah","Inspeksi fasilitas bulanan"],
-  kpi:[["0","Insiden 30 hari"],["14","SAP minggu ini"],["97%","Coverage area"]]},
- {id:"port", name:"Pelabuhan & Ship Loader", cat:"Logistik", st:"warn",
-  poly:[[1280,580],[1880,580],[1880,775],[1280,775]], pin:[1600,610],
-  desc:"Conveyor dan ship loader yang memuat batubara ke kapal atau tongkang.",
-  risks:["Jatuh ke air dari dermaga","Tali tambat putus (snap-back)","Terjepit conveyor"],
-  ctrl:["Life jacket wajib di dermaga","Zona larangan snap-back","Guarding conveyor"],
-  kpi:[["1","Insiden 30 hari"],["33","SAP minggu ini"],["83%","Coverage area"]]},
-];
-
+  // shared panel markup for the site maps: the list of technologies and one technology's detail
+  const smLi = (a)=> a.map(t=> '<li>' + t + '</li>').join('');
+  function smListHtml(AREAS, note, cat){
+    return '<div class="ph"><div class="eb">' + AREAS.length + ' teknologi' + (cat ? ' · ' + cat : ' automation') + '</div><h3>Pilih teknologi di peta</h3>'
+      + '<div class="meta"><span class="chip">Klik pin atau daftar untuk detail</span></div></div>'
+      + '<div class="list">' + AREAS.map(a=> '<button class="item" type="button" data-id="' + a.id + '"><span class="no">' + String(a.no).padStart(2,'0') + '</span>'
+      + '<span><span class="t">' + a.P.name + '</span><span class="s">' + a.loc + '</span><span class="stg">' + a.P.stage + '</span></span><span class="dotst tech"></span></button>').join('') + '</div>'
+      + '<div class="note">' + note + '</div>';
+  }
+  function smDetailHtml(a, prev, next, N){
+    const P = a.P;
+    return '<div class="ph"><div class="eb">Teknologi ' + String(a.no).padStart(2,'0') + ' / ' + String(N).padStart(2,'0') + '</div><h3>' + P.name + '</h3>'
+      + '<div class="meta"><span class="chip">' + P.sub + '</span><span class="chip loc">' + a.loc + '</span></div>'
+      + '<div class="stage"><small>Tahap saat ini</small><b>' + P.stage + '</b></div></div>'
+      + '<div class="pb">' + (P.img ? '<div class="media"><img src="' + P.img + '" alt=""></div>' : '')
+      + '<div><div class="lbl">Bahaya yang dikendalikan</div><ul class="risk">' + smLi(P.hazard) + '</ul></div>'
+      + '<div><div class="lbl">Progress utama</div><ul class="risk prog">' + smLi(P.prog) + '</ul></div>'
+      + '<div><div class="lbl">Future research &amp; dev</div><ul class="risk ctrl">' + smLi(P.rnd) + '</ul></div>'
+      + (a.next ? '<div class="nxt"><small>Next step</small><b>' + a.next + '</b></div>' : '') + '</div>'
+      + '<div class="nav"><button class="sm-btn" type="button" data-go="' + prev.id + '">← ' + prev.name + '</button><button class="sm-btn" type="button" data-go="' + next.id + '">' + next.name + ' →</button></div>'
+      + '<div class="nav"><button class="sm-btn wide" type="button" data-go="">Kembali ke seluruh site</button></div>';
+  }
+  function makeSiteMap(cfg){
+    const IMG_W = cfg.w, IMG_H = cfg.h, AREAS = cfg.areas;
     const ST = { ok:'Normal', warn:'Waspada', crit:'Kritis' };
-    const $ = (id)=> document.getElementById(id);
-    const vp = $('smVp'); if(!vp) return { reset(){} };
-    const tilt = $('smTiltEl'), cam = $('smCam'), polys = $('smPolys'), pins = $('smPins'), shade = $('smShade'), panel = $('smPanel'), hud = $('smHud');
+    const $ = (id)=> document.getElementById(cfg.pre + id);
+    const vp = $('Vp'); if(!vp) return { reset(){}, refit(){}, pins:()=> [] };
+    const tilt = $('TiltEl'), cam = $('Cam'), polys = $('Polys'), pins = $('Pins'), shade = $('Shade'), panel = $('Panel'), hud = $('Hud');
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let view = { s:1, tx:0, ty:0 }, active = null, tiltOn = !reduce;
+    let view = { s:1, tx:0, ty:0 }, active = null, tiltOn = !reduce && cfg.tilt !== false;
     const NS = 'http://www.w3.org/2000/svg';
+    let fxLinks = '';
     AREAS.forEach((a, i)=>{
       a.no = i + 1;
       const xs = a.poly.map(p=> p[0]), ys = a.poly.map(p=> p[1]);
@@ -9906,20 +9990,54 @@
       pg.setAttribute('points', a.poly.map(p=> p.join(',')).join(' '));
       pg.setAttribute('class', 'sm-hs ' + a.st); pg.setAttribute('tabindex', '0'); pg.setAttribute('role', 'button');
       pg.setAttribute('aria-label', a.name); pg.dataset.id = a.id; polys.appendChild(pg); a.el = pg;
-      const pin = document.createElement('div');
-      pin.className = 'sm-pin ' + a.st; pin.style.left = (a.pin[0]/IMG_W*100) + '%'; pin.style.top = (a.pin[1]/IMG_H*100) + '%';
-      pin.innerHTML = '<div class="tag"><span class="no">' + a.no + '</span><span class="nm">' + a.name + '</span></div><div class="stem"></div><div class="dot"></div>';
-      const px = a.pin[0]/IMG_W; if(px < .16) pin.classList.add('edge-l'); else if(px > .84) pin.classList.add('edge-r');
+      const pin = document.createElement('div'), at = a.tag || a.pin;
+      pin.className = 'sm-pin ' + a.st + (a.tag ? ' lbl' : ''); pin.style.left = (at[0]/IMG_W*100) + '%'; pin.style.top = (at[1]/IMG_H*100) + '%';
+      if(a.tag){
+        pin.dataset.id = a.id;
+        pin.innerHTML = '<div class="tag"><span class="ic">' + (a.icon || '') + '</span><span class="nm">' + a.name + '</span></div>';
+        fxLinks += '<line class="sm-link" x1="' + a.tag[0] + '" y1="' + a.tag[1] + '" x2="' + a.pin[0] + '" y2="' + a.pin[1] + '"/>'
+          + '<circle class="sm-anchor" cx="' + a.pin[0] + '" cy="' + a.pin[1] + '" r="7"/><circle class="sm-anchor-in" cx="' + a.pin[0] + '" cy="' + a.pin[1] + '" r="3.5"/>';
+        fxLinks = fxLinks.replace(/<(line|circle) class="sm-(link|anchor|anchor-in)"(?![^>]*data-t)/g, '<$1 data-t="' + a.id + '" class="sm-$2"');
+      } else {
+        pin.innerHTML = '<div class="tag"><span class="no">' + a.no + '</span><span class="nm">' + a.name + '</span></div><div class="stem"></div><div class="dot"></div>';
+        const px = a.pin[0]/IMG_W; if(px < .16) pin.classList.add('edge-l'); else if(px > .84) pin.classList.add('edge-r');
+      }
       pins.appendChild(pin); a.pinEl = pin;
     });
+    const fx = $('Fx'); if(fx) fx.innerHTML = (cfg.fx || '') + fxLinks;
+    // category menu: only the technologies of the chosen category stay on the map and in the list
+    let cat = 'all';
+    const CATS = cfg.cats || [], catsEl = $('Cats');
+    const catLabel = (c)=> (CATS.find(k=> k.id === c) || {}).label || '';
+    const shown = ()=> AREAS.filter(a=> !a.off);
+    if(catsEl && CATS.length){
+      catsEl.innerHTML = [{ id:'all', label:'Semua' }].concat(CATS).map(k=>{
+        const n = k.id === 'all' ? AREAS.length : AREAS.filter(a=> (a.cats || []).includes(k.id)).length;
+        return '<button type="button" class="sm-cat" data-cat="' + k.id + '" aria-pressed="false">' + k.label + '<i>' + n + '</i></button>'; }).join('');
+      catsEl.querySelectorAll('.sm-cat').forEach(b=> b.addEventListener('click', e=>{ e.stopPropagation(); setCat(b.dataset.cat); }));
+    }
+    function setCat(c){
+      cat = c;
+      AREAS.forEach(a=>{
+        a.off = c !== 'all' && !(a.cats || []).includes(c);
+        a.el.classList.toggle('off', a.off); a.pinEl.classList.toggle('off', a.off);
+        if(fx) fx.querySelectorAll('[data-t="' + a.id + '"]').forEach(el=> el.classList.toggle('off', a.off));
+      });
+      vp.classList.toggle('filtered', c !== 'all');
+      if(catsEl) catsEl.querySelectorAll('.sm-cat').forEach(b=>{ const on = b.dataset.cat === c; b.classList.toggle('is-on', on); b.setAttribute('aria-pressed', on); });
+      if(active && active.off) select(null); else render();
+      if(hasGsap && !reduce && c !== 'all') gsap.fromTo(shown().map(a=> a.pinEl), { scale:.7, opacity:0 }, { scale:1, opacity:1, stagger:.06, duration:.4, ease:'back.out(2)', clearProps:'transform,opacity' });
+    }
     const byId = (id)=> AREAS.find(a=> a.id === id);
     [...polys.children].sort((m, n)=>{ const A = byId(m.dataset.id).box, B = byId(n.dataset.id).box; return B.w*B.h - A.w*A.h; }).forEach(n=> polys.appendChild(n));
     // the frame takes the image's own ratio (whole site visible, nothing cropped); the panel matches its height
-    const tools = $('smBtnLabels').parentNode;
+    const tools = $('BtnLabels').closest('.sm-tools');
     function fit(){
-      const aw = vp.parentNode.clientWidth, ah = $('smGrid').clientHeight - tools.offsetHeight - 10;
+      const grid = $('Grid'), gw = grid.clientWidth, GAP = 16, PANEL = Math.min(420, Math.max(320, gw * .22));
+      const aw = gw - PANEL - GAP, ah = grid.clientHeight - tools.offsetHeight - 10;
       if(aw < 10 || ah < 10) return;
-      const w = Math.min(aw, ah*IMG_W/IMG_H), h = w*IMG_H/IMG_W;
+      const w = Math.floor(Math.min(aw, ah*IMG_W/IMG_H)), h = w*IMG_H/IMG_W;
+      grid.style.gridTemplateColumns = w + 'px minmax(0,1fr)';
       vp.style.width = w + 'px'; vp.style.height = h + 'px';
       panel.style.height = (tools.offsetHeight + 10 + h) + 'px';
     }
@@ -9938,7 +10056,7 @@
       hud.textContent = 'ZOOM ' + view.s.toFixed(1) + '×';
     }
     function flyTo(a){
-      const { W, H, k } = size(), pad = a.id === 'road' ? 0.95 : 0.62;
+      const { W, H, k } = size(), pad = a.wide ? 0.95 : 0.62;
       const s = Math.min(4.2, Math.max(1.4, Math.min(W/(a.box.w*k), H/(a.box.h*k))*pad));
       const cx = (a.box.x + a.box.w/2)*k, cy = (a.box.y + a.box.h/2)*k;
       view = clamp({ s, tx:W/2 - cx*s, ty:H/2 - cy*s }); apply(true);
@@ -9947,7 +10065,6 @@
       const n = clamp({ s:view.s*f, tx:0, ty:0 }), r = n.s/view.s;
       view = clamp({ s:n.s, tx:px - (px - view.tx)*r, ty:py - (py - view.ty)*r }); apply(animate);
     }
-    const count = (st)=> AREAS.filter(a=> a.st === st).length;
     function hover(id, on){ const a = byId(id); a.el.classList.toggle('hover', on); a.pinEl.classList.toggle('hover', on); }
     function select(id){
       active = id ? byId(id) : null;
@@ -9958,30 +10075,20 @@
     }
     function render(){
       if(!active){
-        panel.innerHTML = '<div class="ph"><div class="eb">' + AREAS.length + ' area</div><h3>Pilih area di peta</h3>'
-          + '<div class="meta"><span class="chip st crit">' + count('crit') + ' kritis</span><span class="chip st warn">' + count('warn') + ' waspada</span><span class="chip st ok">' + count('ok') + ' normal</span></div></div>'
-          + '<div class="list">' + AREAS.map(a=> '<button class="item" type="button" data-id="' + a.id + '"><span class="no">' + String(a.no).padStart(2,'0') + '</span>'
-          + '<span><span class="t">' + a.name + '</span><span class="s">' + a.cat + '</span></span><span class="dotst ' + a.st + '" title="' + ST[a.st] + '"></span></button>').join('') + '</div>'
-          + '<div class="note">Status dan angka adalah contoh. Di versi produksi diisi dari database HSE (OBDS) per area.</div>';
+        panel.innerHTML = cfg.listHtml(shown(), cat === 'all' ? '' : catLabel(cat));
         panel.querySelectorAll('.item').forEach(b=>{ b.onclick = (e)=>{ e.stopPropagation(); select(b.dataset.id); }; b.onmouseenter = ()=> hover(b.dataset.id, true); b.onmouseleave = ()=> hover(b.dataset.id, false); });
       } else {
-        const a = active, i = AREAS.indexOf(a), prev = AREAS[(i-1+AREAS.length)%AREAS.length], next = AREAS[(i+1)%AREAS.length];
-        panel.innerHTML = '<div class="ph"><div class="eb">Area ' + String(a.no).padStart(2,'0') + ' / ' + String(AREAS.length).padStart(2,'0') + '</div><h3>' + a.name + '</h3>'
-          + '<div class="meta"><span class="chip">' + a.cat + '</span><span class="chip st ' + a.st + '">' + ST[a.st] + '</span></div></div>'
-          + '<div class="pb"><p>' + a.desc + '</p>'
-          + '<div><div class="lbl">Indikator HSE <em>contoh data</em></div><div class="kpis">' + a.kpi.map(k=> '<div class="kpi"><b>' + k[0] + '</b><span>' + k[1] + '</span></div>').join('') + '</div></div>'
-          + '<div><div class="lbl">Risiko utama</div><ul class="risk">' + a.risks.map(r=> '<li>' + r + '</li>').join('') + '</ul></div>'
-          + '<div><div class="lbl">Kontrol kritis</div><ul class="risk ctrl">' + a.ctrl.map(r=> '<li>' + r + '</li>').join('') + '</ul></div></div>'
-          + '<div class="nav"><button class="sm-btn" type="button" data-go="' + prev.id + '">← ' + prev.name + '</button><button class="sm-btn" type="button" data-go="' + next.id + '">' + next.name + ' →</button></div>'
-          + '<div class="nav"><button class="sm-btn wide" type="button" data-go="">Kembali ke seluruh site</button></div>';
+        const V = shown(), a = active, i = Math.max(0, V.indexOf(a)), prev = V[(i-1+V.length)%V.length], next = V[(i+1)%V.length];
+        panel.innerHTML = smDetailHtml(a, prev, next, AREAS.length);
         panel.querySelectorAll('[data-go]').forEach(b=> b.onclick = (e)=>{ e.stopPropagation(); select(b.dataset.go || null); });
+        panel.scrollTop = 0;
         if(hasGsap && !reduce) gsap.fromTo(panel.querySelectorAll('.ph > *, .pb > *, .nav'), { x:16, opacity:0 }, { x:0, opacity:1, stagger:.05, duration:.4, ease:'power3.out' });
       }
     }
     // the map and panel keep their clicks: the deck must not advance a step on them
-    [vp, panel, $('smBtnLabels').parentNode].forEach(el=> el.addEventListener('click', e=> e.stopPropagation()));
-    polys.addEventListener('pointerover', e=>{ if(e.target.dataset.id) hover(e.target.dataset.id, true); });
-    polys.addEventListener('pointerout', e=>{ if(e.target.dataset.id) hover(e.target.dataset.id, false); });
+    [vp, panel, tools].forEach(el=> el.addEventListener('click', e=> e.stopPropagation()));
+    const idOf = (t)=>{ const el = t && t.closest && t.closest('[data-id]'); return el && el.dataset.id; };
+    [polys, pins].forEach(g=>{ g.addEventListener('pointerover', e=>{ const id = idOf(e.target); if(id) hover(id, true); }); g.addEventListener('pointerout', e=>{ const id = idOf(e.target); if(id) hover(id, false); }); });
     polys.addEventListener('keydown', e=>{ if((e.key === 'Enter' || e.key === ' ') && e.target.dataset.id){ e.preventDefault(); e.stopPropagation(); select(e.target.dataset.id); } });
     let drag = null, moved = false;
     vp.addEventListener('pointerdown', e=>{ if(e.target.closest('.sm-zoom')) return; drag = { x:e.clientX, y:e.clientY, tx:view.tx, ty:view.ty, target:e.target }; moved = false; });
@@ -9992,14 +10099,14 @@
       doTilt(e);
     });
     window.addEventListener('pointerup', ()=>{
-      if(drag && !moved){ const id = drag.target.dataset && drag.target.dataset.id; if(id) select(id); else if(active) select(null); }
+      if(drag && !moved){ const id = idOf(drag.target); if(id) select(id); else if(active) select(null); }
       drag = null; vp.classList.remove('dragging');
     });
     vp.addEventListener('wheel', e=>{ e.preventDefault(); const r = vp.getBoundingClientRect(); zoomAt(e.deltaY < 0 ? 1.15 : 1/1.15, e.clientX - r.left, e.clientY - r.top, false); }, { passive:false });
-    $('smZin').onclick = ()=>{ const { W, H } = size(); zoomAt(1.4, W/2, H/2, true); };
-    $('smZout').onclick = ()=>{ const { W, H } = size(); zoomAt(1/1.4, W/2, H/2, true); };
-    $('smBtnReset').onclick = ()=> select(null);
-    const onSlide = ()=> document.getElementById('slideMap').classList.contains('active');
+    $('Zin').onclick = ()=>{ const { W, H } = size(); zoomAt(1.4, W/2, H/2, true); };
+    $('Zout').onclick = ()=>{ const { W, H } = size(); zoomAt(1/1.4, W/2, H/2, true); };
+    $('BtnReset').onclick = ()=> select(null);
+    const onSlide = ()=> document.getElementById(cfg.slide).classList.contains('active');
     // Esc goes back to the whole site while an area is open (only on this slide)
     document.addEventListener('keydown', e=>{ if(onSlide() && active && e.key === 'Escape'){ e.stopPropagation(); e.preventDefault(); select(null); } }, true);
     window.addEventListener('resize', ()=>{ if(!onSlide()) return; fit(); active ? flyTo(active) : (view = clamp(view), apply(false)); });
@@ -10011,11 +10118,63 @@
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(()=>{ tilt.style.transform = inside ? 'rotateX(' + ((0.5-y)*7).toFixed(2) + 'deg) rotateY(' + ((x-0.5)*9).toFixed(2) + 'deg)' : 'rotateX(0) rotateY(0)'; });
     }
-    function setTilt(on){ tiltOn = on; $('smBtnTilt').setAttribute('aria-pressed', on); tilt.style.transform = 'none'; }
-    $('smBtnTilt').onclick = ()=> setTilt(!tiltOn);
-    $('smBtnLabels').onclick = (e)=>{ const on = e.currentTarget.getAttribute('aria-pressed') !== 'true'; e.currentTarget.setAttribute('aria-pressed', on); vp.classList.toggle('labels', on); };
+    function setTilt(on){ tiltOn = on; $('BtnTilt').setAttribute('aria-pressed', on); tilt.style.transform = 'none'; }
+    $('BtnTilt').onclick = ()=> setTilt(!tiltOn);
+    $('BtnLabels').onclick = (e)=>{ const on = e.currentTarget.getAttribute('aria-pressed') !== 'true'; e.currentTarget.setAttribute('aria-pressed', on); vp.classList.toggle('labels', on); };
     setTilt(tiltOn); fit(); view = clamp(home()); apply(false); render();
-    return { reset(){ fit(); select(null); }, refit(){ fit(); active ? flyTo(active) : (view = clamp(view), apply(false)); }, pins:()=> pins.children };
+    if(CATS.length) setCat('all');
+    return { reset(){ fit(); if(CATS.length && cat !== 'all') setCat('all'); select(null); }, refit(){ fit(); active ? flyTo(active) : (view = clamp(view), apply(false)); }, pins:()=> pins.children };
+  }
+  // map 1: illustrated site, the four automation projects at the place each one runs
+  const siteMap = (function(){
+    // where each automation project runs on site; the content comes from AUTOPROJ (Automation slide)
+    const PLACE = [
+      { id:'arcas', loc:'Hauling Road &amp; ramp pit', wide:true,
+        poly:[[0,380],[300,450],[600,510],[930,585],[930,630],[600,565],[300,500],[0,430]], pin:[592,512] },
+      { id:'mg', loc:'Open Pit · highwall &amp; final slope',
+        poly:[[0,172],[540,168],[860,210],[985,285],[900,400],[620,465],[330,470],[0,420]], pin:[588,388] },
+      { id:'mir', loc:'Disposal (HR &amp; normal)',
+        poly:[[1240,300],[1672,300],[1672,402],[1240,402]], pin:[1500,335] },
+      { id:'rover', loc:'Stockpile · CPP KM28 (pilot)',
+        poly:[[760,450],[1550,450],[1550,592],[760,592]], pin:[960,500] }
+    ];
+    const AREAS = AUTOPROJ.projects.map((P, i)=> Object.assign({}, PLACE[i], { name:P.name.replace(/&amp;/g,'&'), P, next:(AUTOPROJ.next[i]||[])[1] || '', st:'tech' }));
+    return makeSiteMap({ pre:'sm', slide:'slideMap', w:1672, h:941, areas:AREAS,
+      listHtml:(A)=> smListHtml(A, 'Detail tiap teknologi mengikuti slide <b>Safety Automation</b>.') });
+  })();
+  // map 2: hauling & operations picture with the technology labels floating over it
+  const mineMap = (function(){
+    const AP = AUTOPROJ.projects, NX = (i)=> (AUTOPROJ.next[i] || [])[1] || '';
+    const EXTRA = {
+      obds:{ name:'OBDS + Safety Intelligence', sub:'Integrasi data HSE &amp; dashboard keselamatan', img:'mom/obds.jpg', stage:'Integrasi data lintas proyek',
+        hazard:['Keputusan keselamatan dari data yang terpisah-pisah antar sistem','Alert teknologi lapangan tidak termonitor terpusat'],
+        prog:['Data lagging &amp; leading indicator (Hazard Report, TBC, Golden Rules, SAP) dalam satu basis data HSE','Data kesehatan pekerja terhubung melalui aplikasi WELL','Control room memantau alert dari ARCAS, MIR, dan Mining Eyes'],
+        rnd:['Integrasi data alert lintas proyek untuk evaluasi safety &amp; produktivitas','Early warning berbasis tren risiko'] },
+      eyes:{ name:'Mining Eyes Analytics', sub:'CCTV + computer vision untuk Critical Control', img:'mom/mea.jpg', stage:'Q3 2026 · Pendetailan CPP',
+        hazard:['High-risk activity yang tidak terpantau langsung oleh pengawas','Pelanggaran critical control pada aktivitas kritis'],
+        prog:['33 high-risk activity + 29 CCV menjadi use case Mining Eyes Analytic','2025: trial &amp; rollout 3 aktivitas kritis','Q1 2026: perluasan trial ke 15 aktivitas kritis','Q3 2026: pendetailan CPP dan pengembangan Critical Control CPP','Use case pada lokasi dinamis dan statis'],
+        rnd:['Q4 2026: analytic &amp; expand','Enhanced Mining Eyes Analytic sebagai key project'] },
+      haul:{ name:'Hauling Automation', sub:'Monitoring &amp; kontrol armada hauling', img:'mom/hauling-automation.jpg', stage:'Monitoring armada berjalan',
+        hazard:['Kecepatan berlebih dan jarak beriringan','Fatigue pengemudi','Interaksi unit besar dan kendaraan kecil'],
+        prog:['Driver Monitoring System (DMS) untuk fatigue dan distraksi','Pemantauan armada dan batas kecepatan per segmen dari control room','Kinerja RIC DMS dipantau sebagai leading indicator teknologi'],
+        rnd:['Integrasi ARCAS dengan sistem hauling','Otomasi pengaturan lalu lintas hauling'] }
+    };
+    const T = (id, P, loc, icon, tag, pin, poly, next, wide)=> ({ id, P, loc, icon, tag, pin, poly, next, wide, st:'tech', name:P.name.replace(/&amp;/g,'&').replace(/ – .*| \(.*\)/, '') });
+    const AREAS = [
+      T('obds', EXTRA.obds, 'Mine control room', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18v12H3zm2 2v8h14V6zm2 6 3-3 2 2 4-4 1 1-5 5-2-2-2 2zM8 18h8v2H8z"/></svg>', [215,352], [240,400], [[0,372],[505,372],[512,712],[0,722]], 'Integrasi lintas proyek'),
+      T('eyes', EXTRA.eyes, 'Tower CCTV · jalur hauling', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9l2-2h5v14H4zm8 9a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0-2a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>', [560,172], [446,182], [[412,150],[492,150],[492,385],[412,385],[412,300],[520,225],[655,225],[655,300],[492,300]], 'Analytic &amp; expand ke area prioritas'),
+      T('mg', AP[1], 'Front loading · excavator', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 18h12v3H2zm2-5h7v4H4zm6-1 3-7 2 1-3 7zm3-7 6 2 1 5-2 1-1-4-5-2z"/></svg>', [850,134], [862,222], [[755,180],[1080,160],[1080,340],[725,340]], NX(1)),
+      T('mir', AP[2], 'Disposal', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>', [1462,116], [1452,196], [[1180,160],[1672,150],[1672,305],[1180,305]], NX(2)),
+      T('arcas', AP[0], 'Hauling road · interaksi HD &amp; LV', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3zm-1.2 14.2-3.5-3.5 1.4-1.4 2.1 2.1 4.9-4.9 1.4 1.4-6.3 6.3z"/></svg>', [1108,402], [1112,470], [[1010,440],[1350,440],[1350,600],[1010,600]], NX(0)),
+      T('rover', AP[3], 'Disposal high-risk · remote station', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10a5 5 0 0 1 5 5v1a4 4 0 0 1-7 2.6L14 14h-4l-1 1.6A4 4 0 0 1 2 13v-1a5 5 0 0 1 5-5zm0 3v2H5v2h2v2h2v-2h2v-2H9v-2zm9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm2 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg>', [1500,366], [1418,430], [[1340,395],[1672,395],[1672,610],[1510,610],[1360,480]], NX(3)),
+      T('haul', EXTRA.haul, 'Hauling road', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 7h12v8H1zm12 3h5l4 3v2h-9zM5 18a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm13 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>', [830,688], [853,600], [[600,370],[880,370],[1010,610],[1260,640],[1270,860],[760,860],[640,540]], 'Integrasi ARCAS &amp; DMS di hauling', true)
+    ];
+    AREAS[3].name = 'MIR';
+    const CAT = { obds:['data'], eyes:['cc','data'], mg:['eng','auto'], mir:['auto','data'], arcas:['cc','auto'], rover:['eng','auto'], haul:['auto','data'] };
+    AREAS.forEach(a=> a.cats = CAT[a.id]);
+    return makeSiteMap({ pre:'tm', slide:'slideMine', w:1672, h:941, areas:AREAS, tilt:false,
+      cats:[{ id:'cc', label:'Critical Control' }, { id:'eng', label:'Rekayasa Engineering' }, { id:'auto', label:'Automation' }, { id:'data', label:'Data &amp; AI' }], fx:'<g class="tm-net"><path d="M446 182 C 400 260, 320 340, 240 400"/><path d="M446 182 C 600 150, 760 160, 862 222"/><path d="M862 222 C 1050 140, 1300 140, 1452 196"/><path d="M240 400 C 420 520, 640 600, 853 600"/><path d="M853 600 C 950 590, 1030 520, 1112 470"/><path d="M1112 470 C 1220 430, 1320 420, 1418 430"/></g><g class="tm-rings" data-t="haul"><ellipse cx="697" cy="530" rx="72" ry="20"/><ellipse cx="853" cy="640" rx="88" ry="24"/><ellipse cx="1120" cy="785" rx="128" ry="34"/></g><ellipse class="tm-bubble" data-t="arcas" cx="1112" cy="515" rx="105" ry="80"/><g class="tm-radar" data-t="arcas"><path d="M1205 535 a24 24 0 0 1 0 36"/><path d="M1220 522 a42 42 0 0 1 0 62"/><path d="M1236 510 a60 60 0 0 1 0 86"/></g><rect class="tm-warnbox" data-t="arcas" x="1250" y="520" width="92" height="66" rx="6"/><path class="tm-warn" data-t="arcas" d="M1330 500 l14 24 h-28z"/><g class="tm-cv" data-t="eyes"><rect x="520" y="225" width="90" height="62" rx="4"/><rect x="618" y="232" width="34" height="30" rx="3"/><rect x="618" y="268" width="34" height="30" rx="3"/></g><g class="tm-grid" data-t="mg"><path d="M745 300 L905 300 L930 335 L725 335 Z"/><path d="M770 300 L755 335 M800 300 L790 335 M830 300 L825 335 M860 300 L862 335 M890 300 L898 335 M735 318 L918 318"/></g><g class="tm-holo" data-t="mg"><rect x="955" y="165" width="120" height="85" rx="6"/><circle cx="990" cy="205" r="14"/><path d="M990 187 v36 M972 205 h36 M1020 240 l22 -40 l22 40 z"/></g><path class="tm-mesh" data-t="mir" d="M1180 290 C 1260 230, 1340 205, 1440 198 S 1600 205, 1672 225"/><g class="tm-pins" data-t="mir"><g transform="translate(1210 205)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1290 180)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1370 168)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1455 166)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1540 172)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1625 180)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g></g><g class="tm-wifi" data-t="haul" transform="translate(690 450) scale(1)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="haul" transform="translate(845 545) scale(1.1)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="haul" transform="translate(1090 620) scale(1.2)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="arcas" transform="translate(1112 420) scale(1.1)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="rover" transform="translate(1395 400) scale(1)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-chev" data-t="haul"><path d="M1225 905 l22 -14 l22 14"/><path d="M1225 925 l22 -14 l22 14"/></g>',
+      listHtml:(A, c)=> smListHtml(A, 'ARCAS, Machine Guidance, MIR dan Remote Dozer mengikuti slide <b>Safety Automation</b>; Mining Eyes, OBDS dan Hauling Automation berupa ringkasan.', c) });
   })();
   // Health Management Journey: milestones and the finish arch ride on the road path
   (function(){
