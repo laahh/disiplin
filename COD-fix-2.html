@@ -4874,6 +4874,115 @@
   #slideStable2 .ov2-ci .ov2-tag{ box-shadow:0 4px 8px rgba(14,90,42,.30), 0 10px 18px rgba(14,90,42,.22) !important; }
   /* original How Stable slide: closer cards */
   #slideStable .hs-tv-in.hs-tv-ov2 > .ov2-grid{ grid-template-columns:minmax(0,900fr) 14px minmax(0,850fr) !important; gap:6px !important; }
+
+  /* ---- experiment copy: 3D cards ---- */
+  #slideStable2 .ov2-left, #slideStable2 .ov2-right{ perspective:1400px; }
+  #slideStable2 .rd-card, #slideStable2 .ov2-ci{ position:relative; transform-style:preserve-3d;
+    transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateZ(0); transition:transform .5s cubic-bezier(.22,.8,.2,1), box-shadow .5s;
+    box-shadow:0 1px 0 rgba(255,255,255,.95) inset, 0 -3px 0 rgba(15,30,20,.07) inset,
+      0 3px 0 #DCE5DC, 0 5px 0 #C9D5C9, 0 7px 2px rgba(10,25,15,.18), 0 16px 26px rgba(10,25,15,.20), 0 30px 50px rgba(10,25,15,.22) !important; }
+  #slideStable2 .rd-card.tilt, #slideStable2 .ov2-ci.tilt{ transition:transform .12s ease-out, box-shadow .3s;
+    box-shadow:0 1px 0 rgba(255,255,255,.95) inset, 0 -3px 0 rgba(15,30,20,.07) inset,
+      0 3px 0 #DCE5DC, 0 6px 0 #C9D5C9, 0 10px 4px rgba(10,25,15,.18), 0 22px 34px rgba(10,25,15,.24), 0 40px 64px rgba(10,25,15,.26) !important; }
+  #slideStable2 .rd-glare{ position:absolute; inset:0; border-radius:inherit; pointer-events:none; z-index:5; opacity:0; transition:opacity .4s;
+    background:radial-gradient(circle at var(--gx,50%) var(--gy,0%),rgba(255,255,255,.55) 0%,rgba(255,255,255,0) 45%); mix-blend-mode:soft-light; }
+  #slideStable2 .tilt > .rd-glare{ opacity:1; }
+  @media (prefers-reduced-motion: reduce){ #slideStable2 .rd-card, #slideStable2 .ov2-ci{ transform:none !important; } }
+  /* copy: even spacing between all cards; the grid may run down to the slide's bottom edge */
+  #slideStable2{ padding-bottom:6px !important; }
+  #slideStable2 .hs-tv-in.hs-tv-ov2 > .ov2-grid{ padding:2px 8px 14px !important; gap:0 16px !important; grid-template-columns:minmax(0,900fr) 0 minmax(0,850fr) !important; }
+  #slideStable2 .hs-tv-ov2 .ov2-left, #slideStable2 .hs-tv-ov2 .ov2-right{ gap:16px !important; }
+  #slideStable2 .ov2-ci{ margin-top:22px !important; }
+  #slideStable2 .ov2-funnel2{ margin:0; }
+  #slideStable2 .hs-tv-in.hs-tv-ov2 > .ov2-grid{ gap:0 16px !important; column-gap:16px !important; }
+  .sm-hs.offmap, .sm-pin.offmap, .tm-fx .offmap{ display:none !important; }
+
+  .sm-panel .list details.grp .item.tk{ cursor:default; grid-template-columns:34px minmax(0,1fr); padding:8px 12px 8px 16px; }
+  .sm-panel .list details.grp .item.tk:hover{ background:none; }
+  .sm-panel .item.tk .t{ display:flex; align-items:baseline; gap:8px; font-weight:700; font-size:13.5px; line-height:1.3; }
+  .sm-panel .item.tk .site{ flex:none; font-style:normal; font:800 11px/1.6 'Plus Jakarta Sans',sans-serif; color:#16418F; background:#EAF1FB; border-radius:5px; padding:0 6px; letter-spacing:.02em; }
+  #slideMap .sm-cats{ flex-wrap:nowrap; gap:2px; } #slideMap .sm-cat{ padding:7px 10px; font-size:12.5px; gap:6px; white-space:nowrap; }
+  #slideMap .sm-cat i{ min-width:18px; height:18px; font-size:10.5px; }
+  #slideMap .sm-tools-r{ gap:6px; } #slideMap .sm-tools-r .sm-btn{ padding:7px 11px; font-size:12px; white-space:nowrap; }
+
+  /* Mining Eyes detail: Critical Control column + infographic */
+  .sm-det .mea2{ position:absolute; inset:0; display:grid; grid-template-columns:minmax(0,.47fr) minmax(0,1fr); gap:14px; }
+  .sm-det .mea2-l{ position:relative; min-width:0; min-height:0; overflow:hidden; }
+  .sm-det .mea2-st{ position:absolute; top:0; left:0; width:600px; height:720px; display:block !important; transform-origin:0 0; }
+  .sm-det .mea2-st .ccx-c1{ height:100%; }
+  .sm-det .mea2-r{ min-width:0; min-height:0; display:flex; align-items:center; justify-content:center; }
+  .sm-det .mea2-r img{ max-width:100%; max-height:100%; border-radius:12px; box-shadow:0 10px 26px rgba(20,26,34,.14); }
+  /* Mining Eyes detail, tidy: both columns top-aligned and the same height */
+  .sm-det .mea2{ align-items:start; grid-template-columns:minmax(0,.46fr) minmax(0,1fr); gap:16px; }
+  .sm-det .mea2-r{ align-items:flex-start; }
+  .sm-det .mea2-r img{ width:100%; height:auto; max-height:100%; object-fit:contain; display:block; }
+  .sm-det .mea2-st .ccx-c1{ display:flex; flex-direction:column; gap:12px; height:100%; }
+  .sm-det .mea2-st .ccx-road{ flex:1 1 auto; grid-template-rows:repeat(3,minmax(0,1fr)); align-content:stretch; }
+  .sm-det .mea2-st .ccx-tl.q4{ grid-column:1 / -1; width:auto; justify-self:stretch; }
+  .sm-det .mea2-st .ccx-tl{ display:flex; flex-direction:column; }
+  /* picture fills the full height; left column width follows the stage at that scale */
+  .sm-det .mea2{ grid-template-columns:auto minmax(0,1fr) !important; align-items:stretch !important; }
+  .sm-det .mea2-l{ width:calc(var(--meaH, 600px) * .8); }
+  .sm-det .mea2-r{ align-items:stretch !important; justify-content:flex-start !important; }
+  .sm-det .mea2-r img{ width:100% !important; height:100% !important; max-height:none !important; object-fit:contain !important; object-position:left center; box-shadow:none !important; }
+
+  /* ---- Remote Dozer detail v2: tabs, ECharts curve, timeline + critical path ---- */
+  .sm-det .rv3{ position:absolute; inset:0; display:flex; flex-direction:column; gap:10px; }
+  .sm-det .rv-tabs{ flex:none; align-self:flex-start; display:flex; gap:4px; padding:4px; border-radius:999px; background:#EEF3F8; border:1px solid #DCE3EA; }
+  .sm-det .rv-tabs button{ padding:7px 18px; border:0; border-radius:999px; background:transparent; color:#16418F; font:700 13px/1 'Plus Jakarta Sans',sans-serif; cursor:pointer; }
+  .sm-det .rv-tabs button.on{ background:linear-gradient(115deg,#0F2D6B,#1E4FA8); color:#fff; box-shadow:0 4px 10px rgba(15,45,107,.25); }
+  .sm-det .rv-pane{ position:relative; flex:1; min-height:0; display:none; }
+  .sm-det .rv-pane.on{ display:block; }
+  .sm-det .rv3 .rv2, .sm-det .rv4{ position:absolute; inset:0; display:grid; gap:16px; }
+  .sm-det .rv4{ grid-template-columns:minmax(0,1.15fr) minmax(0,1fr); }
+  .sm-det .rv-ec{ flex:1; min-height:0; margin:6px 10px 6px 4px; }
+  /* timeline */
+  .rt-tl{ --fill:100%; position:relative; flex:1; min-height:0; list-style:none; margin:0; padding:10px 18px 10px 44px; display:flex; flex-direction:column; justify-content:space-between; overflow:hidden; }
+  .rt-tl::before{ content:''; position:absolute; left:25px; top:18px; bottom:18px; width:3px; border-radius:2px; background:#E1E7EE; }
+  .rt-tl::after{ content:''; position:absolute; left:25px; top:18px; width:3px; height:calc((100% - 36px) * var(--fill) / 100%); border-radius:2px; background:linear-gradient(180deg,#1F9A3A,#1E4FA8); }
+  .rt-i{ position:relative; }
+  .rt-i .dot{ position:absolute; left:-25px; top:4px; width:14px; height:14px; border-radius:50%; background:#fff; border:3px solid #1E4FA8; z-index:1; }
+  .rt-i.done .dot{ background:#1F9A3A; border-color:#1F9A3A; box-shadow:0 0 0 4px rgba(31,154,58,.18); }
+  .rt-i.hold .dot{ background:#E5484D; border-color:#E5484D; box-shadow:0 0 0 0 rgba(229,72,77,.5); animation:rtHold 1.8s ease-out infinite; }
+  @keyframes rtHold{ 0%{ box-shadow:0 0 0 0 rgba(229,72,77,.55); } 100%{ box-shadow:0 0 0 10px rgba(229,72,77,0); } }
+  .rt-i .bx small{ font:800 11.5px/1.2 'Plus Jakarta Sans',sans-serif; color:#1E4FA8; }
+  .rt-i .bx b{ display:block; font:800 14px/1.25 'Plus Jakarta Sans',sans-serif; color:#141A22; margin:1px 0; }
+  .rt-i .bx p{ font-size:12px; line-height:1.35; color:#4A525C; margin:0; }
+  .rt-i.hold .bx{ margin-left:-8px; padding:6px 10px; border-radius:10px; background:#FDECEE; border:1px solid #F5B5BB; }
+  .rt-i.hold .bx small, .rt-i.hold .bx b{ color:#C8102E; }
+  .rt-i.done .bx small{ color:#1F9A3A; }
+  /* critical path */
+  .cp-flow{ flex:1; min-height:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; padding:10px 18px 16px; }
+  .cp{ display:grid; place-items:center; text-align:center; min-width:260px; padding:14px 22px; border-radius:12px; font:800 15px/1.2 'Plus Jakarta Sans',sans-serif; box-shadow:0 4px 12px rgba(20,26,34,.08); }
+  .cp.y{ background:#FFF6DA; border:1.5px solid #F2C94C; color:#8A6200; } .cp.b{ background:#EEF3FD; border:1.5px solid #3D6FD6; color:#16418F; }
+  .cp.g{ background:#ECF8EE; border:1.5px solid #3FAE55; color:#147A2C; } .cp.k{ background:linear-gradient(115deg,#0F2D6B,#16418F); color:#fff; border:0; min-width:220px; }
+  .cp-ar{ display:block; width:3px; height:22px; background:#16294F; position:relative; } .cp-ar::after{ content:''; position:absolute; left:-6px; bottom:-8px; border:7.5px solid transparent; border-top:9px solid #16294F; }
+  .cp-two{ display:flex; gap:24px; } .cp-two .cp{ min-width:200px; }
+  .cp-ar2{ display:block; width:210px; height:26px; position:relative; border:3px solid #16294F; border-top:0; border-radius:0 0 12px 12px; }
+  .cp-ar2::after{ content:''; position:absolute; left:50%; bottom:-14px; margin-left:-7.5px; border:7.5px solid transparent; border-top:9px solid #16294F; }
+  .slide.active .cp.k{ animation:cpGlow 2.4s ease-in-out infinite; }
+  @keyframes cpGlow{ 0%,100%{ box-shadow:0 4px 12px rgba(15,45,107,.25); } 50%{ box-shadow:0 0 0 6px rgba(30,79,168,.15), 0 6px 18px rgba(15,45,107,.35); } }
+  /* timeline: reset leaked label styles, two-column grid so all 8 milestones fit */
+  .rt-tl{ display:grid !important; grid-template-columns:1fr 1fr; grid-auto-rows:minmax(0,auto); column-gap:26px; row-gap:10px; align-content:space-evenly; padding:12px 16px 12px 40px !important; }
+  .rt-tl::before, .rt-tl::after{ display:none; }
+  .rt-i{ padding-left:4px; border-left:3px solid #E1E7EE; padding:4px 0 4px 16px; margin-left:4px; }
+  .rt-i.done{ border-left-color:#1F9A3A; } .rt-i.hold{ border-left-color:#E5484D; }
+  .rt-i .dot{ left:-9px !important; top:6px !important; }
+  .rt-i .bx b{ background:none !important; color:#141A22 !important; padding:0 !important; border-radius:0 !important; box-shadow:none !important; display:block !important; font:800 13.5px/1.25 'Plus Jakarta Sans',sans-serif !important; }
+  .rt-i.hold .bx b{ color:#C8102E !important; }
+  .rt-i .bx small{ background:none !important; padding:0 !important; }
+  .rt-i .bx p{ font-size:11.5px; }
+  .rt-i.hold{ grid-column:1 / -1; }
+  .rt-i.hold .bx{ margin-left:0; }
+
+  /* Remote Dozer: one page = video + curve (left, stacked) and timeline (right) */
+  .sm-det .rv1p{ display:grid !important; grid-template-columns:minmax(0,1.25fr) minmax(0,1fr); gap:16px; flex-direction:initial; }
+  .sm-det .rv1-l{ min-height:0; display:grid; grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr); gap:16px; }
+  .sm-det .rv1-r{ min-height:0; }
+  .sm-det .rv1p .rt-tl{ grid-template-columns:1fr !important; row-gap:4px !important; align-content:space-between !important; padding:8px 14px 8px 34px !important; }
+  .sm-det .rv1p .rt-i{ padding:2px 0 2px 14px !important; }
+  .sm-det .rv1p .rt-i .bx b{ font-size:13px !important; } .sm-det .rv1p .rt-i .bx p{ font-size:11px; line-height:1.3; }
+  .sm-det .rv1p .rt-i.hold .bx{ padding:4px 8px; }
 </style>
 </head>
 <body>
@@ -5217,7 +5326,7 @@
       <div class="sp-head">
         <p class="kicker mono fade" data-step="1" id="hsKicker">OHS Division · Executive Performance Q3 2026</p>
         <h2 class="sp-title fade" data-step="1" id="hsTitle">How Stable <em>Are We?</em></h2>
-        <p class="sp-desc fade" data-step="1" id="hsDesc">Potret stabilitas Q3 2026 dari tiga sisi: <b>safety</b> (lagging &amp; leading indicator), <b>health</b>, dan <b>KPI divisi</b>, disandingkan dengan status tindak lanjut MoM COD Q2'2026.</p>
+        <p class="sp-desc fade" data-step="1" id="hsDesc">Perkuatan kontrol telah meningkatkan <b>leading performance</b> dan kemampuan <b>identifikasi risiko</b>. Namun, masih terjadinya <b>LTI</b>, peningkatan <b>AFR</b>, dan keberadaan <b>blindspot</b> menunjukkan perlunya akselerasi efektivitas pengendalian sebagai bentuk <b>Fatal Prevention</b>.</p>
       </div>
       <div class="sp-tabs fade" data-step="1" id="hsTabs">
         <button type="button" class="sp-tab" data-view="overview" aria-pressed="false" hidden>Overview</button>
@@ -5347,7 +5456,7 @@
       <div class="sp-head">
         <p class="kicker mono fade" data-step="1" id="hs2Kicker">OHS Division · Executive Performance Q3 2026 · Perbandingan</p>
         <h2 class="sp-title fade" data-step="1" id="hs2Title">How Stable <em>Are We?</em></h2>
-        <p class="sp-desc fade" data-step="1" id="hs2Desc">Potret stabilitas Q3 2026 dari tiga sisi: <b>safety</b> (lagging &amp; leading indicator), <b>health</b>, dan <b>KPI divisi</b>, disandingkan dengan status tindak lanjut MoM COD Q2'2026.</p>
+        <p class="sp-desc fade" data-step="1" id="hs2Desc">Perkuatan kontrol telah meningkatkan <b>leading performance</b> dan kemampuan <b>identifikasi risiko</b>. Namun, masih terjadinya <b>LTI</b>, peningkatan <b>AFR</b>, dan keberadaan <b>blindspot</b> menunjukkan perlunya akselerasi efektivitas pengendalian sebagai bentuk <b>Fatal Prevention</b>.</p>
       </div>
       <div class="hs-grid hs-solo" id="hs2Host" data-view="ov2"></div>
     </div>
@@ -9750,6 +9859,24 @@
   // Overview: risk distribution curves per period (top of the left column)
   // Experiment copy (#slideStable2): regroup the Overview into the card layout of the redesign.
   // Runs once on the copy only; the original How Stable slide keeps its own layout.
+  // Experiment copy: cards tilt toward the pointer with a moving light reflection (3D panel effect)
+  function rd3d(inner){
+    if(inner._3d || REDUCE_MOTION) return; inner._3d = true;
+    inner.querySelectorAll('.rd-card, .ov2-ci').forEach(card=>{
+      const glare = document.createElement('span'); glare.className = 'rd-glare'; card.appendChild(glare);
+      let raf = 0;
+      card.addEventListener('pointermove', e=>{
+        const r = card.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(()=>{
+          card.style.setProperty('--rx', ((.5 - y) * 6).toFixed(2) + 'deg'); card.style.setProperty('--ry', ((x - .5) * 7).toFixed(2) + 'deg');
+          card.style.setProperty('--gx', (x * 100).toFixed(1) + '%'); card.style.setProperty('--gy', (y * 100).toFixed(1) + '%');
+          card.classList.add('tilt');
+        });
+      });
+      card.addEventListener('pointerleave', ()=>{ cancelAnimationFrame(raf); card.classList.remove('tilt'); card.style.setProperty('--rx', '0deg'); card.style.setProperty('--ry', '0deg'); });
+    });
+  }
   function ov2Redesign(inner){
     if(inner._rd) return; inner._rd = true;
     const L = inner.querySelector('.ov2-left'), Rt = inner.querySelector('.ov2-right'); if(!L || !Rt) return;
@@ -10152,7 +10279,7 @@
       animate(inner);
     }
     function ov2Extras(inner){
-        if(inner.closest('#slideStable2')) ov2Redesign(inner);
+        if(inner.closest('#slideStable2')){ ov2Redesign(inner); rd3d(inner); }
         // experiment copy (slide after How Stable): HD funnel picture
         if(inner.closest('#slideStable2')){ const f = inner.querySelector('.ov2-funnel2 img'); if(f && !f.dataset.hd){ f.dataset.hd = '1'; f.src = 'mom/corong-hd-t.png'; } }
         const ph = inner.querySelector('.ov2-phase');
@@ -10893,7 +11020,8 @@
     cc:{ n:1, c:'#1F9A3A', k:'Stagged Automation', m:'Critical Control', d:'A phased automation path focused on critical risk barriers (CCV/CRM, Layer 5 contact defense) to prevent serious events (Fatal + LTI / RWI). All can detect and intervened through Mining Eyes Analytic.' },
     eng:{ n:2, c:'#1F9A3A', k:'Stagged Automation', m:'Engineering Control', d:'A phased automation path focused on process and workplace engineering, redesigning work methods and systems to eliminate human to risk exposure and error likelihood.' },
     auto:{ n:3, c:'#1F9A3A', k:'Direct Automation', m:'Best Practises Adoption', d:'Direct removal of human to risk exposure by automating tasks end-to-end. Eliminating certain high-risk activities through the adaptation of established best practices and proven practices.' },
-    data:{ n:4, c:'#1F9A3A', k:'Data &amp; AI', m:'Safety Intelligence', d:'' }
+    data:{ n:4, c:'#1F9A3A', k:'Data &amp; AI', m:'Safety Intelligence', d:'' },
+    tech:{ n:5, c:'#1F9A3A', k:'Teknologi', m:'Teknologi Inisiatif', d:'' }
   };
   // which groups are open in the list (kept while the list re-renders); the first one starts open
   const SM_OPEN = { cc:true };
@@ -10901,7 +11029,8 @@
   function smListHtml(AREAS, note, cat){
     const groups = [];
     AREAS.forEach(a=>{ const g = (a.cats || [])[0] || 'x'; let G = groups.find(x=> x.g === g); if(!G) groups.push(G = { g, items:[] }); G.items.push(a); });
-    const item = (a, sub, col)=> '<button class="item" type="button" data-id="' + a.id + '" style="--gc:' + col + '"><span class="no">' + sub + '</span>'
+    const item = (a, sub, col)=> a.listOnly ? '<div class="item tk" style="--gc:' + col + '"><span class="no">' + sub + '</span><span class="tx"><span class="t"><em class="site">' + a.site + '</em>' + a.name + '</span></span></div>'
+      : '<button class="item" type="button" data-id="' + a.id + '" style="--gc:' + col + '"><span class="no">' + sub + '</span>'
       + '<span class="tx"><span class="t">' + a.P.name + '</span><span class="s">' + a.loc + '</span><span class="stg">' + a.P.stage + '</span></span>'
       + '<svg class="go" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button>';
     return '<div class="ph"><div class="eb">' + AREAS.length + ' inisiatif' + (cat ? ' · ' + cat : '') + '</div><h3>Stream Framework Automation</h3>'
@@ -10912,7 +11041,7 @@
           return '<details class="grp" data-g="' + g + '" style="--gc:' + G.c + '"' + (open ? ' open' : '') + '>'
             + '<summary><span class="gn">#' + G.n + '</span><span class="gt"><small>' + G.k + '</small><b>' + G.m + '</b></span>'
             + '<span class="gc">' + items.length + '</span><svg class="ch" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>'
-            + '<div class="gb">' + (G.d ? '<p class="gd">' + G.d + '</p>' : '') + items.map((a, k)=> item(a, G.n + '.' + 'abcdefgh'[k], G.c)).join('') + '</div></details>';
+            + '<div class="gb">' + (G.d ? '<p class="gd">' + G.d + '</p>' : '') + items.map((a, k)=> item(a, G.n + '.' + (k < 26 ? 'abcdefghijklmnopqrstuvwxyz'[k] : k + 1), G.c)).join('') + '</div></details>';
         }).join('') + '</div>'
       + '<div class="note">' + note + '</div>';
   }
@@ -10943,7 +11072,36 @@
   // MIR detail: the full infographic image only (it carries all its own text)
   const SM_MIR = '<div class="mx-full"><img src="mom/mir-visual.jpg" alt="Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja"></div>';
   // Remote Dozer detail: the field video and the plan-vs-actual curve as two cards
-  const SM_ROVER = '<div class="rv2"><section class="rv-card"><h5>Remote Dozer di lapangan</h5><div class="rv-vid"><video src="dozer.mp4" muted loop autoplay playsinline preload="auto"></video></div></section><section class="rv-card"><h5>Progress Plan vs Actual <small>Jul\'26 – Jan\'27</small></h5><div class="rv-chart"><svg class="rv-curve" viewBox="0 -125 1040 575" aria-label="Plan vs actual Remote Dozer Jul\'26 sampai Jan\'27"><defs><linearGradient id="rvPlan" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9AA6B8" stop-opacity=".45"/><stop offset="1" stop-color="#9AA6B8" stop-opacity=".03"/></linearGradient><linearGradient id="rvAct" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2FB34A" stop-opacity=".45"/><stop offset="1" stop-color="#2FB34A" stop-opacity=".05"/></linearGradient></defs><path d="M70 400 L222 345 L373 322 L525 280 L677 238 L858 172 L1005 135 L1005 400 L70 400Z" fill="url(#rvPlan)" class="pa"/><line x1="222" y1="345" x2="222" y2="400" class="gd"/><line x1="373" y1="322" x2="373" y2="400" class="gd"/><line x1="525" y1="280" x2="525" y2="400" class="gd"/><line x1="677" y1="238" x2="677" y2="400" class="gd"/><line x1="858" y1="172" x2="858" y2="400" class="gd"/><line x1="1005" y1="135" x2="1005" y2="400" class="gd"/><path d="M70 400 L222 372 L373 372 L373 400 L70 400Z" fill="url(#rvAct)" class="aa"/><line x1="40" y1="400" x2="1010" y2="400" class="ax"/><line x1="70" y1="400" x2="70" y2="408" class="tk"/><text x="70" y="430" class="ml">Jul\'26</text><line x1="222" y1="400" x2="222" y2="408" class="tk"/><text x="222" y="430" class="ml">Aug\'26</text><line x1="373" y1="400" x2="373" y2="408" class="tk"/><text x="373" y="430" class="ml">Sep\'26</text><line x1="525" y1="400" x2="525" y2="408" class="tk"/><text x="525" y="430" class="ml">Oct\'26</text><line x1="677" y1="400" x2="677" y2="408" class="tk"/><text x="677" y="430" class="ml">Nov\'26</text><line x1="828" y1="400" x2="828" y2="408" class="tk"/><text x="828" y="430" class="ml">Dec\'26</text><line x1="980" y1="400" x2="980" y2="408" class="tk"/><text x="980" y="430" class="ml">Jan\'27</text><path d="M70 400 L222 345 L373 322 L525 280 L677 238 L858 172 L1005 135" class="pl"/><circle cx="222" cy="345" r="9" class="pd"/><circle cx="373" cy="322" r="9" class="pd"/><circle cx="525" cy="280" r="9" class="pd k"/><circle cx="677" cy="238" r="9" class="pd k"/><circle cx="858" cy="172" r="9" class="pd k"/><circle cx="1005" cy="135" r="9" class="pd"/><path d="M70 400 L222 372 L373 372" class="al"/><circle cx="70" cy="400" r="10" class="ad"/><circle cx="222" cy="372" r="10" class="ad"/><circle cx="373" cy="372" r="10" class="ad"/><text x="387" y="358" class="pct">5.9%</text><line x1="525" y1="248" x2="525" y2="268" class="cl"/><g class="co"><rect x="230" y="112" width="290" height="136" rx="14" class="cb"/><circle cx="274" cy="158" r="26" fill="#E5484D"/><path d="M264 152h20v18h-20z M269 152v-5 M279 152v-5" class="cal" transform="translate(0 0)"/><text x="314" y="148" class="ct">Oct\'26</text><text x="314" y="176" class="ci">• IM Hold</text><text x="314" y="206" class="ci">• BuilderX comparison</text><text x="314" y="236" class="ci">• Escalation</text></g><line x1="676" y1="142" x2="676" y2="226" class="cl"/><g class="co"><rect x="560" y="36" width="290" height="106" rx="14" class="cb"/><circle cx="604" cy="82" r="26" fill="#F5C21B"/><path d="M594 76h20v18h-20z M599 76v-5 M609 76v-5" class="cal" transform="translate(0 0)"/><text x="644" y="72" class="ct">Nov\'26</text><text x="644" y="100" class="ci">• Console contingency</text><text x="644" y="130" class="ci">• trial</text></g><line x1="858" y1="-4" x2="858" y2="160" class="cl"/><g class="co"><rect x="800" y="-110" width="230" height="106" rx="14" class="cb"/><circle cx="844" cy="-64" r="26" fill="#1F9A3A"/><path d="M834 -70h20v18h-20z M839 -70v-5 M849 -70v-5" class="cal" transform="translate(0 0)"/><text x="884" y="-74" class="ct">Dec\'26</text><text x="884" y="-46" class="ci">• Baseline RFU</text><text x="884" y="-16" class="ci">• Revalidate</text></g><g class="lg"><rect x="30" y="40" width="150" height="80" rx="12"/><line x1="48" y1="66" x2="88" y2="66" class="pl"/><circle cx="68" cy="66" r="7" class="pd"/><text x="100" y="72">Plan</text><line x1="48" y1="98" x2="88" y2="98" class="al"/><circle cx="68" cy="98" r="7" class="ad"/><text x="100" y="104">Actual</text></g></svg></div></section></div>';
+  const SM_ROVER = '<div class="rv3 rv1p"><div class="rv1-l"><section class="rv-card"><h5>Remote Dozer di lapangan</h5><div class="rv-vid"><video src="dozer.mp4" muted loop autoplay playsinline preload="auto"></video></div></section><section class="rv-card"><h5>Progress Plan vs Actual <small>Jul\'26 – Jan\'27</small></h5><div class="rv-ec"></div></section></div><section class="rv-card rv1-r"><h5>Updated Project Timeline <small>Baseline program + current update</small></h5><ol class="rt-tl"><li class="rt-i done"><span class="dot"></span><div class="bx"><small>15 Jul 2026</small><b>Baseline target PO remote dozer</b><p>Pada baseline 19 Aug tercatat overdue; update 21 Aug menyatakan PO ke UT sudah disetujui.</p></div></li><li class="rt-i hold"><span class="dot"></span><div class="bx"><small>29 Aug 2026</small><b>IM ON HOLD — BuilderX comparison &amp; escalation gate</b><p>IM ditahan oleh GMO CM untuk komparasi teknologi/biaya dengan BuilderX sebelum proses dilanjutkan. Timeline procurement, fabrication, dan RFU perlu di-rebaseline setelah keputusan management.</p></div></li><li class="rt-i next"><span class="dot"></span><div class="bx"><small>Sep 2026</small><b>Caravan procurement &amp; network acceleration</b><p>Penunjukan langsung dimungkinkan karena produk proprietary.</p></div></li><li class="rt-i next"><span class="dot"></span><div class="bx"><small>Week 4 Oct 2026*</small><b>Remote console contingency arrival + early trial</b><p>Production di Australia ongoing sejak Week 2 Aug. Console dipakai untuk early integration trial sebelum dozer tiba. *Provisional: tanggal belum dapat dikunci karena tim UT belum disertakan dalam detailed timeline.</p></div></li><li class="rt-i next"><span class="dot"></span><div class="bx"><small>30 Oct 2026</small><b>People &amp; change management readiness</b><p>Operator/driver, SOP, MPRP, kompetensi dipersiapkan.</p></div></li><li class="rt-i next"><span class="dot"></span><div class="bx"><small>Nov 2026</small><b>Caravan delivery / commissioning</b><p>TSP baseline mengarahkan fabrication hingga Nov.</p></div></li><li class="rt-i next"><span class="dot"></span><div class="bx"><small>Early Dec 2026</small><b>RFU + minimum 3 trials</b><p>KPI utama program.</p></div></li><li class="rt-i next"><span class="dot"></span><div class="bx"><small>31 Dec 2026</small><b>Scale-up / commercial rate review</b><p>Decision gate untuk kelanjutan scale-up setelah trial dan evaluasi.</p></div></li></ol></section></div>';
+  // Remote Dozer: plan vs actual as an ECharts curve (milestones as callouts)
+  function roverChart(host){
+    if(typeof echarts === 'undefined' || !host || !host.clientWidth) return;
+    const c = echarts.getInstanceByDom(host) || echarts.init(host, null, { renderer:'canvas' }); c.clear();
+    const M = ["Jul'26","Aug'26","Sep'26","Oct'26","Nov'26","Dec'26","Jan'27"];
+    const plan = [0, 12, 18, 32, 46, 66, 78], act = [0, 5.9, 5.9, null, null, null, null];
+    const call = (i, col, title, items, dy)=> ({ coord:[i, plan[i]], value:title, symbol:'circle', symbolSize:12, itemStyle:{ color:col, borderColor:'#fff', borderWidth:3 },
+      label:{ show:true, position:'top', distance:dy, backgroundColor:'#fff', borderColor:'#E1E6EC', borderWidth:1, borderRadius:12, padding:[10,14], shadowColor:'rgba(20,26,34,.14)', shadowBlur:14, shadowOffsetY:4,
+        formatter:'{t|' + title + '}\n' + items.map(x=> '{i|\u2022 ' + x + '}').join('\n'),
+        rich:{ t:{ fontSize:17, fontWeight:800, color:'#141A22', lineHeight:24, fontFamily:'Plus Jakarta Sans' }, i:{ fontSize:13, color:'#2B3440', lineHeight:19 } } } });
+    c.setOption({
+      animationDuration:1600, animationEasing:'cubicOut', textStyle:{ fontFamily:"'Source Sans 3', sans-serif" },
+      grid:{ left:42, right:28, top:70, bottom:34 },
+      legend:{ top:6, left:4, itemGap:22, textStyle:{ fontSize:13, fontWeight:600 }, data:['Plan','Actual'] },
+      tooltip:{ trigger:'axis', valueFormatter:(v)=> v == null ? '-' : v + '%' },
+      xAxis:{ type:'category', boundaryGap:false, data:M, axisLine:{ lineStyle:{ color:'#4A5566', width:1.5 } }, axisTick:{ show:false }, axisLabel:{ fontSize:13, fontWeight:600, color:'#2B3440' } },
+      yAxis:{ type:'value', min:0, max:100, interval:25, axisLabel:{ formatter:'{value}%', color:'#6B7580', fontSize:11 }, splitLine:{ lineStyle:{ color:'#E6EBF0', type:'dashed' } } },
+      series:[
+        { name:'Plan', type:'line', data:plan, smooth:.3, symbol:'circle', symbolSize:10, lineStyle:{ color:'#7C8798', width:3 }, itemStyle:{ color:'#fff', borderColor:'#7C8798', borderWidth:3 },
+          areaStyle:{ color:new echarts.graphic.LinearGradient(0,0,0,1,[{ offset:0, color:'rgba(124,135,152,.30)' },{ offset:1, color:'rgba(124,135,152,.02)' }]) },
+          markPoint:{ animationDelay:1700, data:[ call(3, '#E5484D', "Oct'26", ['IM Hold','BuilderX comparison','Escalation'], 26), call(4, '#F5C21B', "Nov'26", ['Console contingency','trial'], 22), call(5, '#1F9A3A', "Dec'26", ['Baseline RFU','Revalidate'], 22) ] } },
+        { name:'Actual', type:'line', data:act, smooth:.3, symbol:'circle', symbolSize:12, lineStyle:{ color:'#13741F', width:4 }, itemStyle:{ color:'#13741F', borderColor:'#fff', borderWidth:2 },
+          areaStyle:{ color:new echarts.graphic.LinearGradient(0,0,0,1,[{ offset:0, color:'rgba(47,179,74,.40)' },{ offset:1, color:'rgba(47,179,74,.03)' }]) },
+          label:{ show:true, position:'right', formatter:(p)=> p.dataIndex === 2 ? p.value + '%' : '', fontSize:20, fontWeight:800, color:'#13741F', distance:10 } },
+        { name:'now', type:'effectScatter', data:[[2, 5.9]], symbolSize:12, itemStyle:{ color:'#13741F' }, rippleEffect:{ scale:4, brushType:'stroke', period:2.4 }, silent:true, tooltip:{ show:false }, z:5 }
+      ]
+    });
+    if(!host._ro && 'ResizeObserver' in window){ host._ro = new ResizeObserver(()=> c.resize()); host._ro.observe(host); }
+  }
   function smRichHtml(a, prev, next){
     const P = a.P;
     return '<div class="smc-in">'
@@ -11010,11 +11168,13 @@
       pins.appendChild(pin); a.pinEl = pin;
     });
     const fx = $('Fx'); if(fx) fx.innerHTML = (cfg.fx || '') + fxLinks;
+    AREAS.forEach(a=>{ if(!a.offMap) return; a.el.classList.add('offmap'); a.pinEl.classList.add('offmap'); if(fx) fx.querySelectorAll('[data-t="' + a.id + '"]').forEach(e=> e.classList.add('offmap')); });
     // category menu: only the technologies of the chosen category stay on the map and in the list
     let cat = 'all';
     const CATS = cfg.cats || [], catsEl = $('Cats');
     const catLabel = (c)=> (CATS.find(k=> k.id === c) || {}).label || '';
-    const shown = ()=> AREAS.filter(a=> !a.off);
+    const shown = ()=> AREAS.filter(a=> !a.off && !a.listOnly);
+    const listed = ()=> AREAS.filter(a=> !a.off);
     if(catsEl && CATS.length){
       catsEl.innerHTML = [{ id:'all', label:'Semua' }].concat(CATS).map(k=>{
         const n = k.id === 'all' ? AREAS.length : AREAS.filter(a=> (a.cats || []).includes(k.id)).length;
@@ -11084,32 +11244,36 @@
       const V = shown(), i = Math.max(0, V.indexOf(a)), prev = V[(i-1+V.length)%V.length], next = V[(i+1)%V.length];
       det.innerHTML = a.rich ? smRichHtml(a, prev, next) : smCardHtml(a, prev, next);
       det.querySelectorAll('[data-go]').forEach(b=> b.addEventListener('click', e=>{ e.stopPropagation(); const id = b.dataset.go || null; closeDet(()=> select(id)); }));
-      // Mining Eyes: the picture view plus the CCV dashboard, switched by two tabs
+      // Mining Eyes: Critical Control + roadmap on the left (from the CCV dashboard), the infographic on the right
       if(a.id === 'eyes'){
-        const rich = det.querySelector('.smc-rich'), img = rich && rich.querySelector('.mx-full');
-        if(rich && img){
-          const tabs = document.createElement('div'); tabs.className = 'mea-tabs';
-          tabs.innerHTML = '<button type="button" class="on" data-pane="img">Before / After</button><button type="button" data-pane="ccv">CCV &amp; Roadmap</button>';
-          const ccv = document.createElement('div'); ccv.className = 'mea-ccv'; ccv.hidden = true; ccv.innerHTML = SM_CCX;
-          rich.prepend(tabs); rich.appendChild(ccv);
-          tabs.addEventListener('click', e=>{
-            const b = e.target.closest('button'); if(!b) return; e.stopPropagation();
-            tabs.querySelectorAll('button').forEach(x=> x.classList.toggle('on', x === b));
-            const show = b.dataset.pane === 'ccv'; img.hidden = show; ccv.hidden = !show; fitRich();
-            const pane = show ? ccv : img;
-            if(hasGsap && !reduce) gsap.fromTo(pane.querySelectorAll(show ? '.ccx-sec' : 'img, .mx-prog'), { y:16, opacity:0 }, { y:0, opacity:1, stagger:.08, duration:.45, ease:'power3.out' });
-          });
+        const rich = det.querySelector('.smc-rich');
+        if(rich){
+          const tmp = document.createElement('div'); tmp.innerHTML = SM_CCX;
+          const c1 = tmp.querySelector('.ccx-c1');
+          rich.innerHTML = '<div class="mea2"><div class="mea2-l"><div class="ccx-stage mea2-st"></div></div><div class="mea2-r"><img src="mom/mea-fix.jpg" alt="Mining Eyes Analytics: before dan after implementation, use case utama, dan progress"></div></div>';
+          if(c1) rich.querySelector('.mea2-st').appendChild(c1);
         }
       }
       det.hidden = false; detOpen = true; gridEl.classList.add('det-on');
       fitRich();
       det.querySelectorAll('.rv-vid video').forEach(v=>{ v.muted = true; v.play().catch(()=>{}); });
-      if(hasGsap && !reduce){
-        const pl = det.querySelectorAll('.rv-curve .pl, .rv-curve .al');
-        pl.forEach((pth, i)=>{ const L = pth.getTotalLength(); gsap.fromTo(pth, { strokeDasharray:L, strokeDashoffset:L }, { strokeDashoffset:0, duration:1.4, delay:.9 + i * .3, ease:'power2.inOut', clearProps:'strokeDasharray,strokeDashoffset' }); });
-        gsap.fromTo(det.querySelectorAll('.rv-curve .pd, .rv-curve .ad, .rv-curve .pct'), { scale:0, transformOrigin:'center', transformBox:'fill-box' }, { scale:1, stagger:.06, duration:.35, delay:1.2, ease:'back.out(2)' });
-        gsap.fromTo(det.querySelectorAll('.rv-curve .co'), { y:-14, opacity:0 }, { y:0, opacity:1, stagger:.2, duration:.5, delay:1.8, ease:'power3.out' });
-        gsap.fromTo(det.querySelectorAll('.rv-curve .pa, .rv-curve .aa'), { opacity:0 }, { opacity:1, duration:1, delay:1.1 });
+      const rv = det.querySelector('.rv3');
+      if(rv){
+        setTimeout(()=> roverChart(rv.querySelector('.rv-ec')), 650);
+        if(hasGsap && !reduce) gsap.fromTo(rv.querySelectorAll('.rt-i'), { x:24, opacity:0 }, { x:0, opacity:1, stagger:.1, duration:.45, delay:1, ease:'power3.out' });
+        const tabs = rv.querySelector('.rv-tabs');
+        if(tabs) tabs.addEventListener('click', e=>{
+          const btn = e.target.closest('button'); if(!btn) return; e.stopPropagation();
+          tabs.querySelectorAll('button').forEach(x=> x.classList.toggle('on', x === btn));
+          rv.querySelectorAll('.rv-pane').forEach(p=> p.classList.toggle('on', p.dataset.p === btn.dataset.p));
+          if(btn.dataset.p === 'a') roverChart(rv.querySelector('.rv-ec'));
+          if(hasGsap && !reduce && btn.dataset.p === 'b'){
+            const tl = gsap.timeline();
+            tl.fromTo(rv.querySelector('.rt-tl'), { '--fill':'0%' }, { '--fill':'100%', duration:1.6, ease:'power2.inOut' }, 0);
+            tl.fromTo(rv.querySelectorAll('.rt-i'), { x:-24, opacity:0 }, { x:0, opacity:1, stagger:.12, duration:.45, ease:'power3.out' }, .1);
+            tl.fromTo(rv.querySelectorAll('.cp-flow > *'), { y:16, opacity:0 }, { y:0, opacity:1, stagger:.12, duration:.45, ease:'back.out(1.5)' }, .3);
+          }
+        });
       }
       if(!hasGsap || reduce) return;
       const [x, y] = origin(), q = (sel)=> det.querySelectorAll(sel);
@@ -11139,6 +11303,15 @@
     }
     // the dashboard is drawn at a fixed design size and scaled into the card
     function fitRich(){
+      const m = det.querySelector('.mea2-st');
+      if(m && m.offsetParent){
+        // the column takes the picture's height, and the Critical Control stage is scaled to fill it exactly
+        const box = m.parentNode, img = det.querySelector('.mea2-r img'), H = box.parentNode.clientHeight;
+        box.style.height = H + 'px'; box.parentNode.style.setProperty('--meaH', H + 'px');
+        const k = H / 720, w = box.clientWidth / k;
+        m.style.width = w + 'px'; m.style.height = (H / k) + 'px'; m.style.transform = 'scale(' + k + ')'; m.style.left = '0px';
+        if(img && !img.complete) img.onload = ()=> fitRich();
+        return; }
       const box = det.querySelector('.smc-rich'), st = box && box.querySelector('.ccx-stage'); if(!st || !st.offsetParent) return;
       const host = st.closest('.mea-ccv') || box;
       const k = Math.min(host.clientWidth / 1800, host.clientHeight / 720);
@@ -11170,7 +11343,7 @@
     }
     function render(){
       if(!active){
-        panel.innerHTML = cfg.listHtml(shown(), cat === 'all' ? '' : catLabel(cat));
+        panel.innerHTML = cfg.listHtml(listed(), cat === 'all' ? '' : catLabel(cat));
         panel.querySelectorAll('.item').forEach(b=>{ b.onclick = (e)=>{ e.stopPropagation(); select(b.dataset.id); }; b.onmouseenter = ()=> hover(b.dataset.id, true); b.onmouseleave = ()=> hover(b.dataset.id, false); });
       } else {
         const V = shown(), a = active, i = Math.max(0, V.indexOf(a)), prev = V[(i-1+V.length)%V.length], next = V[(i+1)%V.length];
@@ -11241,7 +11414,7 @@
     const T = (id, P, loc, icon, tag, pin, poly, next, wide)=> ({ id, P, loc, icon, tag, pin, poly, next, wide, st:'tech', name:P.name.replace(/&amp;/g,'&').replace(/ – .*| \(.*\)/, '') });
     const IC = { obds:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18v12H3zm2 2v8h14V6zm2 6 3-3 2 2 4-4 1 1-5 5-2-2-2 2zM8 18h8v2H8z"/></svg>', eyes:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9l2-2h5v14H4zm8 9a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0-2a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>', mg:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 18h12v3H2zm2-5h7v4H4zm6-1 3-7 2 1-3 7zm3-7 6 2 1 5-2 1-1-4-5-2z"/></svg>', mir:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>', arcas:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3zm-1.2 14.2-3.5-3.5 1.4-1.4 2.1 2.1 4.9-4.9 1.4 1.4-6.3 6.3z"/></svg>', rover:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10a5 5 0 0 1 5 5v1a4 4 0 0 1-7 2.6L14 14h-4l-1 1.6A4 4 0 0 1 2 13v-1a5 5 0 0 1 5-5zm0 3v2H5v2h2v2h2v-2h2v-2H9v-2zm9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm2 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg>', haul:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 7h12v8H1zm12 3h5l4 3v2h-9zM5 18a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm13 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>' };
     const CAT = { obds:['data'], eyes:['cc'], mg:['eng'], mir:['eng'], arcas:['eng'], rover:['eng'], haul:['auto'] };
-    const CATS = [{ id:'cc', label:'#1 Critical Control' }, { id:'eng', label:'#2 Engineering Control' }, { id:'auto', label:'#3 Direct Automation' }, { id:'data', label:'Data &amp; AI' }];
+    const CATS = [{ id:'cc', label:'#1 Critical Control' }, { id:'eng', label:'#2 Engineering Control' }, { id:'auto', label:'#3 Direct Automation' }, { id:'data', label:'Data &amp; AI' }, { id:'tech', label:'#5 Teknologi Inisiatif' }];
     return { AP, NX, EXTRA, T, IC, CAT, CATS };
   })();
   // map 1: the whole site (tambang2), same technologies and concept as map 2
@@ -11264,10 +11437,31 @@
     AREAS.push(T('ccv', { name:'CCV', sub:'Critical Risk Barrier · CCV &amp; IPLS Layer 5 · Mining Eyes Analytic', stage:'Q3 2026 · Pendetailan CPP', hazard:[], prog:[], rnd:[] },
       'Crossing &amp; gate hauling', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V9h2v4z"/></svg>', [120,622], [298,520], [[230,500],[340,500],[340,560],[230,560]], ''));
     AREAS[3].name = 'MIR';
-    AREAS.forEach(a=> a.cats = CAT[a.id] || (a.id === 'ccv' ? ['cc'] : ['eng']));
+    AREAS.forEach(a=> a.cats = a.listOnly ? ['tech'] : CAT[a.id] || (a.id === 'ccv' ? ['cc'] : ['eng']));
+    // #5 Teknologi Inisiatif: site | initiative, shown in the list only
+    const TECH = [
+      ['LMO', 'Face Recognition (SIMPER Detection System)'],
+      ['SMO', 'Buzzer Alarm DMS'],
+      ['BMO 1', 'RFID Keyless'],
+      ['BMO 1', 'LOTO Box Indicator Lamp'],
+      ['BMO 2', 'Machine Guidance'],
+      ['BMO 2', 'Motion Intelligence Rover (MIR)'],
+      ['GMO', 'Lamp Signal, Running Text &amp; TOA Voice Integration'],
+      ['BMO 3', 'Smart Key Warning Alarm System'],
+      ['BMO 3', 'Proximity Warning System'],
+      ['MARINE', 'Navigation Safety Technology'],
+      ['TRANSPORT', '360 Camera for Transportation Unit'],
+      ['TRANSPORT', 'DMS Geofence Improvement'],
+      ['TRANSPORT', 'DMS Light Vehicle Monitoring System'],
+      ['EXPLORATION', 'Remote Lamp Control']
+    ];
+    TECH.forEach(([site, name], k)=> AREAS.push({ id:'tk' + k, name, site, P:{ name, sub:site, stage:site, hazard:[], prog:[], rnd:[] }, loc:site,
+      st:'tech', cats:['tech'], listOnly:true, offMap:true, pin:[0, 0], poly:[[0,0],[1,0],[1,1],[0,1]] }));
+    AREAS.forEach(a=>{ if(a.id === 'obds' || a.id === 'ccv') a.offMap = true; });
     AREAS.forEach(a=>{ if(a.id === 'rover') a.rich = 'rover'; if(a.id === 'haul' || a.id === 'arcas' || a.id === 'pump') a.rich = 'mir'; if(a.id === 'ccv') a.rich = true; if(a.id === 'eyes') a.rich = 'mir'; if(a.id === 'mir' || a.id === 'mg') a.rich = 'mir'; if(a.id === 'obds') a.rich = 'img'; });
     const ORDER = ['ccv','eyes','mg','mir','arcas','rover','pump','haul','obds'];
-    AREAS.sort((x, y)=> ORDER.indexOf(x.id) - ORDER.indexOf(y.id));
+    const ord = (a)=> a.listOnly ? 100 + +a.id.slice(2) : ORDER.indexOf(a.id);
+    AREAS.sort((x, y)=> ord(x) - ord(y));
     return makeSiteMap({ pre:'sm', slide:'slideMap', w:1672, h:941, areas:AREAS, tilt:false, cats:CATS, fx:'<g class="tm-wifi" data-t="pump" transform="translate(860 378) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-net"><path d="M420 58 C 480 70, 560 95, 620 112"/><path d="M620 112 C 560 200, 460 280, 385 340"/><path d="M620 112 C 900 140, 1250 200, 1500 305"/><path d="M385 340 C 420 420, 440 480, 460 525"/><path d="M460 525 C 580 560, 690 590, 780 612"/><path d="M780 612 C 900 560, 1040 500, 1160 455"/></g><g class="tm-rings" data-t="haul"><ellipse cx="287" cy="428" rx="40" ry="11"/><ellipse cx="415" cy="438" rx="38" ry="11"/><ellipse cx="965" cy="310" rx="30" ry="9"/><ellipse cx="60" cy="398" rx="36" ry="10"/><ellipse cx="1205" cy="640" rx="36" ry="10"/></g><ellipse class="tm-bubble" data-t="arcas" cx="780" cy="616" rx="62" ry="40"/><g class="tm-radar" data-t="arcas"><path d="M850 600 a18 18 0 0 1 0 28"/><path d="M862 591 a32 32 0 0 1 0 46"/><path d="M874 582 a46 46 0 0 1 0 64"/></g><g class="tm-cv" data-t="eyes"><rect x="478" y="336" width="62" height="40" rx="4"/><rect x="250" y="398" width="70" height="40" rx="4"/><rect x="380" y="410" width="70" height="40" rx="4"/></g><g class="tm-signal" data-t="eyes"><path d="M398 40 a26 26 0 0 0 0 36"/><path d="M386 30 a42 42 0 0 0 0 56"/><path d="M442 40 a26 26 0 0 1 0 36"/><path d="M454 30 a42 42 0 0 1 0 56"/></g><g class="tm-grid" data-t="mg"><path d="M300 364 L440 364 L462 388 L280 388 Z"/><path d="M325 364 L310 388 M355 364 L345 388 M385 364 L380 388 M415 364 L417 388 M290 376 L452 376"/></g><g class="tm-holo" data-t="mg"><rect x="430" y="262" width="96" height="64" rx="6"/><circle cx="458" cy="294" r="11"/><path d="M458 280 v28 M444 294 h28 M484 316 l17 -32 l17 32 z"/></g><path class="tm-mesh" data-t="mir" d="M1250 340 C 1330 305, 1420 296, 1500 296 S 1610 300, 1668 318"/><g class="tm-pins" data-t="mir"><g transform="translate(1290 294)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1360 277)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1430 270)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1560 270)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1630 278)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g></g><g class="tm-wifi" data-t="rover" transform="translate(1160 418) scale(0.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="arcas" transform="translate(780 568) scale(0.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="haul" transform="translate(415 398) scale(0.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="haul" transform="translate(287 388) scale(0.7)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-chev" data-t="haul"><path d="M560 545 l16 -10 l16 10" transform="rotate(75 576 540)"/><path d="M585 552 l16 -10 l16 10" transform="rotate(75 601 547)"/></g>',
       listHtml:(A, c)=> smListHtml(A, 'ARCAS, Machine Guidance, MIR dan Remote Dozer mengikuti slide <b>Safety Automation</b>; Mining Eyes, OBDS, Hauling Automation dan Remote Pump berupa ringkasan.', c) });
   })();
