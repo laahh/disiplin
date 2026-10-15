@@ -4380,9 +4380,9 @@
   @keyframes ov2Hl{ 0%,100%{ filter:drop-shadow(0 0 0 rgba(214,36,58,0)); } 50%{ filter:drop-shadow(0 0 6px rgba(31,154,58,.55)); } }
   .ov2-plat{ position:absolute; left:0; top:0; width:100%; height:100%; overflow:visible; }
   .ov2-plat path{ fill:none; vector-effect:non-scaling-stroke; }
-  .ov2-plat .pl{ stroke:#0F2D6B; stroke-width:9; stroke-linecap:round; }
+  .ov2-plat .pl{ stroke-width:9; stroke-linecap:round; }
   .ov2-plat .plc{ stroke:#fff; stroke-width:1.6; stroke-dasharray:7 6; animation:tmFlow 1s linear infinite; }
-  .ov2-plat .gr{ stroke:#7CC242; stroke-width:6; stroke-dasharray:5 6; stroke-linecap:round; animation:tmFlow .9s linear infinite reverse; }
+  .ov2-plat .gr{ stroke-width:6; stroke-dasharray:5 6; stroke-linecap:round; animation:tmFlow .9s linear infinite reverse; }
   .ov2-plat .rd{ stroke:#C8102E; stroke-width:2; stroke-dasharray:2 3.5; stroke-dashoffset:0; transform-box:fill-box; transform-origin:50% 0; animation:ov2Drop 3s ease-in-out infinite; }
   .ov2-plat .rd.r2{ animation-delay:1.2s; }
   @keyframes ov2Drop{ 0%{ transform:scaleY(0); opacity:0; } 15%{ opacity:1; } 55%,80%{ transform:scaleY(1); opacity:1; } 100%{ transform:scaleY(1); opacity:0; } }
@@ -4608,6 +4608,36 @@
   .ov2-next{ flex:1 1 auto !important; min-height:30px; margin:0 !important; }
   .ov2-evo{ margin-top:0 !important; }
   .ov2-hz-h b small{ font-size:.8em; font-weight:700; color:#4A525C; }
+
+  /* ---- plateau (navy) and breakthrough (green): richer look and motion ---- */
+  .ov2-plat .pl{ stroke-width:11 !important; filter:drop-shadow(0 2px 3px rgba(15,45,107,.45)) drop-shadow(0 0 6px rgba(47,111,214,.45)); }
+  .ov2-plat .plc{ stroke:#CFE0FF !important; stroke-width:2 !important; stroke-dasharray:3 9 !important; stroke-linecap:round; opacity:.9; animation:tmFlow 1.4s linear infinite !important; }
+  .ov2-pl-run{ position:absolute; left:0; top:56%; width:16px; height:16px; margin:-8px 0 0 -8px; border-radius:50%; pointer-events:none;
+    background:radial-gradient(circle,#fff 0 25%,rgba(150,195,255,.9) 45%,rgba(47,111,214,0) 72%); animation:ov2Run 3.2s cubic-bezier(.45,0,.55,1) infinite; }
+  @keyframes ov2Run{ 0%{ left:1%; opacity:0; } 10%{ opacity:1; } 85%{ opacity:1; } 100%{ left:76%; opacity:0; } }
+  .ov2-plat .gr.glow{ stroke:#7CFF9C !important; stroke-width:16 !important; stroke-dasharray:none !important; opacity:.22; filter:blur(3px); animation:ov2Glow 2.2s ease-in-out infinite !important; }
+  @keyframes ov2Glow{ 0%,100%{ opacity:.14; } 50%{ opacity:.38; } }
+  .ov2-plat .gr.core{ stroke-width:6 !important; stroke-dasharray:1 !important; stroke-linecap:round; animation:none !important; filter:drop-shadow(0 0 4px rgba(46,200,90,.8)); }
+  .ov2-plat .gr.spark{ stroke:#fff !important; stroke-width:2.6 !important; stroke-dasharray:2 16 !important; stroke-linecap:round; animation:tmFlow .8s linear infinite reverse !important; opacity:.95; }
+  .ov2-br-dot{ position:absolute; left:106.7%; top:-150%; width:18px; height:18px; transform:translate(-50%,-50%); border-radius:50%; pointer-events:none;
+    background:radial-gradient(circle,#fff 0 28%,#7CFF9C 55%,#1F9A3A 100%); box-shadow:0 0 0 0 rgba(46,200,90,.6); animation:ov2Beat 1.6s ease-out infinite; }
+  @keyframes ov2Beat{ 0%{ box-shadow:0 0 0 0 rgba(46,200,90,.65); } 100%{ box-shadow:0 0 0 14px rgba(46,200,90,0); } }
+  .ov2-br-lab{ color:#1F8A3A !important; font-size:14px !important; }
+  .ov2-pl-lab{ color:#0F2D6B !important; font-size:13px !important; }
+  @media (prefers-reduced-motion: reduce){ .ov2-pl-run, .ov2-br-dot, .ov2-plat .gr.glow{ animation:none !important; } }
+  /* plateau & breakthrough: simple and clean */
+  .ov2-plat .pl{ stroke-width:6 !important; filter:none !important; }
+  .ov2-plat .plc{ display:none !important; }
+  .ov2-pl-run{ display:none !important; }
+  .ov2-plat .gr.glow, .ov2-plat .gr.spark{ display:none !important; }
+  .ov2-plat .gr.core{ stroke-width:4 !important; filter:none !important; }
+  .ov2-br-dot{ width:10px !important; height:10px !important; background:#1F9A3A !important; border:2px solid #fff; box-shadow:0 1px 3px rgba(0,0,0,.25) !important; animation:none !important; }
+  .ov2-br-lab{ font-size:13px !important; }
+  .ov2-links .lk.main{ stroke-dasharray:none !important; animation:none !important; stroke-width:2.4 !important; }
+  /* Overview containers: soft layered shadow */
+  .hs-tv-ov2 .ov2-left, .hs-tv-ov2 .ov2-right{ border:1px solid rgba(20,26,34,.06) !important; box-shadow:0 1px 2px rgba(20,26,34,.06), 0 8px 18px rgba(20,26,34,.08), 0 22px 44px rgba(20,26,34,.10) !important; }
+  .hs-tv-ov2 .ov2-curves, .hs-tv-ov2 .ov2-lower, .hs-tv-ov2 .ov2-ci, .hs-tv-ov2 .ov2-evo{ box-shadow:0 4px 12px rgba(20,26,34,.07); }
+  .hs-tv-in.hs-tv-ov2 > .ov2-grid{ box-sizing:border-box; padding:2px 8px 18px; height:100%; }
 </style>
 </head>
 <body>
@@ -4899,7 +4929,7 @@
         <span class="ov2-cv-tail"></span>
         <div class="ov2-cv-axis"><span>Kontrol semakin kuat</span><span>Spektrum Risiko</span><span>Risiko semakin tinggi</span></div>
       </div>
-      <div class="ov2-chartwrap"><div class="ex-chart ov2-chart" role="img" aria-label="Jumlah insiden, AFR dan LTISR 2017 sampai Q3 2026"></div><div class="ov2-phase"></div><div class="ov2-callout"><svg class="ov2-plat" viewBox="0 0 600 100" preserveAspectRatio="none" aria-hidden="true"><path class="gr" d="M440 56 C 500 52, 560 10, 640 -150"/><path class="rd r1" d="M335 60 C 338 80, 330 100, 342 122 M352 60 C 356 74, 350 88, 354 104"/><path class="rd r2" d="M545 60 C 548 78, 540 96, 552 116"/><path class="pl" d="M0 56.0 L10 58.6 L20 61.0 L30 63.0 L40 64.3 L50 65.0 L60 64.8 L70 63.9 L80 62.4 L90 60.3 L100 57.8 L110 55.2 L120 52.6 L130 50.3 L140 48.5 L150 47.4 L160 47.0 L170 47.4 L180 48.5 L190 50.2 L200 52.5 L210 55.0 L220 57.7 L230 60.2 L240 62.3 L250 63.9 L260 64.8 L270 65.0 L280 64.4 L290 63.0 L300 61.1 L310 58.7 L320 56.1 L330 53.5 L340 51.1 L350 49.1 L360 47.7 L370 47.1 L380 47.1 L390 48.0 L400 49.5 L410 51.6 L420 54.1 L430 56.7 L440 59.3 L450 61.6 L460 63.4"><animate attributeName="d" dur="2.6s" repeatCount="indefinite" values="M0 56.0 L10 58.6 L20 61.0 L30 63.0 L40 64.3 L50 65.0 L60 64.8 L70 63.9 L80 62.4 L90 60.3 L100 57.8 L110 55.2 L120 52.6 L130 50.3 L140 48.5 L150 47.4 L160 47.0 L170 47.4 L180 48.5 L190 50.2 L200 52.5 L210 55.0 L220 57.7 L230 60.2 L240 62.3 L250 63.9 L260 64.8 L270 65.0 L280 64.4 L290 63.0 L300 61.1 L310 58.7 L320 56.1 L330 53.5 L340 51.1 L350 49.1 L360 47.7 L370 47.1 L380 47.1 L390 48.0 L400 49.5 L410 51.6 L420 54.1 L430 56.7 L440 59.3 L450 61.6 L460 63.4;M0 56.0 L10 53.4 L20 51.0 L30 49.1 L40 47.7 L50 47.0 L60 47.2 L70 48.0 L80 49.6 L90 51.7 L100 54.2 L110 56.8 L120 59.4 L130 61.7 L140 63.4 L150 64.6 L160 65.0 L170 64.6 L180 63.5 L190 61.8 L200 59.5 L210 57.0 L220 54.3 L230 51.8 L240 49.7 L250 48.1 L260 47.2 L270 47.0 L280 47.6 L290 49.0 L300 50.9 L310 53.3 L320 55.9 L330 58.5 L340 60.9 L350 62.9 L360 64.3 L370 64.9 L380 64.9 L390 64.0 L400 62.5 L410 60.4 L420 57.9 L430 55.3 L440 52.7 L450 50.4 L460 48.6;M0 56.0 L10 58.6 L20 61.0 L30 63.0 L40 64.3 L50 65.0 L60 64.8 L70 63.9 L80 62.4 L90 60.3 L100 57.8 L110 55.2 L120 52.6 L130 50.3 L140 48.5 L150 47.4 L160 47.0 L170 47.4 L180 48.5 L190 50.2 L200 52.5 L210 55.0 L220 57.7 L230 60.2 L240 62.3 L250 63.9 L260 64.8 L270 65.0 L280 64.4 L290 63.0 L300 61.1 L310 58.7 L320 56.1 L330 53.5 L340 51.1 L350 49.1 L360 47.7 L370 47.1 L380 47.1 L390 48.0 L400 49.5 L410 51.6 L420 54.1 L430 56.7 L440 59.3 L450 61.6 L460 63.4"/></path><path class="plc" d="M0 56 H460"/></svg><span class="ov2-pl-lab">Current Plateau <i>&#9660;</i></span><span class="ov2-hi-lab">Hidden major incident Event <i>&#9654;</i></span><span class="ov2-br-lab">Breakthrough <i>Next Phase</i></span></div></div>
+      <div class="ov2-chartwrap"><div class="ex-chart ov2-chart" role="img" aria-label="Jumlah insiden, AFR dan LTISR 2017 sampai Q3 2026"></div><div class="ov2-phase"></div><div class="ov2-callout"><svg class="ov2-plat" viewBox="0 0 600 100" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="ov2PlG" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="460" y2="0"><stop offset="0" stop-color="#0F2D6B"/><stop offset=".55" stop-color="#1E4FA8"/><stop offset="1" stop-color="#2F6FD6"/></linearGradient><linearGradient id="ov2GrG" gradientUnits="userSpaceOnUse" x1="440" y1="56" x2="640" y2="-150"><stop offset="0" stop-color="#1F9A3A"/><stop offset=".6" stop-color="#5CC23A"/><stop offset="1" stop-color="#B8F06A"/></linearGradient></defs><path class="gr glow" d="M440 56 C 500 52, 560 10, 640 -150"/><path class="gr core" pathLength="1" stroke="url(#ov2GrG)" d="M440 56 C 500 52, 560 10, 640 -150"/><path class="gr spark" d="M440 56 C 500 52, 560 10, 640 -150"/><path class="rd r1" d="M335 60 C 338 80, 330 100, 342 122 M352 60 C 356 74, 350 88, 354 104"/><path class="rd r2" d="M545 60 C 548 78, 540 96, 552 116"/><path class="pl" stroke="url(#ov2PlG)" d="M0 56.0 L10 58.6 L20 61.0 L30 63.0 L40 64.3 L50 65.0 L60 64.8 L70 63.9 L80 62.4 L90 60.3 L100 57.8 L110 55.2 L120 52.6 L130 50.3 L140 48.5 L150 47.4 L160 47.0 L170 47.4 L180 48.5 L190 50.2 L200 52.5 L210 55.0 L220 57.7 L230 60.2 L240 62.3 L250 63.9 L260 64.8 L270 65.0 L280 64.4 L290 63.0 L300 61.1 L310 58.7 L320 56.1 L330 53.5 L340 51.1 L350 49.1 L360 47.7 L370 47.1 L380 47.1 L390 48.0 L400 49.5 L410 51.6 L420 54.1 L430 56.7 L440 59.3 L450 61.6 L460 63.4"><animate attributeName="d" dur="2.6s" repeatCount="indefinite" values="M0 56.0 L10 58.6 L20 61.0 L30 63.0 L40 64.3 L50 65.0 L60 64.8 L70 63.9 L80 62.4 L90 60.3 L100 57.8 L110 55.2 L120 52.6 L130 50.3 L140 48.5 L150 47.4 L160 47.0 L170 47.4 L180 48.5 L190 50.2 L200 52.5 L210 55.0 L220 57.7 L230 60.2 L240 62.3 L250 63.9 L260 64.8 L270 65.0 L280 64.4 L290 63.0 L300 61.1 L310 58.7 L320 56.1 L330 53.5 L340 51.1 L350 49.1 L360 47.7 L370 47.1 L380 47.1 L390 48.0 L400 49.5 L410 51.6 L420 54.1 L430 56.7 L440 59.3 L450 61.6 L460 63.4;M0 56.0 L10 53.4 L20 51.0 L30 49.1 L40 47.7 L50 47.0 L60 47.2 L70 48.0 L80 49.6 L90 51.7 L100 54.2 L110 56.8 L120 59.4 L130 61.7 L140 63.4 L150 64.6 L160 65.0 L170 64.6 L180 63.5 L190 61.8 L200 59.5 L210 57.0 L220 54.3 L230 51.8 L240 49.7 L250 48.1 L260 47.2 L270 47.0 L280 47.6 L290 49.0 L300 50.9 L310 53.3 L320 55.9 L330 58.5 L340 60.9 L350 62.9 L360 64.3 L370 64.9 L380 64.9 L390 64.0 L400 62.5 L410 60.4 L420 57.9 L430 55.3 L440 52.7 L450 50.4 L460 48.6;M0 56.0 L10 58.6 L20 61.0 L30 63.0 L40 64.3 L50 65.0 L60 64.8 L70 63.9 L80 62.4 L90 60.3 L100 57.8 L110 55.2 L120 52.6 L130 50.3 L140 48.5 L150 47.4 L160 47.0 L170 47.4 L180 48.5 L190 50.2 L200 52.5 L210 55.0 L220 57.7 L230 60.2 L240 62.3 L250 63.9 L260 64.8 L270 65.0 L280 64.4 L290 63.0 L300 61.1 L310 58.7 L320 56.1 L330 53.5 L340 51.1 L350 49.1 L360 47.7 L370 47.1 L380 47.1 L390 48.0 L400 49.5 L410 51.6 L420 54.1 L430 56.7 L440 59.3 L450 61.6 L460 63.4"/></path><path class="plc" d="M0 56 H460"/></svg><span class="ov2-pl-run"></span><span class="gr ov2-br-dot"></span><span class="ov2-pl-lab">Current Plateau <i>&#9660;</i></span><span class="ov2-hi-lab">Hidden major incident Event <i>&#9654;</i></span><span class="ov2-br-lab">Breakthrough <i>Next Phase</i></span></div></div>
       <div class="ov2-lower">
         <div class="ov2-hz">
           <div class="ov2-hz-main">
@@ -9514,8 +9544,10 @@
     const top = Math.min(ob[0].t, ob[1].t), x0 = fun.l + fun.w * .875, y0 = Math.min(fun.b - 2, top - 56), ym = top - 40, c0 = ob[0].l + ob[0].w / 2, c1 = ob[1].l + ob[1].w / 2;
     svg.innerHTML = '<defs><marker id="ov2Arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10z" fill="#16294F"/></marker>'
       + '<marker id="ov2ArrO" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 10 5 0 10z" fill="#E8762B"/></marker></defs>'
-      + '<path class="lk main cb" d="M' + box.r + ' ' + my + ' H' + xm + ' V' + fy + ' H' + (fun.l + 6) + '" marker-end="url(#ov2Arr)"/>'
-      + (hz ? '<path class="lk" d="M' + hz.r + ' ' + (hz.t + hz.h * .55) + ' H' + (xm + 8) + ' V' + ym + ' H' + (ob[0].l + ob[0].w * .18) + '" marker-end="url(#ov2Arr)"/>' : '')
+      // lagging chart -> funnel mouth: one straight arrow
+      + '<path class="lk main cb" d="M' + (left.r + 2) + ' ' + fy + ' H' + (fun.l + 6) + '" marker-end="url(#ov2Arr)"/>'
+      // hazard / TBC reporting -> up into CONTROLS / PERKUATAN (under the funnel)
+      + (hz ? '<path class="lk" d="M' + hz.r + ' ' + (hz.t + 14) + ' H' + (xm + 8) + ' V' + (fun.b - 10) + ' H' + (fun.l + fun.w * .395) + ' V' + (fun.b - 24) + '" marker-end="url(#ov2Arr)"/>' : '')
       + '<path class="lk ci" d="M' + (ci.l + ci.w / 2) + ' ' + ci.b + ' V' + (fun.t + fun.h * .16) + '" marker-end="url(#ov2Arr)"/>'
       + '<path class="lk or" d="M' + x0 + ' ' + y0 + ' V' + ym + ' M' + c0 + ' ' + ym + ' H' + Math.max(c1, x0) + '"/>'
       + '<path class="lk or" d="M' + c0 + ' ' + ym + ' V' + (ob[0].t - 30) + '" marker-end="url(#ov2ArrO)"/><path class="lk or" d="M' + c1 + ' ' + ym + ' V' + (ob[1].t - 30) + '" marker-end="url(#ov2ArrO)"/>';
@@ -10379,7 +10411,7 @@
   const OV2_TOP = 16, OV2_LEFT = 34;  // keep in step with .ov2-chartwrap .ex-ph-cols height / .ov2-phase left
   // Overview: the plateau highlight follows the chart sweep (box opens as the lines reach 2023,
   // incident drops appear at Q1'26 / Q3'26, the breakthrough rises once the sweep ends)
-  function plateauFlow(el, D, n){
+  function plateauFlow(el, D, n, onCover){
     const box = el.parentNode.querySelector('.ov2-callout'), grid = el.closest('.ov2-grid'); if(!box || !box.animate) return;
     (el._plAn || []).forEach(x=> x.cancel()); clearTimeout(el._plT);
     if(REDUCE_MOTION){ if(grid) grid.classList.remove('pl-wait'); return; }
@@ -10394,8 +10426,11 @@
     run(q('.ov2-hi-lab'), [{ opacity:0 }, { opacity:1 }], at(9), 400);
     run(q('.rd.r2'), [{ opacity:0 }, { opacity:1 }], at(11), 400);
     run(q('.gr, .ov2-br-lab'), [{ opacity:0 }, { opacity:1 }], ms, 700);
+    run(q('.gr.core'), [{ strokeDashoffset:1 }, { strokeDashoffset:0 }], ms, 1100, 'cubic-bezier(.3,.7,.2,1)');
+    run(q('.ov2-br-dot'), [{ transform:'translate(-50%,-50%) scale(0)' }, { transform:'translate(-50%,-50%) scale(1)' }], ms + 900, 500, 'cubic-bezier(.3,1.6,.5,1)');
     el._plAn = an;
     if(grid){ grid.classList.add('pl-wait'); el._plT = setTimeout(()=> grid.classList.remove('pl-wait'), at(5.6)); }
+    clearTimeout(el._plC); if(onCover) el._plC = setTimeout(onCover, at(12) + 150);
   }
   const execView = (function(){
     const W = 1790, H = 770;
@@ -10473,7 +10508,7 @@
             label:{ show:true, position:'inside', fontSize:10.5, color:'#3C444C', formatter:(p)=> f1(p.value) } },
           { name:'Total', type:'scatter', data:total, symbolSize:0, silent:true,
             label:{ show:true, position:'top', fontSize:11, fontWeight:800, color:'#141A22', formatter:(p)=> f1(p.value) } },
-          ...(merged ? [{ name:'Performa Keselamatan', type:'line', data:total, smooth:.5, symbol:'none', silent:true, z:4,
+          ...(merged ? [{ id:'perf', name:'Performa Keselamatan', type:'line', data:total, smooth:.5, symbol:'none', silent:true, z:4,
               lineStyle:{ color:'#F2B705', width:4, cap:'round', shadowColor:'rgba(242,183,5,.45)', shadowBlur:6 }, tooltip:{ show:false } }] : []),
           { name:'AFR', type:'line', yAxisIndex:1, data:T.afr, symbol:'diamond', symbolSize:9, lineStyle:{ color:'#E3262F', width:2.4 }, itemStyle:{ color:'#E3262F' },
             label:{ show:true, position:'top', fontSize:11, fontWeight:800, color:'#E3262F', formatter:(p)=> p.dataIndex===last ? '' : fmt(p.value) }, z:5,
@@ -10489,7 +10524,7 @@
       });
       // one smooth sweep left to right (as on the Disiplin chart): the lines draw continuously, each
       // year's bar rises as the line reaches it, the flags appear when the sweep ends
-      const DUR = 10000, n = last + 1, at = (i)=> (i + .15) / n * DUR;
+      const DUR = 5000, n = last + 1, at = (i)=> (i + .15) / n * DUR;
       const opt = c.getOption(); c.clear();
       opt.animation = true;
       opt.series.forEach(sr=>{
@@ -10500,7 +10535,8 @@
       });
       c.setOption(opt);
       el._rev = true; clearTimeout(el._revT); el._revT = setTimeout(()=>{ el._rev = null; }, DUR + 800);
-      if(merged) plateauFlow(el, DUR / 1000, n);
+      // once the plateau line covers 2023 onward, the yellow curve under it is dropped (no double line)
+      if(merged) plateauFlow(el, DUR / 1000, n, ()=>{ if(c.isDisposed && c.isDisposed()) return; c.setOption({ series:[{ id:'perf', data:total.map((v, i)=> i > 6 ? '-' : v), animation:false }] }); });
       // replay the sweep after a pause, for as long as this chart is on screen
       clearTimeout(el._loopT);
       el._loopT = setTimeout(function again(){
@@ -10828,7 +10864,7 @@
     };
     const T = (id, P, loc, icon, tag, pin, poly, next, wide)=> ({ id, P, loc, icon, tag, pin, poly, next, wide, st:'tech', name:P.name.replace(/&amp;/g,'&').replace(/ – .*| \(.*\)/, '') });
     const IC = { obds:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18v12H3zm2 2v8h14V6zm2 6 3-3 2 2 4-4 1 1-5 5-2-2-2 2zM8 18h8v2H8z"/></svg>', eyes:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9l2-2h5v14H4zm8 9a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0-2a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>', mg:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 18h12v3H2zm2-5h7v4H4zm6-1 3-7 2 1-3 7zm3-7 6 2 1 5-2 1-1-4-5-2z"/></svg>', mir:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>', arcas:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3zm-1.2 14.2-3.5-3.5 1.4-1.4 2.1 2.1 4.9-4.9 1.4 1.4-6.3 6.3z"/></svg>', rover:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10a5 5 0 0 1 5 5v1a4 4 0 0 1-7 2.6L14 14h-4l-1 1.6A4 4 0 0 1 2 13v-1a5 5 0 0 1 5-5zm0 3v2H5v2h2v2h2v-2h2v-2H9v-2zm9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm2 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg>', haul:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 7h12v8H1zm12 3h5l4 3v2h-9zM5 18a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm13 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>' };
-    const CAT = { obds:['data'], eyes:['cc'], mg:['eng'], mir:['eng'], arcas:['eng'], rover:['eng','auto'], haul:['auto'] };
+    const CAT = { obds:['data'], eyes:['cc'], mg:['eng'], mir:['eng'], arcas:['eng'], rover:['eng'], haul:['auto'] };
     const CATS = [{ id:'cc', label:'Critical Control' }, { id:'eng', label:'Rekayasa Engineering' }, { id:'auto', label:'Automation' }, { id:'data', label:'Data &amp; AI' }];
     return { AP, NX, EXTRA, T, IC, CAT, CATS };
   })();
@@ -10852,7 +10888,7 @@
     AREAS.push(T('ccv', { name:'Critical Control', sub:'Critical Risk Barrier · CCV &amp; IPLS Layer 5 · Mining Eyes Analytic', stage:'Q3 2026 · Pendetailan CPP', hazard:[], prog:[], rnd:[] },
       'Crossing &amp; gate hauling', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V9h2v4z"/></svg>', [120,622], [298,520], [[230,500],[340,500],[340,560],[230,560]], ''));
     AREAS[3].name = 'MIR';
-    AREAS.forEach(a=> a.cats = CAT[a.id] || (a.id === 'ccv' ? ['cc'] : ['eng','auto']));
+    AREAS.forEach(a=> a.cats = CAT[a.id] || (a.id === 'ccv' ? ['cc'] : ['eng']));
     AREAS.forEach(a=>{ if(a.id === 'ccv' || a.id === 'eyes') a.rich = true; if(a.id === 'mir' || a.id === 'mg') a.rich = 'mir'; });
     const ORDER = ['ccv','eyes','mg','mir','arcas','rover','pump','haul','obds'];
     AREAS.sort((x, y)=> ORDER.indexOf(x.id) - ORDER.indexOf(y.id));
@@ -10872,7 +10908,7 @@
       T('haul', EXTRA.haul, 'Hauling road', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 7h12v8H1zm12 3h5l4 3v2h-9zM5 18a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm13 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>', [830,688], [853,600], [[600,370],[880,370],[1010,610],[1260,640],[1270,860],[760,860],[640,540]], 'Integrasi ARCAS &amp; DMS di hauling', true)
     ];
     AREAS[3].name = 'MIR';
-    const CAT = { obds:['data'], eyes:['cc'], mg:['eng'], mir:['eng'], arcas:['eng'], rover:['eng','auto'], haul:['auto'] };
+    const CAT = { obds:['data'], eyes:['cc'], mg:['eng'], mir:['eng'], arcas:['eng'], rover:['eng'], haul:['auto'] };
     AREAS.forEach(a=> a.cats = CAT[a.id]);
     return makeSiteMap({ pre:'tm', slide:'slideMine', w:1672, h:941, areas:AREAS, tilt:false,
       cats:[{ id:'cc', label:'Critical Control' }, { id:'eng', label:'Rekayasa Engineering' }, { id:'auto', label:'Automation' }, { id:'data', label:'Data &amp; AI' }], fx:'<g class="tm-net"><path d="M446 182 C 400 260, 320 340, 240 400"/><path d="M446 182 C 600 150, 760 160, 862 222"/><path d="M862 222 C 1050 140, 1300 140, 1452 196"/><path d="M240 400 C 420 520, 640 600, 853 600"/><path d="M853 600 C 950 590, 1030 520, 1112 470"/><path d="M1112 470 C 1220 430, 1320 420, 1418 430"/></g><g class="tm-rings" data-t="haul"><ellipse cx="697" cy="530" rx="72" ry="20"/><ellipse cx="853" cy="640" rx="88" ry="24"/><ellipse cx="1120" cy="785" rx="128" ry="34"/></g><ellipse class="tm-bubble" data-t="arcas" cx="1112" cy="515" rx="105" ry="80"/><g class="tm-radar" data-t="arcas"><path d="M1205 535 a24 24 0 0 1 0 36"/><path d="M1220 522 a42 42 0 0 1 0 62"/><path d="M1236 510 a60 60 0 0 1 0 86"/></g><rect class="tm-warnbox" data-t="arcas" x="1250" y="520" width="92" height="66" rx="6"/><path class="tm-warn" data-t="arcas" d="M1330 500 l14 24 h-28z"/><g class="tm-cv" data-t="eyes"><rect x="520" y="225" width="90" height="62" rx="4"/><rect x="618" y="232" width="34" height="30" rx="3"/><rect x="618" y="268" width="34" height="30" rx="3"/></g><g class="tm-grid" data-t="mg"><path d="M745 300 L905 300 L930 335 L725 335 Z"/><path d="M770 300 L755 335 M800 300 L790 335 M830 300 L825 335 M860 300 L862 335 M890 300 L898 335 M735 318 L918 318"/></g><g class="tm-holo" data-t="mg"><rect x="955" y="165" width="120" height="85" rx="6"/><circle cx="990" cy="205" r="14"/><path d="M990 187 v36 M972 205 h36 M1020 240 l22 -40 l22 40 z"/></g><path class="tm-mesh" data-t="mir" d="M1180 290 C 1260 230, 1340 205, 1440 198 S 1600 205, 1672 225"/><g class="tm-pins" data-t="mir"><g transform="translate(1210 205)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1290 180)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1370 168)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1455 166)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1540 172)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1625 180)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g></g><g class="tm-wifi" data-t="haul" transform="translate(690 450) scale(1)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="haul" transform="translate(845 545) scale(1.1)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="haul" transform="translate(1090 620) scale(1.2)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="arcas" transform="translate(1112 420) scale(1.1)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="rover" transform="translate(1395 400) scale(1)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-chev" data-t="haul"><path d="M1225 905 l22 -14 l22 14"/><path d="M1225 925 l22 -14 l22 14"/></g>',
