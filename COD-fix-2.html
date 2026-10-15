@@ -2395,6 +2395,7 @@
 
   /* How Stable Are We? tabs: Overview shows every section; each other tab gives one section the whole panel */
   #hsTabs{ flex:none; margin-top:0; }
+  #slideStable #hsTabs{ display:none !important; }
   .hs-mi-forum, .hs-mi-meta, .hs-mi-ini{ display:none; }
   .hs-grid[data-view="mom"], .hs-grid[data-view="safety"], .hs-grid[data-view="health"], .hs-grid[data-view="division"]{ grid-template-columns:minmax(0,1fr); }
   .hs-grid:not([data-view="overview"]):not([data-view="mom"]) .hs-mom,
@@ -4298,8 +4299,8 @@
         <p class="sp-desc fade" data-step="1" id="hsDesc">Potret stabilitas Q3 2026 dari tiga sisi: <b>safety</b> (lagging &amp; leading indicator), <b>health</b>, dan <b>KPI divisi</b>, disandingkan dengan status tindak lanjut MoM COD Q2'2026.</p>
       </div>
       <div class="sp-tabs fade" data-step="1" id="hsTabs">
-        <button type="button" class="sp-tab is-on" data-view="overview" aria-pressed="true">Overview</button>
-        <button type="button" class="sp-tab" data-view="ov2" aria-pressed="false">Overview 2</button>
+        <button type="button" class="sp-tab" data-view="overview" aria-pressed="false" hidden>Overview</button>
+        <button type="button" class="sp-tab is-on" data-view="ov2" aria-pressed="true">Overview</button>
         <button type="button" class="sp-tab" data-view="strans" aria-pressed="false">Risk Transformation</button>
         <button type="button" class="sp-tab" data-view="auto" aria-pressed="false">Automation</button>
         <button type="button" class="sp-tab" data-view="next" aria-pressed="false">Next To Do</button>
@@ -5823,7 +5824,9 @@
         if(t) tl.fromTo(t, {x:28, opacity:0}, {x:0, opacity:1, duration:0.5}, 0.08);
         if(d) tl.fromTo(d, {x:28, opacity:0}, {x:0, opacity:1, duration:0.45}, 0.16);
         tl.fromTo(q('#hsTabs .sp-tab'), {y:12, opacity:0}, {y:0, opacity:1, stagger:0.07, ease:'back.out(1.3)'}, 0.24);
-        if($id('hsGrid').dataset.view==='overview') execView.show(tl);
+        // the slide always opens on the Overview view (former "Overview 2"); the tab bar is hidden
+        const g = $id('hsGrid'), ov = document.querySelector('#hsTabs [data-view="ov2"]');
+        if(g.dataset.view==='ov2') hsTabCopy.show('ov2'); else if(ov) ov.click();
       }
       if(n>=2 && prev<2){
         card('hsMom', 0);
