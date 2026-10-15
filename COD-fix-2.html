@@ -2471,7 +2471,7 @@
     position:relative; min-width:0; min-height:0; overflow:hidden; border-radius:10px; background:#fff; border:1px solid var(--mm-line);
     --sp-ink:#141A22; --sp-green:#2E9E5B; --lp-navy:#0F2D6B; --ip-core:#1E78E0; --ip-support:#FFC52E; --ip-mine:#1E3F8F; --ip-gray:#B9C0C8; --ip-line:#1F5BB5;
   }
-  #slideStable.active .hs-grid[data-view="safety"] .hs-thumb .rm-map .ring{ animation:rmPing 2.6s ease-out 3s infinite; }
+  .slide.hs-ov.active .hs-grid[data-view="safety"] .hs-thumb .rm-map .ring{ animation:rmPing 2.6s ease-out 3s infinite; }
   .hs-thumb-in{ position:absolute; left:0; top:0; transform-origin:0 0; display:flex; flex-direction:column; }
   .hs-thumb-in > *{ flex:1; min-height:0; }
   .hs-thumb-in > .sp-card{ box-shadow:none; border:0; }
@@ -3314,32 +3314,32 @@
   @keyframes exCell{ 0%,100%{ filter:none; } 50%{ filter:brightness(1.25) saturate(1.2); box-shadow:inset 0 0 0 2px rgba(255,255,255,.75); } }
   @keyframes exBob{ 0%,100%{ transform:translateY(0); } 50%{ transform:translateY(-3px); } }
   @keyframes exStripe{ from{ background-position:0 0; } to{ background-position:40px 0; } }
-  #slideStable.active .hs-grid[data-view="overview"]:not(.is-exp) #exStage{
+  .slide.hs-ov.active .hs-grid[data-view="overview"]:not(.is-exp) #exStage{
     --a1:exBlink 1.4s ease-in-out infinite; }
   /* pyramid */
-  #slideStable.active .hs-grid[data-view="overview"] #exStage .sp-alert{ animation:spAlertBlink 1.3s ease-in-out infinite; }
-  #slideStable.active .hs-grid[data-view="overview"] #exStage .sp-val.up span{ animation:spFlag 2.2s ease-in-out infinite; color:#E02020; }
-  #slideStable.active .hs-grid[data-view="overview"] #exStage .sp-val.up i{ animation:spFlagBar 2.2s ease-in-out infinite; }
-  #slideStable.active .hs-grid[data-view="overview"] #exStage .sp-tier::after{ animation:spSheen 6s ease-in-out calc(var(--k) * .08s) infinite; }
+  .slide.hs-ov.active .hs-grid[data-view="overview"] #exStage .sp-alert{ animation:spAlertBlink 1.3s ease-in-out infinite; }
+  .slide.hs-ov.active .hs-grid[data-view="overview"] #exStage .sp-val.up span{ animation:spFlag 2.2s ease-in-out infinite; color:#E02020; }
+  .slide.hs-ov.active .hs-grid[data-view="overview"] #exStage .sp-val.up i{ animation:spFlagBar 2.2s ease-in-out infinite; }
+  .slide.hs-ov.active .hs-grid[data-view="overview"] #exStage .sp-tier::after{ animation:spSheen 6s ease-in-out calc(var(--k) * .08s) infinite; }
   /* status siaga 1 */
-  #slideStable.active .hs-grid[data-view="overview"] #exStage .hs-siaga{ animation:exGlow 2s ease-in-out infinite; }
-  #slideStable.active .hs-grid[data-view="overview"] #exStage .hs-siaga h5, #slideStable.active .hs-grid[data-view="overview"] #exStage .hs-siaga td span{ animation:exBlink 1.4s ease-in-out infinite; }
+  .slide.hs-ov.active .hs-grid[data-view="overview"] #exStage .hs-siaga{ animation:exGlow 2s ease-in-out infinite; }
+  .slide.hs-ov.active .hs-grid[data-view="overview"] #exStage .hs-siaga h5, .slide.hs-ov.active .hs-grid[data-view="overview"] #exStage .hs-siaga td span{ animation:exBlink 1.4s ease-in-out infinite; }
   /* leading: red cells blink, amber softly */
-  #slideStable.active .hs-grid[data-view="overview"] #exStage .hs-pil td.rd{ animation:exBlink 1.3s ease-in-out infinite; }
-  #slideStable.active .hs-grid[data-view="overview"] #exStage .hs-pil td.yl{ animation:exCell 2.6s ease-in-out infinite; }
-  #slideStable.active .hs-grid[data-view="overview"] #exStage .hs-pil header span i{ animation:exBlink 1.6s ease-in-out infinite; }
+  .slide.hs-ov.active .hs-grid[data-view="overview"] #exStage .hs-pil td.rd{ animation:exBlink 1.3s ease-in-out infinite; }
+  .slide.hs-ov.active .hs-grid[data-view="overview"] #exStage .hs-pil td.yl{ animation:exCell 2.6s ease-in-out infinite; }
+  .slide.hs-ov.active .hs-grid[data-view="overview"] #exStage .hs-pil header span i{ animation:exBlink 1.6s ease-in-out infinite; }
   /* health: trend arrows nod, the roster gap and its violations pulse */
-  #slideStable.active .hs-grid[data-view="overview"] #exStage .hs-ht .hs-up, #slideStable.active .hs-grid[data-view="overview"] #exStage .hs-ht .hs-down{ animation:exBlink 1.4s ease-in-out infinite; }
-  #slideStable.active .hs-grid[data-view="overview"] #exStage .hx-viol{ animation:exGlow 2.2s ease-in-out infinite; }
-  #slideStable.active .hs-grid[data-view="overview"] #exStage .hx-big b{ animation:exBlink 1.6s ease-in-out infinite; }
-  #slideStable.active .hs-grid[data-view="overview"] #exStage .hx-viol li b{ animation:exBlink 1.4s ease-in-out infinite; }
+  .slide.hs-ov.active .hs-grid[data-view="overview"] #exStage .hs-ht .hs-up, .slide.hs-ov.active .hs-grid[data-view="overview"] #exStage .hs-ht .hs-down{ animation:exBlink 1.4s ease-in-out infinite; }
+  .slide.hs-ov.active .hs-grid[data-view="overview"] #exStage .hx-viol{ animation:exGlow 2.2s ease-in-out infinite; }
+  .slide.hs-ov.active .hs-grid[data-view="overview"] #exStage .hx-big b{ animation:exBlink 1.6s ease-in-out infinite; }
+  .slide.hs-ov.active .hs-grid[data-view="overview"] #exStage .hx-viol li b{ animation:exBlink 1.4s ease-in-out infinite; }
   /* division KPI: L1 rows flag red, L2 amber shimmer */
-  #slideStable.active .hs-grid[data-view="overview"] #exStage .hs-rg-row.lv-l1 .lv{ animation:exBlink 1.2s ease-in-out infinite; }
-  #slideStable.active .hs-grid[data-view="overview"] #exStage .hs-rg-row.lv-l1{ background:linear-gradient(90deg, rgba(214,36,58,.08), transparent 70%); }
-  #slideStable.active .hs-grid[data-view="overview"] #exStage .hs-rg-row.lv-l1 .v{ color:#C8102E; font-weight:800; animation:exBlink 1.2s ease-in-out infinite; }
-  #slideStable.active .hs-grid[data-view="overview"] #exStage .hs-rg-row.lv-l2 .lv{ animation:exCell 2.4s ease-in-out infinite; }
+  .slide.hs-ov.active .hs-grid[data-view="overview"] #exStage .hs-rg-row.lv-l1 .lv{ animation:exBlink 1.2s ease-in-out infinite; }
+  .slide.hs-ov.active .hs-grid[data-view="overview"] #exStage .hs-rg-row.lv-l1{ background:linear-gradient(90deg, rgba(214,36,58,.08), transparent 70%); }
+  .slide.hs-ov.active .hs-grid[data-view="overview"] #exStage .hs-rg-row.lv-l1 .v{ color:#C8102E; font-weight:800; animation:exBlink 1.2s ease-in-out infinite; }
+  .slide.hs-ov.active .hs-grid[data-view="overview"] #exStage .hs-rg-row.lv-l2 .lv{ animation:exCell 2.4s ease-in-out infinite; }
   /* lagging header and leading summary */
-  #slideStable.active .hs-grid[data-view="overview"] #exStage .ex-h em{ display:inline-block; animation:exBob 1.6s ease-in-out infinite; }
+  .slide.hs-ov.active .hs-grid[data-view="overview"] #exStage .ex-h em{ display:inline-block; animation:exBob 1.6s ease-in-out infinite; }
   @media (prefers-reduced-motion: reduce){ #exStage *{ animation:none !important; } }
 
   /* Risk Transformation, refined: white cards, calmer palette, green timeline, softer hazard boxes */
@@ -3683,9 +3683,9 @@
   .ex-ph-labels .lti{ bottom:8%; padding:1px 4px; border:1.5px solid #D6243A; border-radius:5px; background:#fff; color:#C8102E; font-weight:800; font-size:8.5px; text-align:center; }
   .ex-ph-labels .lti.q1{ right:3%; bottom:24%; } .ex-ph-labels .lti.q3{ right:-1px; bottom:2%; display:none; }
   .ex-ph-labels .ax{ display:none; }
-  #slideStable.active .hs-grid[data-view="overview"] .ex-tail{ animation:exBlink 1.2s ease-in-out infinite; }
-  #slideStable.active .hs-grid[data-view="overview"] .ex-next{ animation:rtDash 1.1s linear infinite; }
-  #slideStable.active .hs-grid[data-view="overview"] .ex-perf{ stroke-dasharray:420; animation:exPerf 6s ease-in-out infinite; }
+  .slide.hs-ov.active .hs-grid[data-view="overview"] .ex-tail{ animation:exBlink 1.2s ease-in-out infinite; }
+  .slide.hs-ov.active .hs-grid[data-view="overview"] .ex-next{ animation:rtDash 1.1s linear infinite; }
+  .slide.hs-ov.active .hs-grid[data-view="overview"] .ex-perf{ stroke-dasharray:420; animation:exPerf 6s ease-in-out infinite; }
   @keyframes exPerf{ 0%{ stroke-dashoffset:420; } 35%,85%{ stroke-dashoffset:0; } 100%{ stroke-dashoffset:-420; } }
   /* Safety Stability card takes the full left column; the phase band gets more height */
   .ex-chart{ flex:1.15 1 0 !important; }
@@ -3743,12 +3743,12 @@
   @keyframes ovPulse{ 0%,100%{ opacity:.55; transform:scale(.85); } 50%{ opacity:1; transform:scale(1.1); } }
   @keyframes ovGlow{ 0%,100%{ filter:none; } 50%{ filter:brightness(1.25); } }
   .ov-dot, .ov-rdot{ transform-box:fill-box; transform-origin:center; }
-  #slideStable.active .hs-grid[data-view="ov2"] .ov-dot{ animation:ovDrift 3.2s ease-in-out var(--d) infinite; }
-  #slideStable.active .hs-grid[data-view="ov2"] .ov-rdot{ animation:ovPulse 1.8s ease-in-out var(--d) infinite; }
-  #slideStable.active .hs-grid[data-view="ov2"] .ov-ctl{ animation:ovGlow 3s ease-in-out infinite; }
-  #slideStable.active .hs-grid[data-view="ov2"] .ov-ctl:nth-child(2){ animation-delay:.6s; } #slideStable.active .hs-grid[data-view="ov2"] .ov-ctl:nth-child(3){ animation-delay:1.2s; }
-  #slideStable.active .hs-grid[data-view="ov2"] .ov-ctl:nth-child(4){ animation-delay:1.8s; } #slideStable.active .hs-grid[data-view="ov2"] .ov-ctl:nth-child(5){ animation-delay:2.4s; }
-  #slideStable.active .hs-grid[data-view="ov2"] .ov-box.orange{ animation:exGlow 2.4s ease-in-out infinite; }
+  .slide.hs-ov.active .hs-grid[data-view="ov2"] .ov-dot{ animation:ovDrift 3.2s ease-in-out var(--d) infinite; }
+  .slide.hs-ov.active .hs-grid[data-view="ov2"] .ov-rdot{ animation:ovPulse 1.8s ease-in-out var(--d) infinite; }
+  .slide.hs-ov.active .hs-grid[data-view="ov2"] .ov-ctl{ animation:ovGlow 3s ease-in-out infinite; }
+  .slide.hs-ov.active .hs-grid[data-view="ov2"] .ov-ctl:nth-child(2){ animation-delay:.6s; } .slide.hs-ov.active .hs-grid[data-view="ov2"] .ov-ctl:nth-child(3){ animation-delay:1.2s; }
+  .slide.hs-ov.active .hs-grid[data-view="ov2"] .ov-ctl:nth-child(4){ animation-delay:1.8s; } .slide.hs-ov.active .hs-grid[data-view="ov2"] .ov-ctl:nth-child(5){ animation-delay:2.4s; }
+  .slide.hs-ov.active .hs-grid[data-view="ov2"] .ov-box.orange{ animation:exGlow 2.4s ease-in-out infinite; }
   .ov2-funnel2{ position:relative; flex:none; width:100%; aspect-ratio:2137 / 736; }
   .ov2-funnel2 img{ display:block; width:100%; height:100%; object-fit:contain; mix-blend-mode:multiply; }
   .ov-bub{ position:absolute; inset:0; pointer-events:none; }
@@ -3756,7 +3756,7 @@
   /* funnel suction: a glowing ring pulls at the mouth; caught risks flash at the control bands */
   .ov-bub .ov-mouth{ position:absolute; left:23%; top:41%; width:6%; height:62%; transform:translate(-50%,-50%); border-radius:50%;
     background:radial-gradient(closest-side, rgba(120,190,255,.55), rgba(120,190,255,0) 70%); }
-  #slideStable.active .hs-grid[data-view="ov2"] .ov-bub .ov-mouth{ animation:ovSuck 1.4s ease-in-out infinite; }
+  .slide.hs-ov.active .hs-grid[data-view="ov2"] .ov-bub .ov-mouth{ animation:ovSuck 1.4s ease-in-out infinite; }
   @keyframes ovSuck{ 0%,100%{ transform:translate(-50%,-50%) scale(.85); opacity:.5; } 50%{ transform:translate(-50%,-50%) scale(1.15); opacity:1; } }
   .ov-bub .ov-exit{ position:absolute; left:80.5%; top:44%; width:30px; height:30px; margin:-15px 0 0 -15px; border-radius:50%; border:2px solid #F28C28; opacity:0; }
   .ov-bub i.zap{ width:26px; height:26px; margin:-13px 0 0 -13px; background:none; box-shadow:none; border:2px solid #fff; outline:2px solid rgba(31,154,58,.7); border-radius:50%; }
@@ -3769,24 +3769,24 @@
   @keyframes phBox{ 0%,100%{ box-shadow:0 0 0 0 rgba(214,36,58,0); } 50%{ box-shadow:0 0 0 4px rgba(214,36,58,.18); } }
   @keyframes liPop{ 0%,70%,100%{ transform:scale(1); } 80%{ transform:scale(1.12); } }
   @keyframes liArrow{ 0%,100%{ transform:translateY(0); opacity:.7; } 50%{ transform:translateY(-3px); opacity:1; } }
-  #slideStable.active .ex-phase .ex-ph-cols span{ animation:phCol 9s ease-in-out infinite; }
-  #slideStable.active .ex-phase .ex-ph-cols span:nth-child(2){ animation-delay:2.2s; }
-  #slideStable.active .ex-phase .ex-ph-cols span:nth-child(3){ animation-delay:4.4s; }
-  #slideStable.active .ex-phase .ex-ph-cols span:nth-child(4){ animation-delay:6.6s; }
+  .slide.hs-ov.active .ex-phase .ex-ph-cols span{ animation:phCol 9s ease-in-out infinite; }
+  .slide.hs-ov.active .ex-phase .ex-ph-cols span:nth-child(2){ animation-delay:2.2s; }
+  .slide.hs-ov.active .ex-phase .ex-ph-cols span:nth-child(3){ animation-delay:4.4s; }
+  .slide.hs-ov.active .ex-phase .ex-ph-cols span:nth-child(4){ animation-delay:6.6s; }
   .ex-phase::after{ content:''; position:absolute; top:0; bottom:0; width:16%; pointer-events:none;
     background:linear-gradient(90deg, transparent, rgba(255,255,255,.55), transparent); opacity:0; }
-  #slideStable.active .ex-phase::after{ animation:phSweep 9s linear infinite; }
+  .slide.hs-ov.active .ex-phase::after{ animation:phSweep 9s linear infinite; }
   .ex-phase .ex-dist{ transform-box:fill-box; transform-origin:50% 100%; }
-  #slideStable.active .ex-phase .ex-dist{ animation:phDist 4.5s ease-in-out infinite; }
-  #slideStable.active .ex-phase .ex-perf{ stroke-dasharray:420; animation:exPerf 9s ease-in-out infinite !important; }
-  #slideStable.active .ex-phase .ex-next{ animation:rtDash 1.1s linear infinite; }
-  #slideStable.active .ex-phase .ex-tail{ animation:exBlink 1.2s ease-in-out infinite; }
-  #slideStable.active .ex-phase .ex-ph-labels .perf, #slideStable.active .ex-phase .ex-ph-labels .tail{ animation:phTag 3s ease-in-out infinite; }
-  #slideStable.active .ex-phase .ex-ph-labels .lti{ animation:phBox 1.8s ease-in-out infinite; }
-  #slideStable.active .ov-li{ animation:liPop 6s ease-in-out infinite; }
-  #slideStable.active .ov-li:nth-child(2){ animation-delay:1.2s; } #slideStable.active .ov-li:nth-child(3){ animation-delay:2.4s; }
-  #slideStable.active .ov-li:nth-child(4){ animation-delay:3.6s; } #slideStable.active .ov-li:nth-child(5){ animation-delay:4.8s; }
-  #slideStable.active .ov-li small em{ display:inline-block; animation:liArrow 1.6s ease-in-out infinite; }
+  .slide.hs-ov.active .ex-phase .ex-dist{ animation:phDist 4.5s ease-in-out infinite; }
+  .slide.hs-ov.active .ex-phase .ex-perf{ stroke-dasharray:420; animation:exPerf 9s ease-in-out infinite !important; }
+  .slide.hs-ov.active .ex-phase .ex-next{ animation:rtDash 1.1s linear infinite; }
+  .slide.hs-ov.active .ex-phase .ex-tail{ animation:exBlink 1.2s ease-in-out infinite; }
+  .slide.hs-ov.active .ex-phase .ex-ph-labels .perf, .slide.hs-ov.active .ex-phase .ex-ph-labels .tail{ animation:phTag 3s ease-in-out infinite; }
+  .slide.hs-ov.active .ex-phase .ex-ph-labels .lti{ animation:phBox 1.8s ease-in-out infinite; }
+  .slide.hs-ov.active .ov-li{ animation:liPop 6s ease-in-out infinite; }
+  .slide.hs-ov.active .ov-li:nth-child(2){ animation-delay:1.2s; } .slide.hs-ov.active .ov-li:nth-child(3){ animation-delay:2.4s; }
+  .slide.hs-ov.active .ov-li:nth-child(4){ animation-delay:3.6s; } .slide.hs-ov.active .ov-li:nth-child(5){ animation-delay:4.8s; }
+  .slide.hs-ov.active .ov-li small em{ display:inline-block; animation:liArrow 1.6s ease-in-out infinite; }
   @media (prefers-reduced-motion: reduce){ .ex-phase *, .ex-phase::after, .ov-li, .ov-li *{ animation:none !important; } }
 
   /* ---- Site map slide: deck header + 2.5D map card + detail panel ---- */
@@ -4571,8 +4571,8 @@
   .ov2-evo .evs b{ font:700 15px/1 'Plus Jakarta Sans',sans-serif; color:#141A22; }
   .ov2-evo .evs.pv{ background:linear-gradient(115deg,#E4F3E0,#CDEBC5); } .ov2-evo .evs.pv svg{ fill:#1F9A3A; } .ov2-evo .evs.pv b{ color:#147A2C; }
   .ov2-evo .eva{ align-self:center; justify-self:center; width:0; height:0; border-top:7px solid transparent; border-bottom:7px solid transparent; border-left:9px solid #9AA3AD; }
-  #slideStable.active .ov2-evo .evs{ animation:ov2Evo 4.5s ease-in-out infinite; }
-  #slideStable.active .ov2-evo .evs:nth-of-type(2){ animation-delay:1.5s; } #slideStable.active .ov2-evo .evs:nth-of-type(3){ animation-delay:3s; }
+  .slide.hs-ov.active .ov2-evo .evs{ animation:ov2Evo 4.5s ease-in-out infinite; }
+  .slide.hs-ov.active .ov2-evo .evs:nth-of-type(2){ animation-delay:1.5s; } .slide.hs-ov.active .ov2-evo .evs:nth-of-type(3){ animation-delay:3s; }
   @keyframes ov2Evo{ 0%,100%{ transform:translateY(0); } 15%{ transform:translateY(-4px); } 30%{ transform:translateY(0); } }
   .ov2-evo .evs{ background:#fff; } .ov2-evo .evs.pv{ background:linear-gradient(115deg,#E4F3E0,#CDEBC5); }
   .hs-tv-ov2 .ov2-out2{ margin-top:46px !important; } .hs-tv-ov2 .ov2-out2 .ov-box{ padding:7px 14px !important; }
@@ -4746,6 +4746,134 @@
   .rv-curve .ct{ font-size:26px; font-weight:800; fill:#141A22; }
   .rv-curve .ci{ font-size:21px; font-weight:500; fill:#2B3440; font-family:'Source Sans 3',sans-serif; }
   .rv-curve .lg rect{ fill:#fff; stroke:#E1E6EC; stroke-width:1.5; } .rv-curve .lg text{ font-size:21px; font-weight:600; fill:#2B3440; }
+  #slideStable2 .hs-grid.hs-solo{ display:block; }
+  #slideStable2 .hs-tv{ display:block; position:relative; height:100%; overflow:hidden; }
+
+  /* Hazard / TBC: bars aligned under the incident chart years, grown by the chart sweep */
+  .ov2-hz-up svg path{ stroke-dasharray:60; }
+  .slide.active .ov2-hz-up svg path{ animation:hzDraw 3s ease-in-out infinite; }
+  @keyframes hzDraw{ 0%{ stroke-dashoffset:60; } 40%,85%{ stroke-dashoffset:0; } 100%{ stroke-dashoffset:-60; } }
+  @media (prefers-reduced-motion: reduce){ .ov2-hz-bars::after, .ov2-hz-bars .sg i, .ov2-hz-up svg path{ animation:none !important; } }
+
+  .ov2-hz-bars.aligned{ display:block !important; position:relative; padding:0 !important; height:var(--hzh) !important; }
+  .ov2-hz-bars.aligned .yr{ position:absolute; top:4px; bottom:0; }
+  .ov2-hz-bars .sg i{ transform-origin:50% 100%; }
+  .ov2-cv .cvg{ transform-box:fill-box; transform-origin:50% 100%; }
+  .ov2-cv-lab .pk{ transform-origin:center; }
+
+  /* ---- experiment copy: mine-landscape background, glassy cards ---- */
+  #slideStable2{ background:#EAF1EA url('mom/bg-stable2.jpg') center 30% / cover no-repeat !important; }
+  #slideStable2::before{ content:''; position:absolute; inset:0; z-index:0; pointer-events:none;
+    background:linear-gradient(180deg,rgba(255,255,255,.80) 0%,rgba(255,255,255,.35) 22%,rgba(255,255,255,.10) 55%,rgba(255,255,255,.25) 100%); }
+  #slideStable2::after{ content:''; position:absolute; z-index:0; pointer-events:none; right:-6%; top:-10%; width:34%; height:30%;
+    background:linear-gradient(115deg,transparent 0 38%,rgba(46,160,70,.85) 38% 46%,transparent 46% 52%,rgba(123,193,67,.7) 52% 56%,transparent 56%); }
+  #slideStable2 .slide-inner{ position:relative; z-index:1; }
+  #slideStable2 .ov2-left, #slideStable2 .ov2-right{ background:rgba(255,255,255,.86) !important; backdrop-filter:blur(8px) saturate(1.1); -webkit-backdrop-filter:blur(8px) saturate(1.1); border:1px solid rgba(255,255,255,.9) !important; }
+  #slideStable2 .ov2-funnel2 img{ mix-blend-mode:normal; }
+
+  /* ======== experiment copy (#slideStable2): redesign ======== */
+  #slideStable2{ background:#DCE8D8 url('mom/bg-cod.jpg') center 35% / cover no-repeat !important; }
+  #slideStable2::before{ background:linear-gradient(180deg,rgba(255,255,255,.72) 0%,rgba(255,255,255,.18) 18%,rgba(255,255,255,0) 40%) !important; }
+  #slideStable2::after{ right:-4%; top:-14%; width:30%; height:34%; background:linear-gradient(115deg,transparent 0 40%,rgba(255,255,255,.55) 40% 41%,rgba(70,170,80,.55) 41% 52%,transparent 52%) !important; }
+  #slideStable2 .rd-tagline{ position:absolute; right:110px; top:6px; margin:0; text-align:left; font:800 13px/1.5 'Plus Jakarta Sans',sans-serif; letter-spacing:.06em; text-transform:uppercase; color:#0F3D1E; padding-bottom:8px; border-bottom:4px solid #1F9A3A; text-shadow:0 1px 6px rgba(255,255,255,.8); }
+  #slideStable2 .sp-head{ position:relative; }
+  #slideStable2 .sp-desc{ text-shadow:0 1px 6px rgba(255,255,255,.9); }
+  /* left column: transparent stack of white cards */
+  #slideStable2 .hs-tv-ov2 .ov2-left{ background:none !important; border:0 !important; box-shadow:none !important; backdrop-filter:none !important; padding:0 !important; gap:10px !important; }
+  #slideStable2 .rd-card{ display:flex; flex-direction:column; min-height:0; border-radius:14px; background:rgba(255,255,255,.94); border:1px solid rgba(255,255,255,.95); box-shadow:0 10px 26px rgba(15,30,20,.16); padding:8px 14px 10px; }
+  #slideStable2 .rd-h{ flex:none; display:flex; align-items:center; gap:18px; margin-bottom:4px; }
+  #slideStable2 .rd-h b{ font:800 17px/1.1 'Plus Jakarta Sans',sans-serif; color:#141A22; }
+  #slideStable2 .rd-h .lg{ display:flex; align-items:center; gap:6px; font:600 11.5px/1 'Plus Jakarta Sans',sans-serif; color:#3C444C; }
+  #slideStable2 .rd-h .lg i{ width:9px; height:9px; border-radius:50%; margin-left:8px; }
+  #slideStable2 .rd-h .ov{ margin-left:auto; font:600 12px/1 'Plus Jakarta Sans',sans-serif; color:#4A525C; } #slideStable2 .rd-h .ov b{ font-size:16px; color:#E0A100; } #slideStable2 .rd-h .ov em{ font-style:normal; color:#16A34A; font-weight:800; }
+  #slideStable2 .rd-cv{ flex:none; } #slideStable2 .rd-cv .ov2-curves{ height:190px !important; border:0; box-shadow:none !important; }
+  #slideStable2 .rd-tr{ flex:1 1 auto; } #slideStable2 .rd-tr .ov2-chartwrap{ flex:1; }
+  #slideStable2 .rd-ld{ flex:none; }
+  #slideStable2 .rd-minis{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; }
+  #slideStable2 .rd-mini{ display:flex; flex-direction:column; gap:4px; padding:8px 10px; border-radius:10px; background:#F6F9F5; border:1px solid #E4ECE2; }
+  #slideStable2 .rd-mini .mh{ display:flex; align-items:center; gap:8px; }
+  #slideStable2 .rd-mini .mh i{ display:grid; place-items:center; width:26px; height:26px; border-radius:7px; background:#E3F3E1; } #slideStable2 .rd-mini .mh svg{ width:16px; height:16px; fill:#1F7A35; }
+  #slideStable2 .rd-mini .mh b{ font:800 13px/1.1 'Plus Jakarta Sans',sans-serif; color:#141A22; }
+  #slideStable2 .rd-mini .mbs{ height:62px; display:flex; align-items:flex-end; justify-content:center; gap:16px; border-bottom:1px solid #D5DED3; }
+  #slideStable2 .rd-mini .mb{ display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%; width:34px; }
+  #slideStable2 .rd-mini .mb em{ font:800 11px/1 'Plus Jakarta Sans',sans-serif; font-style:normal; color:#4A525C; margin-bottom:2px; }
+  #slideStable2 .rd-mini .mb.on em{ color:var(--mc); font-size:13px; }
+  #slideStable2 .rd-mini .mb i{ display:block; width:100%; height:calc(var(--h) * 40px); border-radius:3px 3px 0 0; background:#B7DDB0; }
+  #slideStable2 .rd-mini .mb.on i{ background:linear-gradient(180deg,#22A33B,#147A2C); }
+  #slideStable2 .rd-mini .mb span{ position:absolute; } #slideStable2 .rd-mini .mb{ position:relative; } #slideStable2 .rd-mini .mb span{ bottom:-15px; font:700 10px/1 'Plus Jakarta Sans',sans-serif; color:#6B7580; }
+  #slideStable2 .rd-mini small{ margin-top:14px; font-size:11px; color:#4A525C; } #slideStable2 .rd-mini small em{ font-style:normal; color:#16A34A; font-weight:800; }
+  /* right column: Control Impact card with tab, funnel on the photo, bottom card */
+  #slideStable2 .hs-tv-ov2 .ov2-right{ background:none !important; border:0 !important; box-shadow:none !important; backdrop-filter:none !important; padding:0 !important; gap:8px !important; }
+  #slideStable2 .ov2-ci{ position:relative; margin-top:22px; background:rgba(255,255,255,.94) !important; border:1px solid #fff !important; border-radius:14px; box-shadow:0 10px 26px rgba(15,30,20,.16) !important; padding:26px 12px 12px !important; }
+  #slideStable2 .ov2-ci .ov2-tag{ position:absolute; left:-1px; top:-22px; display:flex; align-items:center; gap:8px; padding:8px 40px 8px 16px; color:#fff !important; font:800 19px/1 'Plus Jakarta Sans',sans-serif !important; font-style:normal !important;
+    background:linear-gradient(115deg,#0E5A2A,#1F9A3A); clip-path:polygon(0 0,88% 0,100% 100%,0 100%); border-radius:12px 0 0 0; }
+  #slideStable2 .ov2-ci .ov2-tag i{ display:grid; place-items:center; width:24px; height:24px; border-radius:50%; background:#fff; } #slideStable2 .ov2-ci .ov2-tag svg{ width:20px; height:20px; fill:#1F9A3A; }
+  #slideStable2 .ov2-ci .ov-imp{ background:#fff; box-shadow:0 2px 8px rgba(20,26,34,.08); border:1px solid #E6ECEF; }
+  #slideStable2 .ov2-funnel2{ filter:drop-shadow(0 10px 22px rgba(0,0,0,.25)); }
+  #slideStable2 .ov2-funnel2 + *{ }
+  #slideStable2 .rd-out{ flex:1 1 auto; gap:6px; padding:10px 14px 12px; }
+  #slideStable2 .rd-out .ov2-out2{ margin-top:0 !important; flex:none !important; }
+  #slideStable2 .rd-out .ov-box{ border-radius:10px !important; padding:10px 14px !important; }
+  #slideStable2 .rd-out .ov-box h5{ position:static !important; display:flex; align-items:center; gap:8px; margin:0 0 6px !important; text-align:left !important; font-size:16px !important; }
+  #slideStable2 .rd-out .ov-box h5 .hi{ width:20px; height:20px; fill:#C8102E; } #slideStable2 .rd-out .ov-box.orange h5 .hi{ fill:#E8762B; }
+  #slideStable2 .rd-out .ov2-note{ padding-top:2px; font-size:12.5px !important; font-style:normal !important; color:#2B3440; }
+  #slideStable2 .rd-out .ov2-next{ flex:none !important; min-height:0; margin:2px 0 !important; }
+  #slideStable2 .rd-out .ov2-evo{ height:52px; margin-top:auto !important; }
+  /* the residual-to-outcome connector reads cleaner without the label pills under the funnel getting crossed */
+  #slideStable2 .ov2-links .lk.or{ opacity:.9; }
+  #slideStable2 .rd-tr{ min-height:0; } #slideStable2 .rd-tr .ov2-chartwrap{ flex:1 1 auto !important; min-height:0; height:auto; }
+  #slideStable2 .hs-tv-ov2 .ov2-left{ display:flex !important; flex-direction:column; }
+  #slideStable2 .ov2-funnel2{ filter:none !important; border-radius:16px; background:rgba(255,255,255,.80); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); box-shadow:0 10px 26px rgba(15,30,20,.16); padding:6px 10px; box-sizing:border-box; }
+  /* copy: original content kept; cards only */
+  #slideStable2 .rd-cv > .ov2-sub{ font-style:normal; font-size:17px; margin-bottom:4px; }
+  #slideStable2 .rd-tr{ padding:6px 10px 8px !important; }
+  #slideStable2 .rd-ld{ border:1px solid rgba(255,255,255,.95) !important; border-style:solid !important; gap:4px !important; padding:8px 12px 8px !important; }
+  #slideStable2 .rd-cv .ov2-curves{ height:176px !important; }
+  #slideStable2 .rd-out{ gap:4px !important; padding:8px 14px 10px !important; }
+  #slideStable2 .rd-out .ov-box{ padding:8px 12px !important; }
+  #slideStable2 .rd-out .ov2-evo{ height:48px !important; flex:none !important; }
+  #slideStable2 .ov2-ci{ margin-top:20px; padding:22px 12px 10px !important; }
+  #slideStable2 .hs-tv-in.hs-tv-ov2 > .ov2-grid{ padding-bottom:10px !important; }
+
+  /* ---- copy, design pass 2: closer to the reference look (content unchanged) ---- */
+  #slideStable2::before{ background:linear-gradient(180deg,rgba(255,255,255,.62) 0%,rgba(255,255,255,.12) 15%,rgba(255,255,255,0) 32%) !important; }
+  #slideStable2 .rd-card, #slideStable2 .ov2-ci{ background:#fff !important; border-radius:16px !important; box-shadow:0 2px 4px rgba(15,30,20,.06), 0 14px 30px rgba(15,30,20,.20) !important; }
+  #slideStable2 .ov2-sub, #slideStable2 .rd-cv > .ov2-sub{ font-style:normal !important; font-weight:800 !important; font-size:17px !important; color:#141A22; }
+  #slideStable2 .ov2-ci .ov2-tag{ padding:10px 46px 10px 16px !important; font-size:20px !important; top:-24px !important; box-shadow:0 6px 14px rgba(14,90,42,.35); }
+  #slideStable2 .ov2-ci .ov-imp{ border-radius:12px; }
+  #slideStable2 .ov2-ci .ov-imp b{ color:#147A2C; }
+  #slideStable2 .ov2-ci .ov-imp:nth-child(n+4) b{ color:#0F2D6B; }
+  /* funnel sits on the photo, a soft light glow keeps its labels readable */
+  #slideStable2 .ov2-funnel2{ background:radial-gradient(ellipse 62% 70% at 50% 58%,rgba(255,255,255,.88) 0%,rgba(255,255,255,.62) 55%,rgba(255,255,255,0) 82%) !important;
+    backdrop-filter:none !important; -webkit-backdrop-filter:none !important; box-shadow:none !important; border-radius:0 !important; }
+  #slideStable2 .ov2-funnel2 img{ filter:drop-shadow(0 14px 18px rgba(0,0,0,.28)); }
+  /* glossy 3D risk bubbles */
+  #slideStable2 .ov-bub i{ background-image:radial-gradient(circle at 32% 28%,rgba(255,255,255,.9) 0 12%,rgba(255,255,255,.25) 28%,rgba(255,255,255,0) 48%) !important;
+    box-shadow:inset -4px -5px 8px rgba(0,0,0,.28), 0 4px 8px rgba(0,0,0,.22) !important; }
+  /* outcome card and capability strip */
+  #slideStable2 .rd-out .ov-box{ border-radius:12px !important; }
+  #slideStable2 .rd-out .ov-box.pink{ background:#FDE7EA !important; } #slideStable2 .rd-out .ov-box.orange{ background:#FFE3C2 !important; }
+  #slideStable2 .rd-out .ov2-evo{ border-radius:12px !important; box-shadow:0 4px 12px rgba(20,26,34,.08); }
+  #slideStable2 .rd-out .ov2-evo .evs.pv{ background:linear-gradient(115deg,#DDF2D8,#C2E8B8) !important; }
+  #slideStable2 .ov2-lead .ov-li.all{ background:#F2F6F1; }
+  #slideStable2 .ov2-funnel2{ background:linear-gradient(180deg,rgba(255,255,255,0) 58%,rgba(255,255,255,.86) 70%,rgba(255,255,255,.9) 100%), radial-gradient(ellipse 60% 55% at 50% 40%,rgba(255,255,255,.55) 0%,rgba(255,255,255,0) 75%) !important; border-radius:0 0 16px 16px !important; }
+  /* copy: tighter spacing between cards */
+  #slideStable2 .hs-tv-in.hs-tv-ov2 > .ov2-grid{ grid-template-columns:minmax(0,900fr) 14px minmax(0,850fr) !important; gap:6px !important; }
+  #slideStable2 .hs-tv-ov2 .ov2-left{ gap:6px !important; }
+  #slideStable2 .hs-tv-ov2 .ov2-right{ gap:4px !important; }
+  #slideStable2 .ov2-ci{ margin-top:20px !important; }
+  /* copy: cards lifted off the photo (layered shadow, top light edge, slight bevel) */
+  #slideStable2 .rd-card, #slideStable2 .ov2-ci{
+    border:1px solid rgba(255,255,255,.95) !important;
+    box-shadow:0 1px 0 rgba(255,255,255,.9) inset, 0 -2px 0 rgba(15,30,20,.06) inset,
+      0 2px 3px rgba(10,25,15,.10), 0 8px 14px rgba(10,25,15,.14), 0 22px 40px rgba(10,25,15,.26) !important;
+    background:linear-gradient(180deg,#FFFFFF 0%,#FBFCFB 60%,#F3F6F3 100%) !important; }
+  #slideStable2 .ov2-ci .ov-imp, #slideStable2 .rd-out .ov-box, #slideStable2 .rd-out .ov2-evo,
+  #slideStable2 .ov2-hz-main, #slideStable2 .ov2-hz-up, #slideStable2 .ov2-lead .ov-li.all, #slideStable2 .rd-cv .ov2-curves{
+    box-shadow:0 1px 0 rgba(255,255,255,.85) inset, 0 2px 4px rgba(10,25,15,.08), 0 6px 12px rgba(10,25,15,.10) !important; }
+  #slideStable2 .ov2-ci .ov2-tag{ box-shadow:0 4px 8px rgba(14,90,42,.30), 0 10px 18px rgba(14,90,42,.22) !important; }
+  /* original How Stable slide: closer cards */
+  #slideStable .hs-tv-in.hs-tv-ov2 > .ov2-grid{ grid-template-columns:minmax(0,900fr) 14px minmax(0,850fr) !important; gap:6px !important; }
 </style>
 </head>
 <body>
@@ -4761,10 +4889,10 @@
   <span class="rail-brand mono">OHS DIVISI</span>
   <div class="rail-letters" id="railLetters">
     <button type="button" data-jump="0">H</button>
-    <button type="button" data-jump="4">S</button>
-    <button type="button" data-jump="5">C</button>
-    <!-- <button type="button" data-jump="8">C</button> -->
-    <button type="button" data-jump="8">M</button>
+    <button type="button" data-jump="5">S</button>
+    <button type="button" data-jump="6">C</button>
+    <!-- <button type="button" data-jump="9">C</button> -->
+    <button type="button" data-jump="9">M</button>
   </div>
   <div class="rail-progress"><i id="progressFill"></i></div>
   <div class="rail-step" id="railStep">01</div>
@@ -5065,7 +5193,7 @@
     <svg class="ov2-links" aria-hidden="true"></svg>
   </div></div>
 
-  <section class="slide" id="slideStable" data-steps="1" data-section="B · Executive Performance">
+  <section class="slide hs-ov" id="slideStable" data-steps="1" data-section="B · Executive Performance">
     <div class="hs-deco" aria-hidden="true">
       <i class="photo"></i><i class="wash"></i>
       <svg class="slash" viewBox="0 0 1672 941" preserveAspectRatio="xMidYMid slice">
@@ -5211,6 +5339,17 @@
         <p class="sp-desc fade" data-step="1" id="auDesc">Proyek otomasi keselamatan yang sedang berjalan: hazard yang disasar, progres, kesiapan, dan <b>next step</b> tiap proyek. Klik kartu proyek untuk detail.</p>
       </div>
       <div class="hs-grid hs-solo fade" data-step="1" id="auHost" data-view="auto"></div>
+    </div>
+  </section>
+
+  <section class="slide hs-solo-slide hs-ov" id="slideStable2" data-steps="1" data-section="B · Executive Performance">
+    <div class="slide-inner">
+      <div class="sp-head">
+        <p class="kicker mono fade" data-step="1" id="hs2Kicker">OHS Division · Executive Performance Q3 2026 · Perbandingan</p>
+        <h2 class="sp-title fade" data-step="1" id="hs2Title">How Stable <em>Are We?</em></h2>
+        <p class="sp-desc fade" data-step="1" id="hs2Desc">Potret stabilitas Q3 2026 dari tiga sisi: <b>safety</b> (lagging &amp; leading indicator), <b>health</b>, dan <b>KPI divisi</b>, disandingkan dengan status tindak lanjut MoM COD Q2'2026.</p>
+      </div>
+      <div class="hs-grid hs-solo" id="hs2Host" data-view="ov2"></div>
     </div>
   </section>
 
@@ -6613,7 +6752,7 @@
       killSlide(index);
       const tl = gsap.timeline({ defaults:{ duration:0.5, ease:'power3.out' } });
       tls.set(index, tl);
-      const fns = [opening, stable, /* rtslide, auslide (hidden), */ sitemap, /* minemap, opstab, transform (hidden), */ crossdiv, safety, engineering, health, hjourney, nextdo, berbagi];
+      const fns = [opening, stable, stable2, /* rtslide, auslide (hidden), */ sitemap, /* minemap, opstab, transform (hidden), */ crossdiv, safety, engineering, health, hjourney, nextdo, berbagi];
       if(fns[index]) fns[index](tl, n, prev);
     }
     // How Stable Are We?: header, MoM items, then safety tiles and rings, health tiles, KPI cards
@@ -6702,7 +6841,7 @@
         hsTabCopy.mount(view, $id(pre+'Host'));
       };
     }
-    const rtslide = soloView('rt', 'strans'), auslide = soloView('au', 'auto');
+    const rtslide = soloView('rt', 'strans'), auslide = soloView('au', 'auto'), stable2 = soloView('hs2', 'ov2');
     // Site map: header, then the map settles and the pins drop in one after another
     function mapIn(pre, map){
       return function(tl, n, prev){
@@ -9032,7 +9171,7 @@
       else if(e.key==='r' || e.key==='R') goTo(0);
       else if(e.key==='u' || e.key==='U'){ replaySlide(current); applyFades(slides[current],0); setStep(1,{prev:0}); }
       else if(/^[a-eA-E]$/.test(e.key)){
-        const map={ a:0, b:4, c:5, d:5, e:8 }; goTo(map[e.key.toLowerCase()]);
+        const map={ a:0, b:5, c:6, d:6, e:9 }; goTo(map[e.key.toLowerCase()]);
       }
     });
     function openGuide(){ guide.classList.add('open'); }
@@ -9609,33 +9748,55 @@
   // (one source of data and markup), drawn at slide size and scaled to the panel
   // Overview 2 funnel: risk bubbles are drawn in, vanish inside the controls, and a few small ones leave as residual risk
   // Overview: risk distribution curves per period (top of the left column)
+  // Experiment copy (#slideStable2): regroup the Overview into the card layout of the redesign.
+  // Runs once on the copy only; the original How Stable slide keeps its own layout.
+  function ov2Redesign(inner){
+    if(inner._rd) return; inner._rd = true;
+    const L = inner.querySelector('.ov2-left'), Rt = inner.querySelector('.ov2-right'); if(!L || !Rt) return;
+    const card = (cls, title, extra)=>{ const c = document.createElement('section'); c.className = 'rd-card ' + cls;
+      c.innerHTML = '<header class="rd-h"><b>' + title + '</b>' + (extra || '') + '</header>'; return c; };
+    // left: same content as the original, regrouped into three white cards (no new text)
+    const sub0 = L.querySelector(':scope > .ov2-sub');
+    const c1 = document.createElement('section'); c1.className = 'rd-card rd-cv';
+    const c2 = document.createElement('section'); c2.className = 'rd-card rd-tr';
+    if(sub0) c1.appendChild(sub0); c1.appendChild(L.querySelector('.ov2-curves'));
+    c2.appendChild(L.querySelector('.ov2-chartwrap'));
+    const lower = L.querySelector('.ov2-lower'); if(lower) lower.classList.add('rd-card', 'rd-ld');
+    L.prepend(c1, c2);
+    // right: Control Impact card with a tab, the funnel on the photo, then one card for outcomes + capability
+    const ci = Rt.querySelector('.ov2-ci'); if(ci){ const t = ci.querySelector('.ov2-tag'); if(t) t.innerHTML = '<i><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1 14.5-4-4 1.4-1.4 2.6 2.6 5.6-5.6L18 9.5z"/></svg></i>Control Impact'; }
+    const bottom = document.createElement('section'); bottom.className = 'rd-card rd-out';
+    ['.ov2-out2', '.ov2-note', '.ov2-next', '.ov2-evo'].forEach(sel=>{ const e = Rt.querySelector(':scope > ' + sel); if(e) bottom.appendChild(e); });
+    Rt.appendChild(bottom);
+    const ob = bottom.querySelectorAll('.ov-box h5');
+    if(ob[0]) ob[0].insertAdjacentHTML('afterbegin', '<svg class="hi" viewBox="0 0 24 24"><path d="M4 20h3v-7H4zm6.5 0h3V8h-3zM17 20h3V4h-3z"/></svg>');
+    if(ob[1]) ob[1].insertAdjacentHTML('afterbegin', '<svg class="hi" viewBox="0 0 24 24"><path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V9h2v4z"/></svg>');
+  }
   function ov2Curves(root){
     const box = root.querySelector('.ov2-curves'); if(!box) return;
     const svg = box.querySelector('.ov2-cv'), lab = box.querySelector('.ov2-cv-lab');
-    const W = 800, H = 340, base = 316;
+    const W = 800, H = 340, base = 316, u = '-' + (ov2Curves._n = (ov2Curves._n || 0) + 1);
     // [label, peak x, height, left spread, right spread, colour, dashed]
     const C = [['2027<br>Projected Onward', .18, .92, .05, .09, '#3B82D6', 1], ['2026 Aktual', .245, .76, .065, .13, '#2E9E44'],
       ['2023–2025', .33, .62, .085, .16, '#F2C21B'], ['2021–2022', .42, .5, .1, .19, '#F5A02A'], ['2020–2021', .52, .4, .12, .22, '#EE6A2C'], ['2017–2019', .63, .31, .15, .26, '#D7322B']];
     const y = (c, x)=>{ const sd = x < c[1] ? c[3] : c[4]; return base - c[2] * (base - 10) * Math.exp(-Math.pow((x - c[1]) / sd, 2)); };
     const d = (c)=>{ let p = ''; for(let i = 0; i <= 160; i++){ const x = i / 160; p += (i ? 'L' : 'M') + (x * W).toFixed(1) + ' ' + y(c, x).toFixed(1) + ' '; } return p; };
-    let html = '<defs><linearGradient id="ov2Zone" x1="0" x2="1"><stop offset="0" stop-color="#E4F4E2"/><stop offset=".38" stop-color="#FFF6D8"/><stop offset=".66" stop-color="#FDE6D5"/><stop offset="1" stop-color="#FAD6DA"/></linearGradient>'
-      + '<clipPath id="ov2CvClip"><rect class="ov2-cv-clip" x="0" y="0" width="' + W + '" height="' + H + '"/></clipPath></defs>'
-      + '<rect width="' + W + '" height="' + base + '" fill="url(#ov2Zone)"/><g clip-path="url(#ov2CvClip)">';
+    let html = '<defs><linearGradient id="ov2Zone' + u + '" x1="0" x2="1"><stop offset="0" stop-color="#E4F4E2"/><stop offset=".38" stop-color="#FFF6D8"/><stop offset=".66" stop-color="#FDE6D5"/><stop offset="1" stop-color="#FAD6DA"/></linearGradient>'
+      + '<clipPath id="ov2CvClip' + u + '"><rect class="ov2-cv-clip" x="0" y="0" width="' + W + '" height="' + H + '"/></clipPath></defs>'
+      + '<rect width="' + W + '" height="' + base + '" fill="url(#ov2Zone' + u + ')"/><g clip-path="url(#ov2CvClip' + u + ')">';
     // each period is a filled hill; the later (left) periods are drawn on top of the earlier ones
-    C.forEach((c, i)=> html = html.replace('</defs>', '<linearGradient id="ov2F' + i + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + c[5] + '" stop-opacity="' + (c[6] ? .35 : .85) + '"/><stop offset="1" stop-color="' + c[5] + '" stop-opacity="' + (c[6] ? .12 : .35) + '"/></linearGradient></defs>'));
-    C.map((c, i)=> [c, i]).reverse().forEach(([c, i])=> html += '<path d="' + d(c) + 'L' + W + ' ' + base + ' L0 ' + base + 'Z" fill="url(#ov2F' + i + ')"/>'
-      + '<path d="' + d(c) + '" fill="none" stroke="' + c[5] + '" stroke-width="' + (c[6] ? 2.4 : 2.8) + '"' + (c[6] ? ' stroke-dasharray="7 5"' : '') + ' vector-effect="non-scaling-stroke"/>');
+    C.forEach((c, i)=> html = html.replace('</defs>', '<linearGradient id="ov2F' + i + u + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + c[5] + '" stop-opacity="' + (c[6] ? .35 : .85) + '"/><stop offset="1" stop-color="' + c[5] + '" stop-opacity="' + (c[6] ? .12 : .35) + '"/></linearGradient></defs>'));
+    C.map((c, i)=> [c, i]).reverse().forEach(([c, i])=> html += '<g class="cvg" data-i="' + i + '"><path d="' + d(c) + 'L' + W + ' ' + base + ' L0 ' + base + 'Z" fill="url(#ov2F' + i + u + ')"/>'
+      + '<path d="' + d(c) + '" fill="none" stroke="' + c[5] + '" stroke-width="' + (c[6] ? 2.4 : 2.8) + '"' + (c[6] ? ' stroke-dasharray="7 5"' : '') + ' vector-effect="non-scaling-stroke"/></g>');
     svg.innerHTML = html + '</g><line x1="0" y1="' + base + '" x2="' + W + '" y2="' + base + '" stroke="#9AA3AD" stroke-width="1" vector-effect="non-scaling-stroke"/>';
     lab.innerHTML = C.map((c, i)=>{
       const px = c[1] * 100, py = y(c, c[1]) / H * 100;
       const cls = i === 0 ? 'proj' : '';
-      const exp = i === 0 ? '<span class="tg exp" style="left:2%;top:18%">Expected<br>Outcome</span>' : '';
-      return exp + '<i class="pk" style="left:' + px + '%;top:' + py + '%;--c:' + c[5] + '"></i><span class="tg ' + cls + '" style="left:' + (px + 1.8) + '%;top:' + (py - (i === 0 ? 8 : 4.5)) + '%;--c:' + c[5] + '">' + c[0] + '</span>';
+      const exp = i === 0 ? '<span class="tg exp" data-i="x" style="left:2%;top:18%">Expected<br>Outcome</span>' : '';
+      return exp + '<i class="pk" data-i="' + i + '" style="left:' + px + '%;top:' + py + '%;--c:' + c[5] + '"></i><span class="tg ' + cls + '" data-i="' + i + '" style="left:' + (px + 1.8) + '%;top:' + (py - (i === 0 ? 8 : 4.5)) + '%;--c:' + c[5] + '">' + c[0] + '</span>';
     }).join('');
     if(hasGsap && !REDUCE_MOTION){
-      gsap.fromTo(box.querySelector('.ov2-cv-clip'), { attr:{ width:0 } }, { attr:{ width:W }, duration:1.8, ease:'power2.inOut' });
-      gsap.fromTo(lab.children, { scale:.6, opacity:0 }, { scale:1, opacity:1, stagger:.08, duration:.4, delay:.6, ease:'back.out(2)' });
-      gsap.fromTo(root.querySelectorAll('.ov2-hz-bars .sg i'), { scaleY:0 }, { scaleY:1, transformOrigin:'50% 100%', stagger:.03, duration:.6, delay:.3, ease:'power3.out' });
+      gsap.fromTo(root.querySelectorAll('.ov2-hz-up, .ov2-hz-h'), { opacity:0, x:12 }, { opacity:1, x:0, stagger:.1, duration:.5, delay:1.1 });
     }
   }
   // Overview: connector lines (chart callout -> curves and -> funnel, Control Impact -> funnel, residual -> outcome boxes)
@@ -9647,28 +9808,30 @@
     const box = R('.ov2-callout'), cv = R('.ov2-curves'), fun = R('.ov2-funnel2'), ci = R('.ov2-ci'), left = R('.ov2-left'), hz = R('.ov2-hz');
     const ob = Array.from(root.querySelectorAll('.ov2-out2 .ov-box')).map(el=>{ const r = el.getBoundingClientRect(); return { l:(r.left - G.left) / k, t:(r.top - G.top) / k, w:r.width / k }; });
     if(!box || !cv || !fun || !ci || !left || ob.length < 2) return;
+    const u = svg._u || (svg._u = '-' + (ov2Links._n = (ov2Links._n || 0) + 1));
     svg.setAttribute('viewBox', '0 0 ' + g.offsetWidth + ' ' + g.offsetHeight);
     const cx = box.l + box.w / 2, my = box.t + box.h / 2, xm = left.r + (fun.l - left.r) / 2, fy = fun.t + fun.h * .4;
-    const top = Math.min(ob[0].t, ob[1].t), x0 = fun.l + fun.w * .875, y0 = Math.min(fun.b - 2, top - 56), ym = top - 40, c0 = ob[0].l + ob[0].w / 2, c1 = ob[1].l + ob[1].w / 2;
-    svg.innerHTML = '<defs><marker id="ov2Arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10z" fill="#16294F"/></marker>'
-      + '<marker id="ov2ArrO" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 10 5 0 10z" fill="#E8762B"/></marker></defs>'
+    const top = Math.min(ob[0].t, ob[1].t), x0 = fun.l + fun.w * .875, C2 = !!svg.closest('#slideStable2'), y0 = C2 ? fun.b : Math.min(fun.b - 2, top - 56), ym = C2 ? (fun.b + top) / 2 + 2 : top - 40, c0 = ob[0].l + ob[0].w / 2, c1 = ob[1].l + ob[1].w / 2;
+    svg.innerHTML = '<defs><marker id="ov2Arr' + u + '" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10z" fill="#16294F"/></marker>'
+      + '<marker id="ov2ArrO' + u + '" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 10 5 0 10z" fill="#E8762B"/></marker></defs>'
       // lagging chart -> funnel mouth: one straight arrow
-      + '<path class="lk main cb" d="M' + (left.r + 2) + ' ' + fy + ' H' + (fun.l + 6) + '" marker-end="url(#ov2Arr)"/>'
+      + '<path class="lk main cb" d="M' + (left.r + 2) + ' ' + fy + ' H' + (fun.l + 6) + '" marker-end="url(#ov2Arr' + u + ')"/>'
       // hazard / TBC reporting -> up into CONTROLS / PERKUATAN (under the funnel)
-      + (hz ? '<path class="lk" d="M' + hz.r + ' ' + (hz.t + 14) + ' H' + (xm + 8) + ' V' + (fun.b - 10) + ' H' + (fun.l + fun.w * .395) + ' V' + (fun.b - 24) + '" marker-end="url(#ov2Arr)"/>' : '')
-      + '<path class="lk ci" d="M' + (ci.l + ci.w / 2) + ' ' + ci.b + ' V' + (fun.t + fun.h * .16) + '" marker-end="url(#ov2Arr)"/>'
+      + (hz && hz.w > 0 ? '<path class="lk" d="M' + hz.r + ' ' + (hz.t + 14) + ' H' + (xm + 8) + ' V' + (fun.b + (svg.closest('#slideStable2') ? 14 : -10)) + ' H' + (fun.l + fun.w * .395) + ' V' + (fun.b + (svg.closest('#slideStable2') ? 6 : -24)) + '" marker-end="url(#ov2Arr' + u + ')"/>' : '')
+      + '<path class="lk ci" d="M' + (ci.l + ci.w / 2) + ' ' + ci.b + ' V' + (fun.t + fun.h * .16) + '" marker-end="url(#ov2Arr' + u + ')"/>'
       + '<path class="lk or" d="M' + x0 + ' ' + y0 + ' V' + ym + ' M' + c0 + ' ' + ym + ' H' + Math.max(c1, x0) + '"/>'
-      + '<path class="lk or" d="M' + c0 + ' ' + ym + ' V' + (ob[0].t - 30) + '" marker-end="url(#ov2ArrO)"/><path class="lk or" d="M' + c1 + ' ' + ym + ' V' + (ob[1].t - 30) + '" marker-end="url(#ov2ArrO)"/>';
+      + '<path class="lk or" d="M' + c0 + ' ' + ym + ' V' + (ob[0].t - (C2 ? 2 : 30)) + '" marker-end="url(#ov2ArrO' + u + ')"/><path class="lk or" d="M' + c1 + ' ' + ym + ' V' + (ob[1].t - (C2 ? 2 : 30)) + '" marker-end="url(#ov2ArrO' + u + ')"/>';
   }
   function ov2Bubbles(root){
     const host = root.querySelector('.ov-bub'); if(!host || host._run) return; host._run = true;
     if(!host.querySelector('.ov-mouth')) host.insertAdjacentHTML('beforeend', '<span class="ov-mouth"></span><span class="ov-exit"></span>');
     const COLS = ['#E3262F', '#F05A28', '#F7A21B', '#F9C80E', '#E3262F', '#F28C28', '#D6243A'];
-    const MOUTH = { x:23, y:41 }, EXIT = { x:80.5, y:44 };
+    const HD = !!root.closest('#slideStable2');
+    const MOUTH = HD ? { x:21, y:38 } : { x:23, y:41 }, EXIT = HD ? { x:86, y:38 } : { x:80.5, y:44 };
     // control bands along the tube: each one catches part of what passes through it
-    const GATES = [37.5, 46.5, 55, 64.5, 75], CATCH = 0.2;  // about 1 in 3 makes it through
+    const GATES = HD ? [29, 40, 52, 65, 79] : [37.5, 46.5, 55, 64.5, 75], CATCH = 0.2;  // about 1 in 3 makes it through
     const tubeY = (x)=> MOUTH.y + (EXIT.y - MOUTH.y) * (x - MOUTH.x) / (EXIT.x - MOUTH.x);
-    const alive = ()=> host.isConnected && host.offsetParent && document.getElementById('slideStable').classList.contains('active');
+    const alive = ()=>{ const sl = host.closest('.slide'); return host.isConnected && host.offsetParent && sl && sl.classList.contains('active'); };
     const mk = (cls, css)=>{ const e = document.createElement('i'); if(cls) e.className = cls; e.style.cssText = css; host.appendChild(e); return e; };
     function zap(x){
       const z = mk('zap', 'left:'+x+'%;top:'+tubeY(x)+'%');
@@ -9699,6 +9862,7 @@
       // 5. the few that make it through leave as small residual risk
       if(!caught){
         tl.to(b, { left:EXIT.x+'%', top:EXIT.y+'%', duration:.25, ease:'none' })
+          .set(b, HD ? { background:['#3FBF4F','#2FA84A','#7BD35A'][Math.random()*3|0] } : {})
           .to(b, { scale:.45 + Math.random()*.35, opacity:1, duration:.2, ease:'back.out(3)' })
           .call(()=>{ const e = host.querySelector('.ov-exit'); if(e) gsap.fromTo(e, { scale:.4, opacity:.8 }, { scale:1.4, opacity:0, duration:.6 }); })
           .to(b, { left:(86 + Math.random()*13)+'%', top:(EXIT.y - 18 + Math.random()*36)+'%', duration:1.6 + Math.random()*.8, ease:'power1.out' })
@@ -9739,7 +9903,7 @@
       curIn.style.transform = 'scale(' + k + ')';
     }
     if('ResizeObserver' in window) new ResizeObserver(fit).observe(tv);
-    function build(view, into){
+    function build(view, into, tag){
       const cfg = SRC[view]; if(cfg.prep) cfg.prep();
       const src = document.querySelector(cfg.sel); if(!src) return null;
       const c = src.cloneNode(true);
@@ -9750,7 +9914,7 @@
         el.style.removeProperty('opacity'); el.style.removeProperty('transform'); el.style.removeProperty('visibility');
       });
       const inner = document.createElement('div'); inner.className = 'hs-tv-in ' + cfg.cls; inner.appendChild(c);
-      relinkDefs(inner, view);
+      relinkDefs(inner, view + (tag || '')); inner._tag = tag || '';
       c.querySelectorAll('[data-clone]').forEach(slot=>{
         const src2 = document.querySelector(slot.dataset.clone); if(!src2) return;
         const k = src2.cloneNode(true); k.removeAttribute('id'); k.classList.remove('fade'); k.classList.add('on');
@@ -9984,9 +10148,15 @@
       const inner = built[view] || (built[view] = build(view)); if(!inner) return;
       Object.values(built).forEach(el=> el.hidden = el !== inner);
       curIn = inner; fit();
-      if(view === 'ov2'){
+      if(view === 'ov2') ov2Extras(inner);
+      animate(inner);
+    }
+    function ov2Extras(inner){
+        if(inner.closest('#slideStable2')) ov2Redesign(inner);
+        // experiment copy (slide after How Stable): HD funnel picture
+        if(inner.closest('#slideStable2')){ const f = inner.querySelector('.ov2-funnel2 img'); if(f && !f.dataset.hd){ f.dataset.hd = '1'; f.src = 'mom/corong-hd-t.png'; } }
         const ph = inner.querySelector('.ov2-phase');
-        if(ph && !ph.firstChild){ const srcPh = document.querySelector('#exStage .ex-phase'); if(srcPh){ const k = srcPh.cloneNode(true); k.querySelectorAll('defs [id]').forEach(d=> d.setAttribute('data-oid', d.id)); ph.appendChild(k); relinkDefs(ph, 'ov2p'); } }
+        if(ph && !ph.firstChild){ const srcPh = document.querySelector('#exStage .ex-phase'); if(srcPh){ const k = srcPh.cloneNode(true); k.querySelectorAll('defs [id]').forEach(d=> d.setAttribute('data-oid', d.id)); ph.appendChild(k); relinkDefs(ph, 'ov2p' + (inner._tag || '')); } }
         requestAnimationFrame(()=> inner.querySelectorAll('.ov2-chart').forEach(el=> execView.chart(el)));
         ov2Bubbles(inner);
         ov2Curves(inner);
@@ -9994,8 +10164,6 @@
         // measured again once the entrance motion has settled
         clearTimeout(inner._linkT); inner._linkT = setTimeout(()=> ov2Links(inner), 1600); setTimeout(()=> ov2Links(inner), 3200);
         if(!inner._links && 'ResizeObserver' in window){ inner._links = new ResizeObserver(()=> ov2Links(inner)); inner._links.observe(inner.querySelector('.ov2-grid')); }
-      }
-      animate(inner);
     }
     // a view rendered on its own slide: own host, own scale-to-fit, same entrance motion
     const hosts = {};
@@ -10004,12 +10172,13 @@
       let h = hosts[view];
       if(!h){
         const t = document.createElement('div'); t.className = 'hs-tv'; grid.appendChild(t);
-        const inner = build(view, t); if(!inner) return;
+        const inner = build(view, t, '-' + grid.id); if(!inner) return;
         h = hosts[view] = { t, inner, fit(){ if(!t.clientWidth) return; const k = Math.min(t.clientWidth / W, t.clientHeight / H);
           inner.style.width = (t.clientWidth / k) + 'px'; inner.style.height = (t.clientHeight / k) + 'px'; inner.style.transform = 'scale(' + k + ')'; } };
         if('ResizeObserver' in window) new ResizeObserver(()=> h.fit()).observe(t);
       }
-      h.fit(); animate(h.inner);
+      if(view === 'ov2') ov2Extras(h.inner); animate(h.inner);
+      if(hasGsap && !REDUCE_MOTION) gsap.fromTo(h.inner.querySelectorAll('.rd-mini .mb i'), { scaleY:0 }, { scaleY:1, transformOrigin:'50% 100%', stagger:.06, duration:.8, delay:.6, ease:'power3.out' });
     }
     function animate(inner){
       if(!hasGsap || REDUCE_MOTION) return;
@@ -10519,6 +10688,46 @@
   const OV2_TOP = 16, OV2_LEFT = 34;  // keep in step with .ov2-chartwrap .ex-ph-cols height / .ov2-phase left
   // Overview: the plateau highlight follows the chart sweep (box opens as the lines reach 2023,
   // incident drops appear at Q1'26 / Q3'26, the breakthrough rises once the sweep ends)
+  // Hazard / TBC bars follow the incident chart: each year sits under the same year above,
+  // and rises when the chart's sweep reaches it (same delay, duration and easing as the incident bars)
+  // Risk-distribution curves join the same timeline: each period's hill rises when the incident
+  // chart's sweep reaches its years (same delay formula, duration and easing as the incident bars)
+  function curvesSync(el, DUR, n){
+    const box = el.closest('.ov2-left') && el.closest('.ov2-left').querySelector('.ov2-curves'); if(!box) return;
+    // curve index -> category index on the incident chart (2027 / 2026 / 2023-25 / 2021-22 / 2020-21 / 2017-19)
+    const AT = { 0:11, 1:9, 2:6, 3:4, 4:3, 5:0, x:12 };
+    const at = (i)=> (i + .15) / n * DUR, ease = 'cubic-bezier(.33,1,.68,1)';
+    (box._an || []).forEach(a=> a.cancel()); box._an = [];
+    if(REDUCE_MOTION) return;
+    box.querySelectorAll('.cvg').forEach(g=> box._an.push(g.animate([{ transform:'scaleY(0)', opacity:0 }, { transform:'scaleY(1)', opacity:1 }], { delay:at(AT[g.dataset.i]), duration:1300, easing:ease, fill:'both' })));
+    box.querySelectorAll('.ov2-cv-lab [data-i]').forEach(e=>{ const t = AT[e.dataset.i] === 12 ? DUR : at(AT[e.dataset.i]) + 500;
+      box._an.push(e.animate([{ opacity:0, transform:'scale(.6)' }, { opacity:1, transform:'scale(1)' }], { delay:t, duration:450, easing:'cubic-bezier(.34,1.56,.64,1)', fill:'both' })); });
+  }
+  function hazardSync(el, c, DUR, n){
+    const bars = el.closest('.ov2-left') && el.closest('.ov2-left').querySelector('.ov2-hz-bars'); if(!bars || !el.offsetWidth) return;
+    const yrs = Array.from(bars.querySelectorAll('.yr')); if(!yrs.length) return;
+    const E = el.getBoundingClientRect(), B = bars.getBoundingClientRect(), k = E.width / el.offsetWidth || 1;
+    const x0 = c.convertToPixel({ xAxisIndex:0 }, 0), x1 = c.convertToPixel({ xAxisIndex:0 }, 1); if(!isFinite(x0) || !isFinite(x1)) return;
+    const cw = x1 - x0, off = (E.left - B.left) / k;
+    if(!bars._h){ bars._h = bars.offsetHeight; bars.style.setProperty('--hzh', bars._h + 'px'); bars.classList.add('aligned'); }
+    const w = Math.max(40, cw * .9);
+    yrs.forEach((yr, i)=>{ const cx = off + c.convertToPixel({ xAxisIndex:0 }, i); yr.style.left = (cx - w / 2) + 'px'; yr.style.width = w + 'px'; });
+    const at = (i)=> (i + .15) / n * DUR, ease = 'cubic-bezier(.33,1,.68,1)';
+    (bars._an || []).forEach(a=> a.cancel()); (bars._tw || []).forEach(t=> t.kill && t.kill());
+    bars._an = []; bars._tw = [];
+    if(REDUCE_MOTION) return;
+    yrs.forEach((yr, i)=>{
+      yr.querySelectorAll('.sg i').forEach(b=> bars._an.push(b.animate([{ transform:'scaleY(0)' }, { transform:'scaleY(1)' }], { delay:at(i), duration:1300, easing:ease, fill:'both' })));
+      yr.querySelectorAll('.sg em').forEach(em=>{
+        const txt = em.dataset.v || (em.dataset.v = em.textContent), v = parseFloat(txt.replace(/\./g, '').replace(',', '.'));
+        bars._an.push(em.animate([{ opacity:0 }, { opacity:1 }], { delay:at(i), duration:500, fill:'both' }));
+        if(!hasGsap || isNaN(v)) return;
+        const o = { v:0 }, fmt = (x)=> x.toFixed(1).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        em.textContent = fmt(0);
+        bars._tw.push(gsap.to(o, { v, duration:1.3, delay:at(i) / 1000, ease:'power3.out', onUpdate:()=> em.textContent = fmt(o.v), onComplete:()=> em.textContent = txt }));
+      });
+    });
+  }
   function plateauFlow(el, D, n, onCover){
     const box = el.parentNode.querySelector('.ov2-callout'), grid = el.closest('.ov2-grid'); if(!box || !box.animate) return;
     (el._plAn || []).forEach(x=> x.cancel()); clearTimeout(el._plT);
@@ -10644,11 +10853,12 @@
       c.setOption(opt);
       el._rev = true; clearTimeout(el._revT); el._revT = setTimeout(()=>{ el._rev = null; }, DUR + 800);
       // once the plateau line covers 2023 onward, the yellow curve under it is dropped (no double line)
+      if(merged){ hazardSync(el, c, DUR, n); curvesSync(el, DUR, n); }
       if(merged) plateauFlow(el, DUR / 1000, n, ()=>{ if(c.isDisposed && c.isDisposed()) return; c.setOption({ series:[{ id:'perf', data:total.map((v, i)=> i > 6 ? '-' : v), animation:false }] }); });
       // replay the sweep after a pause, for as long as this chart is on screen
       clearTimeout(el._loopT);
       el._loopT = setTimeout(function again(){
-        const sl = document.getElementById('slideStable');
+        const sl = el.closest('.slide') || document.getElementById('slideStable');
         if(!el.isConnected) return;
         if(el.offsetParent && sl && sl.classList.contains('active')) chart(el);
         else el._loopT = setTimeout(again, 1500);
