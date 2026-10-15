@@ -4227,6 +4227,149 @@
   .hs-tv-ov2 .ov2-out2 .ov-box.orange{ background:#FBC99A; border:0; }
   .hs-tv-ov2 .ov2-out2 .ov-box.pink{ background:#FAD4DA; }
   .hs-tv-ov2 .ov2-note{ flex:1 !important; display:block; padding-top:14px; font-size:18px !important; line-height:1.45; }
+
+  /* ---- Critical Control dashboard inside the map detail card ---- */
+  .sm-det .smc-rich{ position:relative; flex:1; min-height:0; overflow:hidden; margin:10px 16px 0; }
+  .ccx-stage{ position:absolute; top:0; left:0; width:1800px; height:720px; transform-origin:0 0; display:grid; grid-template-columns:600px 590px 1fr; gap:16px; font-family:'Source Sans 3',sans-serif; color:#141A22; }
+  .ccx-c1{ display:flex; flex-direction:column; gap:14px; min-height:0; }
+  .ccx-sec{ border-radius:16px; background:#fff; border:1px solid #DCE3EA; box-shadow:0 8px 22px rgba(20,26,34,.07); }
+  .ccx-cc{ padding:14px 18px; display:flex; flex-direction:column; gap:8px; }
+  .ccx-chip{ align-self:flex-start; padding:6px 16px; border-radius:10px; background:#EEF1F4; border:1px solid #CDD5DD; font:800 21px/1.1 'Plus Jakarta Sans',sans-serif; }
+  .ccx-cc p{ font-size:15px; line-height:1.38; } .ccx-cc p.sm{ font-size:14px; color:#3C444C; }
+  .ccx-dia{ display:grid; grid-template-columns:220px 1fr; align-items:center; gap:12px; }
+  .ccx-dia svg{ width:220px; height:146px; }
+  .ccx-ccv{ display:grid; grid-template-columns:70px 1fr; row-gap:10px; align-items:center; }
+  .ccx-ccv > b{ grid-column:1 / -1; font:800 16px 'Plus Jakarta Sans',sans-serif; }
+  .ccx-ccv .ar{ height:2px; border-top:2px dotted #4A525C; position:relative; } .ccx-ccv .ar::after{ content:''; position:absolute; right:-2px; top:-6px; border:5px solid transparent; border-left:7px solid #4A525C; }
+  .ccx-ccv div{ padding:9px 12px; border-radius:6px; background:#EEF1F4; border:1px solid #CDD5DD; text-align:center; font:700 15px 'Plus Jakarta Sans',sans-serif; color:#4A525C; }
+  .ccx-kp{ padding:8px 12px; border-radius:8px; background:#EEF1F4; } .ccx-kp small{ display:block; font:700 12px 'Plus Jakarta Sans',sans-serif; letter-spacing:.1em; text-transform:uppercase; color:#4A525C; } .ccx-kp b{ font:800 16px 'Plus Jakarta Sans',sans-serif; }
+  .ccx-road{ flex:1; min-height:0; padding:12px; display:grid; grid-template-columns:1fr 1fr; gap:10px; background:linear-gradient(180deg,#F7FAFD,#fff); }
+  .ccx-tl{ border-radius:12px; background:#fff; border:1px solid #DCE3EA; padding:8px 10px; box-shadow:0 4px 12px rgba(20,26,34,.06); }
+  .ccx-tl.q4{ grid-column:1 / -1; justify-self:center; width:60%; }
+  .ccx-tl .tg{ display:inline-block; padding:3px 12px; border-radius:6px; color:#fff; font:800 15px 'Plus Jakarta Sans',sans-serif; }
+  .ccx-tl.y25 .tg{ background:#0F2D6B; } .ccx-tl.q1 .tg{ background:#2A6FD7; } .ccx-tl.q2 .tg{ background:#5BA83A; } .ccx-tl.q3 .tg{ background:#E8762B; } .ccx-tl.q4 .tg{ background:#7B3FC4; }
+  .ccx-tl.q3{ background:#FFF4EA; border-color:#F5C79A; }
+  .ccx-tl .bd{ display:flex; gap:10px; margin-top:6px; }
+  .ccx-tl i{ flex:none; display:grid; place-items:center; width:40px; height:40px; border-radius:50%; background:#EEF1F4; }
+  .ccx-tl i svg{ width:22px; height:22px; fill:#4A5A70; }
+  .ccx-tl.q1 i svg{ fill:#2A6FD7; } .ccx-tl.q2 i svg{ fill:#5BA83A; } .ccx-tl.q3 i svg{ fill:#E8762B; } .ccx-tl.q4 i svg{ fill:#7B3FC4; }
+  .ccx-tl b{ font:800 16px/1.15 'Plus Jakarta Sans',sans-serif; color:#16418F; } .ccx-tl p{ font-size:13px; line-height:1.3; color:#4A525C; margin-top:2px; }
+  .ccx-mea{ overflow:hidden; display:flex; flex-direction:column; background:#F2F8EF; border-color:#BFDDB4; }
+  .ccx-mea header{ display:flex; align-items:center; justify-content:space-between; padding:12px 16px; background:linear-gradient(115deg,#14532D,#1F7A35); color:#fff; }
+  .ccx-mea header b{ display:block; font:800 25px/1.1 'Plus Jakarta Sans',sans-serif; } .ccx-mea header small{ font-size:13px; opacity:.9; }
+  .ccx-mea .live{ padding:5px 14px; border-radius:999px; background:#fff; color:#147A2C; font:800 13px 'Plus Jakarta Sans',sans-serif; animation:exBlink 1.6s ease-in-out infinite; }
+  .ccx-mea-in{ flex:1; min-height:0; display:flex; flex-direction:column; gap:8px; padding:10px 14px; }
+  .ccx-stat{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .ccx-stat small{ display:block; font:800 12px 'Plus Jakarta Sans',sans-serif; letter-spacing:.06em; text-transform:uppercase; color:#147A2C; } .ccx-stat b{ display:block; font:800 16px 'Plus Jakarta Sans',sans-serif; } .ccx-stat span{ font-size:13px; color:#4A525C; }
+  .ccx-loc{ padding:8px 10px; border-radius:10px; background:#F6EEDC; }
+  .ccx-loc.st{ background:#E6F4E0; border:1.5px dashed #6DBB57; }
+  .ccx-loc h5{ display:flex; justify-content:space-between; align-items:center; padding:5px 10px; border-radius:6px; background:#FFF6DA; border:1px solid #E8C35A; font:800 15px 'Plus Jakarta Sans',sans-serif; }
+  .ccx-loc h5 em{ font-style:normal; padding:3px 10px; border-radius:6px; background:#14532D; color:#fff; font-size:12px; }
+  .ccx-loc .ch{ display:grid; gap:6px; margin:6px 0 4px; } .ccx-loc .c5{ grid-template-columns:repeat(5,1fr); } .ccx-loc .c6{ grid-template-columns:repeat(6,1fr); } .ccx-loc .c2{ grid-template-columns:repeat(2,1fr); }
+  .ccx-loc .ch span{ text-align:center; } .ccx-loc .ch b{ display:block; padding:3px 4px; border-radius:5px; background:#FFE38A; border:1px solid #E8C35A; font:700 12.5px 'Plus Jakarta Sans',sans-serif; white-space:nowrap; } .ccx-loc .ch small{ font-size:11.5px; color:#4A525C; }
+  .ccx-loc p{ font-size:12.5px; color:#3C444C; }
+  .ccx-met h5{ font:800 15px 'Plus Jakarta Sans',sans-serif; color:#147A2C; margin-bottom:4px; }
+  .ccx-met .bar{ display:flex; height:24px; border-radius:4px; overflow:hidden; background:#8FC47A; font:800 13px/24px 'Plus Jakarta Sans',sans-serif; color:#fff; text-align:center; }
+  .ccx-met .bar .a{ background:#14532D; white-space:nowrap; overflow:hidden; } .ccx-met .bar .b{ flex:1; }
+  .ccx-met p{ font-size:12.5px; margin-top:4px; } .ccx-met p em{ display:inline-block; margin-left:4px; padding:1px 8px; border-radius:4px; background:#14532D; color:#fff; font-style:normal; font-size:11.5px; }
+  .ccx-dev{ padding:14px 16px; display:flex; flex-direction:column; gap:10px; min-height:0; }
+  .ccx-dev h4{ font:800 24px 'Plus Jakarta Sans',sans-serif; }
+  .ccx-ph{ border-radius:12px; border:1px solid #DCE3EA; overflow:hidden; }
+  .ccx-ph .hd{ display:flex; justify-content:space-between; align-items:flex-start; padding:8px 12px; border-top:4px solid #1F9A3A; background:#F3FAF2; }
+  .ccx-ph.plan .hd{ border-top-color:#6B7580; background:#F4F6F8; }
+  .ccx-ph .hd small{ display:block; font:800 12px 'Plus Jakarta Sans',sans-serif; letter-spacing:.1em; text-transform:uppercase; color:#147A2C; } .ccx-ph.plan .hd small{ color:#4A525C; }
+  .ccx-ph .hd b{ display:block; font:800 21px/1.1 'Plus Jakarta Sans',sans-serif; } .ccx-ph .hd span{ font-size:13px; color:#4A525C; }
+  .ccx-ph .hd em{ font-style:normal; padding:5px 14px; border-radius:999px; background:#1F9A3A; color:#fff; font:800 13px 'Plus Jakarta Sans',sans-serif; text-transform:uppercase; }
+  .ccx-ph.plan .hd em{ background:#6B7580; }
+  .ccx-ph ol{ list-style:none; padding:4px 12px 8px; }
+  .ccx-ph li{ display:grid; grid-template-columns:26px 1fr auto auto; gap:10px; align-items:center; padding:3px 0; font-size:15px; }
+  .ccx-ph li .n{ display:grid; place-items:center; width:22px; height:22px; border-radius:50%; background:#1F9A3A; color:#fff; font:800 12px 'Plus Jakarta Sans',sans-serif; }
+  .ccx-ph.plan li .n{ background:#1E4FD0; }
+  .ccx-ph li .c{ font-size:12.5px; color:#6B7580; }
+  .ccx-ph li em{ font-style:normal; padding:2px 10px; border-radius:6px; font:800 12px 'Plus Jakarta Sans',sans-serif; } .ccx-ph li em.hi{ background:#D6243A; color:#fff; } .ccx-ph li em.md{ background:#F2C21B; color:#141A22; }
+  .ccx-tline{ position:relative; display:grid; grid-template-columns:1fr 1fr; gap:10px; padding-top:12px; margin-top:auto; }
+  .ccx-tline i{ position:absolute; left:0; right:0; top:0; height:4px; background:linear-gradient(90deg,#1F9A3A 0 60%, transparent 60%), repeating-linear-gradient(90deg,#B8C0C8 0 8px, transparent 8px 14px); }
+  .ccx-tline b{ display:block; font:800 17px 'Plus Jakarta Sans',sans-serif; color:#147A2C; } .ccx-tline .r b{ color:#E8762B; }
+  .ccx-tline strong{ display:block; font:800 14px 'Plus Jakarta Sans',sans-serif; color:#147A2C; } .ccx-tline .r strong{ color:#E8762B; }
+  .ccx-tline span{ font-size:12.5px; color:#4A525C; }
+
+  /* Critical Control dashboard: compact first column so the whole roadmap fits */
+  .ccx-cc{ padding:10px 16px; gap:6px; }
+  .ccx-cc p{ font-size:14px; } .ccx-cc p.sm{ font-size:13px; }
+  .ccx-dia{ grid-template-columns:170px 1fr; } .ccx-dia svg{ width:170px; height:112px; }
+  .ccx-ccv div{ padding:6px 10px; font-size:14px; }
+  .ccx-c1{ gap:10px; }
+  .ccx-road{ padding:8px; gap:7px; grid-auto-rows:auto; align-content:start; }
+  .ccx-tl{ padding:6px 9px; }
+  .ccx-tl .bd{ margin-top:4px; gap:8px; } .ccx-tl i{ width:32px; height:32px; } .ccx-tl i svg{ width:18px; height:18px; }
+  .ccx-tl .tg{ font-size:13px; padding:2px 10px; } .ccx-tl b{ font-size:14.5px; } .ccx-tl p{ font-size:12px; line-height:1.25; }
+  .ccx-dia{ grid-template-columns:150px 1fr; } .ccx-dia svg{ width:150px; height:98px; } .ccx-kp{ padding:5px 12px; } .ccx-kp b{ font-size:15px; } .ccx-chip{ font-size:19px; padding:4px 14px; }
+
+  /* ---- Health Management (new design): baseline circle + 4 pilar + yearly journey ---- */
+  #slideHJ .sp-desc{ font-size:clamp(.66rem,1.55vh,.9rem); line-height:1.35; }
+  .hm-grid{ flex:1; min-height:0; display:grid; grid-template-columns:minmax(0,.62fr) minmax(0,1.38fr); gap:18px; }
+  .hm-base{ position:relative; min-height:0; aspect-ratio:1; max-height:100%; justify-self:center; align-self:center; width:100%; max-width:62vh; }
+  .hm-ring{ position:absolute; inset:0; width:100%; height:100%; }
+  .hm-ring circle{ fill:rgba(255,255,255,.55); stroke:#3E8FD6; stroke-width:.7; stroke-dasharray:2 2.6; animation:hmSpin 60s linear infinite; transform-origin:50% 50%; }
+  @keyframes hmSpin{ to{ transform:rotate(360deg); } }
+  .hb-c{ position:absolute; width:43%; aspect-ratio:1; border-radius:50%; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; padding-bottom:13%; color:#fff; text-align:center;
+    box-shadow:0 0 0 5px #fff, 0 14px 30px rgba(20,26,34,.18); overflow:visible; }
+  .hb-c.b{ background:radial-gradient(circle at 50% 30%,#4B9BE8,#1E4FA8 70%); } .hb-c.g{ background:radial-gradient(circle at 50% 30%,#4DBB5A,#14632E 70%); }
+  .hb-c.tl{ left:2%; top:2%; } .hb-c.tr{ right:2%; top:2%; } .hb-c.bl{ left:2%; bottom:2%; } .hb-c.br{ right:2%; bottom:2%; }
+  .hb-c .ic{ position:absolute; top:12%; left:50%; transform:translateX(-50%); display:grid; place-items:center; width:40%; aspect-ratio:1; border-radius:50%; background:#fff; box-shadow:0 6px 14px rgba(0,0,0,.2); }
+  .hb-c.b .ic svg{ fill:#1E5BB8; } .hb-c.g .ic svg{ fill:#1F8A3A; }
+  .hb-c .ic svg{ width:56%; height:56%; }
+  .hb-c .no{ position:absolute; top:4%; right:18%; display:grid; place-items:center; width:15%; aspect-ratio:1; border-radius:50%; background:#fff; color:#141A22; font:800 clamp(.7rem,1.9vh,1.05rem)/1 'Plus Jakarta Sans',sans-serif; box-shadow:0 3px 8px rgba(0,0,0,.2); }
+  .hb-c b{ font:800 clamp(.68rem,1.75vh,1rem)/1.15 'Plus Jakarta Sans',sans-serif; text-shadow:0 2px 6px rgba(0,0,0,.35); }
+  .hb-core{ position:absolute; left:50%; top:50%; width:36%; aspect-ratio:1; transform:translate(-50%,-50%); border-radius:50%; background:#fff; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:2%;
+    box-shadow:0 0 0 7px rgba(31,154,58,.25), 0 16px 34px rgba(20,26,34,.2); z-index:2; }
+  .hb-core .lf svg{ width:clamp(20px,4vh,36px); height:clamp(20px,4vh,36px); fill:#1F9A3A; animation:hjLeaf 3.2s ease-in-out infinite; }
+  .hb-core b{ text-align:center; font:800 clamp(.95rem,3vh,1.7rem)/1.05 'Plus Jakarta Sans',sans-serif; color:#16294F; }
+  .hb-core i{ width:28%; height:4px; border-radius:2px; background:#1F9A3A; }
+  .hm-right{ min-width:0; min-height:0; display:flex; flex-direction:column; gap:1.4vh; }
+  .hm-pil, .hm-jr{ min-height:0; display:flex; flex-direction:column; border-radius:14px; overflow:hidden; background:rgba(255,255,255,.88); border:1px solid #DCE3EA; box-shadow:0 10px 26px rgba(20,26,34,.08); }
+  .hm-pil{ flex:1.05 1 0; } .hm-jr{ flex:1 1 0; }
+  .hm-h{ flex:none; display:flex; align-items:center; gap:18px; padding:.8vh 18px; background:linear-gradient(115deg,#0F2D6B,#1E4FA8); color:#fff; font:800 clamp(.9rem,2.4vh,1.35rem)/1.1 'Plus Jakarta Sans',sans-serif; }
+  .hm-h span{ margin-left:auto; font:600 clamp(.58rem,1.35vh,.78rem)/1.2 'Plus Jakarta Sans',sans-serif; opacity:.9; }
+  .hm-h span::before{ content:'\2192'; margin-right:10px; }
+  .hp-row{ flex:1; min-height:0; display:grid; grid-template-columns:1fr 26px 1fr 26px 1fr 26px 1fr; align-items:stretch; padding:1vh 10px; }
+  .hp{ --c:#1F9A3A; --bg:#EEF8EA; min-width:0; display:flex; flex-direction:column; border-radius:12px; background:linear-gradient(180deg,var(--bg),#fff); overflow:hidden; }
+  .hp.pre{ --c:#1E4FA8; --bg:#EAF2FD; } .hp.kur{ --c:#14874A; --bg:#E7F6EE; } .hp.reh{ --c:#2A7BD7; --bg:#EAF3FD; }
+  .hp header{ display:flex; gap:10px; align-items:center; padding:1vh 10px .4vh; }
+  .hp header .ic{ flex:none; display:grid; place-items:center; width:clamp(34px,5.6vh,52px); aspect-ratio:1; border-radius:50%; background:var(--c); box-shadow:0 6px 14px color-mix(in srgb,var(--c) 35%,transparent); }
+  .hp header .ic svg{ width:56%; height:56%; fill:#fff; }
+  .hp header b{ display:block; font:800 clamp(.95rem,2.6vh,1.45rem)/1 'Plus Jakarta Sans',sans-serif; color:var(--c); }
+  .hp header small{ display:block; margin-top:3px; font-size:clamp(.6rem,1.4vh,.82rem); color:#3C444C; line-height:1.2; }
+  .hp ul{ list-style:none; padding:.4vh 14px; display:flex; flex-direction:column; gap:.3vh; }
+  .hp li{ position:relative; padding-left:14px; font-size:clamp(.66rem,1.65vh,.95rem); }
+  .hp li::before{ content:''; position:absolute; left:0; top:.5em; width:6px; height:6px; border-radius:50%; background:#141A22; }
+  .hp .ill{ flex:1; min-height:0; margin:0 8px 8px; border-radius:10px; display:grid; place-items:center; background:linear-gradient(160deg,color-mix(in srgb,var(--c) 18%,#fff),color-mix(in srgb,var(--c) 40%,#fff)); }
+  .hp .ill svg{ width:auto; height:62%; max-height:80px; fill:color-mix(in srgb,var(--c) 70%,#fff); opacity:.75; animation:hmBob 3.4s ease-in-out infinite; }
+  @keyframes hmBob{ 50%{ transform:translateY(-4px); } }
+  .hp-arr{ align-self:center; justify-self:center; display:grid; place-items:center; width:26px; height:26px; border-radius:50%; background:#1E4FA8; box-shadow:0 4px 10px rgba(30,79,168,.35); }
+  .hp-arr svg{ width:16px; height:16px; }
+  .hy-row{ flex:1; min-height:0; display:grid; grid-template-columns:1fr 14px 1fr 14px 1fr 14px 1fr 14px 1fr; padding:1vh 10px; }
+  .hy{ min-width:0; display:flex; flex-direction:column; align-items:flex-start; gap:.4vh; }
+  .hy .yr{ align-self:center; padding:2px 18px; border-radius:999px; color:#fff; font:800 clamp(.75rem,2vh,1.1rem)/1.3 'Plus Jakarta Sans',sans-serif; }
+  .hy .yr.b{ background:#1E5BB8; } .hy .yr.g{ background:#1F9A3A; }
+  .hy .ph{ align-self:stretch; height:clamp(36px,7vh,70px); border-radius:8px; display:grid; place-items:center; }
+  .hy .ph.b{ background:linear-gradient(135deg,#D7E7FA,#9CC2EE); } .hy .ph.g{ background:linear-gradient(135deg,#DDF2D6,#9FD58E); }
+  .hy .ph svg{ height:60%; width:auto; fill:#fff; filter:drop-shadow(0 2px 3px rgba(0,0,0,.2)); }
+  .hy b{ font:800 clamp(.7rem,1.8vh,1rem)/1.15 'Plus Jakarta Sans',sans-serif; color:#0F2D6B; }
+  .hy p{ font-size:clamp(.6rem,1.45vh,.84rem); line-height:1.25; color:#3C444C; flex:1; }
+  .hy .tg{ display:flex; gap:6px; flex-wrap:wrap; }
+  .hy .tg em{ font-style:normal; padding:2px 10px; border-radius:6px; font:700 clamp(.56rem,1.3vh,.78rem)/1.4 'Plus Jakarta Sans',sans-serif; }
+  .hy .tg em.pro{ background:#D6F0C8; color:#14632E; } .hy .tg em.pre{ background:#D7E7FA; color:#1E4FA8; }
+  .hy-arr{ align-self:center; text-align:center; font:800 22px/1 'Plus Jakarta Sans',sans-serif; color:#16294F; margin-top:-40%; }
+  @media (prefers-reduced-motion: reduce){ .hm-ring circle, .hp .ill svg{ animation:none; } }
+  .hy .ph{ flex:1; height:auto; min-height:40px; } .hy p{ flex:none; } .hy .ph svg{ height:46%; } .hb-c .no{ z-index:3; } .hy-arr{ margin-top:0; }
+  .hy-row{ grid-template-rows:minmax(0,1fr); } .hy{ min-height:0; } .hy .ph{ flex:1 1 0; min-height:30px; } .hb-c.bl .no{ right:auto; left:18%; }
+  /* Hazard & TBC: title and legend sit inside the green chart box (top-left, above the short early bars) */
+  .ov2-lower .ov2-hz-main{ position:relative; gap:0; }
+  .ov2-lower .ov2-hz-h{ position:absolute; left:10px; top:8px; z-index:2; flex-direction:column; align-items:flex-start; gap:4px; }
+  .ov2-lower .ov2-hz-h b{ font-size:14px; }
+  .ov2-lower .ov2-hz-h .lg{ font-size:10.5px; } .ov2-lower .ov2-hz-h .lg i:first-child{ margin-left:0; }
+  .ov2-lower .ov2-hz-bars{ padding-top:10px !important; border-radius:10px; }
 </style>
 </head>
 <body>
@@ -4242,10 +4385,10 @@
   <span class="rail-brand mono">OHS DIVISI</span>
   <div class="rail-letters" id="railLetters">
     <button type="button" data-jump="0">H</button>
-    <button type="button" data-jump="7">S</button>
-    <button type="button" data-jump="8">C</button>
-    <!-- <button type="button" data-jump="11">C</button> -->
-    <button type="button" data-jump="11">M</button>
+    <button type="button" data-jump="4">S</button>
+    <button type="button" data-jump="5">C</button>
+    <!-- <button type="button" data-jump="8">C</button> -->
+    <button type="button" data-jump="8">M</button>
   </div>
   <div class="rail-progress"><i id="progressFill"></i></div>
   <div class="rail-step" id="railStep">01</div>
@@ -4739,7 +4882,7 @@
     </div>
   </section>
 
-  <section class="slide" id="slideMine" data-steps="1" data-section="B · Site Map">
+  <section class="slide-off" id="slideMine" hidden data-steps="1" data-section="B · Site Map">
     <div class="slide-inner">
       <div class="sp-head">
         <p class="kicker mono fade" data-step="1" id="tmKicker">OHS Division · Peta Teknologi Operasi Tambang</p>
@@ -4780,7 +4923,7 @@
     </div>
   </section>
 
-  <section class="slide" id="slideOpStab" data-steps="4" data-section="B · Executive Performance">
+  <section class="slide-off" id="slideOpStab" hidden data-steps="4" data-section="B · Executive Performance">
     <div class="slide-inner">
       <div class="sp-head">
         <p class="kicker mono fade" data-step="1" id="osKicker">OHS Division · Executive Performance Q3 2026</p>
@@ -4799,7 +4942,7 @@
     </div>
   </section>
 
-  <section class="slide" id="slideTransform" data-steps="4" data-section="B · Executive Performance">
+  <section class="slide-off" id="slideTransform" hidden data-steps="4" data-section="B · Executive Performance">
     <div class="slide-inner">
       <div class="sp-head">
         <p class="kicker mono fade" data-step="1" id="stKicker">OHS Division · Executive Performance Q3 2026</p>
@@ -5211,68 +5354,17 @@
       <div class="sp-head">
         <p class="kicker mono fade" data-step="1" id="hjKicker">Fig. 07 · Health Management Journey</p>
         <h2 class="sp-title fade" data-step="1" id="hjTitle">Health <em>Management</em></h2>
-        <p class="sp-desc fade" data-step="1" id="hjDesc">Pengelolaan kesehatan pekerja dibangun melalui empat pilar yang saling menguatkan, <b>promotif, preventif, kuratif, dan rehabilitatif</b>, dan dijalankan bertahap dari 2023 menuju <b>Fun Run 2027</b>.</p>
+        <p class="sp-desc fade" data-step="1" id="hjDesc">Journey pengelolaan kesehatan PT Berau Coal terus berkembang dari awareness menuju penguatan kontrol risiko dan budaya hidup sehat, melalui improvement tahunan yang memperkuat 4 pilar kesehatan secara berkelanjutan. Sasaran akhirnya bukan sekadar meningkatnya jumlah program atau partisipasi event, melainkan terbangunnya pekerja yang <b>lebih sehat, fit-for-work, produktif</b>, serta memiliki <b>perilaku hidup sehat</b>.</p>
       </div>
-      <div class="hj-body">
-        <div class="hj-quads fade" data-step="1" id="hjQuads">
-          <article class="hj-q hj-pro">
-            <span class="hj-wm"><svg class="hj-wm-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/></svg></span>
-            <header><span class="hj-badge"><svg class="hj-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/></svg></span><div><b>PROMOTIF</b><small>Membangun Gaya Hidup Sehat</small></div></header>
-            <ul><li>Event lari &amp; kampanye hidup sehat</li><li>Physical wellbeing</li><li>Healthy catering &amp; nutrition awareness</li></ul>
-          </article>
-          <article class="hj-q hj-pre">
-            <span class="hj-wm"><svg class="hj-wm-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3zm-1.2 14.2-3.5-3.5 1.4-1.4 2.1 2.1 4.9-4.9 1.4 1.4-6.3 6.3z"/></svg></span>
-            <header><span class="hj-badge"><svg class="hj-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3zm-1.2 14.2-3.5-3.5 1.4-1.4 2.1 2.1 4.9-4.9 1.4 1.4-6.3 6.3z"/></svg></span><div><b>PREVENTIF</b><small>Mencegah Risiko Lebih Dini</small></div></header>
-            <ul><li>Awareness psikososial &amp; KAMIPEDULI</li><li>WELL Program</li><li>Monitoring fatigue, roster &amp; MCU</li></ul>
-          </article>
-          <article class="hj-q hj-kur">
-            <span class="hj-wm"><svg class="hj-wm-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/></svg></span>
-            <header><span class="hj-badge"><svg class="hj-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z"/></svg></span><div><b>KURATIF</b><small>Layanan Kesehatan Responsif</small></div></header>
-            <ul><li>Layanan kesehatan responsif</li><li>Penanganan kondisi kesehatan/fatigue</li><li>Fit-to-work assessment</li></ul>
-          </article>
-          <article class="hj-q hj-reh">
-            <span class="hj-wm"><svg class="hj-wm-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2c1.4-1.6 4.2-1.2 4.8 1 .5 2-1.5 3.6-4.8 6-3.3-2.4-5.3-4-4.8-6 .6-2.2 3.4-2.6 4.8-1zM2 14h3.5c1.6 0 3 .6 4.2 1.6l1.3 1.1h3.2c.9 0 1.5.7 1.5 1.5H9.6v1h6.9l4.4-2.3c.8-.4 1.7 0 2 .8l.1.3L15.6 22H8.5L5.5 20H2z"/></svg></span>
-            <header><span class="hj-badge"><svg class="hj-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2c1.4-1.6 4.2-1.2 4.8 1 .5 2-1.5 3.6-4.8 6-3.3-2.4-5.3-4-4.8-6 .6-2.2 3.4-2.6 4.8-1zM2 14h3.5c1.6 0 3 .6 4.2 1.6l1.3 1.1h3.2c.9 0 1.5.7 1.5 1.5H9.6v1h6.9l4.4-2.3c.8-.4 1.7 0 2 .8l.1.3L15.6 22H8.5L5.5 20H2z"/></svg></span><div><b>REHABILITATIF</b><small>Kembali Sehat, Berkinerja Lebih Baik</small></div></header>
-            <ul><li>Recovery &amp; return-to-work</li><li>Wellbeing reinforcement</li><li>Produktivitas berkelanjutan</li></ul>
-          </article>
-          <div class="hj-core">
-            <svg class="hj-ring" viewBox="0 0 120 120" aria-hidden="true">
-              <circle class="seg pro" cx="60" cy="60" r="54" pathLength="100" stroke-dasharray="23 77" stroke-dashoffset="25"/>
-              <circle class="seg pre" cx="60" cy="60" r="54" pathLength="100" stroke-dasharray="23 77" stroke-dashoffset="0"/>
-              <circle class="seg reh" cx="60" cy="60" r="54" pathLength="100" stroke-dasharray="23 77" stroke-dashoffset="75"/>
-              <circle class="seg kur" cx="60" cy="60" r="54" pathLength="100" stroke-dasharray="23 77" stroke-dashoffset="50"/>
-            </svg>
-            <div class="hj-core-in">
-              <svg class="hj-leaf" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 8C8 10 5.9 16.2 3.8 21.3l1.9.7 1-2.3c.5.2 1 .3 1.3.3C19 20 22 3 22 3c-1 2-8 2.3-13 3.3S2 11.5 2 13.5 3.8 17.3 3.8 17.3 7 8 17 8z"/></svg>
-              <b>Health<br>Management<br>Journey</b>
-              <span>2023 – 2027</span>
-            </div>
-          </div>
+      <div class="hm-grid">
+        <div class="hm-base fade" data-step="1" id="hmBase">
+          <svg class="hm-ring" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="44"/></svg>
+          <div class="hb-c tl b"><span class="ic"><svg viewBox="0 0 24 24" class="" aria-hidden="true"><path d="M9 2h6v2h3a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3zm0 4v1h6V6zm-1 5v2h8v-2zm0 4v2h5v-2z"/></svg></span><span class="no">1</span><b>Profil<br>kesehatan</b></div><div class="hb-c tr g"><span class="ic"><svg viewBox="0 0 24 24" class="" aria-hidden="true"><path d="M3 11h18a9 9 0 0 1-18 0zm6-2c0-3 1.5-5 4-6-1 2-1 4 0 6zm3 0c.5-2.5 2.5-4 5-4-1.5 1.5-2 3-2 4z"/></svg></span><span class="no">2</span><b>Nutrisi &amp;<br>healthy catering</b></div><div class="hb-c bl b"><span class="ic"><svg viewBox="0 0 24 24" class="" aria-hidden="true"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/></svg></span><span class="no">3</span><b>Aktivitas fisik<br>&amp; wellbeing</b></div><div class="hb-c br g"><span class="ic"><svg viewBox="0 0 24 24" class="" aria-hidden="true"><path d="M12 2a8 8 0 0 0-8 8c0 2.6 1.3 4.5 3 5.8V22h8v-3h2a2 2 0 0 0 2-2v-3l2-1-2-3.5A8 8 0 0 0 12 2zm0 4a3 3 0 0 1 3 3h-2a1 1 0 1 0-2 0v1h-2V9a3 3 0 0 1 3-3zm-1 6h2v2h-2z"/></svg></span><span class="no">4</span><b>Mental wellbeing /<br>fatigue / kesiapan kerja</b></div>
+          <div class="hb-core"><span class="lf"><svg viewBox="0 0 24 24" class="" aria-hidden="true"><path d="M17 8C8 10 5.9 16.2 3.8 21.3l1.9.7 1-2.3c.5.2 1 .3 1.3.3C19 20 22 3 22 3c-1 2-8 2.3-13 3.3S2 11.5 2 13.5 3.8 17.3 3.8 17.3 7 8 17 8z"/></svg></span><b>Baseline<br>Sehat</b><i></i></div>
         </div>
-        <div class="hj-road fade" data-step="2" id="hjRoadBox">
-          <svg class="hj-scene" viewBox="0 0 1600 200" preserveAspectRatio="none" aria-hidden="true">
-            <defs>
-              <linearGradient id="hjSky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E6F2FB"/><stop offset="1" stop-color="#F4FAEE"/></linearGradient>
-              <linearGradient id="hjHillA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#A9D98A"/><stop offset="1" stop-color="#6DB552"/></linearGradient>
-              <linearGradient id="hjHillB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#CDE8BC"/><stop offset="1" stop-color="#9ACF80"/></linearGradient>
-            </defs>
-            <rect width="1600" height="200" fill="url(#hjSky)"/>
-            <path d="M0 95 C 180 40, 330 80, 480 60 S 800 20, 980 55 S 1300 30, 1600 50 V200 H0Z" fill="url(#hjHillB)"/>
-            <path d="M0 130 C 220 90, 420 120, 640 100 S 1000 70, 1220 95 S 1480 80, 1600 85 V200 H0Z" fill="url(#hjHillA)"/>
-            <path class="hj-asphalt" pathLength="1" d="M-30 168 C 170 190, 300 112, 520 128 S 840 188, 1060 150 S 1360 78, 1640 96"/>
-            <path class="hj-edge" pathLength="1" d="M-30 168 C 170 190, 300 112, 520 128 S 840 188, 1060 150 S 1360 78, 1640 96"/>
-            <path class="hj-lane" id="hjRoad" d="M-30 168 C 170 190, 300 112, 520 128 S 840 188, 1060 150 S 1360 78, 1640 96"/>
-            <g class="hj-runner"><circle r="15" fill="#1F9A3A"/><g transform="translate(-10 -10) scale(.84)" fill="#fff"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/></g><animateMotion dur="16s" begin="0s" repeatCount="indefinite" rotate="0"><mpath href="#hjRoad"/></animateMotion></g><g class="hj-runner"><circle r="15" fill="#147A2C"/><g transform="translate(-10 -10) scale(.84)" fill="#fff"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/></g><animateMotion dur="16s" begin="-5.5s" repeatCount="indefinite" rotate="0"><mpath href="#hjRoad"/></animateMotion></g><g class="hj-runner"><circle r="15" fill="#7BC143"/><g transform="translate(-10 -10) scale(.84)" fill="#fff"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/></g><animateMotion dur="16s" begin="-11s" repeatCount="indefinite" rotate="0"><mpath href="#hjRoad"/></animateMotion></g>
-          </svg>
-            <div class="hj-mile start" data-f="0.075"><div class="hj-mtag"><b>START</b><span>Fondasi Awal<br>Event Lari</span></div><i></i><span class="hj-mdot"><svg class="hj-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h2v18H5zM8 4h11l-2.5 4L19 12H8z"/></svg></span></div>
-            <div class="hj-mile" data-f="0.245"><div class="hj-mtag"><b>2023</b><span>Awareness<br>Psikososial</span></div><i></i><span class="hj-mdot"><svg class="hj-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9l-5 4V5a1 1 0 0 1 1-1zm4 5.5a1.2 1.2 0 1 0 0 .01zm4 0a1.2 1.2 0 1 0 0 .01zm4 0a1.2 1.2 0 1 0 0 .01z"/></svg></span></div>
-            <div class="hj-mile" data-f="0.415"><div class="hj-mtag"><b>2024</b><span>Physical<br>Wellbeing</span></div><i></i><span class="hj-mdot"><svg class="hj-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/></svg></span></div>
-            <div class="hj-mile" data-f="0.585"><div class="hj-mtag"><b>2025</b><span>Inisiasi<br>WELL Program</span></div><i></i><span class="hj-mdot"><svg class="hj-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 8C8 10 5.9 16.2 3.8 21.3l1.9.7 1-2.3c.5.2 1 .3 1.3.3C19 20 22 3 22 3c-1 2-8 2.3-13 3.3S2 11.5 2 13.5 3.8 17.3 3.8 17.3 7 8 17 8z"/></svg></span></div>
-            <div class="hj-mile" data-f="0.755"><div class="hj-mtag"><b>2026</b><span>Kesehatan &amp;<br>Kontrol Fatigue</span></div><i></i><span class="hj-mdot"><svg class="hj-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.5-9.3C1 8 3.4 4.5 7 4.5c2 0 3.6 1.1 5 2.8 1.4-1.7 3-2.8 5-2.8 3.6 0 6 3.5 4.5 7.2C19.5 16.4 12 21 12 21zM6 12h3l1.5-2.5L13 15l1.5-3H18"/></svg></span></div>
-          <div class="hj-finish" data-f="0.93">
-            <svg viewBox="0 0 120 90" aria-hidden="true"><path d="M14 88 V34 C14 8, 106 8, 106 34 V88" fill="none" stroke="#147A2C" stroke-width="12"/><path d="M14 88 V34 C14 8, 106 8, 106 34 V88" fill="none" stroke="#7BC143" stroke-width="5"/></svg>
-            <b>FUN RUN<br>2027</b>
-          </div>
+        <div class="hm-right">
+          <section class="hm-pil fade" data-step="1" id="hmPil"><h3 class="hm-h">4 Pilar Pengelolaan Kesehatan</h3><div class="hp-row"><article class="hp pro"><header><span class="ic"><svg viewBox="0 0 24 24" class="" aria-hidden="true"><path d="M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zm8 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM2 20c0-3.3 3.1-6 7-6s7 2.7 7 6zm15.5 0c0-2-.8-3.8-2.1-5.1.5-.1 1-.1 1.6-.1 3.3 0 5 2.3 5 5.2z"/></svg></span><div><b>Promotif</b><small>Mendorong hidup sehat dan produktif.</small></div></header><ul><li>Edukasi sehat</li><li>Physical wellbeing</li><li>Gaya hidup aktif</li></ul><div class="ill"><svg viewBox="0 0 24 24" class="" aria-hidden="true"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/></svg></div></article><span class="hp-arr"><svg viewBox="0 0 24 24" class="" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><article class="hp pre"><header><span class="ic"><svg viewBox="0 0 24 24" class="" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3zm-1.2 14.2-3.5-3.5 1.4-1.4 2.1 2.1 4.9-4.9 1.4 1.4-6.3 6.3z"/></svg></span><div><b>Preventif</b><small>Mencegah risiko kesehatan.</small></div></header><ul><li>KAMIPEDULI</li><li>Screening risiko</li><li>Kontrol fatigue</li></ul><div class="ill"><svg viewBox="0 0 24 24" class="" aria-hidden="true"><path d="M3 4h18v12H3zm8 14h2v3h-2zM7 8h10v2H7zm0 3h6v2H7z"/></svg></div></article><span class="hp-arr"><svg viewBox="0 0 24 24" class="" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><article class="hp kur"><header><span class="ic"><svg viewBox="0 0 24 24" class="" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.5-9.3C1 8 3.4 4.5 7 4.5c2 0 3.6 1.1 5 2.8 1.4-1.7 3-2.8 5-2.8 3.6 0 6 3.5 4.5 7.2C19.5 16.4 12 21 12 21zM5 12h3l1.5-2.5L12 15l1.5-3H19" fill="none" stroke="#fff" stroke-width="1.6"/></svg></span><div><b>Kuratif</b><small>Layanan kesehatan saat dibutuhkan.</small></div></header><ul><li>Layanan kesehatan</li><li>Case handling</li><li>Fit-to-work</li></ul><div class="ill"><svg viewBox="0 0 24 24" class="" aria-hidden="true"><path d="M9 2h6v2h3a1 1 0 0 1 1 1v16a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h3zm0 4v1h6V6zm-1 5v2h8v-2zm0 4v2h5v-2z"/></svg></div></article><span class="hp-arr"><svg viewBox="0 0 24 24" class="" aria-hidden="true"><path d="m9 5 7 7-7 7" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg></span><article class="hp reh"><header><span class="ic"><svg viewBox="0 0 24 24" class="" aria-hidden="true"><path d="M12 4V1L8 5l4 4V6a6 6 0 0 1 5.7 7.9l1.5 1.5A8 8 0 0 0 12 4zm0 14a6 6 0 0 1-5.7-7.9L4.8 8.6A8 8 0 0 0 12 20v3l4-4-4-4z"/></svg></span><div><b>Rehabilitatif</b><small>Pemulihan dan reintegrasi kerja.</small></div></header><ul><li>Recovery</li><li>Reintegrasi kerja</li><li>Produktivitas</li></ul><div class="ill"><svg viewBox="0 0 24 24" class="" aria-hidden="true"><path d="M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zm8 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM2 20c0-3.3 3.1-6 7-6s7 2.7 7 6zm15.5 0c0-2-.8-3.8-2.1-5.1.5-.1 1-.1 1.6-.1 3.3 0 5 2.3 5 5.2z"/></svg></div></article></div></section>
+          <section class="hm-jr fade" data-step="2" id="hmJr"><h3 class="hm-h">Journey Improvement Tahunan <span>Konsisten melangkah menuju individu yang sehat, produktif dan berkelanjutan.</span></h3><div class="hy-row"><div class="hy"><span class="yr b">2023</span><div class="ph b"><svg viewBox="0 0 24 24" class="" aria-hidden="true"><path d="M12 2a8 8 0 0 0-8 8c0 2.6 1.3 4.5 3 5.8V22h8v-3h2a2 2 0 0 0 2-2v-3l2-1-2-3.5A8 8 0 0 0 12 2zm0 4a3 3 0 0 1 3 3h-2a1 1 0 1 0-2 0v1h-2V9a3 3 0 0 1 3-3zm-1 6h2v2h-2z"/></svg></div><b>Awareness Psikososial</b><p>Fokus awareness dan kepedulian psikososial.</p><div class="tg"><em class="pro">Promotif</em><em class="pre">Preventif</em></div></div><span class="hy-arr">›</span><div class="hy"><span class="yr g">2024</span><div class="ph g"><svg viewBox="0 0 24 24" class="" aria-hidden="true"><path d="M13.49 5.48c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm-3.6 13.9l1-4.4 2.1 2v6h2v-7.5l-2.1-2 .6-3c1.3 1.5 3.3 2.5 5.5 2.5v-2c-1.9 0-3.5-1-4.3-2.4l-1-1.6c-.4-.6-1-1-1.7-1-.3 0-.5.1-.8.1l-5.2 2.2v4.7h2v-3.4l1.8-.7-1.6 8.1-4.9-1-.4 2 7 1.4z"/></svg></div><b>Physical Wellbeing</b><p>Fokus pembiasaan aktivitas fisik.</p><div class="tg"><em class="pro">Promotif</em></div></div><span class="hy-arr">›</span><div class="hy"><span class="yr b">2025</span><div class="ph b"><svg viewBox="0 0 24 24" class="" aria-hidden="true"><path d="M17 8C8 10 5.9 16.2 3.8 21.3l1.9.7 1-2.3c.5.2 1 .3 1.3.3C19 20 22 3 22 3c-1 2-8 2.3-13 3.3S2 11.5 2 13.5 3.8 17.3 3.8 17.3 7 8 17 8z"/></svg></div><b>Inisiasi WELL Program</b><p>Fokus integrasi program kesehatan.</p><div class="tg"><em class="pro">Promotif</em><em class="pre">Preventif</em></div></div><span class="hy-arr">›</span><div class="hy"><span class="yr g">2026</span><div class="ph g"><svg viewBox="0 0 24 24" class="" aria-hidden="true"><path d="M3 11h18a9 9 0 0 1-18 0zm6-2c0-3 1.5-5 4-6-1 2-1 4 0 6zm3 0c.5-2.5 2.5-4 5-4-1.5 1.5-2 3-2 4z"/></svg></div><b>Health Risk Control &amp; Compliance</b><p>Fokus healthy catering, monitoring kesehatan, fatigue &amp; roster compliance.</p><div class="tg"><em class="pre">Preventif</em><em class="pro">Promotif</em></div></div><span class="hy-arr">›</span><div class="hy"><span class="yr b">2027</span><div class="ph b"><svg viewBox="0 0 24 24" class="" aria-hidden="true"><path d="M5 3h2v18H5zM8 4h11l-2.5 4L19 12H8z"/></svg></div><b>Cultural Event 2027</b><p>Fokus employee engagement dan budaya sehat. <i>Termasuk running event.</i></p><div class="tg"><em class="pro">Promotif</em></div></div></div></section>
         </div>
       </div>
     </div>
@@ -6152,7 +6244,7 @@
       killSlide(index);
       const tl = gsap.timeline({ defaults:{ duration:0.5, ease:'power3.out' } });
       tls.set(index, tl);
-      const fns = [opening, stable, /* rtslide, auslide (hidden), */ sitemap, minemap, opstab, transform, crossdiv, safety, engineering, health, hjourney, nextdo, berbagi];
+      const fns = [opening, stable, /* rtslide, auslide (hidden), */ sitemap, /* minemap, opstab, transform (hidden), */ crossdiv, safety, engineering, health, hjourney, nextdo, berbagi];
       if(fns[index]) fns[index](tl, n, prev);
     }
     // How Stable Are We?: header, MoM items, then safety tiles and rings, health tiles, KPI cards
@@ -6637,26 +6729,22 @@
         countTo(tl, all('.bk-stat .n'), 0.1, 0.15);
       }
     }
-    // Health Management Journey: the four pillars open out from the core, then the road to 2027 draws in
+    // Health Management: baseline circle builds, the four pillars slide in, then the yearly journey
     function hjourney(tl, n, prev){
       const all = (sel)=> document.querySelectorAll('#slideHJ '+sel);
       if(n>=1 && prev<1){
         tl.fromTo(['#hjKicker','#hjTitle','#hjDesc'], {x:28, opacity:0}, {x:0, opacity:1, stagger:0.08, duration:0.45}, 0);
-        tl.fromTo('#hjQuads', {opacity:0}, {opacity:1, duration:0.3}, 0.1);
-        tl.fromTo(all('.hj-core'), {scale:0.4, opacity:0}, {scale:1, opacity:1, duration:0.7, ease:'back.out(1.6)'}, 0.15);
-        tl.fromTo(all('.hj-ring .seg'), {strokeDasharray:'0 100'}, {strokeDasharray:'23 77', stagger:0.12, duration:0.6, ease:'power2.out'}, 0.4);
-        const off = { pro:[30,24], pre:[-30,24], kur:[30,-24], reh:[-30,-24] };
-        all('.hj-q').forEach((q, i)=>{ const o = off[q.classList[1].slice(3)];
-          tl.fromTo(q, {x:o[0], y:o[1], scale:0.94, opacity:0}, {x:0, y:0, scale:1, opacity:1, duration:0.6, ease:'power3.out', clearProps:'transform'}, 0.35 + i*0.1); });
-        tl.fromTo(all('.hj-q header .hj-badge'), {scale:0, rotation:-30}, {scale:1, rotation:0, stagger:0.1, duration:0.5, ease:'back.out(2)'}, 0.6);
-        tl.fromTo(all('.hj-q li'), {x:-10, opacity:0}, {x:0, opacity:1, stagger:0.04, duration:0.3}, 0.8);
+        tl.fromTo(all('.hm-ring circle'), {strokeDashoffset:277}, {strokeDashoffset:0, duration:1.4, ease:'power2.inOut'}, 0.2);
+        tl.fromTo(all('.hb-core'), {scale:0.3, opacity:0}, {scale:1, opacity:1, duration:0.7, ease:'back.out(1.7)'}, 0.25);
+        tl.fromTo(all('.hb-c'), {scale:0.4, opacity:0}, {scale:1, opacity:1, stagger:0.12, duration:0.6, ease:'back.out(1.6)'}, 0.5);
+        tl.fromTo(all('.hp'), {y:30, opacity:0}, {y:0, opacity:1, stagger:0.12, duration:0.55, ease:'power3.out'}, 0.4);
+        tl.fromTo(all('.hp-arr'), {scale:0, opacity:0}, {scale:1, opacity:1, stagger:0.12, duration:0.4, ease:'back.out(2)'}, 0.9);
+        tl.fromTo(all('.hp li'), {x:-10, opacity:0}, {x:0, opacity:1, stagger:0.03, duration:0.3}, 0.9);
       }
       if(n>=2 && prev<2){
-        tl.fromTo('#hjRoadBox', {y:24, opacity:0}, {y:0, opacity:1, duration:0.5}, 0);
-        tl.fromTo(all('.hj-asphalt, .hj-edge'), {strokeDasharray:'0 1'}, {strokeDasharray:'1 0', duration:1.4, ease:'power2.inOut', clearProps:'strokeDasharray'}, 0.15);
-        tl.fromTo(all('.hj-lane, .hj-runner'), {opacity:0}, {opacity:1, duration:0.5}, 1.2);
-        tl.fromTo(all('.hj-mile'), {y:-26, opacity:0}, {y:0, opacity:1, stagger:0.18, duration:0.5, ease:'back.out(2)', clearProps:'transform'}, 0.5);
-        tl.fromTo(all('.hj-finish'), {scale:0.3, opacity:0}, {scale:1, opacity:1, duration:0.6, ease:'back.out(1.8)', clearProps:'transform'}, 1.4);
+        tl.fromTo('#hmJr', {y:24, opacity:0}, {y:0, opacity:1, duration:0.5}, 0);
+        tl.fromTo(all('.hy'), {y:26, opacity:0}, {y:0, opacity:1, stagger:0.14, duration:0.5, ease:'back.out(1.5)'}, 0.2);
+        tl.fromTo(all('.hy-arr'), {x:-8, opacity:0}, {x:0, opacity:1, stagger:0.14, duration:0.3}, 0.4);
       }
     }
     function nextdo(tl, n, prev){
@@ -8575,7 +8663,7 @@
       else if(e.key==='r' || e.key==='R') goTo(0);
       else if(e.key==='u' || e.key==='U'){ replaySlide(current); applyFades(slides[current],0); setStep(1,{prev:0}); }
       else if(/^[a-eA-E]$/.test(e.key)){
-        const map={ a:0, b:7, c:8, d:8, e:11 }; goTo(map[e.key.toLowerCase()]);
+        const map={ a:0, b:4, c:5, d:5, e:8 }; goTo(map[e.key.toLowerCase()]);
       }
     });
     function openGuide(){ guide.classList.add('open'); }
@@ -10190,7 +10278,7 @@
   // shared panel markup for the site maps: the list of technologies and one technology's detail
   const smLi = (a)=> a.map(t=> '<li>' + t + '</li>').join('');
   function smListHtml(AREAS, note, cat){
-    return '<div class="ph"><div class="eb">' + AREAS.length + ' teknologi' + (cat ? ' · ' + cat : ' automation') + '</div><h3>Pilih teknologi di peta</h3>'
+    return '<div class="ph"><div class="eb">' + AREAS.length + ' inisiatif' + (cat ? ' · ' + cat : '') + '</div><h3>Pilih inisiatif di peta</h3>'
       + '<div class="meta"><span class="chip">Klik pin atau daftar untuk detail</span></div></div>'
       + '<div class="list">' + AREAS.map(a=> '<button class="item" type="button" data-id="' + a.id + '"><span class="no">' + String(a.no).padStart(2,'0') + '</span>'
       + '<span><span class="t">' + a.P.name + '</span><span class="s">' + a.loc + '</span><span class="stg">' + a.P.stage + '</span></span><span class="dotst tech"></span></button>').join('') + '</div>'
@@ -10218,9 +10306,21 @@
       + '<button type="button" class="smc-btn main" data-go="">' + SM_SVG.back + 'Kembali ke peta</button>'
       + '<button type="button" class="smc-btn" data-go="' + next.id + '">' + next.name + SM_SVG.next + '</button></footer></div>';
   }
+  // Critical Control dashboard: the detail shown for the Critical Control and Mining Eyes points
+  const SM_CCX = '<div class="ccx-stage"><div class="ccx-c1"><section class="ccx-sec ccx-cc"><h4 class="ccx-chip">Critical Control</h4><p>A phased automation path <b>focused on critical risk barriers</b> (CCV/CRM, Layer 5 contact defense) to <b>prevent serious events</b> (Fatal + LTI / RWI). All <b>can detect</b> and <b>intervened</b> through <b>Mining Eyes Analytic</b>.</p><div class="ccx-dia"><svg viewBox="0 0 150 100"><path d="M75 6 L122 62 H28 Z" fill="#fff" stroke="#C8102E" stroke-width="3"/><path d="M28 66 H122 L140 94 H10 Z" fill="#fff" stroke="#6B7580" stroke-width="2"/><text x="75" y="40" text-anchor="middle" fill="#C8102E" font-size="9" font-weight="800">High</text><text x="75" y="50" text-anchor="middle" fill="#C8102E" font-size="9" font-weight="800">Severity</text><text x="75" y="60" text-anchor="middle" fill="#C8102E" font-size="9" font-weight="800">Accident</text><text x="75" y="79" text-anchor="middle" fill="#4A525C" font-size="7.5" font-weight="700">High Risk/HIPO</text><text x="75" y="88" text-anchor="middle" fill="#4A525C" font-size="7.5" font-weight="700">Activity</text></svg><div class="ccx-ccv"><b>CCV</b><span class="ar"></span><div>Critical Risk Barrier Checklist</div><span class="ar"></span><div>IPLS Layer 5</div></div></div><p class="sm">There are <b>33 high-risk activity + 29 CCV</b> that are used as mining eyes analytic use cases.</p><div class="ccx-kp"><small>Key project</small><b>ENHANCED MINING EYES ANALYTIC</b></div></section><section class="ccx-sec ccx-road"><div class="ccx-tl y25"><span class="tg">2025</span><div class="bd"><i><svg viewBox="0 0 24 24"><path d="M19.4 13a7.5 7.5 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a7.3 7.3 0 0 0-1.7-1L15 3h-4l-.4 2.9a7.3 7.3 0 0 0-1.7 1l-2.5-1-2 3.5L6.6 11a7.5 7.5 0 0 0 0 2l-2.1 1.6 2 3.5 2.5-1a7.3 7.3 0 0 0 1.7 1L11 21h4l.4-2.9a7.3 7.3 0 0 0 1.7-1l2.5 1 2-3.5zM13 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z"/></svg></i><div><b>Trial &amp; Roll Out Awal</b><p>Trial CCV pada aktivitas awal (dumping, disposal, tunnel, refueling, loading-unloading transhipment). Roll out 3 aktivitas kritis hasil trial.</p></div></div></div><div class="ccx-tl q1"><span class="tg">Q1 2026</span><div class="bd"><i><svg viewBox="0 0 24 24"><path d="M4 20h3v-7H4zm6.5 0h3V8h-3zM17 20h3V4h-3z"/></svg></i><div><b>Perluasan Trial</b><p>Trial CCV pada 15 aktivitas kritis lainnya berdasarkan mapping prioritas aktivitas.</p></div></div></div><div class="ccx-tl q2"><span class="tg">Q2 2026</span><div class="bd"><i><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.6"/><circle cx="5" cy="18" r="2.6"/><circle cx="19" cy="18" r="2.6"/><path d="M11 7 6 16M13 7l5 9M7.6 18h8.8" stroke="currentColor" stroke-width="1.8" fill="none"/></svg></i><div><b>Roll Out Sistem</b><p>Roll out 15 aktivitas kritis lainnya ke dalam sistem.</p></div></div></div><div class="ccx-tl q3"><span class="tg">Q3 2026</span><div class="bd"><i><svg viewBox="0 0 24 24"><path d="M6 2h9l5 5v15H6zm8 1.5V8h4.5zM9 12h8v2H9zm0 4h8v2H9z"/></svg></i><div><b>Pendetailan CPP</b><p>Pengembangan item critical control berbasis detail aktivitas kritis di area Coal Processing Plant (CPP).</p></div></div></div><div class="ccx-tl q4"><span class="tg">Q4 2026</span><div class="bd"><i><svg viewBox="0 0 24 24"><path d="M3 3h18v18H3zm3 13 4-4 3 3 5-6-1.5-1.2L13 12l-3-3-5 5z"/></svg></i><div><b>Analitik &amp; Perluasan</b><p>Penyaringan item critical control ke dalam analytic model &amp; perluasan CCV yang dimulai dari aktivitas di area CPP ke aktivitas di area lain.</p></div></div></div></section></div><section class="ccx-sec ccx-mea"><header><div><b>Mining Eyes Analytics</b><small>Continuous improvement from CCTV using computer vision technology</small></div><span class="live">LIVE</span></header><div class="ccx-mea-in"><div class="ccx-stat"><div><small>Previous development</small><b>7 use case – 23%</b><span>(Done)</span></div><div><small>In total</small><b>30 use cases</b><span>mapped across multiple locations</span></div></div><div class="ccx-loc"><h5>Lokasi Dinamis – 24 use cases</h5><div class="ch c5"><span><b>Pit (Front)</b><small>6 use cases</small></span><span><b>Pit (Disposal)</b><small>8 use cases</small></span><span><b>Pit (Blasting)</b><small>5 use cases</small></span><span><b>Pit (Mine road)</b><small>6 use cases</small></span><span><b>Pit (Pompa)</b><small>5 use cases</small></span></div><p><b>Karakteristik:</b> Cangkupan area pengawasan menyebabkan <b>keterbatasan deteksi pada objek berukuran kecil</b>.</p></div><div class="ccx-loc st"><h5>Lokasi Statis – 24 use cases <em>Prioritas Development</em></h5><div class="ch c6"><span><b>Hauling</b><small>6 use cases</small></span><span><b>Crossing</b><small>7 use cases</small></span><span><b>CPP</b><small>6 use cases</small></span><span><b>Workshop</b><small>1 use cases</small></span><span><b>Mess</b><small>1 use cases</small></span><span><b>Jetty</b><small>3 use cases</small></span></div><p><b>Karakteristik:</b> Cangkupan area pengawasan yang terbatas <b>mendukung identifikasi objek yang lebih presisi</b>.</p></div><div class="ccx-loc"><h5>Lokasi Sementara – 5 use cases</h5><div class="ch c2"><span><b>Kontruksi</b><small>2 use cases</small></span><span><b>Maintenance</b><small>3 use cases</small></span></div><p><b>Karakteristik:</b> Aktivitas tidak repetitif.</p></div><div class="ccx-met"><h5>% Metode Pengawasan YTD 2026</h5><div class="bar"><span class="a" style="width:50.6%">Berjarak 50,6%</span><span class="b">Langsung 49,4%</span></div><p><b>Pengawasan berjarak:</b> Mining Eyes 66,72% · Others 33,28% · TBC 57,8% <em>Can maximize resources &amp; objectivity through automated detection</em></p><p><b>Pengawasan langsung:</b> TBC 57,8%</p></div></div></section><section class="ccx-sec ccx-dev"><h4>Progress Development MEA × IT Corp</h4><div class="ccx-ph done"><div class="hd"><div><small>Phase 1</small><b>Hauling Analytics</b><span>LV Monitoring · Aktif berjalan sejak Q1 2026</span></div><em>Done development</em></div><ol><li><span class="n">1</span><span class="t">Jarak Tidak Aman Antar LV</span><span class="c">Hauling Road</span></li><li><span class="n">2</span><span class="t">Kecepatan LV</span><span class="c">Hauling Road</span></li><li><span class="n">3</span><span class="t">LV Melintas Jalur Berlawanan</span><span class="c">Hauling Road</span></li><li><span class="n">4</span><span class="t">Idle Time LV</span><span class="c">Hauling Road</span></li><li><span class="n">5</span><span class="t">Penggunaan Buggy-Whip LV</span><span class="c">Hauling Road</span></li></ol></div><div class="ccx-ph plan"><div class="hd"><div><small>Phase 2</small><b>Crossing Analytics</b><span>DT Monitoring · Target go-live: Q3 2026</span></div><em>On plan</em></div><ol><li><span class="n">1</span><span class="t">Jarak Tidak Aman Iring &amp; Antri DT</span><span class="c">Keselamatan</span><em class="hi">Tinggi</em></li><li><span class="n">2</span><span class="t">DT Melintas Jalur Berlawanan</span><span class="c">Keselamatan</span><em class="hi">Tinggi</em></li><li><span class="n">3</span><span class="t">Kecepatan DT di Zona Crossing</span><span class="c">Keselamatan</span><em class="hi">Tinggi</em></li><li><span class="n">4</span><span class="t">Pelanggaran Lalu Lintas (Rambu Stop)</span><span class="c">Keselamatan</span><em class="hi">Tinggi</em></li><li><span class="n">5</span><span class="t">Deteksi Waktu Tunggu DT</span><span class="c">Operasional</span><em class="md">Sedang</em></li><li><span class="n">6</span><span class="t">Menghitung DT yang Melintas</span><span class="c">Operasional</span><em class="md">Sedang</em></li></ol></div><div class="ccx-tline"><i></i><div><b>Q1 2026</b><strong>Phase 1: Done Development</strong><span>Aktif sejak Q1 2026 · Change management aktif</span></div><div class="r"><b>Q3 2026</b><strong>Phase 2: Go-Live Target</strong><span>On plan – persiapan menuju go-live</span></div></div></section></div>';
+  function smRichHtml(a, prev, next){
+    const P = a.P;
+    return '<div class="smc-in">'
+      + '<header class="smc-h"><div class="smc-band"><span class="no">' + a.no + '</span><div><b>' + P.name + '</b><small>' + P.sub + '</small></div></div>'
+      + '<div class="smc-stg"><i>' + (a.icon || '') + '</i><span><small>Tahap saat ini:</small><b>' + P.stage + '</b></span></div></header>'
+      + '<div class="smc-rich">' + SM_CCX + '</div>'
+      + '<footer class="smc-f"><button type="button" class="smc-btn" data-go="' + prev.id + '">' + SM_SVG.back + prev.name + '</button>'
+      + '<button type="button" class="smc-btn main" data-go="">' + SM_SVG.back + 'Kembali ke peta</button>'
+      + '<button type="button" class="smc-btn" data-go="' + next.id + '">' + next.name + SM_SVG.next + '</button></footer></div>';
+  }
   function smDetailHtml(a, prev, next, N){
     const P = a.P;
-    return '<div class="ph"><div class="eb">Teknologi ' + String(a.no).padStart(2,'0') + ' / ' + String(N).padStart(2,'0') + '</div><h3>' + P.name + '</h3>'
+    return '<div class="ph"><div class="eb">Inisiatif ' + String(a.no).padStart(2,'0') + ' / ' + String(N).padStart(2,'0') + '</div><h3>' + P.name + '</h3>'
       + '<div class="meta"><span class="chip">' + P.sub + '</span><span class="chip loc">' + a.loc + '</span></div>'
       + '<div class="stage"><small>Tahap saat ini</small><b>' + P.stage + '</b></div></div>'
       + '<div class="pb">' + (P.img ? '<div class="media"><img src="' + P.img + '" alt=""></div>' : '')
@@ -10336,9 +10436,10 @@
     function openDet(a){
       if(active !== a) return;
       const V = shown(), i = Math.max(0, V.indexOf(a)), prev = V[(i-1+V.length)%V.length], next = V[(i+1)%V.length];
-      det.innerHTML = smCardHtml(a, prev, next);
+      det.innerHTML = a.rich ? smRichHtml(a, prev, next) : smCardHtml(a, prev, next);
       det.querySelectorAll('[data-go]').forEach(b=> b.addEventListener('click', e=>{ e.stopPropagation(); const id = b.dataset.go || null; closeDet(()=> select(id)); }));
       det.hidden = false; detOpen = true; gridEl.classList.add('det-on');
+      fitRich();
       if(!hasGsap || reduce) return;
       const [x, y] = origin(), q = (sel)=> det.querySelectorAll(sel);
       gsap.killTweensOf(det);
@@ -10353,7 +10454,18 @@
       tl.fromTo(q('.smc-col li'), { x:14, opacity:0 }, { x:0, opacity:1, stagger:.035, duration:.3 }, .8);
       tl.fromTo(q('.smc-next'), { y:20, opacity:0 }, { y:0, opacity:1, duration:.5, ease:'back.out(1.6)' }, 1.1);
       tl.fromTo(q('.smc-btn'), { y:12, opacity:0 }, { y:0, opacity:1, stagger:.06, duration:.35 }, 1.1);
+      tl.fromTo(q('.ccx-sec'), { y:30, opacity:0 }, { y:0, opacity:1, stagger:.12, duration:.6, ease:'power3.out' }, .55);
+      tl.fromTo(q('.ccx-tl, .ccx-loc, .ccx-ph'), { x:24, opacity:0 }, { x:0, opacity:1, stagger:.06, duration:.45 }, .8);
+      tl.fromTo(q('.ccx-ph li, .ccx-loc .ch span'), { x:12, opacity:0 }, { x:0, opacity:1, stagger:.02, duration:.3 }, 1.0);
+      tl.fromTo(q('.ccx-met .bar .a'), { width:'0%' }, { width:'50.6%', duration:1.2, ease:'power3.out' }, 1.1);
     }
+    // the dashboard is drawn at a fixed design size and scaled into the card
+    function fitRich(){
+      const box = det.querySelector('.smc-rich'), st = box && box.firstElementChild; if(!st) return;
+      const k = Math.min(box.clientWidth / 1800, box.clientHeight / 720);
+      st.style.transform = 'scale(' + k + ')'; st.style.left = ((box.clientWidth - 1800 * k) / 2) + 'px';
+    }
+    window.addEventListener('resize', ()=>{ if(detOpen) fitRich(); });
     function hideDet(){ clearTimeout(detT); if(hasGsap) gsap.killTweensOf(det); det.hidden = true; detOpen = false; gridEl.classList.remove('det-on'); if(hasGsap) gsap.set(det, { clearProps:'clipPath' }); }
     function closeDet(then){
       clearTimeout(detT);
@@ -10363,7 +10475,7 @@
       const [x, y] = origin(), q = (sel)=> det.querySelectorAll(sel);
       gsap.killTweensOf(det);
       const tl = gsap.timeline({ onComplete:()=>{ hideDet(); if(then) then(); } });
-      tl.to(q('.smc-col, .smc-next, .smc-btn, .smc-band > *, .smc-stg'), { opacity:0, y:8, stagger:.015, duration:.2, ease:'power2.in' }, 0);
+      tl.to(q('.smc-col, .smc-next, .smc-btn, .smc-band > *, .smc-stg, .ccx-sec'), { opacity:0, y:8, stagger:.015, duration:.2, ease:'power2.in' }, 0);
       tl.to(q('.smc-in'), { scale:1.1, transformOrigin:x + 'px ' + y + 'px', duration:.65, ease:'power3.in' }, .1);
       tl.to(det, { clipPath:'circle(0px at ' + x + 'px ' + y + 'px)', duration:.65, ease:'power3.inOut' }, .1);
     }
@@ -10449,7 +10561,7 @@
     };
     const T = (id, P, loc, icon, tag, pin, poly, next, wide)=> ({ id, P, loc, icon, tag, pin, poly, next, wide, st:'tech', name:P.name.replace(/&amp;/g,'&').replace(/ – .*| \(.*\)/, '') });
     const IC = { obds:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18v12H3zm2 2v8h14V6zm2 6 3-3 2 2 4-4 1 1-5 5-2-2-2 2zM8 18h8v2H8z"/></svg>', eyes:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9l2-2h5v14H4zm8 9a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0-2a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>', mg:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 18h12v3H2zm2-5h7v4H4zm6-1 3-7 2 1-3 7zm3-7 6 2 1 5-2 1-1-4-5-2z"/></svg>', mir:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>', arcas:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3zm-1.2 14.2-3.5-3.5 1.4-1.4 2.1 2.1 4.9-4.9 1.4 1.4-6.3 6.3z"/></svg>', rover:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10a5 5 0 0 1 5 5v1a4 4 0 0 1-7 2.6L14 14h-4l-1 1.6A4 4 0 0 1 2 13v-1a5 5 0 0 1 5-5zm0 3v2H5v2h2v2h2v-2h2v-2H9v-2zm9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm2 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg>', haul:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 7h12v8H1zm12 3h5l4 3v2h-9zM5 18a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm13 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>' };
-    const CAT = { obds:['data'], eyes:['cc','data'], mg:['eng','auto'], mir:['auto','data'], arcas:['cc','auto'], rover:['eng','auto'], haul:['auto','data'] };
+    const CAT = { obds:['data'], eyes:['cc','data'], mg:['eng','auto'], mir:['auto','data'], arcas:['auto'], rover:['eng','auto'], haul:['auto','data'] };
     const CATS = [{ id:'cc', label:'Critical Control' }, { id:'eng', label:'Rekayasa Engineering' }, { id:'auto', label:'Automation' }, { id:'data', label:'Data &amp; AI' }];
     return { AP, NX, EXTRA, T, IC, CAT, CATS };
   })();
@@ -10470,8 +10582,11 @@
         rnd:['Otomasi start/stop berbasis level air sump','Integrasi alarm pompa ke dashboard OBDS'] },
         'Sump pit · ponton pompa', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h11v6H4zm11 2h3V7h3v8h-3v-2h-3zM2 18c2 0 2-1.5 4-1.5S8 18 10 18s2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5v2c-2 0-2 1.5-4 1.5s-2-1.5-4-1.5-2 1.5-4 1.5-2-1.5-4-1.5-2 1.5-4 1.5zM7 4h5v4H7z"/></svg>', [930,325], [855,420], [[800,385],[905,385],[905,445],[800,445]], 'Otomasi berbasis level air sump')
     ];
+    AREAS.push(T('ccv', { name:'Critical Control', sub:'Critical Risk Barrier · CCV &amp; IPLS Layer 5 · Mining Eyes Analytic', stage:'Q3 2026 · Pendetailan CPP', hazard:[], prog:[], rnd:[] },
+      'Crossing &amp; gate hauling', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V9h2v4z"/></svg>', [120,622], [298,520], [[230,500],[340,500],[340,560],[230,560]], ''));
     AREAS[3].name = 'MIR';
-    AREAS.forEach(a=> a.cats = CAT[a.id] || ['eng','auto']);
+    AREAS.forEach(a=> a.cats = CAT[a.id] || (a.id === 'ccv' ? ['cc'] : ['eng','auto']));
+    AREAS.forEach(a=>{ if(a.id === 'ccv' || a.id === 'eyes') a.rich = true; });
     return makeSiteMap({ pre:'sm', slide:'slideMap', w:1672, h:941, areas:AREAS, tilt:false, cats:CATS, fx:'<g class="tm-wifi" data-t="pump" transform="translate(860 378) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-net"><path d="M420 58 C 480 70, 560 95, 620 112"/><path d="M620 112 C 560 200, 460 280, 385 340"/><path d="M620 112 C 900 140, 1250 200, 1500 305"/><path d="M385 340 C 420 420, 440 480, 460 525"/><path d="M460 525 C 580 560, 690 590, 780 612"/><path d="M780 612 C 900 560, 1040 500, 1160 455"/></g><g class="tm-rings" data-t="haul"><ellipse cx="287" cy="428" rx="40" ry="11"/><ellipse cx="415" cy="438" rx="38" ry="11"/><ellipse cx="965" cy="310" rx="30" ry="9"/><ellipse cx="60" cy="398" rx="36" ry="10"/><ellipse cx="1205" cy="640" rx="36" ry="10"/></g><ellipse class="tm-bubble" data-t="arcas" cx="780" cy="616" rx="62" ry="40"/><g class="tm-radar" data-t="arcas"><path d="M850 600 a18 18 0 0 1 0 28"/><path d="M862 591 a32 32 0 0 1 0 46"/><path d="M874 582 a46 46 0 0 1 0 64"/></g><g class="tm-cv" data-t="eyes"><rect x="478" y="336" width="62" height="40" rx="4"/><rect x="250" y="398" width="70" height="40" rx="4"/><rect x="380" y="410" width="70" height="40" rx="4"/></g><g class="tm-signal" data-t="eyes"><path d="M398 40 a26 26 0 0 0 0 36"/><path d="M386 30 a42 42 0 0 0 0 56"/><path d="M442 40 a26 26 0 0 1 0 36"/><path d="M454 30 a42 42 0 0 1 0 56"/></g><g class="tm-grid" data-t="mg"><path d="M300 364 L440 364 L462 388 L280 388 Z"/><path d="M325 364 L310 388 M355 364 L345 388 M385 364 L380 388 M415 364 L417 388 M290 376 L452 376"/></g><g class="tm-holo" data-t="mg"><rect x="430" y="262" width="96" height="64" rx="6"/><circle cx="458" cy="294" r="11"/><path d="M458 280 v28 M444 294 h28 M484 316 l17 -32 l17 32 z"/></g><path class="tm-mesh" data-t="mir" d="M1250 340 C 1330 305, 1420 296, 1500 296 S 1610 300, 1668 318"/><g class="tm-pins" data-t="mir"><g transform="translate(1290 294)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1360 277)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1430 270)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1560 270)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1630 278)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g></g><g class="tm-wifi" data-t="rover" transform="translate(1160 418) scale(0.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="arcas" transform="translate(780 568) scale(0.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="haul" transform="translate(415 398) scale(0.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="haul" transform="translate(287 388) scale(0.7)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-chev" data-t="haul"><path d="M560 545 l16 -10 l16 10" transform="rotate(75 576 540)"/><path d="M585 552 l16 -10 l16 10" transform="rotate(75 601 547)"/></g>',
       listHtml:(A, c)=> smListHtml(A, 'ARCAS, Machine Guidance, MIR dan Remote Dozer mengikuti slide <b>Safety Automation</b>; Mining Eyes, OBDS, Hauling Automation dan Remote Pump berupa ringkasan.', c) });
   })();
@@ -10488,7 +10603,7 @@
       T('haul', EXTRA.haul, 'Hauling road', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 7h12v8H1zm12 3h5l4 3v2h-9zM5 18a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm13 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>', [830,688], [853,600], [[600,370],[880,370],[1010,610],[1260,640],[1270,860],[760,860],[640,540]], 'Integrasi ARCAS &amp; DMS di hauling', true)
     ];
     AREAS[3].name = 'MIR';
-    const CAT = { obds:['data'], eyes:['cc','data'], mg:['eng','auto'], mir:['auto','data'], arcas:['cc','auto'], rover:['eng','auto'], haul:['auto','data'] };
+    const CAT = { obds:['data'], eyes:['cc','data'], mg:['eng','auto'], mir:['auto','data'], arcas:['auto'], rover:['eng','auto'], haul:['auto','data'] };
     AREAS.forEach(a=> a.cats = CAT[a.id]);
     return makeSiteMap({ pre:'tm', slide:'slideMine', w:1672, h:941, areas:AREAS, tilt:false,
       cats:[{ id:'cc', label:'Critical Control' }, { id:'eng', label:'Rekayasa Engineering' }, { id:'auto', label:'Automation' }, { id:'data', label:'Data &amp; AI' }], fx:'<g class="tm-net"><path d="M446 182 C 400 260, 320 340, 240 400"/><path d="M446 182 C 600 150, 760 160, 862 222"/><path d="M862 222 C 1050 140, 1300 140, 1452 196"/><path d="M240 400 C 420 520, 640 600, 853 600"/><path d="M853 600 C 950 590, 1030 520, 1112 470"/><path d="M1112 470 C 1220 430, 1320 420, 1418 430"/></g><g class="tm-rings" data-t="haul"><ellipse cx="697" cy="530" rx="72" ry="20"/><ellipse cx="853" cy="640" rx="88" ry="24"/><ellipse cx="1120" cy="785" rx="128" ry="34"/></g><ellipse class="tm-bubble" data-t="arcas" cx="1112" cy="515" rx="105" ry="80"/><g class="tm-radar" data-t="arcas"><path d="M1205 535 a24 24 0 0 1 0 36"/><path d="M1220 522 a42 42 0 0 1 0 62"/><path d="M1236 510 a60 60 0 0 1 0 86"/></g><rect class="tm-warnbox" data-t="arcas" x="1250" y="520" width="92" height="66" rx="6"/><path class="tm-warn" data-t="arcas" d="M1330 500 l14 24 h-28z"/><g class="tm-cv" data-t="eyes"><rect x="520" y="225" width="90" height="62" rx="4"/><rect x="618" y="232" width="34" height="30" rx="3"/><rect x="618" y="268" width="34" height="30" rx="3"/></g><g class="tm-grid" data-t="mg"><path d="M745 300 L905 300 L930 335 L725 335 Z"/><path d="M770 300 L755 335 M800 300 L790 335 M830 300 L825 335 M860 300 L862 335 M890 300 L898 335 M735 318 L918 318"/></g><g class="tm-holo" data-t="mg"><rect x="955" y="165" width="120" height="85" rx="6"/><circle cx="990" cy="205" r="14"/><path d="M990 187 v36 M972 205 h36 M1020 240 l22 -40 l22 40 z"/></g><path class="tm-mesh" data-t="mir" d="M1180 290 C 1260 230, 1340 205, 1440 198 S 1600 205, 1672 225"/><g class="tm-pins" data-t="mir"><g transform="translate(1210 205)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1290 180)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1370 168)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1455 166)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1540 172)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1625 180)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g></g><g class="tm-wifi" data-t="haul" transform="translate(690 450) scale(1)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="haul" transform="translate(845 545) scale(1.1)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="haul" transform="translate(1090 620) scale(1.2)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="arcas" transform="translate(1112 420) scale(1.1)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="rover" transform="translate(1395 400) scale(1)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-chev" data-t="haul"><path d="M1225 905 l22 -14 l22 14"/><path d="M1225 925 l22 -14 l22 14"/></g>',
