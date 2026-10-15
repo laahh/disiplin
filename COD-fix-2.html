@@ -3924,6 +3924,47 @@
   .hj-finish svg{ width:clamp(90px,15vh,140px); height:auto; display:block; }
   .hj-finish b{ position:absolute; top:22%; left:0; right:0; text-align:center; font:900 clamp(.7rem,2vh,1.05rem)/1 'Plus Jakarta Sans',sans-serif; color:#fff; padding:4px 0; background:linear-gradient(115deg,var(--cv-green-d),var(--cv-green)); border-radius:6px; margin:0 6%; box-shadow:0 4px 10px rgba(20,26,34,.2); }
   @media (prefers-reduced-motion: reduce){ .hj-ring, .hj-leaf, .hj-mdot{ animation:none; } .hj-runner{ display:none; } }
+
+  /* Overview 2: the phase band sits behind the chart (one combined, taller figure) */
+  .ov2-chartwrap{ position:relative; }
+  .ov2-chartwrap .ov2-chart{ flex:1 1 auto !important; z-index:1; }
+  .ov2-chartwrap .ov2-chart::before{ left:62px; top:30%; }
+  .ov2-chartwrap .ov2-phase{ position:absolute; left:104px; right:34px; top:0; bottom:22px; z-index:2; pointer-events:none; }
+  .ov2-chartwrap .ov2-phase > .ex-phase{ margin:0; border-radius:10px 10px 0 0; background:none; overflow:visible; }
+  .ov2-chartwrap .ex-ph-svg{ border-radius:0; }
+  .ov2-chartwrap .ex-phase::after{ display:none; }
+  .ov2-chartwrap .ex-ph-cols{ height:92px; background:linear-gradient(90deg, rgba(244,90,90,.12) 0 25%, rgba(63,168,74,.10) 25% 58.3%, rgba(42,111,215,.10) 58.3% 91.6%, rgba(245,166,35,.16) 91.6%); border-bottom:1px dashed rgba(22,41,79,.18); font-size:11.5px; }
+  .ov2-chartwrap .ex-ph-cols b{ font-size:14px; }
+  .ov2-chartwrap .ex-ph-cols .p4{ font-size:8.5px !important; line-height:1.12; padding:4px 1px 0; } .ov2-chartwrap .ex-ph-cols .p4 b{ font-size:11.5px !important; }
+  .ov2-chartwrap .ex-ph-cols .p4 i{ display:block; font-size:8.5px; }
+  .ov2-chartwrap .ex-ph-svg{ height:58%; opacity:.9; }
+  .ov2-chartwrap .ex-ph-labels .perf{ left:25%; bottom:49%; font-size:12px; }
+  .ov2-chartwrap .ex-ph-labels .tail{ right:2%; bottom:21%; }
+  .ov2-chartwrap .ex-ph-labels span{ text-shadow:0 0 3px #fff, 0 0 3px #fff, 0 0 2px #fff; }
+  .ov2-chartwrap .ex-ph-labels .dist{ display:block; left:24%; bottom:2%; font-size:11px; }
+  .ov2-chartwrap .ex-ph-labels .lti{ display:block !important; text-shadow:none; font-size:9px; }
+  .ov2-chartwrap .ex-ph-labels .lti.q1{ right:8.2%; bottom:50%; }
+  .ov2-chartwrap .ex-ph-labels .lti.q3{ right:.4%; bottom:40%; }
+  /* Lebih Baik / Lebih Buruk axis in the left margin, beside the incident axis */
+  .ov2-chartwrap .ex-ph-labels .ax{ display:flex; flex-direction:column; left:-94px; width:52px; text-align:left; font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:9.5px; color:#16294F; }
+  .ov2-chartwrap .ex-ph-labels .ax small{ font-family:'Source Sans 3',sans-serif; font-weight:600; font-style:italic; font-size:8.5px; color:#4A525C; }
+  .ov2-chartwrap .ex-ph-labels .ax.good{ bottom:58%; }
+  .ov2-chartwrap .ex-ph-labels .ax.bad{ bottom:0; }
+  .ov2-chartwrap .ex-ph-labels::before{ content:''; position:absolute; left:-101px; bottom:4px; height:calc(58% - 6px); width:2px; background:#16294F; }
+  .ov2-chartwrap .ex-ph-labels::after{ content:''; position:absolute; left:-105px; bottom:calc(58% - 4px); border:5px solid transparent; border-bottom:8px solid #16294F; border-top:0; }
+
+  /* Overview 2 right panel: impact cards and outcome boxes grow to fill the panel height */
+  .hs-tv-ov2 .ov2-right{ gap:10px; }
+  .hs-tv-ov2 .ov2-tag{ font-size:18px; }
+  .hs-tv-ov2 .ov2-impact{ flex:1 1 0; min-height:0; gap:12px; }
+  .hs-tv-ov2 .ov-imp{ gap:8px; padding:12px 8px; }
+  .hs-tv-ov2 .ov-imp b{ font-size:36px; }
+  .hs-tv-ov2 .ov-imp span{ font-size:14.5px; }
+  .hs-tv-ov2 .ov2-out2{ flex:1.25 1 0; min-height:0; gap:16px; }
+  .hs-tv-ov2 .ov-box{ display:flex; flex-direction:column; justify-content:center; padding:12px 20px; border-radius:14px; }
+  .hs-tv-ov2 .ov-box h5{ font-size:18px; margin-bottom:10px; }
+  .hs-tv-ov2 .ov-box ul{ gap:8px; font-size:16.5px; line-height:1.35; }
+  .hs-tv-ov2 .ov2-note{ flex:none; font-size:15.5px; }
 </style>
 </head>
 <body>
@@ -9583,6 +9624,7 @@
     inj:[5.2,3.1,2.9,3.0,1.0,1.0,0.5,0.9,0.8,0.7,0.7,1.0],
     non:[17.7,15.8,13.4,5.3,5.1,4.3,4.3,5.1,3.8,4.3,5.0,5.3]
   };
+  const OV2_TOP = 92, OV2_LEFT = 104;  // keep in step with .ov2-chartwrap .ex-ph-cols height / .ov2-phase left
   const execView = (function(){
     const W = 1790, H = 770;
     let built = false;
@@ -9633,11 +9675,13 @@
       const peak = T.ltisr.indexOf(Math.max.apply(null, T.ltisr));
       // era bands, as category ranges
       const band = (a, b, col)=> [{ xAxis:T.cats[a], itemStyle:{ color:col } }, { xAxis:T.cats[b] }];
+      // Overview 2 lays the phase band behind the plot: room on top for the era titles, the band brings its own colours
+      const merged = el.classList.contains('ov2-chart');
       c.setOption({
         animationDuration:900, textStyle:{ fontFamily:"'Source Sans 3', sans-serif" },
         tooltip:{ trigger:'axis', confine:true, axisPointer:{ type:'shadow', shadowStyle:{ color:'rgba(31,154,58,.08)' } }, textStyle:{ fontSize:12 },
           formatter:(ps)=>{ const i = ps[0].dataIndex; return '<b>'+T.cats[i]+'</b><br>Jumlah insiden: <b>'+f1(total[i])+'</b><br>AFR: <b>'+fmt(T.afr[i])+'</b><br>LTISR: <b>'+fmt(T.ltisr[i])+'</b>'; } },
-        grid:{ left:34, right:34, top:16, bottom:22 },
+        grid:{ left: merged ? OV2_LEFT : 34, right:34, top: merged ? OV2_TOP : 16, bottom:22 },
         xAxis:{ type:'category', data:T.cats, axisTick:{ show:false }, axisLine:{ lineStyle:{ color:'#16294F', width:1.5 } },
           axisLabel:{ interval:0, fontSize:11, fontWeight:600, color:'#141A22' } },
         yAxis:[
