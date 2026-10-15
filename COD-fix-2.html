@@ -3379,7 +3379,7 @@
   .hs-tv-ec .ec-q li.now{ border-color:var(--rt-g) !important; box-shadow:0 0 0 3px rgba(31,154,58,.15) !important; }
   .hs-tv-ec .ec-q li.now b{ background:linear-gradient(115deg,var(--rt-gd),var(--rt-g)) !important; color:#fff !important; }
   .hs-tv-ec .ec-q li.now span{ color:var(--rt-gd); font-weight:800; }
-  #slideStable.active .hs-tv-ec .ec-q li.now{ animation:rtNow 2.4s ease-in-out infinite; }
+  .slide.active .hs-tv-ec .ec-q li.now{ animation:rtNow 2.4s ease-in-out infinite; }
   @keyframes rtNow{ 0%,100%{ box-shadow:0 0 0 3px rgba(31,154,58,.15); } 50%{ box-shadow:0 0 0 6px rgba(31,154,58,.08); } }
   /* progress strip: lighter divider, arrows in brand green */
   .hs-tv-ec .ec-prog-card{ border-radius:18px !important; }
@@ -3429,10 +3429,10 @@
   .hs-tv-in.hs-tv-ec .eg-prog li + li::after{ content:''; grid-column:1; grid-row:1 / 3; align-self:center; justify-self:stretch; height:2px; margin:0 26px 0 10px;
     background:repeating-linear-gradient(90deg, rgba(31,154,58,.55) 0 6px, transparent 6px 12px); background-size:24px 2px; z-index:0; }
   .hs-tv-in.hs-tv-ec .eg-prog li + li::before{ z-index:1; }
-  #slideStable.active .hs-tv-in.hs-tv-ec .eg-prog li + li::after{ animation:rtTrack 1s linear infinite; }
-  #slideStable.active .hs-tv-in.hs-tv-ec .eg-prog li + li::before{ animation:rtArrow 2.4s ease-in-out infinite; }
-  #slideStable.active .hs-tv-in.hs-tv-ec .eg-prog li:nth-child(3)::before{ animation-delay:.8s; }
-  #slideStable.active .hs-tv-in.hs-tv-ec .eg-prog li:nth-child(4)::before{ animation-delay:1.6s; }
+  .slide.active .hs-tv-in.hs-tv-ec .eg-prog li + li::after{ animation:rtTrack 1s linear infinite; }
+  .slide.active .hs-tv-in.hs-tv-ec .eg-prog li + li::before{ animation:rtArrow 2.4s ease-in-out infinite; }
+  .slide.active .hs-tv-in.hs-tv-ec .eg-prog li:nth-child(3)::before{ animation-delay:.8s; }
+  .slide.active .hs-tv-in.hs-tv-ec .eg-prog li:nth-child(4)::before{ animation-delay:1.6s; }
   @keyframes rtTrack{ from{ background-position:0 0; } to{ background-position:24px 0; } }
   @keyframes rtArrow{
     0%,100%{ transform:translateX(-4px) rotate(45deg); border-color:rgba(31,154,58,.45); }
@@ -3497,9 +3497,9 @@
   .rt-mea span{ grid-row:1 / 3; grid-column:2; padding:2px 10px; border-radius:999px; background:#9BE15D; color:#0B3A18; font-weight:800; font-size:11px; }
   .rt-ccv h5{ font-size:12.5px; font-weight:600; } .rt-ccv h5 b{ font-weight:800; }
   .rt-uc{ display:block; width:100%; flex:1 1 0; min-height:0; object-fit:contain; object-position:left center; border-radius:8px; background:#fff; }
-  #slideStable.active .hs-tv-rt .rt-tail{ animation:exBlink 1.3s ease-in-out infinite; }
-  #slideStable.active .hs-tv-rt .rt-warn{ animation:exGlow 2s ease-in-out infinite; }
-  #slideStable.active .hs-tv-rt .rt-tl .now b{ animation:rtNow 2.4s ease-in-out infinite; }
+  .slide.active .hs-tv-rt .rt-tail{ animation:exBlink 1.3s ease-in-out infinite; }
+  .slide.active .hs-tv-rt .rt-warn{ animation:exGlow 2s ease-in-out infinite; }
+  .slide.active .hs-tv-rt .rt-tl .now b{ animation:rtNow 2.4s ease-in-out infinite; }
 
   /* Risk Transformation, closer to the reference: roadmap fills the right column at its own ratio,
      use-case strips span the CCV column, single-line zone labels, compact critical control */
@@ -3534,37 +3534,37 @@
   @keyframes rtFlow{ from{ background-position:0 0; } to{ background-position:40px 0; } }
   @keyframes rtPop{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.12); } }
   /* chart: projection line flows, curves breathe, markers pulse, a scan band sweeps left to right */
-  #slideStable.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-line.l4{ animation:rtDash 1.2s linear infinite; }
-  #slideStable.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-line.l3{ animation:rtBreath 2.6s ease-in-out infinite; }
-  #slideStable.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-area{ animation:rtBreath 3.4s ease-in-out infinite; }
-  #slideStable.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-dot{ transform-box:fill-box; transform-origin:center; animation:rtDot 2s ease-in-out infinite; }
-  #slideStable.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-dot:nth-of-type(2n){ animation-delay:.6s; }
-  #slideStable.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-dot:nth-of-type(3n){ animation-delay:1.2s; }
-  #slideStable.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-tag{ animation:rtFloat 3s ease-in-out infinite; }
-  #slideStable.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-tag:nth-of-type(2n){ animation-delay:1s; }
-  #slideStable.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-tag:nth-of-type(3n){ animation-delay:2s; }
+  .slide.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-line.l4{ animation:rtDash 1.2s linear infinite; }
+  .slide.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-line.l3{ animation:rtBreath 2.6s ease-in-out infinite; }
+  .slide.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-area{ animation:rtBreath 3.4s ease-in-out infinite; }
+  .slide.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-dot{ transform-box:fill-box; transform-origin:center; animation:rtDot 2s ease-in-out infinite; }
+  .slide.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-dot:nth-of-type(2n){ animation-delay:.6s; }
+  .slide.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-dot:nth-of-type(3n){ animation-delay:1.2s; }
+  .slide.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-tag{ animation:rtFloat 3s ease-in-out infinite; }
+  .slide.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-tag:nth-of-type(2n){ animation-delay:1s; }
+  .slide.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-tag:nth-of-type(3n){ animation-delay:2s; }
   .hs-tv-rt .rt-chart{ overflow:hidden; }
   .hs-tv-rt .rt-chart::after{ content:''; position:absolute; top:0; bottom:26px; width:12%; pointer-events:none;
     background:linear-gradient(90deg, transparent, rgba(255,255,255,.55), transparent); opacity:0; }
-  #slideStable.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-chart::after{ animation:rtSweep 5s ease-in-out infinite; }
+  .slide.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-chart::after{ animation:rtSweep 5s ease-in-out infinite; }
   /* zone headers catch a sheen one after another */
   .hs-tv-rt .rt-zones b{ background-image:linear-gradient(105deg, transparent 40%, rgba(255,255,255,.45) 50%, transparent 60%); background-size:250% 100%; background-repeat:no-repeat; }
-  #slideStable.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-zones b{ animation:rtSheen 5s ease-in-out infinite; }
-  #slideStable.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-zones span:nth-child(2) b{ animation-delay:.4s; } #slideStable.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-zones span:nth-child(3) b{ animation-delay:.8s; }
-  #slideStable.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-zones span:nth-child(4) b{ animation-delay:1.2s; } #slideStable.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-zones span:nth-child(5) b{ animation-delay:1.6s; }
+  .slide.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-zones b{ animation:rtSheen 5s ease-in-out infinite; }
+  .slide.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-zones span:nth-child(2) b{ animation-delay:.4s; } .slide.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-zones span:nth-child(3) b{ animation-delay:.8s; }
+  .slide.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-zones span:nth-child(4) b{ animation-delay:1.2s; } .slide.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-zones span:nth-child(5) b{ animation-delay:1.6s; }
   /* conclusions: icons pulse in turn */
-  #slideStable.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-concl .ic{ animation:rtPop 2.4s ease-in-out infinite; }
-  #slideStable.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-concl > div:nth-child(2) .ic{ animation-delay:.8s; } #slideStable.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-concl > div:nth-child(3) .ic{ animation-delay:1.6s; }
+  .slide.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-concl .ic{ animation:rtPop 2.4s ease-in-out infinite; }
+  .slide.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-concl > div:nth-child(2) .ic{ animation-delay:.8s; } .slide.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-concl > div:nth-child(3) .ic{ animation-delay:1.6s; }
   /* roadmap drifts slowly; CCV arrow flows; MEA live badge blinks; use-case strips drift */
   .hs-tv-rt .rt-road{ overflow:hidden; }
   .hs-tv-rt .rt-road img{ transform-origin:60% 40%; }
-  #slideStable.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-road img{ animation:rtKen 14s ease-in-out infinite alternate; }
+  .slide.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-road img{ animation:rtKen 14s ease-in-out infinite alternate; }
   .hs-tv-rt .rt-tl .line{ background:repeating-linear-gradient(90deg,#2A5BD7 0 14px,#5C86E6 14px 20px) !important; background-size:40px 5px !important; }
-  #slideStable.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-tl .line{ animation:rtFlow .9s linear infinite; }
-  #slideStable.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-tl span:not(.now) b{ animation:rtFloat 3.2s ease-in-out infinite; }
-  #slideStable.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-mea span{ animation:exBlink 1.3s ease-in-out infinite; }
+  .slide.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-tl .line{ animation:rtFlow .9s linear infinite; }
+  .slide.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-tl span:not(.now) b{ animation:rtFloat 3.2s ease-in-out infinite; }
+  .slide.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-mea span{ animation:exBlink 1.3s ease-in-out infinite; }
   .hs-tv-rt .rt-uc{ transform-origin:center top; }
-  #slideStable.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-uc{ animation:rtKen 12s ease-in-out infinite alternate; }
+  .slide.active .hs-grid[data-view="strans"] .hs-tv-rt .rt-uc{ animation:rtKen 12s ease-in-out infinite alternate; }
   @media (prefers-reduced-motion: reduce){ .hs-tv-rt *, .hs-tv-rt *::after{ animation:none !important; } }
 
   /* ---- Automation tab: four project cards + overall next steps ---- */
@@ -3610,9 +3610,9 @@
   .au-next li > i svg{ width:100%; height:100%; fill:currentColor; }
   .au-next li span{ display:flex; flex-direction:column; font-size:11.5px; line-height:1.2; color:#4A525C; }
   .au-next li b{ font-family:'Plus Jakarta Sans',sans-serif; font-weight:800; font-size:13.5px; color:#16418F; }
-  #slideStable.active .hs-grid[data-view="auto"] .au-stage i{ animation:rtPop 2.4s ease-in-out infinite; }
-  #slideStable.active .hs-grid[data-view="auto"] .au-col.hz h5 i{ animation:exBlink 1.4s ease-in-out infinite; }
-  #slideStable.active .hs-grid[data-view="auto"] .au-next-h i{ animation:rtPop 2.4s ease-in-out infinite; }
+  .slide.active .hs-grid[data-view="auto"] .au-stage i{ animation:rtPop 2.4s ease-in-out infinite; }
+  .slide.active .hs-grid[data-view="auto"] .au-col.hz h5 i{ animation:exBlink 1.4s ease-in-out infinite; }
+  .slide.active .hs-grid[data-view="auto"] .au-next-h i{ animation:rtPop 2.4s ease-in-out infinite; }
 
   /* Automation: clickable project cards and their in-place detail */
   .hs-tv-au .au-c{ cursor:zoom-in; transition:transform .25s, box-shadow .25s; }
@@ -3966,6 +3966,14 @@
   .hs-tv-ov2 .ov-box h5{ font-size:18px; margin-bottom:10px; }
   .hs-tv-ov2 .ov-box ul{ gap:8px; font-size:16.5px; line-height:1.35; }
   .hs-tv-ov2 .ov2-note{ flex:none; font-size:15.5px; }
+
+  /* ---- Risk Transformation / Automation as their own slides ---- */
+  .hs-solo-slide{ padding:2.4vh 72px 2.6vh 64px; }
+  .hs-solo-slide .slide-inner{ display:flex; flex-direction:column; gap:1.2vh; height:100%; min-height:0; font-family:'Source Sans 3',sans-serif; color:var(--cv-ink); }
+  .hs-solo-slide .sp-title{ font-size:clamp(1.6rem,5.4vh,3.2rem); margin:.4vh 0 .6vh; }
+  .hs-solo-slide .sp-title em{ font-family:inherit; font-style:normal; font-weight:inherit; color:var(--cv-green); }
+  .hs-solo-slide .sp-desc{ padding-left:14px; border-left:3px solid var(--cv-lime); font-size:clamp(.7rem,1.7vh,.96rem); }
+  .hs-grid.hs-solo{ grid-template-columns:minmax(0,1fr); }
 </style>
 </head>
 <body>
@@ -3981,10 +3989,10 @@
   <span class="rail-brand mono">OHS DIVISI</span>
   <div class="rail-letters" id="railLetters">
     <button type="button" data-jump="0">H</button>
-    <button type="button" data-jump="6">S</button>
-    <button type="button" data-jump="7">C</button>
-    <!-- <button type="button" data-jump="10">C</button> -->
-    <button type="button" data-jump="10">M</button>
+    <button type="button" data-jump="8">S</button>
+    <button type="button" data-jump="9">C</button>
+    <!-- <button type="button" data-jump="12">C</button> -->
+    <button type="button" data-jump="12">M</button>
   </div>
   <div class="rail-progress"><i id="progressFill"></i></div>
   <div class="rail-step" id="railStep">01</div>
@@ -4301,8 +4309,6 @@
       <div class="sp-tabs fade" data-step="1" id="hsTabs">
         <button type="button" class="sp-tab" data-view="overview" aria-pressed="false" hidden>Overview</button>
         <button type="button" class="sp-tab is-on" data-view="ov2" aria-pressed="true">Overview</button>
-        <button type="button" class="sp-tab" data-view="strans" aria-pressed="false">Risk Transformation</button>
-        <button type="button" class="sp-tab" data-view="auto" aria-pressed="false">Automation</button>
         <button type="button" class="sp-tab" data-view="next" aria-pressed="false">Next To Do</button>
       </div>
       <div class="hs-grid" id="hsGrid" data-view="overview">
@@ -4398,6 +4404,28 @@
           </section>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="slide hs-solo-slide" id="slideRT" data-steps="1" data-section="B · Executive Performance">
+    <div class="slide-inner">
+      <div class="sp-head">
+        <p class="kicker mono fade" data-step="1" id="rtKicker">OHS Division · Executive Performance Q3 2026</p>
+        <h2 class="sp-title fade" data-step="1" id="rtTitle">Risk <em>Transformation</em></h2>
+        <p class="sp-desc fade" data-step="1" id="rtDesc">Distribusi risiko <b>lagging x leading</b> dan perjalanan transformasi pengendalian risiko, dari kontrol administratif menuju <b>engineering &amp; automation</b>.</p>
+      </div>
+      <div class="hs-grid hs-solo fade" data-step="1" id="rtHost" data-view="strans"></div>
+    </div>
+  </section>
+
+  <section class="slide hs-solo-slide" id="slideAU" data-steps="1" data-section="B · Executive Performance">
+    <div class="slide-inner">
+      <div class="sp-head">
+        <p class="kicker mono fade" data-step="1" id="auKicker">OHS Division · Executive Performance Q3 2026</p>
+        <h2 class="sp-title fade" data-step="1" id="auTitle">Safety <em>Automation</em></h2>
+        <p class="sp-desc fade" data-step="1" id="auDesc">Proyek otomasi keselamatan yang sedang berjalan: hazard yang disasar, progres, kesiapan, dan <b>next step</b> tiap proyek. Klik kartu proyek untuk detail.</p>
+      </div>
+      <div class="hs-grid hs-solo fade" data-step="1" id="auHost" data-view="auto"></div>
     </div>
   </section>
 
@@ -5811,7 +5839,7 @@
       killSlide(index);
       const tl = gsap.timeline({ defaults:{ duration:0.5, ease:'power3.out' } });
       tls.set(index, tl);
-      const fns = [opening, stable, sitemap, opstab, transform, crossdiv, safety, engineering, health, hjourney, nextdo, berbagi];
+      const fns = [opening, stable, rtslide, auslide, sitemap, opstab, transform, crossdiv, safety, engineering, health, hjourney, nextdo, berbagi];
       if(fns[index]) fns[index](tl, n, prev);
     }
     // How Stable Are We?: header, MoM items, then safety tiles and rings, health tiles, KPI cards
@@ -5892,6 +5920,15 @@
         tl.fromTo(q('.st-tline .track i'), {scaleX:0}, {scaleX:1, duration:1, ease:'power2.out'}, 0.7);
       }
     }
+    // Risk Transformation / Automation slides: header, then the view builds in its own host
+    function soloView(pre, view){
+      return function(tl, n, prev){
+        if(!(n>=1 && prev<1)) return;
+        tl.fromTo(['#'+pre+'Kicker','#'+pre+'Title','#'+pre+'Desc'], {x:28, opacity:0}, {x:0, opacity:1, stagger:0.08, duration:0.45}, 0);
+        tl.call(()=> hsTabCopy.mount(view, $id(pre+'Host')), null, 0.05);
+      };
+    }
+    const rtslide = soloView('rt', 'strans'), auslide = soloView('au', 'auto');
     // Site map: header, then the map settles and the pins drop in one after another
     function sitemap(tl, n, prev){
       if(!(n>=1 && prev<1)) return;
@@ -8221,7 +8258,7 @@
       else if(e.key==='r' || e.key==='R') goTo(0);
       else if(e.key==='u' || e.key==='U'){ replaySlide(current); applyFades(slides[current],0); setStep(1,{prev:0}); }
       else if(/^[a-eA-E]$/.test(e.key)){
-        const map={ a:0, b:6, c:7, d:7, e:10 }; goTo(map[e.key.toLowerCase()]);
+        const map={ a:0, b:8, c:9, d:9, e:12 }; goTo(map[e.key.toLowerCase()]);
       }
     });
     function openGuide(){ guide.classList.add('open'); }
@@ -8876,7 +8913,7 @@
       curIn.style.transform = 'scale(' + k + ')';
     }
     if('ResizeObserver' in window) new ResizeObserver(fit).observe(tv);
-    function build(view){
+    function build(view, into){
       const cfg = SRC[view]; if(cfg.prep) cfg.prep();
       const src = document.querySelector(cfg.sel); if(!src) return null;
       const c = src.cloneNode(true);
@@ -8901,7 +8938,7 @@
         e.stopPropagation(); if(!zoom) return;
         const img = zoom.querySelector('img'); img.src = btn.dataset.zoom; img.alt = (btn.querySelector('img')||{}).alt || ''; zoom.classList.add('open');
       }));
-      tv.appendChild(inner);
+      (into || tv).appendChild(inner);
       if(c.matches('.au-grid')) auDetail(c);
       if(view === 'strans' && c.matches('.ec-grid')){
         // key-project photos become a looping video (placeholder for now), playing on its own
@@ -8919,7 +8956,7 @@
         });
         // watchdog: keep every key-project video playing while the tab is shown
         setInterval(()=>{
-          document.querySelectorAll('#hsTv .ec-vid, #hsTv .au-media video').forEach(v=>{
+          document.querySelectorAll('.hs-tv .ec-vid, .hs-tv .au-media video').forEach(v=>{
             if(!v.offsetParent) return;
             if(v.readyState < 2 && (v._wait = (v._wait||0) + 1) > 2){ v._wait = 0; v.load(); }
             if(v.paused) v.play().catch(()=>{});
@@ -9127,6 +9164,23 @@
         requestAnimationFrame(()=> inner.querySelectorAll('.ov2-chart').forEach(el=> execView.chart(el)));
         ov2Bubbles(inner);
       }
+      animate(inner);
+    }
+    // a view rendered on its own slide: own host, own scale-to-fit, same entrance motion
+    const hosts = {};
+    function mount(view, grid){
+      ecClose(true); auClose(true);
+      let h = hosts[view];
+      if(!h){
+        const t = document.createElement('div'); t.className = 'hs-tv'; grid.appendChild(t);
+        const inner = build(view, t); if(!inner) return;
+        h = hosts[view] = { t, inner, fit(){ if(!t.clientWidth) return; const k = Math.min(t.clientWidth / W, t.clientHeight / H);
+          inner.style.width = (t.clientWidth / k) + 'px'; inner.style.height = (t.clientHeight / k) + 'px'; inner.style.transform = 'scale(' + k + ')'; } };
+        if('ResizeObserver' in window) new ResizeObserver(()=> h.fit()).observe(t);
+      }
+      h.fit(); animate(h.inner);
+    }
+    function animate(inner){
       if(!hasGsap || REDUCE_MOTION) return;
       const q = (sel)=> inner.querySelectorAll(sel);
       const tl = gsap.timeline({ defaults:{ duration:0.5, ease:'power3.out' } });
@@ -9153,7 +9207,7 @@
       tl.fromTo(q('.rt-tl > span'), {y:10, opacity:0}, {y:0, opacity:1, stagger:0.1, duration:0.4}, 0.4);
       tl.fromTo(q('.cd-badge'), {scale:0, rotate:-60}, {scale:1, rotate:0, stagger:0.12, duration:0.5, ease:'back.out(1.8)'}, 0.2);
     }
-    return { show };
+    return { show, mount };
   })();
   // Risk Transformation: lagging x leading risk distribution, four skewed bell curves on five zones
   function rtCurves(svg){
