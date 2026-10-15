@@ -4638,6 +4638,78 @@
   .hs-tv-ov2 .ov2-left, .hs-tv-ov2 .ov2-right{ border:1px solid rgba(20,26,34,.06) !important; box-shadow:0 1px 2px rgba(20,26,34,.06), 0 8px 18px rgba(20,26,34,.08), 0 22px 44px rgba(20,26,34,.10) !important; }
   .hs-tv-ov2 .ov2-curves, .hs-tv-ov2 .ov2-lower, .hs-tv-ov2 .ov2-ci, .hs-tv-ov2 .ov2-evo{ box-shadow:0 4px 12px rgba(20,26,34,.07); }
   .hs-tv-in.hs-tv-ov2 > .ov2-grid{ box-sizing:border-box; padding:2px 8px 18px; height:100%; }
+  .sm-panel .list .grp{ display:flex; flex-direction:column; gap:3px; padding:9px 18px 8px !important; }
+  .sm-panel .list .grp b{ font:800 11.5px/1.25 'Plus Jakarta Sans',sans-serif; letter-spacing:.06em; text-transform:uppercase; color:var(--cv-green-d); }
+  .sm-panel .list .grp small{ font:400 11.5px/1.35 'Source Sans 3',sans-serif; letter-spacing:0; text-transform:none; color:#4A525C; }
+
+  /* ---- map list: collapsible groups ---- */
+  .sm-panel .list{ padding:10px 12px; gap:8px; }
+  .sm-panel details.grp{ border-radius:12px; background:#fff; border:1px solid #E3E9EF; box-shadow:0 2px 8px rgba(20,26,34,.05); overflow:hidden; }
+  .sm-panel details.grp[open]{ box-shadow:0 6px 18px rgba(20,26,34,.08); border-color:color-mix(in srgb,var(--gc) 35%,#E3E9EF); }
+  .sm-panel details.grp summary{ list-style:none; display:flex; align-items:center; gap:12px; padding:10px 12px; cursor:pointer; user-select:none;
+    background:linear-gradient(90deg,color-mix(in srgb,var(--gc) 12%,#fff),#fff 70%); border-left:4px solid var(--gc); }
+  .sm-panel details.grp summary::-webkit-details-marker{ display:none; }
+  .sm-panel details.grp summary:hover{ background:linear-gradient(90deg,color-mix(in srgb,var(--gc) 20%,#fff),#fff 75%); }
+  .sm-panel .gn{ flex:none; display:grid; place-items:center; width:34px; height:34px; border-radius:10px; background:var(--gc); color:#fff; font:800 14px/1 'Plus Jakarta Sans',sans-serif; box-shadow:0 4px 10px color-mix(in srgb,var(--gc) 40%,transparent); }
+  .sm-panel .gt{ flex:1; min-width:0; display:flex; flex-direction:column; }
+  .sm-panel .gt small{ font:700 10.5px/1.2 'Plus Jakarta Sans',sans-serif; letter-spacing:.08em; text-transform:uppercase; color:#6B7580; }
+  .sm-panel .gt b{ font:800 15px/1.2 'Plus Jakarta Sans',sans-serif; color:color-mix(in srgb,var(--gc) 80%,#000); }
+  .sm-panel .gc{ flex:none; min-width:24px; height:24px; padding:0 7px; display:grid; place-items:center; border-radius:999px; background:color-mix(in srgb,var(--gc) 14%,#fff); color:var(--gc); font:800 12px/1 'Plus Jakarta Sans',sans-serif; }
+  .sm-panel .ch{ flex:none; width:18px; height:18px; fill:none; stroke:#6B7580; stroke-width:2.6; stroke-linecap:round; stroke-linejoin:round; transition:transform .25s; }
+  .sm-panel details.grp[open] .ch{ transform:rotate(180deg); }
+  .sm-panel details.grp[open] .gb{ animation:smGrpIn .3s ease-out; }
+  @keyframes smGrpIn{ from{ opacity:0; transform:translateY(-6px); } to{ opacity:1; transform:none; } }
+  .sm-panel .gd{ margin:0; padding:8px 14px 10px 16px; font-size:12.5px; line-height:1.4; color:#4A525C; background:#FAFBFC; border-bottom:1px solid #EEF1F4; }
+  .sm-panel .grp .item{ display:grid; grid-template-columns:34px minmax(0,1fr) 16px; gap:10px; align-items:center; padding:9px 12px 9px 16px; border-bottom:1px solid #F0F3F6; transition:background .2s; }
+  .sm-panel .grp .item:last-child{ border-bottom:0; }
+  .sm-panel .grp .item:hover{ background:color-mix(in srgb,var(--gc) 7%,#fff); }
+  .sm-panel .grp .item .no{ display:grid; place-items:center; height:26px; border-radius:7px; background:color-mix(in srgb,var(--gc) 12%,#fff); color:var(--gc); font:800 12px/1 'Plus Jakarta Sans',sans-serif; }
+  .sm-panel .grp .item .tx{ min-width:0; display:flex; flex-direction:column; }
+  .sm-panel .grp .item .t{ font-size:14px; }
+  .sm-panel .grp .item .stg{ align-self:flex-start; }
+  .sm-panel .grp .item .go{ width:16px; height:16px; fill:none; stroke:#B3BCC6; stroke-width:2.6; stroke-linecap:round; stroke-linejoin:round; transition:transform .2s, stroke .2s; }
+  .sm-panel .grp .item:hover .go{ stroke:var(--gc); transform:translateX(3px); }
+  /* reset the older flat group-heading styles for the collapsible groups */
+  .sm-panel .list details.grp{ display:block !important; padding:0 !important; gap:0 !important; background:#fff !important; text-transform:none !important; letter-spacing:0 !important; font:400 14px/1.3 'Source Sans 3',sans-serif !important; color:var(--cv-ink) !important; border-bottom:1px solid #E3E9EF !important; }
+  .sm-panel .list details.grp .gt b{ display:block; font:800 15px/1.2 'Plus Jakarta Sans',sans-serif !important; letter-spacing:0 !important; text-transform:none !important; color:color-mix(in srgb,var(--gc) 80%,#000) !important; }
+  .sm-panel .list details.grp .gt small{ font:700 10px/1.3 'Plus Jakarta Sans',sans-serif !important; letter-spacing:.08em !important; text-transform:uppercase !important; color:#6B7580 !important; }
+  .sm-panel .list details.grp .item .t{ font-weight:700; } .sm-panel .list details.grp .item .s{ font-size:12px; color:#6B737C; }
+  .sm-panel .list details.grp .item{ text-align:left; background:none; border:0; border-bottom:1px solid #F0F3F6; width:100%; cursor:pointer; font:inherit; color:inherit; }
+  .sm-panel .list details.grp .item .tx{ gap:2px; }
+  /* infographic keeps its own proportions; Progress utama fills the space beside it */
+  .sm-det .mx-full{ display:grid !important; grid-template-columns:auto minmax(0,1fr); gap:16px; align-items:stretch; justify-content:stretch; }
+  .sm-det .mx-full img{ width:auto !important; height:100% !important; max-width:100% !important; object-fit:contain !important; justify-self:start; }
+  .mx-prog{ min-width:0; min-height:0; overflow:auto; padding:14px 16px; border-radius:12px; background:#F4F8FD; border:1px solid #DCE6F2; }
+  .mx-prog h5{ display:flex; align-items:center; gap:10px; margin:0 0 10px; padding:8px 10px; border-radius:10px; background:#E3ECF8; color:#0F2D6B; font:800 17px/1.1 'Plus Jakarta Sans',sans-serif; }
+  .mx-prog h5 i{ display:grid; place-items:center; width:30px; height:30px; border-radius:8px; background:#1E4FA8; }
+  .mx-prog h5 svg{ width:17px; height:17px; fill:#fff; }
+  .mx-prog ul{ list-style:none; display:flex; flex-direction:column; gap:10px; padding:0 2px; margin:0; }
+  .mx-prog li{ position:relative; padding-left:16px; font-size:15px; line-height:1.4; color:#2B3440; }
+  .mx-prog li::before{ content:''; position:absolute; left:0; top:.55em; width:7px; height:7px; border-radius:50%; background:#1E4FA8; }
+  .sm-det .mx-full{ grid-template-rows:minmax(0,1fr) !important; } .sm-det .mx-full img{ min-height:0; max-height:100% !important; aspect-ratio:1916/821; }
+  /* Progress utama: plain list spread down the full panel height */
+  .mx-prog{ display:flex; flex-direction:column; overflow:hidden; }
+  .mx-prog ul{ flex:1; justify-content:space-between; gap:0; padding:6px 4px 10px; }
+  .mx-prog li{ font-size:17px; line-height:1.45; }
+  .mx-prog li::before{ top:.6em; }
+  /* detail photo: shown whole (no cropping), a blurred copy fills the frame behind it */
+  .sm-det .smc-media img.bg{ object-fit:cover; filter:blur(18px) saturate(1.2); transform:scale(1.15); opacity:.55; animation:none; }
+  .sm-det .smc-media img.fg{ object-fit:contain; animation:none; padding:10px; filter:drop-shadow(0 8px 18px rgba(0,0,0,.25)); }
+  .sm-det .smc-media{ background:#EEF3F8; }
+  /* OBDS detail: large picture + stacked info column */
+  .sm-det .mx-img img{ aspect-ratio:1672/941 !important; }
+  .mx-side{ display:flex; flex-direction:column; gap:12px; overflow:hidden; }
+  .mx-side section{ display:flex; flex-direction:column; }
+  .mx-side h5{ margin-bottom:8px !important; }
+  .mx-side ul{ gap:7px !important; }
+  .mx-side li{ font-size:15px !important; }
+  .mx-side .hz h5{ background:#FDE8EB; color:#C8102E; } .mx-side .hz h5 i{ background:#E2475B; } .mx-side .hz li::before{ background:#D6243A; }
+  .mx-side .rd h5{ background:#E7F5E3; color:#147A2C; } .mx-side .rd h5 i{ background:#3FA84A; } .mx-side .rd li::before{ background:#3FA84A; }
+  .mx-side .nx{ margin-top:auto; display:flex; flex-direction:column; gap:2px; padding:10px 14px; border-radius:10px; background:linear-gradient(115deg,#EAF2FD,#E9F6E9); border-left:4px solid #16418F; }
+  .mx-side .nx small{ font:700 10.5px/1 'Plus Jakarta Sans',sans-serif; letter-spacing:.12em; text-transform:uppercase; color:#6B7580; }
+  .mx-side .nx b{ font:800 15px/1.25 'Plus Jakarta Sans',sans-serif; color:#0F2D6B; }
+  .sm-det .mx-full.mx-img{ grid-template-columns:minmax(0,1.85fr) minmax(0,1fr) !important; }
+  .sm-det .mx-img img{ width:100% !important; height:100% !important; aspect-ratio:auto !important; object-fit:contain !important; object-position:center; }
 </style>
 </head>
 <body>
@@ -5109,8 +5181,8 @@
   <section class="slide" id="slideMap" data-steps="1" data-section="B · Site Map">
     <div class="slide-inner">
       <div class="sp-head">
-        <p class="kicker mono fade" data-step="1" id="smKicker">OHS Division · Peta Interaktif Site Tambang</p>
-        <h2 class="sp-title fade" data-step="1" id="smTitle">Peta Interaktif <em>Site Tambang</em></h2>
+        <p class="kicker mono fade" data-step="1" id="smKicker">OHS Division · Framework Automation</p>
+        <h2 class="sp-title fade" data-step="1" id="smTitle">Framework <em>Automation</em></h2>
         <p class="sp-desc fade" data-step="1" id="smDesc">Teknologi keselamatan di seluruh site, dari <b>pit</b> dan <b>hauling road</b> hingga <b>stockpile</b>: klik label untuk melihat <b>bahaya yang dikendalikan</b>, <b>progress</b>, dan <b>next step</b> tiap teknologi · scroll untuk zoom · seret untuk geser · Esc untuk kembali.</p>
       </div>
       <div class="sm-grid fade" data-step="1" id="smGrid">
@@ -10570,13 +10642,32 @@
   // Site map slide: interactive 2.5D image map (ported from the standalone prototype), deck-styled
   // shared panel markup for the site maps: the list of technologies and one technology's detail
   const smLi = (a)=> a.map(t=> '<li>' + t + '</li>').join('');
-  const SM_GRP = { cc:'Critical Control', eng:'Rekayasa Engineering', auto:'Automation', data:'Data &amp; AI' };
+  // list groups: number, title and the one-line definition of each automation approach
+  const SM_GRP = {
+    cc:{ n:1, c:'#1F9A3A', k:'Stagged Automation', m:'Critical Control', d:'A phased automation path focused on critical risk barriers (CCV/CRM, Layer 5 contact defense) to prevent serious events (Fatal + LTI / RWI). All can detect and intervened through Mining Eyes Analytic.' },
+    eng:{ n:2, c:'#1F9A3A', k:'Stagged Automation', m:'Engineering Control', d:'A phased automation path focused on process and workplace engineering, redesigning work methods and systems to eliminate human to risk exposure and error likelihood.' },
+    auto:{ n:3, c:'#1F9A3A', k:'Direct Automation', m:'Best Practises Adoption', d:'Direct removal of human to risk exposure by automating tasks end-to-end. Eliminating certain high-risk activities through the adaptation of established best practices and proven practices.' },
+    data:{ n:4, c:'#1F9A3A', k:'Data &amp; AI', m:'Safety Intelligence', d:'' }
+  };
+  // which groups are open in the list (kept while the list re-renders); the first one starts open
+  const SM_OPEN = { cc:true };
+  document.addEventListener('toggle', e=>{ const d = e.target; if(d.matches && d.matches('.sm-panel details.grp')) SM_OPEN[d.dataset.g] = d.open; }, true);
   function smListHtml(AREAS, note, cat){
-    return '<div class="ph"><div class="eb">' + AREAS.length + ' inisiatif' + (cat ? ' · ' + cat : '') + '</div><h3>Pilih inisiatif di peta</h3>'
-      + '<div class="meta"><span class="chip">Klik pin atau daftar untuk detail</span></div></div>'
-      + '<div class="list">' + AREAS.map((a, i)=>{ const g = (a.cats || [])[0], pg = i ? (AREAS[i-1].cats || [])[0] : null;
-        return (!cat && g && g !== pg ? '<div class="grp">' + (SM_GRP[g] || '') + '</div>' : '') + '<button class="item" type="button" data-id="' + a.id + '"><span class="no">' + String(a.no).padStart(2,'0') + '</span>'
-      + '<span><span class="t">' + a.P.name + '</span><span class="s">' + a.loc + '</span><span class="stg">' + a.P.stage + '</span></span><span class="dotst tech"></span></button>'; }).join('') + '</div>'
+    const groups = [];
+    AREAS.forEach(a=>{ const g = (a.cats || [])[0] || 'x'; let G = groups.find(x=> x.g === g); if(!G) groups.push(G = { g, items:[] }); G.items.push(a); });
+    const item = (a, sub, col)=> '<button class="item" type="button" data-id="' + a.id + '" style="--gc:' + col + '"><span class="no">' + sub + '</span>'
+      + '<span class="tx"><span class="t">' + a.P.name + '</span><span class="s">' + a.loc + '</span><span class="stg">' + a.P.stage + '</span></span>'
+      + '<svg class="go" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button>';
+    return '<div class="ph"><div class="eb">' + AREAS.length + ' inisiatif' + (cat ? ' · ' + cat : '') + '</div><h3>Stream Framework Automation</h3>'
+      + '<div class="meta"><span class="chip">Klik grup untuk buka / tutup</span></div></div>'
+      + '<div class="list">' + groups.map(({ g, items })=>{
+          const G = SM_GRP[g] || { n:'', c:'#4A525C', k:'', m:'Lainnya', d:'' };
+          const open = cat || SM_OPEN[g];
+          return '<details class="grp" data-g="' + g + '" style="--gc:' + G.c + '"' + (open ? ' open' : '') + '>'
+            + '<summary><span class="gn">#' + G.n + '</span><span class="gt"><small>' + G.k + '</small><b>' + G.m + '</b></span>'
+            + '<span class="gc">' + items.length + '</span><svg class="ch" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>'
+            + '<div class="gb">' + (G.d ? '<p class="gd">' + G.d + '</p>' : '') + items.map((a, k)=> item(a, G.n + '.' + 'abcdefgh'[k], G.c)).join('') + '</div></details>';
+        }).join('') + '</div>'
       + '<div class="note">' + note + '</div>';
   }
   // site maps: full detail card shown after the map has zoomed into a technology
@@ -10588,7 +10679,7 @@
   };
   function smCardHtml(a, prev, next){
     const P = a.P;
-    const media = P.img ? '<img src="' + P.img + '" alt="">' : '<div class="ph-ic">' + (a.icon || '') + '</div>';
+    const media = P.img ? '<img class="bg" src="' + P.img + '" alt="" aria-hidden="true"><img class="fg" src="' + P.img + '" alt="">' : '<div class="ph-ic">' + (a.icon || '') + '</div>';
     return '<div class="smc-in">'
       + '<header class="smc-h"><div class="smc-band"><span class="no">' + a.no + '</span><div><b>' + P.name + '</b><small>' + P.sub + '</small></div></div>'
       + '<div class="smc-stg"><i>' + (a.icon || '') + '</i><span><small>Tahap saat ini:</small><b>' + P.stage + '</b></span></div></header>'
@@ -10610,7 +10701,12 @@
     return '<div class="smc-in">'
       + '<header class="smc-h"><div class="smc-band"><span class="no">' + a.no + '</span><div><b>' + P.name + '</b><small>' + P.sub + '</small></div></div>'
       + '<div class="smc-stg"><i>' + (a.icon || '') + '</i><span><small>Tahap saat ini:</small><b>' + P.stage + '</b></span></div></header>'
-      + '<div class="smc-rich">' + (a.rich === 'mir' ? SM_MIR : SM_CCX) + '</div>'
+      + '<div class="smc-rich">' + (a.rich === 'img' ? '<div class="mx-full mx-img"><img src="' + (a.id === 'obds' ? 'mom/obds-detail.jpg' : P.img) + '" alt="' + P.name + '">'
+          + '<aside class="mx-prog mx-side"><section><h5><i>' + SM_SVG.chart + '</i>Progress utama</h5><ul>' + smLi(P.prog) + '</ul></section>'
+          + '<section class="hz"><h5><i>' + SM_SVG.warn + '</i>Bahaya yang dikendalikan</h5><ul>' + smLi(P.hazard) + '</ul></section>'
+          + '<section class="rd"><h5><i>' + SM_SVG.bulb + '</i>Future Research &amp; Dev</h5><ul>' + smLi(P.rnd) + '</ul></section>'
+          + (a.next ? '<div class="nx"><small>Next step</small><b>' + a.next + '</b></div>' : '') + '</aside></div>'
+        : a.rich === 'mir' ? (a.id === 'mir' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/mir-fix.jpg').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'Motion Intelligent Rover (MIR): before dan after implementation serta perangkat MIR') : SM_MIR).replace('</div>', '<aside class="mx-prog"><h5><i>' + SM_SVG.chart + '</i>Progress utama</h5><ul>' + smLi(P.prog) + '</ul></aside></div>') : SM_CCX) + '</div>'
       + '<footer class="smc-f"><button type="button" class="smc-btn" data-go="' + prev.id + '">' + SM_SVG.back + prev.name + '</button>'
       + '<button type="button" class="smc-btn main" data-go="">' + SM_SVG.back + 'Kembali ke peta</button>'
       + '<button type="button" class="smc-btn" data-go="' + next.id + '">' + next.name + SM_SVG.next + '</button></footer></div>';
@@ -10746,7 +10842,7 @@
       tl.fromTo(q('.smc-band'), { xPercent:-100 }, { xPercent:0, duration:.7, ease:'expo.out' }, .3);
       tl.fromTo(q('.smc-band > *, .smc-stg'), { y:-14, opacity:0 }, { y:0, opacity:1, stagger:.07, duration:.45 }, .5);
       tl.fromTo(q('.smc-media'), { clipPath:'inset(50% 50% 50% 50% round 16px)' }, { clipPath:'inset(0% 0% 0% 0% round 16px)', duration:.9, ease:'expo.out' }, .45);
-      tl.fromTo(q('.smc-media img'), { scale:1.35 }, { scale:1.06, duration:1.6, ease:'power2.out' }, .45);
+      tl.fromTo(q('.smc-media img.fg'), { scale:1.12, opacity:0 }, { scale:1, opacity:1, duration:1, ease:'power2.out' }, .45);
       tl.fromTo(q('.smc-col'), { x:40, opacity:0 }, { x:0, opacity:1, stagger:.12, duration:.55, ease:'power3.out' }, .6);
       tl.fromTo(q('.smc-col li'), { x:14, opacity:0 }, { x:0, opacity:1, stagger:.035, duration:.3 }, .8);
       tl.fromTo(q('.smc-next'), { y:20, opacity:0 }, { y:0, opacity:1, duration:.5, ease:'back.out(1.6)' }, 1.1);
@@ -10755,6 +10851,7 @@
       tl.fromTo(q('.ccx-tl, .ccx-loc, .ccx-ph'), { x:24, opacity:0 }, { x:0, opacity:1, stagger:.06, duration:.45 }, .8);
       tl.fromTo(q('.ccx-ph li, .ccx-loc .ch span'), { x:12, opacity:0 }, { x:0, opacity:1, stagger:.02, duration:.3 }, 1.0);
       tl.fromTo(q('.mx-full img'), { scale:.94, opacity:0 }, { scale:1, opacity:1, duration:.7, ease:'power3.out' }, .5);
+      tl.fromTo(q('.mx-prog, .mx-prog li, .mx-side h5, .mx-side .nx'), { x:20, opacity:0 }, { x:0, opacity:1, stagger:.07, duration:.4 }, .7);
       tl.fromTo(q('.mx-step'), { y:22, opacity:0 }, { y:0, opacity:1, stagger:.12, duration:.45, ease:'back.out(1.5)' }, .9);
       tl.fromTo(q('.mx-rk li, .mx-bn, .mx-hl > div'), { x:16, opacity:0 }, { x:0, opacity:1, stagger:.06, duration:.35 }, 1.2);
       tl.fromTo(q('.mx-zone .z'), { opacity:0 }, { opacity:1, stagger:.25, duration:.6 }, .9);
@@ -10865,7 +10962,7 @@
     const T = (id, P, loc, icon, tag, pin, poly, next, wide)=> ({ id, P, loc, icon, tag, pin, poly, next, wide, st:'tech', name:P.name.replace(/&amp;/g,'&').replace(/ – .*| \(.*\)/, '') });
     const IC = { obds:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18v12H3zm2 2v8h14V6zm2 6 3-3 2 2 4-4 1 1-5 5-2-2-2 2zM8 18h8v2H8z"/></svg>', eyes:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9l2-2h5v14H4zm8 9a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0-2a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>', mg:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 18h12v3H2zm2-5h7v4H4zm6-1 3-7 2 1-3 7zm3-7 6 2 1 5-2 1-1-4-5-2z"/></svg>', mir:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>', arcas:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3zm-1.2 14.2-3.5-3.5 1.4-1.4 2.1 2.1 4.9-4.9 1.4 1.4-6.3 6.3z"/></svg>', rover:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10a5 5 0 0 1 5 5v1a4 4 0 0 1-7 2.6L14 14h-4l-1 1.6A4 4 0 0 1 2 13v-1a5 5 0 0 1 5-5zm0 3v2H5v2h2v2h2v-2h2v-2H9v-2zm9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm2 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg>', haul:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 7h12v8H1zm12 3h5l4 3v2h-9zM5 18a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm13 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>' };
     const CAT = { obds:['data'], eyes:['cc'], mg:['eng'], mir:['eng'], arcas:['eng'], rover:['eng'], haul:['auto'] };
-    const CATS = [{ id:'cc', label:'Critical Control' }, { id:'eng', label:'Rekayasa Engineering' }, { id:'auto', label:'Automation' }, { id:'data', label:'Data &amp; AI' }];
+    const CATS = [{ id:'cc', label:'#1 Critical Control' }, { id:'eng', label:'#2 Engineering Control' }, { id:'auto', label:'#3 Direct Automation' }, { id:'data', label:'Data &amp; AI' }];
     return { AP, NX, EXTRA, T, IC, CAT, CATS };
   })();
   // map 1: the whole site (tambang2), same technologies and concept as map 2
@@ -10885,11 +10982,11 @@
         rnd:['Otomasi start/stop berbasis level air sump','Integrasi alarm pompa ke dashboard OBDS'] },
         'Sump pit · ponton pompa', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h11v6H4zm11 2h3V7h3v8h-3v-2h-3zM2 18c2 0 2-1.5 4-1.5S8 18 10 18s2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5v2c-2 0-2 1.5-4 1.5s-2-1.5-4-1.5-2 1.5-4 1.5-2-1.5-4-1.5-2 1.5-4 1.5zM7 4h5v4H7z"/></svg>', [930,325], [855,420], [[800,385],[905,385],[905,445],[800,445]], 'Otomasi berbasis level air sump')
     ];
-    AREAS.push(T('ccv', { name:'Critical Control', sub:'Critical Risk Barrier · CCV &amp; IPLS Layer 5 · Mining Eyes Analytic', stage:'Q3 2026 · Pendetailan CPP', hazard:[], prog:[], rnd:[] },
+    AREAS.push(T('ccv', { name:'CCV', sub:'Critical Risk Barrier · CCV &amp; IPLS Layer 5 · Mining Eyes Analytic', stage:'Q3 2026 · Pendetailan CPP', hazard:[], prog:[], rnd:[] },
       'Crossing &amp; gate hauling', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V9h2v4z"/></svg>', [120,622], [298,520], [[230,500],[340,500],[340,560],[230,560]], ''));
     AREAS[3].name = 'MIR';
     AREAS.forEach(a=> a.cats = CAT[a.id] || (a.id === 'ccv' ? ['cc'] : ['eng']));
-    AREAS.forEach(a=>{ if(a.id === 'ccv' || a.id === 'eyes') a.rich = true; if(a.id === 'mir' || a.id === 'mg') a.rich = 'mir'; });
+    AREAS.forEach(a=>{ if(a.id === 'ccv' || a.id === 'eyes') a.rich = true; if(a.id === 'mir' || a.id === 'mg') a.rich = 'mir'; if(a.id === 'obds') a.rich = 'img'; });
     const ORDER = ['ccv','eyes','mg','mir','arcas','rover','pump','haul','obds'];
     AREAS.sort((x, y)=> ORDER.indexOf(x.id) - ORDER.indexOf(y.id));
     return makeSiteMap({ pre:'sm', slide:'slideMap', w:1672, h:941, areas:AREAS, tilt:false, cats:CATS, fx:'<g class="tm-wifi" data-t="pump" transform="translate(860 378) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-net"><path d="M420 58 C 480 70, 560 95, 620 112"/><path d="M620 112 C 560 200, 460 280, 385 340"/><path d="M620 112 C 900 140, 1250 200, 1500 305"/><path d="M385 340 C 420 420, 440 480, 460 525"/><path d="M460 525 C 580 560, 690 590, 780 612"/><path d="M780 612 C 900 560, 1040 500, 1160 455"/></g><g class="tm-rings" data-t="haul"><ellipse cx="287" cy="428" rx="40" ry="11"/><ellipse cx="415" cy="438" rx="38" ry="11"/><ellipse cx="965" cy="310" rx="30" ry="9"/><ellipse cx="60" cy="398" rx="36" ry="10"/><ellipse cx="1205" cy="640" rx="36" ry="10"/></g><ellipse class="tm-bubble" data-t="arcas" cx="780" cy="616" rx="62" ry="40"/><g class="tm-radar" data-t="arcas"><path d="M850 600 a18 18 0 0 1 0 28"/><path d="M862 591 a32 32 0 0 1 0 46"/><path d="M874 582 a46 46 0 0 1 0 64"/></g><g class="tm-cv" data-t="eyes"><rect x="478" y="336" width="62" height="40" rx="4"/><rect x="250" y="398" width="70" height="40" rx="4"/><rect x="380" y="410" width="70" height="40" rx="4"/></g><g class="tm-signal" data-t="eyes"><path d="M398 40 a26 26 0 0 0 0 36"/><path d="M386 30 a42 42 0 0 0 0 56"/><path d="M442 40 a26 26 0 0 1 0 36"/><path d="M454 30 a42 42 0 0 1 0 56"/></g><g class="tm-grid" data-t="mg"><path d="M300 364 L440 364 L462 388 L280 388 Z"/><path d="M325 364 L310 388 M355 364 L345 388 M385 364 L380 388 M415 364 L417 388 M290 376 L452 376"/></g><g class="tm-holo" data-t="mg"><rect x="430" y="262" width="96" height="64" rx="6"/><circle cx="458" cy="294" r="11"/><path d="M458 280 v28 M444 294 h28 M484 316 l17 -32 l17 32 z"/></g><path class="tm-mesh" data-t="mir" d="M1250 340 C 1330 305, 1420 296, 1500 296 S 1610 300, 1668 318"/><g class="tm-pins" data-t="mir"><g transform="translate(1290 294)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1360 277)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1430 270)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1560 270)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1630 278)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g></g><g class="tm-wifi" data-t="rover" transform="translate(1160 418) scale(0.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="arcas" transform="translate(780 568) scale(0.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="haul" transform="translate(415 398) scale(0.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="haul" transform="translate(287 388) scale(0.7)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-chev" data-t="haul"><path d="M560 545 l16 -10 l16 10" transform="rotate(75 576 540)"/><path d="M585 552 l16 -10 l16 10" transform="rotate(75 601 547)"/></g>',
