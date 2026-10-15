@@ -4153,45 +4153,45 @@
   .sm-grid{ position:relative; }
   .sm-det{ position:absolute; inset:0; z-index:30; border-radius:20px; overflow:hidden; background:#fff; box-shadow:0 24px 60px rgba(15,45,107,.28); will-change:clip-path; }
   .sm-det[hidden]{ display:none; }
-  .sm-det .cd-in{ position:absolute; inset:0; display:flex; flex-direction:column; font-family:'Source Sans 3',sans-serif; color:var(--cv-ink); }
-  .cd-h{ flex:none; display:flex; align-items:stretch; justify-content:space-between; gap:16px; padding:0 14px 0 0; }
-  .cd-band{ display:flex; align-items:center; gap:16px; padding:12px 90px 12px 14px; background:linear-gradient(110deg,#0F2D6B,#1E4FD0); color:#fff; clip-path:polygon(0 0,100% 0,calc(100% - 40px) 100%,0 100%); min-width:52%; }
-  .cd-band .no{ display:grid; place-items:center; width:66px; height:56px; border-radius:6px; background:#fff; color:#0F2D6B; font:800 34px/1 'Plus Jakarta Sans',sans-serif; }
-  .cd-band b{ display:block; font:800 clamp(1.3rem,3.6vh,2rem)/1.05 'Plus Jakarta Sans',sans-serif; letter-spacing:-.01em; }
-  .cd-band small{ display:block; margin-top:4px; font:600 clamp(.75rem,1.8vh,1rem)/1.2 'Plus Jakarta Sans',sans-serif; opacity:.92; }
-  .cd-stg{ align-self:center; display:flex; align-items:center; gap:10px; padding:9px 18px 9px 10px; border-radius:14px; background:linear-gradient(115deg,#EAF2FD,#E9F6E9); }
-  .cd-stg i{ display:grid; place-items:center; width:38px; height:38px; border-radius:50%; background:#16418F; }
-  .cd-stg i svg{ width:20px; height:20px; fill:#fff; fill-rule:evenodd; }
-  .cd-stg small{ display:block; font:600 11px/1 'Plus Jakarta Sans',sans-serif; color:#16418F; }
-  .cd-stg b{ display:block; margin-top:3px; font:800 15px/1.2 'Plus Jakarta Sans',sans-serif; color:#0F2D6B; }
-  .cd-body{ flex:1; min-height:0; display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr) minmax(0,.95fr); gap:16px; padding:16px 16px 8px; }
-  .cd-media{ position:relative; min-height:0; border-radius:16px; overflow:hidden; background:linear-gradient(135deg,#0F2D6B,#1F9A3A); box-shadow:0 14px 34px rgba(15,27,36,.22); }
-  .cd-media img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; animation:smKen 14s ease-in-out infinite alternate; }
+  .sm-det .smc-in{ position:absolute; inset:0; display:flex; flex-direction:column; font-family:'Source Sans 3',sans-serif; color:var(--cv-ink); }
+  .sm-det .smc-h{ flex:none; display:flex; align-items:stretch; justify-content:space-between; gap:16px; padding:0 14px 0 0; }
+  .sm-det .smc-band{ display:flex; align-items:center; gap:16px; padding:12px 90px 12px 14px; background:linear-gradient(110deg,#0F2D6B,#1E4FD0); color:#fff; clip-path:polygon(0 0,100% 0,calc(100% - 40px) 100%,0 100%); min-width:52%; }
+  .sm-det .smc-band .no{ display:grid; place-items:center; width:66px; height:56px; border-radius:6px; background:#fff; color:#0F2D6B; font:800 34px/1 'Plus Jakarta Sans',sans-serif; }
+  .sm-det .smc-band b{ display:block; font:800 clamp(1.3rem,3.6vh,2rem)/1.05 'Plus Jakarta Sans',sans-serif; letter-spacing:-.01em; }
+  .sm-det .smc-band small{ display:block; margin-top:4px; font:600 clamp(.75rem,1.8vh,1rem)/1.2 'Plus Jakarta Sans',sans-serif; opacity:.92; }
+  .sm-det .smc-stg{ align-self:center; display:flex; align-items:center; gap:10px; padding:9px 18px 9px 10px; border-radius:14px; background:linear-gradient(115deg,#EAF2FD,#E9F6E9); }
+  .sm-det .smc-stg i{ display:grid; place-items:center; width:38px; height:38px; border-radius:50%; background:#16418F; }
+  .sm-det .smc-stg i svg{ width:20px; height:20px; fill:#fff; fill-rule:evenodd; }
+  .sm-det .smc-stg small{ display:block; font:600 11px/1 'Plus Jakarta Sans',sans-serif; color:#16418F; }
+  .sm-det .smc-stg b{ display:block; margin-top:3px; font:800 15px/1.2 'Plus Jakarta Sans',sans-serif; color:#0F2D6B; }
+  .sm-det .smc-body{ flex:1; min-height:0; display:grid; grid-template-columns:minmax(0,1.05fr) minmax(0,1fr) minmax(0,.95fr); gap:16px; padding:16px 16px 8px; }
+  .sm-det .smc-media{ position:relative; min-height:0; border-radius:16px; overflow:hidden; background:linear-gradient(135deg,#0F2D6B,#1F9A3A); box-shadow:0 14px 34px rgba(15,27,36,.22); }
+  .sm-det .smc-media img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; animation:smKen 14s ease-in-out infinite alternate; }
   @keyframes smKen{ to{ transform:scale(1.14) translate(-2%,-1%); } }
-  .cd-media .ph-ic{ position:absolute; inset:0; display:grid; place-items:center; }
-  .cd-media .ph-ic svg{ width:36%; height:36%; fill:rgba(255,255,255,.85); fill-rule:evenodd; }
-  .cd-loc{ position:absolute; left:12px; bottom:12px; padding:6px 12px; border-radius:999px; background:rgba(6,34,20,.82); border:1.5px solid rgba(123,193,67,.85); color:#fff; font:700 12px/1 'Plus Jakarta Sans',sans-serif; }
-  .cd-side{ min-height:0; display:flex; flex-direction:column; gap:12px; }
-  .cd-col{ min-height:0; }
-  .cd-col h5{ display:flex; align-items:center; gap:10px; padding:7px 12px; border-radius:10px; background:#EAF1FB; color:#0F2D6B; font:800 15px/1.1 'Plus Jakarta Sans',sans-serif; margin-bottom:8px; }
-  .cd-col h5 i{ display:grid; place-items:center; width:28px; height:28px; border-radius:7px; background:#16418F; }
-  .cd-col h5 svg{ width:16px; height:16px; fill:#fff; }
-  .cd-col.hz h5{ background:#FDE8EB; color:#C8102E; } .cd-col.hz h5 i{ background:#E2475B; }
-  .cd-col.rd h5{ background:#E7F5E3; color:#147A2C; } .cd-col.rd h5 i{ background:#3FA84A; }
-  .cd-col ul{ list-style:none; display:flex; flex-direction:column; gap:7px; padding:0 4px; }
-  .cd-col li{ position:relative; padding-left:14px; font-size:clamp(.78rem,1.85vh,1rem); line-height:1.35; }
-  .cd-col li::before{ content:''; position:absolute; left:0; top:.5em; width:6px; height:6px; border-radius:50%; background:#16418F; }
-  .cd-col.hz li::before{ background:#D6243A; } .cd-col.rd li::before{ background:#3FA84A; }
-  .cd-next{ margin-top:auto; display:flex; flex-direction:column; gap:3px; padding:12px 16px; border-radius:12px; background:linear-gradient(115deg,#EAF2FD,#E9F6E9); border-left:4px solid #16418F; }
-  .cd-next small{ font:700 11px/1 'Plus Jakarta Sans',sans-serif; letter-spacing:.12em; text-transform:uppercase; color:#6B7580; }
-  .cd-next b{ font:800 17px/1.1 'Plus Jakarta Sans',sans-serif; color:#0F2D6B; }
-  .cd-next span{ font-size:14px; color:#3C444C; }
-  .cd-f{ flex:none; display:flex; justify-content:space-between; gap:10px; padding:6px 16px 14px; }
-  .cd-btn{ display:inline-flex; align-items:center; gap:6px; padding:8px 16px; border-radius:999px; border:1px solid rgba(22,65,143,.25); background:#fff; color:#16418F; font:700 13px/1 'Plus Jakarta Sans',sans-serif; cursor:pointer; box-shadow:0 4px 12px rgba(15,45,107,.1); transition:background .2s, color .2s; }
-  .cd-btn svg{ width:15px; height:15px; fill:none; stroke:currentColor; stroke-width:2.6; stroke-linecap:round; stroke-linejoin:round; }
-  .cd-btn:hover, .cd-btn.main{ background:#16418F; color:#fff; }
-  .cd-btn.main:hover{ background:#0F2D6B; }
-  @media (prefers-reduced-motion: reduce){ .cd-media img{ animation:none; } }
+  .sm-det .smc-media .ph-ic{ position:absolute; inset:0; display:grid; place-items:center; }
+  .sm-det .smc-media .ph-ic svg{ width:36%; height:36%; fill:rgba(255,255,255,.85); fill-rule:evenodd; }
+  .sm-det .smc-loc{ position:absolute; left:12px; bottom:12px; padding:6px 12px; border-radius:999px; background:rgba(6,34,20,.82); border:1.5px solid rgba(123,193,67,.85); color:#fff; font:700 12px/1 'Plus Jakarta Sans',sans-serif; }
+  .sm-det .smc-side{ min-height:0; display:flex; flex-direction:column; gap:12px; }
+  .sm-det .smc-col{ min-height:0; }
+  .sm-det .smc-col h5{ display:flex; align-items:center; gap:10px; padding:7px 12px; border-radius:10px; background:#EAF1FB; color:#0F2D6B; font:800 15px/1.1 'Plus Jakarta Sans',sans-serif; margin-bottom:8px; }
+  .sm-det .smc-col h5 i{ display:grid; place-items:center; width:28px; height:28px; border-radius:7px; background:#16418F; }
+  .sm-det .smc-col h5 svg{ width:16px; height:16px; fill:#fff; }
+  .sm-det .smc-col.hz h5{ background:#FDE8EB; color:#C8102E; } .sm-det .smc-col.hz h5 i{ background:#E2475B; }
+  .sm-det .smc-col.rd h5{ background:#E7F5E3; color:#147A2C; } .sm-det .smc-col.rd h5 i{ background:#3FA84A; }
+  .sm-det .smc-col ul{ list-style:none; display:flex; flex-direction:column; gap:7px; padding:0 4px; }
+  .sm-det .smc-col li{ position:relative; padding-left:14px; font-size:clamp(.78rem,1.85vh,1rem); line-height:1.35; }
+  .sm-det .smc-col li::before{ content:''; position:absolute; left:0; top:.5em; width:6px; height:6px; border-radius:50%; background:#16418F; }
+  .sm-det .smc-col.hz li::before{ background:#D6243A; } .sm-det .smc-col.rd li::before{ background:#3FA84A; }
+  .sm-det .smc-next{ margin-top:auto; display:flex; flex-direction:column; gap:3px; padding:12px 16px; border-radius:12px; background:linear-gradient(115deg,#EAF2FD,#E9F6E9); border-left:4px solid #16418F; }
+  .sm-det .smc-next small{ font:700 11px/1 'Plus Jakarta Sans',sans-serif; letter-spacing:.12em; text-transform:uppercase; color:#6B7580; }
+  .sm-det .smc-next b{ font:800 17px/1.1 'Plus Jakarta Sans',sans-serif; color:#0F2D6B; }
+  .sm-det .smc-next span{ font-size:14px; color:#3C444C; }
+  .sm-det .smc-f{ flex:none; display:flex; justify-content:space-between; gap:10px; padding:6px 16px 14px; }
+  .sm-det .smc-btn{ display:inline-flex; align-items:center; gap:6px; padding:8px 16px; border-radius:999px; border:1px solid rgba(22,65,143,.25); background:#fff; color:#16418F; font:700 13px/1 'Plus Jakarta Sans',sans-serif; cursor:pointer; box-shadow:0 4px 12px rgba(15,45,107,.1); transition:background .2s, color .2s; }
+  .sm-det .smc-btn svg{ width:15px; height:15px; fill:none; stroke:currentColor; stroke-width:2.6; stroke-linecap:round; stroke-linejoin:round; }
+  .sm-det .smc-btn:hover, .sm-det .smc-btn.main{ background:#16418F; color:#fff; }
+  .sm-det .smc-btn.main:hover{ background:#0F2D6B; }
+  @media (prefers-reduced-motion: reduce){ .sm-det .smc-media img{ animation:none; } }
 
   /* ---- Overview: closer to the reference sheet ---- */
   .ov2-curves{ height:212px !important; }
@@ -4242,10 +4242,10 @@
   <span class="rail-brand mono">OHS DIVISI</span>
   <div class="rail-letters" id="railLetters">
     <button type="button" data-jump="0">H</button>
-    <button type="button" data-jump="9">S</button>
-    <button type="button" data-jump="10">C</button>
-    <!-- <button type="button" data-jump="13">C</button> -->
-    <button type="button" data-jump="13">M</button>
+    <button type="button" data-jump="7">S</button>
+    <button type="button" data-jump="8">C</button>
+    <!-- <button type="button" data-jump="11">C</button> -->
+    <button type="button" data-jump="11">M</button>
   </div>
   <div class="rail-progress"><i id="progressFill"></i></div>
   <div class="rail-step" id="railStep">01</div>
@@ -4676,7 +4676,7 @@
     </div>
   </section>
 
-  <section class="slide hs-solo-slide" id="slideRT" data-steps="1" data-section="B · Executive Performance">
+  <section class="slide-off hs-solo-slide" id="slideRT" hidden data-steps="1" data-section="B · Executive Performance">
     <div class="slide-inner">
       <div class="sp-head">
         <p class="kicker mono fade" data-step="1" id="rtKicker">OHS Division · Executive Performance Q3 2026</p>
@@ -4687,7 +4687,7 @@
     </div>
   </section>
 
-  <section class="slide hs-solo-slide" id="slideAU" data-steps="1" data-section="B · Executive Performance">
+  <section class="slide-off hs-solo-slide" id="slideAU" hidden data-steps="1" data-section="B · Executive Performance">
     <div class="slide-inner">
       <div class="sp-head">
         <p class="kicker mono fade" data-step="1" id="auKicker">OHS Division · Executive Performance Q3 2026</p>
@@ -6152,7 +6152,7 @@
       killSlide(index);
       const tl = gsap.timeline({ defaults:{ duration:0.5, ease:'power3.out' } });
       tls.set(index, tl);
-      const fns = [opening, stable, rtslide, auslide, sitemap, minemap, opstab, transform, crossdiv, safety, engineering, health, hjourney, nextdo, berbagi];
+      const fns = [opening, stable, /* rtslide, auslide (hidden), */ sitemap, minemap, opstab, transform, crossdiv, safety, engineering, health, hjourney, nextdo, berbagi];
       if(fns[index]) fns[index](tl, n, prev);
     }
     // How Stable Are We?: header, MoM items, then safety tiles and rings, health tiles, KPI cards
@@ -8575,7 +8575,7 @@
       else if(e.key==='r' || e.key==='R') goTo(0);
       else if(e.key==='u' || e.key==='U'){ replaySlide(current); applyFades(slides[current],0); setStep(1,{prev:0}); }
       else if(/^[a-eA-E]$/.test(e.key)){
-        const map={ a:0, b:9, c:10, d:10, e:13 }; goTo(map[e.key.toLowerCase()]);
+        const map={ a:0, b:7, c:8, d:8, e:11 }; goTo(map[e.key.toLowerCase()]);
       }
     });
     function openGuide(){ guide.classList.add('open'); }
@@ -10206,17 +10206,17 @@
   function smCardHtml(a, prev, next){
     const P = a.P;
     const media = P.img ? '<img src="' + P.img + '" alt="">' : '<div class="ph-ic">' + (a.icon || '') + '</div>';
-    return '<div class="cd-in">'
-      + '<header class="cd-h"><div class="cd-band"><span class="no">' + a.no + '</span><div><b>' + P.name + '</b><small>' + P.sub + '</small></div></div>'
-      + '<div class="cd-stg"><i>' + (a.icon || '') + '</i><span><small>Tahap saat ini:</small><b>' + P.stage + '</b></span></div></header>'
-      + '<div class="cd-body"><div class="cd-media">' + media + '<span class="cd-loc">' + a.loc + '</span></div>'
-      + '<section class="cd-col pg"><h5><i>' + SM_SVG.chart + '</i>Progress utama</h5><ul>' + smLi(P.prog) + '</ul></section>'
-      + '<div class="cd-side"><section class="cd-col hz"><h5><i>' + SM_SVG.warn + '</i>Bahaya yang dikendalikan</h5><ul>' + smLi(P.hazard) + '</ul></section>'
-      + '<section class="cd-col rd"><h5><i>' + SM_SVG.bulb + '</i>Future Research &amp; Dev</h5><ul>' + smLi(P.rnd) + '</ul></section>'
-      + (a.next ? '<div class="cd-next"><small>Next step</small><b>' + a.name + '</b><span>' + a.next + '</span></div>' : '') + '</div></div>'
-      + '<footer class="cd-f"><button type="button" class="cd-btn" data-go="' + prev.id + '">' + SM_SVG.back + prev.name + '</button>'
-      + '<button type="button" class="cd-btn main" data-go="">' + SM_SVG.back + 'Kembali ke peta</button>'
-      + '<button type="button" class="cd-btn" data-go="' + next.id + '">' + next.name + SM_SVG.next + '</button></footer></div>';
+    return '<div class="smc-in">'
+      + '<header class="smc-h"><div class="smc-band"><span class="no">' + a.no + '</span><div><b>' + P.name + '</b><small>' + P.sub + '</small></div></div>'
+      + '<div class="smc-stg"><i>' + (a.icon || '') + '</i><span><small>Tahap saat ini:</small><b>' + P.stage + '</b></span></div></header>'
+      + '<div class="smc-body"><div class="smc-media">' + media + '<span class="smc-loc">' + a.loc + '</span></div>'
+      + '<section class="smc-col pg"><h5><i>' + SM_SVG.chart + '</i>Progress utama</h5><ul>' + smLi(P.prog) + '</ul></section>'
+      + '<div class="smc-side"><section class="smc-col hz"><h5><i>' + SM_SVG.warn + '</i>Bahaya yang dikendalikan</h5><ul>' + smLi(P.hazard) + '</ul></section>'
+      + '<section class="smc-col rd"><h5><i>' + SM_SVG.bulb + '</i>Future Research &amp; Dev</h5><ul>' + smLi(P.rnd) + '</ul></section>'
+      + (a.next ? '<div class="smc-next"><small>Next step</small><b>' + a.name + '</b><span>' + a.next + '</span></div>' : '') + '</div></div>'
+      + '<footer class="smc-f"><button type="button" class="smc-btn" data-go="' + prev.id + '">' + SM_SVG.back + prev.name + '</button>'
+      + '<button type="button" class="smc-btn main" data-go="">' + SM_SVG.back + 'Kembali ke peta</button>'
+      + '<button type="button" class="smc-btn" data-go="' + next.id + '">' + next.name + SM_SVG.next + '</button></footer></div>';
   }
   function smDetailHtml(a, prev, next, N){
     const P = a.P;
@@ -10344,15 +10344,15 @@
       gsap.killTweensOf(det);
       const tl = gsap.timeline();
       tl.fromTo(det, { clipPath:'circle(0px at ' + x + 'px ' + y + 'px)' }, { clipPath:'circle(' + R() + 'px at ' + x + 'px ' + y + 'px)', duration:.9, ease:'power3.inOut' }, 0);
-      tl.fromTo(q('.cd-in'), { scale:1.12, transformOrigin:x + 'px ' + y + 'px' }, { scale:1, duration:1, ease:'power3.out' }, 0);
-      tl.fromTo(q('.cd-band'), { xPercent:-100 }, { xPercent:0, duration:.7, ease:'expo.out' }, .3);
-      tl.fromTo(q('.cd-band > *, .cd-stg'), { y:-14, opacity:0 }, { y:0, opacity:1, stagger:.07, duration:.45 }, .5);
-      tl.fromTo(q('.cd-media'), { clipPath:'inset(50% 50% 50% 50% round 16px)' }, { clipPath:'inset(0% 0% 0% 0% round 16px)', duration:.9, ease:'expo.out' }, .45);
-      tl.fromTo(q('.cd-media img'), { scale:1.35 }, { scale:1.06, duration:1.6, ease:'power2.out' }, .45);
-      tl.fromTo(q('.cd-col'), { x:40, opacity:0 }, { x:0, opacity:1, stagger:.12, duration:.55, ease:'power3.out' }, .6);
-      tl.fromTo(q('.cd-col li'), { x:14, opacity:0 }, { x:0, opacity:1, stagger:.035, duration:.3 }, .8);
-      tl.fromTo(q('.cd-next'), { y:20, opacity:0 }, { y:0, opacity:1, duration:.5, ease:'back.out(1.6)' }, 1.1);
-      tl.fromTo(q('.cd-btn'), { y:12, opacity:0 }, { y:0, opacity:1, stagger:.06, duration:.35 }, 1.1);
+      tl.fromTo(q('.smc-in'), { scale:1.12, transformOrigin:x + 'px ' + y + 'px' }, { scale:1, duration:1, ease:'power3.out' }, 0);
+      tl.fromTo(q('.smc-band'), { xPercent:-100 }, { xPercent:0, duration:.7, ease:'expo.out' }, .3);
+      tl.fromTo(q('.smc-band > *, .smc-stg'), { y:-14, opacity:0 }, { y:0, opacity:1, stagger:.07, duration:.45 }, .5);
+      tl.fromTo(q('.smc-media'), { clipPath:'inset(50% 50% 50% 50% round 16px)' }, { clipPath:'inset(0% 0% 0% 0% round 16px)', duration:.9, ease:'expo.out' }, .45);
+      tl.fromTo(q('.smc-media img'), { scale:1.35 }, { scale:1.06, duration:1.6, ease:'power2.out' }, .45);
+      tl.fromTo(q('.smc-col'), { x:40, opacity:0 }, { x:0, opacity:1, stagger:.12, duration:.55, ease:'power3.out' }, .6);
+      tl.fromTo(q('.smc-col li'), { x:14, opacity:0 }, { x:0, opacity:1, stagger:.035, duration:.3 }, .8);
+      tl.fromTo(q('.smc-next'), { y:20, opacity:0 }, { y:0, opacity:1, duration:.5, ease:'back.out(1.6)' }, 1.1);
+      tl.fromTo(q('.smc-btn'), { y:12, opacity:0 }, { y:0, opacity:1, stagger:.06, duration:.35 }, 1.1);
     }
     function hideDet(){ clearTimeout(detT); if(hasGsap) gsap.killTweensOf(det); det.hidden = true; detOpen = false; gridEl.classList.remove('det-on'); if(hasGsap) gsap.set(det, { clearProps:'clipPath' }); }
     function closeDet(then){
@@ -10363,8 +10363,8 @@
       const [x, y] = origin(), q = (sel)=> det.querySelectorAll(sel);
       gsap.killTweensOf(det);
       const tl = gsap.timeline({ onComplete:()=>{ hideDet(); if(then) then(); } });
-      tl.to(q('.cd-col, .cd-next, .cd-btn, .cd-band > *, .cd-stg'), { opacity:0, y:8, stagger:.015, duration:.2, ease:'power2.in' }, 0);
-      tl.to(q('.cd-in'), { scale:1.1, transformOrigin:x + 'px ' + y + 'px', duration:.65, ease:'power3.in' }, .1);
+      tl.to(q('.smc-col, .smc-next, .smc-btn, .smc-band > *, .smc-stg'), { opacity:0, y:8, stagger:.015, duration:.2, ease:'power2.in' }, 0);
+      tl.to(q('.smc-in'), { scale:1.1, transformOrigin:x + 'px ' + y + 'px', duration:.65, ease:'power3.in' }, .1);
       tl.to(det, { clipPath:'circle(0px at ' + x + 'px ' + y + 'px)', duration:.65, ease:'power3.inOut' }, .1);
     }
     function select(id){
