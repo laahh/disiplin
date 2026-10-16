@@ -5132,10 +5132,10 @@
   <span class="rail-brand mono">OHS DIVISI</span>
   <div class="rail-letters" id="railLetters">
     <button type="button" data-jump="0">H</button>
-    <button type="button" data-jump="2">S</button>
-    <button type="button" data-jump="6">C</button>
-    <!-- <button type="button" data-jump="4">C</button> -->
-    <button type="button" data-jump="4">M</button>
+    <button type="button" data-jump="1">S</button>
+    <button type="button" data-jump="4">C</button>
+    <!-- <button type="button" data-jump="2">C</button> -->
+    <button type="button" data-jump="2">M</button>
   </div>
   <div class="rail-progress"><i id="progressFill"></i></div>
   <div class="rail-step" id="railStep">01</div>
@@ -5144,7 +5144,7 @@
 
 <div id="deck">
 
-  <section class="slide active" id="slideOpening" data-steps="1" data-section="A · Opening">
+  <section class="slide-off" id="slideOpening" hidden data-steps="1" data-section="A · Opening">
     <div class="op-bg" aria-hidden="true"></div>
     <div class="op-scrim" aria-hidden="true"></div>
     <svg class="cod-slash" viewBox="0 0 1672 941" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
@@ -5179,7 +5179,7 @@
     </div>
   </section>
 
-  <section class="slide" id="slideOpening2" data-steps="1" data-section="A · Opening">
+  <section class="slide active" id="slideOpening2" data-steps="1" data-section="A · Opening">
     <div class="op-bg" aria-hidden="true"></div>
     <div class="op-scrim" aria-hidden="true"></div>
     <svg class="cod-slash" viewBox="0 0 1672 941" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
@@ -5471,7 +5471,7 @@
     <svg class="ov2-links" aria-hidden="true"></svg>
   </div></div>
 
-  <section class="slide hs-ov" id="slideStable" data-steps="1" data-section="B · Executive Performance">
+  <section class="slide-off hs-ov" id="slideStable" hidden data-steps="1" data-section="B · Executive Performance">
     <div class="hs-deco" aria-hidden="true">
       <i class="photo"></i><i class="wash"></i>
       <svg class="slash" viewBox="0 0 1672 941" preserveAspectRatio="xMidYMid slice">
@@ -7068,7 +7068,7 @@
       killSlide(index);
       const tl = gsap.timeline({ defaults:{ duration:0.5, ease:'power3.out' } });
       tls.set(index, tl);
-      const fns = [opening, opening2, stable, stable2, /* rtslide, auslide (hidden), */ sitemap, sitemap2, /* minemap, opstab, transform (hidden), */ crossdiv, /* safety, engineering, health, hjourney, nextdo, berbagi (hidden), */ thanks];
+      const fns = [/* opening (hidden), */ opening2, /* stable (hidden), */ stable2, /* rtslide, auslide (hidden), */ sitemap, sitemap2, /* minemap, opstab, transform (hidden), */ crossdiv, /* safety, engineering, health, hjourney, nextdo, berbagi (hidden), */ thanks];
       if(fns[index]) fns[index](tl, n, prev);
     }
     // How Stable Are We?: header, MoM items, then safety tiles and rings, health tiles, KPI cards
@@ -9494,7 +9494,7 @@
       else if(e.key==='r' || e.key==='R') goTo(0);
       else if(e.key==='u' || e.key==='U'){ replaySlide(current); applyFades(slides[current],0); setStep(1,{prev:0}); }
       else if(/^[a-eA-E]$/.test(e.key)){
-        const map={ a:0, b:2, c:6, d:6, e:4 }; goTo(map[e.key.toLowerCase()]);
+        const map={ a:0, b:1, c:4, d:4, e:2 }; goTo(map[e.key.toLowerCase()]);
       }
     });
     function openGuide(){ guide.classList.add('open'); }
