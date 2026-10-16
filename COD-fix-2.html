@@ -162,9 +162,9 @@
   /* the opening is the first slide, so there is no previous one to go back to */
   body.is-opening #prev{ opacity:0; pointer-events:none; }
   body.is-opening .nav-zone{ left:0; }
-  #slideOpening{ overflow:hidden; background:#0E2A1E; --op-green:#2BD46A; --op-green-d:#11803F; --op-ink:#fff; }
+  :is(#slideOpening,#slideOpening2){ overflow:hidden; background:#0E2A1E; --op-green:#2BD46A; --op-green-d:#11803F; --op-ink:#fff; }
   .op-bg{ position:absolute; inset:0; background:url('bg0.png') 62% center / cover no-repeat; transform-origin:70% 45%; }
-  #slideOpening.active .op-bg{ animation:opDrift 26s ease-in-out 1.6s infinite alternate; }
+  :is(#slideOpening,#slideOpening2).active .op-bg{ animation:opDrift 26s ease-in-out 1.6s infinite alternate; }
   @keyframes opDrift{ from{ transform:scale(1.04); } to{ transform:scale(1.11) translate(-1%, -.6%); } }
   /* light scrim, as in the reference: only enough on the left for the white copy */
   .op-scrim{
@@ -174,7 +174,7 @@
       linear-gradient(180deg, rgba(4,20,12,0) 70%, rgba(4,20,12,.25) 100%);
   }
   /* full-bleed: the slide covers the rail's column */
-  #slideOpening{ inset:0; }
+  :is(#slideOpening,#slideOpening2){ inset:0; }
   .op-inner{ position:relative; z-index:2; display:flex; flex-direction:column; padding:6vh 92px 7vh max(28px, 2.3vw); color:var(--op-ink); font-family:'Plus Jakarta Sans','Source Sans 3',sans-serif; }
   .op-hud{ flex:1; min-height:0; display:flex; flex-direction:column; justify-content:center; padding-top:8vh; max-width:min(50vw, 820px); }
   .op-badge{ display:flex; align-items:center; gap:12px; margin-bottom:3.6vh; }
@@ -196,7 +196,7 @@
     filter:drop-shadow(0 3px 14px rgba(0,0,0,.35));
     -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
   }
-  #slideOpening.active .op-title em{ animation:opSheen 6s ease-in-out 2.4s infinite; }
+  :is(#slideOpening,#slideOpening2).active .op-title em{ animation:opSheen 6s ease-in-out 2.4s infinite; }
   @keyframes opSheen{ 0%{ background-position:100% 0; } 35%, 100%{ background-position:0 0; } }
   .op-lede{ max-width:min(34vw, 36em); margin-top:2.8vh; font-weight:500; font-size:clamp(.82rem,1.95vh,1.12rem); line-height:1.5; color:#fff; text-shadow:0 2px 10px rgba(0,0,0,.4); }
   .op-ctas{ display:flex; flex-wrap:wrap; gap:1.8vh; margin-top:4.2vh; }
@@ -218,28 +218,28 @@
     .op-title{ font-size:clamp(1.8rem,9vw,2.6rem); }
     .op-scrim{ background:linear-gradient(180deg, rgba(6,26,17,.55), rgba(6,26,17,.85)); }
   }
-  @media (prefers-reduced-motion: reduce){ #slideOpening .op-bg, #slideOpening .op-title em{ animation:none !important; } }
+  @media (prefers-reduced-motion: reduce){ :is(#slideOpening,#slideOpening2) .op-bg, :is(#slideOpening,#slideOpening2) .op-title em{ animation:none !important; } }
   /* ---- Opening, COD cover: bright haul-truck photo washed white at the top left, logos,
      the title over a short green bar, three division cards across the foot, green slashes
      in the top-right and bottom-left corners ---- */
-  #slideOpening{ background:#EEF2EF; --cod-g:#1F9A3A; --cod-g-d:#147A2C; --cod-ink:#141A22; --cod-grey:#4A525C; }
-  #slideOpening .op-bg{ background-position:58% 62%; }
-  #slideOpening .op-scrim{
+  :is(#slideOpening,#slideOpening2){ background:#EEF2EF; --cod-g:#1F9A3A; --cod-g-d:#147A2C; --cod-ink:#141A22; --cod-grey:#4A525C; }
+  :is(#slideOpening,#slideOpening2) .op-bg{ background-position:58% 62%; }
+  :is(#slideOpening,#slideOpening2) .op-scrim{
     background:
       radial-gradient(62% 46% at 20% 18%, rgba(255,255,255,.9) 0%, rgba(255,255,255,.6) 45%, rgba(255,255,255,0) 78%),
       linear-gradient(90deg, rgba(255,255,255,.32) 0%, rgba(255,255,255,0) 48%),
       linear-gradient(180deg, rgba(255,255,255,0) 62%, rgba(20,26,34,.18) 100%);
   }
   .cod-slash{ position:absolute; inset:0; width:100%; height:100%; z-index:1; pointer-events:none; }
-  #slideOpening .cod-inner{ display:flex; flex-direction:column; padding:7.4vh 4.8vw 9.4vh 6.3vw; color:var(--cod-ink); font-family:'Plus Jakarta Sans','Source Sans 3',sans-serif; }
+  :is(#slideOpening,#slideOpening2) .cod-inner{ display:flex; flex-direction:column; padding:7.4vh 4.8vw 9.4vh 6.3vw; color:var(--cod-ink); font-family:'Plus Jakarta Sans','Source Sans 3',sans-serif; }
   .cod-logos{ flex:none; display:flex; align-items:center; gap:2.2vw; height:clamp(38px,6.2vh,64px); }
   .cod-logos img{ height:100%; width:auto; }
   .cod-logos img:last-child{ height:132%; }
   .cod-logos .sep{ align-self:stretch; width:1.5px; margin:-.4vh 0; background:rgba(20,26,34,.55); }
-  #slideOpening .cod-hud{ flex:none; display:block; max-width:none; padding-top:0; margin-top:4.8vh; }
+  :is(#slideOpening,#slideOpening2) .cod-hud{ flex:none; display:block; max-width:none; padding-top:0; margin-top:4.8vh; }
   .cod-bar{ display:block; width:clamp(48px,4.6vw,80px); height:.75vh; min-height:5px; border-radius:3px; background:linear-gradient(90deg,var(--cod-g-d),#5DBB46); transform-origin:left center; }
-  #slideOpening .op-title{ margin-top:2.6vh; font-weight:800; font-size:clamp(2.2rem,8.8vh,6rem); line-height:1; letter-spacing:-.045em; color:var(--cod-ink); text-shadow:none; }
-  #slideOpening .op-title em{
+  :is(#slideOpening,#slideOpening2) .op-title{ margin-top:2.6vh; font-weight:800; font-size:clamp(2.2rem,8.8vh,6rem); line-height:1; letter-spacing:-.045em; color:var(--cod-ink); text-shadow:none; }
+  :is(#slideOpening,#slideOpening2) .op-title em{
     background:linear-gradient(100deg, #1B7A24 0%, #1B7A24 40%, #7CC650 50%, #1B7A24 60%, #1B7A24 100%) 0 0 / 300% 100%;
     filter:none; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
   }
@@ -263,8 +263,8 @@
   .cod-card:hover .go{ transform:translateX(4px); }
   .cod-card:focus-visible{ outline:3px solid var(--cod-g); outline-offset:3px; }
   @media (max-width:900px){
-    #slideOpening .cod-inner{ padding:4vh 18px 4vh; }
-    #slideOpening .op-title{ font-size:clamp(2rem,10vw,3rem); }
+    :is(#slideOpening,#slideOpening2) .cod-inner{ padding:4vh 18px 4vh; }
+    :is(#slideOpening,#slideOpening2) .op-title{ font-size:clamp(2rem,10vw,3rem); }
     .cod-cards{ grid-template-columns:1fr; gap:10px; }
     .cod-card{ min-height:0; }
   }
@@ -5067,6 +5067,7 @@
   /* closing slide: full-bleed Thank You picture */
   #slideThanks{ padding:0 !important; overflow:hidden; background:#fff; }
   #slideThanks .ty-bg{ position:absolute; inset:0; background:url('mom/cover2.jpeg') center / cover no-repeat; transform-origin:60% 50%; }
+  #slideOpening2 .op-bg{ background-image:url('mom/cover2-clean.jpg') !important; background-position:center !important; }
 </style>
 </head>
 <body>
@@ -5082,10 +5083,10 @@
   <span class="rail-brand mono">OHS DIVISI</span>
   <div class="rail-letters" id="railLetters">
     <button type="button" data-jump="0">H</button>
-    <button type="button" data-jump="1">S</button>
-    <button type="button" data-jump="4">C</button>
-    <!-- <button type="button" data-jump="3">C</button> -->
-    <button type="button" data-jump="3">M</button>
+    <button type="button" data-jump="2">S</button>
+    <button type="button" data-jump="5">C</button>
+    <!-- <button type="button" data-jump="4">C</button> -->
+    <button type="button" data-jump="4">M</button>
   </div>
   <div class="rail-progress"><i id="progressFill"></i></div>
   <div class="rail-step" id="railStep">01</div>
@@ -5095,6 +5096,41 @@
 <div id="deck">
 
   <section class="slide active" id="slideOpening" data-steps="1" data-section="A · Opening">
+    <div class="op-bg" aria-hidden="true"></div>
+    <div class="op-scrim" aria-hidden="true"></div>
+    <svg class="cod-slash" viewBox="0 0 1672 941" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <linearGradient id="codG1" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#5CC23A"/><stop offset="1" stop-color="#2E9E2E"/></linearGradient>
+        <linearGradient id="codG2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7FCB4A"/><stop offset=".55" stop-color="#3DAA3A"/><stop offset="1" stop-color="#2A9A33"/></linearGradient>
+      </defs>
+      <g class="tr">
+        <polygon points="1440,215 1555,215 1700,30 1700,-90" fill="#A8DB86" opacity=".42"/>
+        <polygon points="1490,250 1590,250 1700,110 1700,-20" fill="url(#codG1)"/>
+        <polygon points="1405,165 1545,165 1675,0 1535,0" fill="none" stroke="#2E9E3A" stroke-width="2.6" stroke-linejoin="round"/>
+      </g>
+      <g class="bl">
+        <polygon points="-10,515 -10,960 305,960" fill="url(#codG2)" opacity=".92"/>
+        <polygon points="-10,640 -10,960 205,960" fill="#E6F6DA" opacity=".28"/>
+        <polygon points="-10,780 -10,960 120,960" fill="#2A9A33" opacity=".35"/>
+        <line x1="330" y1="826" x2="452" y2="960" stroke="#fff" stroke-width="2" opacity=".75"/>
+      </g>
+    </svg>
+    <div class="slide-inner op-inner cod-inner">
+      <div class="cod-logos">
+        <img src="logo/sinarmas-cut.png" alt="Sinarmas Mining">
+        <i class="sep" aria-hidden="true"></i>
+        <img src="logo/bc-cut.png" alt="Berau Coal">
+      </div>
+      <div class="op-hud cod-hud">
+        <i class="cod-bar" aria-hidden="true"></i>
+        <h1 class="op-title"><span class="op-line">Coordination of <em>Division</em></span></h1>
+        <p class="cod-sub">OHS Division | Review Q3 Tahun 2026</p>
+        <p class="cod-tags"><span>Safe People</span><span>Healthy People</span><span>Sustainable Operation</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" id="slideOpening2" data-steps="1" data-section="A · Opening">
     <div class="op-bg" aria-hidden="true"></div>
     <div class="op-scrim" aria-hidden="true"></div>
     <svg class="cod-slash" viewBox="0 0 1672 941" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
@@ -6949,7 +6985,7 @@
       killSlide(index);
       const tl = gsap.timeline({ defaults:{ duration:0.5, ease:'power3.out' } });
       tls.set(index, tl);
-      const fns = [opening, stable, stable2, /* rtslide, auslide (hidden), */ sitemap, /* minemap, opstab, transform (hidden), */ crossdiv, /* safety, engineering, health, hjourney, nextdo, berbagi (hidden), */ thanks];
+      const fns = [opening, opening2, stable, stable2, /* rtslide, auslide (hidden), */ sitemap, /* minemap, opstab, transform (hidden), */ crossdiv, /* safety, engineering, health, hjourney, nextdo, berbagi (hidden), */ thanks];
       if(fns[index]) fns[index](tl, n, prev);
     }
     // How Stable Are We?: header, MoM items, then safety tiles and rings, health tiles, KPI cards
@@ -7121,8 +7157,10 @@
       });
     }
     // Opening: the photo settles in, logos and the green bar arrive, the title rises, then the cards
-    function opening(tl, n, prev){
-      const root = $id('slideOpening'); if(!root || !(n>=1 && prev<1)) return;
+    function opening(tl, n, prev){ openingIn('slideOpening', tl, n, prev); }
+    function opening2(tl, n, prev){ openingIn('slideOpening2', tl, n, prev); }
+    function openingIn(id, tl, n, prev){
+      const root = $id(id); if(!root || !(n>=1 && prev<1)) return;
       const q = (sel)=> root.querySelectorAll(sel);
       tl.fromTo(q('.op-bg'), {scale:1.14, opacity:0}, {scale:1.04, opacity:1, duration:1.6, ease:'power2.out', clearProps:'transform'}, 0);
       tl.fromTo(q('.cod-slash .tr'), {x:120, opacity:0}, {x:0, opacity:1, duration:0.8, ease:'power3.out'}, 0.3);
@@ -9303,7 +9341,7 @@
       if(slides[index].id===spCards.SLIDE_ID) spCards.sync(n);
     }
     function paintChrome(){
-      document.body.classList.toggle('is-opening', slides[current].id==='slideOpening');
+      document.body.classList.toggle('is-opening', /^slideOpening2?$/.test(slides[current].id));
       const total=maxStep(current);
       if(stepCount) stepCount.textContent='Step '+String(step).padStart(2,'0')+' / '+String(total).padStart(2,'0');
       if(slideCount) slideCount.textContent=String(current+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');
@@ -9373,7 +9411,7 @@
       else if(e.key==='r' || e.key==='R') goTo(0);
       else if(e.key==='u' || e.key==='U'){ replaySlide(current); applyFades(slides[current],0); setStep(1,{prev:0}); }
       else if(/^[a-eA-E]$/.test(e.key)){
-        const map={ a:0, b:1, c:4, d:4, e:3 }; goTo(map[e.key.toLowerCase()]);
+        const map={ a:0, b:2, c:5, d:5, e:4 }; goTo(map[e.key.toLowerCase()]);
       }
     });
     function openGuide(){ guide.classList.add('open'); }
