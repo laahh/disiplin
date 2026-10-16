@@ -5043,6 +5043,26 @@
   .sm-panel .rk-svg .rk-st{ filter:drop-shadow(0 2px 3px rgba(10,40,20,.25)); }
   .sm-panel .rk-list{ padding-top:24px; }
   .sm-panel .rk-svg text{ font-size:10px !important; }
+  /* stage arrows: flowing chevrons along each path toward its group; block sits higher under the header */
+  .sm-panel .rk-svg .rk-flow{ fill:none; stroke:rgba(255,255,255,.75); stroke-width:3; stroke-linecap:round; stroke-dasharray:3 13; animation:rkFlow 1.1s linear infinite; }
+  .sm-panel .rk-svg .rk-fr{ stroke:rgba(255,255,255,.45); stroke-dasharray:2 14; animation-duration:1.6s; }
+  @keyframes rkFlow{ to{ stroke-dashoffset:-16; } }
+  @media (prefers-reduced-motion: reduce){ .sm-panel .rk-svg .rk-flow{ animation:none; } }
+  #smPanel .ph{ padding-bottom:8px !important; }
+  #smPanel .list{ padding-top:6px !important; }
+  .sm-panel .rk-list{ padding-top:18px !important; }
+  /* sharp text on the comparison copy: 3D layers only while the pointer is tilting a card */
+  #slideStable2 .ov2-left, #slideStable2 .ov2-right{ perspective:none !important; }
+  #slideStable2 .rd-card, #slideStable2 .ov2-ci{ transform:none !important; transform-style:flat !important; will-change:auto !important; }
+  #slideStable2 .rd-card.tilt, #slideStable2 .ov2-ci.tilt{ transform:perspective(1400px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) !important; }
+  #slideStable2 .ov2-left, #slideStable2 .ov2-right, #slideStable2 .rd-card, #slideStable2 .ov2-ci{ backdrop-filter:none !important; -webkit-backdrop-filter:none !important; }
+  /* sharper text across slides: no permanent GPU layers on text-heavy elements (they re-render crisp after each animation) */
+  .sp-tier, .sp-band, .sm-det, .sm-cam, .sm-tilt{ will-change:auto !important; }
+  /* Hauling detail: the picture carries its own progress, so no separate Progress utama panel */
+  .sm-det .mx-noprog .mx-prog{ display:none !important; }
+  .sm-det .mx-full.mx-noprog{ grid-template-columns:minmax(0,1fr) !important; }
+  .sm-det .mx-noprog img{ object-position:center !important; }
+  .sm-det .mx-noprog img{ object-fit:fill !important; width:100% !important; height:100% !important; }  /* hauling picture fills the card edge to edge */
 </style>
 </head>
 <body>
@@ -11100,7 +11120,8 @@
       [['s3', 2, '#0B4F1C', 'Stage 3'], ['s2', 1, '#0F6B27', 'Stage 2'], ['s1', 0, '#1A8A36', 'Stage 1']].forEach(([key, gi, col2, lab])=>{
         const g = gs[Math.min(gi, gs.length - 1)], y = midOf(g), x = X[key], end = W + gap - 2;
         h += '<path class="rk-st" d="M' + x + ' ' + top + 'h' + BW + 'V' + (y - BW / 2) + 'H' + (end - 10) + 'v-5l10 ' + (5 + BW / 2) + 'l-10 ' + (5 + BW / 2) + 'v-5H' + x + 'Z" fill="' + col2 + '"/>'
-          + vt(x + BW / 2, top + 6, lab, 'end');
+          + vt(x + BW / 2, top + 6, lab, 'end')
+          + '<path class="rk-flow" d="M' + (x + BW / 2) + ' ' + y + 'H' + (end - 14) + '" style="animation-delay:' + (gi * -.35) + 's"/>';
       });
       svg.setAttribute('viewBox', '0 0 ' + (W + gap) + ' ' + H); svg.style.width = (W + gap) + 'px'; svg.style.height = H + 'px';
       svg.innerHTML = h;
@@ -11215,7 +11236,7 @@
         : a.rich === 'mir' ? (a.id === 'mir' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/mir-fix.jpg').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'Motion Intelligent Rover (MIR): before dan after implementation serta perangkat MIR')
           : a.id === 'pump' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/remote-fix.jpg').replace('<div class="mx-full">', '<div class="mx-full mx-haul">').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'Remote Pump: before dan after implementation serta progress saat ini')
           : a.id === 'arcas' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/arcas-fix.jpg').replace('<div class="mx-full">', '<div class="mx-full mx-haul">').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'ARCAS HD 3327: before dan after implementation, cara kerja, dan dampak utama')
-          : a.id === 'haul' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/hauling-fix.jpg').replace('<div class="mx-full">', '<div class="mx-full mx-haul">').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'Hauling Automation: before dan after implementation, komponen utama AHS, dan progress')
+          : a.id === 'haul' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/hauling-fix.jpg').replace('<div class="mx-full">', '<div class="mx-full mx-haul mx-noprog">').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'Hauling Automation: before dan after implementation, komponen utama AHS, dan progress')
           : a.id === 'eyes' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/mea-fix.jpg').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'Mining Eyes Analytics: before dan after implementation, use case utama, dan progress')
           : SM_MIR).replace('</div>', '<aside class="mx-prog"><h5><i>' + SM_SVG.chart + '</i>Progress utama</h5><ul>' + smLi(P.prog) + '</ul></aside></div>') : SM_CCX) + '</div>'
       + '<footer class="smc-f"><button type="button" class="smc-btn" data-go="' + prev.id + '">' + SM_SVG.back + prev.name + '</button>'
@@ -11528,7 +11549,7 @@
       T('mir', AP[2], 'Disposal', IC.mir, [560,292], [505,352], [[380,318],[560,318],[560,382],[380,382]], NX(2)),
       T('arcas', AP[0], 'Hauling road · CPP', IC.arcas, [620,660], [780,612], [[735,585],[830,585],[830,640],[735,640]], NX(0)),
       T('rover', AP[3], 'Disposal high-risk · remote station', IC.rover, [1230,385], [1160,455], [[1100,425],[1480,425],[1480,520],[1100,520]], NX(3)),
-      T('haul', EXTRA.haul, 'Hauling road · junction', IC.haul, [200,470], [460,525], [[0,500],[700,500],[700,570],[0,570]], 'Integrasi ARCAS &amp; DMS di hauling', true),
+      T('haul', EXTRA.haul, 'Hauling road · junction', IC.haul, [200,470], [460,525], [[0,478],[1312,478],[1312,555],[0,555]], 'Integrasi ARCAS &amp; DMS di hauling', true),
       T('pump', { name:'Remote Pump', sub:'Pompa dewatering dioperasikan jarak jauh', stage:'Operasi &amp; monitoring jarak jauh',
         hazard:['Pekerja di atas ponton / tepi sump (risiko tenggelam &amp; terpeleset)','Start/stop dan pengecekan pompa manual di area pit berair'],
         prog:['Pompa ponton di sump pit dikendalikan dari jarak jauh','Status pompa, level air, dan alarm dipantau dari control room','Mengurangi kebutuhan pekerja naik ke ponton untuk operasi rutin'],
