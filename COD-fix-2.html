@@ -5213,7 +5213,7 @@
   <div class="rail-letters" id="railLetters">
     <button type="button" data-jump="0">H</button>
     <button type="button" data-jump="1">S</button>
-    <button type="button" data-jump="4">C</button>
+    <button type="button" data-jump="3">C</button>
     <!-- <button type="button" data-jump="2">C</button> -->
     <button type="button" data-jump="2">M</button>
   </div>
@@ -5712,7 +5712,7 @@
     </div>
   </section>
 
-  <section class="slide" id="slideMap" data-steps="1" data-section="B · Site Map">
+  <section class="slide-off" id="slideMap" hidden data-steps="1" data-section="B · Site Map">
     <div class="slide-inner">
       <div class="sp-head">
         <p class="kicker mono fade" data-step="1" id="smKicker">OHS Division · Framework Automation</p>
@@ -7149,7 +7149,7 @@
       killSlide(index);
       const tl = gsap.timeline({ defaults:{ duration:0.5, ease:'power3.out' } });
       tls.set(index, tl);
-      const fns = [/* opening (hidden), */ opening2, /* stable (hidden), */ stable2, /* rtslide, auslide (hidden), */ sitemap, sitemap2, /* minemap, opstab, transform (hidden), */ crossdiv, /* safety, engineering, health, hjourney, nextdo, berbagi (hidden), */ thanks];
+      const fns = [/* opening (hidden), */ opening2, /* stable (hidden), */ stable2, /* rtslide, auslide (hidden), */ /* sitemap (hidden), */ sitemap2, /* minemap, opstab, transform (hidden), */ crossdiv, /* safety, engineering, health, hjourney, nextdo, berbagi (hidden), */ thanks];
       if(fns[index]) fns[index](tl, n, prev);
     }
     // How Stable Are We?: header, MoM items, then safety tiles and rings, health tiles, KPI cards
@@ -9575,7 +9575,7 @@
       else if(e.key==='r' || e.key==='R') goTo(0);
       else if(e.key==='u' || e.key==='U'){ replaySlide(current); applyFades(slides[current],0); setStep(1,{prev:0}); }
       else if(/^[a-eA-E]$/.test(e.key)){
-        const map={ a:0, b:1, c:4, d:4, e:2 }; goTo(map[e.key.toLowerCase()]);
+        const map={ a:0, b:1, c:3, d:3, e:2 }; goTo(map[e.key.toLowerCase()]);
       }
     });
     function openGuide(){ guide.classList.add('open'); }
@@ -11854,6 +11854,11 @@
         rnd:['Otomasi start/stop berbasis level air sump','Integrasi alarm pompa ke dashboard OBDS'] },
         'Sump pit · ponton pompa', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h11v6H4zm11 2h3V7h3v8h-3v-2h-3zM2 18c2 0 2-1.5 4-1.5S8 18 10 18s2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5v2c-2 0-2 1.5-4 1.5s-2-1.5-4-1.5-2 1.5-4 1.5-2-1.5-4-1.5-2 1.5-4 1.5zM7 4h5v4H7z"/></svg>', [1240,640], [1073,730], [[1035,705],[1110,705],[1110,760],[1035,760]], 'Otomasi berbasis level air sump')
     ];
+    AREAS.push(T('blast', { name:'Remote Blasting', sub:'Peledakan dioperasikan jarak jauh dari lokasi aman', stage:'Ideation',
+        hazard:['Pekerja berada di dalam radius peledakan saat inisiasi','Misfire / ledakan tertunda saat pemeriksaan pasca-peledakan'],
+        prog:['Remote Blasting masuk program Q4 2026 (Implementasi Hauling Automation &amp; Ideation Remote Blasting)','Tahap ideation: kajian kebutuhan sistem dan area prioritas'],
+        rnd:['Sistem inisiasi peledakan nirkabel dari jarak aman','Integrasi clearance radius dengan monitoring area'] },
+      'Pit · area drilling &amp; blasting', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 2h2v5h-2zM6 5l1.4-1.4 2.1 2.1-1.4 1.4zm10.5 1.1 2.1-2.1L20 5.4l-2.1 2.1zM12 8l2.2 4.5L19 13l-3.5 3.4.8 4.6L12 18.8 7.7 21l.8-4.6L5 13l4.8-.5z"/></svg>', [320,140], [330,225], [[245,190],[370,190],[370,245],[245,245]], 'Kajian kebutuhan &amp; area prioritas'));
     AREAS.push(T('ccv', { name:'CCV', sub:'Critical Risk Barrier · CCV &amp; IPLS Layer 5 · Mining Eyes Analytic', stage:'Q3 2026 · Pendetailan CPP', hazard:[], prog:[], rnd:[] },
       'Crossing &amp; gate hauling', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V9h2v4z"/></svg>', [120,622], [298,520], [[230,500],[340,500],[340,560],[230,560]], ''));
     AREAS[3].name = 'MIR';
@@ -11879,7 +11884,7 @@
       st:'tech', cats:['eng'], sub:'add', listOnly:true, offMap:true, pin:[0, 0], poly:[[0,0],[1,0],[1,1],[0,1]] }));
     AREAS.forEach(a=>{ if(a.id === 'obds' || a.id === 'ccv') a.offMap = true; });
     AREAS.forEach(a=>{ if(a.id === 'rover') a.rich = 'rover'; if(a.id === 'haul' || a.id === 'arcas' || a.id === 'pump') a.rich = 'mir'; if(a.id === 'ccv') a.rich = true; if(a.id === 'eyes') a.rich = 'mir'; if(a.id === 'mir' || a.id === 'mg') a.rich = 'mir'; if(a.id === 'obds') a.rich = 'img'; });
-    const ORDER = ['ccv','eyes','mg','mir','arcas','rover','pump','haul','obds'];
+    const ORDER = ['ccv','eyes','mg','mir','arcas','rover','pump','blast','haul','obds'];
     const ord = (a)=> a.listOnly ? 100 + +a.id.slice(2) : ORDER.indexOf(a.id);
     AREAS.sort((x, y)=> ord(x) - ord(y));
     return makeSiteMap({ swap:true, pre:'sm2', slide:'slideMap2', w:1600, h:900, areas:AREAS, tilt:false, cats:CATS, fx:'<g class="tm-rings" data-t="haul"><ellipse cx="367" cy="500" rx="30" ry="9"/><ellipse cx="280" cy="365" rx="28" ry="8"/><ellipse cx="710" cy="805" rx="30" ry="9"/></g><ellipse class="tm-bubble" data-t="arcas" cx="460" cy="660" rx="52" ry="34"/><g class="tm-grid" data-t="mg"><path d="M760 545 L870 545 L888 565 L742 565 Z"/><path d="M780 545 L768 565 M805 545 L798 565 M830 545 L828 565 M855 545 L858 565 M752 555 L880 555"/></g><g class="tm-signal" data-t="eyes"><path d="M612 55 a22 22 0 0 0 0 30"/><path d="M602 47 a36 36 0 0 0 0 46"/><path d="M654 55 a22 22 0 0 1 0 30"/><path d="M664 47 a36 36 0 0 1 0 46"/></g><g class="tm-wifi" data-t="pump" transform="translate(1073 692) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="rover" transform="translate(1060 768) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="mir" transform="translate(940 496) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g>',
