@@ -11534,8 +11534,8 @@
     const c = echarts.getInstanceByDom(host) || echarts.init(host, null, { renderer:'canvas', devicePixelRatio:Math.max(3, (window.devicePixelRatio || 1) * 2) }); c.clear();
     const M = ["Jul'26","Aug'26","Sep'26","Oct'26","Nov'26","Dec'26","Jan'27"];
     const plan = [0, 12, 18, 32, 46, 66, 78], act = [0, 5.9, 5.9, null, null, null, null];
-    const call = (i, col, title, items, dy)=> ({ coord:[i, plan[i]], value:title, symbol:'circle', symbolSize:12, itemStyle:{ color:col, borderColor:'#fff', borderWidth:3 },
-      label:{ show:true, position:'top', distance:dy, backgroundColor:'#fff', borderColor:'#E1E6EC', borderWidth:1, borderRadius:12, padding:[10,14], shadowColor:'rgba(20,26,34,.14)', shadowBlur:14, shadowOffsetY:4,
+    const call = (i, col, title, items, dy, pos, off)=> ({ coord:[i, plan[i]], value:title, symbol:'circle', symbolSize:12, itemStyle:{ color:col, borderColor:'#fff', borderWidth:3 },
+      label:{ show:true, position:pos || 'top', distance:dy, offset:off || [0,0], backgroundColor:'#fff', borderColor:'#E1E6EC', borderWidth:1, borderRadius:12, padding:[10,14], shadowColor:'rgba(20,26,34,.14)', shadowBlur:14, shadowOffsetY:4,
         formatter:'{t|' + title + '}\n' + items.map(x=> '{i|\u2022 ' + x + '}').join('\n'),
         rich:{ t:{ fontSize:17, fontWeight:800, color:'#141A22', lineHeight:24, fontFamily:'Plus Jakarta Sans' }, i:{ fontSize:13, color:'#2B3440', lineHeight:19 } } } });
     c.setOption({
@@ -11548,7 +11548,7 @@
       series:[
         { name:'Plan', type:'line', data:plan, smooth:.3, symbol:'circle', symbolSize:10, lineStyle:{ color:'#7C8798', width:3 }, itemStyle:{ color:'#fff', borderColor:'#7C8798', borderWidth:3 },
           areaStyle:{ color:new echarts.graphic.LinearGradient(0,0,0,1,[{ offset:0, color:'rgba(124,135,152,.30)' },{ offset:1, color:'rgba(124,135,152,.02)' }]) },
-          markPoint:{ animationDelay:1700, data:[ call(3, '#E5484D', "Oct'26", ['IM Hold','BuilderX comparison','Escalation'], 26), call(4, '#F5C21B', "Nov'26", ['Console contingency','trial'], 22), call(5, '#1F9A3A', "Dec'26", ['Baseline RFU','Revalidate'], 22) ] } },
+          markPoint:{ animationDelay:1700, data:[ call(3, '#E5484D', "Oct'26", ['IM Hold','BuilderX comparison','Escalation'], 14, 'left', [0,-62]), call(4, '#F5C21B', "Nov'26", ['Console contingency','trial'], 16, 'bottom', [34,0]), call(5, '#1F9A3A', "Dec'26", ['Baseline RFU','Revalidate','Opportunity Implementasi di PAMA'], 14, 'left', [0,-58]) ] } },
         { name:'Actual', type:'line', data:act, smooth:.3, symbol:'circle', symbolSize:12, lineStyle:{ color:'#13741F', width:4 }, itemStyle:{ color:'#13741F', borderColor:'#fff', borderWidth:2 },
           areaStyle:{ color:new echarts.graphic.LinearGradient(0,0,0,1,[{ offset:0, color:'rgba(47,179,74,.40)' },{ offset:1, color:'rgba(47,179,74,.03)' }]) },
           label:{ show:true, position:'right', formatter:(p)=> p.dataIndex === 2 ? p.value + '%' : '', fontSize:20, fontWeight:800, color:'#13741F', distance:10 } },
