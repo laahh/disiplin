@@ -5285,6 +5285,15 @@
   .sm-det .rv1p .rt-i.hold{ grid-column:1 / -1; }
   .sm-det .rv1p .rt-i .bx p{ -webkit-line-clamp:2; }
   .sm-det .rv1p .rt-tl{ grid-template-columns:1fr 1fr !important; } .sm-det .rv1p .rt-i.hold{ grid-column:1 / -1 !important; }
+
+  /* stage bar tooltips */
+  .sm-panel .rk-svg [data-tip]{ pointer-events:auto; cursor:help; transition:filter .2s; }
+  .sm-panel .rk-svg [data-tip].hl{ filter:brightness(1.15) drop-shadow(0 0 4px rgba(0,0,0,.25)); }
+  .sm-panel .rk-tip{ position:absolute; z-index:20; width:220px; padding:9px 12px; border-radius:10px; background:#141A22; color:#fff; pointer-events:none;
+    box-shadow:0 10px 24px rgba(0,0,0,.28); opacity:0; transform:translateY(4px); transition:opacity .15s, transform .15s; }
+  .sm-panel .rk-tip.on{ opacity:1; transform:none; }
+  .sm-panel .rk-tip b{ display:block; font:800 13px/1.25 'Plus Jakarta Sans',sans-serif; margin-bottom:3px; }
+  .sm-panel .rk-tip span{ display:block; font-size:12.5px; line-height:1.35; color:#D5DBE1; }
 </style>
 </head>
 <body>
@@ -11450,15 +11459,24 @@
       const vt = (x, y, t, anchor)=> '<text x="' + x + '" y="' + y + '" transform="rotate(-90 ' + x + ' ' + y + ')" text-anchor="' + anchor + '" dominant-baseline="central">' + t + '</text>';
       const gid = svg._g || (svg._g = 'rkG' + (rkFit._n = (rkFit._n || 0) + 1));
       let h = '<defs><linearGradient id="' + gid + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E5222D"/><stop offset=".5" stop-color="#B8662A"/><stop offset="1" stop-color="#22B04A"/></linearGradient></defs>';
-      h += '<path class="rk-risk" d="M' + X.risk + ' ' + top + 'h' + BW + 'V' + (bottom - 10) + 'l' + (-BW / 2) + ' 10l' + (-BW / 2) + ' -10Z" fill="url(#' + gid + ')"/>' + vt(X.risk + BW / 2, (top + bottom) / 2, 'High Risk to Low Risk', 'middle');
+      h += '<path class="rk-risk" data-tip="s4" d="M' + X.risk + ' ' + top + 'h' + BW + 'V' + (bottom - 10) + 'l' + (-BW / 2) + ' 10l' + (-BW / 2) + ' -10Z" fill="url(#' + gid + ')"/>' + vt(X.risk + BW / 2, (top + bottom) / 2, 'High Risk to Low Risk', 'middle');
       [['s3', 2, '#BFB52E', 'Stage 3'], ['s2', 1, '#2C7891', 'Stage 2'], ['s1', 0, '#D4682C', 'Stage 1']].forEach(([key, gi, col2, lab])=>{
         const g = gs[Math.min(gi, gs.length - 1)], y = midOf(g), x = X[key], end = W + gap - 2;
-        h += '<path class="rk-st" d="M' + x + ' ' + top + 'h' + BW + 'V' + (y - BW / 2) + 'H' + (end - 10) + 'v-5l10 ' + (5 + BW / 2) + 'l-10 ' + (5 + BW / 2) + 'v-5H' + x + 'Z" fill="' + col2 + '"/>'
+        h += '<path class="rk-st" data-tip="' + key + '" d="M' + x + ' ' + top + 'h' + BW + 'V' + (y - BW / 2) + 'H' + (end - 10) + 'v-5l10 ' + (5 + BW / 2) + 'l-10 ' + (5 + BW / 2) + 'v-5H' + x + 'Z" fill="' + col2 + '"/>'
           + vt(x + BW / 2, top + 6, lab, 'end')
           + '<path class="rk-flow" d="M' + (x + BW / 2) + ' ' + y + 'H' + (end - 14) + '" style="animation-delay:' + (gi * -.35) + 's"/>';
       });
       svg.setAttribute('viewBox', '0 0 ' + (W + gap) + ' ' + H); svg.style.width = (W + gap) + 'px'; svg.style.height = H + 'px';
       svg.innerHTML = h;
+      // hover tooltips on the stage bars
+      const TIPS = { s1:['Stage 1 — Deteksi','Identifikasi seluruh bahaya yang muncul'], s2:['Stage 2 — Critical Control','Setiap bahaya berisiko tinggi wajib memiliki kontrol kritis'],
+        s3:['Stage 3 — Rekayasa Engineering','Perubahan metode kerja'], s4:['Stage 4 — Eliminasi','Eliminasi seluruh bahaya'] };
+      let tip = col.querySelector('.rk-tip'); if(!tip){ tip = document.createElement('div'); tip.className = 'rk-tip'; col.appendChild(tip); }
+      svg.querySelectorAll('[data-tip]').forEach(el=>{
+        el.addEventListener('pointerenter', ()=>{ const t = TIPS[el.dataset.tip]; tip.innerHTML = '<b>' + t[0] + '</b><span>' + t[1] + '</span>'; tip.classList.add('on'); el.classList.add('hl'); });
+        el.addEventListener('pointermove', e=>{ const r = col.getBoundingClientRect(), k2 = r.width / (col.offsetWidth || 1) || 1; tip.style.left = ((e.clientX - r.left) / k2 + 16) + 'px'; tip.style.top = ((e.clientY - r.top) / k2 - 10) + 'px'; });
+        el.addEventListener('pointerleave', ()=>{ tip.classList.remove('on'); el.classList.remove('hl'); });
+      });
       if(!w._ro && 'ResizeObserver' in window){ w._ro = new ResizeObserver(()=> rkFit(root)); w._ro.observe(w.querySelector('.rk-list')); }
     });
   }
@@ -11569,6 +11587,7 @@
           + '<section class="rd"><h5><i>' + SM_SVG.bulb + '</i>Future Research &amp; Dev</h5><ul>' + smLi(P.rnd) + '</ul></section>')
           + (a.next ? '<div class="nx"><small>Next step</small><b>' + a.next + '</b></div>' : '') + '</aside></div>'
         : a.rich === 'mir' ? (a.id === 'mir' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/mir-fix.jpg').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'Motion Intelligent Rover (MIR): before dan after implementation serta perangkat MIR')
+          : a.id === 'blast' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/remote-blasting.jpg').replace('<div class="mx-full">', '<div class="mx-full mx-haul mx-noprog">').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'Remote Blasting (BenchREMOTE): before dan after implementation, komponen utama, use case dan manfaat')
           : a.id === 'pump' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/remote-fix.jpg').replace('<div class="mx-full">', '<div class="mx-full mx-haul">').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'Remote Pump: before dan after implementation serta progress saat ini')
           : a.id === 'arcas' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/arcas-fix.jpg').replace('<div class="mx-full">', '<div class="mx-full mx-haul">').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'ARCAS HD 3327: before dan after implementation, cara kerja, dan dampak utama')
           : a.id === 'haul' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/hauling-fix.jpg').replace('<div class="mx-full">', '<div class="mx-full mx-haul mx-noprog">').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'Hauling Automation: before dan after implementation, komponen utama AHS, dan progress')
@@ -11923,7 +11942,7 @@
     TECH.forEach(([site, name], k)=> AREAS.push({ id:'tk' + k, name, site, P:{ name, sub:site, stage:site, hazard:[], prog:[], rnd:[] }, loc:site,
       st:'tech', cats:['eng'], sub:'add', listOnly:true, offMap:true, pin:[0, 0], poly:[[0,0],[1,0],[1,1],[0,1]] }));
     AREAS.forEach(a=>{ if(a.id === 'obds' || a.id === 'ccv') a.offMap = true; });
-    AREAS.forEach(a=>{ if(a.id === 'rover') a.rich = 'rover'; if(a.id === 'haul' || a.id === 'arcas' || a.id === 'pump') a.rich = 'mir'; if(a.id === 'ccv') a.rich = true; if(a.id === 'eyes') a.rich = 'mir'; if(a.id === 'mir' || a.id === 'mg') a.rich = 'mir'; if(a.id === 'obds') a.rich = 'img'; });
+    AREAS.forEach(a=>{ if(a.id === 'rover') a.rich = 'rover'; if(a.id === 'haul' || a.id === 'arcas' || a.id === 'pump' || a.id === 'blast') a.rich = 'mir'; if(a.id === 'ccv') a.rich = true; if(a.id === 'eyes') a.rich = 'mir'; if(a.id === 'mir' || a.id === 'mg') a.rich = 'mir'; if(a.id === 'obds') a.rich = 'img'; });
     const ORDER = ['ccv','eyes','mg','mir','arcas','rover','pump','haul','obds'];
     const ord = (a)=> a.listOnly ? 100 + +a.id.slice(2) : ORDER.indexOf(a.id);
     AREAS.sort((x, y)=> ord(x) - ord(y));
@@ -11975,7 +11994,7 @@
     TECH.forEach(([site, name], k)=> AREAS.push({ id:'tk' + k, name, site, P:{ name, sub:site, stage:site, hazard:[], prog:[], rnd:[] }, loc:site,
       st:'tech', cats:['eng'], sub:'add', listOnly:true, offMap:true, pin:[0, 0], poly:[[0,0],[1,0],[1,1],[0,1]] }));
     AREAS.forEach(a=>{ if(a.id === 'obds' || a.id === 'ccv') a.offMap = true; });
-    AREAS.forEach(a=>{ if(a.id === 'rover') a.rich = 'rover'; if(a.id === 'haul' || a.id === 'arcas' || a.id === 'pump') a.rich = 'mir'; if(a.id === 'ccv') a.rich = true; if(a.id === 'eyes') a.rich = 'mir'; if(a.id === 'mir' || a.id === 'mg') a.rich = 'mir'; if(a.id === 'obds') a.rich = 'img'; });
+    AREAS.forEach(a=>{ if(a.id === 'rover') a.rich = 'rover'; if(a.id === 'haul' || a.id === 'arcas' || a.id === 'pump' || a.id === 'blast') a.rich = 'mir'; if(a.id === 'ccv') a.rich = true; if(a.id === 'eyes') a.rich = 'mir'; if(a.id === 'mir' || a.id === 'mg') a.rich = 'mir'; if(a.id === 'obds') a.rich = 'img'; });
     const ORDER = ['ccv','eyes','mg','mir','arcas','rover','pump','blast','haul','obds'];
     const ord = (a)=> a.listOnly ? 100 + +a.id.slice(2) : ORDER.indexOf(a.id);
     AREAS.sort((x, y)=> ord(x) - ord(y));
