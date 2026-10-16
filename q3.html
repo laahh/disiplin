@@ -5294,6 +5294,9 @@
   .sm-panel .rk-tip.on{ opacity:1; transform:none; }
   .sm-panel .rk-tip b{ display:block; font:800 13px/1.25 'Plus Jakarta Sans',sans-serif; margin-bottom:3px; }
   .sm-panel .rk-tip span{ display:block; font-size:12.5px; line-height:1.35; color:#D5DBE1; }
+  /* Cross-Division: need-support note under each programme */
+  #slideCross .cd-row p .ns{ display:block; margin-top:2px; font:500 .74em/1.3 'Source Sans 3',sans-serif; color:#5B646D; letter-spacing:0; }
+  #slideCross .cd-row p .ns b{ font-weight:700; color:var(--cd); }
 </style>
 </head>
 <body>
@@ -11216,7 +11219,8 @@
     const head = (P)=> '<header class="cd-band cd-band2"><span class="cd-no">' + (NUM[P.title] || '') + '</span><div class="cd-tt"><b>' + P.title + '</b><span class="cd-sub">' + P.sub + '</span></div></header>'
       + '<span class="cd-pill"><i>' + svg(P.ic) + '</i><span><small>Program Q4 2026</small><b>' + count(P) + ' inisiatif</b></span></span>';
     const colh = '<div class="cd-colh"><i></i><span>Initiative / Program</span><span>'+svg('user')+'Responsible Division</span><span>'+svg('cal')+'Target</span></div>';
-    const row = ([ic, t, div, tg])=> '<div class="cd-row"><span class="ic">'+svg(ic)+'</span><p>'+t+'</p><span class="div">'+div+'</span>'
+    const NS = {'Digitalisasi &amp; Integrasi Data OHS Scorecard': 'Penyediaan akses dan integrasi database, kesepakatan standardisasi KPI, serta dukungan pengembangan sistem.', 'Perkuatan Pengelolaan Tools termasuk Inventarisasi &amp; Inspeksi Tools': 'Inventarisasi tools, penetapan standar kelayakan, pelaksanaan inspeksi berkala, serta tindak lanjut tools tidak layak.', 'Implementasi BIMTEK dan peningkatan kapabilitas pengawasan RIC': 'Penentuan sasaran BIMTEK, pelaksanaan pelatihan, evaluasi kompetensi, dan verifikasi penerapan hasil pelatihan di lapangan.', 'Kontrol aktivitas pekerja di Luar Kabin melalui intervensi BeSigma': 'Kesiapan sistem BeSigma, ketentuan PIC intervensi operasional, serta komitmen pengawas terhadap intervensi.', 'Antisipasi geoteknikal hazard dengan peningkatan utilisasi BeSigma &amp; integrasi dengan Working Permit': 'Identifikasi area berisiko geoteknik, penetapan trigger deteksi, integrasi dengan Working Permit, serta penguatan verifikasi kontrol sebelum pekerjaan.', 'Percepatan Pemenuhan Prioritas Rekayasa Engineering': 'Identifikasi prioritas dan anggaran, dukungan engineering/procurement, serta komitmen pemenuhan untuk eksekusi.', 'Perbaikan mirroring &amp; connectivity kondisi CCTV terutama pada area kritis': 'Dukungan infrastruktur jaringan, penyediaan perangkat/bandwidth, akses teknis lapangan, dan kesepakatan prioritas CCTV area kritis.'};
+    const row = ([ic, t, div, tg])=> '<div class="cd-row"><span class="ic">'+svg(ic)+'</span><p>'+t+(NS[t] ? '<small class="ns"><b>Need support:</b> '+NS[t]+'</small>' : '')+'</p><span class="div">'+div+'</span>'
       + '<span class="tg">'+tg.map(x=> '<i>'+svg('cal')+x+'</i>').join('')+'</span></div>';
     const S = CROSSDIV, fill = (id, h)=>{ const el = document.getElementById(id); if(el) el.innerHTML = h; };
     fill('cdStab', head(S.stab) + '<div class="cd-body">' + colh + S.stab.groups.map(([g, ic, rows])=> '<div class="cd-grp" style="flex-grow:'+rows.length+'"><span class="cd-gl">'+svg(ic)+'<b>'+g+'</b></span><div class="cd-rows">'+rows.map(row).join('')+'</div></div>').join('') + '</div>');
