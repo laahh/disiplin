@@ -3790,11 +3790,11 @@
   @media (prefers-reduced-motion: reduce){ .ex-phase *, .ex-phase::after, .ov-li, .ov-li *{ animation:none !important; } }
 
   /* ---- Site map slide: deck header + 2.5D map card + detail panel ---- */
-  #slideMap, #slideMine{ padding:2.4vh 72px 2.6vh 64px; --sm-ok:#16812F; --sm-warn:#D98A00; --sm-crit:#D6243A; --sm-line:rgba(20,26,34,.1); }
-  #slideMap .slide-inner, #slideMine .slide-inner{ display:flex; flex-direction:column; gap:1.2vh; height:100%; min-height:0; font-family:'Source Sans 3',sans-serif; color:var(--cv-ink); }
-  #slideMap .sp-title, #slideMine .sp-title{ font-size:clamp(1.6rem,5.2vh,3.1rem); margin:.4vh 0 .6vh; }
-  #slideMap .sp-title em, #slideMine .sp-title em{ font-family:inherit; font-style:normal; color:var(--cv-green); }
-  #slideMap .sp-desc, #slideMine .sp-desc{ padding-left:14px; border-left:3px solid var(--cv-lime); font-size:clamp(.7rem,1.7vh,.96rem); }
+  :is(#slideMap,#slideMap2), #slideMine{ padding:2.4vh 72px 2.6vh 64px; --sm-ok:#16812F; --sm-warn:#D98A00; --sm-crit:#D6243A; --sm-line:rgba(20,26,34,.1); }
+  :is(#slideMap,#slideMap2) .slide-inner, #slideMine .slide-inner{ display:flex; flex-direction:column; gap:1.2vh; height:100%; min-height:0; font-family:'Source Sans 3',sans-serif; color:var(--cv-ink); }
+  :is(#slideMap,#slideMap2) .sp-title, #slideMine .sp-title{ font-size:clamp(1.6rem,5.2vh,3.1rem); margin:.4vh 0 .6vh; }
+  :is(#slideMap,#slideMap2) .sp-title em, #slideMine .sp-title em{ font-family:inherit; font-style:normal; color:var(--cv-green); }
+  :is(#slideMap,#slideMap2) .sp-desc, #slideMine .sp-desc{ padding-left:14px; border-left:3px solid var(--cv-lime); font-size:clamp(.7rem,1.7vh,.96rem); }
   .sm-grid{ flex:1; min-height:0; display:grid; align-items:start; grid-template-columns:minmax(0,1fr) clamp(300px,24vw,400px); gap:16px; }
   .sm-left{ min-width:0; min-height:0; display:flex; flex-direction:column; gap:10px; }
   .sm-tools{ flex:none; display:flex; flex-wrap:wrap; align-items:center; gap:8px; }
@@ -4043,14 +4043,14 @@
 
   /* site maps: tidy panel (thin scrollbar, compact rows when the list is long) */
   .sm-panel{ scrollbar-width:thin; scrollbar-color:rgba(20,26,34,.18) transparent; }
-  #slideMine .sm-panel .item, #slideMap .sm-panel .item{ padding:clamp(5px,.85vh,9px) 18px; }
-  #slideMine .sm-panel .item .stg, #slideMap .sm-panel .item .stg{ margin-top:3px; }
-  #slideMine .sm-panel .ph, #slideMap .sm-panel .ph{ padding:14px 18px 10px; }
-  #slideMine .sm-legend, #slideMap .sm-legend{ margin-left:auto; }
+  #slideMine .sm-panel .item, :is(#slideMap,#slideMap2) .sm-panel .item{ padding:clamp(5px,.85vh,9px) 18px; }
+  #slideMine .sm-panel .item .stg, :is(#slideMap,#slideMap2) .sm-panel .item .stg{ margin-top:3px; }
+  #slideMine .sm-panel .ph, :is(#slideMap,#slideMap2) .sm-panel .ph{ padding:14px 18px 10px; }
+  #slideMine .sm-legend, :is(#slideMap,#slideMap2) .sm-legend{ margin-left:auto; }
   .tm-fx .sm-link{ stroke-width:2.4; stroke-linecap:round; }
 
   /* map 2 toolbar: category menu + view buttons */
-  #slideMine .sm-tools, #slideMap .sm-tools{ flex-wrap:nowrap; justify-content:space-between; }
+  #slideMine .sm-tools, :is(#slideMap,#slideMap2) .sm-tools{ flex-wrap:nowrap; justify-content:space-between; }
   .sm-cats{ display:flex; flex-wrap:wrap; gap:6px; padding:4px; border-radius:999px; background:rgba(255,255,255,.75); border:1px solid rgba(20,26,34,.08); box-shadow:0 2px 10px rgba(20,26,34,.06); }
   .sm-cat{ display:inline-flex; align-items:center; gap:8px; padding:8px 16px; border:0; border-radius:999px; background:transparent; color:var(--cv-ink); font:700 13.5px/1 'Plus Jakarta Sans',sans-serif; cursor:pointer; transition:background .2s, color .2s; }
   .sm-cat i{ font-style:normal; display:grid; place-items:center; min-width:20px; height:20px; padding:0 5px; border-radius:999px; background:rgba(31,154,58,.12); color:var(--cv-green-d); font-size:11px; }
@@ -4058,7 +4058,7 @@
   .sm-cat.is-on{ background:linear-gradient(115deg,var(--cv-green-d),var(--cv-green)); color:#fff; box-shadow:0 4px 12px rgba(31,154,58,.3); }
   .sm-cat.is-on i{ background:rgba(255,255,255,.25); color:#fff; }
   .sm-tools-r{ display:flex; gap:8px; flex:none; }
-  #slideMine .sm-tools-r .sm-btn, #slideMap .sm-tools-r .sm-btn{ padding:8px 13px; font-size:12.5px; }
+  #slideMine .sm-tools-r .sm-btn, :is(#slideMap,#slideMap2) .sm-tools-r .sm-btn{ padding:8px 13px; font-size:12.5px; }
   /* filtered out: hotspot gone, label and its effects fade away */
   .sm-hs.off{ display:none; }
   .sm-pin.off{ opacity:0 !important; pointer-events:none !important; }
@@ -4909,9 +4909,9 @@
   .sm-panel .list details.grp .item.tk:hover{ background:none; }
   .sm-panel .item.tk .t{ display:flex; align-items:baseline; gap:8px; font-weight:700; font-size:13.5px; line-height:1.3; }
   .sm-panel .item.tk .site{ flex:none; font-style:normal; font:800 11px/1.6 'Plus Jakarta Sans',sans-serif; color:#16418F; background:#EAF1FB; border-radius:5px; padding:0 6px; letter-spacing:.02em; }
-  #slideMap .sm-cats{ flex-wrap:nowrap; gap:2px; } #slideMap .sm-cat{ padding:7px 10px; font-size:12.5px; gap:6px; white-space:nowrap; }
-  #slideMap .sm-cat i{ min-width:18px; height:18px; font-size:10.5px; }
-  #slideMap .sm-tools-r{ gap:6px; } #slideMap .sm-tools-r .sm-btn{ padding:7px 11px; font-size:12px; white-space:nowrap; }
+  :is(#slideMap,#slideMap2) .sm-cats{ flex-wrap:nowrap; gap:2px; } :is(#slideMap,#slideMap2) .sm-cat{ padding:7px 10px; font-size:12.5px; gap:6px; white-space:nowrap; }
+  :is(#slideMap,#slideMap2) .sm-cat i{ min-width:18px; height:18px; font-size:10.5px; }
+  :is(#slideMap,#slideMap2) .sm-tools-r{ gap:6px; } :is(#slideMap,#slideMap2) .sm-tools-r .sm-btn{ padding:7px 11px; font-size:12px; white-space:nowrap; }
 
   /* Mining Eyes detail: Critical Control column + infographic */
   .sm-det .mea2{ position:absolute; inset:0; display:grid; grid-template-columns:minmax(0,.47fr) minmax(0,1fr); gap:14px; }
@@ -5012,7 +5012,7 @@
   .ov2-plat .plc{ stroke:#FFF8D6 !important; stroke-width:1.6 !important; stroke-dasharray:28 260 !important; opacity:.9; filter:none !important; animation:plShine 3.2s linear infinite !important; }
   .ov2-pl-lab{ text-shadow:0 0 2px #fff, 0 0 2px #fff !important; }
   /* Framework Automation: stream list on the left, map on the right */
-  #slideMap .sm-grid .sm-left{ order:2; } #slideMap .sm-grid .sm-panel{ order:1; }
+  :is(#slideMap,#slideMap2) .sm-grid .sm-left{ order:2; } :is(#slideMap,#slideMap2) .sm-grid .sm-panel{ order:1; }
 
   /* sub-groups inside a group (Engineering Control: Stream Key / Safety Additional) */
   .sm-panel details.sgrp{ border-top:1px solid #EEF1F4; }
@@ -5040,7 +5040,7 @@
   .sm-panel .rk-list{ display:flex; flex-direction:column; gap:8px; min-width:0; }
   .sm-panel .rk-sep{ height:1px; margin:6px 0 2px; background:#C9D1DA; }
   .sm-panel .rk-bars{ align-items:start !important; } .sm-panel .rk-bars i{ transition:height .3s ease; }
-  #smFx .tm-mesh[data-t="mir"], #smFx .tm-pins[data-t="mir"]{ display:none; }  /* MIR now marks the loading unit on the lower bench */
+  :is(#smFx,#sm2Fx) .tm-mesh[data-t="mir"], :is(#smFx,#sm2Fx) .tm-pins[data-t="mir"]{ display:none; }  /* MIR now marks the loading unit on the lower bench */
 
   /* Risk / Stage column (High Risk to Low Risk + Stage 1-3 connectors) */
   .sm-panel .rk-wrap{ grid-template-columns:88px minmax(0,1fr) !important; gap:10px !important; }
@@ -5055,8 +5055,8 @@
   .sm-panel .rk-svg .rk-fr{ stroke:rgba(255,255,255,.45); stroke-dasharray:2 14; animation-duration:1.6s; }
   @keyframes rkFlow{ to{ stroke-dashoffset:-16; } }
   @media (prefers-reduced-motion: reduce){ .sm-panel .rk-svg .rk-flow{ animation:none; } }
-  #smPanel .ph{ padding-bottom:8px !important; }
-  #smPanel .list{ padding-top:6px !important; }
+  :is(#smPanel,#sm2Panel) .ph{ padding-bottom:8px !important; }
+  :is(#smPanel,#sm2Panel) .list{ padding-top:6px !important; }
   .sm-panel .rk-list{ padding-top:18px !important; }
   /* sharp text on the comparison copy: 3D layers only while the pointer is tilting a card */
   #slideStable2 .ov2-left, #slideStable2 .ov2-right{ perspective:none !important; }
@@ -5091,7 +5091,7 @@
   <div class="rail-letters" id="railLetters">
     <button type="button" data-jump="0">H</button>
     <button type="button" data-jump="2">S</button>
-    <button type="button" data-jump="5">C</button>
+    <button type="button" data-jump="6">C</button>
     <!-- <button type="button" data-jump="4">C</button> -->
     <button type="button" data-jump="4">M</button>
   </div>
@@ -5626,6 +5626,47 @@
           </div>
         </div>
         <aside class="sm-panel" id="smPanel" aria-live="polite"></aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="slide" id="slideMap2" data-steps="1" data-section="B · Site Map">
+    <div class="slide-inner">
+      <div class="sp-head">
+        <p class="kicker mono fade" data-step="1" id="sm2Kicker">OHS Division · Framework Automation</p>
+        <h2 class="sp-title fade" data-step="1" id="sm2Title">Framework <em>Automation</em></h2>
+        <p class="sp-desc fade" data-step="1" id="sm2Desc">Teknologi keselamatan di seluruh site, dari <b>pit</b> dan <b>hauling road</b> hingga <b>stockpile</b>: klik label untuk melihat <b>bahaya yang dikendalikan</b>, <b>progress</b>, dan <b>next step</b> tiap teknologi · scroll untuk zoom · seret untuk geser · Esc untuk kembali.</p>
+      </div>
+      <div class="sm-grid fade" data-step="1" id="sm2Grid">
+        <div class="sm-left">
+          <div class="sm-tools">
+            <div class="sm-cats" id="sm2Cats" role="group" aria-label="Kategori teknologi"></div>
+            <span class="sm-tools-r">
+              <button class="sm-btn" id="sm2BtnLabels" aria-pressed="true" type="button">Label area</button>
+              <!-- <button class="sm-btn" id="sm2BtnTilt" aria-pressed="false" type="button">Efek 3D</button> -->
+              <button class="sm-btn" id="sm2BtnReset" type="button">Lihat seluruh site</button>
+            </span>
+          </div>
+          <div class="sm-vp labels tm-vp" id="sm2Vp" aria-label="Peta site tambang. Klik teknologi untuk melihat detail.">
+            <div class="sm-tilt" id="sm2TiltEl">
+              <div class="sm-cam" id="sm2Cam">
+                <img src="mom/maps.jpeg" alt="Site tambang: open pit berjenjang, hauling road, area dewatering, kantor dan tower, serta CPP" draggable="false">
+                <svg viewBox="0 0 1600 900" preserveAspectRatio="none">
+                  <g class="tm-fx" id="sm2Fx"></g>
+                  <path class="sm-shade" id="sm2Shade" fill-rule="evenodd" d=""></path>
+                  <g id="sm2Polys"></g>
+                </svg>
+                <div id="sm2Pins"></div>
+              </div>
+            </div>
+            <div class="sm-hud" id="sm2Hud">ZOOM 1.0×</div>
+            <div class="sm-zoom">
+              <button type="button" id="sm2Zin" aria-label="Perbesar">+</button>
+              <button type="button" id="sm2Zout" aria-label="Perkecil">−</button>
+            </div>
+          </div>
+        </div>
+        <aside class="sm-panel" id="sm2Panel" aria-live="polite"></aside>
       </div>
     </div>
   </section>
@@ -6985,7 +7026,7 @@
       killSlide(index);
       const tl = gsap.timeline({ defaults:{ duration:0.5, ease:'power3.out' } });
       tls.set(index, tl);
-      const fns = [opening, opening2, stable, stable2, /* rtslide, auslide (hidden), */ sitemap, /* minemap, opstab, transform (hidden), */ crossdiv, /* safety, engineering, health, hjourney, nextdo, berbagi (hidden), */ thanks];
+      const fns = [opening, opening2, stable, stable2, /* rtslide, auslide (hidden), */ sitemap, sitemap2, /* minemap, opstab, transform (hidden), */ crossdiv, /* safety, engineering, health, hjourney, nextdo, berbagi (hidden), */ thanks];
       if(fns[index]) fns[index](tl, n, prev);
     }
     // How Stable Are We?: header, MoM items, then safety tiles and rings, health tiles, KPI cards
@@ -7089,7 +7130,7 @@
         tl.call(()=> m.refit(), null, 0.05);
       };
     }
-    const sitemap = mapIn('sm', ()=> siteMap), minemap = mapIn('tm', ()=> mineMap);
+    const sitemap = mapIn('sm', ()=> siteMap), sitemap2 = mapIn('sm2', ()=> siteMap2), minemap = mapIn('tm', ()=> mineMap);
     // Operational Stability: header, the Major Case bowtie, the two Journey cards, then the Golden Rules table
     function opstab(tl, n, prev){
       const q = (sel)=> document.querySelectorAll('#slideOpStab '+sel);
@@ -9411,7 +9452,7 @@
       else if(e.key==='r' || e.key==='R') goTo(0);
       else if(e.key==='u' || e.key==='U'){ replaySlide(current); applyFades(slides[current],0); setStep(1,{prev:0}); }
       else if(/^[a-eA-E]$/.test(e.key)){
-        const map={ a:0, b:2, c:5, d:5, e:4 }; goTo(map[e.key.toLowerCase()]);
+        const map={ a:0, b:2, c:6, d:6, e:4 }; goTo(map[e.key.toLowerCase()]);
       }
     });
     function openGuide(){ guide.classList.add('open'); }
@@ -11166,8 +11207,9 @@
       const gap = w.querySelector('.rk-list').getBoundingClientRect().left / k - C.right / k;
       const BW = 17, top = 0, X = { risk:2, s3:26, s2:47, s1:68 };
       const vt = (x, y, t, anchor)=> '<text x="' + x + '" y="' + y + '" transform="rotate(-90 ' + x + ' ' + y + ')" text-anchor="' + anchor + '" dominant-baseline="central">' + t + '</text>';
-      let h = '<defs><linearGradient id="rkG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E5222D"/><stop offset=".5" stop-color="#B8662A"/><stop offset="1" stop-color="#22B04A"/></linearGradient></defs>';
-      h += '<path class="rk-risk" d="M' + X.risk + ' ' + top + 'h' + BW + 'V' + (bottom - 10) + 'l' + (-BW / 2) + ' 10l' + (-BW / 2) + ' -10Z" fill="url(#rkG)"/>' + vt(X.risk + BW / 2, (top + bottom) / 2, 'High Risk to Low Risk', 'middle');
+      const gid = svg._g || (svg._g = 'rkG' + (rkFit._n = (rkFit._n || 0) + 1));
+      let h = '<defs><linearGradient id="' + gid + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E5222D"/><stop offset=".5" stop-color="#B8662A"/><stop offset="1" stop-color="#22B04A"/></linearGradient></defs>';
+      h += '<path class="rk-risk" d="M' + X.risk + ' ' + top + 'h' + BW + 'V' + (bottom - 10) + 'l' + (-BW / 2) + ' 10l' + (-BW / 2) + ' -10Z" fill="url(#' + gid + ')"/>' + vt(X.risk + BW / 2, (top + bottom) / 2, 'High Risk to Low Risk', 'middle');
       [['s3', 2, '#0B4F1C', 'Stage 3'], ['s2', 1, '#0F6B27', 'Stage 2'], ['s1', 0, '#1A8A36', 'Stage 1']].forEach(([key, gi, col2, lab])=>{
         const g = gs[Math.min(gi, gs.length - 1)], y = midOf(g), x = X[key], end = W + gap - 2;
         h += '<path class="rk-st" d="M' + x + ' ' + top + 'h' + BW + 'V' + (y - BW / 2) + 'H' + (end - 10) + 'v-5l10 ' + (5 + BW / 2) + 'l-10 ' + (5 + BW / 2) + 'v-5H' + x + 'Z" fill="' + col2 + '"/>'
@@ -11636,6 +11678,53 @@
     const ord = (a)=> a.listOnly ? 100 + +a.id.slice(2) : ORDER.indexOf(a.id);
     AREAS.sort((x, y)=> ord(x) - ord(y));
     return makeSiteMap({ swap:true, pre:'sm', slide:'slideMap', w:1672, h:941, areas:AREAS, tilt:false, cats:CATS, fx:'<g class="tm-wifi" data-t="pump" transform="translate(860 378) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-net"><path d="M420 58 C 480 70, 560 95, 620 112"/><path d="M620 112 C 560 200, 460 280, 385 340"/><path d="M620 112 C 900 140, 1250 200, 1500 305"/><path d="M385 340 C 420 420, 440 480, 460 525"/><path d="M460 525 C 580 560, 690 590, 780 612"/><path d="M780 612 C 900 560, 1040 500, 1160 455"/></g><g class="tm-rings" data-t="haul"><ellipse cx="287" cy="428" rx="40" ry="11"/><ellipse cx="415" cy="438" rx="38" ry="11"/><ellipse cx="965" cy="310" rx="30" ry="9"/><ellipse cx="60" cy="398" rx="36" ry="10"/><ellipse cx="1205" cy="640" rx="36" ry="10"/></g><ellipse class="tm-bubble" data-t="arcas" cx="780" cy="616" rx="62" ry="40"/><g class="tm-radar" data-t="arcas"><path d="M850 600 a18 18 0 0 1 0 28"/><path d="M862 591 a32 32 0 0 1 0 46"/><path d="M874 582 a46 46 0 0 1 0 64"/></g><g class="tm-cv" data-t="eyes"><rect x="478" y="336" width="62" height="40" rx="4"/><rect x="250" y="398" width="70" height="40" rx="4"/><rect x="380" y="410" width="70" height="40" rx="4"/></g><g class="tm-signal" data-t="eyes"><path d="M398 40 a26 26 0 0 0 0 36"/><path d="M386 30 a42 42 0 0 0 0 56"/><path d="M442 40 a26 26 0 0 1 0 36"/><path d="M454 30 a42 42 0 0 1 0 56"/></g><g class="tm-grid" data-t="mg" transform="translate(-205 -128)"><path d="M300 364 L440 364 L462 388 L280 388 Z"/><path d="M325 364 L310 388 M355 364 L345 388 M385 364 L380 388 M415 364 L417 388 M290 376 L452 376"/></g><g class="tm-holo" data-t="mg" transform="translate(-250 -100)"><rect x="430" y="262" width="96" height="64" rx="6"/><circle cx="458" cy="294" r="11"/><path d="M458 280 v28 M444 294 h28 M484 316 l17 -32 l17 32 z"/></g><path class="tm-mesh" data-t="mir" d="M1250 340 C 1330 305, 1420 296, 1500 296 S 1610 300, 1668 318"/><g class="tm-pins" data-t="mir"><g transform="translate(1290 294)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1360 277)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1430 270)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1560 270)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1630 278)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g></g><g class="tm-wifi" data-t="rover" transform="translate(1160 418) scale(0.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="arcas" transform="translate(780 568) scale(0.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="haul" transform="translate(415 398) scale(0.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="haul" transform="translate(287 388) scale(0.7)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-chev" data-t="haul"><path d="M560 545 l16 -10 l16 10" transform="rotate(75 576 540)"/><path d="M585 552 l16 -10 l16 10" transform="rotate(75 601 547)"/></g>',
+      listHtml:(A, c)=> smListHtml(A, 'ARCAS, Machine Guidance, MIR dan Remote Dozer mengikuti slide <b>Safety Automation</b>; Mining Eyes, OBDS, Hauling Automation dan Remote Pump berupa ringkasan.', c) });
+  })();
+  const siteMap2 = (function(){
+    const { AP, NX, EXTRA, T, IC, CAT, CATS } = smTech;
+    const AREAS = [
+      T('obds', EXTRA.obds, 'Kantor &amp; control room · crest pit', IC.obds, [300,40], [547,112], [[480,80],[640,80],[640,140],[480,140]], 'Integrasi lintas proyek'),
+      T('eyes', EXTRA.eyes, 'Tower CCTV &amp; komunikasi', IC.eyes, [860,40], [633,75], [[610,30],[660,30],[660,130],[610,130]], 'Analytic &amp; expand ke area prioritas'),
+      T('mg', AP[1], 'Open Pit · front loading', IC.mg, [700,445], [813,530], [[770,500],[860,500],[860,560],[770,560]], NX(1)),
+      T('mir', AP[2], 'Disposal', IC.mir, [1070,445], [940,530], [[900,500],[985,500],[985,560],[900,560]], NX(2)),
+      T('arcas', AP[0], 'Hauling road · CPP', IC.arcas, [230,610], [460,655], [[415,620],[505,620],[505,690],[415,690]], NX(0)),
+      T('rover', AP[3], 'Disposal high-risk · remote station', IC.rover, [1250,740], [1060,805], [[1010,775],[1110,775],[1110,840],[1010,840]], NX(3)),
+      T('haul', EXTRA.haul, 'Hauling road · junction', IC.haul, [230,330], [367,493], [[150,300],[260,300],[330,420],[420,560],[560,760],[700,900],[560,900],[420,760],[300,600],[220,470],[150,380]], 'Integrasi ARCAS &amp; DMS di hauling', true),
+      T('pump', { name:'Remote Pump', sub:'Pompa dewatering dioperasikan jarak jauh', stage:'Operasi &amp; monitoring jarak jauh',
+        hazard:['Pekerja di atas ponton / tepi sump (risiko tenggelam &amp; terpeleset)','Start/stop dan pengecekan pompa manual di area pit berair'],
+        prog:['Pompa ponton di sump pit dikendalikan dari jarak jauh','Status pompa, level air, dan alarm dipantau dari control room','Mengurangi kebutuhan pekerja naik ke ponton untuk operasi rutin'],
+        rnd:['Otomasi start/stop berbasis level air sump','Integrasi alarm pompa ke dashboard OBDS'] },
+        'Sump pit · ponton pompa', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h11v6H4zm11 2h3V7h3v8h-3v-2h-3zM2 18c2 0 2-1.5 4-1.5S8 18 10 18s2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5v2c-2 0-2 1.5-4 1.5s-2-1.5-4-1.5-2 1.5-4 1.5-2-1.5-4-1.5-2 1.5-4 1.5zM7 4h5v4H7z"/></svg>', [1240,640], [1073,730], [[1035,705],[1110,705],[1110,760],[1035,760]], 'Otomasi berbasis level air sump')
+    ];
+    AREAS.push(T('ccv', { name:'CCV', sub:'Critical Risk Barrier · CCV &amp; IPLS Layer 5 · Mining Eyes Analytic', stage:'Q3 2026 · Pendetailan CPP', hazard:[], prog:[], rnd:[] },
+      'Crossing &amp; gate hauling', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V9h2v4z"/></svg>', [120,622], [298,520], [[230,500],[340,500],[340,560],[230,560]], ''));
+    AREAS[3].name = 'MIR';
+    AREAS.forEach(a=> a.cats = a.listOnly ? ['eng'] : CAT[a.id] || (a.id === 'ccv' ? ['cc'] : ['eng']));
+    // #5 Teknologi Inisiatif: site | initiative, shown in the list only
+    const TECH = [
+      ['LMO', 'Face Recognition (SIMPER Detection System)'],
+      ['SMO', 'Buzzer Alarm DMS'],
+      ['BMO 1', 'RFID Keyless'],
+      ['BMO 1', 'LOTO Box Indicator Lamp'],
+      ['BMO 2', 'Machine Guidance'],
+      ['BMO 2', 'Motion Intelligence Rover (MIR)'],
+      ['GMO', 'Lamp Signal, Running Text &amp; TOA Voice Integration'],
+      ['BMO 3', 'Smart Key Warning Alarm System'],
+      ['BMO 3', 'Proximity Warning System'],
+      ['MARINE', 'Navigation Safety Technology'],
+      ['TRANSPORT', '360 Camera for Transportation Unit'],
+      ['TRANSPORT', 'DMS Geofence Improvement'],
+      ['TRANSPORT', 'DMS Light Vehicle Monitoring System'],
+      ['EXPLORATION', 'Remote Lamp Control']
+    ];
+    TECH.forEach(([site, name], k)=> AREAS.push({ id:'tk' + k, name, site, P:{ name, sub:site, stage:site, hazard:[], prog:[], rnd:[] }, loc:site,
+      st:'tech', cats:['eng'], sub:'add', listOnly:true, offMap:true, pin:[0, 0], poly:[[0,0],[1,0],[1,1],[0,1]] }));
+    AREAS.forEach(a=>{ if(a.id === 'obds' || a.id === 'ccv') a.offMap = true; });
+    AREAS.forEach(a=>{ if(a.id === 'rover') a.rich = 'rover'; if(a.id === 'haul' || a.id === 'arcas' || a.id === 'pump') a.rich = 'mir'; if(a.id === 'ccv') a.rich = true; if(a.id === 'eyes') a.rich = 'mir'; if(a.id === 'mir' || a.id === 'mg') a.rich = 'mir'; if(a.id === 'obds') a.rich = 'img'; });
+    const ORDER = ['ccv','eyes','mg','mir','arcas','rover','pump','haul','obds'];
+    const ord = (a)=> a.listOnly ? 100 + +a.id.slice(2) : ORDER.indexOf(a.id);
+    AREAS.sort((x, y)=> ord(x) - ord(y));
+    return makeSiteMap({ swap:true, pre:'sm2', slide:'slideMap2', w:1600, h:900, areas:AREAS, tilt:false, cats:CATS, fx:'<g class="tm-rings" data-t="haul"><ellipse cx="367" cy="500" rx="30" ry="9"/><ellipse cx="280" cy="365" rx="28" ry="8"/><ellipse cx="710" cy="805" rx="30" ry="9"/></g><ellipse class="tm-bubble" data-t="arcas" cx="460" cy="660" rx="52" ry="34"/><g class="tm-grid" data-t="mg"><path d="M760 545 L870 545 L888 565 L742 565 Z"/><path d="M780 545 L768 565 M805 545 L798 565 M830 545 L828 565 M855 545 L858 565 M752 555 L880 555"/></g><g class="tm-signal" data-t="eyes"><path d="M612 55 a22 22 0 0 0 0 30"/><path d="M602 47 a36 36 0 0 0 0 46"/><path d="M654 55 a22 22 0 0 1 0 30"/><path d="M664 47 a36 36 0 0 1 0 46"/></g><g class="tm-wifi" data-t="pump" transform="translate(1073 692) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="rover" transform="translate(1060 768) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="mir" transform="translate(940 496) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g>',
       listHtml:(A, c)=> smListHtml(A, 'ARCAS, Machine Guidance, MIR dan Remote Dozer mengikuti slide <b>Safety Automation</b>; Mining Eyes, OBDS, Hauling Automation dan Remote Pump berupa ringkasan.', c) });
   })();
   // map 2: hauling & operations picture with the technology labels floating over it
