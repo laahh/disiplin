@@ -4711,13 +4711,20 @@
   .mx-side .nx b{ font:800 15px/1.25 'Plus Jakarta Sans',sans-serif; color:#0F2D6B; }
   .sm-det .mx-full.mx-img{ grid-template-columns:minmax(0,1.85fr) minmax(0,1fr) !important; }
   .sm-det .mx-img img{ width:100% !important; height:100% !important; aspect-ratio:auto !important; object-fit:contain !important; object-position:center; }
-  /* Mining Eyes detail: two views (picture / CCV dashboard) */
-  .sm-det .mea-tabs{ position:absolute; z-index:3; right:0; top:-46px; display:flex; gap:4px; padding:4px; border-radius:999px; background:#EEF3F8; border:1px solid #DCE3EA; }
-  .sm-det .mea-tabs button{ padding:7px 16px; border:0; border-radius:999px; background:transparent; color:#16418F; font:700 13px/1 'Plus Jakarta Sans',sans-serif; cursor:pointer; }
-  .sm-det .mea-tabs button.on{ background:linear-gradient(115deg,#0F2D6B,#1E4FA8); color:#fff; box-shadow:0 4px 10px rgba(15,45,107,.25); }
-  .sm-det .mea-ccv{ position:absolute; inset:0; overflow:hidden; }
-  .sm-det .mea-ccv[hidden], .sm-det .smc-rich .mx-full[hidden]{ display:none !important; }
-  .sm-det .smc-rich{ overflow:visible !important; }
+  /* Mining Eyes detail: two views (picture / CCV dashboard) */
+
+  .sm-det .mea-tabs{ position:absolute; z-index:3; right:0; top:-46px; display:flex; gap:4px; padding:4px; border-radius:999px; background:#EEF3F8; border:1px solid #DCE3EA; }
+
+  .sm-det .mea-tabs button{ padding:7px 16px; border:0; border-radius:999px; background:transparent; color:#16418F; font:700 13px/1 'Plus Jakarta Sans',sans-serif; cursor:pointer; }
+
+  .sm-det .mea-tabs button.on{ background:linear-gradient(115deg,#0F2D6B,#1E4FA8); color:#fff; box-shadow:0 4px 10px rgba(15,45,107,.25); }
+
+  .sm-det .mea-ccv{ position:absolute; inset:0; overflow:hidden; }
+
+  .sm-det .mea-ccv[hidden], .sm-det .smc-rich .mx-full[hidden]{ display:none !important; }
+
+  .sm-det .smc-rich{ overflow:visible !important; }
+
   .sm-det .mea-tabs{ top:auto !important; right:auto !important; bottom:-54px; left:120px; transform:none; }
   .sm-det .mx-full.mx-haul{ grid-template-columns:minmax(0,1fr) 340px !important; }
   .sm-det .mx-haul img{ width:100% !important; height:100% !important; object-fit:contain !important; aspect-ratio:auto !important; }
@@ -5067,7 +5074,7 @@
   /* closing slide: full-bleed Thank You picture */
   #slideThanks{ padding:0 !important; overflow:hidden; background:#fff; }
   #slideThanks .ty-bg{ position:absolute; inset:0; background:url('mom/cover2.jpeg') center / cover no-repeat; transform-origin:60% 50%; }
-  #slideOpening2 .op-bg{ background-image:url('mom/cover2-clean.jpg') !important; background-position:center !important; }
+  #slideOpening2 .op-bg{ background-image:url('mom/cover2.jpeg') !important; background-position:center !important; }
 </style>
 </head>
 <body>
@@ -5595,7 +5602,7 @@
             <div class="sm-cats" id="smCats" role="group" aria-label="Kategori teknologi"></div>
             <span class="sm-tools-r">
               <button class="sm-btn" id="smBtnLabels" aria-pressed="true" type="button">Label area</button>
-              <button class="sm-btn" id="smBtnTilt" aria-pressed="false" type="button">Efek 3D</button>
+              <!-- <button class="sm-btn" id="smBtnTilt" aria-pressed="false" type="button">Efek 3D</button> -->
               <button class="sm-btn" id="smBtnReset" type="button">Lihat seluruh site</button>
             </span>
           </div>
@@ -5636,7 +5643,7 @@
             <div class="sm-cats" id="tmCats" role="group" aria-label="Kategori teknologi"></div>
             <span class="sm-tools-r">
               <button class="sm-btn" id="tmBtnLabels" aria-pressed="true" type="button">Label area</button>
-              <button class="sm-btn" id="tmBtnTilt" aria-pressed="false" type="button">Efek 3D</button>
+              <!-- <button class="sm-btn" id="tmBtnTilt" aria-pressed="false" type="button">Efek 3D</button> -->
               <button class="sm-btn" id="tmBtnReset" type="button">Lihat seluruh site</button>
             </span>
           </div>
@@ -6187,14 +6194,7 @@
 <div id="mmZoom" role="dialog" aria-label="Gambar diperbesar"><img alt=""><p>Klik di mana saja atau tekan Esc untuk menutup</p></div>
 <!-- intro video removed: the deck opens directly on the first slide -->
 
-<div id="outro" role="dialog" aria-label="Video penutup" hidden>
-  <video class="in-video" src="Closing.mp4" muted loop playsinline preload="auto" aria-label="Video penutup HSECM"></video>
-  <div class="ou-ctl">
-    <button type="button" class="in-skip ou-replay">Putar ulang <kbd>R</kbd></button>
-    <button type="button" class="in-skip ou-back">Kembali ke slide <kbd>Esc</kbd></button>
-  </div>
-  <div class="in-progress" aria-hidden="true"><i></i></div>
-</div>
+<!-- closing video removed: the deck ends on the Thank You slide -->
 
 <div id="guide">
   <div class="guide-card">
@@ -9380,7 +9380,7 @@
       });
     }
     // past the last slide the closing video plays instead of wrapping back to the first slide
-    function forward(){ if(current===slides.length-1) outro.show(); else goTo(current+1); }
+    function forward(){ if(current < slides.length-1) goTo(current+1); }
     function nextStep(){ if(step<maxStep(current)) setStep(step+1,{prev:step}); else forward(); }
     function prevStep(){ if(step>1) setStep(step-1,{prev:step}); else goTo(current-1); }
     pitMotion.init();
@@ -11559,8 +11559,8 @@
       cancelAnimationFrame(raf);
       raf = requestAnimationFrame(()=>{ tilt.style.transform = inside ? 'rotateX(' + ((0.5-y)*7).toFixed(2) + 'deg) rotateY(' + ((x-0.5)*9).toFixed(2) + 'deg)' : 'rotateX(0) rotateY(0)'; });
     }
-    function setTilt(on){ tiltOn = on; $('BtnTilt').setAttribute('aria-pressed', on); tilt.style.transform = 'none'; }
-    $('BtnTilt').onclick = ()=> setTilt(!tiltOn);
+    function setTilt(on){ tiltOn = on; const bt = $('BtnTilt'); if(bt) bt.setAttribute('aria-pressed', on); tilt.style.transform = 'none'; }
+    if($('BtnTilt')) $('BtnTilt').onclick = ()=> setTilt(!tiltOn);
     $('BtnLabels').onclick = (e)=>{ const on = e.currentTarget.getAttribute('aria-pressed') !== 'true'; e.currentTarget.setAttribute('aria-pressed', on); vp.classList.toggle('labels', on); };
     setTilt(tiltOn); fit(); view = clamp(home()); apply(false); render();
     if(CATS.length) setCat('all');
