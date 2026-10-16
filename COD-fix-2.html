@@ -5117,6 +5117,62 @@
   #slideCross .cd-pill small{ display:block; font:600 clamp(.55rem,1.2vh,.72rem)/1 'Plus Jakarta Sans',sans-serif; color:var(--cd); }
   #slideCross .cd-pill b{ display:block; margin-top:2px; font:800 clamp(.7rem,1.7vh,.98rem)/1.1 'Plus Jakarta Sans',sans-serif; color:color-mix(in srgb,var(--cd) 80%,#000); }
   #slideCross .cd-body{ margin:1vh 12px 12px; padding:.8vh 10px 1vh !important; border-radius:14px; background:#fff; border:1px solid color-mix(in srgb,var(--c) 14%,#E3E8ED); box-shadow:0 6px 16px rgba(20,26,34,.05); }
+
+  /* OBDS detail: BeARC + Initial Performance Trigger cards */
+  .ob-card{ --oc:#1F9A3A; --os:#ECF8EE; position:relative; display:flex; flex-direction:column; gap:5px; padding:10px 14px 10px 18px; border-radius:12px; background:#fff; border:1px solid #E3E9EF; box-shadow:0 4px 12px rgba(20,26,34,.06); }
+  .ob-card::before{ content:''; position:absolute; left:0; top:0; bottom:0; width:6px; border-radius:12px 0 0 12px; background:var(--oc); }
+  .ob-card.init{ --oc:#13897A; --os:#E3F4F1; }
+  .ob-card .tag{ align-self:flex-start; padding:3px 14px; border-radius:7px; background:var(--oc); color:#fff; font:800 11px/1.3 'Plus Jakarta Sans',sans-serif; letter-spacing:.04em; }
+  .ob-card b{ font:800 16px/1.2 'Plus Jakarta Sans',sans-serif; color:color-mix(in srgb,var(--oc) 85%,#000); }
+  .ob-card em{ font-size:11.5px; line-height:1.3; color:#6B7580; padding-bottom:5px; border-bottom:1px solid #E3E8ED; }
+  .ob-card ul{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:2px; }
+  .ob-card li{ position:relative; padding-left:12px; font-size:13px; line-height:1.35; color:#2B3440; }
+  .ob-card li::before{ content:''; position:absolute; left:0; top:.55em; width:5px; height:5px; border-radius:50%; background:#2B3440; }
+  .ob-card .foot{ margin-top:2px; padding:5px 10px; border-radius:7px; background:var(--os); color:color-mix(in srgb,var(--oc) 85%,#000); text-align:center; font:800 12px/1.2 'Plus Jakarta Sans',sans-serif; }
+  .mx-side .ob-card{ gap:3px !important; padding:7px 12px 7px 16px !important; }
+  .mx-side .ob-card ul{ gap:0 !important; }
+  .mx-side .ob-card li{ font-size:12.5px !important; line-height:1.3 !important; padding-left:12px !important; }
+  .mx-side .ob-card li::before{ background:#2B3440 !important; width:5px !important; height:5px !important; top:.55em !important; }
+  .mx-side .ob-card em{ font-style:italic; font-family:'Source Sans 3',sans-serif; padding-bottom:3px; }
+  .mx-side .ob-card .tag{ padding:2px 12px; }
+  .mx-side .ob-card .foot{ padding:4px 10px; }
+  .mx-side:has(.ob-card){ gap:8px !important; }
+  .mx-side:has(.ob-card) > section:first-child ul{ gap:4px !important; } .mx-side:has(.ob-card) > section:first-child li{ font-size:13px !important; }
+
+  /* applicable policies box beside the capability strip */
+  .ov2-pol{ display:none; }
+  #slideStable2 .ov2-foot{ flex:1 1 auto; min-height:0; display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); gap:12px; align-items:stretch; margin-top:4px; }
+  #slideStable2 .ov2-foot .ov2-pol{ display:grid; grid-template-columns:minmax(0,1fr) 110px; border-radius:10px; background:#F1F3F5; border:1px solid #D5DBE1; overflow:hidden; }
+  #slideStable2 .ov2-pol .pl{ padding:7px 12px; }
+  #slideStable2 .ov2-pol .pl b{ display:block; font:700 12.5px/1.3 'Plus Jakarta Sans',sans-serif; color:#141A22; margin-bottom:2px; }
+  #slideStable2 .ov2-pol ul{ margin:0; padding:0 0 0 16px; } #slideStable2 .ov2-pol li{ font-size:12px; line-height:1.35; color:#2B3440; }
+  #slideStable2 .ov2-pol li strong{ font-weight:800; color:#141A22; }
+  #slideStable2 .ov2-pol .pn{ display:flex; flex-direction:column; justify-content:center; padding:8px 12px; border-left:1px solid #D5DBE1; background:#fff; }
+  #slideStable2 .ov2-pol .pn b{ font:800 26px/1 'Plus Jakarta Sans',sans-serif; color:#1F9A3A; }
+  #slideStable2 .ov2-pol .pn span{ margin-top:4px; font-size:12px; line-height:1.3; color:#2B3440; }
+  #slideStable2 .ov2-foot-r{ min-width:0; display:flex; flex-direction:column; justify-content:center; gap:8px; }
+  #slideStable2 .ov2-foot-r .ov2-next{ flex:none !important; min-height:0 !important; margin:0 !important; }
+  #slideStable2 .ov2-foot-r .ov2-next::before, #slideStable2 .ov2-foot-r .ov2-next::after{ display:none; }
+  #slideStable2 .ov2-foot-r .ov2-evo{ height:46px !important; margin:0 !important; grid-template-columns:96px minmax(0,1fr) 14px minmax(0,1fr) 14px minmax(0,1fr) !important; }
+  #slideStable2 .ov2-foot-r .ov2-evo .t{ font-size:11px !important; padding:0 8px !important; }
+  #slideStable2 .ov2-foot-r .ov2-evo .evs{ gap:5px !important; padding:0 4px !important; } #slideStable2 .ov2-foot-r .ov2-evo .evs b{ font-size:12px !important; } #slideStable2 .ov2-foot-r .ov2-evo .evs svg{ width:16px !important; height:16px !important; }
+  #slideStable2 .ov2-foot{ grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important; gap:10px !important; }
+  #slideStable2 .ov2-foot .ov2-pol{ grid-template-columns:minmax(0,1fr) 92px !important; }
+  #slideStable2 .ov2-pol .pl{ padding:5px 10px !important; } #slideStable2 .ov2-pol .pl b{ font-size:11.5px !important; margin-bottom:0 !important; }
+  #slideStable2 .ov2-pol li{ font-size:11px !important; line-height:1.28 !important; }
+  #slideStable2 .ov2-pol .pn{ padding:6px 10px !important; } #slideStable2 .ov2-pol .pn b{ font-size:22px !important; } #slideStable2 .ov2-pol .pn span{ font-size:11px !important; }
+  #slideStable2 .rd-out .ov2-note{ font-size:11.5px !important; line-height:1.3 !important; }
+  #slideStable2 .rd-out .ov-box{ padding:6px 12px !important; } #slideStable2 .rd-out .ov-box h5{ margin-bottom:3px !important; font-size:15px !important; }
+  #slideStable2 .ov2-foot-r .ov2-evo{ height:auto !important; min-height:40px; grid-template-columns:70px repeat(3,minmax(0,1fr)) !important; }
+  #slideStable2 .ov2-foot-r .ov2-evo .eva{ display:none !important; }
+  #slideStable2 .ov2-foot-r .ov2-evo .t{ font-size:10px !important; line-height:1.15 !important; padding:4px 6px !important; }
+  #slideStable2 .ov2-foot-r .ov2-evo .evs{ flex-direction:column !important; gap:2px !important; padding:4px 2px !important; border-left:1px solid #EEF1F4; }
+  #slideStable2 .ov2-foot-r .ov2-evo .evs b{ font-size:11px !important; white-space:normal !important; text-align:center; line-height:1.1 !important; }
+  /* Control Impact: seven cards in one row */
+  .ov2-impact{ grid-template-columns:repeat(7,minmax(0,1fr)) !important; gap:8px !important; }
+  .ov2-impact .ov-imp b{ font-size:clamp(18px,2.3vw,27px) !important; white-space:nowrap; }
+  .ov2-impact .ov-imp span{ font-size:12px !important; }
+  .ov2-impact .ov-imp:nth-child(n+6) b{ color:#0F2D6B; }
 </style>
 </head>
 <body>
@@ -5458,13 +5514,14 @@
     </section>
     <div class="ov2-arrow" aria-hidden="true"></div>
     <section class="ov2-right">
-      <div class="ov2-ci"><h4 class="ov2-tag green">Control Impact</h4><div class="ov2-impact"><div class="ov-imp"><b>&#8593; 28%</b><span>Partisipasi SAP<br>YTD 2026 vs 2025</span></div><div class="ov-imp"><b>&#8593; 46%</b><span>Partisipasi TBC<br>YTD 2026 vs 2025</span></div><div class="ov-imp"><b>&#8593; 59%</b><span>Pelaporan<br>Pengawasan Berjarak</span></div><div class="ov-imp"><b>292</b><span>Implementasi<br>Rekayasa Engineering</span></div><div class="ov-imp"><b>54</b><span>Total CCV</span></div></div></div>
+      <div class="ov2-ci"><h4 class="ov2-tag green">Control Impact</h4><div class="ov2-impact"><div class="ov-imp"><b>&#8593; 28%</b><span>Partisipasi SAP<br>YTD 2026 vs 2025</span></div><div class="ov-imp"><b>&#8593; 46%</b><span>Partisipasi TBC<br>YTD 2026 vs 2025</span></div><div class="ov-imp"><b>&#8593; 59%</b><span>Pelaporan<br>Pengawasan Berjarak</span></div><div class="ov-imp"><b>292</b><span>Implementasi<br>Rekayasa Engineering</span></div><div class="ov-imp"><b>54</b><span>Total CCV</span></div><div class="ov-imp"><b>1026</b><span>Jumlah CCTV</span></div><div class="ov-imp"><b>1469</b><span>Jumlah DMS</span></div></div></div>
       <div class="ov2-funnel2"><img src="corong.png" alt="Inherent risk melewati kontrol Leadership, People, Process, Technology dan Engineering menjadi residual risk"><div class="ov-bub" aria-hidden="true"></div></div>
       <div class="ov2-out2">
         <div class="ov-box pink"><h5>Lagging Outcome</h5><ul><li><b>2 LTI</b> di Q1 &amp; Q3 2026</li><li><b>Avg 0.67 Injury</b> case setiap Quarter</li></ul></div>
         <div class="ov-box orange"><h5>Underlying Risk</h5><ul><li><b>16% Peningkatan Blindspot Golden Rules</b> dibandingkan di 2025</li><li><b>3% Blindspot TBC</b> masih terjadi di 2026</li></ul></div>
       </div>
       <p class="ov2-note">Kontrol terhadap lagging yang sudah berjalan sudah banyak dilakukan dan berdampak pada peningkatan leading, peningkatan pelaporan hazard, peningkatan identifikasi TBC &amp; GR; tetapi lagging masih mencatatkan LTI &amp; Injury yang perlu <b>Fatal Prevention control</b> lanjutan.</p>
+      <div class="ov2-pol"><div class="pl"><b>Kebijakan yang berlaku:</b><ul><li><strong>Golden Rules</strong></li><li><strong>Do &amp; Don’t Policy</strong></li><li>Pembatasan aktivitas pekerja di luar kabin</li><li>Pengawasan Berjarak</li><li>Kewajiban Instalasi Seatbelt Connect to Engine</li></ul></div><div class="pn"><b>20+</b><span>perkuatan yang berlaku selama YTD 2026</span></div></div>
       <p class="ov2-next"><span>Sehingga kita perlu <b>kontrol lanjutan</b></span></p>
       <div class="ov2-evo"><div class="t">Control Capability<br>Evolution</div><div class="evs"><svg viewBox="0 0 24 24"><path d="M4 4h4v2H6v2H4zm12 0h4v4h-2V6h-2zM4 16h2v2h2v2H4zm14 2v-2h2v4h-4v-2zM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8zm0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/></svg><b>Detect Earlier</b></div><i class="eva"></i><div class="evs"><svg viewBox="0 0 24 24"><path d="M11 13h2v9h-2zM12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6zM7.8 7.8a6 6 0 0 0 0 8.4l-1.4 1.4a8 8 0 0 1 0-11.2zm8.4 0 1.4-1.4a8 8 0 0 1 0 11.2l-1.4-1.4a6 6 0 0 0 0-8.4z"/></svg><b>Intervene Faster</b></div><i class="eva"></i><div class="evs pv"><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3zm-1.2 14.2-3.5-3.5 1.4-1.4 2.1 2.1 4.9-4.9 1.4 1.4-6.3 6.3z"/></svg><b>Prevent Better</b></div></div>
     </section>
@@ -10107,7 +10164,12 @@
     // right: Control Impact card with a tab, the funnel on the photo, then one card for outcomes + capability
     const ci = Rt.querySelector('.ov2-ci'); if(ci){ const t = ci.querySelector('.ov2-tag'); if(t) t.innerHTML = '<i><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1 14.5-4-4 1.4-1.4 2.6 2.6 5.6-5.6L18 9.5z"/></svg></i>Control Impact'; }
     const bottom = document.createElement('section'); bottom.className = 'rd-card rd-out';
-    ['.ov2-out2', '.ov2-note', '.ov2-next', '.ov2-evo'].forEach(sel=>{ const e = Rt.querySelector(':scope > ' + sel); if(e) bottom.appendChild(e); });
+    ['.ov2-out2', '.ov2-note'].forEach(sel=>{ const e = Rt.querySelector(':scope > ' + sel); if(e) bottom.appendChild(e); });
+    // policies on the left; 'Sehingga kita perlu' and the capability strip on the right
+    const foot = document.createElement('div'); foot.className = 'ov2-foot', side = null;
+    const pol = Rt.querySelector(':scope > .ov2-pol'), nx = Rt.querySelector(':scope > .ov2-next'), evo = Rt.querySelector(':scope > .ov2-evo');
+    const rc = document.createElement('div'); rc.className = 'ov2-foot-r'; if(nx) rc.appendChild(nx); if(evo) rc.appendChild(evo);
+    if(pol) foot.appendChild(pol); foot.appendChild(rc); bottom.appendChild(foot);
     Rt.appendChild(bottom);
     const ob = bottom.querySelectorAll('.ov-box h5');
     if(ob[0]) ob[0].insertAdjacentHTML('afterbegin', '<svg class="hi" viewBox="0 0 24 24"><path d="M4 20h3v-7H4zm6.5 0h3V8h-3zM17 20h3V4h-3z"/></svg>');
@@ -11383,6 +11445,7 @@
     });
     if(!host._ro && 'ResizeObserver' in window){ host._ro = new ResizeObserver(()=> c.resize()); host._ro.observe(host); }
   }
+  const SM_OBDS_CARDS = '<article class="ob-card live"><span class="tag">LIVE</span><b>BeARC — Access Control</b><em>Sistem dapat menolak akses berdasarkan rule dan exception yang telah dikunci</em><ul><li>Scope terbatas: personel Safety/HSE BC &amp; mitra</li><li>Data: RFID, SAP, dan TBC</li><li>Output: ban–unban dan audit trail</li><li>Kontrol akses dijalankan otomatis sesuai rule yang telah dikunci</li></ul><span class="foot">Existing Foundation</span></article><article class="ob-card init"><span class="tag">INITIAL STAGE</span><b>Initial Performance Trigger</b><em>Sistem mendeteksi dan membuat tasklist; validasi, tindakan, closure tetap memiliki human accountability</em><ul><li>Sembilan rule prioritas</li><li>Output: alert, tasklist, escalation, evidence</li><li>PJO/PIC memvalidasi dan menindaklanjuti</li><li>SOD memvalidasi tindaklanjut yang diajukan</li></ul><span class="foot">Initial implementation / pilot</span></article>';
   function smRichHtml(a, prev, next){
     const P = a.P;
     return '<div class="smc-in">'
@@ -11390,8 +11453,8 @@
       + '<div class="smc-stg"><i>' + (a.icon || '') + '</i><span><small>Tahap saat ini:</small><b>' + P.stage + '</b></span></div></header>'
       + '<div class="smc-rich">' + (a.rich === 'rover' ? SM_ROVER : a.rich === 'img' ? '<div class="mx-full mx-img"><img src="' + (a.id === 'obds' ? 'mom/obds-detail.jpg' : P.img) + '" alt="' + P.name + '">'
           + '<aside class="mx-prog mx-side"><section><h5><i>' + SM_SVG.chart + '</i>Progress utama</h5><ul>' + smLi(P.prog) + '</ul></section>'
-          + '<section class="hz"><h5><i>' + SM_SVG.warn + '</i>Bahaya yang dikendalikan</h5><ul>' + smLi(P.hazard) + '</ul></section>'
-          + '<section class="rd"><h5><i>' + SM_SVG.bulb + '</i>Future Research &amp; Dev</h5><ul>' + smLi(P.rnd) + '</ul></section>'
+          + (a.id === 'obds' ? SM_OBDS_CARDS : '<section class="hz"><h5><i>' + SM_SVG.warn + '</i>Bahaya yang dikendalikan</h5><ul>' + smLi(P.hazard) + '</ul></section>'
+          + '<section class="rd"><h5><i>' + SM_SVG.bulb + '</i>Future Research &amp; Dev</h5><ul>' + smLi(P.rnd) + '</ul></section>')
           + (a.next ? '<div class="nx"><small>Next step</small><b>' + a.next + '</b></div>' : '') + '</aside></div>'
         : a.rich === 'mir' ? (a.id === 'mir' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/mir-fix.jpg').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'Motion Intelligent Rover (MIR): before dan after implementation serta perangkat MIR')
           : a.id === 'pump' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/remote-fix.jpg').replace('<div class="mx-full">', '<div class="mx-full mx-haul">').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'Remote Pump: before dan after implementation serta progress saat ini')
