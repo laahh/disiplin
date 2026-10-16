@@ -5173,6 +5173,12 @@
   .ov2-impact .ov-imp b{ font-size:clamp(18px,2.3vw,27px) !important; white-space:nowrap; }
   .ov2-impact .ov-imp span{ font-size:12px !important; }
   .ov2-impact .ov-imp:nth-child(n+6) b{ color:#0F2D6B; }
+  /* impact colours by kind, not position: rising percentages green, counts navy */
+  .ov2-impact .ov-imp b{ color:#0F2D6B !important; } .ov2-impact .ov-imp.up b{ color:#16812F !important; }
+  /* incident chart: red overlay marks dimmed */
+  .ov2-plat .rd{ opacity:.45; } .ov2-hi-lab{ opacity:.6; }
+  .ov2-chartwrap .ex-ph-svg .ex-tail{ opacity:.35 !important; animation:none !important; }
+  .ov2-br-lab{ top:-215% !important; }  /* Breakthrough / Next Phase sits higher, clear of the 1,41 label */
 </style>
 </head>
 <body>
@@ -5514,7 +5520,7 @@
     </section>
     <div class="ov2-arrow" aria-hidden="true"></div>
     <section class="ov2-right">
-      <div class="ov2-ci"><h4 class="ov2-tag green">Control Impact</h4><div class="ov2-impact"><div class="ov-imp"><b>&#8593; 28%</b><span>Partisipasi SAP<br>YTD 2026 vs 2025</span></div><div class="ov-imp"><b>&#8593; 46%</b><span>Partisipasi TBC<br>YTD 2026 vs 2025</span></div><div class="ov-imp"><b>&#8593; 59%</b><span>Pelaporan<br>Pengawasan Berjarak</span></div><div class="ov-imp"><b>292</b><span>Implementasi<br>Rekayasa Engineering</span></div><div class="ov-imp"><b>54</b><span>Total CCV</span></div><div class="ov-imp"><b>1026</b><span>Jumlah CCTV</span></div><div class="ov-imp"><b>1469</b><span>Jumlah DMS</span></div></div></div>
+      <div class="ov2-ci"><h4 class="ov2-tag green">Control Impact</h4><div class="ov2-impact"><div class="ov-imp up"><b>&#8593; 28%</b><span>Partisipasi SAP<br>YTD 2026 vs 2025</span></div><div class="ov-imp up"><b>&#8593; 46%</b><span>Partisipasi TBC<br>YTD 2026 vs 2025</span></div><div class="ov-imp up"><b>&#8593; 59%</b><span>Pelaporan<br>Pengawasan Berjarak</span></div><div class="ov-imp"><b>54</b><span>Total CCV</span></div><div class="ov-imp"><b>1026</b><span>Jumlah CCTV</span></div><div class="ov-imp"><b>1469</b><span>Jumlah DMS</span></div><div class="ov-imp"><b>292</b><span>Implementasi<br>Rekayasa Engineering</span></div></div></div>
       <div class="ov2-funnel2"><img src="corong.png" alt="Inherent risk melewati kontrol Leadership, People, Process, Technology dan Engineering menjadi residual risk"><div class="ov-bub" aria-hidden="true"></div></div>
       <div class="ov2-out2">
         <div class="ov-box pink"><h5>Lagging Outcome</h5><ul><li><b>2 LTI</b> di Q1 &amp; Q3 2026</li><li><b>Avg 0.67 Injury</b> case setiap Quarter</li></ul></div>
@@ -11259,7 +11265,7 @@
             label:{ show:true, position:'top', fontSize:11, fontWeight:800, color:'#E3262F', formatter:(p)=> p.dataIndex===last ? '' : fmt(p.value) }, z:5,
             markPoint:{ symbol:'circle', symbolSize:1, label:{ show:true, color:'#E3262F', fontSize:15, fontWeight:800, offset:[0,-14], formatter:fmt(T.afr[last]) },
               data:[{ coord:[last, T.afr[last]] }] } },
-          { name:'LTISR', type:'line', yAxisIndex:2, data:T.ltisr, symbol:'diamond', symbolSize:9, lineStyle:{ color:'#141A22', width:2.2 }, itemStyle:{ color:'#141A22' },
+          { name:'LTISR', type:'line', yAxisIndex:2, data: merged ? T.ltisr.map((v, i)=> i === last ? { value:v, label:{ offset:[0,-14], color:'#141A22', fontWeight:800 } } : v) : T.ltisr, symbol:'diamond', symbolSize:9, lineStyle:{ color:'#141A22', width:2.2 }, itemStyle:{ color:'#141A22' },
             label:{ show:true, position:'top', fontSize:11, fontWeight:800, color:'#141A22', formatter:(p)=> fmt(p.value) }, z:5 },
           { name:'AFR now', type:'effectScatter', yAxisIndex:1, data:[[last, T.afr[last]]], symbolSize:9, silent:true, z:6,
             itemStyle:{ color:'#E3262F' }, rippleEffect:{ scale:4, brushType:'stroke', period:2.2 }, tooltip:{ show:false } },
