@@ -5179,6 +5179,24 @@
   .ov2-plat .rd{ opacity:.45; } .ov2-hi-lab{ opacity:.6; }
   .ov2-chartwrap .ex-ph-svg .ex-tail{ opacity:.35 !important; animation:none !important; }
   .ov2-br-lab{ top:-215% !important; }  /* Breakthrough / Next Phase sits higher, clear of the 1,41 label */
+  .sm-panel details.sgrp .sn{ background:var(--gc,#1F9A3A) !important; } .sm-panel .list details.sgrp > summary b{ color:color-mix(in srgb,var(--gc,#1F9A3A) 85%,#000) !important; }
+  .sm-panel details.sgrp > summary{ background:color-mix(in srgb,var(--gc,#1F9A3A) 7%,#fff) !important; }
+
+  /* map: each technology in its stream colour */
+  .sm-pin.lbl{ --gcol:#1F9A3A; }
+  .sm-pin.lbl .tag{ border-color:var(--gcol) !important; background:color-mix(in srgb,var(--gcol) 30%,rgba(6,20,14,.9)) !important;
+    box-shadow:0 0 0 1px rgba(0,0,0,.25), 0 0 16px color-mix(in srgb,var(--gcol) 55%,transparent), 0 8px 18px rgba(0,0,0,.35) !important; }
+  .sm-pin.lbl .ic{ background:var(--gcol) !important; }
+  .sm-pin.lbl.hover .tag, .sm-pin.lbl.active .tag{ background:color-mix(in srgb,var(--gcol) 55%,rgba(6,20,14,.9)) !important; }
+  .tm-fx [data-t]{ --gcol:#4BE58A; }
+  .tm-fx .sm-link[data-t]{ stroke:var(--gcol) !important; filter:drop-shadow(0 0 3px var(--gcol)) !important; }
+  .tm-fx .sm-anchor[data-t]{ stroke:var(--gcol) !important; fill:color-mix(in srgb,var(--gcol) 30%,transparent) !important; }
+  .tm-fx .sm-anchor-in[data-t]{ fill:var(--gcol) !important; }
+  .tm-fx .tm-rings[data-t] ellipse, .tm-fx .tm-grid[data-t] path, .tm-fx .tm-holo[data-t] rect{ stroke:var(--gcol) !important; }
+  .tm-fx .tm-rings[data-t] ellipse, .tm-fx .tm-grid[data-t] path{ fill:color-mix(in srgb,var(--gcol) 14%,transparent) !important; filter:drop-shadow(0 0 4px var(--gcol)) !important; }
+  .tm-fx .tm-bubble[data-t]{ stroke:var(--gcol) !important; fill:color-mix(in srgb,var(--gcol) 12%,transparent) !important; filter:drop-shadow(0 0 7px var(--gcol)) !important; }
+  .tm-fx .tm-wifi[data-t] path, .tm-fx .tm-signal[data-t] path{ stroke:var(--gcol) !important; } .tm-fx .tm-wifi[data-t] circle{ fill:var(--gcol) !important; }
+  .tm-vp .sm-hs:hover, .tm-vp .sm-hs.hover{ fill:color-mix(in srgb,var(--gcol,#5CF08E) 18%,transparent) !important; stroke:var(--gcol,#5CF08E) !important; }
 </style>
 </head>
 <body>
@@ -11324,9 +11342,9 @@
   const smLi = (a)=> a.map(t=> '<li>' + t + '</li>').join('');
   // list groups: number, title and the one-line definition of each automation approach
   const SM_GRP = {
-    cc:{ n:1, c:'#1F9A3A', k:'Stagged Automation', m:'Critical Control', d:'A phased automation path focused on critical risk barriers (CCV/CRM, Layer 5 contact defense) to prevent serious events (Fatal + LTI / RWI). All can detect and intervened through Mining Eyes Analytic.' },
-    eng:{ n:2, c:'#1F9A3A', k:'Stagged Automation', m:'Engineering Control', d:'A phased automation path focused on process and workplace engineering, redesigning work methods and systems to eliminate human to risk exposure and error likelihood.' },
-    auto:{ n:3, c:'#1F9A3A', k:'Direct Automation', m:'Best Practises Adoption', d:'Direct removal of human to risk exposure by automating tasks end-to-end. Eliminating certain high-risk activities through the adaptation of established best practices and proven practices.' },
+    cc:{ n:1, c:'#D4682C', k:'Stagged Automation', m:'Critical Control', d:'A phased automation path focused on critical risk barriers (CCV/CRM, Layer 5 contact defense) to prevent serious events (Fatal + LTI / RWI). All can detect and intervened through Mining Eyes Analytic.' },
+    eng:{ n:2, c:'#2C7891', k:'Stagged Automation', m:'Engineering Control', d:'A phased automation path focused on process and workplace engineering, redesigning work methods and systems to eliminate human to risk exposure and error likelihood.' },
+    auto:{ n:3, c:'#A99F1E', k:'Direct Automation', m:'Best Practises Adoption', d:'Direct removal of human to risk exposure by automating tasks end-to-end. Eliminating certain high-risk activities through the adaptation of established best practices and proven practices.' },
     data:{ n:4, c:'#1F9A3A', k:'Data &amp; AI', m:'Safety Intelligence', d:'' }
   };
   // which groups are open in the list (kept while the list re-renders); the first one starts open
@@ -11345,7 +11363,7 @@
       const gid = svg._g || (svg._g = 'rkG' + (rkFit._n = (rkFit._n || 0) + 1));
       let h = '<defs><linearGradient id="' + gid + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E5222D"/><stop offset=".5" stop-color="#B8662A"/><stop offset="1" stop-color="#22B04A"/></linearGradient></defs>';
       h += '<path class="rk-risk" d="M' + X.risk + ' ' + top + 'h' + BW + 'V' + (bottom - 10) + 'l' + (-BW / 2) + ' 10l' + (-BW / 2) + ' -10Z" fill="url(#' + gid + ')"/>' + vt(X.risk + BW / 2, (top + bottom) / 2, 'High Risk to Low Risk', 'middle');
-      [['s3', 2, '#0B4F1C', 'Stage 3'], ['s2', 1, '#0F6B27', 'Stage 2'], ['s1', 0, '#1A8A36', 'Stage 1']].forEach(([key, gi, col2, lab])=>{
+      [['s3', 2, '#BFB52E', 'Stage 3'], ['s2', 1, '#2C7891', 'Stage 2'], ['s1', 0, '#D4682C', 'Stage 1']].forEach(([key, gi, col2, lab])=>{
         const g = gs[Math.min(gi, gs.length - 1)], y = midOf(g), x = X[key], end = W + gap - 2;
         h += '<path class="rk-st" d="M' + x + ' ' + top + 'h' + BW + 'V' + (y - BW / 2) + 'H' + (end - 10) + 'v-5l10 ' + (5 + BW / 2) + 'l-10 ' + (5 + BW / 2) + 'v-5H' + x + 'Z" fill="' + col2 + '"/>'
           + vt(x + BW / 2, top + 6, lab, 'end')
@@ -11518,6 +11536,10 @@
       pins.appendChild(pin); a.pinEl = pin;
     });
     const fx = $('Fx'); if(fx) fx.innerHTML = (cfg.fx || '') + fxLinks;
+    // map labels, lines and effects take the colour of their stream group
+    AREAS.forEach(a=>{ const G = (typeof SM_GRP !== 'undefined') && SM_GRP[(a.cats || [])[0]]; if(!G || !a.pinEl) return;
+      a.pinEl.style.setProperty('--gcol', G.c); if(a.el) a.el.style.setProperty('--gcol', G.c);
+      if(fx) fx.querySelectorAll('[data-t="' + a.id + '"]').forEach(e=> e.style.setProperty('--gcol', G.c)); });
     AREAS.forEach(a=>{ if(!a.offMap) return; a.el.classList.add('offmap'); a.pinEl.classList.add('offmap'); if(fx) fx.querySelectorAll('[data-t="' + a.id + '"]').forEach(e=> e.classList.add('offmap')); });
     // category menu: only the technologies of the chosen category stay on the map and in the list
     let cat = 'all';
