@@ -5197,6 +5197,53 @@
   .tm-fx .tm-bubble[data-t]{ stroke:var(--gcol) !important; fill:color-mix(in srgb,var(--gcol) 12%,transparent) !important; filter:drop-shadow(0 0 7px var(--gcol)) !important; }
   .tm-fx .tm-wifi[data-t] path, .tm-fx .tm-signal[data-t] path{ stroke:var(--gcol) !important; } .tm-fx .tm-wifi[data-t] circle{ fill:var(--gcol) !important; }
   .tm-vp .sm-hs:hover, .tm-vp .sm-hs.hover{ fill:color-mix(in srgb,var(--gcol,#5CF08E) 18%,transparent) !important; stroke:var(--gcol,#5CF08E) !important; }
+  /* closing note of the stream list as a card like the #1-#4 groups */
+  .sm-panel > .note, .sm-panel .note{ position:relative; display:flex; align-items:center; gap:12px; margin:8px 12px 12px !important; padding:12px 14px 12px 16px !important;
+    border:1px solid #E3E9EF !important; border-left:4px solid #16294F !important; border-radius:12px; background:linear-gradient(90deg,#EEF3F9,#fff 70%) !important;
+    box-shadow:0 2px 8px rgba(20,26,34,.05); font:800 14px/1.25 'Plus Jakarta Sans',sans-serif !important; color:#16294F !important; }
+  .sm-panel .note::before{ content:''; flex:none; width:34px; height:34px; border-radius:10px; background:#16294F url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fff'%3E%3Cpath d='M4 12h11l-4-4 1.4-1.4L19 13l-6.6 6.4L11 18l4-4H4z'/%3E%3C/svg%3E") center/20px no-repeat;
+    box-shadow:0 4px 10px rgba(22,41,79,.3); }
+  .sm-panel .note b{ font-weight:800; }
+  /* note card: no icon; a down arrow from #4 Data & AI leads into it */
+  .sm-panel .note{ margin-top:30px !important; overflow:visible; }
+  .sm-panel .note::before{ content:'' !important; position:absolute; left:34px; top:-28px; width:3px; height:20px; border-radius:2px; background:#16294F !important;
+    box-shadow:none !important; flex:none; }
+  .sm-panel .note::after{ content:''; position:absolute; left:28.5px; top:-11px; border:7px solid transparent; border-top:9px solid #16294F; border-bottom:0; }
+  .slide.active .sm-panel .note::before{ animation:noteFlow 1.6s ease-in-out infinite; }
+  @keyframes noteFlow{ 0%,100%{ opacity:1; } 50%{ opacity:.45; } }
+  /* Leading Indicator row: smaller type, more breathing room */
+  #slideStable2 .ov2-lower > .ov2-sub{ font-size:14px !important; margin:4px 0 2px; }
+  #slideStable2 .ov2-lower .ov2-lead{ gap:10px !important; padding:2px 4px 4px; }
+  #slideStable2 .ov2-lower .ov2-lead .ov-li{ gap:2px; padding:5px 4px !important; }
+  #slideStable2 .ov2-lower .ov2-lead .ov-li b{ font-size:17px !important; line-height:1.1; }
+  #slideStable2 .ov2-lower .ov2-lead .ov-li strong{ font-size:10.5px !important; letter-spacing:.04em; margin-top:1px; }
+  #slideStable2 .ov2-lower .ov2-lead .ov-li small{ font-size:9.5px !important; margin-top:1px; }
+
+  /* Technology Transfer: its own card below the stream panel, joined by a centre line */
+  #slideMap .sm-grid, #slideMap2 .sm-grid{ grid-template-rows:auto auto !important; align-content:start; }
+  #slideMap .sm-grid .sm-panel, #slideMap2 .sm-grid .sm-panel{ grid-column:1; grid-row:1; }
+  #slideMap .sm-grid .sm-left, #slideMap2 .sm-grid .sm-left{ grid-column:2; grid-row:1 / 3; }
+  .sm-panel .note{ display:none !important; }
+  .sm-tt{ grid-column:1; grid-row:2; position:relative; margin-top:34px; display:flex; align-items:center; justify-content:center; text-align:center;
+    padding:16px 18px; border-radius:16px; background:linear-gradient(115deg,#0F2D6B,#1E4FA8); color:#fff;
+    box-shadow:0 2px 4px rgba(15,45,107,.15), 0 12px 28px rgba(15,45,107,.28); }
+  .sm-tt b{ font:800 17px/1.25 'Plus Jakarta Sans',sans-serif; letter-spacing:.01em; }
+  .sm-tt::before{ content:''; position:absolute; left:50%; top:-34px; width:3px; height:24px; margin-left:-1.5px; border-radius:2px; background:#1E4FA8; }
+  .sm-tt::after{ content:''; position:absolute; left:50%; top:-12px; margin-left:-8px; border:8px solid transparent; border-top:10px solid #1E4FA8; border-bottom:0; }
+  .slide.active .sm-tt::before{ animation:noteFlow 1.6s ease-in-out infinite; }
+  .sm-tt{ background:linear-gradient(115deg,#5B646D,#7A838C) !important; box-shadow:0 2px 4px rgba(20,26,34,.12), 0 12px 28px rgba(20,26,34,.22) !important; }
+  .sm-tt::before{ background:#6B737C !important; } .sm-tt::after{ border-top-color:#6B737C !important; }
+  /* Technology Transfer card: white, closer, small arrow */
+  .sm-tt{ margin-top:16px !important; padding:12px 18px !important; background:#fff !important; color:#16294F !important; border:1px solid #E3E9EF;
+    box-shadow:0 2px 4px rgba(20,26,34,.06), 0 10px 24px rgba(20,26,34,.12) !important; }
+  .sm-tt b{ font-size:15.5px !important; }
+  .sm-tt::before{ top:-14px !important; height:8px !important; width:2px !important; margin-left:-1px !important; background:#6B737C !important; }
+  .sm-tt::after{ top:-7px !important; margin-left:-5px !important; border-width:5px !important; border-top-width:6px !important; border-bottom-width:0 !important; border-top-color:#6B737C !important; }
+  .sm-tt{ margin-top:0 !important; } .sm-tt::before{ top:-13px !important; height:6px !important; } .sm-tt::after{ top:-8px !important; }
+  /* label over the dashed tail circle: red, blinking, no box */
+  .ov2-cv-rt{ position:absolute; left:calc(86% + 22px); top:calc(66% - 6px); transform:translate(-50%,-100%); white-space:nowrap; pointer-events:none;
+    font:800 italic 12.5px/1 'Plus Jakarta Sans',sans-serif; color:#D6243A; text-shadow:0 0 3px #fff, 0 0 3px #fff; }
+  .slide.active .ov2-cv-rt{ animation:exBlink 1.3s ease-in-out infinite; }
 </style>
 </head>
 <body>
@@ -5520,7 +5567,7 @@
         <div class="ov2-cv-lab"></div>
         <p class="ov2-cv-note">Penguatan kontrol secara berkelanjutan mendorong <b>penurunan exposure risiko</b>, namun keberadaan <b>right-tail risk</b> menunjukkan perlunya <b>peningkatan efektivitas kontrol</b></p>
         <div class="ov2-cv-warn"><i>!</i><div><b>Ekor kanan masih mungkin muncul</b><span>Meski indikator membaik, residual risk dan incident outlier tetap dapat terjadi.</span></div></div>
-        <span class="ov2-cv-tail"></span>
+        <span class="ov2-cv-tail"></span><span class="ov2-cv-rt">Right-tail risk</span>
         <div class="ov2-cv-axis"><span>Kontrol semakin kuat</span><span>Spektrum Risiko</span><span>Risiko semakin tinggi</span></div>
       </div>
       <div class="ov2-chartwrap"><div class="ex-chart ov2-chart" role="img" aria-label="Jumlah insiden, AFR dan LTISR 2017 sampai Q3 2026"></div><div class="ov2-phase"></div><div class="ov2-callout"><svg class="ov2-plat" viewBox="0 0 600 100" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="ov2PlG" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="460" y2="0"><stop offset="0" stop-color="#FFB300"/><stop offset=".5" stop-color="#FFE14D"/><stop offset="1" stop-color="#FFC400"/></linearGradient><linearGradient id="ov2GrG" gradientUnits="userSpaceOnUse" x1="440" y1="56" x2="640" y2="-150"><stop offset="0" stop-color="#1F9A3A"/><stop offset=".6" stop-color="#5CC23A"/><stop offset="1" stop-color="#B8F06A"/></linearGradient></defs><path class="gr glow" d="M440 56 C 500 52, 560 10, 640 -150"/><path class="gr core" pathLength="1" stroke="url(#ov2GrG)" d="M440 56 C 500 52, 560 10, 640 -150"/><path class="gr spark" d="M440 56 C 500 52, 560 10, 640 -150"/><path class="rd r1" d="M335 60 C 338 80, 330 100, 342 122 M352 60 C 356 74, 350 88, 354 104"/><path class="rd r2" d="M545 60 C 548 78, 540 96, 552 116"/><path class="pl" stroke="url(#ov2PlG)" d="M0 56.0 L10 58.6 L20 61.0 L30 63.0 L40 64.3 L50 65.0 L60 64.8 L70 63.9 L80 62.4 L90 60.3 L100 57.8 L110 55.2 L120 52.6 L130 50.3 L140 48.5 L150 47.4 L160 47.0 L170 47.4 L180 48.5 L190 50.2 L200 52.5 L210 55.0 L220 57.7 L230 60.2 L240 62.3 L250 63.9 L260 64.8 L270 65.0 L280 64.4 L290 63.0 L300 61.1 L310 58.7 L320 56.1 L330 53.5 L340 51.1 L350 49.1 L360 47.7 L370 47.1 L380 47.1 L390 48.0 L400 49.5 L410 51.6 L420 54.1 L430 56.7 L440 59.3 L450 61.6 L460 63.4"><animate attributeName="d" dur="2.6s" repeatCount="indefinite" values="M0 56.0 L10 58.6 L20 61.0 L30 63.0 L40 64.3 L50 65.0 L60 64.8 L70 63.9 L80 62.4 L90 60.3 L100 57.8 L110 55.2 L120 52.6 L130 50.3 L140 48.5 L150 47.4 L160 47.0 L170 47.4 L180 48.5 L190 50.2 L200 52.5 L210 55.0 L220 57.7 L230 60.2 L240 62.3 L250 63.9 L260 64.8 L270 65.0 L280 64.4 L290 63.0 L300 61.1 L310 58.7 L320 56.1 L330 53.5 L340 51.1 L350 49.1 L360 47.7 L370 47.1 L380 47.1 L390 48.0 L400 49.5 L410 51.6 L420 54.1 L430 56.7 L440 59.3 L450 61.6 L460 63.4;M0 56.0 L10 53.4 L20 51.0 L30 49.1 L40 47.7 L50 47.0 L60 47.2 L70 48.0 L80 49.6 L90 51.7 L100 54.2 L110 56.8 L120 59.4 L130 61.7 L140 63.4 L150 64.6 L160 65.0 L170 64.6 L180 63.5 L190 61.8 L200 59.5 L210 57.0 L220 54.3 L230 51.8 L240 49.7 L250 48.1 L260 47.2 L270 47.0 L280 47.6 L290 49.0 L300 50.9 L310 53.3 L320 55.9 L330 58.5 L340 60.9 L350 62.9 L360 64.3 L370 64.9 L380 64.9 L390 64.0 L400 62.5 L410 60.4 L420 57.9 L430 55.3 L440 52.7 L450 50.4 L460 48.6;M0 56.0 L10 58.6 L20 61.0 L30 63.0 L40 64.3 L50 65.0 L60 64.8 L70 63.9 L80 62.4 L90 60.3 L100 57.8 L110 55.2 L120 52.6 L130 50.3 L140 48.5 L150 47.4 L160 47.0 L170 47.4 L180 48.5 L190 50.2 L200 52.5 L210 55.0 L220 57.7 L230 60.2 L240 62.3 L250 63.9 L260 64.8 L270 65.0 L280 64.4 L290 63.0 L300 61.1 L310 58.7 L320 56.1 L330 53.5 L340 51.1 L350 49.1 L360 47.7 L370 47.1 L380 47.1 L390 48.0 L400 49.5 L410 51.6 L420 54.1 L430 56.7 L440 59.3 L450 61.6 L460 63.4"/></path><path class="plc" d="M0 56 H460"/></svg><span class="ov2-pl-run"></span><span class="gr ov2-br-dot"></span><span class="ov2-pl-lab">Current Plateau <i>&#9660;</i></span><span class="ov2-hi-lab">Hidden major incident Event <i>&#9654;</i></span><span class="ov2-br-lab">Breakthrough <i>Next Phase</i></span></div></div>
@@ -5717,7 +5764,7 @@
       <div class="sp-head">
         <p class="kicker mono fade" data-step="1" id="smKicker">OHS Division · Framework Automation</p>
         <h2 class="sp-title fade" data-step="1" id="smTitle">Framework <em>Automation</em></h2>
-        <p class="sp-desc fade" data-step="1" id="smDesc">Teknologi keselamatan di seluruh site, dari <b>pit</b> dan <b>hauling road</b> hingga <b>stockpile</b>: klik label untuk melihat <b>bahaya yang dikendalikan</b>, <b>progress</b>, dan <b>next step</b> tiap teknologi · scroll untuk zoom · seret untuk geser · Esc untuk kembali.</p>
+        <p class="sp-desc fade" data-step="1" id="smDesc">Rekayasa engineering dan automation memperkuat pengendalian risiko. Fokus berikutnya adalah memastikan teknologi tidak hanya mampu mendeteksi dan mengintervensi, tetapi terbukti efektif dan secara konsisten mengurangi paparan risiko di lapangan.</p>
       </div>
       <div class="sm-grid fade" data-step="1" id="smGrid">
         <div class="sm-left">
@@ -5758,7 +5805,7 @@
       <div class="sp-head">
         <p class="kicker mono fade" data-step="1" id="sm2Kicker">OHS Division · Framework Automation</p>
         <h2 class="sp-title fade" data-step="1" id="sm2Title">Framework <em>Automation</em></h2>
-        <p class="sp-desc fade" data-step="1" id="sm2Desc">Teknologi keselamatan di seluruh site, dari <b>pit</b> dan <b>hauling road</b> hingga <b>stockpile</b>: klik label untuk melihat <b>bahaya yang dikendalikan</b>, <b>progress</b>, dan <b>next step</b> tiap teknologi · scroll untuk zoom · seret untuk geser · Esc untuk kembali.</p>
+        <p class="sp-desc fade" data-step="1" id="sm2Desc"><b>Rekayasa engineering</b> dan <b>automation</b> memperkuat pengendalian risiko. Fokus berikutnya adalah memastikan teknologi tidak hanya mampu <b>mendeteksi</b> dan <b>mengintervensi</b>, tetapi terbukti <b>efektif</b> dan secara konsisten <b>mengurangi paparan risiko</b> di lapangan.</p>
       </div>
       <div class="sm-grid fade" data-step="1" id="sm2Grid">
         <div class="sm-left">
@@ -11576,7 +11623,11 @@
       const w = Math.floor(Math.min(aw, ah*IMG_W/IMG_H)), h = w*IMG_H/IMG_W;
       grid.style.gridTemplateColumns = cfg.swap ? 'minmax(0,1fr) ' + w + 'px' : w + 'px minmax(0,1fr)';
       vp.style.width = w + 'px'; vp.style.height = h + 'px';
-      panel.style.height = (tools.offsetHeight + 10 + h) + 'px';
+      // swapped layout: a separate Technology Transfer card sits under the stream panel
+      let tt = grid.querySelector(':scope > .sm-tt');
+      if(cfg.swap && !tt){ tt = document.createElement('section'); tt.className = 'sm-tt'; tt.innerHTML = '<b>Technology Transfer to new mining area</b>'; grid.appendChild(tt); }
+      const ttH = cfg.swap && tt ? tt.offsetHeight + 0 + (parseFloat(getComputedStyle(grid).rowGap) || 0) : 0;
+      panel.style.height = (tools.offsetHeight + 10 + h - ttH) + 'px';
     }
     // the camera layer keeps the image ratio and covers the viewport, so hotspots stay registered
     function size(){
@@ -11836,7 +11887,7 @@
     const ord = (a)=> a.listOnly ? 100 + +a.id.slice(2) : ORDER.indexOf(a.id);
     AREAS.sort((x, y)=> ord(x) - ord(y));
     return makeSiteMap({ swap:true, pre:'sm', slide:'slideMap', w:1672, h:941, areas:AREAS, tilt:false, cats:CATS, fx:'<g class="tm-wifi" data-t="pump" transform="translate(860 378) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-net"><path d="M420 58 C 480 70, 560 95, 620 112"/><path d="M620 112 C 560 200, 460 280, 385 340"/><path d="M620 112 C 900 140, 1250 200, 1500 305"/><path d="M385 340 C 420 420, 440 480, 460 525"/><path d="M460 525 C 580 560, 690 590, 780 612"/><path d="M780 612 C 900 560, 1040 500, 1160 455"/></g><g class="tm-rings" data-t="haul"><ellipse cx="287" cy="428" rx="40" ry="11"/><ellipse cx="415" cy="438" rx="38" ry="11"/><ellipse cx="965" cy="310" rx="30" ry="9"/><ellipse cx="60" cy="398" rx="36" ry="10"/><ellipse cx="1205" cy="640" rx="36" ry="10"/></g><ellipse class="tm-bubble" data-t="arcas" cx="780" cy="616" rx="62" ry="40"/><g class="tm-radar" data-t="arcas"><path d="M850 600 a18 18 0 0 1 0 28"/><path d="M862 591 a32 32 0 0 1 0 46"/><path d="M874 582 a46 46 0 0 1 0 64"/></g><g class="tm-cv" data-t="eyes"><rect x="478" y="336" width="62" height="40" rx="4"/><rect x="250" y="398" width="70" height="40" rx="4"/><rect x="380" y="410" width="70" height="40" rx="4"/></g><g class="tm-signal" data-t="eyes"><path d="M398 40 a26 26 0 0 0 0 36"/><path d="M386 30 a42 42 0 0 0 0 56"/><path d="M442 40 a26 26 0 0 1 0 36"/><path d="M454 30 a42 42 0 0 1 0 56"/></g><g class="tm-grid" data-t="mg" transform="translate(-205 -128)"><path d="M300 364 L440 364 L462 388 L280 388 Z"/><path d="M325 364 L310 388 M355 364 L345 388 M385 364 L380 388 M415 364 L417 388 M290 376 L452 376"/></g><g class="tm-holo" data-t="mg" transform="translate(-250 -100)"><rect x="430" y="262" width="96" height="64" rx="6"/><circle cx="458" cy="294" r="11"/><path d="M458 280 v28 M444 294 h28 M484 316 l17 -32 l17 32 z"/></g><path class="tm-mesh" data-t="mir" d="M1250 340 C 1330 305, 1420 296, 1500 296 S 1610 300, 1668 318"/><g class="tm-pins" data-t="mir"><g transform="translate(1290 294)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1360 277)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1430 270)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1560 270)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1630 278)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g></g><g class="tm-wifi" data-t="rover" transform="translate(1160 418) scale(0.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="arcas" transform="translate(780 568) scale(0.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="haul" transform="translate(415 398) scale(0.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="haul" transform="translate(287 388) scale(0.7)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-chev" data-t="haul"><path d="M560 545 l16 -10 l16 10" transform="rotate(75 576 540)"/><path d="M585 552 l16 -10 l16 10" transform="rotate(75 601 547)"/></g>',
-      listHtml:(A, c)=> smListHtml(A, 'ARCAS, Machine Guidance, MIR dan Remote Dozer mengikuti slide <b>Safety Automation</b>; Mining Eyes, OBDS, Hauling Automation dan Remote Pump berupa ringkasan.', c) });
+      listHtml:(A, c)=> smListHtml(A, '<b>Technology Transfer to new mining area</b>', c) });
   })();
   const siteMap2 = (function(){
     const { AP, NX, EXTRA, T, IC, CAT, CATS } = smTech;
@@ -11888,7 +11939,7 @@
     const ord = (a)=> a.listOnly ? 100 + +a.id.slice(2) : ORDER.indexOf(a.id);
     AREAS.sort((x, y)=> ord(x) - ord(y));
     return makeSiteMap({ swap:true, pre:'sm2', slide:'slideMap2', w:1600, h:900, areas:AREAS, tilt:false, cats:CATS, fx:'<g class="tm-rings" data-t="haul"><ellipse cx="367" cy="500" rx="30" ry="9"/><ellipse cx="280" cy="365" rx="28" ry="8"/><ellipse cx="710" cy="805" rx="30" ry="9"/></g><ellipse class="tm-bubble" data-t="arcas" cx="460" cy="660" rx="52" ry="34"/><g class="tm-grid" data-t="mg"><path d="M760 545 L870 545 L888 565 L742 565 Z"/><path d="M780 545 L768 565 M805 545 L798 565 M830 545 L828 565 M855 545 L858 565 M752 555 L880 555"/></g><g class="tm-signal" data-t="eyes"><path d="M612 55 a22 22 0 0 0 0 30"/><path d="M602 47 a36 36 0 0 0 0 46"/><path d="M654 55 a22 22 0 0 1 0 30"/><path d="M664 47 a36 36 0 0 1 0 46"/></g><g class="tm-wifi" data-t="pump" transform="translate(1073 692) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="rover" transform="translate(1060 768) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="mir" transform="translate(940 496) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g>',
-      listHtml:(A, c)=> smListHtml(A, 'ARCAS, Machine Guidance, MIR dan Remote Dozer mengikuti slide <b>Safety Automation</b>; Mining Eyes, OBDS, Hauling Automation dan Remote Pump berupa ringkasan.', c) });
+      listHtml:(A, c)=> smListHtml(A, '<b>Technology Transfer to new mining area</b>', c) });
   })();
   // map 2: hauling & operations picture with the technology labels floating over it
   const mineMap = (function(){
