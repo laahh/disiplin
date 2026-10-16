@@ -11234,7 +11234,7 @@
       // era bands, as category ranges
       const band = (a, b, col)=> [{ xAxis:T.cats[a], itemStyle:{ color:col } }, { xAxis:T.cats[b] }];
       // Overview 2 lays the phase band behind the plot: room on top for the era titles, the band brings its own colours
-      const merged = el.classList.contains('ov2-chart');
+      const merged = el.classList.contains('ov2-chart'), LT_UP = 70;  // visual lift of the last LTISR point (value shown stays real)
       c.setOption({
         animationDuration:900, textStyle:{ fontFamily:"'Source Sans 3', sans-serif" },
         tooltip:{ trigger:'axis', confine:true, axisPointer:{ type:'shadow', shadowStyle:{ color:'rgba(31,154,58,.08)' } }, textStyle:{ fontSize:12 },
@@ -11265,11 +11265,11 @@
             label:{ show:true, position:'top', fontSize:11, fontWeight:800, color:'#E3262F', formatter:(p)=> p.dataIndex===last ? '' : fmt(p.value) }, z:5,
             markPoint:{ symbol:'circle', symbolSize:1, label:{ show:true, color:'#E3262F', fontSize:15, fontWeight:800, offset:[0,-14], formatter:fmt(T.afr[last]) },
               data:[{ coord:[last, T.afr[last]] }] } },
-          { name:'LTISR', type:'line', yAxisIndex:2, data: merged ? T.ltisr.map((v, i)=> i === last ? { value:v, label:{ offset:[0,-14], color:'#141A22', fontWeight:800 } } : v) : T.ltisr, symbol:'diamond', symbolSize:9, lineStyle:{ color:'#141A22', width:2.2 }, itemStyle:{ color:'#141A22' },
+          { name:'LTISR', type:'line', yAxisIndex:2, data: merged ? T.ltisr.map((v, i)=> i === last ? { value:LT_UP, real:v, label:{ position:'left', offset:[-8,0], color:'#141A22', fontWeight:800, formatter:()=> fmt(v) } } : v) : T.ltisr, symbol:'diamond', symbolSize:9, lineStyle:{ color:'#141A22', width:2.2 }, itemStyle:{ color:'#141A22' },
             label:{ show:true, position:'top', fontSize:11, fontWeight:800, color:'#141A22', formatter:(p)=> fmt(p.value) }, z:5 },
           { name:'AFR now', type:'effectScatter', yAxisIndex:1, data:[[last, T.afr[last]]], symbolSize:9, silent:true, z:6,
             itemStyle:{ color:'#E3262F' }, rippleEffect:{ scale:4, brushType:'stroke', period:2.2 }, tooltip:{ show:false } },
-          { name:'LTISR flags', type:'effectScatter', yAxisIndex:2, data:[[peak, T.ltisr[peak]], [last, T.ltisr[last]]], symbolSize:9, silent:true, z:6,
+          { name:'LTISR flags', type:'effectScatter', yAxisIndex:2, data:[[peak, T.ltisr[peak]], [last, merged ? LT_UP : T.ltisr[last]]], symbolSize:9, silent:true, z:6,
             itemStyle:{ color:'#141A22' }, rippleEffect:{ scale:3.5, brushType:'stroke', period:2.4 }, tooltip:{ show:false } }
         ]
       });
@@ -11595,7 +11595,7 @@
       det.innerHTML = a.rich ? smRichHtml(a, prev, next) : smCardHtml(a, prev, next);
       det.querySelectorAll('[data-go]').forEach(b=> b.addEventListener('click', e=>{ e.stopPropagation(); const id = b.dataset.go || null; closeDet(()=> select(id)); }));
       // Mining Eyes: Critical Control + roadmap on the left (from the CCV dashboard), the infographic on the right
-      if(a.id === 'eyes'){
+      if(a.id === 'eyes' || a.id === 'ccv'){
         const rich = det.querySelector('.smc-rich');
         if(rich){
           const tmp = document.createElement('div'); tmp.innerHTML = SM_CCX;
