@@ -5063,6 +5063,10 @@
   .sm-det .mx-full.mx-noprog{ grid-template-columns:minmax(0,1fr) !important; }
   .sm-det .mx-noprog img{ object-position:center !important; }
   .sm-det .mx-noprog img{ object-fit:fill !important; width:100% !important; height:100% !important; }  /* hauling picture fills the card edge to edge */
+
+  /* closing slide: full-bleed Thank You picture */
+  #slideThanks{ padding:0 !important; overflow:hidden; background:#fff; }
+  #slideThanks .ty-bg{ position:absolute; inset:0; background:url('mom/cover2.jpeg') center / cover no-repeat; transform-origin:60% 50%; }
 </style>
 </head>
 <body>
@@ -5078,10 +5082,10 @@
   <span class="rail-brand mono">OHS DIVISI</span>
   <div class="rail-letters" id="railLetters">
     <button type="button" data-jump="0">H</button>
-    <button type="button" data-jump="5">S</button>
-    <button type="button" data-jump="6">C</button>
-    <!-- <button type="button" data-jump="9">C</button> -->
-    <button type="button" data-jump="9">M</button>
+    <button type="button" data-jump="1">S</button>
+    <button type="button" data-jump="4">C</button>
+    <!-- <button type="button" data-jump="3">C</button> -->
+    <button type="button" data-jump="3">M</button>
   </div>
   <div class="rail-progress"><i id="progressFill"></i></div>
   <div class="rail-step" id="railStep">01</div>
@@ -5752,7 +5756,7 @@
     </div>
   </section>
 
-  <section class="slide" id="slideSafety" data-steps="4" data-section="B · Performance">
+  <section class="slide-off" id="slideSafety" hidden data-steps="4" data-section="B · Performance">
     <div class="slide-inner">
       <div class="sp-head">
         <p class="kicker mono fade" data-step="1" id="spKicker">Fig. 01 · Safety Performance Overview</p>
@@ -5978,7 +5982,7 @@
     </div>
   </section>
 
-  <section class="slide" id="slideEngineering" data-steps="4" data-section="D · Perkuatan">
+  <section class="slide-off" id="slideEngineering" hidden data-steps="4" data-section="D · Perkuatan">
     <div class="slide-inner">
       <div class="sp-head">
         <p class="kicker mono fade" data-step="1" id="reKicker">Fig. 05 · Implementasi Rekayasa Engineering Overview</p>
@@ -6004,7 +6008,7 @@
     </div>
   </section>
 
-  <section class="slide" id="slideHealth" data-steps="6" data-section="D · Perkuatan">
+  <section class="slide-off" id="slideHealth" hidden data-steps="6" data-section="D · Perkuatan">
     <div class="slide-inner">
       <div class="sp-head">
         <p class="kicker mono fade" data-step="1" id="hfKicker">Fig. 06 · Health &amp; Fatigue Management Overview</p>
@@ -6050,7 +6054,7 @@
     </div>
   </section>
 
-  <section class="slide" id="slideHJ" data-steps="2" data-section="D · Perkuatan">
+  <section class="slide-off" id="slideHJ" hidden data-steps="2" data-section="D · Perkuatan">
     <div class="slide-inner">
       <div class="sp-head">
         <p class="kicker mono fade" data-step="1" id="hjKicker">Fig. 07 · Health Management Journey</p>
@@ -6071,7 +6075,7 @@
     </div>
   </section>
 
-  <section class="slide" id="slideNext" data-steps="3" data-section="E · Next to Do">
+  <section class="slide-off" id="slideNext" hidden data-steps="3" data-section="E · Next to Do">
     <div class="slide-inner">
       <div class="sp-head">
         <p class="kicker mono fade" data-step="1" id="nxKicker">Fig. 07 · Highlight &amp; Next to Do Q4 2026 Overview</p>
@@ -6102,7 +6106,7 @@
     </div>
   </section>
 
-  <section class="slide" id="slideBerbagi" data-steps="4" data-section="F · Berbagi">
+  <section class="slide-off" id="slideBerbagi" hidden data-steps="4" data-section="F · Berbagi">
     <div class="slide-inner">
       <div class="sp-head">
         <p class="kicker mono fade" data-step="1" id="bkKicker">Fig. 08 · Program Berbagi Keselamatan</p>
@@ -6125,6 +6129,10 @@
         </div>
       </div>
     </div>
+  </section>
+
+  <section class="slide" id="slideThanks" data-steps="1" data-section="F · Penutup">
+    <div class="ty-bg" role="img" aria-label="Thank You: tim keselamatan memandang ke site tambang saat matahari terbit"></div>
   </section>
 
 </div>
@@ -6941,7 +6949,7 @@
       killSlide(index);
       const tl = gsap.timeline({ defaults:{ duration:0.5, ease:'power3.out' } });
       tls.set(index, tl);
-      const fns = [opening, stable, stable2, /* rtslide, auslide (hidden), */ sitemap, /* minemap, opstab, transform (hidden), */ crossdiv, safety, engineering, health, hjourney, nextdo, berbagi];
+      const fns = [opening, stable, stable2, /* rtslide, auslide (hidden), */ sitemap, /* minemap, opstab, transform (hidden), */ crossdiv, /* safety, engineering, health, hjourney, nextdo, berbagi (hidden), */ thanks];
       if(fns[index]) fns[index](tl, n, prev);
     }
     // How Stable Are We?: header, MoM items, then safety tiles and rings, health tiles, KPI cards
@@ -7443,6 +7451,11 @@
         tl.fromTo(all('.hy'), {y:26, opacity:0}, {y:0, opacity:1, stagger:0.14, duration:0.5, ease:'back.out(1.5)'}, 0.2);
         tl.fromTo(all('.hy-arr'), {x:-8, opacity:0}, {x:0, opacity:1, stagger:0.14, duration:0.3}, 0.4);
       }
+    }
+    // closing slide: the picture settles in slowly
+    function thanks(tl, n, prev){
+      if(!(n>=1 && prev<1)) return;
+      tl.fromTo('#slideThanks .ty-bg', {scale:1.06, opacity:0}, {scale:1, opacity:1, duration:1.4, ease:'power2.out'}, 0);
     }
     function nextdo(tl, n, prev){
       const all = (sel)=> document.querySelectorAll('#slideNext '+sel);
@@ -9360,7 +9373,7 @@
       else if(e.key==='r' || e.key==='R') goTo(0);
       else if(e.key==='u' || e.key==='U'){ replaySlide(current); applyFades(slides[current],0); setStep(1,{prev:0}); }
       else if(/^[a-eA-E]$/.test(e.key)){
-        const map={ a:0, b:5, c:6, d:6, e:9 }; goTo(map[e.key.toLowerCase()]);
+        const map={ a:0, b:1, c:4, d:4, e:3 }; goTo(map[e.key.toLowerCase()]);
       }
     });
     function openGuide(){ guide.classList.add('open'); }
