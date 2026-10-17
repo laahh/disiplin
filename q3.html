@@ -5477,6 +5477,13 @@
   .ov2-hz, .ov2-hz > *{ min-width:0 !important; } .ov2-hz-bars{ width:100% !important; min-width:0 !important; box-sizing:border-box; }
   .ov2-hz-bars .yr{ min-width:0; } .ov2-hz-bars .yr.q .sg em{ font-size:9.5px !important; } .ov2-hz-bars .yr.q .sg i{ width:58% !important; }
   .ov2-hz-bars .yr.q-first::after{ content:'2026'; position:absolute; left:-6px; top:-11px; font:800 8px/1 'Plus Jakarta Sans',sans-serif; color:#147A2C; letter-spacing:.04em; }
+  /* Current Plateau sits on the yellow line (in front of it); the hidden-incident label is not shown */
+  #slideStable2 .ov2-callout{ z-index:4 !important; }
+  #slideStable2 .ov2-callout .ov2-pl-lab{ left:-16% !important; top:-38% !important; text-shadow:0 0 3px #fff, 0 0 3px #fff, 0 0 6px #fff !important; }
+  #slideStable2 .ov2-callout .ov2-hi-lab{ display:none !important; }
+  /* Current Plateau drawn on the yellow line itself (stays on it at any size) */
+  #slideStable2 .ov2-callout .ov2-pl-lab{ display:none !important; }
+  .ov2-trend .tr-pl{ font:800 italic 13px 'Plus Jakarta Sans',sans-serif; fill:#8A5A00; paint-order:stroke; stroke:#FFF6C2; stroke-width:3px; stroke-linejoin:round; }
 </style>
 <script>
 (function(){
@@ -11568,7 +11575,7 @@
         + '<circle class="tr-ja" cx="' + xj + '" cy="' + yj + '" r="13"/><circle class="tr-jc" cx="' + xj + '" cy="' + yj + '" r="5.4"/>'
         + sp.map((q, k)=> '<g transform="translate(' + q[0].toFixed(1) + ' ' + q[1].toFixed(1) + ')"><g class="tr-spk" style="animation-delay:' + (-k * .6).toFixed(2) + 's"><circle r="' + (k % 2 ? 2 : 2.6) + '"/><path d="M-7 0H7M0-7V7"/></g></g>').join('')
         + '<text class="tr-lab tr-auto" x="' + (W - 3) + '" y="' + (yj - .58 * V * Hp - 6) + '" text-anchor="end">Automation</text>'
-        + '<text class="tr-sub" x="' + (W - 3) + '" y="' + (yj - .58 * V * Hp + 8) + '" text-anchor="end">Next Phase</text>'
+        + '<text class="tr-pl" x="' + ((P[5][0] + P[6][0]) / 2).toFixed(1) + '" y="' + (yj + 1).toFixed(1) + '" text-anchor="middle" dominant-baseline="middle">Current Plateau ▼</text>'
         + '<text class="tr-ml" x="' + (W - 3) + '" y="' + (yj - 11) + '" text-anchor="end">Manual Limit</text>';
     };
     // spotlight: green > orange > red in turn, the yellow Manual Limit stays lit
@@ -11588,7 +11595,7 @@
     const ms = D * 1000, at = (i)=> (i + .5) / n * ms, an = [];
     const run = (els, kf, delay, dur, ease)=> els.forEach(e=> an.push(e.animate(kf, { delay, duration:dur, easing:ease || 'ease-out', fill:'both' })));
     run([box], [{ opacity:0 }, { opacity:1 }], at(5.6), 300);
-    run([box], [{ clipPath:'inset(-300% 100% -150% -12%)' }, { clipPath:'inset(-300% -12% -150% -12%)' }], at(5.6), at(12) - at(5.6), 'linear');
+    run([box], [{ clipPath:'inset(-300% 100% -150% -40%)' }, { clipPath:'inset(-300% -12% -150% -40%)' }], at(5.6), at(12) - at(5.6), 'linear');
     const q = (sel)=> Array.from(box.querySelectorAll(sel));
     run(q('.ov2-pl-lab'), [{ opacity:0 }, { opacity:1 }], at(6.5), 500);
     run(q('.rd.r1'), [{ opacity:0 }, { opacity:1 }], at(9), 400);
@@ -11712,7 +11719,7 @@
       if(merged){ plateauFlow(el, DUR / 1000, n); trendCurve(el, c, DUR); }
       // replay the sweep after a pause, for as long as this chart is on screen
       clearTimeout(el._loopT);
-      el._loopT = setTimeout(function again(){
+      if(!merged) el._loopT = setTimeout(function again(){
         const sl = el.closest('.slide') || document.getElementById('slideStable');
         if(!el.isConnected) return;
         if(el.offsetParent && sl && sl.classList.contains('active')) chart(el);
