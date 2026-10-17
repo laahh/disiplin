@@ -5375,9 +5375,6 @@
   .sm-hubc .hc-ic svg{ width:16px; height:16px; fill:#5CF08E; }
   .sm-hubc b{ display:block; font:800 13px/1.15 'Plus Jakarta Sans',sans-serif; letter-spacing:.06em; text-transform:uppercase; }
   .sm-hubc small{ display:block; margin-top:2px; font:700 11px/1.2 'Plus Jakarta Sans',sans-serif; letter-spacing:.08em; text-transform:uppercase; color:#7CFFA6; }
-  .sm-hubc .hc-l{ display:flex; flex-wrap:wrap; gap:4px 10px; margin-top:7px; padding-top:6px; border-top:1px solid rgba(255,255,255,.14); }
-  .sm-hubc .hc-l i{ display:inline-flex; align-items:center; gap:5px; font:600 normal 10.5px/1.2 'Plus Jakarta Sans',sans-serif; color:rgba(255,255,255,.9); }
-  .sm-hubc .hc-l i::before{ content:''; width:14px; height:3px; border-radius:2px; background:var(--c); box-shadow:0 0 5px var(--c); }
   .sm-vp.net-on .tm-fx{ opacity:.35; transition:opacity .4s; }
   .sm-vp.net-on .sm-pin.off:not(.offmap){ opacity:1 !important; pointer-events:auto !important; }
   .sm-hubc{ left:12px; bottom:46px; transform:none !important; min-width:0; max-width:300px; }
@@ -12034,10 +12031,8 @@
       });
       out += '<circle class="nh" cx="' + H[0] + '" cy="' + H[1] + '" r="16"/><circle class="nh d2" cx="' + H[0] + '" cy="' + H[1] + '" r="16"/><circle class="nhi" cx="' + H[0] + '" cy="' + H[1] + '" r="6"/>';
       netG = document.createElementNS(NS, 'g'); netG.setAttribute('class', 'sm-net'); netG.innerHTML = out; svg.appendChild(netG);
-      const used = [...new Set(T.map(a=> (a.cats || [])[0]))].filter(k=> NET_C[k] && typeof SM_GRP !== 'undefined' && SM_GRP[k]);
       netCard = document.createElement('div'); netCard.className = 'sm-hubc'; netCard.setAttribute('aria-hidden', 'true');
-      netCard.innerHTML = '<div class="hc-t"><span class="hc-ic">' + (h.icon || '') + '</span><span><b>OBDS</b><small>One Big Database Safety</small></span></div>'
-        + '<div class="hc-l">' + used.map(k=> '<i style="--c:' + NET_C[k] + '">#' + SM_GRP[k].n + ' ' + SM_GRP[k].m + '</i>').join('') + '</div>';
+      netCard.innerHTML = '<div class="hc-t"><span class="hc-ic">' + (h.icon || '') + '</span><span><b>OBDS</b><small>One Big Database Safety</small></span></div>';
       vp.appendChild(netCard);
       vp.classList.add('net-on');
     }
@@ -12200,6 +12195,11 @@
         prog:['Remote Blasting masuk program Q4 2026 (Implementasi Hauling Automation &amp; Ideation Remote Blasting)','Tahap ideation: kajian kebutuhan sistem dan area prioritas'],
         rnd:['Sistem inisiasi peledakan nirkabel dari jarak aman','Integrasi clearance radius dengan monitoring area'] },
       'Pit · area drilling &amp; blasting', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 2h2v5h-2zM6 5l1.4-1.4 2.1 2.1-1.4 1.4zm10.5 1.1 2.1-2.1L20 5.4l-2.1 2.1zM12 8l2.2 4.5L19 13l-3.5 3.4.8 4.6L12 18.8 7.7 21l.8-4.6L5 13l4.8-.5z"/></svg>', [320,140], [330,225], [[245,190],[370,190],[370,245],[245,245]], 'Kajian kebutuhan &amp; area prioritas'));
+    AREAS.push(T('aebs', { name:'AEBS', sub:'Automatic Emergency Braking System pada unit hauling', stage:'Trial &amp; evaluasi',
+        hazard:['Tabrakan unit hauling dengan kendaraan / objek di depan','Reaksi pengemudi terlambat saat jarak aman tidak terjaga'],
+        prog:['Unit hauling coal dilengkapi sensor deteksi objek di depan','Sistem memberi peringatan dan mengerem otomatis saat risiko tabrakan terdeteksi'],
+        rnd:['Evaluasi performa pengereman otomatis di jalur hauling','Integrasi data kejadian AEBS ke dashboard OBDS'] },
+      'Hauling coal · jalur CPP', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 6h12v9H2zm12 3h4l3 3v3h-7zM6 18.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm12 0a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/></svg>', [1225,385], [1380,305], [[1312,278],[1446,278],[1446,334],[1312,334]], ''));
     AREAS.push(T('ccv', { name:'CCV (Critical Control Verification)', sub:'Critical Risk Barrier · CCV &amp; IPLS Layer 5 · Mining Eyes Analytic', stage:'Q3 2026 · Pendetailan CPP', hazard:[], prog:[], rnd:[] },
       'Penetapan kontrol kritis pada setiap aktivitas', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V9h2v4z"/></svg>', [120,622], [298,520], [[230,500],[340,500],[340,560],[230,560]], ''));
     AREAS[3].name = 'MIR';
