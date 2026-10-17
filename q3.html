@@ -5439,6 +5439,33 @@
   .ov2-plat .pl, .ov2-plat .plc, .ov2-plat .gr, .ov2-plat .rd, .ov2-callout .ov2-pl-run, .ov2-callout .ov2-br-dot{ display:none !important; }
   .ov2-callout, .ov2-callout::before{ background:none !important; animation:none !important; box-shadow:none !important; border:0 !important; }
   .ov2-callout::before{ display:none !important; }
+
+  /* How Stable: four future branches from the Q3'26 junction (Automation / Manual Limit / two risk paths) */
+  .ov2-trend .tr-sc{ opacity:.46; transition:opacity .8s cubic-bezier(.22,1,.36,1); }
+  .ov2-trend .tr-yellow{ opacity:1; }
+  .ov2-trend .tr-sg, .ov2-trend .tr-ss, .ov2-trend .tr-sw{ fill:none; stroke-linecap:round; stroke-linejoin:round; }
+  .ov2-trend .tr-ss{ stroke-width:7px; transition:stroke-width .8s cubic-bezier(.22,1,.36,1); }
+  .ov2-trend .tr-sg{ stroke-width:19px; opacity:0; filter:url(#ovTrBg); transition:opacity .8s ease, stroke-width .8s ease; }
+  .ov2-trend .tr-s-green{ stroke:url(#ovTrGg); } .ov2-trend .tr-s-orange{ stroke:url(#ovTrGo); } .ov2-trend .tr-s-red{ stroke:url(#ovTrGr); }
+  .ov2-trend .tr-s-yellow{ stroke:#FFE72F; stroke-width:9.8px; }
+  .ov2-trend .tr-g-green{ stroke:#65DD2E; } .ov2-trend .tr-g-orange{ stroke:#FFB02F; } .ov2-trend .tr-g-red{ stroke:#FF5D61; }
+  .ov2-trend .tr-g-yellow{ stroke:#FFD51C; stroke-width:24px; opacity:.56; animation:trBreathe 3.4s ease-in-out infinite; }
+  .ov2-trend .tr-sc.is-active{ opacity:1; } .ov2-trend .tr-sc.is-active .tr-ss{ stroke-width:11.5px; } .ov2-trend .tr-sc.is-active .tr-sg{ opacity:.7; stroke-width:24px; }
+  .ov2-trend .tr-sc.is-dimmed{ opacity:.45; }
+  .ov2-trend .tr-sw{ stroke:#FFFEFA; stroke-width:2.8px; stroke-dasharray:20 245; opacity:0; filter:drop-shadow(0 0 3px currentColor); animation:trBranch 2.6s linear infinite; transition:opacity .5s ease; }
+  .ov2-trend .tr-sc.is-active .tr-sw{ opacity:.95; }
+  @keyframes trBranch{ to{ stroke-dashoffset:-265; } }
+  .ov2-trend .tr-ja{ fill:#FFE239; opacity:.46; filter:url(#ovTrB); } .ov2-trend .tr-jc{ fill:#FFE622; }
+  .ov2-trend .tr-line{ stroke-width:5.5px !important; } .ov2-trend .tr-weight{ stroke-width:9px !important; } .ov2-trend .tr-aura{ stroke-width:24px !important; }
+  .ov2-trend .tr-lab, .ov2-trend .tr-ml{ paint-order:stroke; stroke:#fff; stroke-width:4px; stroke-linejoin:round; }
+  .ov2-trend .tr-auto{ font:900 italic 13.5px 'Plus Jakarta Sans',sans-serif; fill:#27983D; }
+  .ov2-trend .tr-sub{ font:700 italic 11px 'Plus Jakarta Sans',sans-serif; fill:#5B6470; }
+  .ov2-trend .tr-ml{ font:800 11.5px 'Plus Jakarta Sans',sans-serif; fill:#404148; }
+  @media (prefers-reduced-motion: reduce){ .ov2-trend .tr-sw{ animation:none !important; } }
+  #slideStable2 .ov2-callout .ov2-br-lab{ display:none !important; }
+  #slideStable2 .ov2-callout{ left:calc(34px + (100% - 146px) * .5) !important; width:calc((100% - 146px) * .5) !important; }
+  /* axis title sits right of the AFR & LTISR axis labels, clear of the branches */
+  .ov2-chart.ex-chart::after{ right:auto !important; left:auto !important; right:calc(112px - 34px) !important; top:-6px !important; writing-mode:horizontal-tb !important; transform:translateX(50%); }
 </style>
 <script>
 (function(){
@@ -11443,7 +11470,7 @@
     inj:[5.2,3.1,2.9,3.0,1.0,1.0,0.5,0.9,0.8,0.7,0.7,1.0],
     non:[17.7,15.8,13.4,5.3,5.1,4.3,4.3,5.1,3.8,4.3,5.0,5.3]
   };
-  const OV2_TOP = 16, OV2_LEFT = 34;  // keep in step with .ov2-chartwrap .ex-ph-cols height / .ov2-phase left
+  const OV2_TOP = 16, OV2_LEFT = 34, OV2_RIGHT = 112;  // keep in step with .ov2-chartwrap .ex-ph-cols height / .ov2-phase left
   // Overview: the plateau highlight follows the chart sweep (box opens as the lines reach 2023,
   // incident drops appear at Q1'26 / Q3'26, the breakthrough rises once the sweep ends)
   // Hazard / TBC bars follow the incident chart: each year sits under the same year above,
@@ -11487,7 +11514,7 @@
     });
   }
   // safety performance curve: a single SVG path over the chart (2017 high, plateau, breakthrough)
-  const TREND_Y = [45, 45.5, 40, 26.5, 23.4, 23.2, 23.2, 23.4, 23.4, 23.6, 31, 52];
+  const TREND_Y = [45, 45.5, 40, 26.5, 23.4, 23.2, 23.2, 23.4, 23.4, 23.4, 23.4, 23.4];
   function trendCurve(el, c, DUR){
     const host = el.parentNode; let svg = host.querySelector(':scope > .ov2-trend');
     if(!svg){ svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); svg.setAttribute('class', 'ov2-trend'); svg.setAttribute('aria-hidden', 'true'); host.appendChild(svg); }
@@ -11499,19 +11526,40 @@
       const d = P.map((p, i)=>{ if(!i) return 'M' + p[0].toFixed(1) + ' ' + p[1].toFixed(1);
         const a = P[i - 2] || P[i - 1], b = P[i - 1], e = P[i + 1] || p;
         return ' C' + (b[0] + (p[0] - a[0]) / 6).toFixed(1) + ' ' + (b[1] + (p[1] - a[1]) / 6).toFixed(1) + ' ' + (p[0] - (e[0] - b[0]) / 6).toFixed(1) + ' ' + (p[1] - (e[1] - b[1]) / 6).toFixed(1) + ' ' + p[0].toFixed(1) + ' ' + p[1].toFixed(1); }).join('');
-      const x0 = P[0][0], x1 = P[P.length - 1][0];
+      const x0 = P[0][0], J = P[P.length - 1], xj = J[0], yj = J[1];
+      const Hp = c.convertToPixel({ yAxisIndex:0 }, 0) - c.convertToPixel({ yAxisIndex:0 }, 75), L = W - 4 - xj, V = .55;
+      const br = (k1, k2, d2, d3)=> 'M' + xj + ' ' + yj + ' C' + (xj + k1 * L) + ' ' + yj + ' ' + (xj + k2 * L) + ' ' + (yj + d2 * V * Hp) + ' ' + (xj + L) + ' ' + (yj + d3 * V * Hp);
+      const B = { green:br(.36, .74, -.30, -.56), yellow:br(.36, .7, 0, 0), orange:br(.34, .73, .092, .23), red:br(.3, .73, .245, .44) };
       svg.style.left = el.offsetLeft + 'px'; svg.style.top = el.offsetTop + 'px';
       svg.setAttribute('width', W); svg.setAttribute('height', H); svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
-      const sp = [4, 6, 7.5, 9].map(f=>{ const i = Math.floor(f), t = f - i, A = P[i], B = P[Math.min(i + 1, P.length - 1)]; return [A[0] + (B[0] - A[0]) * t, (A[1] + B[1]) / 2 * (t ? 1 : 0) + A[1] * (t ? 0 : 1)]; });
+      const sp = [4, 6, 7.5, 9].map(f=>{ const i = Math.floor(f), t = f - i, A = P[i], Q = P[Math.min(i + 1, P.length - 1)]; return [A[0] + (Q[0] - A[0]) * t, A[1] + (Q[1] - A[1]) * t]; })
+        .concat([[xj + .45 * L, yj], [xj + .85 * L, yj]]);
+      const g = (x1, stops)=> '<linearGradient id="ovTr' + x1 + '" gradientUnits="userSpaceOnUse" x1="' + xj + '" y1="0" x2="' + (xj + L) + '" y2="0">' + stops + '</linearGradient>';
+      const scen = (k, extra)=> '<g class="tr-sc tr-' + k + (k === 'green' ? ' is-active' : '') + '"><use href="#ovTrB' + k + '" class="tr-sg tr-g-' + k + '"/><use href="#ovTrB' + k + '" class="tr-ss tr-s-' + k + '"/>' + extra + '</g>';
       svg.innerHTML = '<defs>'
-        + '<linearGradient id="ovTrG" gradientUnits="userSpaceOnUse" x1="' + x0 + '" y1="0" x2="' + x1 + '" y2="0"><stop offset="0" stop-color="#ED9C0B"/><stop offset=".19" stop-color="#F8B913"/><stop offset=".33" stop-color="#FFD123"/><stop offset=".55" stop-color="#FFE344"/><stop offset=".76" stop-color="#F8D923"/><stop offset=".86" stop-color="#D8DA21"/><stop offset="1" stop-color="#37B52E"/></linearGradient>'
-        + '<linearGradient id="ovTrM" gradientUnits="userSpaceOnUse" x1="' + x0 + '" y1="0" x2="' + x1 + '" y2="0"><stop offset="0" stop-color="#000"/><stop offset=".2" stop-color="#000"/><stop offset=".32" stop-color="#fff"/><stop offset=".74" stop-color="#fff"/><stop offset=".85" stop-color="#000"/><stop offset="1" stop-color="#000"/></linearGradient>'
+        + '<linearGradient id="ovTrG" gradientUnits="userSpaceOnUse" x1="' + x0 + '" y1="0" x2="' + xj + '" y2="0"><stop offset="0" stop-color="#EDA010"/><stop offset=".18" stop-color="#F4AE0C"/><stop offset=".31" stop-color="#FFC713"/><stop offset=".5" stop-color="#FFE227"/><stop offset=".82" stop-color="#FFDF23"/><stop offset="1" stop-color="#FFE524"/></linearGradient>'
+        + '<linearGradient id="ovTrM" gradientUnits="userSpaceOnUse" x1="' + x0 + '" y1="0" x2="' + xj + '" y2="0"><stop offset="0" stop-color="#000"/><stop offset=".2" stop-color="#000"/><stop offset=".31" stop-color="#fff"/><stop offset="1" stop-color="#fff"/></linearGradient>'
         + '<mask id="ovTrMk" maskUnits="userSpaceOnUse" x="0" y="0" width="' + W + '" height="' + H + '"><rect width="' + W + '" height="' + H + '" fill="url(#ovTrM)"/></mask>'
-        + '<filter id="ovTrB" x="-40%" y="-200%" width="180%" height="500%"><feGaussianBlur stdDeviation="6"/></filter>'
-        + '<path id="ovTrP" d="' + d + '"/></defs>'
+        + '<filter id="ovTrB" x="-40%" y="-350%" width="180%" height="800%"><feGaussianBlur stdDeviation="6"/></filter>'
+        + '<filter id="ovTrBg" x="-45%" y="-80%" width="190%" height="260%"><feGaussianBlur stdDeviation="4"/></filter>'
+        + g('Gg', '<stop offset="0" stop-color="#FFE521"/><stop offset=".14" stop-color="#9CDA20"/><stop offset=".34" stop-color="#4FD428"/><stop offset="1" stop-color="#45D521"/>')
+        + g('Go', '<stop offset="0" stop-color="#FFE521"/><stop offset=".13" stop-color="#FFC021"/><stop offset="1" stop-color="#F6921E"/>')
+        + g('Gr', '<stop offset="0" stop-color="#FFE521"/><stop offset=".12" stop-color="#FF992E"/><stop offset=".36" stop-color="#FF584D"/><stop offset="1" stop-color="#FF484D"/>')
+        + '<path id="ovTrP" d="' + d + '"/>' + Object.keys(B).map(k=> '<path id="ovTrB' + k + '" d="' + B[k] + '"/>').join('') + '</defs>'
+        // four branches from one junction (behind the trunk so the joint stays clean)
+        + scen('green', '<use href="#ovTrBgreen" class="tr-sw" style="color:#66E42B"/>') + scen('red', '<use href="#ovTrBred" class="tr-sw" style="color:#FF525B"/>')
+        + scen('orange', '<use href="#ovTrBorange" class="tr-sw" style="color:#FFA32B"/>') + scen('yellow', '<use href="#ovTrByellow" class="tr-shim"/>')
         + '<use href="#ovTrP" class="tr-aura" mask="url(#ovTrMk)"/><use href="#ovTrP" class="tr-line"/><use href="#ovTrP" class="tr-weight" mask="url(#ovTrMk)"/><use href="#ovTrP" class="tr-shim" mask="url(#ovTrMk)"/>'
-        + sp.map((q, k)=> '<g transform="translate(' + q[0].toFixed(1) + ' ' + q[1].toFixed(1) + ')"><g class="tr-spk" style="animation-delay:' + (-k * .75).toFixed(2) + 's"><circle r="' + (k % 2 ? 2 : 2.6) + '"/><path d="M-7 0H7M0-7V7"/></g></g>').join('');
+        + '<circle class="tr-ja" cx="' + xj + '" cy="' + yj + '" r="13"/><circle class="tr-jc" cx="' + xj + '" cy="' + yj + '" r="5.4"/>'
+        + sp.map((q, k)=> '<g transform="translate(' + q[0].toFixed(1) + ' ' + q[1].toFixed(1) + ')"><g class="tr-spk" style="animation-delay:' + (-k * .6).toFixed(2) + 's"><circle r="' + (k % 2 ? 2 : 2.6) + '"/><path d="M-7 0H7M0-7V7"/></g></g>').join('')
+        + '<text class="tr-lab tr-auto" x="' + (W - 3) + '" y="' + (yj - .58 * V * Hp - 6) + '" text-anchor="end">Automation</text>'
+        + '<text class="tr-sub" x="' + (W - 3) + '" y="' + (yj - .58 * V * Hp + 8) + '" text-anchor="end">Next Phase</text>'
+        + '<text class="tr-ml" x="' + (W - 3) + '" y="' + (yj - 11) + '" text-anchor="end">Manual Limit</text>';
     };
+    // spotlight: green > orange > red in turn, the yellow Manual Limit stays lit
+    clearInterval(svg._spot); let step = 0;
+    if(!REDUCE_MOTION) svg._spot = setInterval(()=>{ if(!svg.isConnected) return clearInterval(svg._spot); step = (step + 1) % 3;
+      ['green', 'orange', 'red'].forEach((k, i)=>{ const e = svg.querySelector('.tr-' + k); if(e){ e.classList.toggle('is-active', i === step); e.classList.toggle('is-dimmed', i !== step); } }); }, 2600);
     draw();
     if(!svg._ro && window.ResizeObserver){ svg._ro = new ResizeObserver(()=> requestAnimationFrame(draw)); svg._ro.observe(el); }
     // drawn left to right with the chart sweep
@@ -11594,14 +11642,14 @@
         animationDuration:900, textStyle:{ fontFamily:"'Source Sans 3', sans-serif" },
         tooltip:{ trigger:'axis', confine:true, axisPointer:{ type:'shadow', shadowStyle:{ color:'rgba(31,154,58,.08)' } }, textStyle:{ fontSize:12 },
           formatter:(ps)=>{ const i = ps[0].dataIndex; return '<b>'+T.cats[i]+'</b><br>Jumlah insiden: <b>'+f1(total[i])+'</b><br>AFR: <b>'+fmt(T.afr[i])+'</b><br>LTISR: <b>'+fmt(T.ltisr[i])+'</b>'; } },
-        grid:{ left: merged ? OV2_LEFT : 34, right:34, top: merged ? OV2_TOP : 16, bottom:22 },
+        grid:{ left: merged ? OV2_LEFT : 34, right: merged ? OV2_RIGHT : 34, top: merged ? OV2_TOP : 16, bottom:22 },
         xAxis:{ type:'category', data:T.cats, axisTick:{ show:false }, axisLine:{ lineStyle:{ color:'#16294F', width:1.5 } },
           axisLabel:{ interval:0, fontSize:11, fontWeight:600, color:'#141A22' } },
         yAxis:[
           { type:'value', min:0, max:75, interval:15, name:'Jumlah\nInsiden', nameLocation:'middle', nameGap:22, nameRotate:0, nameTextStyle:{ fontSize:0 },
-            axisLine:{ show:true, lineStyle:{ color:'#16294F', width:1.5 } }, axisLabel:{ fontSize:10, color:'#16294F' }, splitLine:{ show:false } },
+            axisLine:{ show:!merged, lineStyle:{ color:'#16294F', width:1.5 } }, axisLabel:{ fontSize:10, color:'#16294F' }, splitLine:{ show:false } },
           { type:'value', min:-26, max:7.2, show:false },
-          { type:'value', min: merged ? -400 : -300, max:600, interval:100, position:'right', axisLine:{ show:true, lineStyle:{ color:'#16294F', width:1.5 } },
+          { type:'value', min: merged ? -400 : -300, max:600, interval:100, position:'right', axisLine:{ show:!merged, lineStyle:{ color:'#16294F', width:1.5 } },
             axisLabel:{ fontSize:10, color:'#16294F', formatter:(v)=> v>=0 ? v : '' }, splitLine:{ show:false } }
         ],
         series:[
