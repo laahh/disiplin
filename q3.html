@@ -5346,7 +5346,7 @@
   .sm-tt b{ font:800 19px/1.25 'Plus Jakarta Sans',sans-serif !important; color:#fff; text-shadow:0 1px 3px rgba(20,70,25,.45); }
 
   /* disclaimer on the site maps: AI-made concept picture, not a survey */
-  .sm-ai{ position:absolute; top:12px; right:12px; z-index:6; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; gap:4px; max-width:70%;
+  .sm-ai{ position:absolute; left:12px; bottom:12px; z-index:6; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; gap:4px; max-width:70%;
     padding:7px 12px; border-radius:6px; background:rgba(0,0,0,.32); text-align:left; text-shadow:0 1px 2px rgba(0,0,0,.6); }
   .sm-ai b{ display:inline-flex; align-items:center; gap:7px; font:700 11.5px/1.2 'Plus Jakarta Sans',sans-serif; color:#fff; }
   .sm-ai b span{ display:grid; place-items:center; width:13px; height:13px; border-radius:50%; border:1.3px solid #fff; font:700 8.5px/1 'Plus Jakarta Sans',sans-serif; text-shadow:none; }
@@ -5377,7 +5377,7 @@
   .sm-hubc small{ display:block; margin-top:2px; font:700 11px/1.2 'Plus Jakarta Sans',sans-serif; letter-spacing:.08em; text-transform:uppercase; color:#7CFFA6; }
   .sm-vp.net-on .tm-fx{ opacity:.35; transition:opacity .4s; }
   .sm-vp.net-on .sm-pin.off:not(.offmap){ opacity:1 !important; pointer-events:auto !important; }
-  .sm-hubc{ left:12px; bottom:46px; transform:none !important; min-width:0; max-width:300px; }
+  .sm-hubc{ left:12px; bottom:68px; transform:none !important; min-width:0; max-width:300px; }
   @media (prefers-reduced-motion: reduce){ .sm-net *{ animation:none !important; stroke-dashoffset:0 !important; } .sm-net .nd{ display:none; } }
 
   /* #1 Critical Control tab: every CCTV pole watched by Mining Eyes Analytics gets a detection box */
@@ -5415,6 +5415,15 @@
   /* Direct Automation: hauling roads drawn with the OBDS network style (.sm-net) */
   .sm-road{ pointer-events:none; }
   .sm-vp.road-on .tm-fx > :not(.sm-road){ opacity:.4; transition:opacity .4s; }
+
+  /* Lagging Outcome / Underlying Risk: smaller text, shorter cards */
+  #slideStable2 .rd-out .ov2-out2 .ov-box{ padding:4px 10px 5px !important; height:auto !important; min-height:0 !important; align-self:start; }
+  #slideStable2 .rd-out .ov2-out2 .ov-box h5{ margin-bottom:2px !important; font-size:12.5px !important; gap:6px !important; }
+  #slideStable2 .rd-out .ov2-out2 .ov-box h5 .hi{ width:15px !important; height:15px !important; }
+  #slideStable2 .rd-out .ov2-out2 .ov-box li{ font-size:11.5px !important; line-height:1.3 !important; margin:0 !important; }
+  #slideStable2 .rd-out .ov2-out2 .ov-box li b{ font-size:12.5px !important; }
+  /* map zoom readout not shown */
+  .sm-hud{ display:none !important; }
 </style>
 <script>
 (function(){
@@ -12152,7 +12161,7 @@
     };
     const T = (id, P, loc, icon, tag, pin, poly, next, wide)=> ({ id, P, loc, icon, tag, pin, poly, next, wide, st:'tech', name:P.name.replace(/&amp;/g,'&').replace(/ – .*| \(.*\)/, '') });
     const IC = { obds:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h18v12H3zm2 2v8h14V6zm2 6 3-3 2 2 4-4 1 1-5 5-2-2-2 2zM8 18h8v2H8z"/></svg>', eyes:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9l2-2h5v14H4zm8 9a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm0-2a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>', mg:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 18h12v3H2zm2-5h7v4H4zm6-1 3-7 2 1-3 7zm3-7 6 2 1 5-2 1-1-4-5-2z"/></svg>', mir:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>', arcas:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3zm-1.2 14.2-3.5-3.5 1.4-1.4 2.1 2.1 4.9-4.9 1.4 1.4-6.3 6.3z"/></svg>', rover:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10a5 5 0 0 1 5 5v1a4 4 0 0 1-7 2.6L14 14h-4l-1 1.6A4 4 0 0 1 2 13v-1a5 5 0 0 1 5-5zm0 3v2H5v2h2v2h2v-2h2v-2H9v-2zm9 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm2 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/></svg>', haul:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 7h12v8H1zm12 3h5l4 3v2h-9zM5 18a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm13 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>' };
-    const CAT = { obds:['data'], eyes:['cc'], mg:['eng'], mir:['eng'], arcas:['eng'], rover:['eng'], haul:['auto'] };
+    const CAT = { obds:['data'], eyes:['cc'], mg:['eng'], mir:['eng'], arcas:['eng'], rover:['eng'], haul:['auto'], ads:['auto'] };
     const CATS = [{ id:'cc', label:'#1 Critical Control' }, { id:'eng', label:'#2 Engineering Control' }, { id:'auto', label:'#3 Direct Automation' }, { id:'data', label:'Data &amp; AI' }];
     return { AP, NX, EXTRA, T, IC, CAT, CATS };
   })();
@@ -12225,11 +12234,16 @@
         prog:['Remote Blasting masuk program Q4 2026 (Implementasi Hauling Automation &amp; Ideation Remote Blasting)','Tahap ideation: kajian kebutuhan sistem dan area prioritas'],
         rnd:['Sistem inisiasi peledakan nirkabel dari jarak aman','Integrasi clearance radius dengan monitoring area'] },
       'Pit · area drilling &amp; blasting', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 2h2v5h-2zM6 5l1.4-1.4 2.1 2.1-1.4 1.4zm10.5 1.1 2.1-2.1L20 5.4l-2.1 2.1zM12 8l2.2 4.5L19 13l-3.5 3.4.8 4.6L12 18.8 7.7 21l.8-4.6L5 13l4.8-.5z"/></svg>', [320,140], [330,225], [[245,190],[370,190],[370,245],[245,245]], 'Kajian kebutuhan &amp; area prioritas'));
+    AREAS.push(T('ads', { name:'ADS – Automated Drone Surveillance', sub:'Automated drone systems - docking stations, and AI-driven analytics 24/7 monitoring, security, and response without an on-site pilot', stage:'Implementasi &amp; pengembangan',
+        hazard:['Pekerja masuk ke area berbahaya untuk inspeksi visual','Area luas dan sulit dijangkau diawasi secara manual'],
+        prog:['Pengawasan udara otomatis di area pit, disposal dan hauling road','Data visual drone dikirim ke control room untuk analisa'],
+        rnd:['Penerbangan drone terjadwal dan otomatis','Integrasi data drone ke dashboard OBDS'] },
+      'Automated drone systems - docking stations, and AI-driven analytics 24/7 monitoring, security, and response without an on-site pilot', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm16 0a2 2 0 1 1 0 4 2 2 0 0 1 0-4zM6.5 6.5 10 10h4l3.5-3.5 1 1L15 11v2l3.5 3.5-1 1L14 14h-4l-3.5 3.5-1-1L9 13v-2L5.5 7.5zM4 16a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm16 0a2 2 0 1 1 0 4 2 2 0 0 1 0-4z"/></svg>', [1060,135], [1228,82], [[1165,50],[1290,50],[1290,115],[1165,115]], ''));
     AREAS.push(T('aebs', { name:'AEBS', sub:'Automatic Emergency Braking System pada unit hauling', stage:'Trial &amp; evaluasi',
         hazard:['Tabrakan unit hauling dengan kendaraan / objek di depan','Reaksi pengemudi terlambat saat jarak aman tidak terjaga'],
         prog:['Unit hauling coal dilengkapi sensor deteksi objek di depan','Sistem memberi peringatan dan mengerem otomatis saat risiko tabrakan terdeteksi'],
         rnd:['Evaluasi performa pengereman otomatis di jalur hauling','Integrasi data kejadian AEBS ke dashboard OBDS'] },
-      'Hauling coal · jalur CPP', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 6h12v9H2zm12 3h4l3 3v3h-7zM6 18.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm12 0a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/></svg>', [1225,385], [1380,305], [[1312,278],[1446,278],[1446,334],[1312,334]], ''));
+      'Hauling coal · jalur CPP', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 6h12v9H2zm12 3h4l3 3v3h-7zM6 18.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm12 0a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/></svg>', [1375,222], [1380,300], [[1312,278],[1446,278],[1446,334],[1312,334]], ''));
     AREAS.push(T('ccv', { name:'CCV (Critical Control Verification)', sub:'Critical Risk Barrier · CCV &amp; IPLS Layer 5 · Mining Eyes Analytic', stage:'Q3 2026 · Pendetailan CPP', hazard:[], prog:[], rnd:[] },
       'Penetapan kontrol kritis pada setiap aktivitas', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V9h2v4z"/></svg>', [120,622], [298,520], [[230,500],[340,500],[340,560],[230,560]], ''));
     AREAS[3].name = 'MIR';
@@ -12255,7 +12269,7 @@
       st:'tech', cats:['eng'], sub:'add', listOnly:true, offMap:true, pin:[0, 0], poly:[[0,0],[1,0],[1,1],[0,1]] }));
     AREAS.forEach(a=>{ if(a.id === 'obds' || a.id === 'ccv') a.offMap = true; });
     AREAS.forEach(a=>{ if(a.id === 'rover') a.rich = 'rover'; if(a.id === 'haul' || a.id === 'arcas' || a.id === 'pump' || a.id === 'blast') a.rich = 'mir'; if(a.id === 'ccv') a.rich = true; if(a.id === 'eyes') a.rich = 'mir'; if(a.id === 'mir' || a.id === 'mg') a.rich = 'mir'; if(a.id === 'obds') a.rich = 'img'; });
-    const ORDER = ['ccv','eyes','mg','mir','arcas','rover','pump','blast','haul','obds'];
+    const ORDER = ['ccv','eyes','mg','mir','arcas','aebs','rover','pump','blast','haul','ads','obds'];
     const ord = (a)=> a.listOnly ? 100 + +a.id.slice(2) : ORDER.indexOf(a.id);
     AREAS.sort((x, y)=> ord(x) - ord(y));
     return makeSiteMap({ swap:true, pre:'sm2', slide:'slideMap2', w:1600, h:900, roads:[[[100,229],[108,281],[176,352],[271,398],[341,469],[400,551],[441,639],[494,680],[588,727],[659,797],[729,844],[788,896]],[[929,299],[871,352],[765,445],[671,516],[588,586],[559,633],[588,680],[659,750],[729,809],[824,855],[906,896]],[[735,209],[824,182],[871,178],[941,199],[1059,217],[1176,252],[1294,293],[1412,328],[1529,375],[1594,410]]], areas:AREAS, tilt:false, cats:CATS, fx:'<g class="tm-cams"><rect x="608" y="28" width="53" height="98" rx="3" style="animation-delay:0.00s"/><rect x="81" y="164" width="44" height="91" rx="3" style="animation-delay:0.18s"/><rect x="211" y="279" width="44" height="123" rx="3" style="animation-delay:0.36s"/><rect x="298" y="384" width="40" height="88" rx="3" style="animation-delay:0.54s"/><rect x="646" y="417" width="42" height="91" rx="3" style="animation-delay:0.72s"/><rect x="442" y="534" width="44" height="93" rx="3" style="animation-delay:0.90s"/><rect x="549" y="658" width="42" height="136" rx="3" style="animation-delay:1.08s"/><rect x="798" y="678" width="44" height="137" rx="3" style="animation-delay:1.26s"/><rect x="1248" y="176" width="44" height="136" rx="3" style="animation-delay:1.44s"/></g><g class="tm-rings" data-t="haul"><ellipse cx="367" cy="500" rx="30" ry="9"/><ellipse cx="280" cy="365" rx="28" ry="8"/><ellipse cx="710" cy="805" rx="30" ry="9"/></g><ellipse class="tm-bubble" data-t="arcas" cx="460" cy="660" rx="52" ry="34"/><g class="tm-grid" data-t="mg"><path d="M760 545 L870 545 L888 565 L742 565 Z"/><path d="M780 545 L768 565 M805 545 L798 565 M830 545 L828 565 M855 545 L858 565 M752 555 L880 555"/></g><g class="tm-signal" data-t="eyes"><path d="M612 55 a22 22 0 0 0 0 30"/><path d="M602 47 a36 36 0 0 0 0 46"/><path d="M654 55 a22 22 0 0 1 0 30"/><path d="M664 47 a36 36 0 0 1 0 46"/></g><g class="tm-wifi" data-t="pump" transform="translate(1073 692) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="rover" transform="translate(1060 768) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="mir" transform="translate(940 496) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g>',
