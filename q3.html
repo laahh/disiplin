@@ -11184,10 +11184,11 @@
     trans:{ title:'Transformation', sub:'Build Capabilities for Sustainable Operations', ic:'trend',
       rows:[['server','Perkuatan Infrastruktur Teknologi untuk Implementasi Project Rekayasa Engineering &amp; OBDS','IT, Budget, Procurement',['Oct 2026']],
             ['link','Koneksi API HSE Automation dengan Project Rekayasa Engineering &amp; OBDS','IT, Minetech',['Oct 2026']],
-            ['bars','Development Analytical Critical Control (use case CCV)','IT, Minetech',['Dec 2026']]] },
+            ['bars','Development Analytical Critical Control (use case CCV)','IT, Minetech',['Dec 2026']],
+            ['warn','Continue Progress Ideation Remote Blasting','System, MNO, Olive Link',['Q4 2026']],
+            ['dozer','Eskalasi IM yang proses on-hold untuk melanjutkan proses implementasi Remote Dozer','GMO, CM',['Q4 2026']]] },
     auto:{ title:'Automation', sub:'Accelerate Automation for Higher Productivity &amp; Safety', ic:'gear',
-      rows:[['truck','Implementasi Hauling Automation &amp; Ideation Remote Blasting','System, MNO, Olive Link',['Q4 2026']],
-            ['dozer','Eskalasi IM yang proses on-hold untuk melanjutkan proses implementasi Remote Dozer','GMO, CM',['Q4 2026']]] }
+      rows:[['truck','Continue Progress Implementasi Hauling Automation','System, MNO, Olive Link',['Q4 2026']]] }
   };
   (function(){
     const IC = {
@@ -11220,7 +11221,7 @@
       + '<span class="cd-pill"><i>' + svg(P.ic) + '</i><span><small>Program Q4 2026</small><b>' + count(P) + ' inisiatif</b></span></span>';
     const colh = '<div class="cd-colh"><i></i><span>Initiative / Program</span><span>'+svg('user')+'Responsible Division</span><span>'+svg('cal')+'Target</span></div>';
     const NS = {'Digitalisasi &amp; Integrasi Data OHS Scorecard': 'Penyediaan akses dan integrasi database, kesepakatan standardisasi KPI, serta dukungan pengembangan sistem.', 'Perkuatan Pengelolaan Tools termasuk Inventarisasi &amp; Inspeksi Tools': 'Inventarisasi tools, penetapan standar kelayakan, pelaksanaan inspeksi berkala, serta tindak lanjut tools tidak layak.', 'Implementasi BIMTEK dan peningkatan kapabilitas pengawasan RIC': 'Penentuan sasaran BIMTEK, pelaksanaan pelatihan, evaluasi kompetensi, dan verifikasi penerapan hasil pelatihan di lapangan.', 'Kontrol aktivitas pekerja di Luar Kabin melalui intervensi BeSigma': 'Kesiapan sistem BeSigma, ketentuan PIC intervensi operasional, serta komitmen pengawas terhadap intervensi.', 'Antisipasi geoteknikal hazard dengan peningkatan utilisasi BeSigma &amp; integrasi dengan Working Permit': 'Identifikasi area berisiko geoteknik, penetapan trigger deteksi, integrasi dengan Working Permit, serta penguatan verifikasi kontrol sebelum pekerjaan.', 'Percepatan Pemenuhan Prioritas Rekayasa Engineering': 'Identifikasi prioritas dan anggaran, dukungan engineering/procurement, serta komitmen pemenuhan untuk eksekusi.', 'Perbaikan mirroring &amp; connectivity kondisi CCTV terutama pada area kritis': 'Dukungan infrastruktur jaringan, penyediaan perangkat/bandwidth, akses teknis lapangan, dan kesepakatan prioritas CCTV area kritis.'};
-    const row = ([ic, t, div, tg])=> '<div class="cd-row"><span class="ic">'+svg(ic)+'</span><p>'+t+(NS[t] ? '<small class="ns"><b>Need support:</b> '+NS[t]+'</small>' : '')+'</p><span class="div">'+div+'</span>'
+    const row = ([ic, t, div, tg])=> '<div class="cd-row"><span class="ic">'+svg(ic)+'</span><p>'+t+(NS[t] ? '<small class="ns">'+NS[t]+'</small>' : '')+'</p><span class="div">'+div+'</span>'
       + '<span class="tg">'+tg.map(x=> '<i>'+svg('cal')+x+'</i>').join('')+'</span></div>';
     const S = CROSSDIV, fill = (id, h)=>{ const el = document.getElementById(id); if(el) el.innerHTML = h; };
     fill('cdStab', head(S.stab) + '<div class="cd-body">' + colh + S.stab.groups.map(([g, ic, rows])=> '<div class="cd-grp" style="flex-grow:'+rows.length+'"><span class="cd-gl">'+svg(ic)+'<b>'+g+'</b></span><div class="cd-rows">'+rows.map(row).join('')+'</div></div>').join('') + '</div>');
@@ -11580,6 +11581,7 @@
     if(!host._ro && 'ResizeObserver' in window){ host._ro = new ResizeObserver(()=> c.resize()); host._ro.observe(host); }
   }
   const SM_OBDS_CARDS = '<article class="ob-card live"><span class="tag">LIVE</span><b>BeARC — Access Control</b><em>Sistem dapat menolak akses berdasarkan rule dan exception yang telah dikunci</em><ul><li>Scope terbatas: personel Safety/HSE BC &amp; mitra</li><li>Data: RFID, SAP, dan TBC</li><li>Output: ban–unban dan audit trail</li><li>Kontrol akses dijalankan otomatis sesuai rule yang telah dikunci</li></ul><span class="foot">Existing Foundation</span></article><article class="ob-card init"><span class="tag">INITIAL STAGE</span><b>Initial Performance Trigger</b><em>Sistem mendeteksi dan membuat tasklist; validasi, tindakan, closure tetap memiliki human accountability</em><ul><li>Sembilan rule prioritas</li><li>Output: alert, tasklist, escalation, evidence</li><li>PJO/PIC memvalidasi dan menindaklanjuti</li><li>SOD memvalidasi tindaklanjut yang diajukan</li></ul><span class="foot">Initial implementation / pilot</span></article>';
+  const ARCAS_PROG = ['Kajian jaringan, CUMS coverage, dan Control Room', 'Pengumpulan data operasional, analisis kebutuhan, draft SOP', 'Analisis ROI, POC plan, risk &amp; mitigation'];
   function smRichHtml(a, prev, next){
     const P = a.P;
     return '<div class="smc-in">'
@@ -11596,7 +11598,7 @@
           : a.id === 'arcas' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/arcas-fix.jpg').replace('<div class="mx-full">', '<div class="mx-full mx-haul">').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'ARCAS HD 3327: before dan after implementation, cara kerja, dan dampak utama')
           : a.id === 'haul' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/hauling-fix.jpg').replace('<div class="mx-full">', '<div class="mx-full mx-haul mx-noprog">').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'Hauling Automation: before dan after implementation, komponen utama AHS, dan progress')
           : a.id === 'eyes' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/mea-fix.jpg').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'Mining Eyes Analytics: before dan after implementation, use case utama, dan progress')
-          : SM_MIR).replace('</div>', '<aside class="mx-prog"><h5><i>' + SM_SVG.chart + '</i>Progress utama</h5><ul>' + smLi(P.prog) + '</ul></aside></div>') : SM_CCX) + '</div>'
+          : SM_MIR).replace('</div>', '<aside class="mx-prog"><h5><i>' + SM_SVG.chart + '</i>Progress utama</h5><ul>' + smLi(a.id === 'arcas' ? ARCAS_PROG : P.prog) + '</ul></aside></div>') : SM_CCX) + '</div>'
       + '<footer class="smc-f"><button type="button" class="smc-btn" data-go="' + prev.id + '">' + SM_SVG.back + prev.name + '</button>'
       + '<button type="button" class="smc-btn main" data-go="">' + SM_SVG.back + 'Kembali ke peta</button>'
       + '<button type="button" class="smc-btn" data-go="' + next.id + '">' + next.name + SM_SVG.next + '</button></footer></div>';
@@ -11894,7 +11896,7 @@
         hazard:['High-risk activity yang tidak terpantau langsung oleh pengawas','Pelanggaran critical control pada aktivitas kritis'],
         prog:['33 high-risk activity + 29 CCV menjadi use case Mining Eyes Analytic','2025: trial &amp; rollout 3 aktivitas kritis','Q1 2026: perluasan trial ke 15 aktivitas kritis','Q3 2026: pendetailan CPP dan pengembangan Critical Control CPP','Use case pada lokasi dinamis dan statis'],
         rnd:['Q4 2026: analytic &amp; expand','Enhanced Mining Eyes Analytic sebagai key project'] },
-      haul:{ name:'Hauling Automation', sub:'Monitoring &amp; kontrol armada hauling', img:'mom/hauling-automation.jpg', stage:'Monitoring armada berjalan',
+      haul:{ name:'Hauling Automation', sub:'Monitoring &amp; kontrol armada hauling', img:'mom/hauling-automation.jpg', stage:'Feasibility Study',
         hazard:['Kecepatan berlebih dan jarak beriringan','Fatigue pengemudi','Interaksi unit besar dan kendaraan kecil'],
         prog:['Driver Monitoring System (DMS) untuk fatigue dan distraksi','Pemantauan armada dan batas kecepatan per segmen dari control room','Kinerja RIC DMS dipantau sebagai leading indicator teknologi'],
         rnd:['Integrasi ARCAS dengan sistem hauling','Otomasi pengaturan lalu lintas hauling'] }
