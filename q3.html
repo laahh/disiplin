@@ -5394,6 +5394,26 @@
   .sm-panel .sm-bridge{ margin:2px 14px 10px; padding:10px 12px; border-radius:10px; background:linear-gradient(180deg,#F3FAF3,#EAF6EC); border:1px solid #CFE8D3; border-left:4px solid #1F9A3A; }
   .sm-panel .sm-bridge p{ margin:0; font:500 12px/1.5 'Plus Jakarta Sans',sans-serif; color:#2B3440; text-align:left; }
   .sm-panel .sm-bridge b{ font-weight:800; color:#147A2C; }
+
+  /* evolution strip: three centred stages with a one-line flow underneath (How Stable footer) */
+  .ov2-evo .ek, .ov2-evo .ed, .ov2-evo .evf{ display:none; }
+  #slideStable2 .ov2-foot-r{ display:flex !important; flex-direction:column !important; justify-content:flex-start !important; gap:5px !important; }
+  #slideStable2 .ov2-foot-r .ov2-next{ margin:0 !important; font-size:11.5px !important; }
+  #slideStable2 .ov2-foot-r .ov2-next span{ padding:2px 12px !important; gap:6px !important; border-width:1px !important; }
+  #slideStable2 .ov2-foot-r .ov2-next span::after{ font-size:9px !important; }
+  #slideStable2 .ov2-foot-r .ov2-evo{ flex:1 1 auto !important; height:auto !important; grid-template-columns:repeat(3,minmax(0,1fr)) !important; grid-template-rows:1fr auto; gap:0 5px; padding:5px 5px 0; border-radius:12px !important; background:#fff; }
+  #slideStable2 .ov2-foot-r .ov2-evo .t{ display:none !important; }
+  #slideStable2 .ov2-foot-r .ov2-evo .evs{ display:flex !important; flex-direction:column !important; align-items:center !important; justify-content:flex-start !important; gap:2px !important; padding:4px 4px 3px !important; border:0 !important; border-radius:8px; background:transparent !important; text-align:center; }
+  #slideStable2 .ov2-foot-r .ov2-evo .evs svg{ width:15px !important; height:15px !important; fill:#2A6FD7 !important; }
+  #slideStable2 .ov2-foot-r .ov2-evo .evs:nth-of-type(3) svg{ fill:#3C444C !important; }
+  #slideStable2 .ov2-foot-r .ov2-evo .evs b{ font-size:11px !important; line-height:1.15 !important; white-space:nowrap !important; color:#141A22 !important; }
+  #slideStable2 .ov2-foot-r .ov2-evo .ed{ display:block; font:500 9px/1.25 'Plus Jakarta Sans',sans-serif; color:#4A525C; }
+  #slideStable2 .ov2-foot-r .ov2-evo .evs.pv{ background:#EAF6EC !important; box-shadow:inset 0 0 0 1px #CFE8D3; }
+  #slideStable2 .ov2-foot-r .ov2-evo .evs.pv svg{ fill:#1F9A3A !important; }
+  #slideStable2 .ov2-foot-r .ov2-evo .evs.pv b{ color:#147A2C !important; }
+  #slideStable2 .ov2-foot-r .ov2-evo .evf{ grid-column:1 / -1; display:flex; align-items:center; justify-content:center; gap:6px; padding:2px 0 4px; font:600 8.5px/1.2 'Plus Jakarta Sans',sans-serif; color:#4A525C; }
+  #slideStable2 .ov2-foot-r .ov2-evo .evf i{ font:700 normal 10px/1 Arial,sans-serif; color:#8A939C; }
+  #slideStable2 .ov2-foot-r .ov2-evo .evf .g{ color:#1F9A3A; font-weight:800; }
 </style>
 <script>
 (function(){
@@ -5804,7 +5824,7 @@
       <p class="ov2-note">Kontrol terhadap lagging yang sudah berjalan sudah banyak dilakukan dan berdampak pada peningkatan leading, peningkatan pelaporan hazard, peningkatan identifikasi TBC &amp; GR; tetapi lagging masih mencatatkan LTI &amp; Injury yang perlu <b>Fatal Prevention control</b> lanjutan.</p>
       <div class="ov2-pol"><div class="pl"><b>Kebijakan Perkuatan:</b><ul><li><strong>Pembatasan Pekerja di Luar Kabin</strong></li><li><strong>Pengawasan Berjarak</strong></li><li><strong>Seatbelt Connect to Engine</strong> (wajib instalasi)</li><li><strong>Larangan Sistem Starter Engkol</strong>, dll</li></ul><p class="pm">Di luar kebijakan yang terus dimonitor &amp; dievaluasi penerapannya: <strong>Golden Rules</strong>, <strong>DDP</strong>, <strong>SOP / IK / JSA</strong></p></div><div class="pn"><b>20+</b><span>perkuatan yang berlaku selama YTD 2026</span></div></div>
       <p class="ov2-next"><span>Sehingga kita perlu <b>kontrol lanjutan</b></span></p>
-      <div class="ov2-evo"><div class="t">Control Capability<br>Evolution</div><div class="evs"><svg viewBox="0 0 24 24"><path d="M4 4h4v2H6v2H4zm12 0h4v4h-2V6h-2zM4 16h2v2h2v2H4zm14 2v-2h2v4h-4v-2zM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8zm0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/></svg><b>Detect Earlier</b></div><i class="eva"></i><div class="evs"><svg viewBox="0 0 24 24"><path d="M11 13h2v9h-2zM12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6zM7.8 7.8a6 6 0 0 0 0 8.4l-1.4 1.4a8 8 0 0 1 0-11.2zm8.4 0 1.4-1.4a8 8 0 0 1 0 11.2l-1.4-1.4a6 6 0 0 0 0-8.4z"/></svg><b>Intervene Smarter</b></div><i class="eva"></i><div class="evs pv"><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3zm-1.2 14.2-3.5-3.5 1.4-1.4 2.1 2.1 4.9-4.9 1.4 1.4-6.3 6.3z"/></svg><b>Prevent by Design</b></div></div>
+      <div class="ov2-evo"><div class="t">Control Capability<br>Evolution</div><div class="evs"><svg viewBox="0 0 24 24"><path d="M4 4h4v2H6v2H4zm12 0h4v4h-2V6h-2zM4 16h2v2h2v2H4zm14 2v-2h2v4h-4v-2zM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8zm0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/></svg><b>Detect Earlier</b><span class="ed">Antisipasi risiko lebih dini lewat data &amp; intelligence</span></div><i class="eva"></i><div class="evs"><svg viewBox="0 0 24 24"><path d="M11 13h2v9h-2zM12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6zM7.8 7.8a6 6 0 0 0 0 8.4l-1.4 1.4a8 8 0 0 1 0-11.2zm8.4 0 1.4-1.4a8 8 0 0 1 0 11.2l-1.4-1.4a6 6 0 0 0 0-8.4z"/></svg><b>Intervene Smarter</b><span class="ed">Transformasi kerja lewat integrasi sistem &amp; automasi</span></div><i class="eva"></i><div class="evs pv"><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3zm-1.2 14.2-3.5-3.5 1.4-1.4 2.1 2.1 4.9-4.9 1.4 1.4-6.3 6.3z"/></svg><b>Prevent by Design</b><span class="ed">Cegah risiko dari sumbernya lewat engineering</span></div><div class="evf"><span>Risk Detection</span><i>&#8594;</i><span>Work Transformation</span><i>&#8594;</i><span class="g">Risk Transformation</span></div></div>
     </section>
     <svg class="ov2-links" aria-hidden="true"></svg>
   </div></div>
