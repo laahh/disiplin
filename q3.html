@@ -5258,8 +5258,8 @@
   .slide.active .ov2-plat .pl{ animation:plNeon 2.8s ease-in-out infinite !important; }
   @keyframes plNeon{ 0%,100%{ opacity:1; } 50%{ opacity:.82; } }
   /* connector arrows white over the photo (orange residual arrows unchanged) */
-  #slideStable2 .ov2-links .lk:not(.or){ stroke:#fff !important; filter:drop-shadow(0 1px 2px rgba(0,0,0,.45)); }
-  #slideStable2 .ov2-links marker[id^="ov2Arr-"] path{ fill:#fff !important; }
+  #slideStable2 .ov2-links .lk:not(.or){ stroke:#1E5BD8 !important; filter:drop-shadow(0 0 1.5px #fff) drop-shadow(0 1px 2px rgba(0,0,0,.3)); }
+  #slideStable2 .ov2-links marker[id^="ov2Arr-"] path{ fill:#1E5BD8 !important; }
   /* bell curves: 2027 label sits left of its peak so it no longer covers 2026 Aktual; Expected Outcome moves lower */
   .ov2-cv-lab .tg.exp{ top:46% !important; }
 
@@ -5303,8 +5303,160 @@
   /* closing slide: fills the screen, anchored to the top so the quote and squares stay in view (only the bottom edge trims) */
   #slideThanks .ty-bg{ background-size:cover !important; background-position:center top !important; }
 </style>
+<!-- password gate: the deck stays hidden and keys are blocked until the right password is entered -->
+<style>
+  html.gate-lock body > :not(#gate){ visibility:hidden !important; }
+  html.gate-lock, html.gate-lock body{ overflow:hidden !important; }
+  #gate{ position:fixed; inset:0; z-index:2147483647; display:grid; place-items:center; padding:16px; background:linear-gradient(180deg, rgba(7,19,48,.35) 0%, rgba(7,19,48,.55) 55%, rgba(7,19,48,.85) 100%), url('mom/cover.jpeg') center / cover no-repeat, #0B1D42; font-family:'Plus Jakarta Sans',system-ui,sans-serif; }
+  html:not(.gate-lock) #gate{ display:none; }
+  #gate form{ width:min(380px, 100%); padding:30px 28px 26px; border-radius:18px; background:rgba(255,255,255,.94); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,.6); box-shadow:0 24px 60px rgba(0,0,0,.45); text-align:center; }
+  #gate .g-ic{ width:52px; height:52px; margin:0 auto 14px; display:grid; place-items:center; border-radius:14px; background:#FFF4D6; color:#C88A00; }
+  #gate .g-ic svg{ width:26px; height:26px; fill:none; stroke:currentColor; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; }
+  #gate h1{ margin:0 0 6px; font-size:20px; font-weight:800; color:#0F2D6B; }
+  #gate p{ margin:0 0 18px; font-size:13.5px; color:#5A6472; }
+  #gate input{ width:100%; box-sizing:border-box; padding:12px 14px; border:1.5px solid #CDD3DB; border-radius:10px; font:600 15px/1.2 inherit; font-family:inherit; color:#141A22; outline:none; }
+  #gate input:focus{ border-color:#2A6FD7; box-shadow:0 0 0 3px rgba(42,111,215,.2); }
+  #gate.err input{ border-color:#E3262F; box-shadow:0 0 0 3px rgba(227,38,47,.15); }
+  #gate .g-msg{ min-height:18px; margin:8px 0 10px; font-size:12.5px; font-weight:700; color:#E3262F; }
+  #gate button{ width:100%; padding:12px; border:0; border-radius:10px; background:#F7B500; color:#141A22; font:800 15px/1 inherit; font-family:inherit; cursor:pointer; }
+  #gate button:hover{ background:#FFC21A; }
+  #gate button:focus-visible{ outline:3px solid #2A6FD7; outline-offset:2px; }
+  #gate.shake form{ animation:gateShake .4s; }
+  @keyframes gateShake{ 20%,60%{ transform:translateX(-8px); } 40%,80%{ transform:translateX(8px); } }
+
+  /* How Stable: room and weight for the arrows from the funnel down to Lagging Outcome / Underlying Risk */
+  #slideStable2 .hs-tv-ov2 .ov2-funnel2{ margin-bottom:12px !important; }
+  #slideStable2 .hs-tv-ov2 .ov2-right{ gap:11px !important; }
+  #slideStable2 .ov2-links .lk.or{ stroke-width:3.2 !important; opacity:1 !important; filter:drop-shadow(0 0 1.5px #fff) drop-shadow(0 1px 2px rgba(0,0,0,.35)); }
+  #slideStable2 .ov2-links .lk:not(.or){ stroke-width:2.8 !important; }
+
+  /* policy box: strengthening policies in two columns, ongoing policies as a note under them */
+  #slideStable2 .ov2-pol ul{ columns:2; column-gap:14px; }
+  #slideStable2 .ov2-pol li{ break-inside:avoid; }
+  #slideStable2 .ov2-pol .pm{ margin:4px 0 0; padding-top:4px; border-top:1px dashed #C9D1DA; font-size:11px; line-height:1.3; color:#3C444C; }
+  #slideStable2 .ov2-pol .pm strong{ font-weight:800; color:#141A22; }
+
+  /* Ultimate Objectives card: own colour (deep green + gold) and more presence than the stream cards */
+  .sm-tt{ flex-direction:column; gap:5px; padding:18px 20px !important; border:0 !important; border-radius:16px;
+    background:linear-gradient(120deg,#3A9641 0%,#52AB57 50%,#74BE6F 100%) !important; color:#fff !important;
+    box-shadow:0 0 0 1px rgba(255,255,255,.55) inset, 0 4px 10px rgba(61,156,68,.20), 0 14px 30px rgba(61,156,68,.25) !important; overflow:hidden; }
+  .sm-tt::before{ background:#3D9C44 !important; } .sm-tt::after{ border-top-color:#3D9C44 !important; }
+  .sm-tt small{ display:inline-flex; align-items:center; gap:6px; padding:3px 10px; border-radius:999px; background:rgba(255,255,255,.92); color:#2E7D34;
+    font:800 11px/1.2 'Plus Jakarta Sans',sans-serif; letter-spacing:.14em; text-transform:uppercase; }
+  .sm-tt b{ font:800 19px/1.25 'Plus Jakarta Sans',sans-serif !important; color:#fff; text-shadow:0 1px 3px rgba(20,70,25,.45); }
+
+  /* disclaimer on the site maps: AI-made concept picture, not a survey */
+  .sm-ai{ position:absolute; top:12px; right:12px; z-index:6; pointer-events:none; display:flex; flex-direction:column; align-items:flex-start; gap:4px; max-width:70%;
+    padding:7px 12px; border-radius:6px; background:rgba(0,0,0,.32); text-align:left; text-shadow:0 1px 2px rgba(0,0,0,.6); }
+  .sm-ai b{ display:inline-flex; align-items:center; gap:7px; font:700 11.5px/1.2 'Plus Jakarta Sans',sans-serif; color:#fff; }
+  .sm-ai b span{ display:grid; place-items:center; width:13px; height:13px; border-radius:50%; border:1.3px solid #fff; font:700 8.5px/1 'Plus Jakarta Sans',sans-serif; text-shadow:none; }
+  .sm-ai small{ white-space:nowrap; font:400 12px/1.3 'Plus Jakarta Sans',sans-serif; color:#fff; }
+
+  /* OBDS network: glowing links from the control room to every technology, coloured by stream */
+  .sm-net{ pointer-events:none; }
+  .sm-net .nb{ fill:none; stroke:var(--c); stroke-width:3.4; stroke-linecap:round; opacity:.85; stroke-dasharray:1 1; stroke-dashoffset:1; filter:drop-shadow(0 0 4px var(--c)); animation:netDraw 1.1s cubic-bezier(.5,0,.2,1) forwards; }
+  .sm-net .nb.th{ stroke-width:1.8; opacity:.6; }
+  .sm-net .nf{ fill:none; stroke:#fff; stroke-width:2.2; stroke-linecap:round; opacity:0; stroke-dasharray:.018 .05; animation:netIn .4s forwards, netFlow 1.6s linear infinite; }
+  .sm-net .nf.th{ stroke-width:1.4; stroke-dasharray:.012 .056; }
+  .sm-net .nd{ fill:#fff; stroke:var(--c); stroke-width:3; filter:drop-shadow(0 0 6px var(--c)); }
+  .sm-net .np{ fill:color-mix(in srgb,var(--c) 25%,transparent); stroke:var(--c); stroke-width:2.5; transform-box:fill-box; transform-origin:center; animation:tmPing 2s ease-out infinite; }
+  .sm-net .npi{ fill:var(--c); filter:drop-shadow(0 0 4px var(--c)); }
+  .sm-net .nh{ fill:none; stroke:#5CF08E; stroke-width:3; transform-box:fill-box; transform-origin:center; animation:tmPing 2s ease-out infinite; }
+  .sm-net .nh.d2{ animation-delay:1s; }
+  .sm-net .nhi{ fill:#5CF08E; filter:drop-shadow(0 0 8px #5CF08E); }
+  @keyframes netDraw{ to{ stroke-dashoffset:0; } }
+  @keyframes netIn{ to{ opacity:.95; } }
+  @keyframes netFlow{ to{ stroke-dashoffset:-.068; } }
+  .sm-hubc{ position:absolute; z-index:5; pointer-events:none; transform:translate(-50%, calc(-100% - 20px)) scale(var(--inv,1)); transform-origin:50% 100%; min-width:230px; animation:netCard .5s .3s both;
+    padding:9px 12px 10px; border-radius:10px; background:rgba(8,20,28,.86); border:1px solid rgba(92,240,142,.55); box-shadow:0 0 0 1px rgba(0,0,0,.2), 0 0 18px rgba(92,240,142,.35); color:#fff; }
+  @keyframes netCard{ from{ opacity:0; margin-top:-8px; } }
+  .sm-hubc .hc-t{ display:flex; align-items:center; gap:9px; }
+  .sm-hubc .hc-ic{ flex:none; display:grid; place-items:center; width:30px; height:30px; border-radius:50%; background:rgba(92,240,142,.16); border:1.5px solid #5CF08E; }
+  .sm-hubc .hc-ic svg{ width:16px; height:16px; fill:#5CF08E; }
+  .sm-hubc b{ display:block; font:800 13px/1.15 'Plus Jakarta Sans',sans-serif; letter-spacing:.06em; text-transform:uppercase; }
+  .sm-hubc small{ display:block; margin-top:2px; font:700 11px/1.2 'Plus Jakarta Sans',sans-serif; letter-spacing:.08em; text-transform:uppercase; color:#7CFFA6; }
+  .sm-hubc .hc-l{ display:flex; flex-wrap:wrap; gap:4px 10px; margin-top:7px; padding-top:6px; border-top:1px solid rgba(255,255,255,.14); }
+  .sm-hubc .hc-l i{ display:inline-flex; align-items:center; gap:5px; font:600 normal 10.5px/1.2 'Plus Jakarta Sans',sans-serif; color:rgba(255,255,255,.9); }
+  .sm-hubc .hc-l i::before{ content:''; width:14px; height:3px; border-radius:2px; background:var(--c); box-shadow:0 0 5px var(--c); }
+  .sm-vp.net-on .tm-fx{ opacity:.35; transition:opacity .4s; }
+  .sm-vp.net-on .sm-pin.off:not(.offmap){ opacity:1 !important; pointer-events:auto !important; }
+  .sm-hubc{ left:12px; bottom:46px; transform:none !important; min-width:0; max-width:300px; }
+  @media (prefers-reduced-motion: reduce){ .sm-net *{ animation:none !important; stroke-dashoffset:0 !important; } .sm-net .nd{ display:none; } }
+
+  /* #1 Critical Control tab: every CCTV pole watched by Mining Eyes Analytics gets a detection box */
+  .tm-fx .tm-cams{ display:none; }
+  .sm-vp[data-cat="cc"] .tm-fx .tm-cams{ display:inline; }
+  .tm-cams rect{ fill:rgba(255,122,26,.10); stroke:#FF7A1A; stroke-width:2.6; filter:drop-shadow(0 0 4px rgba(255,122,26,.9)); opacity:0; animation:camIn .4s ease-out forwards, camPulse 2.2s ease-in-out infinite; }
+  @keyframes camIn{ from{ opacity:0; } to{ opacity:1; } }
+  @keyframes camPulse{ 50%{ stroke:#FFB37A; fill:rgba(255,122,26,.02); } }
+
+  /* bridging note above the stream list */
+  .sm-panel .sm-bridge{ margin:2px 14px 10px; padding:10px 12px; border-radius:10px; background:linear-gradient(180deg,#F3FAF3,#EAF6EC); border:1px solid #CFE8D3; border-left:4px solid #1F9A3A; }
+  .sm-panel .sm-bridge p{ margin:0; font:500 12px/1.5 'Plus Jakarta Sans',sans-serif; color:#2B3440; text-align:left; }
+  .sm-panel .sm-bridge b{ font-weight:800; color:#147A2C; }
+</style>
+<script>
+(function(){
+  var KEY = 'deckGate', HASH = 'b5db982693486945e3e04d99a5375503a5a8abddcef639f38d9689516e184910';
+  var ok = false; try{ ok = sessionStorage.getItem(KEY) === HASH; }catch(e){}
+  if(ok) return;
+  document.documentElement.classList.add('gate-lock');
+  // while locked, no key reaches the deck (only the password field gets its typing)
+  var block = function(e){ if(!document.documentElement.classList.contains('gate-lock')) return; e.stopImmediatePropagation(); if(!(e.target && e.target.id === 'gateIn') && e.key !== 'Tab') e.preventDefault(); };
+  ['keydown','keyup','keypress','wheel','touchmove'].forEach(function(t){ window.addEventListener(t, block, { capture:true, passive:false }); });
+  // plain SHA-256 so the check also works over http (crypto.subtle needs https)
+  function sha256(str){
+    var K = [], H = [], i = 0, p = 2, j;
+    for(; i < 64; p++){ for(j = 2; j * j <= p && p % j; j++); if(j * j > p){ if(i < 8) H[i] = (Math.pow(p, .5) * 4294967296) | 0; K[i++] = (Math.pow(p, 1 / 3) * 4294967296) | 0; } }
+    var b = unescape(encodeURIComponent(str)), l = b.length * 8, w = [];
+    b += '\x80'; while(b.length % 64 - 56) b += '\x00';
+    for(i = 0; i < b.length; i++) w[i >> 2] |= b.charCodeAt(i) << ((3 - i) % 4) * 8;
+    w[w.length] = (l / 4294967296) | 0; w[w.length] = l;
+    var r = function(x, n){ return (x >>> n) | (x << (32 - n)); };
+    for(j = 0; j < w.length; j += 16){
+      var a = H.slice(0, 8), W = w.slice(j, j + 16);
+      for(i = 0; i < 64; i++){
+        if(i >= 16){ var x = W[i - 15], y = W[i - 2]; W[i] = (W[i - 16] + (r(x, 7) ^ r(x, 18) ^ (x >>> 3)) + W[i - 7] + (r(y, 17) ^ r(y, 19) ^ (y >>> 10))) | 0; }
+        var t1 = a[7] + (r(a[4], 6) ^ r(a[4], 11) ^ r(a[4], 25)) + ((a[4] & a[5]) ^ (~a[4] & a[6])) + K[i] + W[i];
+        var t2 = (r(a[0], 2) ^ r(a[0], 13) ^ r(a[0], 22)) + ((a[0] & a[1]) ^ (a[0] & a[2]) ^ (a[1] & a[2]));
+        a = [(t1 + t2) | 0].concat(a); a[4] = (a[4] + t1) | 0; a.length = 8;
+      }
+      for(i = 0; i < 8; i++) H[i] = (H[i] + a[i]) | 0;
+    }
+    for(i = 0, b = ''; i < 8; i++) b += ('00000000' + (H[i] >>> 0).toString(16)).slice(-8);
+    return b;
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    var g = document.getElementById('gate'), f = g.querySelector('form'), inp = document.getElementById('gateIn'), msg = g.querySelector('.g-msg');
+    inp.focus();
+    inp.addEventListener('input', function(){ g.classList.remove('err'); msg.textContent = ''; });
+    f.addEventListener('submit', function(e){
+      e.preventDefault();
+      if(sha256(inp.value.trim()) === HASH){
+        try{ sessionStorage.setItem(KEY, HASH); }catch(err){}
+        document.documentElement.classList.remove('gate-lock'); g.remove();
+        window.dispatchEvent(new Event('resize'));
+        return;
+      }
+      g.classList.add('err'); msg.textContent = 'Password salah. Konten tidak dapat ditampilkan.';
+      g.classList.remove('shake'); void g.offsetWidth; g.classList.add('shake');
+      inp.select();
+    });
+  });
+})();
+</script>
 </head>
 <body>
+<div id="gate" role="dialog" aria-modal="true" aria-labelledby="gateT">
+  <form autocomplete="off">
+    <div class="g-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="10.5" width="16" height="10.5" rx="2.5"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg></div>
+    <h1 id="gateT">Dokumen Level Moderate</h1>
+    <p>Internal Use Only</p>
+    <input id="gateIn" type="password" placeholder="Password" aria-label="Password" aria-describedby="gateMsg" required>
+    <div class="g-msg" id="gateMsg" role="alert"></div>
+    <button type="submit">Buka</button>
+  </form>
+</div>
 <div class="sky-wash" aria-hidden="true">
   <span class="cloud cloud-a"></span>
   <span class="cloud cloud-b"></span>
@@ -5650,9 +5802,9 @@
         <div class="ov-box orange"><h5>Underlying Risk</h5><ul><li><b>16% Peningkatan Blindspot Golden Rules</b> dibandingkan di 2025</li><li><b>3% Blindspot TBC</b> masih terjadi di 2026</li></ul></div>
       </div>
       <p class="ov2-note">Kontrol terhadap lagging yang sudah berjalan sudah banyak dilakukan dan berdampak pada peningkatan leading, peningkatan pelaporan hazard, peningkatan identifikasi TBC &amp; GR; tetapi lagging masih mencatatkan LTI &amp; Injury yang perlu <b>Fatal Prevention control</b> lanjutan.</p>
-      <div class="ov2-pol"><div class="pl"><b>Kebijakan yang berlaku:</b><ul><li><strong>Golden Rules</strong></li><li><strong>Do &amp; Don’t Policy</strong></li><li><strong>SOP / IK / JSA</strong></li><li><strong>Kebijakan tambahan</strong> (Pembatasan Pekerja di Luar Kabin, Pengawasan Berjarak, Kewajiban Instalasi Seatbelt Connect to Engine, Larangan Sistem Starter Engkol, dll)</li></ul></div><div class="pn"><b>20+</b><span>perkuatan yang berlaku selama YTD 2026</span></div></div>
+      <div class="ov2-pol"><div class="pl"><b>Kebijakan Perkuatan:</b><ul><li><strong>Pembatasan Pekerja di Luar Kabin</strong></li><li><strong>Pengawasan Berjarak</strong></li><li><strong>Seatbelt Connect to Engine</strong> (wajib instalasi)</li><li><strong>Larangan Sistem Starter Engkol</strong>, dll</li></ul><p class="pm">Di luar kebijakan yang terus dimonitor &amp; dievaluasi penerapannya: <strong>Golden Rules</strong>, <strong>DDP</strong>, <strong>SOP / IK / JSA</strong></p></div><div class="pn"><b>20+</b><span>perkuatan yang berlaku selama YTD 2026</span></div></div>
       <p class="ov2-next"><span>Sehingga kita perlu <b>kontrol lanjutan</b></span></p>
-      <div class="ov2-evo"><div class="t">Control Capability<br>Evolution</div><div class="evs"><svg viewBox="0 0 24 24"><path d="M4 4h4v2H6v2H4zm12 0h4v4h-2V6h-2zM4 16h2v2h2v2H4zm14 2v-2h2v4h-4v-2zM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8zm0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/></svg><b>Detect Earlier</b></div><i class="eva"></i><div class="evs"><svg viewBox="0 0 24 24"><path d="M11 13h2v9h-2zM12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6zM7.8 7.8a6 6 0 0 0 0 8.4l-1.4 1.4a8 8 0 0 1 0-11.2zm8.4 0 1.4-1.4a8 8 0 0 1 0 11.2l-1.4-1.4a6 6 0 0 0 0-8.4z"/></svg><b>Intervene Faster</b></div><i class="eva"></i><div class="evs pv"><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3zm-1.2 14.2-3.5-3.5 1.4-1.4 2.1 2.1 4.9-4.9 1.4 1.4-6.3 6.3z"/></svg><b>Prevent Better</b></div></div>
+      <div class="ov2-evo"><div class="t">Control Capability<br>Evolution</div><div class="evs"><svg viewBox="0 0 24 24"><path d="M4 4h4v2H6v2H4zm12 0h4v4h-2V6h-2zM4 16h2v2h2v2H4zm14 2v-2h2v4h-4v-2zM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8zm0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/></svg><b>Detect Earlier</b></div><i class="eva"></i><div class="evs"><svg viewBox="0 0 24 24"><path d="M11 13h2v9h-2zM12 9a3 3 0 1 1 0 6 3 3 0 0 1 0-6zM7.8 7.8a6 6 0 0 0 0 8.4l-1.4 1.4a8 8 0 0 1 0-11.2zm8.4 0 1.4-1.4a8 8 0 0 1 0 11.2l-1.4-1.4a6 6 0 0 0 0-8.4z"/></svg><b>Intervene Smarter</b></div><i class="eva"></i><div class="evs pv"><svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5l-8-3zm-1.2 14.2-3.5-3.5 1.4-1.4 2.1 2.1 4.9-4.9 1.4 1.4-6.3 6.3z"/></svg><b>Prevent by Design</b></div></div>
     </section>
     <svg class="ov2-links" aria-hidden="true"></svg>
   </div></div>
@@ -5847,6 +5999,7 @@
               </div>
             </div>
             <div class="sm-hud" id="smHud">ZOOM 1.0×</div>
+            <div class="sm-ai" role="note"><b><span aria-hidden="true">i</span>AI-Assisted Conceptual Visualization</b><small>Based on PIT Z Timur – BMO 2 basemap · Illustrative only · Not to scale</small></div>
             <div class="sm-zoom">
               <button type="button" id="smZin" aria-label="Perbesar">+</button>
               <button type="button" id="smZout" aria-label="Perkecil">−</button>
@@ -5888,6 +6041,7 @@
               </div>
             </div>
             <div class="sm-hud" id="sm2Hud">ZOOM 1.0×</div>
+            <div class="sm-ai" role="note"><b><span aria-hidden="true">i</span>AI-Assisted Conceptual Visualization</b><small>Based on PIT Z Timur – BMO 2 basemap · Illustrative only · Not to scale</small></div>
             <div class="sm-zoom">
               <button type="button" id="sm2Zin" aria-label="Perbesar">+</button>
               <button type="button" id="sm2Zout" aria-label="Perkecil">−</button>
@@ -10363,9 +10517,9 @@
     const u = svg._u || (svg._u = '-' + (ov2Links._n = (ov2Links._n || 0) + 1));
     svg.setAttribute('viewBox', '0 0 ' + g.offsetWidth + ' ' + g.offsetHeight);
     const cx = box.l + box.w / 2, my = box.t + box.h / 2, xm = left.r + (fun.l - left.r) / 2, fy = fun.t + fun.h * .4;
-    const top = Math.min(ob[0].t, ob[1].t), x0 = fun.l + fun.w * .875, C2 = !!svg.closest('#slideStable2'), y0 = C2 ? fun.b : Math.min(fun.b - 2, top - 56), ym = C2 ? (fun.b + top) / 2 + 2 : top - 40, c0 = ob[0].l + ob[0].w / 2, c1 = ob[1].l + ob[1].w / 2;
+    const top = Math.min(ob[0].t, ob[1].t), x0 = fun.l + fun.w * .875, C2 = !!svg.closest('#slideStable2'), y0 = C2 ? fun.b : Math.min(fun.b - 2, top - 56), ym = C2 ? top - 11 : top - 40, c0 = ob[0].l + ob[0].w / 2, c1 = ob[1].l + ob[1].w / 2;
     svg.innerHTML = '<defs><marker id="ov2Arr' + u + '" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10z" fill="#16294F"/></marker>'
-      + '<marker id="ov2ArrO' + u + '" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 10 5 0 10z" fill="#E8762B"/></marker></defs>'
+      + '<marker id="ov2ArrO' + u + '" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.2" markerHeight="4.2" orient="auto"><path d="M0 0 10 5 0 10z" fill="#E8762B"/></marker></defs>'
       // lagging chart -> funnel mouth: one straight arrow
       + '<path class="lk main cb" d="M' + (left.r + 2) + ' ' + fy + ' H' + (fun.l + 6) + '" marker-end="url(#ov2Arr' + u + ')"/>'
       // hazard / TBC reporting -> up into CONTROLS / PERKUATAN (under the funnel)
@@ -10788,7 +10942,7 @@
   // Automation tab: four automation projects and the overall next steps (from the report)
   const AUTOPROJ = {
     projects:[
-      { no:1, name:'ARCAS – HD 3327', sub:'Automatic Emergency Braking / Collision Avoidance', img:'mom/au-arcas.jpg', ic:'gear', stage:'Perbaikan desain &amp; POC terkontrol',
+      { no:1, name:'ARCAS – HD', sub:'Automatic Emergency Braking / Collision Avoidance', img:'mom/au-arcas.jpg', ic:'gear', stage:'Perbaikan desain &amp; POC terkontrol',
         hazard:['Potensi tabrak depan / insiden saat operasi dumping','Risiko saat posisi vessel / kabin sejajar pada kondisi tabrak depan'],
         prog:['Review POC ARCAS HD 3327 selesai (data telemetry 7 Okt dan rekap 5 hari)','Trial lapangan dengan ARC + LiDAR sudah menghasilkan data awal','Sensor lolos filter tercatat 80,5%','Hari bebas error masih 0 dari 5 hari rekap','Berhenti fisik terkonfirmasi 45% waktu shift menurut operator','Belum layak untuk area kritis / rollout; fokus perbaikan desain dan POC terkontrol'],
         rnd:['Pengembangan AEB berbasis optimasi logika deteksi','Validasi sensor fusion kamera + LiDAR + radar','Redesign aktuasi brake mekanikal dan stabilitas perangkat','Controlled POC dan verifikasi ulang setelah perbaikan'] },
@@ -11193,7 +11347,7 @@
             ['warn','Continue Progress Ideation Remote Blasting','System, MNO, Olive Link',['Q4 2026']],
             ['dozer','Eskalasi IM yang proses on-hold untuk melanjutkan proses implementasi Remote Dozer','GMO, CM',['Q4 2026']]] },
     auto:{ title:'Automation', sub:'Accelerate Automation for Higher Productivity &amp; Safety', ic:'gear',
-      rows:[['truck','Continue Progress Implementasi Hauling Automation','System, MNO, Olive Link',['Q4 2026']]] }
+      rows:[['truck','Continue Feasibility Study Hauling Automation (including Vendor dan Mine Design Institute China)','System, MNO, Olive Link',['Q4 2026']]] }
   };
   (function(){
     const IC = {
@@ -11482,8 +11636,8 @@
       svg.setAttribute('viewBox', '0 0 ' + (W + gap) + ' ' + H); svg.style.width = (W + gap) + 'px'; svg.style.height = H + 'px';
       svg.innerHTML = h;
       // hover tooltips on the stage bars
-      const TIPS = { s1:['Stage 1 — Deteksi','Identifikasi seluruh bahaya yang muncul'], s2:['Stage 2 — Critical Control','Setiap bahaya berisiko tinggi wajib memiliki kontrol kritis'],
-        s3:['Stage 3 — Rekayasa Engineering','Perubahan metode kerja'], s4:['Stage 4 — Eliminasi','Eliminasi seluruh bahaya'] };
+      const TIPS = { s1:['Stage 1 — Terlihat &amp; Terkontrol','Seluruh aktivitas terlihat, seluruh bahaya berisiko tinggi perlu ada kontrol kritis'], s2:['Stage 2 — Rekayasa Teknik','Perubahan metode kerja, design, untuk menurunkan exposure risiko'],
+        s3:['Stage 3 — Automasi','Eliminasi exposure risiko terhadap manusia'], s4:['High Risk to Low Risk','Risiko turun bertahap dari Stage 1 hingga Stage 3'] };
       let tip = col.querySelector('.rk-tip'); if(!tip){ tip = document.createElement('div'); tip.className = 'rk-tip'; col.appendChild(tip); }
       svg.querySelectorAll('[data-tip]').forEach(el=>{
         el.addEventListener('pointerenter', ()=>{ const t = TIPS[el.dataset.tip]; tip.innerHTML = '<b>' + t[0] + '</b><span>' + t[1] + '</span>'; tip.classList.add('on'); el.classList.add('hl'); });
@@ -11494,6 +11648,11 @@
     });
   }
   document.addEventListener('toggle', e=>{ const d = e.target; if(d.closest && d.closest('.rk-wrap')) rkFit(d.closest('.sm-panel') || document); }, true);
+  // opening line for the presenter: how the four streams fit together, shown above the list on "Semua"
+  const SM_BRIDGE = '<div class="sm-bridge"><p>Berau Coal&#39;s four-stream automation, <b>Direct Automation, Critical-Control, Engineering, and Data &amp; AI</b>, '
+    + 'meets at the <b>Green Mining Intersection (EV &amp; Automation)</b> to cut exposure and emissions, hard-wire <b>IPLS Layer-5</b> and critical activity barriers '
+    + '(through Mining Eyes), and convert every operational signal into trusted, real-time decisions, accelerating the shift to '
+    + '<b>interdependent, zero-harm and autonomous operations</b>.</p></div>';
   function smListHtml(AREAS, note, cat){
     const groups = [];
     AREAS.forEach(a=>{ const g = (a.cats || [])[0] || 'x'; let G = groups.find(x=> x.g === g); if(!G) groups.push(G = { g, items:[] }); G.items.push(a); });
@@ -11513,8 +11672,8 @@
           + its.map((a, k)=> item(a, G.n + '.' + (si + 1) + lab(k), G.c)).join('') + '</details>';
       }).join('');
     }
-    return '<div class="ph"><div class="eb">' + AREAS.length + ' inisiatif' + (cat ? ' · ' + cat : '') + '</div><h3>Stream Framework Automation</h3>'
-      + '<div class="meta"><span class="chip">Klik grup untuk buka / tutup</span></div></div>'
+    return '<div class="ph"><div class="eb">' + AREAS.length + ' inisiatif' + (cat ? ' · ' + cat : '') + '</div><h3>Stream Framework Automation</h3></div>'
+      + (cat ? '' : SM_BRIDGE)
       + '<div class="list">' + (()=>{ const grp = ({ g, items })=>{
           const G = SM_GRP[g] || { n:'', c:'#4A525C', k:'', m:'Lainnya', d:'' };
           const open = cat || SM_OPEN[g];
@@ -11681,9 +11840,13 @@
         a.el.classList.toggle('off', a.off); a.pinEl.classList.toggle('off', a.off);
         if(fx) fx.querySelectorAll('[data-t="' + a.id + '"]').forEach(el=> el.classList.toggle('off', a.off));
       });
-      vp.classList.toggle('filtered', c !== 'all');
+      vp.classList.toggle('filtered', c !== 'all'); vp.dataset.cat = c;
       if(catsEl) catsEl.querySelectorAll('.sm-cat').forEach(b=>{ const on = b.dataset.cat === c; b.classList.toggle('is-on', on); b.setAttribute('aria-pressed', on); });
       if(active && active.off) select(null); else render();
+      // Data & AI tab: the OBDS hub shows its links to every technology
+      const hubA = byId('obds');
+      if(c === 'data' && hubA && hubA.pin){ if(!active){ view = clamp(home()); apply(true); } netShow(hubA); }
+      else if(!(active && active.id === 'obds')) netHide();
       if(hasGsap && !reduce && c !== 'all') gsap.fromTo(shown().map(a=> a.pinEl), { scale:.7, opacity:0 }, { scale:1, opacity:1, stagger:.06, duration:.4, ease:'back.out(2)', clearProps:'transform,opacity' });
     }
     const byId = (id)=> AREAS.find(a=> a.id === id);
@@ -11699,7 +11862,7 @@
       vp.style.width = w + 'px'; vp.style.height = h + 'px';
       // swapped layout: a separate Technology Transfer card sits under the stream panel
       let tt = grid.querySelector(':scope > .sm-tt');
-      if(cfg.swap && !tt){ tt = document.createElement('section'); tt.className = 'sm-tt'; tt.innerHTML = '<b>Technology Transfer to new mining area</b>'; grid.appendChild(tt); }
+      if(cfg.swap && !tt){ tt = document.createElement('section'); tt.className = 'sm-tt'; tt.innerHTML = '<small>Ultimate Objectives</small><b>Technology Transfer to New Mining Areas</b>'; grid.appendChild(tt); }
       const ttH = cfg.swap && tt ? tt.offsetHeight + 0 + (parseFloat(getComputedStyle(grid).rowGap) || 0) : 0;
       panel.style.height = (tools.offsetHeight + 10 + h - ttH) + 'px';
     }
@@ -11828,12 +11991,45 @@
       tl.to(q('.smc-in'), { scale:1.1, transformOrigin:x + 'px ' + y + 'px', duration:.65, ease:'power3.in' }, .1);
       tl.to(det, { clipPath:'circle(0px at ' + x + 'px ' + y + 'px)', duration:.65, ease:'power3.inOut' }, .1);
     }
+    // OBDS (One Big Database Safety) is the hub, so selecting it draws its live links to every technology on the map
+    const NET_C = { cc:'#FF8A3D', eng:'#3CC8F5', auto:'#F5D53A', data:'#5CF08E' };
+    let netG = null, netCard = null;
+    function netHide(){ if(netG){ netG.remove(); netG = null; } if(netCard){ netCard.remove(); netCard = null; } vp.classList.remove('net-on'); }
+    function netShow(h){
+      netHide();
+      const svg = fx && fx.ownerSVGElement; if(!svg) return;
+      const H = h.pin, T = AREAS.filter(a=> a !== h && !a.offMap && !a.listOnly);
+      const curve = (P, k)=> 'M' + H[0] + ' ' + H[1] + ' C' + (H[0] + (P[0] - H[0]) * k) + ' ' + (H[1] + 14) + ' ' + P[0] + ' ' + (H[1] + (P[1] - H[1]) * (1 - k * .6)) + ' ' + P[0] + ' ' + P[1];
+      let out = '';
+      T.forEach((a, i)=>{
+        const c = NET_C[(a.cats || [])[0]] || NET_C.data, dl = (i * .09).toFixed(2) + 's';
+        [[0, 0, .55, c], [-14, -6, .4, '#9BE7FF'], [12, -4, .7, c]].forEach(([dx, dy, k, col], j)=>{
+          const d = curve([a.pin[0] + dx, a.pin[1] + dy], k);
+          out += '<path class="nb' + (j ? ' th' : '') + '" pathLength="1" d="' + d + '" style="--c:' + col + ';animation-delay:' + dl + '"/>'
+            + '<path class="nf' + (j ? ' th' : '') + '" pathLength="1" d="' + d + '" style="--c:' + col + ';animation-delay:' + (1 + i * .09).toFixed(2) + 's,0s"/>';
+          if(j === 0) out += '<circle class="nd" r="5" style="--c:' + col + '"><animateMotion dur="' + (2 + (i % 3) * .45) + 's" repeatCount="indefinite" path="' + d + '"/></circle>';
+        });
+        out += '<circle class="np" cx="' + a.pin[0] + '" cy="' + a.pin[1] + '" r="9" style="--c:' + c + '"/>'
+          + '<circle class="npi" cx="' + a.pin[0] + '" cy="' + a.pin[1] + '" r="4.5" style="--c:' + c + '"/>';
+      });
+      out += '<circle class="nh" cx="' + H[0] + '" cy="' + H[1] + '" r="16"/><circle class="nh d2" cx="' + H[0] + '" cy="' + H[1] + '" r="16"/><circle class="nhi" cx="' + H[0] + '" cy="' + H[1] + '" r="6"/>';
+      netG = document.createElementNS(NS, 'g'); netG.setAttribute('class', 'sm-net'); netG.innerHTML = out; svg.appendChild(netG);
+      const used = [...new Set(T.map(a=> (a.cats || [])[0]))].filter(k=> NET_C[k] && typeof SM_GRP !== 'undefined' && SM_GRP[k]);
+      netCard = document.createElement('div'); netCard.className = 'sm-hubc'; netCard.setAttribute('aria-hidden', 'true');
+      netCard.innerHTML = '<div class="hc-t"><span class="hc-ic">' + (h.icon || '') + '</span><span><b>OBDS</b><small>One Big Database Safety</small></span></div>'
+        + '<div class="hc-l">' + used.map(k=> '<i style="--c:' + NET_C[k] + '">#' + SM_GRP[k].n + ' ' + SM_GRP[k].m + '</i>').join('') + '</div>';
+      vp.appendChild(netCard);
+      vp.classList.add('net-on');
+    }
     function select(id){
       if(detOpen){ closeDet(()=> select(id)); return; }
       clearTimeout(detT);
       active = id ? byId(id) : null;
-      AREAS.forEach(a=>{ a.el.classList.toggle('active', a === active); a.pinEl.classList.toggle('active', a === active); a.pinEl.classList.toggle('dim', !!active && a !== active); });
-      if(active){ shade.setAttribute('d', 'M0 0H' + IMG_W + 'V' + IMG_H + 'H0Z M' + active.poly.map(p=> p.join(' ')).join(' L') + 'Z'); shade.classList.add('on'); flyTo(active);
+      const hub = !!active && active.id === 'obds' && !!active.pin;
+      AREAS.forEach(a=>{ a.el.classList.toggle('active', a === active); a.pinEl.classList.toggle('active', a === active); a.pinEl.classList.toggle('dim', !!active && a !== active && !hub); });
+      if(!hub) netHide();
+      if(hub){ shade.classList.remove('on'); view = clamp(home()); apply(true); netShow(active); }
+      else if(active){ shade.setAttribute('d', 'M0 0H' + IMG_W + 'V' + IMG_H + 'H0Z M' + active.poly.map(p=> p.join(' ')).join(' L') + 'Z'); shade.classList.add('on'); flyTo(active);
         const a = active; detT = setTimeout(()=> openDet(a), reduce ? 0 : 820); }
       else { shade.classList.remove('on'); view = clamp(home()); apply(true); }
       render();
@@ -11920,10 +12116,10 @@
     const { AP, NX, EXTRA, T, IC, CAT, CATS } = smTech;
     const AREAS = [
       T('obds', EXTRA.obds, 'Kantor &amp; control room · crest pit', IC.obds, [800,62], [620,112], [[525,85],[718,85],[718,140],[525,140]], 'Integrasi lintas proyek'),
-      T('eyes', EXTRA.eyes, 'Tower CCTV &amp; komunikasi', IC.eyes, [230,40], [420,58], [[400,30],[440,30],[440,140],[400,140]], 'Analytic &amp; expand ke area prioritas'),
-      T('mg', AP[1], 'Open Pit · front loading', IC.mg, [175,150], [152,238], [[82,180],[232,180],[232,302],[82,302]], NX(1)),
+      T('eyes', EXTRA.eyes, 'AI-Powered CCTV Analytics', IC.eyes, [230,40], [420,58], [[400,30],[440,30],[440,140],[400,140]], 'Analytic &amp; expand ke area prioritas'),
+      T('mg', AP[1], 'Sloping · Front · PIT', IC.mg, [175,150], [152,238], [[82,180],[232,180],[232,302],[82,302]], NX(1)),
       T('mir', AP[2], 'Disposal', IC.mir, [560,292], [505,352], [[380,318],[560,318],[560,382],[380,382]], NX(2)),
-      T('arcas', AP[0], 'Hauling road · CPP', IC.arcas, [620,660], [780,612], [[735,585],[830,585],[830,640],[735,640]], NX(0)),
+      T('arcas', AP[0], 'Disposal', IC.arcas, [620,660], [780,612], [[735,585],[830,585],[830,640],[735,640]], NX(0)),
       T('rover', AP[3], 'Disposal high-risk · remote station', IC.rover, [1230,385], [1160,455], [[1100,425],[1480,425],[1480,520],[1100,520]], NX(3)),
       T('haul', EXTRA.haul, 'Hauling road · junction', IC.haul, [200,470], [460,525], [[0,478],[1312,478],[1312,555],[0,555]], 'Integrasi ARCAS &amp; DMS di hauling', true),
       T('pump', { name:'Remote Pump', sub:'Pompa dewatering dioperasikan jarak jauh', stage:'Operasi &amp; monitoring jarak jauh',
@@ -11932,8 +12128,8 @@
         rnd:['Otomasi start/stop berbasis level air sump','Integrasi alarm pompa ke dashboard OBDS'] },
         'Sump pit · ponton pompa', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h11v6H4zm11 2h3V7h3v8h-3v-2h-3zM2 18c2 0 2-1.5 4-1.5S8 18 10 18s2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5v2c-2 0-2 1.5-4 1.5s-2-1.5-4-1.5-2 1.5-4 1.5-2-1.5-4-1.5-2 1.5-4 1.5zM7 4h5v4H7z"/></svg>', [930,325], [855,420], [[800,385],[905,385],[905,445],[800,445]], 'Otomasi berbasis level air sump')
     ];
-    AREAS.push(T('ccv', { name:'CCV', sub:'Critical Risk Barrier · CCV &amp; IPLS Layer 5 · Mining Eyes Analytic', stage:'Q3 2026 · Pendetailan CPP', hazard:[], prog:[], rnd:[] },
-      'Crossing &amp; gate hauling', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V9h2v4z"/></svg>', [120,622], [298,520], [[230,500],[340,500],[340,560],[230,560]], ''));
+    AREAS.push(T('ccv', { name:'CCV (Critical Control Verification)', sub:'Critical Risk Barrier · CCV &amp; IPLS Layer 5 · Mining Eyes Analytic', stage:'Q3 2026 · Pendetailan CPP', hazard:[], prog:[], rnd:[] },
+      'Penetapan kontrol kritis pada setiap aktivitas', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V9h2v4z"/></svg>', [120,622], [298,520], [[230,500],[340,500],[340,560],[230,560]], ''));
     AREAS[3].name = 'MIR';
     AREAS.forEach(a=> a.cats = a.listOnly ? ['eng'] : CAT[a.id] || (a.id === 'ccv' ? ['cc'] : ['eng']));
     // #5 Teknologi Inisiatif: site | initiative, shown in the list only
@@ -11961,16 +12157,16 @@
     const ord = (a)=> a.listOnly ? 100 + +a.id.slice(2) : ORDER.indexOf(a.id);
     AREAS.sort((x, y)=> ord(x) - ord(y));
     return makeSiteMap({ swap:true, pre:'sm', slide:'slideMap', w:1672, h:941, areas:AREAS, tilt:false, cats:CATS, fx:'<g class="tm-wifi" data-t="pump" transform="translate(860 378) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-net"><path d="M420 58 C 480 70, 560 95, 620 112"/><path d="M620 112 C 560 200, 460 280, 385 340"/><path d="M620 112 C 900 140, 1250 200, 1500 305"/><path d="M385 340 C 420 420, 440 480, 460 525"/><path d="M460 525 C 580 560, 690 590, 780 612"/><path d="M780 612 C 900 560, 1040 500, 1160 455"/></g><g class="tm-rings" data-t="haul"><ellipse cx="287" cy="428" rx="40" ry="11"/><ellipse cx="415" cy="438" rx="38" ry="11"/><ellipse cx="965" cy="310" rx="30" ry="9"/><ellipse cx="60" cy="398" rx="36" ry="10"/><ellipse cx="1205" cy="640" rx="36" ry="10"/></g><ellipse class="tm-bubble" data-t="arcas" cx="780" cy="616" rx="62" ry="40"/><g class="tm-radar" data-t="arcas"><path d="M850 600 a18 18 0 0 1 0 28"/><path d="M862 591 a32 32 0 0 1 0 46"/><path d="M874 582 a46 46 0 0 1 0 64"/></g><g class="tm-cv" data-t="eyes"><rect x="478" y="336" width="62" height="40" rx="4"/><rect x="250" y="398" width="70" height="40" rx="4"/><rect x="380" y="410" width="70" height="40" rx="4"/></g><g class="tm-signal" data-t="eyes"><path d="M398 40 a26 26 0 0 0 0 36"/><path d="M386 30 a42 42 0 0 0 0 56"/><path d="M442 40 a26 26 0 0 1 0 36"/><path d="M454 30 a42 42 0 0 1 0 56"/></g><g class="tm-grid" data-t="mg" transform="translate(-205 -128)"><path d="M300 364 L440 364 L462 388 L280 388 Z"/><path d="M325 364 L310 388 M355 364 L345 388 M385 364 L380 388 M415 364 L417 388 M290 376 L452 376"/></g><g class="tm-holo" data-t="mg" transform="translate(-250 -100)"><rect x="430" y="262" width="96" height="64" rx="6"/><circle cx="458" cy="294" r="11"/><path d="M458 280 v28 M444 294 h28 M484 316 l17 -32 l17 32 z"/></g><path class="tm-mesh" data-t="mir" d="M1250 340 C 1330 305, 1420 296, 1500 296 S 1610 300, 1668 318"/><g class="tm-pins" data-t="mir"><g transform="translate(1290 294)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1360 277)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1430 270)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1560 270)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g><g transform="translate(1630 278)"><path d="M0 0c-6 0-10 4-10 10 0 7 10 18 10 18s10-11 10-18c0-6-4-10-10-10zm0 13a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/></g></g><g class="tm-wifi" data-t="rover" transform="translate(1160 418) scale(0.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="arcas" transform="translate(780 568) scale(0.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="haul" transform="translate(415 398) scale(0.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="haul" transform="translate(287 388) scale(0.7)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-chev" data-t="haul"><path d="M560 545 l16 -10 l16 10" transform="rotate(75 576 540)"/><path d="M585 552 l16 -10 l16 10" transform="rotate(75 601 547)"/></g>',
-      listHtml:(A, c)=> smListHtml(A, '<b>Technology Transfer to new mining area</b>', c) });
+      listHtml:(A, c)=> smListHtml(A, '<small>Ultimate Objectives</small><b>Technology Transfer to New Mining Areas</b>', c) });
   })();
   const siteMap2 = (function(){
     const { AP, NX, EXTRA, T, IC, CAT, CATS } = smTech;
     const AREAS = [
       T('obds', EXTRA.obds, 'Kantor &amp; control room · crest pit', IC.obds, [300,40], [547,112], [[480,80],[640,80],[640,140],[480,140]], 'Integrasi lintas proyek'),
-      T('eyes', EXTRA.eyes, 'Tower CCTV &amp; komunikasi', IC.eyes, [860,40], [633,75], [[610,30],[660,30],[660,130],[610,130]], 'Analytic &amp; expand ke area prioritas'),
-      T('mg', AP[1], 'Open Pit · front loading', IC.mg, [700,445], [813,530], [[770,500],[860,500],[860,560],[770,560]], NX(1)),
+      T('eyes', EXTRA.eyes, 'AI-Powered CCTV Analytics', IC.eyes, [690,40], [633,75], [[610,30],[660,30],[660,130],[610,130]], 'Analytic &amp; expand ke area prioritas'),
+      T('mg', AP[1], 'Sloping · Front · PIT', IC.mg, [700,445], [813,530], [[770,500],[860,500],[860,560],[770,560]], NX(1)),
       T('mir', AP[2], 'Disposal', IC.mir, [1070,445], [940,530], [[900,500],[985,500],[985,560],[900,560]], NX(2)),
-      T('arcas', AP[0], 'Hauling road · CPP', IC.arcas, [230,610], [460,655], [[415,620],[505,620],[505,690],[415,690]], NX(0)),
+      T('arcas', AP[0], 'Disposal', IC.arcas, [230,610], [460,655], [[415,620],[505,620],[505,690],[415,690]], NX(0)),
       T('rover', AP[3], 'Disposal high-risk · remote station', IC.rover, [1250,740], [1060,805], [[1010,775],[1110,775],[1110,840],[1010,840]], NX(3)),
       T('haul', EXTRA.haul, 'Hauling road · junction', IC.haul, [230,330], [367,493], [[150,300],[260,300],[330,420],[420,560],[560,760],[700,900],[560,900],[420,760],[300,600],[220,470],[150,380]], 'Integrasi ARCAS &amp; DMS di hauling', true),
       T('pump', { name:'Remote Pump', sub:'Pompa dewatering dioperasikan jarak jauh', stage:'Operasi &amp; monitoring jarak jauh',
@@ -11984,8 +12180,8 @@
         prog:['Remote Blasting masuk program Q4 2026 (Implementasi Hauling Automation &amp; Ideation Remote Blasting)','Tahap ideation: kajian kebutuhan sistem dan area prioritas'],
         rnd:['Sistem inisiasi peledakan nirkabel dari jarak aman','Integrasi clearance radius dengan monitoring area'] },
       'Pit · area drilling &amp; blasting', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 2h2v5h-2zM6 5l1.4-1.4 2.1 2.1-1.4 1.4zm10.5 1.1 2.1-2.1L20 5.4l-2.1 2.1zM12 8l2.2 4.5L19 13l-3.5 3.4.8 4.6L12 18.8 7.7 21l.8-4.6L5 13l4.8-.5z"/></svg>', [320,140], [330,225], [[245,190],[370,190],[370,245],[245,245]], 'Kajian kebutuhan &amp; area prioritas'));
-    AREAS.push(T('ccv', { name:'CCV', sub:'Critical Risk Barrier · CCV &amp; IPLS Layer 5 · Mining Eyes Analytic', stage:'Q3 2026 · Pendetailan CPP', hazard:[], prog:[], rnd:[] },
-      'Crossing &amp; gate hauling', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V9h2v4z"/></svg>', [120,622], [298,520], [[230,500],[340,500],[340,560],[230,560]], ''));
+    AREAS.push(T('ccv', { name:'CCV (Critical Control Verification)', sub:'Critical Risk Barrier · CCV &amp; IPLS Layer 5 · Mining Eyes Analytic', stage:'Q3 2026 · Pendetailan CPP', hazard:[], prog:[], rnd:[] },
+      'Penetapan kontrol kritis pada setiap aktivitas', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2V9h2v4z"/></svg>', [120,622], [298,520], [[230,500],[340,500],[340,560],[230,560]], ''));
     AREAS[3].name = 'MIR';
     AREAS.forEach(a=> a.cats = a.listOnly ? ['eng'] : CAT[a.id] || (a.id === 'ccv' ? ['cc'] : ['eng']));
     // #5 Teknologi Inisiatif: site | initiative, shown in the list only
@@ -12012,8 +12208,8 @@
     const ORDER = ['ccv','eyes','mg','mir','arcas','rover','pump','blast','haul','obds'];
     const ord = (a)=> a.listOnly ? 100 + +a.id.slice(2) : ORDER.indexOf(a.id);
     AREAS.sort((x, y)=> ord(x) - ord(y));
-    return makeSiteMap({ swap:true, pre:'sm2', slide:'slideMap2', w:1600, h:900, areas:AREAS, tilt:false, cats:CATS, fx:'<g class="tm-rings" data-t="haul"><ellipse cx="367" cy="500" rx="30" ry="9"/><ellipse cx="280" cy="365" rx="28" ry="8"/><ellipse cx="710" cy="805" rx="30" ry="9"/></g><ellipse class="tm-bubble" data-t="arcas" cx="460" cy="660" rx="52" ry="34"/><g class="tm-grid" data-t="mg"><path d="M760 545 L870 545 L888 565 L742 565 Z"/><path d="M780 545 L768 565 M805 545 L798 565 M830 545 L828 565 M855 545 L858 565 M752 555 L880 555"/></g><g class="tm-signal" data-t="eyes"><path d="M612 55 a22 22 0 0 0 0 30"/><path d="M602 47 a36 36 0 0 0 0 46"/><path d="M654 55 a22 22 0 0 1 0 30"/><path d="M664 47 a36 36 0 0 1 0 46"/></g><g class="tm-wifi" data-t="pump" transform="translate(1073 692) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="rover" transform="translate(1060 768) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="mir" transform="translate(940 496) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g>',
-      listHtml:(A, c)=> smListHtml(A, '<b>Technology Transfer to new mining area</b>', c) });
+    return makeSiteMap({ swap:true, pre:'sm2', slide:'slideMap2', w:1600, h:900, areas:AREAS, tilt:false, cats:CATS, fx:'<g class="tm-cams"><rect x="608" y="28" width="53" height="98" rx="3" style="animation-delay:0.00s"/><rect x="81" y="164" width="44" height="91" rx="3" style="animation-delay:0.18s"/><rect x="211" y="279" width="44" height="123" rx="3" style="animation-delay:0.36s"/><rect x="298" y="384" width="40" height="88" rx="3" style="animation-delay:0.54s"/><rect x="646" y="417" width="42" height="91" rx="3" style="animation-delay:0.72s"/><rect x="442" y="534" width="44" height="93" rx="3" style="animation-delay:0.90s"/><rect x="549" y="658" width="42" height="136" rx="3" style="animation-delay:1.08s"/><rect x="798" y="678" width="44" height="137" rx="3" style="animation-delay:1.26s"/><rect x="1248" y="176" width="44" height="136" rx="3" style="animation-delay:1.44s"/></g><g class="tm-rings" data-t="haul"><ellipse cx="367" cy="500" rx="30" ry="9"/><ellipse cx="280" cy="365" rx="28" ry="8"/><ellipse cx="710" cy="805" rx="30" ry="9"/></g><ellipse class="tm-bubble" data-t="arcas" cx="460" cy="660" rx="52" ry="34"/><g class="tm-grid" data-t="mg"><path d="M760 545 L870 545 L888 565 L742 565 Z"/><path d="M780 545 L768 565 M805 545 L798 565 M830 545 L828 565 M855 545 L858 565 M752 555 L880 555"/></g><g class="tm-signal" data-t="eyes"><path d="M612 55 a22 22 0 0 0 0 30"/><path d="M602 47 a36 36 0 0 0 0 46"/><path d="M654 55 a22 22 0 0 1 0 30"/><path d="M664 47 a36 36 0 0 1 0 46"/></g><g class="tm-wifi" data-t="pump" transform="translate(1073 692) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="rover" transform="translate(1060 768) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="mir" transform="translate(940 496) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g>',
+      listHtml:(A, c)=> smListHtml(A, '<small>Ultimate Objectives</small><b>Technology Transfer to New Mining Areas</b>', c) });
   })();
   // map 2: hauling & operations picture with the technology labels floating over it
   const mineMap = (function(){
