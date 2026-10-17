@@ -5408,8 +5408,9 @@
   #slideStable2 .ov2-foot-r .ov2-evo .evs.pv{ background:#EAF6EC !important; box-shadow:inset 0 0 0 1px #CFE8D3; }
   #slideStable2 .ov2-foot-r .ov2-evo .evs.pv svg{ fill:#1F9A3A !important; }
   #slideStable2 .ov2-foot-r .ov2-evo .evs.pv b{ color:#147A2C !important; }
-  #slideStable2 .ov2-foot-r .ov2-evo .evf{ grid-column:1 / -1; display:flex; align-items:center; justify-content:center; gap:6px; padding:2px 0 4px; font:600 8.5px/1.2 'Plus Jakarta Sans',sans-serif; color:#4A525C; }
-  #slideStable2 .ov2-foot-r .ov2-evo .evf i{ font:700 normal 10px/1 Arial,sans-serif; color:#8A939C; }
+  #slideStable2 .ov2-foot-r .ov2-evo .evf{ grid-column:1 / -1; display:grid; grid-template-columns:1fr auto 1fr auto 1fr; align-items:center; gap:0; padding:3px 0 5px; font:800 11px/1.2 'Plus Jakarta Sans',sans-serif; color:#3C444C; }
+  #slideStable2 .ov2-foot-r .ov2-evo .evf span{ text-align:center; white-space:nowrap; }
+  #slideStable2 .ov2-foot-r .ov2-evo .evf i{ font:700 normal 12px/1 Arial,sans-serif; color:#8A939C; margin:0 -4px; }
   #slideStable2 .ov2-foot-r .ov2-evo .evf .g{ color:#1F9A3A; font-weight:800; }
 
   /* Direct Automation: hauling roads drawn with the OBDS network style (.sm-net) */
@@ -5465,7 +5466,17 @@
   #slideStable2 .ov2-callout .ov2-br-lab{ display:none !important; }
   #slideStable2 .ov2-callout{ left:calc(34px + (100% - 146px) * .5) !important; width:calc((100% - 146px) * .5) !important; }
   /* axis title sits right of the AFR & LTISR axis labels, clear of the branches */
-  .ov2-chart.ex-chart::after{ right:auto !important; left:auto !important; right:calc(112px - 34px) !important; top:-6px !important; writing-mode:horizontal-tb !important; transform:translateX(50%); }
+  .ov2-chart.ex-chart::after{ content:'FR & LTISR' !important; left:auto !important; right:calc(112px - 20px) !important; top:14% !important; writing-mode:vertical-rl !important; transform:none !important; font:800 11px/1 'Plus Jakarta Sans',sans-serif !important; letter-spacing:.04em; color:#5B6874 !important; }
+
+  /* 2026 per quarter (dummy data) after the yearly columns, set apart by a dashed divider */
+  .ov2-hz-bars{ grid-template-columns:repeat(10,minmax(0,1fr)) 6px repeat(4,minmax(0,.85fr)) !important; }
+  .ov2-hz-bars .yr.q-first{ grid-column:12; }
+  .ov2-hz-bars .yr.q-first::before{ content:''; position:absolute; left:-8px; top:4px; bottom:2px; border-left:1.5px dashed #9CC79A; }
+  .ov2-hz-bars .yr[class*="q"] > span{ color:#147A2C; font-weight:800; }
+  .ov2-hz-bars .yr[class*="q"] .sg i{ opacity:.85; }
+  .ov2-hz, .ov2-hz > *{ min-width:0 !important; } .ov2-hz-bars{ width:100% !important; min-width:0 !important; box-sizing:border-box; }
+  .ov2-hz-bars .yr{ min-width:0; } .ov2-hz-bars .yr.q .sg em{ font-size:9.5px !important; } .ov2-hz-bars .yr.q .sg i{ width:58% !important; }
+  .ov2-hz-bars .yr.q-first::after{ content:'2026'; position:absolute; left:-6px; top:-11px; font:800 8px/1 'Plus Jakarta Sans',sans-serif; color:#147A2C; letter-spacing:.04em; }
 </style>
 <script>
 (function(){
@@ -5857,7 +5868,7 @@
         <div class="ov2-hz">
           <div class="ov2-hz-main">
             <div class="ov2-hz-h"><b>Identifikasi Hazard, Pengawasan Berjarak, TBC <small>(x 1000)</small></b><span class="lg"><i class="tbc"></i>TBC Report<i class="hr"></i>Hazard Report<i class="rb"></i>Report Berjarak</span></div>
-            <div class="ov2-hz-bars"><div class="yr"><div class="sg tbc none"></div><div class="sg rb none"></div><div class="sg hr"><em>92,1</em><i style="--h:0.0886"></i></div><span>2017</span></div><div class="yr"><div class="sg tbc none"></div><div class="sg rb none"></div><div class="sg hr"><em>61,5</em><i style="--h:0.0592"></i></div><span>2018</span></div><div class="yr"><div class="sg tbc none"></div><div class="sg rb none"></div><div class="sg hr"><em>126,0</em><i style="--h:0.1212"></i></div><span>2019</span></div><div class="yr"><div class="sg tbc none"></div><div class="sg rb none"></div><div class="sg hr"><em>359,3</em><i style="--h:0.3457"></i></div><span>2020</span></div><div class="yr"><div class="sg tbc none"></div><div class="sg rb none"></div><div class="sg hr"><em>555,2</em><i style="--h:0.5342"></i></div><span>2021</span></div><div class="yr"><div class="sg tbc none"></div><div class="sg rb"><em>121,0</em><i style="--h:0.2383"></i></div><div class="sg hr"><em>703,5</em><i style="--h:0.6769"></i></div><span>2022</span></div><div class="yr"><div class="sg tbc"><em>0,9</em><i style="--h:0.0400"></i></div><div class="sg rb"><em>225,5</em><i style="--h:0.4442"></i></div><div class="sg hr"><em>774,1</em><i style="--h:0.7448"></i></div><span>2023</span></div><div class="yr"><div class="sg tbc"><em>18,8</em><i style="--h:0.0462"></i></div><div class="sg rb"><em>325,5</em><i style="--h:0.6411"></i></div><div class="sg hr"><em>827,3</em><i style="--h:0.7960"></i></div><span>2024</span></div><div class="yr"><div class="sg tbc brk"><em>345,3</em><i style="--h:0.8488"></i></div><div class="sg rb"><em>381,6</em><i style="--h:0.7516"></i></div><div class="sg hr"><em>999,9</em><i style="--h:0.9621"></i></div><span>2025</span></div><div class="yr"><div class="sg tbc brk"><em>406,8</em><i style="--h:1.0000"></i></div><div class="sg rb"><em>507,7</em><i style="--h:1.0000"></i></div><div class="sg hr"><em>1.039,3</em><i style="--h:1.0000"></i></div><span>2026</span></div></div>
+            <div class="ov2-hz-bars"><div class="yr"><div class="sg tbc none"></div><div class="sg rb none"></div><div class="sg hr"><em>92,1</em><i style="--h:0.0886"></i></div><span>2017</span></div><div class="yr"><div class="sg tbc none"></div><div class="sg rb none"></div><div class="sg hr"><em>61,5</em><i style="--h:0.0592"></i></div><span>2018</span></div><div class="yr"><div class="sg tbc none"></div><div class="sg rb none"></div><div class="sg hr"><em>126,0</em><i style="--h:0.1212"></i></div><span>2019</span></div><div class="yr"><div class="sg tbc none"></div><div class="sg rb none"></div><div class="sg hr"><em>359,3</em><i style="--h:0.3457"></i></div><span>2020</span></div><div class="yr"><div class="sg tbc none"></div><div class="sg rb none"></div><div class="sg hr"><em>555,2</em><i style="--h:0.5342"></i></div><span>2021</span></div><div class="yr"><div class="sg tbc none"></div><div class="sg rb"><em>121,0</em><i style="--h:0.2383"></i></div><div class="sg hr"><em>703,5</em><i style="--h:0.6769"></i></div><span>2022</span></div><div class="yr"><div class="sg tbc"><em>0,9</em><i style="--h:0.0400"></i></div><div class="sg rb"><em>225,5</em><i style="--h:0.4442"></i></div><div class="sg hr"><em>774,1</em><i style="--h:0.7448"></i></div><span>2023</span></div><div class="yr"><div class="sg tbc"><em>18,8</em><i style="--h:0.0462"></i></div><div class="sg rb"><em>325,5</em><i style="--h:0.6411"></i></div><div class="sg hr"><em>827,3</em><i style="--h:0.7960"></i></div><span>2024</span></div><div class="yr"><div class="sg tbc brk"><em>345,3</em><i style="--h:0.8488"></i></div><div class="sg rb"><em>381,6</em><i style="--h:0.7516"></i></div><div class="sg hr"><em>999,9</em><i style="--h:0.9621"></i></div><span>2025</span></div><div class="yr"><div class="sg tbc brk"><em>406,8</em><i style="--h:1.0000"></i></div><div class="sg rb"><em>507,7</em><i style="--h:1.0000"></i></div><div class="sg hr"><em>1.039,3</em><i style="--h:1.0000"></i></div><span>2026</span></div><div class="yr q q-first"><div class="sg tbc"><em>97,2</em><i style="--h:0.7420"></i></div><div class="sg rb"><em>121,4</em><i style="--h:0.7414"></i></div><div class="sg hr"><em>248,6</em><i style="--h:0.7396"></i></div><span>Q1</span></div><div class="yr q"><div class="sg tbc"><em>101,5</em><i style="--h:0.7748"></i></div><div class="sg rb"><em>126,9</em><i style="--h:0.7750"></i></div><div class="sg hr"><em>261,3</em><i style="--h:0.7774"></i></div><span>Q2</span></div></div>
           </div>
           <div class="ov2-hz-up"><svg viewBox="0 0 48 32" aria-hidden="true"><path d="M2 28 L16 16 L24 22 L42 6"/><path d="M32 5 H43 V16"/></svg><b>Uptrend Reporting Identifikasi Hazard, Pengawasan Berjarak &amp; TBC</b></div>
         </div>
@@ -11496,7 +11507,11 @@
     const cw = x1 - x0, off = (E.left - B.left) / k;
     if(!bars._h){ bars._h = bars.offsetHeight; bars.style.setProperty('--hzh', bars._h + 'px'); bars.classList.add('aligned'); }
     const w = Math.max(40, cw * .9);
-    yrs.forEach((yr, i)=>{ const cx = off + c.convertToPixel({ xAxisIndex:0 }, i); yr.style.left = (cx - w / 2) + 'px'; yr.style.width = w + 'px'; });
+    // yearly columns follow the chart categories; the 2026 quarters share the space left after the 2026 column
+    const Y = yrs.filter(y=> !y.classList.contains('q')), Qs = yrs.filter(y=> y.classList.contains('q'));
+    Y.forEach((yr, i)=>{ const cx = off + c.convertToPixel({ xAxisIndex:0 }, i); yr.style.left = (cx - w / 2) + 'px'; yr.style.width = w + 'px'; });
+    if(Qs.length && Y.length){ const lastR = parseFloat(Y[Y.length - 1].style.left) + w + 10, room = bars.clientWidth - 4 - lastR, qw = room / Qs.length;
+      Qs.forEach((yr, j)=>{ yr.style.left = (lastR + j * qw + 2) + 'px'; yr.style.width = Math.max(20, qw - 4) + 'px'; }); }
     const at = (i)=> (i + .15) / n * DUR, ease = 'cubic-bezier(.33,1,.68,1)';
     (bars._an || []).forEach(a=> a.cancel()); (bars._tw || []).forEach(t=> t.kill && t.kill());
     bars._an = []; bars._tw = [];
@@ -11650,7 +11665,7 @@
             axisLine:{ show:!merged, lineStyle:{ color:'#16294F', width:1.5 } }, axisLabel:{ fontSize:10, color:'#16294F' }, splitLine:{ show:false } },
           { type:'value', min:-26, max:7.2, show:false },
           { type:'value', min: merged ? -400 : -300, max:600, interval:100, position:'right', axisLine:{ show:!merged, lineStyle:{ color:'#16294F', width:1.5 } },
-            axisLabel:{ fontSize:10, color:'#16294F', formatter:(v)=> v>=0 ? v : '' }, splitLine:{ show:false } }
+            axisLabel:{ show:!merged, fontSize:10, color:'#16294F', formatter:(v)=> v>=0 ? v : '' }, splitLine:{ show:false } }
         ],
         series:[
           { name:'Non Injury', type:'bar', stack:'r', data:T.non, barWidth:'64%', itemStyle:{ color:'#F7BE16' },
