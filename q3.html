@@ -4394,7 +4394,7 @@
   .ov2-chartwrap .ex-ph-svg .ex-next{ display:none; }
   /* plateau box sits on the orange Performa Keselamatan curve (~11 incidents) */
   .ov2-callout{ top:calc(16px + (100% - 38px) * .68) !important; height:calc((100% - 38px) * .2) !important; }
-  .ov2-pl-lab{ left:-8% !important; top:-40% !important; } .ov2-hi-lab{ left:40% !important; top:-34% !important; } .ov2-br-lab{ top:-150% !important; }
+  .ov2-pl-lab{ left:-8% !important; top:-56% !important; } .ov2-hi-lab{ left:40% !important; top:-56% !important; } .ov2-br-lab{ top:-150% !important; }
   .ov2-grid .ov2-links .lk.cb{ transition:opacity .5s; } .ov2-grid.pl-wait .ov2-links .lk.cb{ opacity:0; }
 
   .sm-panel .list .grp{ padding:8px 18px 5px; background:#F3F7F4; border-bottom:1px solid var(--sm-line); color:var(--cv-green-d); font:800 11px/1.2 'Plus Jakarta Sans',sans-serif; letter-spacing:.1em; text-transform:uppercase; }
@@ -5424,6 +5424,21 @@
   #slideStable2 .rd-out .ov2-out2 .ov-box li b{ font-size:12.5px !important; }
   /* map zoom readout not shown */
   .sm-hud{ display:none !important; }
+
+  /* How Stable: one continuous trend curve (orange > yellow > green) replaces the yellow series and the plateau strokes */
+  .ov2-trend{ position:absolute; z-index:2; pointer-events:none; overflow:visible; }
+  .ov2-trend .tr-line{ fill:none; stroke:url(#ovTrG); stroke-width:5.2px; stroke-linecap:round; stroke-linejoin:round; }
+  .ov2-trend .tr-aura{ fill:none; stroke:#FFD21B; stroke-width:23px; stroke-linecap:round; stroke-linejoin:round; opacity:.55; filter:url(#ovTrB); animation:trBreathe 3.4s ease-in-out infinite; }
+  .ov2-trend .tr-weight{ fill:none; stroke:#FFE43B; stroke-width:8px; stroke-linecap:round; stroke-linejoin:round; opacity:.74; }
+  .ov2-trend .tr-shim{ fill:none; stroke:#FFFDE7; stroke-width:3.2px; stroke-linecap:round; stroke-dasharray:11 165; opacity:.85; filter:drop-shadow(0 0 3px #FFE037); animation:trShim 8s linear infinite; }
+  .ov2-trend .tr-spk{ fill:#FFF9C4; stroke:#FFF8A4; stroke-width:1.15; filter:drop-shadow(0 0 5px #FFD02E); transform-box:fill-box; transform-origin:center; animation:trTwinkle 2.8s ease-in-out infinite; }
+  @keyframes trBreathe{ 0%,100%{ opacity:.34; } 50%{ opacity:.72; } }
+  @keyframes trShim{ to{ stroke-dashoffset:-704; } }
+  @keyframes trTwinkle{ 0%,100%{ opacity:.22; transform:scale(.75); } 50%{ opacity:1; transform:scale(1.2); } }
+  @media (prefers-reduced-motion: reduce){ .ov2-trend .tr-aura, .ov2-trend .tr-shim, .ov2-trend .tr-spk{ animation:none !important; } }
+  .ov2-plat .pl, .ov2-plat .plc, .ov2-plat .gr, .ov2-plat .rd, .ov2-callout .ov2-pl-run, .ov2-callout .ov2-br-dot{ display:none !important; }
+  .ov2-callout, .ov2-callout::before{ background:none !important; animation:none !important; box-shadow:none !important; border:0 !important; }
+  .ov2-callout::before{ display:none !important; }
 </style>
 <script>
 (function(){
@@ -11471,6 +11486,37 @@
       });
     });
   }
+  // safety performance curve: a single SVG path over the chart (2017 high, plateau, breakthrough)
+  const TREND_Y = [45, 45.5, 40, 26.5, 23.4, 23.2, 23.2, 23.4, 23.4, 23.6, 31, 52];
+  function trendCurve(el, c, DUR){
+    const host = el.parentNode; let svg = host.querySelector(':scope > .ov2-trend');
+    if(!svg){ svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); svg.setAttribute('class', 'ov2-trend'); svg.setAttribute('aria-hidden', 'true'); host.appendChild(svg); }
+    const draw = ()=>{
+      if(c.isDisposed && c.isDisposed()) return;
+      const W = el.offsetWidth, H = el.offsetHeight; if(!W || !H) return;
+      const P = TREND_Y.map((v, i)=> c.convertToPixel({ xAxisIndex:0, yAxisIndex:0 }, [i, v]));
+      if(P.some(q=> !q || isNaN(q[0]))) return;
+      const d = P.map((p, i)=>{ if(!i) return 'M' + p[0].toFixed(1) + ' ' + p[1].toFixed(1);
+        const a = P[i - 2] || P[i - 1], b = P[i - 1], e = P[i + 1] || p;
+        return ' C' + (b[0] + (p[0] - a[0]) / 6).toFixed(1) + ' ' + (b[1] + (p[1] - a[1]) / 6).toFixed(1) + ' ' + (p[0] - (e[0] - b[0]) / 6).toFixed(1) + ' ' + (p[1] - (e[1] - b[1]) / 6).toFixed(1) + ' ' + p[0].toFixed(1) + ' ' + p[1].toFixed(1); }).join('');
+      const x0 = P[0][0], x1 = P[P.length - 1][0];
+      svg.style.left = el.offsetLeft + 'px'; svg.style.top = el.offsetTop + 'px';
+      svg.setAttribute('width', W); svg.setAttribute('height', H); svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+      const sp = [4, 6, 7.5, 9].map(f=>{ const i = Math.floor(f), t = f - i, A = P[i], B = P[Math.min(i + 1, P.length - 1)]; return [A[0] + (B[0] - A[0]) * t, (A[1] + B[1]) / 2 * (t ? 1 : 0) + A[1] * (t ? 0 : 1)]; });
+      svg.innerHTML = '<defs>'
+        + '<linearGradient id="ovTrG" gradientUnits="userSpaceOnUse" x1="' + x0 + '" y1="0" x2="' + x1 + '" y2="0"><stop offset="0" stop-color="#ED9C0B"/><stop offset=".19" stop-color="#F8B913"/><stop offset=".33" stop-color="#FFD123"/><stop offset=".55" stop-color="#FFE344"/><stop offset=".76" stop-color="#F8D923"/><stop offset=".86" stop-color="#D8DA21"/><stop offset="1" stop-color="#37B52E"/></linearGradient>'
+        + '<linearGradient id="ovTrM" gradientUnits="userSpaceOnUse" x1="' + x0 + '" y1="0" x2="' + x1 + '" y2="0"><stop offset="0" stop-color="#000"/><stop offset=".2" stop-color="#000"/><stop offset=".32" stop-color="#fff"/><stop offset=".74" stop-color="#fff"/><stop offset=".85" stop-color="#000"/><stop offset="1" stop-color="#000"/></linearGradient>'
+        + '<mask id="ovTrMk" maskUnits="userSpaceOnUse" x="0" y="0" width="' + W + '" height="' + H + '"><rect width="' + W + '" height="' + H + '" fill="url(#ovTrM)"/></mask>'
+        + '<filter id="ovTrB" x="-40%" y="-200%" width="180%" height="500%"><feGaussianBlur stdDeviation="6"/></filter>'
+        + '<path id="ovTrP" d="' + d + '"/></defs>'
+        + '<use href="#ovTrP" class="tr-aura" mask="url(#ovTrMk)"/><use href="#ovTrP" class="tr-line"/><use href="#ovTrP" class="tr-weight" mask="url(#ovTrMk)"/><use href="#ovTrP" class="tr-shim" mask="url(#ovTrMk)"/>'
+        + sp.map((q, k)=> '<g transform="translate(' + q[0].toFixed(1) + ' ' + q[1].toFixed(1) + ')"><g class="tr-spk" style="animation-delay:' + (-k * .75).toFixed(2) + 's"><circle r="' + (k % 2 ? 2 : 2.6) + '"/><path d="M-7 0H7M0-7V7"/></g></g>').join('');
+    };
+    draw();
+    if(!svg._ro && window.ResizeObserver){ svg._ro = new ResizeObserver(()=> requestAnimationFrame(draw)); svg._ro.observe(el); }
+    // drawn left to right with the chart sweep
+    if(svg.animate && !REDUCE_MOTION) svg.animate([{ clipPath:'inset(0 100% 0 0)' }, { clipPath:'inset(0 0 0 0)' }], { duration:DUR, easing:'linear', fill:'both' });
+  }
   function plateauFlow(el, D, n, onCover){
     const box = el.parentNode.querySelector('.ov2-callout'), grid = el.closest('.ov2-grid'); if(!box || !box.animate) return;
     (el._plAn || []).forEach(x=> x.cancel()); clearTimeout(el._plT);
@@ -11569,7 +11615,7 @@
           { name:'Total', type:'scatter', data:total, symbolSize:0, silent:true, z:10,
             label:{ show:true, position:'top', fontSize:11, fontWeight:800, color:'#141A22', formatter:(p)=> f1(p.value),
               ...(merged ? { backgroundColor:'rgba(255,255,255,.92)', padding:[1,4], borderRadius:4 } : {}) } },
-          ...(merged ? [{ id:'perf', name:'Performa Keselamatan', type:'line', data:total.map(v=> +(v + 4.5).toFixed(1)), smooth:.5, symbol:'none', silent:true, z:4,
+          ...(false ? [{ id:'perf', name:'Performa Keselamatan', type:'line', data:total.map(v=> +(v + 4.5).toFixed(1)), smooth:.5, symbol:'none', silent:true, z:4,
               lineStyle:{ color:'#F7B500', width:5, cap:'round', shadowColor:'rgba(255,190,0,.75)', shadowBlur:12 }, tooltip:{ show:false } }] : []),
           { name:'AFR', type:'line', yAxisIndex:1, data:T.afr, symbol:'diamond', symbolSize:9, lineStyle:{ color:'#E3262F', width: merged ? 1.6 : 2.4, opacity: merged ? .18 : 1 }, itemStyle:{ color:'#E3262F', opacity: merged ? .18 : 1 }, symbolSize: merged ? 5 : 9,
             label:{ show:true, position:'top', fontSize:11, fontWeight:800, color:'#E3262F', opacity:1, formatter:(p)=> p.dataIndex===last ? '' : fmt(p.value) }, z: merged ? 0 : 5, zlevel:0,
@@ -11600,7 +11646,7 @@
       el._rev = true; clearTimeout(el._revT); el._revT = setTimeout(()=>{ el._rev = null; }, DUR + 800);
       // once the plateau line covers 2023 onward, the yellow curve under it is dropped (no double line)
       if(merged){ hazardSync(el, c, DUR, n); curvesSync(el, DUR, n); }
-      if(merged) plateauFlow(el, DUR / 1000, n, ()=>{ if(c.isDisposed && c.isDisposed()) return; c.setOption({ series:[{ id:'perf', data:total.map((v, i)=> i > 6 ? '-' : +(v + 4.5).toFixed(1)), animation:false }] }); });
+      if(merged){ plateauFlow(el, DUR / 1000, n); trendCurve(el, c, DUR); }
       // replay the sweep after a pause, for as long as this chart is on screen
       clearTimeout(el._loopT);
       el._loopT = setTimeout(function again(){
