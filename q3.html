@@ -5297,6 +5297,11 @@
   /* Cross-Division: need-support note under each programme */
   #slideCross .cd-row p .ns{ display:block; margin-top:2px; font:500 .74em/1.3 'Source Sans 3',sans-serif; color:#5B646D; letter-spacing:0; }
   #slideCross .cd-row p .ns b{ font-weight:700; color:var(--cd); }
+  /* column header: same column widths as the rows (font shrunk on the text only), so labels do not collide */
+  #slideCross .cd-colh{ font-size:1em !important; }
+  #slideCross .cd-colh span{ font-size:.84em; white-space:nowrap; }
+  /* closing slide: fills the screen, anchored to the top so the quote and squares stay in view (only the bottom edge trims) */
+  #slideThanks .ty-bg{ background-size:cover !important; background-position:center top !important; }
 </style>
 </head>
 <body>
