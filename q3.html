@@ -5411,6 +5411,10 @@
   #slideStable2 .ov2-foot-r .ov2-evo .evf{ grid-column:1 / -1; display:flex; align-items:center; justify-content:center; gap:6px; padding:2px 0 4px; font:600 8.5px/1.2 'Plus Jakarta Sans',sans-serif; color:#4A525C; }
   #slideStable2 .ov2-foot-r .ov2-evo .evf i{ font:700 normal 10px/1 Arial,sans-serif; color:#8A939C; }
   #slideStable2 .ov2-foot-r .ov2-evo .evf .g{ color:#1F9A3A; font-weight:800; }
+
+  /* Direct Automation: hauling roads drawn with the OBDS network style (.sm-net) */
+  .sm-road{ pointer-events:none; }
+  .sm-vp.road-on .tm-fx > :not(.sm-road){ opacity:.4; transition:opacity .4s; }
 </style>
 <script>
 (function(){
@@ -11850,6 +11854,31 @@
         return '<button type="button" class="sm-cat" data-cat="' + k.id + '" aria-pressed="false">' + k.label + '<i>' + n + '</i></button>'; }).join('');
       catsEl.querySelectorAll('.sm-cat').forEach(b=> b.addEventListener('click', e=>{ e.stopPropagation(); setCat(b.dataset.cat); }));
     }
+    // Direct Automation tab: the hauling roads light up with autonomous traffic flowing along them
+    let roadG = null;
+    function roadHide(){ if(roadG){ roadG.remove(); roadG = null; } vp.classList.remove('road-on'); }
+    function roadShow(){
+      roadHide();
+      const svg = fx && fx.ownerSVGElement, R = cfg.roads; if(!svg || !R) return;
+      // smooth line through the traced points (Catmull-Rom to cubic Bezier)
+      const smooth = (P)=> P.map((p, i)=>{ if(!i) return 'M' + p[0] + ' ' + p[1];
+        const a = P[i - 2] || P[i - 1], b = P[i - 1], d = P[i + 1] || p;
+        return ' C' + (b[0] + (p[0] - a[0]) / 6).toFixed(1) + ' ' + (b[1] + (p[1] - a[1]) / 6).toFixed(1) + ' ' + (p[0] - (d[0] - b[0]) / 6).toFixed(1) + ' ' + (p[1] - (d[1] - b[1]) / 6).toFixed(1) + ' ' + p[0] + ' ' + p[1]; }).join('');
+      const shift = (P, o)=> P.map((p, i)=>{ const q = P[Math.min(i + 1, P.length - 1)], r = P[Math.max(i - 1, 0)], dx = q[0] - r[0], dy = q[1] - r[1], L = Math.hypot(dx, dy) || 1; return [p[0] - dy / L * o, p[1] + dx / L * o]; });
+      let out = '';
+      R.forEach((P, i)=>{
+        const dl = (i * .25).toFixed(2) + 's', fl = (1.1 + i * .25).toFixed(2) + 's';
+        [[0, '#8BE33A', ''], [-7, '#9BE7FF', ' th'], [7, '#C6FF3D', ' th']].forEach(([o, col, th], j)=>{
+          const d = smooth(o ? shift(P, o) : P);
+          out += '<path class="nb' + th + '" pathLength="1" d="' + d + '" style="--c:' + col + ';animation-delay:' + dl + '"/>'
+            + '<path class="nf' + th + '" pathLength="1" d="' + d + '" style="--c:' + col + ';animation-delay:' + fl + ',0s"/>';
+          if(j === 0) for(let k = 0; k < 3; k++) out += '<circle class="nd" r="5" style="--c:' + col + '"><animateMotion dur="' + (4.5 + i * .8) + 's" begin="' + (1.1 + k * (4.5 + i * .8) / 3).toFixed(2) + 's" repeatCount="indefinite" path="' + d + '"/></circle>';
+        });
+        [P[0], P[P.length - 1]].forEach(q=>{ out += '<circle class="np" cx="' + q[0] + '" cy="' + q[1] + '" r="9" style="--c:#8BE33A"/><circle class="npi" cx="' + q[0] + '" cy="' + q[1] + '" r="4.5" style="--c:#8BE33A"/>'; });
+      });
+      roadG = document.createElementNS(NS, 'g'); roadG.setAttribute('class', 'sm-road sm-net'); roadG.innerHTML = out; svg.appendChild(roadG);
+      vp.classList.add('road-on');
+    }
     function setCat(c){
       cat = c;
       AREAS.forEach(a=>{
@@ -11860,6 +11889,7 @@
       vp.classList.toggle('filtered', c !== 'all'); vp.dataset.cat = c;
       if(catsEl) catsEl.querySelectorAll('.sm-cat').forEach(b=>{ const on = b.dataset.cat === c; b.classList.toggle('is-on', on); b.setAttribute('aria-pressed', on); });
       if(active && active.off) select(null); else render();
+      if(c === 'auto' && cfg.roads){ if(!active){ view = clamp(home()); apply(true); } roadShow(); } else roadHide();
       // Data & AI tab: the OBDS hub shows its links to every technology
       const hubA = byId('obds');
       if(c === 'data' && hubA && hubA.pin){ if(!active){ view = clamp(home()); apply(true); } netShow(hubA); }
@@ -12182,7 +12212,7 @@
       T('mg', AP[1], 'Sloping · Front · PIT', IC.mg, [700,445], [813,530], [[770,500],[860,500],[860,560],[770,560]], NX(1)),
       T('mir', AP[2], 'Disposal', IC.mir, [1070,445], [940,530], [[900,500],[985,500],[985,560],[900,560]], NX(2)),
       T('arcas', AP[0], 'Disposal', IC.arcas, [230,610], [460,655], [[415,620],[505,620],[505,690],[415,690]], NX(0)),
-      T('rover', AP[3], 'Disposal high-risk · remote station', IC.rover, [1250,740], [1060,805], [[1010,775],[1110,775],[1110,840],[1010,840]], NX(3)),
+      T('rover', AP[3], 'Disposal high-risk · remote station', IC.rover, [824,691], [1060,805], [[1010,775],[1110,775],[1110,840],[1010,840]], NX(3)),
       T('haul', EXTRA.haul, 'Hauling road · junction', IC.haul, [230,330], [367,493], [[150,300],[260,300],[330,420],[420,560],[560,760],[700,900],[560,900],[420,760],[300,600],[220,470],[150,380]], 'Integrasi ARCAS &amp; DMS di hauling', true),
       T('pump', { name:'Remote Pump', sub:'Pompa dewatering dioperasikan jarak jauh', stage:'Operasi &amp; monitoring jarak jauh',
         hazard:['Pekerja di atas ponton / tepi sump (risiko tenggelam &amp; terpeleset)','Start/stop dan pengecekan pompa manual di area pit berair'],
@@ -12228,7 +12258,7 @@
     const ORDER = ['ccv','eyes','mg','mir','arcas','rover','pump','blast','haul','obds'];
     const ord = (a)=> a.listOnly ? 100 + +a.id.slice(2) : ORDER.indexOf(a.id);
     AREAS.sort((x, y)=> ord(x) - ord(y));
-    return makeSiteMap({ swap:true, pre:'sm2', slide:'slideMap2', w:1600, h:900, areas:AREAS, tilt:false, cats:CATS, fx:'<g class="tm-cams"><rect x="608" y="28" width="53" height="98" rx="3" style="animation-delay:0.00s"/><rect x="81" y="164" width="44" height="91" rx="3" style="animation-delay:0.18s"/><rect x="211" y="279" width="44" height="123" rx="3" style="animation-delay:0.36s"/><rect x="298" y="384" width="40" height="88" rx="3" style="animation-delay:0.54s"/><rect x="646" y="417" width="42" height="91" rx="3" style="animation-delay:0.72s"/><rect x="442" y="534" width="44" height="93" rx="3" style="animation-delay:0.90s"/><rect x="549" y="658" width="42" height="136" rx="3" style="animation-delay:1.08s"/><rect x="798" y="678" width="44" height="137" rx="3" style="animation-delay:1.26s"/><rect x="1248" y="176" width="44" height="136" rx="3" style="animation-delay:1.44s"/></g><g class="tm-rings" data-t="haul"><ellipse cx="367" cy="500" rx="30" ry="9"/><ellipse cx="280" cy="365" rx="28" ry="8"/><ellipse cx="710" cy="805" rx="30" ry="9"/></g><ellipse class="tm-bubble" data-t="arcas" cx="460" cy="660" rx="52" ry="34"/><g class="tm-grid" data-t="mg"><path d="M760 545 L870 545 L888 565 L742 565 Z"/><path d="M780 545 L768 565 M805 545 L798 565 M830 545 L828 565 M855 545 L858 565 M752 555 L880 555"/></g><g class="tm-signal" data-t="eyes"><path d="M612 55 a22 22 0 0 0 0 30"/><path d="M602 47 a36 36 0 0 0 0 46"/><path d="M654 55 a22 22 0 0 1 0 30"/><path d="M664 47 a36 36 0 0 1 0 46"/></g><g class="tm-wifi" data-t="pump" transform="translate(1073 692) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="rover" transform="translate(1060 768) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="mir" transform="translate(940 496) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g>',
+    return makeSiteMap({ swap:true, pre:'sm2', slide:'slideMap2', w:1600, h:900, roads:[[[100,229],[108,281],[176,352],[271,398],[341,469],[400,551],[441,639],[494,680],[588,727],[659,797],[729,844],[788,896]],[[929,299],[871,352],[765,445],[671,516],[588,586],[559,633],[588,680],[659,750],[729,809],[824,855],[906,896]],[[735,209],[824,182],[871,178],[941,199],[1059,217],[1176,252],[1294,293],[1412,328],[1529,375],[1594,410]]], areas:AREAS, tilt:false, cats:CATS, fx:'<g class="tm-cams"><rect x="608" y="28" width="53" height="98" rx="3" style="animation-delay:0.00s"/><rect x="81" y="164" width="44" height="91" rx="3" style="animation-delay:0.18s"/><rect x="211" y="279" width="44" height="123" rx="3" style="animation-delay:0.36s"/><rect x="298" y="384" width="40" height="88" rx="3" style="animation-delay:0.54s"/><rect x="646" y="417" width="42" height="91" rx="3" style="animation-delay:0.72s"/><rect x="442" y="534" width="44" height="93" rx="3" style="animation-delay:0.90s"/><rect x="549" y="658" width="42" height="136" rx="3" style="animation-delay:1.08s"/><rect x="798" y="678" width="44" height="137" rx="3" style="animation-delay:1.26s"/><rect x="1248" y="176" width="44" height="136" rx="3" style="animation-delay:1.44s"/></g><g class="tm-rings" data-t="haul"><ellipse cx="367" cy="500" rx="30" ry="9"/><ellipse cx="280" cy="365" rx="28" ry="8"/><ellipse cx="710" cy="805" rx="30" ry="9"/></g><ellipse class="tm-bubble" data-t="arcas" cx="460" cy="660" rx="52" ry="34"/><g class="tm-grid" data-t="mg"><path d="M760 545 L870 545 L888 565 L742 565 Z"/><path d="M780 545 L768 565 M805 545 L798 565 M830 545 L828 565 M855 545 L858 565 M752 555 L880 555"/></g><g class="tm-signal" data-t="eyes"><path d="M612 55 a22 22 0 0 0 0 30"/><path d="M602 47 a36 36 0 0 0 0 46"/><path d="M654 55 a22 22 0 0 1 0 30"/><path d="M664 47 a36 36 0 0 1 0 46"/></g><g class="tm-wifi" data-t="pump" transform="translate(1073 692) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="rover" transform="translate(1060 768) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="mir" transform="translate(940 496) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g>',
       listHtml:(A, c)=> smListHtml(A, '<small>Ultimate Objectives</small><b>Technology Transfer to New Mining Areas</b>', c) });
   })();
   // map 2: hauling & operations picture with the technology labels floating over it
