@@ -11940,8 +11940,8 @@
       + '<div class="meta"><span class="chip">' + P.sub + '</span><span class="chip loc">' + a.loc + '</span></div>'
       + '<div class="stage"><small>Tahap saat ini</small><b>' + P.stage + '</b></div></div>'
       + '<div class="pb">' + (P.img ? '<div class="media"><img src="' + P.img + '" alt=""></div>' : '')
-      // OBDS: the panel carries the same content as its detail card (progress + BeARC / Performance Trigger cards)
-      + (a.id === 'obds' ? '<div><div class="lbl">Progress utama</div><ul class="risk prog">' + smLi(P.prog) + '</ul></div><div class="ob-pan">' + SM_OBDS_CARDS + '</div></div>'
+      // OBDS: the panel shows the BeARC / Performance Trigger cards from its detail card
+      + (a.id === 'obds' ? '<div class="ob-pan">' + SM_OBDS_CARDS + '</div></div>'
       : '<div><div class="lbl">Bahaya yang dikendalikan</div><ul class="risk">' + smLi(P.hazard) + '</ul></div>'
       + '<div><div class="lbl">Progress utama</div><ul class="risk prog">' + smLi(P.prog) + '</ul></div>'
       + '<div><div class="lbl">Future research &amp; dev</div><ul class="risk ctrl">' + smLi(P.rnd) + '</ul></div>'
