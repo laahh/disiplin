@@ -5495,6 +5495,11 @@
   .sm-det .mx-fit > img{ object-fit:contain !important; width:100% !important; height:100% !important; }
   .sm-det .mx-fit .mx-ads{ height:100%; aspect-ratio:1672/715; max-width:100%; }
   .sm-det .mx-fit .mx-ads img{ width:100% !important; height:100% !important; object-fit:contain !important; }
+  /* OBDS detail cards inside the side panel */
+  .sm-panel .ob-pan{ display:flex; flex-direction:column; gap:8px; margin-top:4px; }
+  .sm-panel .ob-pan .ob-card{ gap:3px; padding:8px 12px 8px 16px; }
+  .sm-panel .ob-pan .ob-card b{ font-size:13.5px; } .sm-panel .ob-pan .ob-card em{ font-size:10.5px; padding-bottom:4px; }
+  .sm-panel .ob-pan .ob-card li{ font-size:11.5px; } .sm-panel .ob-pan .ob-card .tag{ font-size:9.5px; padding:2px 10px; } .sm-panel .ob-pan .ob-card .foot{ font-size:10.5px; padding:4px 8px; }
 </style>
 <script>
 (function(){
@@ -11935,10 +11940,12 @@
       + '<div class="meta"><span class="chip">' + P.sub + '</span><span class="chip loc">' + a.loc + '</span></div>'
       + '<div class="stage"><small>Tahap saat ini</small><b>' + P.stage + '</b></div></div>'
       + '<div class="pb">' + (P.img ? '<div class="media"><img src="' + P.img + '" alt=""></div>' : '')
-      + '<div><div class="lbl">Bahaya yang dikendalikan</div><ul class="risk">' + smLi(P.hazard) + '</ul></div>'
+      // OBDS: the panel carries the same content as its detail card (progress + BeARC / Performance Trigger cards)
+      + (a.id === 'obds' ? '<div><div class="lbl">Progress utama</div><ul class="risk prog">' + smLi(P.prog) + '</ul></div><div class="ob-pan">' + SM_OBDS_CARDS + '</div></div>'
+      : '<div><div class="lbl">Bahaya yang dikendalikan</div><ul class="risk">' + smLi(P.hazard) + '</ul></div>'
       + '<div><div class="lbl">Progress utama</div><ul class="risk prog">' + smLi(P.prog) + '</ul></div>'
       + '<div><div class="lbl">Future research &amp; dev</div><ul class="risk ctrl">' + smLi(P.rnd) + '</ul></div>'
-      + (a.next ? '<div class="nxt"><small>Next step</small><b>' + a.next + '</b></div>' : '') + '</div>'
+      + (a.next ? '<div class="nxt"><small>Next step</small><b>' + a.next + '</b></div>' : '') + '</div>')
       + '<div class="nav"><button class="sm-btn" type="button" data-go="' + prev.id + '">← ' + prev.name + '</button><button class="sm-btn" type="button" data-go="' + next.id + '">' + next.name + ' →</button></div>'
       + '<div class="nav"><button class="sm-btn wide" type="button" data-go="">Kembali ke seluruh site</button></div>';
   }
