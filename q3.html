@@ -5486,6 +5486,10 @@
   .ov2-trend .tr-pl{ font:800 italic 13px 'Plus Jakarta Sans',sans-serif; fill:#8A5A00; paint-order:stroke; stroke:#FFF6C2; stroke-width:3px; stroke-linejoin:round; }
   /* leftover tail-risk dots under the How Stable chart */
   #slideStable2 .ov2-chartwrap .ex-tail{ display:none !important; }
+  /* ADS detail: infographic with the drone video playing in its empty left panel */
+  .mx-ads{ position:relative; display:inline-block; max-width:100%; max-height:100%; line-height:0; }
+  .mx-ads img{ display:block; max-width:100%; max-height:100%; }
+  .mx-ads video{ position:absolute; left:1.8%; top:2.3%; width:34%; height:95.4%; object-fit:cover; border-radius:10px; background:#0B1D2A; }
 </style>
 <script>
 (function(){
@@ -11908,6 +11912,8 @@
           + '<section class="rd"><h5><i>' + SM_SVG.bulb + '</i>Future Research &amp; Dev</h5><ul>' + smLi(P.rnd) + '</ul></section>')
           + (a.next ? '<div class="nx"><small>Next step</small><b>' + a.next + '</b></div>' : '') + '</aside></div>'
         : a.rich === 'mir' ? (a.id === 'mir' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/mir-fix.jpg').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'Motion Intelligent Rover (MIR): before dan after implementation serta perangkat MIR')
+          : a.id === 'ads' ? '<div class="mx-full mx-haul mx-noprog"><div class="mx-ads"><img src="mom/drone.png" alt="ADS: before dan after implementation pengawasan drone"><video src="mom/dron.mp4" autoplay muted loop playsinline preload="auto" aria-label="Video drone ADS"></video></div></div>'
+          : a.id === 'aebs' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/auto-fix.jpeg').replace('<div class="mx-full">', '<div class="mx-full mx-haul mx-noprog">').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'AEBS: before dan after implementation, cakupan &amp; alur kerja, serta progress saat ini')
           : a.id === 'blast' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/remote-blasting.jpg').replace('<div class="mx-full">', '<div class="mx-full mx-haul mx-noprog">').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'Remote Blasting (BenchREMOTE): before dan after implementation, komponen utama, use case dan manfaat')
           : a.id === 'pump' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/remote-fix.jpg').replace('<div class="mx-full">', '<div class="mx-full mx-haul">').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'Remote Pump: before dan after implementation serta progress saat ini')
           : a.id === 'arcas' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/arcas-fix.jpg').replace('<div class="mx-full">', '<div class="mx-full mx-haul">').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'ARCAS HD 3327: before dan after implementation, cara kerja, dan dampak utama')
@@ -12324,7 +12330,7 @@
     TECH.forEach(([site, name], k)=> AREAS.push({ id:'tk' + k, name, site, P:{ name, sub:site, stage:site, hazard:[], prog:[], rnd:[] }, loc:site,
       st:'tech', cats:['eng'], sub:'add', listOnly:true, offMap:true, pin:[0, 0], poly:[[0,0],[1,0],[1,1],[0,1]] }));
     AREAS.forEach(a=>{ if(a.id === 'obds' || a.id === 'ccv') a.offMap = true; });
-    AREAS.forEach(a=>{ if(a.id === 'rover') a.rich = 'rover'; if(a.id === 'haul' || a.id === 'arcas' || a.id === 'pump' || a.id === 'blast') a.rich = 'mir'; if(a.id === 'ccv') a.rich = true; if(a.id === 'eyes') a.rich = 'mir'; if(a.id === 'mir' || a.id === 'mg') a.rich = 'mir'; if(a.id === 'obds') a.rich = 'img'; });
+    AREAS.forEach(a=>{ if(a.id === 'rover') a.rich = 'rover'; if(a.id === 'haul' || a.id === 'arcas' || a.id === 'pump' || a.id === 'blast' || a.id === 'aebs' || a.id === 'ads') a.rich = 'mir'; if(a.id === 'ccv') a.rich = true; if(a.id === 'eyes') a.rich = 'mir'; if(a.id === 'mir' || a.id === 'mg') a.rich = 'mir'; if(a.id === 'obds') a.rich = 'img'; });
     const ORDER = ['ccv','eyes','mg','mir','arcas','rover','pump','haul','obds'];
     const ord = (a)=> a.listOnly ? 100 + +a.id.slice(2) : ORDER.indexOf(a.id);
     AREAS.sort((x, y)=> ord(x) - ord(y));
@@ -12386,7 +12392,7 @@
     TECH.forEach(([site, name], k)=> AREAS.push({ id:'tk' + k, name, site, P:{ name, sub:site, stage:site, hazard:[], prog:[], rnd:[] }, loc:site,
       st:'tech', cats:['eng'], sub:'add', listOnly:true, offMap:true, pin:[0, 0], poly:[[0,0],[1,0],[1,1],[0,1]] }));
     AREAS.forEach(a=>{ if(a.id === 'obds' || a.id === 'ccv') a.offMap = true; });
-    AREAS.forEach(a=>{ if(a.id === 'rover') a.rich = 'rover'; if(a.id === 'haul' || a.id === 'arcas' || a.id === 'pump' || a.id === 'blast') a.rich = 'mir'; if(a.id === 'ccv') a.rich = true; if(a.id === 'eyes') a.rich = 'mir'; if(a.id === 'mir' || a.id === 'mg') a.rich = 'mir'; if(a.id === 'obds') a.rich = 'img'; });
+    AREAS.forEach(a=>{ if(a.id === 'rover') a.rich = 'rover'; if(a.id === 'haul' || a.id === 'arcas' || a.id === 'pump' || a.id === 'blast' || a.id === 'aebs' || a.id === 'ads') a.rich = 'mir'; if(a.id === 'ccv') a.rich = true; if(a.id === 'eyes') a.rich = 'mir'; if(a.id === 'mir' || a.id === 'mg') a.rich = 'mir'; if(a.id === 'obds') a.rich = 'img'; });
     const ORDER = ['ccv','eyes','mg','mir','arcas','aebs','rover','pump','blast','haul','ads','obds'];
     const ord = (a)=> a.listOnly ? 100 + +a.id.slice(2) : ORDER.indexOf(a.id);
     AREAS.sort((x, y)=> ord(x) - ord(y));
