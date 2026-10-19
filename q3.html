@@ -5596,6 +5596,25 @@
   @media (prefers-reduced-motion: reduce){ #slideStable2 .rd-out .ov-box.hx, #slideStable2 .ov2-foot .ov2-pol.hx, #slideStable2 .ov2-foot-r, #slideStable2 .rd-out .hxb > img, #slideStable2 .ov2-evo.hx .evs > img, #slideStable2 .ov2-pol.hx .pn img, #slideStable2 .ov2-pol.hx .pn b{ animation:none !important; } }
   /* OBDS detail: video in place of the infographic */
   .sm-det .mx-full .mx-vid{ width:100%; height:100%; min-height:0; object-fit:contain; border-radius:12px; background:#fff; }
+  /* OBDS detail: infographic and video side by side, both at their own proportions */
+  .sm-det .mx-full .mx-ob2{ display:grid; grid-template-columns:minmax(0,1fr); grid-template-rows:minmax(0,1fr) minmax(0,1fr); gap:8px; justify-items:center; align-items:center; min-height:0; height:100%; }
+  .sm-det .mx-full .mx-ob2 img, .sm-det .mx-full .mx-ob2 .mx-vid{ width:auto !important; height:100% !important; max-width:100% !important; }
+  .sm-det .mx-full .mx-ob2 img, .sm-det .mx-full .mx-ob2 .mx-vid{ width:100% !important; height:auto !important; max-height:100% !important; object-fit:contain !important; border-radius:12px; aspect-ratio:auto !important; }
+  .sm-det .mx-full .mx-ob2 .mx-vid{ background:#0B1D2A; box-shadow:0 6px 18px rgba(20,26,34,.18); }
+  .sm-det .mx-full.mx-img .mx-ob2 img{ aspect-ratio:1672/828 !important; width:auto !important; height:100% !important; max-width:100% !important; object-fit:contain !important; }
+  .sm-det .mx-full.mx-img .mx-ob2 .mx-vid{ aspect-ratio:16/9 !important; width:auto !important; height:100% !important; max-width:100% !important; object-fit:cover !important; background:transparent; }
+  .sm-det .mx-full.mx-img .mx-ob2 > img, .sm-det .mx-full.mx-img .mx-ob2 > .mx-vid{ justify-self:center !important; }
+  /* OBDS detail: System Map / Ekosistem / Demo in tabs */
+  .sm-det .mx-full .mx-obt{ display:flex; flex-direction:column; gap:8px; min-height:0; height:100%; }
+  .sm-det .ob-tabs{ flex:none; display:flex; gap:6px; }
+  .sm-det .ob-tab{ padding:6px 14px; border-radius:999px; border:1px solid #D5DEE8; background:#fff; color:#3C4A5C; font:800 12px/1 'Plus Jakarta Sans',sans-serif; cursor:pointer; }
+  .sm-det .ob-tab:hover{ border-color:#1E4FA8; color:#1E4FA8; }
+  .sm-det .ob-tab.is-on{ background:#1E4FA8; border-color:#1E4FA8; color:#fff; }
+  .sm-det .ob-tab:focus-visible{ outline:3px solid #8DB4F0; outline-offset:2px; }
+  .sm-det .ob-pane{ display:none; flex:1 1 auto; min-height:0; border-radius:12px; overflow:hidden; background:#fff; border:1px solid #E3E9EF; }
+  .sm-det .ob-pane.is-on{ display:flex; align-items:center; justify-content:center; }
+  .sm-det .ob-pane iframe{ width:100%; height:100%; border:0; display:block; }
+  .sm-det .mx-full.mx-img .ob-pane img, .sm-det .mx-full.mx-img .ob-pane .mx-vid{ width:100% !important; height:100% !important; max-width:100% !important; object-fit:contain !important; aspect-ratio:auto !important; border-radius:0; box-shadow:none; background:#fff; }
 </style>
 <script>
 (function(){
@@ -12012,7 +12031,10 @@
     return '<div class="smc-in">'
       + '<header class="smc-h"><div class="smc-band"><span class="no">' + a.no + '</span><div><b>' + P.name + '</b><small>' + P.sub + '</small></div></div>'
       + '<div class="smc-stg"><i>' + (a.icon || '') + '</i><span><small>Tahap saat ini:</small><b>' + P.stage + '</b></span></div></header>'
-      + '<div class="smc-rich">' + (a.rich === 'rover' ? SM_ROVER : a.rich === 'img' ? '<div class="mx-full mx-img">' + (a.id === 'obds' ? '<video class="mx-vid" src="claude.mp4" autoplay muted loop playsinline preload="auto" aria-label="' + P.name + '"></video>' : '<img src="' + P.img + '" alt="' + P.name + '">')
+      + '<div class="smc-rich">' + (a.rich === 'rover' ? SM_ROVER : a.rich === 'img' ? '<div class="mx-full mx-img">' + (a.id === 'obds' ? '<div class="mx-obt"><div class="ob-tabs" role="tablist"><button type="button" class="ob-tab is-on" data-ob="map">System Map</button><button type="button" class="ob-tab" data-ob="eco">Ekosistem OBDS</button><button type="button" class="ob-tab" data-ob="vid">Demo Video</button></div>'
+          + '<div class="ob-pane is-on" data-ob="map"><iframe src="obds-map.html?embed" title="OBDS One-Page Integrated System Map" loading="lazy"></iframe></div>'
+          + '<div class="ob-pane" data-ob="eco"><img src="mom/obds-detail.jpg" alt="' + P.name + '"></div>'
+          + '<div class="ob-pane" data-ob="vid"><video class="mx-vid" src="claude.mp4" autoplay muted loop playsinline preload="auto" aria-label="Demo OBDS"></video></div></div>' : '<img src="' + P.img + '" alt="' + P.name + '">')
           + '<aside class="mx-prog mx-side"><section><h5><i>' + SM_SVG.chart + '</i>Progress utama</h5><ul>' + smLi(P.prog) + '</ul></section>'
           + (a.id === 'obds' ? SM_OBDS_CARDS : '<section class="hz"><h5><i>' + SM_SVG.warn + '</i>Bahaya yang dikendalikan</h5><ul>' + smLi(P.hazard) + '</ul></section>'
           + '<section class="rd"><h5><i>' + SM_SVG.bulb + '</i>Future Research &amp; Dev</h5><ul>' + smLi(P.rnd) + '</ul></section>')
@@ -12030,6 +12052,12 @@
       + '<button type="button" class="smc-btn main" data-go="">' + SM_SVG.back + 'Kembali ke peta</button>'
       + '<button type="button" class="smc-btn" data-go="' + next.id + '">' + next.name + SM_SVG.next + '</button></footer></div>';
   }
+  document.addEventListener('click', e=>{
+    const t = e.target.closest && e.target.closest('.ob-tab'); if(!t) return;
+    e.stopPropagation(); const box = t.closest('.mx-obt'), k = t.dataset.ob;
+    box.querySelectorAll('.ob-tab, .ob-pane').forEach(el=> el.classList.toggle('is-on', el.dataset.ob === k));
+    box.querySelectorAll('video').forEach(v=>{ v.muted = true; v.play().catch(()=>{}); });
+  }, true);
   function smDetailHtml(a, prev, next, N){
     const P = a.P;
     return '<div class="ph"><div class="eb">Inisiatif ' + String(a.no).padStart(2,'0') + ' / ' + String(N).padStart(2,'0') + '</div><h3>' + P.name + '</h3>'
