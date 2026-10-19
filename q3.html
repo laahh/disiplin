@@ -5621,6 +5621,14 @@
   .sm-det .mx-fit .mx-ads2{ display:flex; gap:10px; width:100%; height:100%; min-height:0; align-items:stretch; }
   .sm-det .mx-fit .mx-ads2 video{ flex:1 1 auto; min-width:0; height:100%; object-fit:cover; border-radius:12px; background:#0B1D2A; }
   .sm-det .mx-fit .mx-ads2 img{ flex:none; height:100% !important; width:auto !important; max-width:62% !important; aspect-ratio:1069/715; object-fit:contain !important; border-radius:12px; }
+  /* How Stable chart legend */
+  .ov2-lg{ position:absolute; left:0; right:0; bottom:2px; z-index:5; display:flex; flex-wrap:wrap; justify-content:center; gap:4px 16px; pointer-events:none; font:700 10.5px/1.2 'Plus Jakarta Sans',sans-serif; color:#2B3440; }
+  .ov2-lg span{ display:inline-flex; align-items:center; gap:6px; white-space:nowrap; }
+  .ov2-lg .sw{ display:inline-block; flex:none; }
+  .ov2-lg .sw.bar{ width:11px; height:11px; border-radius:2px; background:var(--c); }
+  .ov2-lg .sw.ln{ position:relative; width:20px; height:3px; border-radius:2px; background:var(--c); }
+  .ov2-lg .sw.ln.dot::after{ content:''; position:absolute; left:50%; top:50%; width:7px; height:7px; transform:translate(-50%,-50%) rotate(45deg); background:var(--c); }
+  .ov2-lg .sw.tr{ width:26px; height:5px; border-radius:3px; background:linear-gradient(90deg,#EDA010,#FFE227 55%,#FFE524); box-shadow:0 0 6px rgba(255,214,0,.8); }
 </style>
 <script>
 (function(){
@@ -11682,8 +11690,10 @@
       const W = el.offsetWidth, H = el.offsetHeight; if(!W || !H) return;
       const P = TREND_Y.map((v, i)=> c.convertToPixel({ xAxisIndex:0, yAxisIndex:0 }, [i, v]));
       if(P.some(q=> !q || isNaN(q[0]))) return;
-      const d = P.map((p, i)=>{ if(!i) return 'M' + p[0].toFixed(1) + ' ' + p[1].toFixed(1);
-        const a = P[i - 2] || P[i - 1], b = P[i - 1], e = P[i + 1] || p;
+      // lead-in tail: rises from low on the left edge into the 2017 point
+      const cw0 = P[1][0] - P[0][0], yL = c.convertToPixel({ yAxisIndex:0 }, 33), PL = [[P[0][0] - cw0 * .5, yL]].concat(P);
+      const d = PL.map((p, i)=>{ if(!i) return 'M' + p[0].toFixed(1) + ' ' + p[1].toFixed(1);
+        const a = PL[i - 2] || PL[i - 1], b = PL[i - 1], e = PL[i + 1] || p;
         return ' C' + (b[0] + (p[0] - a[0]) / 6).toFixed(1) + ' ' + (b[1] + (p[1] - a[1]) / 6).toFixed(1) + ' ' + (p[0] - (e[0] - b[0]) / 6).toFixed(1) + ' ' + (p[1] - (e[1] - b[1]) / 6).toFixed(1) + ' ' + p[0].toFixed(1) + ' ' + p[1].toFixed(1); }).join('');
       const x0 = P[0][0], J = P[P.length - 1], xj = J[0], yj = J[1];
       const Hp = c.convertToPixel({ yAxisIndex:0 }, 0) - c.convertToPixel({ yAxisIndex:0 }, 75), L = W - 4 - xj, V = .55;
@@ -11801,12 +11811,12 @@
         animationDuration:900, textStyle:{ fontFamily:"'Source Sans 3', sans-serif" },
         tooltip:{ trigger:'axis', confine:true, axisPointer:{ type:'shadow', shadowStyle:{ color:'rgba(31,154,58,.08)' } }, textStyle:{ fontSize:12 },
           formatter:(ps)=>{ const i = ps[0].dataIndex; return '<b>'+T.cats[i]+'</b><br>Jumlah insiden: <b>'+f1(total[i])+'</b><br>AFR: <b>'+fmt(T.afr[i])+'</b><br>LTISR: <b>'+fmt(T.ltisr[i])+'</b>'; } },
-        grid:{ left: merged ? OV2_LEFT : 34, right: merged ? OV2_RIGHT : 34, top: merged ? OV2_TOP : 16, bottom:22 },
+        grid:{ left: merged ? OV2_LEFT : 34, right: merged ? OV2_RIGHT : 34, top: merged ? OV2_TOP : 16, bottom: merged ? 44 : 22 },
         xAxis:{ type:'category', data:T.cats, axisTick:{ show:false }, axisLine:{ lineStyle:{ color:'#16294F', width:1.5 } },
           axisLabel:{ interval:0, fontSize:11, fontWeight:600, color:'#141A22' } },
         yAxis:[
           { type:'value', min:0, max:75, interval:15, name:'Jumlah\nInsiden', nameLocation:'middle', nameGap:22, nameRotate:0, nameTextStyle:{ fontSize:0 },
-            axisLine:{ show:!merged, lineStyle:{ color:'#16294F', width:1.5 } }, axisLabel:{ fontSize:10, color:'#16294F' }, splitLine:{ show:false } },
+            axisLine:{ show:!merged, lineStyle:{ color:'#16294F', width:1.5 } }, axisLabel:{ show:!merged, fontSize:10, color:'#16294F' }, splitLine:{ show:false } },
           { type:'value', min:-26, max:7.2, show:false },
           { type:'value', min: merged ? -400 : -300, max:600, interval:100, position:'right', axisLine:{ show:!merged, lineStyle:{ color:'#16294F', width:1.5 } },
             axisLabel:{ show:!merged, fontSize:10, color:'#16294F', formatter:(v)=> v>=0 ? v : '' }, splitLine:{ show:false } }
@@ -11853,7 +11863,12 @@
       el._rev = true; clearTimeout(el._revT); el._revT = setTimeout(()=>{ el._rev = null; }, DUR + 800);
       // once the plateau line covers 2023 onward, the yellow curve under it is dropped (no double line)
       if(merged){ hazardSync(el, c, DUR, n); curvesSync(el, DUR, n); }
-      if(merged){ plateauFlow(el, DUR / 1000, n); trendCurve(el, c, DUR); }
+      if(merged){ plateauFlow(el, DUR / 1000, n); trendCurve(el, c, DUR);
+        if(!el.parentNode.querySelector(':scope > .ov2-lg')) el.insertAdjacentHTML('afterend', '<div class="ov2-lg" aria-label="Legenda grafik">'
+          + '<span><i class="sw bar" style="--c:#F7BE16"></i>Non Injury</span><span><i class="sw bar" style="--c:#E3262F"></i>Injury</span><span><i class="sw bar" style="--c:#D3D6DA"></i>Nearmiss</span>'
+          + '<span><i class="sw ln" style="--c:#F28B92"></i>AFR</span><span><i class="sw ln dot" style="--c:#6B7178"></i>LTISR</span>'
+          + '<span><i class="sw tr"></i>Safety Performance Trend</span>'
+          + '<span><i class="sw ln" style="--c:#45D521"></i>Automation</span><span><i class="sw ln" style="--c:#FFE72F"></i>Manual Limit</span><span><i class="sw ln" style="--c:#FF484D"></i>Risk Scenario</span></div>'); }
       // replay the sweep after a pause, for as long as this chart is on screen
       clearTimeout(el._loopT);
       if(!merged) el._loopT = setTimeout(function again(){
