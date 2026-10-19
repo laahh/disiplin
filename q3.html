@@ -5615,6 +5615,8 @@
   .sm-det .ob-pane.is-on{ display:flex; align-items:center; justify-content:center; }
   .sm-det .ob-pane iframe{ width:100%; height:100%; border:0; display:block; }
   .sm-det .mx-full.mx-img .ob-pane img, .sm-det .mx-full.mx-img .ob-pane .mx-vid{ width:100% !important; height:100% !important; max-width:100% !important; object-fit:contain !important; aspect-ratio:auto !important; border-radius:0; box-shadow:none; background:#fff; }
+  /* while a detail card covers the map, the map's animated overlays stop (they starve video playback) */
+  .det-on .sm-net, .det-on .sm-road, .det-on .tm-fx, .det-on .sm-hubc{ display:none !important; }
 </style>
 <script>
 (function(){
@@ -12034,7 +12036,7 @@
       + '<div class="smc-rich">' + (a.rich === 'rover' ? SM_ROVER : a.rich === 'img' ? '<div class="mx-full mx-img">' + (a.id === 'obds' ? '<div class="mx-obt"><div class="ob-tabs" role="tablist"><button type="button" class="ob-tab is-on" data-ob="map">System Map</button><button type="button" class="ob-tab" data-ob="eco">Ekosistem OBDS</button><button type="button" class="ob-tab" data-ob="vid">Demo Video</button></div>'
           + '<div class="ob-pane is-on" data-ob="map"><iframe src="obds-map.html?embed" title="OBDS One-Page Integrated System Map" loading="lazy"></iframe></div>'
           + '<div class="ob-pane" data-ob="eco"><img src="mom/obds-detail.jpg" alt="' + P.name + '"></div>'
-          + '<div class="ob-pane" data-ob="vid"><video class="mx-vid" src="claude.mp4" autoplay muted loop playsinline preload="auto" aria-label="Demo OBDS"></video></div></div>' : '<img src="' + P.img + '" alt="' + P.name + '">')
+          + '<div class="ob-pane" data-ob="vid"><video class="mx-vid" src="claude-web.mp4" autoplay muted loop playsinline preload="auto" aria-label="Demo OBDS"></video></div></div>' : '<img src="' + P.img + '" alt="' + P.name + '">')
           + '<aside class="mx-prog mx-side"><section><h5><i>' + SM_SVG.chart + '</i>Progress utama</h5><ul>' + smLi(P.prog) + '</ul></section>'
           + (a.id === 'obds' ? SM_OBDS_CARDS : '<section class="hz"><h5><i>' + SM_SVG.warn + '</i>Bahaya yang dikendalikan</h5><ul>' + smLi(P.hazard) + '</ul></section>'
           + '<section class="rd"><h5><i>' + SM_SVG.bulb + '</i>Future Research &amp; Dev</h5><ul>' + smLi(P.rnd) + '</ul></section>')
@@ -12056,7 +12058,7 @@
     const t = e.target.closest && e.target.closest('.ob-tab'); if(!t) return;
     e.stopPropagation(); const box = t.closest('.mx-obt'), k = t.dataset.ob;
     box.querySelectorAll('.ob-tab, .ob-pane').forEach(el=> el.classList.toggle('is-on', el.dataset.ob === k));
-    box.querySelectorAll('video').forEach(v=>{ v.muted = true; v.play().catch(()=>{}); });
+    box.querySelectorAll('video').forEach(v=>{ v.muted = true; if(k === 'vid') v.currentTime = 0; v.play().catch(()=>{}); });
   }, true);
   function smDetailHtml(a, prev, next, N){
     const P = a.P;
