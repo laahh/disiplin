@@ -11914,7 +11914,7 @@
       series:[
         { name:'Plan', type:'line', data:plan, smooth:.3, symbol:'circle', symbolSize:10, lineStyle:{ color:'#7C8798', width:3 }, itemStyle:{ color:'#fff', borderColor:'#7C8798', borderWidth:3 },
           areaStyle:{ color:new echarts.graphic.LinearGradient(0,0,0,1,[{ offset:0, color:'rgba(124,135,152,.30)' },{ offset:1, color:'rgba(124,135,152,.02)' }]) },
-          markPoint:{ animationDelay:1700, data:[ call(3, '#E5484D', "Oct'26", ['Rerouting IM','BuilderX comparison','Escalation'], 14, 'left', [0,-62]), call(4, '#F5C21B', "Nov'26", ['Console contingency','trial'], 16, 'bottom', [34,0]), call(5, '#1F9A3A', "Dec'26", ['Baseline RFU','Revalidate','Opportunity Implementasi di PAMA'], 14, 'left', [0,-58]) ] } },
+          markPoint:{ animationDelay:1700, data:[ call(3, '#E5484D', "Oct'26", ['Rerouting IM','BuilderX comparison'], 14, 'left', [0,-62]), call(4, '#F5C21B', "Nov'26", ['Console contingency','trial'], 16, 'bottom', [34,0]), call(5, '#1F9A3A', "Dec'26", ['Baseline RFU','Revalidate','Opportunity Implementasi di PAMA'], 14, 'left', [0,-58]) ] } },
         { name:'Actual', type:'line', data:act, smooth:.3, symbol:'circle', symbolSize:12, lineStyle:{ color:'#13741F', width:4 }, itemStyle:{ color:'#13741F', borderColor:'#fff', borderWidth:2 },
           areaStyle:{ color:new echarts.graphic.LinearGradient(0,0,0,1,[{ offset:0, color:'rgba(47,179,74,.40)' },{ offset:1, color:'rgba(47,179,74,.03)' }]) },
           label:{ show:true, position:'right', formatter:(p)=> p.dataIndex === 2 ? p.value + '%' : '', fontSize:20, fontWeight:800, color:'#13741F', distance:10 } },
