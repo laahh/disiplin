@@ -5594,6 +5594,8 @@
   .slide.active#slideStable2 .ov2-pol.hx .pn b{ animation:hxNum 2.8s ease-in-out infinite 1.4s; }
   @keyframes hxNum{ 0%,100%{ text-shadow:none; transform:scale(1); } 50%{ text-shadow:0 0 12px rgba(40,190,80,.7); transform:scale(1.06); } }
   @media (prefers-reduced-motion: reduce){ #slideStable2 .rd-out .ov-box.hx, #slideStable2 .ov2-foot .ov2-pol.hx, #slideStable2 .ov2-foot-r, #slideStable2 .rd-out .hxb > img, #slideStable2 .ov2-evo.hx .evs > img, #slideStable2 .ov2-pol.hx .pn img, #slideStable2 .ov2-pol.hx .pn b{ animation:none !important; } }
+  /* OBDS detail: video in place of the infographic */
+  .sm-det .mx-full .mx-vid{ width:100%; height:100%; min-height:0; object-fit:contain; border-radius:12px; background:#fff; }
 </style>
 <script>
 (function(){
@@ -12010,7 +12012,7 @@
     return '<div class="smc-in">'
       + '<header class="smc-h"><div class="smc-band"><span class="no">' + a.no + '</span><div><b>' + P.name + '</b><small>' + P.sub + '</small></div></div>'
       + '<div class="smc-stg"><i>' + (a.icon || '') + '</i><span><small>Tahap saat ini:</small><b>' + P.stage + '</b></span></div></header>'
-      + '<div class="smc-rich">' + (a.rich === 'rover' ? SM_ROVER : a.rich === 'img' ? '<div class="mx-full mx-img"><img src="' + (a.id === 'obds' ? 'mom/obds-detail.jpg' : P.img) + '" alt="' + P.name + '">'
+      + '<div class="smc-rich">' + (a.rich === 'rover' ? SM_ROVER : a.rich === 'img' ? '<div class="mx-full mx-img">' + (a.id === 'obds' ? '<video class="mx-vid" src="claude.mp4" autoplay muted loop playsinline preload="auto" aria-label="' + P.name + '"></video>' : '<img src="' + P.img + '" alt="' + P.name + '">')
           + '<aside class="mx-prog mx-side"><section><h5><i>' + SM_SVG.chart + '</i>Progress utama</h5><ul>' + smLi(P.prog) + '</ul></section>'
           + (a.id === 'obds' ? SM_OBDS_CARDS : '<section class="hz"><h5><i>' + SM_SVG.warn + '</i>Bahaya yang dikendalikan</h5><ul>' + smLi(P.hazard) + '</ul></section>'
           + '<section class="rd"><h5><i>' + SM_SVG.bulb + '</i>Future Research &amp; Dev</h5><ul>' + smLi(P.rnd) + '</ul></section>')
@@ -12202,7 +12204,7 @@
       }
       det.hidden = false; detOpen = true; gridEl.classList.add('det-on');
       fitRich();
-      det.querySelectorAll('.rv-vid video').forEach(v=>{ v.muted = true; v.play().catch(()=>{}); });
+      det.querySelectorAll('video').forEach(v=>{ v.muted = true; v.play().catch(()=>{}); });
       const rv = det.querySelector('.rv3');
       if(rv){
         setTimeout(()=> roverChart(rv.querySelector('.rv-ec')), 650);
@@ -12312,7 +12314,7 @@
       const hub = !!active && active.id === 'obds' && !!active.pin;
       AREAS.forEach(a=>{ a.el.classList.toggle('active', a === active); a.pinEl.classList.toggle('active', a === active); a.pinEl.classList.toggle('dim', !!active && a !== active && !hub); });
       if(!hub) netHide();
-      if(hub){ shade.classList.remove('on'); view = clamp(home()); apply(true); netShow(active); }
+      if(hub){ shade.classList.remove('on'); view = clamp(home()); apply(true); netShow(active); const a = active; detT = setTimeout(()=> openDet(a), reduce ? 0 : 820); }
       else if(active){ shade.setAttribute('d', 'M0 0H' + IMG_W + 'V' + IMG_H + 'H0Z M' + active.poly.map(p=> p.join(' ')).join(' L') + 'Z'); shade.classList.add('on'); flyTo(active);
         const a = active; detT = setTimeout(()=> openDet(a), reduce ? 0 : 820); }
       else { shade.classList.remove('on'); view = clamp(home()); apply(true); }
