@@ -337,5 +337,106 @@ html.embed .canvas{ transition:none; } html.embed, html.embed body{ overflow-x:h
   window.addEventListener('resize', fitEmbed); fitEmbed(); setTimeout(fitEmbed, 300);
 })();
 </script>
+
+<style>
+/* ===== reference-style icons, numbered lane pills, solid coloured arrows ===== */
+.ic-b{ flex:none; display:grid; place-items:center; width:34px; height:34px; border-radius:10px; background:color-mix(in srgb,var(--ic) 14%,#fff); box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--ic) 22%,transparent); }
+.ic-b svg{ width:19px; height:19px; fill:var(--ic); }
+.card.has-ic{ display:grid !important; grid-template-columns:auto minmax(0,1fr); column-gap:10px; align-content:start; }
+.card.has-ic > .ic-b{ grid-row:1 / span 4; margin-top:2px; }
+.card.has-ic > :not(.ic-b):not(.plus){ grid-column:2; }
+.card small{ font-weight:800 !important; letter-spacing:.06em; color:var(--c,#6B7580) !important; }
+.layer.has-ic{ display:grid !important; grid-template-columns:28px minmax(0,190px) minmax(0,1fr); align-items:center; column-gap:10px; }
+.layer.has-ic > .ic-b{ width:28px; height:28px; border-radius:8px; --ic:var(--lc); }
+.layer.has-ic > .ic-b svg{ width:16px; height:16px; }
+.mini.has-ic{ position:relative; } .mini.has-ic > .ic-b{ width:24px; height:24px; border-radius:7px; margin-bottom:4px; } .mini.has-ic > .ic-b svg{ width:14px; height:14px; }
+.does-card.has-ic{ display:grid !important; grid-template-columns:auto 1fr; column-gap:7px; align-items:center; text-align:left; }
+.does-card.has-ic > .ic-b{ grid-row:1 / span 2; width:26px; height:26px; border-radius:8px; } .does-card.has-ic > .ic-b svg{ width:15px; height:15px; }
+.core-head .ic-b, .pathway-block h3 .ic-b, .cluster-title .ic-b, .outcome-box > .ic-b{ display:inline-grid; vertical-align:middle; margin-right:8px; width:30px; height:30px; }
+.outcome-proj-list li{ display:flex; align-items:center; gap:8px; }
+.outcome-proj-list li .ic-b{ width:24px; height:24px; border-radius:7px; } .outcome-proj-list li .ic-b svg{ width:14px; height:14px; }
+.lane-label .ln{ display:grid; place-items:center; width:24px; height:24px; margin-left:-6px; border-radius:50%; color:#fff; font:800 11px/1 ui-sans-serif,system-ui,sans-serif; letter-spacing:0;
+  background:linear-gradient(135deg,#2A6FD7,#1E4FA8); box-shadow:0 0 0 3px rgba(42,111,215,.18), 0 3px 8px rgba(30,79,168,.35); }
+.lane-label::before{ display:none !important; }
+.lane-label{ font:800 11px/1 ui-sans-serif,system-ui,sans-serif !important; letter-spacing:.12em !important; padding:4px 18px 4px 4px !important; min-width:300px; gap:12px !important; }
+.links .edge{ display:none; }
+.links .flow{ stroke-width:4 !important; stroke-dasharray:none !important; animation:none !important; opacity:.9 !important; }
+.links .flow-tip{ stroke:none; }
+.layer.has-ic{ grid-template-columns:26px 150px minmax(0,1fr) !important; column-gap:9px !important; }
+.layer.has-ic > .ic-b{ width:26px !important; height:26px !important; } .layer.has-ic > b{ font-size:12.5px !important; } .layer.has-ic > span{ font-size:10px !important; line-height:1.35 !important; }
+.cluster-stack .card.has-ic{ column-gap:8px; } .cluster-stack .card.has-ic > .ic-b{ width:26px; height:26px; border-radius:8px; } .cluster-stack .card.has-ic > .ic-b svg{ width:15px; height:15px; }
+.cluster-stack .card.has-ic b{ font-size:13px !important; line-height:1.2 !important; } .cluster-stack .card.has-ic p{ font-size:10px !important; line-height:1.35 !important; }
+.story.has-ic > .ic-b{ width:30px; height:30px; } .story.has-ic > .ic-b svg{ width:17px; height:17px; }
+.outcome-proj-list li{ display:flex !important; grid-template-columns:none !important; }
+.outcome-proj-list li > .ic-b{ flex:0 0 22px !important; width:22px !important; height:22px !important; padding:0 !important; }
+.outcome-proj-list li > .ic-b svg{ width:13px; height:13px; }
+.outcome-proj-list li::before{ display:none !important; } .outcome-proj-list li > i{ display:none !important; }
+.cluster-title{ display:flex; align-items:center; flex-wrap:wrap; }
+.cluster-stack .card.has-ic{ display:block !important; }
+.cluster-stack .card.has-ic > .ic-b{ float:left; width:22px !important; height:22px !important; margin:-2px 7px 0 0 !important; border-radius:6px !important; }
+.cluster-stack .card.has-ic > .ic-b svg{ width:13px !important; height:13px !important; }
+.cluster-stack .card.has-ic > small{ display:block; line-height:18px; }
+ .cluster-title .ic-b{ width:26px !important; height:26px !important; }
+
+</style>
+<script>
+(function(){
+  var P = {
+    db:'M12 3C7.6 3 4 4.3 4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6c0-1.7-3.6-3-8-3zm0 2c3.9 0 6 1 6 1s-2.1 1-6 1-6-1-6-1 2.1-1 6-1zm6 13c0 .3-2.1 1-6 1s-6-.7-6-1v-2.3c1.5.8 3.7 1.3 6 1.3s4.5-.5 6-1.3zm0-4c0 .3-2.1 1-6 1s-6-.7-6-1v-2.3c1.5.8 3.7 1.3 6 1.3s4.5-.5 6-1.3zm0-4c0 .3-2.1 1-6 1s-6-.7-6-1V7.7C7.5 8.5 9.7 9 12 9s4.5-.5 6-1.3z',
+    tree:'M10 2h4v4h-1v3h6v4h1v4h-4v-4h1v-2h-4v2h1v4h-4v-4h1v-2H7v2h1v4H4v-4h1V9h6V6h-1z',
+    warn:'M12 2 1 21h22L12 2zm1 15h-2v-2h2zm0-4h-2V9h2z',
+    target:'M12 2a10 10 0 1 0 10 10h-2a8 8 0 1 1-8-8zm0 4a6 6 0 1 0 6 6h-2a4 4 0 1 1-4-4zm0 4a2 2 0 1 0 2 2l7-7-1.4-1.4-6.3 6.3A2 2 0 0 0 12 10z',
+    bars:'M4 20h3v-7H4zm6.5 0h3V8h-3zM17 20h3V4h-3z',
+    doc:'M6 2h8l6 6v14H6zm7 1.5V9h5.5zM8 12h8v2H8zm0 4h8v2H8z',
+    gear:'M19.4 13a7.6 7.6 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a7.7 7.7 0 0 0-1.7-1L15 3h-4l-.4 2.7a7.7 7.7 0 0 0-1.7 1l-2.5-1-2 3.5L6.6 11a7.6 7.6 0 0 0 0 2l-2.1 1.6 2 3.5 2.5-1a7.7 7.7 0 0 0 1.7 1L11 21h4l.4-2.7a7.7 7.7 0 0 0 1.7-1l2.5 1 2-3.5zM13 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z',
+    server:'M3 4h18v6H3zm2 2v2h2V6zm-2 6h18v6H3zm2 2v2h2v-2zm6-8v2h8V6zm0 8v2h8v-2z',
+    cube:'M12 2 3 7v10l9 5 9-5V7zm0 2.3L18.6 8 12 11.7 5.4 8zM5 9.7l6 3.4v6.6l-6-3.4zm8 10v-6.6l6-3.4v6.6z',
+    book:'M4 4h6a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H4zm16 0h-6a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h7z',
+    shield:'M12 2 4 5v6c0 5 3.4 9.7 8 11 4.6-1.3 8-6 8-11V5z',
+    search:'M10 3a7 7 0 1 0 4.2 12.6l5.6 5.6 1.4-1.4-5.6-5.6A7 7 0 0 0 10 3zm0 2a5 5 0 1 1 0 10 5 5 0 0 1 0-10z',
+    brain:'M9 3a3 3 0 0 0-3 3 3 3 0 0 0-2 5 3 3 0 0 0 2 5 3 3 0 0 0 5 2V4a3 3 0 0 0-2-1zm6 0a3 3 0 0 1 3 3 3 3 0 0 1 2 5 3 3 0 0 1-2 5 3 3 0 0 1-5 2V4a3 3 0 0 1 2-1z',
+    robot:'M11 2h2v3h4a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3h4zM9 10a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm6 0a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM8 15v2h8v-2zM1 10h2v5H1zm20 0h2v5h-2z',
+    bolt:'M13 2 4 14h6l-1 8 9-12h-6z',
+    people:'M8 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zm8 0a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM1 20c0-3.3 3.1-6 7-6s7 2.7 7 6zm15-6c3.3 0 6 2.2 7 5v1h-6c0-2.4-.4-4.4-1-6z',
+    spark:'M12 2l2.2 6.8L21 11l-6.8 2.2L12 20l-2.2-6.8L3 11l6.8-2.2zM19 15l1 3 3 1-3 1-1 3-1-3-3-1 3-1z',
+    chat:'M4 3h16a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H8l-5 4V5a2 2 0 0 1 1-2z',
+    trend:'M3 17l6-6 4 4 7-7v4h2V4h-8v2h4l-5 5-4-4-8 8z'
+  };
+  var C = { orange:'#E8762B', blue:'#2A6FD7', gold:'#B88400', green:'#1F9A3A', red:'#D6243A', lime:'#7A9600', gray:'#5B6670', purple:'#7B4FD0' };
+  function ic(name, col){ var d = document.createElement('span'); d.className = 'ic-b'; d.style.setProperty('--ic', col);
+    d.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + P[name] + '"/></svg>'; return d; }
+  function put(el, name, col, where){ if(!el || el.querySelector(':scope > .ic-b')) return; el.classList.add('has-ic');
+    var i = ic(name, col); if(where === 'after-plus'){ var pl = el.querySelector(':scope > .plus'); el.insertBefore(i, pl ? pl.nextSibling : el.firstChild); } else el.insertBefore(i, el.firstChild); }
+  var K = { current:['db','orange'], odbc:['tree','blue'], gap:['warn','gold'], intent:['target','green'], outcomes:['bars','green'],
+    modules:['db','green'], evidence:['doc','green'], sourceControl:['gear','gray'], catalyst:['server','blue'], services:['cube','blue'],
+    processing:['gear','blue'], canonical:['tree','orange'], semantic:['book','gold'], dataProducts:['db','lime'], obdsGovernance:['shield','gold'],
+    stores:['db','gold'], rag:['search','red'], gateway:['shield','purple'],
+    };
+  function run(){
+    Object.keys(K).forEach(function(k){ document.querySelectorAll('[data-key="' + k + '"]').forEach(function(el){
+      put(el, K[k][0], C[K[k][1]], el.classList.contains('card') ? 'after-plus' : null); }); });
+    var h = document.querySelector('.core-head'); if(h && !h.querySelector('.ic-b')) h.insertBefore(ic('db', C.orange), h.firstChild);
+    document.querySelectorAll('.pathway-block h3').forEach(function(t, i){ if(!t.querySelector('.ic-b')) t.insertBefore(ic(i ? 'gear' : 'brain', i ? C.orange : C.gold), t.firstChild); });
+    document.querySelectorAll('.cluster-title').forEach(function(t, i){ if(!t.querySelector('.ic-b')) t.insertBefore(ic(i ? 'server' : 'db', i ? C.blue : C.green), t.firstChild); });
+    var ob = document.querySelectorAll('.outcome-box');
+    if(ob[0] && !ob[0].querySelector(':scope > .ic-b')) ob[0].insertBefore(ic('bars', C.blue), ob[0].firstChild);
+    if(ob[1] && !ob[1].querySelector(':scope > .ic-b')) ob[1].insertBefore(ic('target', C.green), ob[1].firstChild);
+    var LI = ['bars','chat','doc','trend'];
+    document.querySelectorAll('.outcome-proj-list li').forEach(function(li, i){ if(!li.querySelector('.ic-b')) li.insertBefore(ic(LI[i % 4], C.green), li.firstChild); });
+    document.querySelectorAll('.lane-label').forEach(function(l){ if(l.querySelector('.ln')) return;
+      var m = l.textContent.match(/^\s*(\d+)\s*·\s*(.*)$/); if(!m) return;
+      l.innerHTML = '<span class="ln">' + m[1] + '</span>' + m[2].replace(/→/g, '+'); });
+    // solid coloured arrows: one marker per colour, on the flow lines
+    var svg = document.querySelector('svg.links'); if(svg && !svg.querySelector('.mk-c')){
+      var defs = svg.querySelector('defs') || svg.insertBefore(document.createElementNS('http://www.w3.org/2000/svg','defs'), svg.firstChild);
+      svg.querySelectorAll('.flow').forEach(function(f, i){ var col = getComputedStyle(f).stroke || '#6B7580';
+        var id = 'mkc' + i, mk = document.createElementNS('http://www.w3.org/2000/svg','marker');
+        mk.setAttribute('id', id); mk.setAttribute('class', 'mk-c'); mk.setAttribute('markerWidth', '4'); mk.setAttribute('markerHeight', '4'); mk.setAttribute('refX', '2.2'); mk.setAttribute('refY', '2'); mk.setAttribute('orient', 'auto'); mk.setAttribute('markerUnits', 'strokeWidth');
+        mk.innerHTML = '<path d="M0,0 L4,2 L0,4 z" fill="' + col + '"/>'; defs.appendChild(mk); f.setAttribute('marker-end', 'url(#' + id + ')'); });
+    }
+  }
+  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
+})();
+</script>
 </body>
 </html>

@@ -5617,6 +5617,10 @@
   .sm-det .mx-full.mx-img .ob-pane img, .sm-det .mx-full.mx-img .ob-pane .mx-vid{ width:100% !important; height:100% !important; max-width:100% !important; object-fit:contain !important; aspect-ratio:auto !important; border-radius:0; box-shadow:none; background:#fff; }
   /* while a detail card covers the map, the map's animated overlays stop (they starve video playback) */
   .det-on .sm-net, .det-on .sm-road, .det-on .tm-fx, .det-on .sm-hubc{ display:none !important; }
+  /* ADS detail: video fills the width left of the before/after panels */
+  .sm-det .mx-fit .mx-ads2{ display:flex; gap:10px; width:100%; height:100%; min-height:0; align-items:stretch; }
+  .sm-det .mx-fit .mx-ads2 video{ flex:1 1 auto; min-width:0; height:100%; object-fit:cover; border-radius:12px; background:#0B1D2A; }
+  .sm-det .mx-fit .mx-ads2 img{ flex:none; height:100% !important; width:auto !important; max-width:62% !important; aspect-ratio:1069/715; object-fit:contain !important; border-radius:12px; }
 </style>
 <script>
 (function(){
@@ -12042,7 +12046,7 @@
           + '<section class="rd"><h5><i>' + SM_SVG.bulb + '</i>Future Research &amp; Dev</h5><ul>' + smLi(P.rnd) + '</ul></section>')
           + (a.next ? '<div class="nx"><small>Next step</small><b>' + a.next + '</b></div>' : '') + '</aside></div>'
         : a.rich === 'mir' ? (a.id === 'mir' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/mir-fix.jpg').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'Motion Intelligent Rover (MIR): before dan after implementation serta perangkat MIR')
-          : a.id === 'ads' ? '<div class="mx-full mx-haul mx-noprog mx-fit"><div class="mx-ads"><img src="mom/drone.png" alt="ADS: before dan after implementation pengawasan drone"><video src="mom/dron.mp4" autoplay muted loop playsinline preload="auto" aria-label="Video drone ADS"></video></div></div>'
+          : a.id === 'ads' ? '<div class="mx-full mx-haul mx-noprog mx-fit"><div class="mx-ads2"><video src="mom/drone-asli-web.mp4" autoplay muted loop playsinline preload="auto" aria-label="Video drone ADS"></video><img src="mom/drone-ba.png" alt="ADS: before dan after implementation pengawasan drone"></div></div>'
           : a.id === 'aebs' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/auto-fix.jpeg').replace('<div class="mx-full">', '<div class="mx-full mx-haul mx-noprog mx-fit">').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'AEBS: before dan after implementation, cakupan &amp; alur kerja, serta progress saat ini')
           : a.id === 'blast' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/remote-blasting.jpg').replace('<div class="mx-full">', '<div class="mx-full mx-haul mx-noprog">').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'Remote Blasting (BenchREMOTE): before dan after implementation, komponen utama, use case dan manfaat')
           : a.id === 'pump' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/remote-fix.jpg').replace('<div class="mx-full">', '<div class="mx-full mx-haul">').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'Remote Pump: before dan after implementation serta progress saat ini')
