@@ -5631,6 +5631,8 @@
   .ov2-lg .sw.tr{ width:26px; height:5px; border-radius:3px; background:linear-gradient(90deg,#EDA010,#FFE227 55%,#FFE524); box-shadow:0 0 6px rgba(255,214,0,.8); }
   /* Cross-Division rows size to their text (long rows no longer spill into the next one) */
   #slideCross .cd-row{ flex:1 1 auto !important; min-height:min-content; } #slideCross .cd-row p{ line-height:1.25; }
+  #slideCross .cd-body{ min-height:0; } #slideCross .cd-rows{ min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; scrollbar-color:#C3CEDA transparent; }
+  #slideCross .cd-rows::-webkit-scrollbar{ width:5px; } #slideCross .cd-rows::-webkit-scrollbar-thumb{ background:#C3CEDA; border-radius:3px; }
 </style>
 <script>
 (function(){
@@ -11581,7 +11583,7 @@
       rows:[['server','Perkuatan Infrastruktur Teknologi untuk Implementasi Project Rekayasa Engineering &amp; OBDS','IT, Budget, Procurement',['Oct 2026']],
             ['link','Koneksi API HSE Automation dengan Project Rekayasa Engineering &amp; OBDS','IT, Minetech',['Oct 2026']],
             ['bars','Development Analytical Critical Control (use case CCV area kritis dan CPP)','IT, Minetech',['Dec 2026']],
-            ['warn','Continue Progress Ideation Remote Blasting','System, MNO, Olive Link',['Q4 2026']],
+            ['warn','Continue Progress Ideation Remote Drilling','System, MNO, Olive Link',['Q4 2026']],
             ['dozer','Rerouting IM hasil komparasi dengan BuilderX untuk melanjutkan proses Implementasi Remote Dozer (Trial 1x Remote Dozer + Mobile BTS)','GMO, CM',['Q4 2026']]] },
     auto:{ title:'Automation', sub:'Accelerate Automation for Higher Productivity &amp; Safety', ic:'gear',
       rows:[['truck','Continue Feasibility Study Hauling Automation (including Vendor dan Mine Design Institute China)','System, MNO, Olive Link',['Q4 2026']]] }
@@ -12512,10 +12514,10 @@
         rnd:['Otomasi start/stop berbasis level air sump','Integrasi alarm pompa ke dashboard OBDS'] },
         'Sump pit · ponton pompa', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9h11v6H4zm11 2h3V7h3v8h-3v-2h-3zM2 18c2 0 2-1.5 4-1.5S8 18 10 18s2-1.5 4-1.5 2 1.5 4 1.5 2-1.5 4-1.5v2c-2 0-2 1.5-4 1.5s-2-1.5-4-1.5-2 1.5-4 1.5-2-1.5-4-1.5-2 1.5-4 1.5zM7 4h5v4H7z"/></svg>', [1240,640], [1073,730], [[1035,705],[1110,705],[1110,760],[1035,760]], 'Otomasi berbasis level air sump')
     ];
-    AREAS.push(T('blast', { name:'Remote Blasting', sub:'Peledakan dioperasikan jarak jauh dari lokasi aman', stage:'Ideation',
-        hazard:['Pekerja berada di dalam radius peledakan saat inisiasi','Misfire / ledakan tertunda saat pemeriksaan pasca-peledakan'],
-        prog:['Remote Blasting masuk program Q4 2026 (Implementasi Hauling Automation &amp; Ideation Remote Blasting)','Tahap ideation: kajian kebutuhan sistem dan area prioritas'],
-        rnd:['Sistem inisiasi peledakan nirkabel dari jarak aman','Integrasi clearance radius dengan monitoring area'] },
+    AREAS.push(T('blast', { name:'Remote Drilling', sub:'Pengeboran dioperasikan jarak jauh dari lokasi aman', stage:'Ideation',
+        hazard:['Operator berada di dekat unit drill di area front/bench berisiko','Paparan debu, kebisingan, dan tepi bench saat pengeboran manual'],
+        prog:['Remote Drilling masuk program Q4 2026 (Ideation Remote Drilling)','Tahap ideation: kajian kebutuhan sistem dan area prioritas'],
+        rnd:['Pengoperasian unit drill dari remote station','Integrasi data pengeboran dengan monitoring area'] },
       'Pit · area drilling &amp; blasting', '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 2h2v5h-2zM6 5l1.4-1.4 2.1 2.1-1.4 1.4zm10.5 1.1 2.1-2.1L20 5.4l-2.1 2.1zM12 8l2.2 4.5L19 13l-3.5 3.4.8 4.6L12 18.8 7.7 21l.8-4.6L5 13l4.8-.5z"/></svg>', [320,140], [330,225], [[245,190],[370,190],[370,245],[245,245]], 'Kajian kebutuhan &amp; area prioritas'));
     AREAS.push(T('ads', { name:'ADS – Automated Drone Surveillance', sub:'Automated drone systems - docking stations, and AI-driven analytics 24/7 monitoring, security, and response without an on-site pilot', stage:'Ideation',
         hazard:['Pekerja masuk ke area berbahaya untuk inspeksi visual','Area luas dan sulit dijangkau diawasi secara manual'],
