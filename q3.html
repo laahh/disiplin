@@ -5734,6 +5734,40 @@ addEventListener('message', function(e){ if(e.data && e.data.deckKey) document.d
   #slideOpening2 .op-doclv svg{ width:14px; height:14px; fill:none; stroke:#1E4FA8; stroke-width:2.2; }
   /* Ultimate Objectives banner sits on the bottom line of the map */
   #slideMap2 .sm-tt{ align-self:end !important; margin:0 !important; }
+
+
+  /* image-only details sit at the top of the card (no empty band above on tall / fullscreen screens) */
+  .sm-det .mx-full.mx-fit{ align-items:flex-start !important; }
+  .sm-det .mx-fit > img{ height:auto !important; max-height:100% !important; object-position:center top !important; }
+  /* Remote Dozer timeline: items spread over the full card height, larger text (no empty lower half) */
+  .sm-det .rv1p .rt-tl{ grid-auto-rows:auto !important; align-content:space-evenly !important; row-gap:clamp(6px,1.2vh,14px) !important; padding:8px 16px 10px 18px !important; }
+  .sm-det .rv1p .rt-i{ padding:4px 0 4px 16px !important; }
+  .sm-det .rv1p .rt-i .bx small{ font-size:clamp(10px,1.2vh,13.5px) !important; }
+  .sm-det .rv1p .rt-i .bx b{ font-size:clamp(12px,1.45vh,16.5px) !important; line-height:1.25 !important; margin:2px 0 3px !important; }
+  .sm-det .rv1p .rt-i .bx p{ font-size:clamp(10px,1.12vh,13px) !important; line-height:1.35 !important; color:#4A525C !important; }
+  .sm-det .rv1p .rt-i.hold .bx{ padding:8px 12px !important; }
+  .sm-det .rv1p .rt-i .dot{ width:13px !important; height:13px !important; left:-8px !important; top:6px !important; }
+  /* AEBS detail: the picture spans the full card width */
+  .sm-det .mx-fit.mx-wide > img{ width:100% !important; height:100% !important; max-height:none !important; object-fit:fill !important; }
+
+  /* password card: slider of confidentiality levels (this document = Internal Use Only) */
+  #gate form{ width:min(440px,100%) !important; }
+  #gate .lv{ position:relative; margin:0 0 16px; }
+  #gate .lvv{ overflow:hidden; margin:0 30px; border-radius:16px; }
+  #gate .lvt{ display:flex; transition:transform .45s cubic-bezier(.2,.8,.2,1); }
+  #gate .lvc{ --cc:#6B7280; --cb:#F3F4F6; --cl:#E5E7EB; position:relative; flex:0 0 100%; box-sizing:border-box; display:flex; flex-direction:column; align-items:center; padding:16px 14px 14px; border-radius:16px; border:2px solid var(--cl); background:linear-gradient(180deg,#fff,var(--cb)); }
+  #gate .lvc .ci{ color:var(--cc); line-height:0; } #gate .lvc .ci svg{ width:44px; height:44px; }
+  #gate .lvc b{ margin:8px 0 0; font:800 17px/1.2 'Plus Jakarta Sans',sans-serif; color:#0E1E4A; }
+  #gate .lvc em{ display:block; width:100%; margin-top:8px; padding-top:8px; border-top:1.5px solid var(--cl); font:500 normal 13px/1.35 'Plus Jakarta Sans',sans-serif; color:#5B6478; }
+  #gate .lvc .cur{ position:absolute; top:8px; right:8px; padding:2px 8px; border-radius:999px; background:var(--cc); color:#fff; font:800 normal 9.5px/1.4 'Plus Jakarta Sans',sans-serif; letter-spacing:.04em; text-transform:uppercase; }
+  #gate .c-public{ --cc:#6B7280; --cb:#F3F4F6; --cl:#E5E7EB; } #gate .c-ext{ --cc:#2563EB; --cb:#EEF4FF; --cl:#D6E3FB; }
+  #gate .c-int{ --cc:#E0A600; --cb:#FFF5D1; --cl:#F5CF4E; } #gate .c-conf{ --cc:#EA7A0B; --cb:#FFF1E6; --cl:#FBDCC2; } #gate .c-high{ --cc:#DC2E3A; --cb:#FFEEF0; --cl:#F8D0D5; }
+  #gate .lva{ position:absolute; top:50%; transform:translateY(-50%); width:26px !important; height:26px; padding:0 !important; display:grid; place-items:center; border-radius:50% !important; border:1px solid #D5DEE8 !important; background:#fff !important; color:#3C4A5C !important; font:700 18px/1 sans-serif !important; cursor:pointer; margin-top:-10px; }
+  #gate .lva:hover{ border-color:#2A6FD7 !important; color:#2A6FD7 !important; } #gate .lva.prev{ left:0; } #gate .lva.next{ right:0; }
+  #gate .lvds{ display:flex; justify-content:center; gap:6px; margin-top:10px; }
+  #gate .lvd{ width:7px !important; height:7px; padding:0 !important; border-radius:50% !important; background:#CDD5E0 !important; border:0 !important; cursor:pointer; transition:width .3s, background .3s; }
+  #gate .lvd.is-on{ width:20px !important; border-radius:4px !important; background:#E0A600 !important; }
+  #gate .lva:focus-visible, #gate .lvd:focus-visible{ outline:3px solid #8DB4F0; outline-offset:2px; }
 </style>
 <script>
 (function(){
@@ -5742,7 +5776,7 @@ addEventListener('message', function(e){ if(e.data && e.data.deckKey) document.d
   if(ok) return;
   document.documentElement.classList.add('gate-lock');
   // while locked, no key reaches the deck (only the password field gets its typing)
-  var block = function(e){ if(!document.documentElement.classList.contains('gate-lock')) return; e.stopImmediatePropagation(); if(!(e.target && e.target.id === 'gateIn') && e.key !== 'Tab') e.preventDefault(); };
+  var block = function(e){ if(!document.documentElement.classList.contains('gate-lock')) return; e.stopImmediatePropagation(); if(!(e.target && e.target.closest && e.target.closest('#gate')) && e.key !== 'Tab') e.preventDefault(); };
   ['keydown','keyup','keypress','wheel','touchmove'].forEach(function(t){ window.addEventListener(t, block, { capture:true, passive:false }); });
   // plain SHA-256 so the check also works over http (crypto.subtle needs https)
   function sha256(str){
@@ -5768,6 +5802,18 @@ addEventListener('message', function(e){ if(e.data && e.data.deckKey) document.d
   }
   document.addEventListener('DOMContentLoaded', function(){
     var g = document.getElementById('gate'), f = g.querySelector('form'), inp = document.getElementById('gateIn'), msg = g.querySelector('.g-msg');
+    // level slider: arrows, dots, swipe; starts on this document's level
+    (function(){ var t = g.querySelector('.lvt'), ds = g.querySelectorAll('.lvd'), n = ds.length, k = 2, x0 = null;
+      function go(i){ k = (i + n) % n; t.style.transform = 'translateX(' + (-100 * k) + '%)'; for(var j = 0; j < n; j++){ ds[j].classList.toggle('is-on', j === k); ds[j].setAttribute('aria-current', j === k ? 'true' : 'false'); } }
+      g.querySelector('.lva.prev').addEventListener('click', function(){ go(k - 1); });
+      g.querySelector('.lva.next').addEventListener('click', function(){ go(k + 1); });
+      for(var j = 0; j < n; j++) ds[j].addEventListener('click', function(){ go(+this.dataset.i); });
+      var vv = g.querySelector('.lvv');
+      vv.addEventListener('pointerdown', function(e){ x0 = e.clientX; });
+      vv.addEventListener('pointerup', function(e){ if(x0 === null) return; var d = e.clientX - x0; x0 = null; if(Math.abs(d) > 30) go(k + (d < 0 ? 1 : -1)); });
+      g.querySelector('.lv').addEventListener('keydown', function(e){ if(e.key === 'ArrowRight'){ e.preventDefault(); go(k + 1); } else if(e.key === 'ArrowLeft'){ e.preventDefault(); go(k - 1); } });
+      go(2); })();
+    // confidentiality levels: click (or arrow keys) to see who can access each level
     inp.focus();
     inp.addEventListener('input', function(){ g.classList.remove('err'); msg.textContent = ''; });
     f.addEventListener('submit', function(e){
@@ -5792,6 +5838,10 @@ addEventListener('message', function(e){ if(e.data && e.data.deckKey) document.d
     <div class="g-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="4" y="10.5" width="16" height="10.5" rx="2.5"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg></div>
     <h1 id="gateT">Dokumen Level Moderate</h1>
     <p>Internal Use Only</p>
+    <div class="lv" aria-label="Confidentiality level">
+      <button type="button" class="lva prev" aria-label="Level sebelumnya">&#8249;</button><div class="lvv"><div class="lvt"><div class="lvc c-public" role="group" aria-roledescription="slide" aria-label="1 dari 5: Public"><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9S14.6 18.4 12 21c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3z"/></svg></span><b>Public</b><em>Anyone</em></div><div class="lvc c-ext" role="group" aria-roledescription="slide" aria-label="2 dari 5: External Confidential"><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="7" r="2.8"/><circle cx="5.5" cy="9" r="2.2"/><circle cx="18.5" cy="9" r="2.2"/><path d="M7 19c0-3 2.2-5.2 5-5.2s5 2.2 5 5.2zM1.8 18c0-2.3 1.6-4 3.7-4 1 0 1.8.3 2.4.8M22.2 18c0-2.3-1.6-4-3.7-4-1 0-1.8.3-2.4.8"/></svg></span><b>External Confidential</b><em>Authorized Partners / Clients</em></div><div class="lvc c-int" role="group" aria-roledescription="slide" aria-label="3 dari 5: Internal Use Only"><span class="ci"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="6.8" r="3.2"/><circle cx="5.2" cy="9" r="2.5"/><circle cx="18.8" cy="9" r="2.5"/><path d="M6.6 19.5c0-3.3 2.4-6 5.4-6s5.4 2.7 5.4 6zM.8 18.5c0-2.6 1.8-4.6 4.2-4.6 1 0 1.9.3 2.6.9-1.2 1.2-1.9 2.6-2 3.7zM23.2 18.5c0-2.6-1.8-4.6-4.2-4.6-1 0-1.9.3-2.6.9 1.2 1.2 1.9 2.6 2 3.7z"/></svg></span><b>Internal Use Only</b><em>All Internal Employees</em><i class="cur">Dokumen ini</i></div><div class="lvc c-conf" role="group" aria-roledescription="slide" aria-label="4 dari 5: Confidential"><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M13 21H5V3h8l4 4v4"/><path d="M13 3v4h4M8 10h4"/><rect x="13.5" y="15" width="8" height="6.5" rx="1.4" fill="currentColor" stroke="none"/><path d="M15.2 15v-1.6a2.3 2.3 0 0 1 4.6 0V15"/></svg></span><b>Confidential</b><em>Specific Teams / Departments</em></div><div class="lvc c-high" role="group" aria-roledescription="slide" aria-label="5 dari 5: Highly Restricted"><span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"><path d="M12 2.5 4 5.5v6c0 5 3.4 9.4 8 10.8 4.6-1.4 8-5.8 8-10.8v-6z"/><rect x="9" y="11.2" width="6" height="5" rx="1" fill="currentColor" stroke="none"/><path d="M10.2 11.2V9.8a1.8 1.8 0 0 1 3.6 0v1.4"/></svg></span><b>Highly Restricted</b><em>Selected Executives / Named Individuals</em></div></div></div><button type="button" class="lva next" aria-label="Level berikutnya">&#8250;</button>
+      <div class="lvds"><button type="button" class="lvd" data-i="0" aria-label="Public"></button><button type="button" class="lvd" data-i="1" aria-label="External Confidential"></button><button type="button" class="lvd" data-i="2" aria-label="Internal Use Only"></button><button type="button" class="lvd" data-i="3" aria-label="Confidential"></button><button type="button" class="lvd" data-i="4" aria-label="Highly Restricted"></button></div>
+    </div>
     <input id="gateIn" type="password" placeholder="Password" aria-label="Password" aria-describedby="gateMsg" required>
     <div class="g-msg" id="gateMsg" role="alert"></div>
     <button type="submit">Buka</button>
@@ -12168,10 +12218,11 @@ addEventListener('message', function(e){ if(e.data && e.data.deckKey) document.d
           + (a.next ? '<div class="nx"><small>Next step</small><b>' + a.next + '</b></div>' : '') + '</aside></div>'
         : a.rich === 'mir' ? (a.id === 'mir' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/mir-fix.jpg').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'Motion Intelligent Rover (MIR): before dan after implementation serta perangkat MIR')
           : a.id === 'ads' ? '<div class="mx-full mx-haul mx-noprog mx-fit"><div class="mx-ads2"><video src="mom/drone-asli-web.mp4" autoplay muted loop playsinline preload="auto" aria-label="Video drone ADS"></video><img src="mom/drone-ba.png" alt="ADS: before dan after implementation pengawasan drone"></div></div>'
-          : a.id === 'aebs' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/auto-fix.jpeg').replace('<div class="mx-full">', '<div class="mx-full mx-haul mx-noprog mx-fit">').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'AEBS: before dan after implementation, cakupan &amp; alur kerja, serta progress saat ini')
+          : a.id === 'mg' ? SM_MIR.replace('<div class="mx-full">', '<div class="mx-full mx-haul mx-noprog mx-fit mx-wide">').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'Machine Guidance: before dan after implementation serta cara kerja MCG')
+          : a.id === 'aebs' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/auto-fix.jpeg').replace('<div class="mx-full">', '<div class="mx-full mx-haul mx-noprog mx-fit mx-wide">').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'AEBS: before dan after implementation, cakupan &amp; alur kerja, serta progress saat ini')
           : a.id === 'blast' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/remote-blasting.jpg').replace('<div class="mx-full">', '<div class="mx-full mx-haul mx-noprog">').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'Remote Blasting (BenchREMOTE): before dan after implementation, komponen utama, use case dan manfaat')
           : a.id === 'pump' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/remote-fix.jpg').replace('<div class="mx-full">', '<div class="mx-full mx-haul">').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'Remote Pump: before dan after implementation serta progress saat ini')
-          : a.id === 'arcas' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/arcas-fix.jpg').replace('<div class="mx-full">', '<div class="mx-full mx-haul">').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'ARCAS HD 3327: before dan after implementation, cara kerja, dan dampak utama')
+          : a.id === 'arcas' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/arcas-fix.jpg').replace('<div class="mx-full">', '<div class="mx-full mx-haul mx-noprog mx-fit mx-wide">').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'ARCAS HD 3327: before dan after implementation, cara kerja, dan dampak utama')
           : a.id === 'haul' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/hauling-fix.jpg').replace('<div class="mx-full">', '<div class="mx-full mx-haul mx-noprog">').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'Hauling Automation: before dan after implementation, komponen utama AHS, dan progress')
           : a.id === 'eyes' ? SM_MIR.replace('mom/mir-visual.jpg', 'mom/mea-fix.jpg').replace('Motion Intelligent Rover (MIR): before dan after implementation serta cara kerja', 'Mining Eyes Analytics: before dan after implementation, use case utama, dan progress')
           : SM_MIR).replace('</div>', '<aside class="mx-prog"><h5><i>' + SM_SVG.chart + '</i>Progress utama</h5><ul>' + smLi(a.id === 'arcas' ? ARCAS_PROG : P.prog) + '</ul></aside></div>') : SM_CCX) + '</div>'
