@@ -3,6 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+/* screen-size independence: outside a frame, stop parsing this copy and show the deck in a frame that is laid out
+   at the design width (1918px) and scaled to fit, so every slide looks the same on any screen and in fullscreen */
+(function(){
+  if(window.top !== window.self || /[?&]inner\b/.test(location.search)) return;
+  document.write('<plaintext style="display:none">');
+  var DW = 1918, DH0 = 904;
+  function boot(){
+    document.title = 'Safety Performance Q3 2026';
+    var st = document.createElement('style');
+    st.textContent = 'html,body{margin:0;height:100%;overflow:hidden;background:linear-gradient(180deg,#CFEAFF 0%,#EAF5FF 50%,#EEF6FF 100%)}#stage{position:absolute;left:0;top:0;border:0;transform-origin:0 0;background:#F4FAFF}';
+    document.head.appendChild(st);
+    var f = document.createElement('iframe'); f.id = 'stage'; f.title = 'Safety Performance Q3 2026';
+    f.setAttribute('allow', 'autoplay; fullscreen'); f.setAttribute('allowfullscreen', '');
+    f.src = location.pathname.split('/').pop() + '?inner' + location.hash;
+    document.body.appendChild(f);
+    function fit(){
+      // scale from the design size, then hand any extra width / height to the layout so the deck always fills the screen
+      // layout height is capped at 16:9 of the design width; taller screens (16:10, 4:3) get thin bands in the deck's own colour
+      var W = innerWidth, H = innerHeight, k = Math.min(W / DW, H / DH0), LW = W / k, LH = Math.min(H / k, LW * 9 / 16);
+      f.style.width = LW + 'px'; f.style.height = LH + 'px';
+      f.style.transform = 'scale(' + k + ')'; f.style.left = '0px'; f.style.top = Math.round((H - LH * k) / 2) + 'px';
+    }
+    fit(); addEventListener('resize', fit);
+    f.addEventListener('load', function(){ f.focus(); });
+    // keys pressed while the outer page has focus still drive the deck
+    addEventListener('keydown', function(e){ if(e.target === f) return; f.focus(); try{ f.contentWindow.postMessage({ deckKey:e.key }, '*'); }catch(_){} e.preventDefault(); });
+  }
+  if(document.body) boot(); else document.addEventListener('DOMContentLoaded', boot);
+})();
+</script>
+<script>
+/* inside the frame: accept keys forwarded by the scaling shell */
+addEventListener('message', function(e){ if(e.data && e.data.deckKey) document.dispatchEvent(new KeyboardEvent('keydown', { key:e.data.deckKey, bubbles:true })); });
+</script>
 <title>Safety Performance Q3 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -5301,7 +5336,7 @@
   #slideCross .cd-colh{ font-size:1em !important; }
   #slideCross .cd-colh span{ font-size:.84em; white-space:nowrap; }
   /* closing slide: fills the screen, anchored to the top so the quote and squares stay in view (only the bottom edge trims) */
-  #slideThanks .ty-bg{ background-size:cover !important; background-position:center top !important; }
+  #slideThanks .ty-bg{ background-size:cover !important; background-position:left top !important; }
 </style>
 <!-- password gate: the deck stays hidden and keys are blocked until the right password is entered -->
 <style>
@@ -5633,6 +5668,72 @@
   #slideCross .cd-row{ flex:1 1 auto !important; min-height:min-content; } #slideCross .cd-row p{ line-height:1.25; }
   #slideCross .cd-body{ min-height:0; } #slideCross .cd-rows{ min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; scrollbar-color:#C3CEDA transparent; }
   #slideCross .cd-rows::-webkit-scrollbar{ width:5px; } #slideCross .cd-rows::-webkit-scrollbar-thumb{ background:#C3CEDA; border-radius:3px; }
+  /* How Stable bottom card: share extra height between the two rows and scale illustrations with it (fullscreen / tall screens) */
+  #slideStable2 .rd-out .ov2-out2{ flex:1 1 0 !important; min-height:0; }
+  #slideStable2 .rd-out .ov2-foot{ flex:1.25 1 0 !important; min-height:0; }
+  #slideStable2 .rd-out .ov2-out2 .ov-box.hx .hxb{ align-items:center; }
+  #slideStable2 .rd-out .ov2-out2{ display:grid !important; grid-template-rows:minmax(0,1fr); }
+  #slideStable2 .rd-out .ov2-out2 .ov-box.hx{ min-height:0; overflow:hidden; }
+  #slideStable2 .rd-out .ov2-out2 .ov-box.hx .hxb{ flex:1 1 0; min-height:0; grid-template-rows:minmax(0,1fr); }
+  #slideStable2 .rd-out .hxb > img{ height:100% !important; max-height:150px !important; min-height:0; }
+  #slideStable2 .ov2-pol.hx .pl{ justify-content:center; } #slideStable2 .ov2-pol.hx .pg{ flex:1 1 auto; align-content:center; gap:6px; }
+  #slideStable2 .ov2-pol.hx .pt img{ height:clamp(34px,5vh,58px) !important; width:auto !important; }
+  #slideStable2 .ov2-foot-r .ov2-evo.hx{ flex:1 1 auto !important; }
+  #slideStable2 .ov2-foot-r .ov2-evo.hx .evs{ justify-content:center !important; }
+  #slideStable2 .ov2-foot-r .ov2-evo.hx .evs > img{ height:clamp(34px,6vh,80px) !important; }
+  #slideStable2 .ov2-pol.hx .pt img{ height:clamp(30px,4.2vh,58px) !important; }
+  /* Kebijakan Perkuatan: transparent illustrations on a soft tile */
+  #slideStable2 .ov2-pol.hx .pt{ background:linear-gradient(135deg,#F4F7FB,#EAF0F7) !important; border:1px solid #E1E8F0; }
+  #slideStable2 .ov2-pol.hx .pt img{ mix-blend-mode:normal !important; filter:drop-shadow(0 2px 3px rgba(16,24,40,.18)); width:clamp(44px,3.2vw,64px) !important; object-fit:contain !important; }
+  #slideStable2 .ov2-pol.hx .pn img{ mix-blend-mode:normal !important; width:24px !important; height:26px !important; filter:drop-shadow(0 2px 3px rgba(31,154,58,.3)); }
+  /* Kebijakan tiles stretch to the card height on tall / fullscreen layouts */
+  #slideStable2 .ov2-pol.hx .pl{ display:flex !important; flex-direction:column !important; justify-content:flex-start !important; min-height:0; }
+  #slideStable2 .ov2-pol.hx .pg{ flex:1 1 0 !important; min-height:0; grid-template-rows:repeat(2,minmax(0,1fr)); align-content:stretch !important; }
+  #slideStable2 .ov2-pol.hx .pt{ min-height:0; overflow:hidden; padding:3px 7px !important; gap:7px !important; }
+  #slideStable2 .ov2-pol.hx .pt img{ height:100% !important; max-height:72px !important; min-height:0; width:auto !important; max-width:44% !important; }
+  /* 20+ tile spans the same height as the two rows of policy tiles */
+  #slideStable2 .ov2-foot .ov2-pol.hx{ grid-template-rows:auto minmax(0,1fr) !important; align-items:stretch !important; }
+  #slideStable2 .ov2-pol.hx .pl{ display:contents !important; }
+  #slideStable2 .ov2-pol.hx .pl > h5{ grid-column:1 / -1; grid-row:1; }
+  #slideStable2 .ov2-pol.hx .pg{ grid-column:1; grid-row:2; }
+  #slideStable2 .ov2-pol.hx .pn{ grid-column:2; grid-row:2; align-self:stretch !important; }
+  /* Lagging Outcome / Underlying Risk: text-only stat tiles that grow with the card (sized from the tile height) */
+  #slideStable2 .rd-out .hxb > img{ display:none !important; }
+  #slideStable2 .rd-out .hxb{ display:flex !important; min-height:0; }
+  #slideStable2 .rd-out .hxs{ flex:1 1 auto; min-height:0; display:grid !important; grid-template-columns:1fr 1fr; gap:8px !important; height:100%; }
+  #slideStable2 .rd-out .hxs .st{ container-type:size; min-height:0; display:grid !important; grid-template-columns:auto 1fr; grid-template-rows:auto auto; align-content:center; column-gap:8px; row-gap:3px;
+    padding:4px 12px !important; border-radius:12px !important; background:rgba(255,255,255,.72) !important; box-shadow:inset 0 0 0 1px rgba(0,0,0,.05); overflow:hidden; }
+  #slideStable2 .rd-out .hxs .st p{ display:contents !important; }
+  #slideStable2 .rd-out .hxs .st .si{ grid-row:1; grid-column:1; align-self:center; width:clamp(16px,24cqh,30px); height:clamp(16px,24cqh,30px); fill:currentColor; color:#E0202E; }
+  #slideStable2 .rd-out .hxs .st b{ grid-row:1; grid-column:2; align-self:center; white-space:nowrap; font-size:clamp(16px,min(30cqh,13cqw),34px) !important; line-height:1 !important; color:#E0202E; }
+  #slideStable2 .rd-out .hxs .st span{ grid-row:2; grid-column:1 / -1; font-size:clamp(9.5px,13cqh,14px) !important; line-height:1.22 !important; }
+  #slideStable2 .rd-out .ov-box.orange .hxs .st .si, #slideStable2 .rd-out .ov-box.orange .hxs .st b{ color:#E5531A !important; }
+  /* illustration back on the left, the two text stat tiles stacked on the right; both scale with the card */
+  #slideStable2 .rd-out .hxb{ display:grid !important; grid-template-columns:38% minmax(0,1fr) !important; gap:8px !important; align-items:stretch !important; }
+  #slideStable2 .rd-out .hxb > img{ display:block !important; width:100% !important; height:100% !important; max-height:none !important; min-height:0; object-fit:contain !important;
+    border-right:1px solid rgba(0,0,0,.07); padding-right:6px; mix-blend-mode:multiply; }
+  #slideStable2 .rd-out .hxs{ grid-template-columns:1fr !important; grid-template-rows:1fr 1fr; gap:6px !important; }
+  #slideStable2 .rd-out .hxs .st b{ font-size:clamp(15px,min(34cqh,11cqw),30px) !important; }
+  #slideStable2 .rd-out .hxs .st span{ font-size:clamp(9px,min(17cqh,4.2cqw),13px) !important; }
+  #slideStable2 .rd-out .hxs .st .si{ width:clamp(15px,28cqh,26px); height:clamp(15px,28cqh,26px); }
+  /* short stat tiles: icon, number and label sit side by side */
+  #slideStable2 .rd-out .hxs .st span{ display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:3; overflow:hidden; }
+  @container (max-height:62px){
+    #slideStable2 .rd-out .hxs .st{ grid-template-columns:auto auto minmax(0,1fr) !important; grid-template-rows:1fr !important; align-items:center; column-gap:7px !important; padding:2px 10px !important; }
+    #slideStable2 .rd-out .hxs .st .si{ grid-row:1; grid-column:1; }
+    #slideStable2 .rd-out .hxs .st b{ grid-row:1; grid-column:2; font-size:clamp(14px,40cqh,22px) !important; }
+    #slideStable2 .rd-out .hxs .st span{ grid-row:1; grid-column:3; font-size:clamp(8.5px,19cqh,11px) !important; line-height:1.18 !important; -webkit-line-clamp:3; padding-left:7px; border-left:1px solid rgba(0,0,0,.08); }
+  }
+  /* Ultimate Objectives: illustrated banner image */
+  .sm-tt{ padding:0 !important; background:transparent !important; box-shadow:none !important; border:0 !important; overflow:visible !important; }
+  .sm-tt::before, .sm-tt::after{ display:none !important; }
+  .sm-tt .tt-img{ display:block; width:100%; height:auto; background:none; filter:drop-shadow(0 6px 12px rgba(20,60,30,.18)); }
+  /* opening slide: document classification, bottom-left */
+  #slideOpening2 .op-doclv{ position:absolute; left:6.3vw; bottom:24px; z-index:6; display:inline-flex; align-items:center; gap:7px; padding:6px 12px 6px 10px; border-radius:999px;
+    background:rgba(255,255,255,.88); box-shadow:0 2px 8px rgba(16,24,40,.15); font:800 12px/1 'Plus Jakarta Sans',sans-serif; letter-spacing:.04em; color:#1E3A5F; }
+  #slideOpening2 .op-doclv svg{ width:14px; height:14px; fill:none; stroke:#1E4FA8; stroke-width:2.2; }
+  /* Ultimate Objectives banner sits on the bottom line of the map */
+  #slideMap2 .sm-tt{ align-self:end !important; margin:0 !important; }
 </style>
 <script>
 (function(){
@@ -5756,6 +5857,7 @@
   </section>
 
   <section class="slide active" id="slideOpening2" data-steps="1" data-section="A · Opening">
+    <div class="op-doclv"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10.5" rx="2.5"/><path d="M8 10.5V7a4 4 0 0 1 8 0v3.5"/></svg>Dokumen Level Moderate</div>
     <div class="op-bg" aria-hidden="true"></div>
     <div class="op-scrim" aria-hidden="true"></div>
     <svg class="cod-slash" viewBox="0 0 1672 941" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
@@ -6034,14 +6136,14 @@
     </section>
     <div class="ov2-arrow" aria-hidden="true"></div>
     <section class="ov2-right">
-      <div class="ov2-ci"><h4 class="ov2-tag green">Control Impact</h4><div class="ov2-impact"><div class="ov-imp up"><b>&#8593; 28%</b><span>Partisipasi SAP<br>YTD 2026 vs 2025</span></div><div class="ov-imp up"><b>&#8593; 46%</b><span>Partisipasi TBC<br>YTD 2026 vs 2025</span></div><div class="ov-imp up"><b>&#8593; 59%</b><span>Pengawasan Berjarak</span></div><div class="ov-imp"><b>54</b><span>Total CCV</span></div><div class="ov-imp"><b>1026</b><span>Jumlah CCTV</span></div><div class="ov-imp"><b>1469</b><span>Jumlah DMS</span></div><div class="ov-imp"><b>292</b><span>Rekayasa Engineering</span></div></div></div>
+      <div class="ov2-ci"><h4 class="ov2-tag green">Control Impact</h4><div class="ov2-impact"><div class="ov-imp up"><b>&#8593; 28%</b><span>Partisipasi SAP<br>YTD 2026 vs 2025</span></div><div class="ov-imp up"><b>&#8593; 46%</b><span>Partisipasi TBC<br>YTD 2026 vs 2025</span></div><div class="ov-imp up"><b>&#8593; 59%</b><span>Pengawasan Berjarak</span></div><div class="ov-imp"><b>54</b><span>Total CCV</span></div><div class="ov-imp"><b>81%</b><span>CCTV Coverage<br>Area Kerja</span></div><div class="ov-imp"><b>98.9%</b><span>DMS Coverage</span></div><div class="ov-imp"><b>292</b><span>Rekayasa Engineering</span></div></div></div>
       <div class="ov2-funnel2"><img src="corong.png" alt="Inherent risk melewati kontrol Leadership, People, Process, Technology dan Engineering menjadi residual risk"><div class="ov-bub" aria-hidden="true"></div></div>
       <div class="ov2-out2">
-        <div class="ov-box pink hx"><h5>Lagging Outcome</h5><div class="hxb"><img src="mom/hs/lag.png" alt="Pekerja cedera" draggable="false"><div class="hxs"><div class="st"><img src="mom/hs/i-clip.png" alt="" draggable="false"><p><b>2 LTI</b><span>di Q1 &amp; Q3 2026</span></p></div><div class="st"><img src="mom/hs/i-bars.png" alt="" draggable="false"><p><b>Avg 0.67</b><span>Injury case setiap Quarter</span></p></div></div></div></div>
-        <div class="ov-box orange hx"><h5>Underlying Risk</h5><div class="hxb"><img src="mom/hs/risk.png" alt="Blindspot unit dan pekerja" draggable="false"><div class="hxs"><div class="st"><img src="mom/hs/i-up.png" alt="" draggable="false"><p><b>16%</b><span><strong>Peningkatan Blindspot Golden Rules</strong> dibandingkan 2025</span></p></div><div class="st"><img src="mom/hs/i-eye.png" alt="" draggable="false"><p><b>3%</b><span><strong>Blindspot TBC</strong> masih terjadi di 2026</span></p></div></div></div></div>
+        <div class="ov-box pink hx"><h5>Lagging Outcome</h5><div class="hxb"><img src="mom/hs/lag.png" alt="Pekerja cedera" draggable="false"><div class="hxs"><div class="st"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 2h6v2h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3zm1 2v2h4V4zm1 6v3H8v2h3v3h2v-3h3v-2h-3v-3z"/></svg><p><b>2 LTI</b><span>di Q1 &amp; Q3 2026</span></p></div><div class="st"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20h3v-7H4zm6.5 0h3V8h-3zM17 20h3V4h-3z"/></svg><p><b>Avg 0.67</b><span>Injury case setiap Quarter</span></p></div></div></div></div>
+        <div class="ov-box orange hx"><h5>Underlying Risk</h5><div class="hxb"><img src="mom/hs/risk.png" alt="Blindspot unit dan pekerja" draggable="false"><div class="hxs"><div class="st"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 17l6-6 4 4 7-7v4h2V4h-8v2h4l-5 5-4-4-8 8z"/></svg><p><b>16%</b><span><strong>Peningkatan Blindspot Golden Rules</strong> dibandingkan 2025</span></p></div><div class="st"><svg class="si" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5C6 5 2 12 2 12s4 7 10 7 10-7 10-7-4-7-10-7zm0 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg><p><b>3%</b><span><strong>Blindspot TBC</strong> masih terjadi di 2026</span></p></div></div></div></div>
       </div>
       <p class="ov2-note" hidden>Kontrol terhadap lagging yang sudah berjalan sudah banyak dilakukan dan berdampak pada peningkatan leading, peningkatan pelaporan hazard, peningkatan identifikasi TBC &amp; GR; tetapi lagging masih mencatatkan LTI &amp; Injury yang perlu <b>Fatal Prevention control</b> lanjutan.</p>
-      <div class="ov2-pol hx"><div class="pl"><h5><img src="mom/hs/i-doc.png" alt="" draggable="false">Kebijakan Perkuatan</h5><div class="pg"><div class="pt"><img src="mom/hs/pol1.png" alt="" draggable="false"><span>Pembatasan pekerja di luar kabin</span></div><div class="pt"><img src="mom/hs/pol2.png" alt="" draggable="false"><span>Pengawasan berjarak</span></div><div class="pt"><img src="mom/hs/pol3.png" alt="" draggable="false"><span>Seatbelt connect to engine <small>(wajib instalasi)</small></span></div><div class="pt"><img src="mom/hs/pol4.png" alt="" draggable="false"><span>Larangan sistem starter engkol</span></div></div></div><div class="pn"><img src="mom/hs/i-shield.png" alt="" draggable="false"><b>20+</b><span>perkuatan berlaku selama YTD 2026</span></div></div>
+      <div class="ov2-pol hx"><div class="pl"><h5><img src="mom/hs/i-doc.png" alt="" draggable="false">Kebijakan Perkuatan</h5><div class="pg"><div class="pt"><img src="mom/hs/kb_pembatasan_pekerja.png" alt="" draggable="false"><span>Pembatasan pekerja di luar kabin</span></div><div class="pt"><img src="mom/hs/kb_pengawasan_berjarak.png" alt="" draggable="false"><span>Pengawasan berjarak</span></div><div class="pt"><img src="mom/hs/kb_seatbelt_connect.png" alt="" draggable="false"><span>Seatbelt connect to engine <small>(wajib instalasi)</small></span></div><div class="pt"><img src="mom/hs/kb_larangan_starter_engkol.png" alt="" draggable="false"><span>Larangan sistem starter engkol</span></div></div></div><div class="pn"><img src="mom/hs/kb_shield_perkuatan.png" alt="" draggable="false"><b>20+</b><span>perkuatan berlaku selama YTD 2026</span></div></div>
       <p class="ov2-next"><span>Sehingga kita perlu <b>kontrol lanjutan</b></span></p>
       <div class="ov2-evo hx"><div class="t">Control Capability<br>Evolution</div><div class="evs"><img src="mom/hs/evo1.png" alt="" draggable="false"><b>Detect Earlier</b><span class="ed">Antisipasi risiko lebih dini lewat data &amp; intelligence</span></div><i class="eva"></i><div class="evs"><img src="mom/hs/evo2.png" alt="" draggable="false"><b>Intervene Smarter</b><span class="ed">Transformasi kerja lewat integrasi sistem &amp; automasi</span></div><i class="eva"></i><div class="evs pv"><img src="mom/hs/evo3.png" alt="" draggable="false"><b>Prevent by Design</b><span class="ed">Cegah risiko dari sumbernya lewat engineering</span></div><div class="evf"><span>Risk Detection</span><i>&#8594;</i><span>Work Transformation</span><i>&#8594;</i><span class="g">Risk Transformation</span></div></div>
     </section>
@@ -11914,7 +12016,7 @@
     data:{ n:4, c:'#1F9A3A', k:'Data &amp; AI', m:'Safety Intelligence', d:'' }
   };
   // which groups are open in the list (kept while the list re-renders); the first one starts open
-  const SM_OPEN = { cc:true };
+  const SM_OPEN = {};
   document.addEventListener('toggle', e=>{ const d = e.target; if(d.matches && d.matches('.sm-panel details.grp, .sm-panel details.sgrp')) SM_OPEN[d.dataset.g] = d.open; }, true);
   // Risk bars end level with the bottom of their stream group (#1 / #2 / #3), following open and closed groups
   function rkFit(root){
@@ -12203,7 +12305,8 @@
       vp.style.width = w + 'px'; vp.style.height = h + 'px';
       // swapped layout: a separate Technology Transfer card sits under the stream panel
       let tt = grid.querySelector(':scope > .sm-tt');
-      if(cfg.swap && !tt){ tt = document.createElement('section'); tt.className = 'sm-tt'; tt.innerHTML = '<small>Ultimate Objectives</small><b>Technology Transfer to New Mining Areas</b>'; grid.appendChild(tt); }
+      if(cfg.swap && !tt){ tt = document.createElement('section'); tt.className = 'sm-tt'; tt.innerHTML = '<img class="tt-img" src="mom/ultimate-trim.png" alt="Ultimate Objectives: Technology Transfer to New Mining Areas">'; grid.appendChild(tt);
+        const ti = tt.querySelector('img'); if(ti && !ti.complete) ti.addEventListener('load', ()=> fit(), { once:true }); }
       const ttH = cfg.swap && tt ? tt.offsetHeight + 0 + (parseFloat(getComputedStyle(grid).rowGap) || 0) : 0;
       panel.style.height = (tools.offsetHeight + 10 + h - ttH) + 'px';
     }
@@ -12503,7 +12606,7 @@
     const AREAS = [
       T('obds', EXTRA.obds, 'Kantor &amp; control room · crest pit', IC.obds, [300,40], [547,112], [[480,80],[640,80],[640,140],[480,140]], 'Integrasi lintas proyek'),
       T('eyes', EXTRA.eyes, 'AI-Powered CCTV Analytics', IC.eyes, [690,40], [633,75], [[610,30],[660,30],[660,130],[610,130]], 'Analytic &amp; expand ke area prioritas'),
-      T('mg', AP[1], 'Sloping · Front · PIT', IC.mg, [700,445], [813,530], [[770,500],[860,500],[860,560],[770,560]], NX(1)),
+      T('mg', AP[1], 'Sloping · Front · PIT', IC.mg, [590,255], [588,342], [[528,300],[668,300],[668,378],[528,378]], NX(1)),
       T('mir', AP[2], 'Disposal', IC.mir, [1070,445], [940,530], [[900,500],[985,500],[985,560],[900,560]], NX(2)),
       T('arcas', AP[0], 'Disposal', IC.arcas, [230,610], [460,655], [[415,620],[505,620],[505,690],[415,690]], NX(0)),
       T('rover', AP[3], 'Disposal high-risk · remote station', IC.rover, [824,691], [1060,805], [[1010,775],[1110,775],[1110,840],[1010,840]], NX(3)),
@@ -12557,7 +12660,7 @@
     const ORDER = ['ccv','eyes','mg','mir','arcas','aebs','rover','pump','blast','haul','ads','obds'];
     const ord = (a)=> a.listOnly ? 100 + +a.id.slice(2) : ORDER.indexOf(a.id);
     AREAS.sort((x, y)=> ord(x) - ord(y));
-    return makeSiteMap({ swap:true, pre:'sm2', slide:'slideMap2', w:1600, h:900, roads:[[[100,229],[108,281],[176,352],[271,398],[341,469],[400,551],[441,639],[494,680],[588,727],[659,797],[729,844],[788,896]],[[929,299],[871,352],[765,445],[671,516],[588,586],[559,633],[588,680],[659,750],[729,809],[824,855],[906,896]],[[735,209],[824,182],[871,178],[941,199],[1059,217],[1176,252],[1294,293],[1412,328],[1529,375],[1594,410]]], areas:AREAS, tilt:false, cats:CATS, fx:'<g class="tm-cams"><rect x="608" y="28" width="53" height="98" rx="3" style="animation-delay:0.00s"/><rect x="81" y="164" width="44" height="91" rx="3" style="animation-delay:0.18s"/><rect x="211" y="279" width="44" height="123" rx="3" style="animation-delay:0.36s"/><rect x="298" y="384" width="40" height="88" rx="3" style="animation-delay:0.54s"/><rect x="646" y="417" width="42" height="91" rx="3" style="animation-delay:0.72s"/><rect x="442" y="534" width="44" height="93" rx="3" style="animation-delay:0.90s"/><rect x="549" y="658" width="42" height="136" rx="3" style="animation-delay:1.08s"/><rect x="798" y="678" width="44" height="137" rx="3" style="animation-delay:1.26s"/><rect x="1248" y="176" width="44" height="136" rx="3" style="animation-delay:1.44s"/></g><g class="tm-rings" data-t="haul"><ellipse cx="367" cy="500" rx="30" ry="9"/><ellipse cx="280" cy="365" rx="28" ry="8"/><ellipse cx="710" cy="805" rx="30" ry="9"/></g><ellipse class="tm-bubble" data-t="arcas" cx="460" cy="660" rx="52" ry="34"/><g class="tm-grid" data-t="mg"><path d="M760 545 L870 545 L888 565 L742 565 Z"/><path d="M780 545 L768 565 M805 545 L798 565 M830 545 L828 565 M855 545 L858 565 M752 555 L880 555"/></g><g class="tm-signal" data-t="eyes"><path d="M612 55 a22 22 0 0 0 0 30"/><path d="M602 47 a36 36 0 0 0 0 46"/><path d="M654 55 a22 22 0 0 1 0 30"/><path d="M664 47 a36 36 0 0 1 0 46"/></g><g class="tm-wifi" data-t="pump" transform="translate(1073 692) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="rover" transform="translate(1060 768) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="mir" transform="translate(940 496) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g>',
+    return makeSiteMap({ swap:true, pre:'sm2', slide:'slideMap2', w:1600, h:900, roads:[[[100,229],[108,281],[176,352],[271,398],[341,469],[400,551],[441,639],[494,680],[588,727],[659,797],[729,844],[788,896]],[[929,299],[871,352],[765,445],[671,516],[588,586],[559,633],[588,680],[659,750],[729,809],[824,855],[906,896]],[[735,209],[824,182],[871,178],[941,199],[1059,217],[1176,252],[1294,293],[1412,328],[1529,375],[1594,410]]], areas:AREAS, tilt:false, cats:CATS, fx:'<g class="tm-cams"><rect x="608" y="28" width="53" height="98" rx="3" style="animation-delay:0.00s"/><rect x="81" y="164" width="44" height="91" rx="3" style="animation-delay:0.18s"/><rect x="211" y="279" width="44" height="123" rx="3" style="animation-delay:0.36s"/><rect x="298" y="384" width="40" height="88" rx="3" style="animation-delay:0.54s"/><rect x="646" y="417" width="42" height="91" rx="3" style="animation-delay:0.72s"/><rect x="442" y="534" width="44" height="93" rx="3" style="animation-delay:0.90s"/><rect x="549" y="658" width="42" height="136" rx="3" style="animation-delay:1.08s"/><rect x="798" y="678" width="44" height="137" rx="3" style="animation-delay:1.26s"/><rect x="1248" y="176" width="44" height="136" rx="3" style="animation-delay:1.44s"/></g><g class="tm-rings" data-t="haul"><ellipse cx="367" cy="500" rx="30" ry="9"/><ellipse cx="280" cy="365" rx="28" ry="8"/><ellipse cx="710" cy="805" rx="30" ry="9"/></g><ellipse class="tm-bubble" data-t="arcas" cx="460" cy="660" rx="52" ry="34"/><g class="tm-grid" data-t="mg"><path d="M535 357 L645 357 L663 377 L517 377 Z"/><path d="M555 357 L543 377 M580 357 L573 377 M605 357 L603 377 M630 357 L633 377 M527 367 L655 367"/></g><g class="tm-signal" data-t="eyes"><path d="M612 55 a22 22 0 0 0 0 30"/><path d="M602 47 a36 36 0 0 0 0 46"/><path d="M654 55 a22 22 0 0 1 0 30"/><path d="M664 47 a36 36 0 0 1 0 46"/></g><g class="tm-wifi" data-t="pump" transform="translate(1073 692) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="rover" transform="translate(1060 768) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g><g class="tm-wifi" data-t="mir" transform="translate(940 496) scale(.8)"><path d="M-14 -4a20 20 0 0 1 28 0"/><path d="M-9 1a13 13 0 0 1 18 0"/><circle cx="0" cy="6" r="2.6"/></g>',
       listHtml:(A, c)=> smListHtml(A, '<small>Ultimate Objectives</small><b>Technology Transfer to New Mining Areas</b>', c) });
   })();
   // map 2: hauling & operations picture with the technology labels floating over it
