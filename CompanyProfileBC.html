@@ -7458,7 +7458,7 @@ addEventListener('message', function(e){ if(e.data && e.data.deckKey) document.d
     </div>
   </section>
 
-  <section class="slide" id="slideIncident" data-steps="1" data-section="E · Insiden">
+  <section class="slide-off" hidden id="slideIncident" data-steps="1" data-section="E · Insiden">
     <div class="slide-inner">
       <div class="sp-head">
         <p class="kicker mono fade" data-step="1">Laporan Preliminary · Insiden Injury PT Majau Inti Jaya</p>
@@ -7472,7 +7472,7 @@ addEventListener('message', function(e){ if(e.data && e.data.deckKey) document.d
       </div>
     </div>
   </section>
-  <section class="slide" id="slideIncident2" data-steps="1" data-section="E · Insiden">
+  <section class="slide-off" hidden id="slideIncident2" data-steps="1" data-section="E · Insiden">
     <div class="slide-inner">
       <div class="sp-head">
         <p class="kicker mono fade" data-step="1">Laporan Preliminary · Insiden Injury PT Majau Inti Jaya</p>
@@ -7485,7 +7485,7 @@ addEventListener('message', function(e){ if(e.data && e.data.deckKey) document.d
       </div>
     </div>
   </section>
-  <section class="slide" id="slideThanks" data-steps="1" data-section="F · Penutup">
+  <section class="slide-off" hidden id="slideThanks" data-steps="1" data-section="F · Penutup">
     <div class="ty-bg" role="img" aria-label="Thank You: tim keselamatan memandang ke site tambang saat matahari terbit"></div>
   </section>
 
@@ -8296,7 +8296,7 @@ addEventListener('message', function(e){ if(e.data && e.data.deckKey) document.d
       killSlide(index);
       const tl = gsap.timeline({ defaults:{ duration:0.5, ease:'power3.out' } });
       tls.set(index, tl);
-      const fns = [/* opening (hidden), */ opening2, profile, /* stable (hidden), */ stable2, /* rtslide, auslide (hidden), */ /* sitemap (hidden), */ sitemap2, /* minemap, opstab, transform (hidden), */ /* crossdiv (hidden), */ eboni, /* safety, engineering, health, hjourney, nextdo, berbagi (hidden), */ incident, incident2, thanks];
+      const fns = [/* opening (hidden), */ opening2, profile, /* stable (hidden), */ stable2, /* rtslide, auslide (hidden), */ /* sitemap (hidden), */ sitemap2, /* minemap, opstab, transform (hidden), */ /* crossdiv (hidden), */ eboni, /* safety, engineering, health, hjourney, nextdo, berbagi (hidden), */ /* incident, incident2, thanks (hidden) */];
       if(fns[index]) fns[index](tl, n, prev);
     }
     // How Stable Are We?: header, MoM items, then safety tiles and rings, health tiles, KPI cards
