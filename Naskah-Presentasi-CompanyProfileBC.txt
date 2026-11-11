@@ -1,0 +1,95 @@
+NASKAH PRESENTASI - MINING AUTOMATION INITIATIVE
+PT Berau Coal | Transformation Team
+Durasi sekitar 12-15 menit. Tanda [ ] adalah petunjuk untuk presenter, tidak perlu dibacakan.
+
+
+[SLIDE 1 - Cover]
+
+Selamat pagi Bapak dan Ibu sekalian. Terima kasih atas waktunya. Hari ini kami dari Transformation Team PT Berau Coal ingin berbagi tentang Mining Automation Initiative, yaitu perjalanan kami dalam mengeksplorasi solusi tambang yang lebih cerdas, sekaligus membuka peluang kemitraan teknologi yang strategis.
+
+Sebelum masuk ke teknologinya, izinkan kami mengajak Bapak Ibu melihat dulu siapa Berau Coal, dan seberapa besar tantangan yang kami kelola setiap harinya.
+
+
+[SLIDE 2 - Profil Perusahaan]
+
+Berau Coal sudah beroperasi sejak tahun 1983, artinya kini lebih dari 40 tahun kami menambang di Kabupaten Berau, Kalimantan Timur. Kami memegang IUP Khusus dengan konsesi seluas 78.004 hektar, dan sebagai Obyek Vital Nasional, kami ikut menjaga ketahanan energi Indonesia.
+
+Tahun 2026 ini kami menargetkan 33 juta ton batubara dan 223 juta BCM overburden, yang dikerjakan di empat site, yaitu Lati, Binungan, Sambarata, dan Gurimbang.
+
+Skala ini tentu membawa kompleksitas. Tambang kami padat modal, padat karya, padat teknologi, dan juga padat risiko. Ada 33 aktivitas kritis dan 2.071 HIRA yang aktif, dan setiap harinya berlangsung lebih dari 220 aktivitas kritis di luar kegiatan penambangan. Di balik itu, kami mengelola 178 usaha jasa, hampir 18 ribu tenaga kerja, 7.432 sarana dan peralatan, serta 4.478 tools pendukung seperti DMS, CCTV, drone, dan Mining Eyes.
+
+Semua itu kami jalankan dengan satu visi operasional: aman dan selamat, produktif, efisien, dan berkelanjutan. Targetnya jelas, nol kecelakaan hilang waktu kerja, nol pencemaran lingkungan, dan nol blokade operasional.
+
+Dengan skala sebesar ini, wajar kalau kemudian muncul pertanyaan: seberapa stabil sebenarnya kinerja keselamatan kita hari ini?
+
+[klik ke slide berikutnya]
+
+
+[SLIDE 3 - How Stable Are We?]
+
+Jawabannya, kami sudah jauh lebih baik, tetapi belum cukup.
+
+Dari sisi leading indicator, hasil Q3 2026 secara keseluruhan mencapai 80 persen. Leadership di 96 persen, People 85 persen, Process 72 persen, dan Technology 67 persen, dan semuanya naik dibanding kuartal sebelumnya. Dampaknya juga terlihat di lapangan. Dibanding tahun lalu, partisipasi SAP naik 28 persen, TBC naik 46 persen, dan pengawasan berjarak naik 59 persen. Kami juga sudah memiliki 54 Critical Control Verification, cakupan CCTV 81 persen di area kerja, cakupan DMS hampir 99 persen, serta 292 rekayasa engineering. Ditambah lagi, sepanjang 2026 lebih dari 20 kebijakan perkuatan sudah kami berlakukan, mulai dari pembatasan pekerja di luar kabin, pengawasan berjarak, seatbelt yang terhubung ke engine, sampai larangan sistem starter engkol.
+
+Namun di sisi lain, kenyataannya kami masih mencatat 2 kasus LTI, di Q1 dan Q3 2026, dengan rata-rata 0,67 kasus cedera setiap kuartal. Blindspot terhadap Golden Rules justru naik 16 persen dibanding 2025, dan blindspot TBC masih terjadi di angka 3 persen.
+
+Grafik tren ini menjelaskan mengapa. Kontrol yang bergantung pada manusia sudah mendekati batasnya. Kami menyebutnya manual limit. Menambah pengawasan manual tidak lagi menurunkan risiko secara berarti, dan masih ada yang kami sebut right-tail risk, yaitu kejadian langka namun fatal yang tetap bisa terjadi meskipun indikatornya terlihat baik.
+
+Karena itu kami perlu melangkah ke kontrol lanjutan, dengan tiga arah. Pertama, Detect Earlier, mendeteksi risiko lebih dini melalui data dan kecerdasan buatan. Kedua, Intervene Smarter, mengintervensi dengan lebih cerdas melalui integrasi sistem dan automasi. Dan ketiga, Prevent by Design, mencegah risiko langsung dari sumbernya melalui engineering.
+
+Tiga arah inilah yang kemudian kami terjemahkan ke dalam sebuah kerangka kerja, yaitu Framework Automation.
+
+[klik ke slide berikutnya]
+
+
+[SLIDE 4 - Framework Automation]
+
+Framework Automation Berau Coal terdiri dari empat stream: Critical Control, Engineering, Direct Automation, serta Data dan AI. Keempatnya bertemu di satu titik yang kami sebut Green Mining Intersection, yaitu pertemuan antara elektrifikasi dan automasi. Tujuannya menekan paparan risiko sekaligus emisi, memperkuat barrier pada aktivitas kritis melalui Mining Eyes, dan mengubah setiap sinyal operasional menjadi keputusan yang bisa dipercaya secara real-time. Saat ini ada 26 inisiatif yang berjalan di dalam kerangka ini.
+
+Kami menyusunnya dari risiko tertinggi ke risiko terendah. Stream pertama adalah Critical Control, yang fokus mencegah kejadian fatal melalui Critical Control Verification dan Mining Eyes Analytics, yaitu CCTV yang dibekali kecerdasan buatan untuk mendeteksi dan mengintervensi secara otomatis.
+
+Stream kedua, Engineering Control, adalah yang terbesar dengan 21 inisiatif. Di dalamnya ada tujuh proyek kunci yang bisa Bapak Ibu lihat di peta ini, seperti Machine Guidance, Motion Intelligent Rover, ARCAS, AEBS, Remote Dozer, Remote Pump, dan Remote Drill and Blast. Selain itu ada 14 inisiatif perbaikan keselamatan yang tersebar di setiap site, mulai dari face recognition, RFID keyless, proximity warning, hingga kamera 360 untuk unit transportasi.
+
+[opsional: klik salah satu label di peta, misalnya Remote Dozer, untuk menunjukkan detail progresnya, lalu kembali ke peta]
+
+Stream ketiga adalah Direct Automation. Di sini kami tidak lagi mengurangi paparan, tetapi menghilangkannya sama sekali, dengan mengadopsi praktik terbaik yang sudah terbukti. Isinya Automated Drone Surveillance untuk pemantauan 24 jam tanpa pilot di lokasi, dan Hauling Automation yang saat ini sedang dalam tahap studi kelayakan.
+
+Dan stream keempat, Data dan AI, melalui OBDS dan Safety Intelligence, menjadi tulang punggung yang menyatukan data dari seluruh proyek ini.
+
+Dari semua inisiatif tadi, Hauling Automation adalah salah satu yang paling transformatif, karena menyentuh aktivitas dengan paparan terbesar di tambang kami. Untuk itu, mari kita lihat seberapa siap data kami untuk mendukungnya.
+
+[klik ke slide berikutnya]
+
+
+[SLIDE 5 - Eboni Road Interactive Information Map]
+
+Inilah koridor hauling Binungan-Suaran, yaitu jalan Eboni, dari kilometer 1 hingga kilometer 28. Tujuan utama Autonomous Haulage di sini adalah menghilangkan paparan para driver terhadap bahaya hauling. Efisiensi tenaga kerja menjadi manfaat berikutnya.
+
+Koridor ini memiliki panjang centerline sekitar 26,5 kilometer, dengan grade maksimum 9,9 persen. Warna hijau menunjukkan grade di bawah 8 persen, sedangkan kuning antara 8 hingga 10 persen, dan ternyata 21 dari 28 kilometer berada di rentang kuning ini. Kami juga mencatat 21 tikungan tajam, serta 3 jembatan satu lajur di kilometer 3, 21, dan 23.
+
+Di jalan ini beroperasi 28 unit truk, yaitu 25 Volvo FH16 diesel dan 3 SANY listrik, selama 360 hari setahun dalam dua shift 12 jam. Lebar jalannya minimal 15 meter untuk dua arah dan 6 meter di bagian satu lajur, dengan batas kecepatan 60 kilometer per jam, dan operasi ini akan terus berjalan hingga akhir umur tambang di tahun 2038.
+
+Setiap kilometer bisa kami buka lebih detail. Sebagai contoh, kilometer 20.
+
+[klik penanda KM 20]
+
+Di segmen ini terdapat empat tikungan tajam dengan radius terkecil sekitar 76 meter, dan grade mencapai 9,6 persen. Inilah jenis titik yang harus benar-benar dipahami sebelum sebuah truk otonom bisa melintas dengan aman.
+
+[opsional: klik KM 1, lalu tombol CPP untuk menunjukkan area CPP di awal koridor, kemudian Jalan Hauling KM 1]
+
+[tekan Long section atau Esc untuk kembali]
+
+Jadi, untuk data peta, grade, dan geometri tikungan, kami sudah siap. Yang masih perlu kami lengkapi melalui verifikasi lapangan adalah lebar jalan aktual di setiap segmen, pola lalu lintas, kualitas sinyal GNSS, dan cakupan jaringan komunikasi. Inilah langkah kami berikutnya, sebelum masuk ke kajian vendor dan implementasi.
+
+Bapak Ibu sekalian, perjalanan kami dari kontrol manual menuju operasi yang otonom dan zero harm memang belum selesai. Tetapi dengan kerangka yang jelas dan data yang semakin lengkap, kami yakin langkah ini bisa kami percepat, terlebih bersama mitra teknologi yang tepat.
+
+Sekian paparan dari kami. Terima kasih, dan kami persilakan untuk diskusi.
+
+
+--------------------------------------------------
+CATATAN UNTUK PRESENTER
+--------------------------------------------------
+- Panah kanan/kiri untuk pindah slide. Tombol i di pojok kanan atas menampilkan daftar shortcut.
+- Di slide Eboni, saat detail KM terbuka, panah kanan/kiri berpindah antar KM. Tekan Esc dulu sebelum pindah slide.
+- Jika ditanya mengapa Technology baru 67 persen: justru itu alasan kami mendorong Framework Automation.
+- Jika ditanya kapan Hauling Automation berjalan: saat ini masih studi kelayakan, dan data readiness inilah fondasinya.

@@ -1,0 +1,750 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Emergency Response Group · Editorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF; --panel:#FFFFFF; --panel2:#F4F5F7; --line:#E3E6EA; --line2:#CDD2D9;
+    --ink:#0E1116; --ink2:#3A4250; --mute:#6B7482;
+    --red:#D7262E; --red2:#D7262E; --redd:#9E1820; --amber:#D7262E; --ok:#11875A;
+    --fh:'Space Grotesk',system-ui,sans-serif; --fb:'Inter',system-ui,sans-serif; --fm:'JetBrains Mono',ui-monospace,monospace;
+  }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; height:100%; background:#E6E9ED; color:var(--ink); font-family:var(--fb); overflow:hidden; -webkit-font-smoothing:antialiased; }
+  #app{ position:absolute; left:0; top:0; width:1920px; height:1080px; transform-origin:0 0; background:var(--bg); overflow:hidden; }
+  #app::before{ content:''; position:absolute; inset:0; pointer-events:none; z-index:0;
+    background:none;
+    background-size:48px 48px; }
+  #app::after{ content:''; position:absolute; inset:0; pointer-events:none; z-index:0; background:none; }
+
+  /* chrome */
+  .bar{ position:absolute; z-index:20; left:60px; right:60px; top:22px; height:40px; border-bottom:1px solid var(--line); display:flex; align-items:center; gap:18px; font:700 13px/1 var(--fm); letter-spacing:.14em; text-transform:uppercase; color:var(--mute); }
+  .bar .brand{ display:flex; align-items:center; gap:10px; color:var(--ink); }
+  .bar .brand i{ width:10px; height:10px; background:var(--red); }
+  .bar .sec{ flex:1; padding-left:18px; border-left:1px solid var(--line2); }
+  .bar .live{ display:flex; align-items:center; gap:8px; color:var(--ok); }
+  .bar .live i{ width:8px; height:8px; border-radius:50%; background:var(--ok); animation:pulse 1.6s infinite; }
+  .bar .cnt{ color:var(--ink); } .bar .cnt b{ color:var(--red2); }
+  @keyframes pulse{ 0%{ box-shadow:0 0 0 0 rgba(61,214,140,.6);} 70%{ box-shadow:0 0 0 8px rgba(61,214,140,0);} 100%{ box-shadow:0 0 0 0 rgba(61,214,140,0);} }
+  .prog{ position:absolute; z-index:20; left:0; top:0; height:4px; background:var(--red); transition:width .6s cubic-bezier(.2,.8,.2,1); }
+  .nav{ position:absolute; z-index:20; bottom:22px; left:50%; transform:translateX(-50%); display:flex; gap:8px; }
+  .nav button{ width:34px; height:5px; padding:0; border:0; border-radius:3px; background:var(--line2); cursor:pointer; transition:background .3s,width .3s; }
+  .nav button.on{ width:60px; background:var(--red); }
+  .arr{ position:absolute; z-index:20; top:50%; width:46px; height:46px; margin-top:-23px; border-radius:50%; border:1px solid var(--line2); background:#fff; color:var(--ink); font:400 22px/1 var(--fb); cursor:pointer; opacity:0; transition:opacity .3s; }
+  #app:hover .arr{ opacity:.85; } .arr.l{ left:10px; } .arr.r{ right:10px; }
+
+  /* slides */
+  .slide{ position:absolute; inset:0; z-index:1; padding:92px 60px 56px; opacity:0; visibility:hidden; transition:opacity .5s, visibility .5s; }
+  .slide.on{ opacity:1; visibility:visible; }
+  .a{ opacity:0; transform:translateY(18px); }
+  .slide.on .a{ animation:up .7s cubic-bezier(.2,.8,.2,1) forwards; animation-delay:calc(var(--i,0) * 70ms + 120ms); }
+  @keyframes up{ to{ opacity:1; transform:none; } }
+  .hd{ display:flex; align-items:flex-end; gap:40px; margin-bottom:22px; padding-bottom:16px; border-bottom:3px solid var(--ink); }
+  .hd .k{ font:700 13px/1 var(--fm); letter-spacing:.18em; text-transform:uppercase; color:var(--red2); margin:0 0 12px; display:flex; align-items:center; gap:10px; }
+  .hd .k::before{ content:''; width:26px; height:2px; background:var(--red); }
+  .hd h2{ margin:0; font:700 54px/1.02 var(--fh); letter-spacing:-.02em; }
+  .hd h2 em{ font-style:normal; color:var(--red2); }
+  .hd p{ margin:0; max-width:620px; margin-left:auto; padding-left:22px; border-left:3px solid var(--red); font-size:17px; line-height:1.5; color:var(--ink2); }
+  .hd p b{ color:var(--ink); }
+  .pn{ position:relative; background:var(--panel); border:1px solid var(--line2); border-top:3px solid var(--ink); border-radius:2px; }
+  .tag{ font:700 12px/1 var(--fm); letter-spacing:.14em; text-transform:uppercase; color:var(--mute); }
+  .ttl{ display:flex; align-items:center; gap:12px; margin:0 0 14px; font:700 20px/1.1 var(--fh); }
+  .ttl::after{ content:''; flex:1; height:1px; background:var(--line); }
+  .ttl small{ font:700 12px/1 var(--fm); letter-spacing:.12em; color:var(--mute); text-transform:uppercase; }
+  svg.ic{ width:22px; height:22px; fill:currentColor; flex:none; }
+
+  /* ===== 1 cover ===== */
+  #s1{ padding:0; }
+  #s1 .ph{ position:absolute; right:0; top:0; width:880px; height:1080px; background:url('erg/v2-cover.jpg') 40% center/cover; border-left:12px solid var(--red); }
+  #s1 .ph::after{ content:none; }
+  #s1 .scan{ display:none; position:absolute; right:0; top:0; width:1180px; height:1080px; pointer-events:none; background:repeating-linear-gradient(0deg,rgba(255,255,255,.03) 0 1px,transparent 1px 4px); }
+  #s1 .ret{ display:none; position:absolute; right:440px; top:250px; width:270px; height:270px; border:1px solid rgba(255,90,96,.5); pointer-events:none; }
+  #s1 .ret::before,#s1 .ret::after{ content:''; position:absolute; background:var(--red2); }
+  #s1 .ret::before{ left:50%; top:-20px; bottom:-20px; width:1px; opacity:.5; } #s1 .ret::after{ top:50%; left:-20px; right:-20px; height:1px; opacity:.5; }
+  #s1 .ret span{ position:absolute; left:0; top:-26px; font:700 12px/1 var(--fm); letter-spacing:.14em; color:var(--red2); }
+  #s1 .in{ position:absolute; left:110px; top:150px; width:900px; z-index:2; }
+  #s1 .lg{ display:flex; align-items:center; gap:20px; }
+  #s1 .lg img{ height:58px; padding:0; background:none; }
+  #s1 .lg p{ margin:0; padding-left:20px; border-left:2px solid var(--ink); font:700 14px/1.5 var(--fm); letter-spacing:.14em; color:var(--ink2); }
+  #s1 .lg p b{ display:block; color:var(--ink); font-size:16px; }
+  #s1 .kk{ margin:84px 0 18px; font:700 15px/1 var(--fm); letter-spacing:.3em; color:var(--red2); }
+  #s1 h1{ margin:0; font:700 124px/.9 var(--fh); letter-spacing:-.045em; color:var(--ink); }
+  #s1 h1 span{ display:block; }
+  #s1 h1 em{ font-style:normal; color:var(--red); }
+  #s1 .sub{ margin:34px 0 0; font:500 26px/1.4 var(--fb); color:var(--ink2); max-width:640px; }
+  #s1 .ft{ position:absolute; left:110px; bottom:90px; z-index:2; display:flex; }
+  #s1 .ft div{ width:220px; padding:20px 24px 4px 0; margin-right:24px; border-top:2px solid var(--line2); }
+  #s1 .ft div{ border-top-color:var(--ink) !important; border-top-width:3px !important; } #s1 .ft div:first-child{ border-top-color:var(--red) !important; }
+  #s1 .ft u{ text-decoration:none; font:700 12px/1 var(--fm); letter-spacing:.14em; color:var(--mute); }
+  #s1 .ft svg{ display:block; width:40px; height:40px; margin:16px 0 12px; fill:var(--red2); }
+  #s1 .ft b{ font:700 19px/1.2 var(--fh); }
+  #s1 .rdy{ position:absolute; right:60px; bottom:90px; z-index:2; display:flex; align-items:center; gap:14px; padding:14px 20px; border:0; background:#fff; border-radius:4px; font:700 14px/1 var(--fm); letter-spacing:.14em; color:var(--ok); }
+  #s1 .rdy i{ width:10px; height:10px; border-radius:50%; background:var(--ok); animation:pulse 1.6s infinite; }
+
+  /* ===== 2 profile ===== */
+  #s2 .fd{ display:grid; grid-template-columns:1.25fr 1.5fr 1fr 1fr; border-top:1px solid var(--line); border-bottom:1px solid var(--line); margin-bottom:22px; }
+  #s2 .fd > div{ padding:16px 24px 16px 0; display:flex; gap:14px; }
+  #s2 .fd > div + div{ padding-left:24px; border-left:1px solid var(--line); }
+  #s2 .fd svg{ width:26px; height:26px; fill:var(--red2); flex:none; margin-top:2px; }
+  #s2 .fd b{ display:block; font:700 12px/1 var(--fm); letter-spacing:.14em; text-transform:uppercase; color:var(--red2); margin-bottom:8px; }
+  #s2 .fd p{ margin:0; font-size:14.5px; line-height:1.45; color:var(--ink2); }
+  #s2 .bd{ display:grid; grid-template-columns:560px 1fr; gap:20px; height:676px; }
+  #s2 .hd{ margin-bottom:12px; padding-bottom:12px; } #s2 .fd > div{ padding-top:13px !important; padding-bottom:13px !important; } #s2 .fd{ margin-bottom:14px; border-top:0 !important; }
+  #s2 .org{ padding:22px 24px; display:flex; flex-direction:column; }
+  #s2 .tree{ position:relative; flex:1; display:flex; flex-direction:column; justify-content:space-evenly; gap:12px; margin-bottom:18px; }
+  #s2 .nd{ display:flex; align-items:center; gap:12px; padding:11px 14px; background:var(--panel2); border:1px solid var(--line2); border-radius:4px; }
+  #s2 .nd i{ display:grid; place-items:center; width:34px; height:34px; border-radius:50%; background:var(--ink); color:#fff; flex:none; font:700 13px/1 var(--fm); }
+  #s2 .nd b{ display:block; font:700 15.5px/1.15 var(--fh); } #s2 .nd small{ display:block; margin-top:3px; font-size:12.5px; color:var(--mute); }
+  #s2 .nd.l1{ background:var(--red); border-color:var(--red); color:#fff; } #s2 .nd.l1 i{ background:rgba(255,255,255,.2); color:#fff; } #s2 .nd.l1 small{ color:#FFD6D8; }
+  #s2 .nd.l2{ margin-left:28px; background:var(--ink); border-color:var(--ink); color:#fff; } #s2 .nd.l2 small{ color:#C5CCD6; } #s2 .nd.l2 i{ background:#fff; color:var(--ink); }
+  #s2 .row3{ margin-left:56px; display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+  #s2 .row3 .nd{ flex-direction:column; align-items:flex-start; gap:8px; padding:10px 12px; }
+  #s2 .row3 .nd i{ width:28px; height:28px; }
+  #s2 .tree::before{ content:''; position:absolute; left:16px; top:40px; bottom:30px; border-left:1px dashed var(--line2); }
+  #s2 .crew{ margin-top:auto; display:grid; grid-template-columns:1fr 1fr 1.3fr; border:1px solid var(--line2); border-radius:4px; overflow:hidden; }
+  #s2 .crew div{ padding:16px 18px; }
+  #s2 .crew div + div{ border-left:1px solid var(--line2); }
+  #s2 .crew b{ display:block; font:700 46px/1 var(--fh); letter-spacing:-.02em; } #s2 .crew span{ font:700 11.5px/1.3 var(--fm); letter-spacing:.1em; text-transform:uppercase; color:var(--mute); }
+  #s2 .crew .t{ background:var(--red); color:#fff; } #s2 .crew .t span{ color:#FFE1E2; }
+  #s2 .rt{ display:grid; grid-template-rows:auto minmax(0,1fr); gap:18px; min-height:0; }
+  #s2 .kh{ display:flex; align-items:center; gap:16px; margin-bottom:12px; }
+  #s2 .kh .ttl{ flex:1; margin:0; }
+  #s2 .tot{ display:flex; align-items:center; gap:12px; padding:8px 16px; background:var(--ink); border-radius:2px; } #s2 .tot span{ color:#C5CCD6 !important; } #s2 .tot b{ color:#fff !important; }
+  #s2 .tot b{ font:700 34px/1 var(--fh); color:var(--amber); } #s2 .tot span{ font:700 11px/1.3 var(--fm); letter-spacing:.1em; text-transform:uppercase; color:var(--ink2); }
+  #s2 .kp{ display:grid; grid-template-columns:repeat(5,1fr); gap:12px; }
+  #s2 .kc{ position:relative; overflow:hidden; height:auto; padding:18px 16px; border-radius:2px; border:1px solid var(--line2); border-top:3px solid var(--red); display:flex; flex-direction:column; background:var(--panel); }
+  #s2 .kc::before{ content:''; position:absolute; z-index:2; right:12px; top:12px; width:92px; height:68px; border-radius:2px; background:var(--im) center/cover; transition:transform .4s; }
+  #s2 .kc::after{ content:none; }
+  #s2 .kc:hover::before{ transform:scale(1.08); }
+  #s2 .kc > *{ position:relative; z-index:1; }
+  #s2 .kc header{ display:flex; flex-direction:column; align-items:flex-start; gap:8px; max-width:110px; font:700 12px/1.25 var(--fm); letter-spacing:.1em; text-transform:uppercase; }
+  #s2 .kc header svg{ width:18px; height:18px; fill:var(--red2); }
+  #s2 .kc .v{ margin-top:22px; font:700 60px/1 var(--fh); letter-spacing:-.03em; }
+  #s2 .kc .u{ margin-top:6px; font-size:14px; font-weight:700; color:var(--amber); }
+  #s2 .kc .sb{ margin:6px 0 10px; padding-bottom:10px; border-bottom:1px solid var(--line2); font-size:12.5px; line-height:1.4; color:var(--mute); min-height:46px; }
+  #s2 .kc ul{ margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:7px; }
+  #s2 .kc li{ position:relative; padding-left:16px; font-size:13.5px; line-height:1.35; color:var(--ink2); }
+  #s2 .kc li::before{ content:''; position:absolute; left:0; top:6px; width:7px; height:7px; background:var(--red); }
+  #s2 .lw{ display:grid; grid-template-columns:1fr 560px; gap:22px; min-height:0; }
+  #s2 .ic{ padding:18px 20px; }
+  #s2 .ic ul{ margin:0; padding:0; list-style:none; display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+  #s2 .ic li{ padding:9px 12px; background:var(--panel2); border-left:3px solid var(--red); border-radius:2px; }
+  #s2 .ic li b{ display:block; font:600 14.5px/1.2 var(--fh); } #s2 .ic li span{ font:700 11px/1.5 var(--fm); letter-spacing:.06em; color:var(--mute); text-transform:uppercase; }
+  #s2 .ic li.sum{ background:var(--red); color:#fff; border-left-color:var(--ink); display:flex; align-items:center; gap:10px; }
+  #s2 .ic li.sum b{ font-size:30px; } #s2 .ic li.sum span{ color:#FFE1E2; line-height:1.25; }
+  #s2 .ctl{ padding:18px 20px; display:flex; flex-direction:column; }
+  #s2 .ctl p{ margin:0 0 10px; font-size:14px; line-height:1.5; color:var(--ink2); } #s2 .ctl p em{ font-style:normal; color:var(--ok); font-weight:700; }
+  #s2 .flw{ margin:auto 0 0; padding:0; list-style:none; display:grid; grid-template-columns:repeat(3,1fr); gap:6px; counter-reset:f; }
+  #s2 .flw li{ position:relative; padding:9px 10px; background:var(--panel2); border:1px solid var(--line2); border-radius:3px; font-size:13px; font-weight:600; line-height:1.2; }
+  #s2 .flw li u{ display:block; text-decoration:none; font:700 11px/1 var(--fm); color:var(--red2); margin-bottom:4px; }
+  #s2 .flw li:last-child{ background:var(--red); border-color:var(--red); color:#fff; } #s2 .flw li:last-child u{ color:#fff; }
+
+  /* ===== 3 roadmap ===== */
+  #s3 .hd{ margin-bottom:20px; }
+  #s3 .vp{ position:absolute; left:60px; right:60px; top:252px; height:594px; border-radius:2px; overflow:hidden; border:1px solid var(--line2); background:#1A1F27; cursor:grab; touch-action:none; }
+  #s3 .vp.drag{ cursor:grabbing; }
+  #s3 .stg{ position:absolute; left:0; top:0; width:1672px; height:941px; transform-origin:0 0; }
+  #s3 .vp.anim .stg, #s3 .vp.anim .pin{ transition:transform .85s cubic-bezier(.22,.8,.2,1); }
+  #s3 .stg img{ position:absolute; inset:0; width:100%; height:100%; filter:none; user-select:none; -webkit-user-drag:none; }
+  #s3 .vp::after{ content:none; }
+  #s3 .pin{ position:absolute; left:0; top:0; z-index:2; }
+  #s3 .pin button{ position:absolute; transform:translate(-50%,-50%); width:44px; height:44px; padding:0; border-radius:50%; border:2px solid #fff; background:var(--red); color:#fff; font:700 15px/1 var(--fm); cursor:pointer; box-shadow:0 0 0 6px rgba(229,48,58,.25),0 6px 16px rgba(0,0,0,.5); }
+  #s3 .pin button::after{ content:''; position:absolute; inset:-12px; border-radius:50%; border:2px solid rgba(255,90,96,.6); animation:ring 2.2s infinite; }
+  @keyframes ring{ 0%{ transform:scale(.6); opacity:1; } 100%{ transform:scale(1.5); opacity:0; } }
+  #s3 .pin span{ position:absolute; left:30px; top:-15px; white-space:nowrap; padding:7px 11px; background:#fff; color:var(--ink); border:0; border-left:4px solid var(--red); border-radius:2px; font:700 14px/1 var(--fh); pointer-events:none; box-shadow:0 4px 12px rgba(0,0,0,.25); }
+  #s3 .pin.dim{ opacity:.25; } #s3 .pin.act button{ background:var(--ink); color:#fff; box-shadow:0 0 0 8px rgba(14,17,22,.25); }
+  #s3 .vp.zoomed .pin:not(.act) span{ display:none; }
+  #s3 .zm{ position:absolute; z-index:5; left:16px; bottom:16px; display:flex; gap:6px; }
+  #s3 .zm button{ height:36px; min-width:36px; padding:0 12px; border-radius:3px; border:1px solid var(--line2); background:#fff; color:var(--ink); font:700 13px/1 var(--fm); cursor:pointer; }
+  #s3 .cap{ position:absolute; z-index:5; right:16px; bottom:16px; padding:6px 10px; background:rgba(255,255,255,.9); font:700 11px/1.4 var(--fm); letter-spacing:.08em; color:var(--mute); text-transform:uppercase; text-align:right; }
+  #s3 .dock{ position:absolute; left:60px; right:60px; top:862px; height:150px; display:grid; grid-template-columns:repeat(6,1fr); gap:10px; }
+  #s3 .st{ position:relative; display:flex; flex-direction:column; align-items:flex-start; gap:8px; padding:16px 16px 14px; text-align:left; background:var(--panel); border:1px solid var(--line2); border-top:3px solid var(--ink); border-radius:2px; color:var(--ink); cursor:pointer; font-family:var(--fb); transition:border-color .25s, background .25s, transform .25s; }
+  #s3 .st:hover{ transform:translateY(-3px); border-color:var(--red); }
+  #s3 .st.on{ background:var(--red); border-color:var(--red); color:#fff; } #s3 .st.on u, #s3 .st.on small{ color:#fff; }
+  #s3 .st u{ text-decoration:none; font:700 30px/1 var(--fh); color:var(--red2); }
+  #s3 .st small{ font:700 10.5px/1.2 var(--fm); letter-spacing:.12em; text-transform:uppercase; color:var(--mute); }
+  #s3 .st b{ font:600 15.5px/1.25 var(--fh); }
+  #s3 .st::after{ content:''; position:absolute; right:-11px; top:50%; width:12px; height:2px; background:var(--line2); }
+  #s3 .st:last-child::after{ display:none; }
+  #s3 .drw{ position:absolute; z-index:6; top:12px; right:12px; bottom:12px; width:500px; display:flex; flex-direction:column; background:#fff; border:0; border-top:4px solid var(--red); border-radius:2px; overflow:hidden; transform:translateX(110%); transition:transform .55s cubic-bezier(.2,.8,.2,1); box-shadow:0 20px 50px rgba(0,0,0,.3); cursor:default; }
+  #s3 .drw.on{ transform:none; }
+  #s3 .drw figure{ position:relative; margin:0; height:230px; flex:none; overflow:hidden; }
+  #s3 .drw figure img{ width:100%; height:100%; object-fit:cover; display:block; }
+  #s3 .drw figure::after{ content:none; }
+  #s3 .drw figure u{ position:absolute; z-index:1; left:0; bottom:0; padding:10px 16px 6px; background:var(--red); text-decoration:none; font:700 44px/1 var(--fh); color:#fff; letter-spacing:-.03em; }
+  #s3 .drw .x{ position:absolute; z-index:2; right:12px; top:12px; width:34px; height:34px; border-radius:50%; border:0; background:#fff; color:var(--ink); font:400 22px/1 var(--fb); cursor:pointer; box-shadow:0 2px 8px rgba(0,0,0,.25); }
+  #s3 .drw .bx{ flex:1; min-height:0; padding:14px 22px 16px; display:flex; flex-direction:column; gap:10px; }
+  #s3 .drw small{ font:700 11.5px/1 var(--fm); letter-spacing:.14em; text-transform:uppercase; color:var(--red2); }
+  #s3 .drw h4{ margin:0; font:700 24px/1.15 var(--fh); }
+  #s3 .drw p{ margin:0; font-size:14.5px; line-height:1.5; color:var(--ink2); }
+  #s3 .drw ul{ margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:6px; }
+  #s3 .drw li{ display:flex; gap:10px; padding:8px 12px; background:var(--panel2); border-radius:3px; font-size:14px; line-height:1.3; }
+  #s3 .drw li::before{ content:'✓'; color:var(--ok); font-weight:800; }
+  #s3 .drw .nv{ margin-top:auto; display:flex; gap:8px; }
+  #s3 .drw .nv button{ flex:1; height:38px; border-radius:3px; border:1px solid var(--line2); background:var(--panel2); color:var(--ink); font:700 12.5px/1 var(--fm); letter-spacing:.06em; cursor:pointer; }
+  #s3 .drw .nv button:disabled{ opacity:.35; cursor:default; }
+  #s3 .drw .nv button.m{ background:var(--ink); border-color:var(--ink); color:#fff; }
+
+  /* ===== 4 kolaborasi ===== */
+  #s4 .cols{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; height:716px; }
+  #s4 .hd h2{ font-size:44px; white-space:nowrap; } #s4 .hd .k{ white-space:nowrap; } #s4 .hd p{ max-width:470px; font-size:16px; } #s4 .hd{ margin-bottom:22px; }
+  #s4 .cl{ display:flex; flex-direction:column; overflow:hidden; }
+  #s4 .cl figure{ position:relative; margin:0; height:150px; flex:none; overflow:hidden; }
+  #s4 .cl figure img{ width:100%; height:100%; object-fit:cover; display:block; filter:saturate(.9); transition:transform .6s; }
+  #s4 .cl:hover figure img{ transform:scale(1.05); }
+  #s4 .cl figure::after{ content:''; position:absolute; inset:0; background:linear-gradient(180deg,transparent 25%,rgba(0,0,0,.78)); }
+  #s4 .cl figure u{ position:absolute; z-index:2; left:0; top:0; width:58px; height:58px; display:grid; place-items:center; background:var(--red); text-decoration:none; font:700 34px/1 var(--fh); color:#fff; }
+  #s4 .cl figure div{ position:absolute; z-index:1; left:18px; bottom:12px; right:18px; }
+  #s4 .cl figure small{ font:700 11px/1 var(--fm); letter-spacing:.14em; text-transform:uppercase; color:#FFB3B6; }
+  #s4 .cl figure h3{ margin:5px 0 0; color:#fff; font:700 24px/1.05 var(--fh); display:flex; align-items:baseline; justify-content:space-between; gap:8px; }
+  #s4 .cl figure h3 span{ font:700 11px/1 var(--fm); letter-spacing:.06em; color:#fff; white-space:nowrap; }
+  #s4 .bx{ flex:1; min-height:0; padding:10px 18px 0; display:flex; flex-direction:column; }
+  #s4 .lb{ font:700 10.5px/1 var(--fm); letter-spacing:.14em; text-transform:uppercase; color:var(--mute); margin:6px 0 8px; }
+  #s4 ol{ margin:0; padding:0; list-style:none; counter-reset:n; display:flex; flex-direction:column; gap:5px; }
+  #s4 ol li{ counter-increment:n; position:relative; padding-left:30px; font-size:13.5px; line-height:1.36; color:var(--ink2); }
+  #s4 ol li::before{ content:counter(n,decimal-leading-zero); position:absolute; left:0; top:1px; font:700 11px/1.5 var(--fm); color:var(--red2); }
+  #s4 .fc{ margin-top:auto; padding-top:10px; }
+  #s4 .fc ul{ margin:0; padding:0; list-style:none; display:flex; flex-wrap:wrap; gap:5px; }
+  #s4 .fc li{ padding:6px 9px; border:1px solid var(--ink); background:#fff; border-radius:2px; font-size:12px; font-weight:700; line-height:1.25; color:var(--ink); }
+  #s4 .rs{ margin:12px -18px 0; padding:11px 18px; background:var(--panel2); border-top:1px solid var(--line2); font-size:12.5px; line-height:1.4; color:var(--ink2); }
+  #s4 .rs b{ font:700 10.5px/1 var(--fm); letter-spacing:.12em; color:var(--ok); text-transform:uppercase; margin-right:6px; }
+  #s4 .kd{ display:flex; align-items:center; gap:0; margin-top:14px; height:48px; }
+  #s4 .kd > span{ flex:none; width:230px; font:700 12px/1 var(--fm); letter-spacing:.14em; text-transform:uppercase; color:var(--red2); }
+  #s4 .kd ol{ flex:1; display:grid; grid-template-columns:repeat(6,1fr); gap:0; flex-direction:row; height:100%; }
+  #s4 .kd li{ display:flex; align-items:center; gap:10px; padding:0 16px; background:var(--panel); border:1px solid var(--line2); border-right:0; font:600 14px/1.15 var(--fh); color:var(--ink); }
+  #s4 .kd li::before{ position:static; content:counter(n,decimal-leading-zero); font-size:12px; }
+  #s4 .kd li:last-child{ background:var(--red); border-color:var(--red); color:#fff; } #s4 .kd li:last-child::before{ color:#fff; }
+  #s4 .kd li:first-child{ border-radius:4px 0 0 4px; } #s4 .kd li:last-child{ border-radius:0 4px 4px 0; }
+
+  /* ===== 5 2027 ===== */
+  #s5 .bd{ display:grid; grid-template-columns:780px 1fr; gap:20px; height:742px; }
+  #s5 .cd{ padding:20px 22px; display:flex; flex-direction:column; }
+  #s5 .ch{ display:flex; align-items:center; gap:14px; margin-bottom:12px; }
+  #s5 .ch i{ display:grid; place-items:center; width:46px; height:46px; border-radius:4px; background:var(--red); flex:none; } #s5 .ch i svg{ width:24px; height:24px; fill:#fff; }
+  #s5 .ch small{ display:block; font:700 11.5px/1 var(--fm); letter-spacing:.14em; text-transform:uppercase; color:var(--red2); margin-bottom:6px; }
+  #s5 .ch h3{ margin:0; font:700 26px/1 var(--fh); }
+  #s5 .tj{ margin:0 0 14px; padding:10px 14px; border-left:4px solid var(--red); background:var(--panel2); font-size:14px; line-height:1.45; color:var(--ink2); }
+  #s5 .tj b{ font:700 11px/1 var(--fm); letter-spacing:.12em; color:var(--amber); margin-right:8px; }
+  #s5 .grp{ flex:1; display:grid; grid-template-columns:170px 1fr; gap:14px; margin-bottom:14px; }
+  #s5 .grp:last-child{ margin-bottom:0; }
+  #s5 .grp figure{ position:relative; margin:0; border-radius:4px; overflow:hidden; }
+  #s5 .grp figure img{ width:100%; height:100%; object-fit:cover; display:block; }
+  #s5 .grp figure figcaption{ position:absolute; left:0; right:0; bottom:0; padding:22px 10px 8px; background:linear-gradient(transparent,rgba(0,0,0,.8)); color:#fff; font:700 14px/1.15 var(--fh); }
+  #s5 .grp figure figcaption u{ display:grid; place-items:center; width:34px; height:34px; margin-bottom:6px; background:var(--red); text-decoration:none; font:700 20px/1 var(--fh); color:#fff; }
+  #s5 .grp ul{ margin:0; padding:0; list-style:none; display:grid; grid-template-columns:1fr 1fr; grid-auto-rows:1fr; gap:6px; }
+  #s5 .grp li{ display:flex; flex-direction:column; justify-content:center; }
+  #s5 .grp li{ padding:9px 12px; background:var(--panel2); border:1px solid var(--line); border-radius:3px; }
+  #s5 .grp li b{ display:flex; gap:8px; font:600 14.5px/1.2 var(--fh); } #s5 .grp li b u{ text-decoration:none; font:700 11.5px/1.5 var(--fm); color:var(--red2); }
+  #s5 .grp li span{ display:block; margin:3px 0 0 27px; font-size:12px; line-height:1.35; color:var(--mute); }
+  #s5 .th{ display:flex; align-items:center; gap:10px; margin:2px 0 8px; font:700 15px/1 var(--fh); }
+  #s5 .th em{ font-style:normal; padding:5px 8px; background:var(--red); border-radius:2px; font:700 11px/1 var(--fm); letter-spacing:.08em; text-transform:uppercase; }
+  #s5 .th::after{ content:''; flex:1; height:1px; background:var(--line); }
+  #s5 .jr{ position:relative; display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin-bottom:12px; }
+  #s5 .js{ background:var(--panel2); border:1px solid var(--line); border-radius:4px; overflow:hidden; }
+  #s5 .js figure{ position:relative; margin:0; height:128px; overflow:hidden; }
+  #s5 .js figure img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .5s; }
+  #s5 .js:hover figure img{ transform:scale(1.06); }
+  #s5 .js figure u{ position:absolute; left:8px; top:8px; padding:4px 7px; background:var(--red); border-radius:0; text-decoration:none; font:700 11px/1 var(--fm); color:#fff; }
+  #s5 .js div{ padding:9px 10px 10px; }
+  #s5 .js b{ display:block; font:600 14.5px/1.15 var(--fh); } #s5 .js span{ display:block; margin-top:4px; font-size:11.5px; line-height:1.35; color:var(--mute); }
+  #s5 .mf{ margin-top:auto; display:grid; grid-template-columns:150px repeat(3,1fr); gap:10px; align-items:stretch; }
+  #s5 .mf > b{ display:flex; align-items:center; font:700 11.5px/1.3 var(--fm); letter-spacing:.12em; text-transform:uppercase; color:var(--ok); }
+  #s5 .mf div{ display:flex; gap:9px; padding:10px 12px; border:1px solid var(--line2); border-left:4px solid var(--ok); background:#fff; border-radius:3px; font-size:13px; line-height:1.35; color:var(--ink2); }
+  #s5 .mf div::before{ content:'✓'; color:var(--ok); font-weight:800; }
+  #s5 .goal{ display:flex; align-items:center; gap:26px; margin-top:16px; height:66px; padding:0 26px; border-radius:2px; background:var(--ink); color:#fff; }
+  #s5 .goal b{ flex:none; font:700 22px/1 var(--fh); padding-right:26px; border-right:1px solid rgba(255,255,255,.35); }
+  #s5 .goal p{ margin:0; font-size:15.5px; line-height:1.4; } #s5 .goal p em{ font-style:normal; font-weight:800; color:#FF6B70; } #s5 .goal p{ color:#E3E6EA; }
+
+
+  /* s2 fit (light) */
+  #s2 .kc{ padding:14px 14px 14px !important; }
+  #s2 .kc .v{ margin-top:12px !important; font-size:50px !important; }
+  #s2 .kc .sb{ min-height:0 !important; margin:4px 0 8px !important; padding-bottom:8px !important; }
+  #s2 .kc ul{ gap:5px !important; } #s2 .kc li{ font-size:13px !important; }
+  #s2 .ctl p{ font-size:13px !important; margin-bottom:8px !important; }
+  #s2 .flw{ grid-template-columns:repeat(6,1fr) !important; gap:4px !important; }
+  #s2 .flw li{ padding:7px 7px !important; font-size:11.5px !important; }
+  #s2 .ic li{ padding:7px 10px !important; } #s2 .ic ul{ gap:6px !important; }
+  #s2 .ic, #s2 .ctl{ padding:14px 18px !important; } #s2 .ttl{ margin-bottom:10px !important; }
+
+  #s2 .kc::before{ width:70px !important; height:50px !important; }
+  #s2 .kc .v{ margin-top:18px !important; }
+  #s2 .kc header{ min-height:46px; }
+  #s1 .ft div{ width:196px !important; margin-right:20px !important; }
+  #app.c1 .bar{ border-bottom-color:transparent; }
+  #app.c1 .bar .live, #app.c1 .bar .cnt{ padding:7px 10px; background:#fff; }
+
+  /* ================= EDITORIAL THEME ================= */
+  :root{ --bg:#FAF7F2; --panel:transparent; --panel2:#F1ECE4; --line:#DCD5CA; --line2:#C9C1B4; --ink:#1C1A17; --ink2:#46423C; --mute:#7C756B; --red:#A3262E; --red2:#A3262E; --ok:#2F6B4F; --amber:#A3262E;
+         --fs:'Fraunces',Georgia,serif; }
+  html,body{ background:#E9E4DB; }
+  #app{ background:var(--bg); }
+  .bar{ top:24px; height:38px; border-bottom:1px solid var(--ink); font:600 12px/1 var(--fb); letter-spacing:.2em; }
+  .bar .brand i{ display:none; } .bar .brand{ font-family:var(--fs); font-size:17px; letter-spacing:.02em; text-transform:none; font-weight:600; }
+  .bar .live{ display:none; } .bar .cnt{ font-family:var(--fs); font-size:16px; letter-spacing:0; } .bar .cnt b{ color:var(--red); }
+  .prog{ height:2px; background:var(--ink); }
+  .nav button{ height:2px; background:var(--line2); } .nav button.on{ background:var(--ink); }
+  .arr{ border-color:var(--line2); background:var(--bg); }
+  .hd{ border-bottom:0; padding-bottom:0; position:relative; margin-bottom:26px; }
+  .hd::after{ content:''; position:absolute; left:0; right:0; bottom:-12px; height:4px; border-top:1px solid var(--ink); border-bottom:1px solid var(--ink); }
+  .hd .k{ font:600 12px/1 var(--fb); letter-spacing:.22em; color:var(--red); }
+  .hd .k::before{ display:none; }
+  .hd h2{ font:600 58px/1 var(--fs); letter-spacing:-.02em; font-variation-settings:'opsz' 144; }
+  .hd h2 em{ font-style:italic; font-weight:400; color:var(--red); }
+  .hd p{ border-left:0; padding-left:0; font:italic 400 19px/1.45 var(--fs); color:var(--ink2); max-width:560px; }
+  .hd p b{ font-style:normal; font-weight:600; color:var(--ink); }
+  .pn{ background:none; border:0; border-top:1px solid var(--ink); border-radius:0; }
+  .ttl{ font:600 22px/1.1 var(--fs); } .ttl::after{ background:none; }
+  .ttl small{ font:italic 400 15px/1 var(--fs); letter-spacing:0; text-transform:none; color:var(--mute); }
+  .tag{ font:600 11px/1 var(--fb); letter-spacing:.2em; }
+
+  /* cover */
+  #s1 .ph{ left:0; right:auto; width:900px; border-left:0; background-position:45% center; }
+  #s1 .in{ left:1000px; top:150px; width:820px; }
+  #s1 .lg p{ border-left:1px solid var(--ink); font:600 12px/1.6 var(--fb); letter-spacing:.2em; }
+  #s1 .lg p b{ font-size:13px; }
+  #s1 .kk{ margin:70px 0 22px; padding-top:18px; border-top:1px solid var(--ink); font:italic 400 20px/1 var(--fs); letter-spacing:0; color:var(--red); }
+  #s1 h1{ font:600 112px/.92 var(--fs); letter-spacing:-.035em; font-variation-settings:'opsz' 144; }
+  #s1 h1 em{ font-style:italic; font-weight:400; }
+  #s1 .sub{ font:italic 400 26px/1.4 var(--fs); color:var(--ink2); max-width:640px; }
+  #s1 .ft{ left:1000px; right:100px; bottom:96px; display:grid; grid-template-columns:repeat(4,1fr); gap:0; }
+  #s1 .ft div{ width:auto !important; margin:0 !important; padding:16px 18px 0 0; border-top:1px solid var(--ink) !important; border-top-width:1px !important; }
+  #s1 .ft div + div{ padding-left:18px; border-left:1px solid var(--line2); }
+  #s1 .ft u{ font:600 30px/1 var(--fs); letter-spacing:0; color:var(--red); }
+  #s1 .ft svg{ display:none; }
+  #s1 .ft b{ display:block; margin-top:10px; font:600 17px/1.25 var(--fb); }
+  #s1 .cap1{ position:absolute; z-index:2; left:40px; bottom:40px; width:420px; margin:0; padding:16px 18px; background:var(--bg); font:italic 400 16px/1.45 var(--fs); color:var(--ink2); }
+  #s1 .cap1 b{ font-style:normal; font-weight:700; color:var(--ink); }
+  #app.c1 .bar{ left:1000px; border-bottom-color:var(--ink); }
+  #app.c1 .bar .cnt{ padding:0; background:none; }
+
+  /* profile */
+  #s2 .fd{ border-top:0 !important; border-bottom:1px solid var(--line2); }
+  #s2 .fd svg{ display:none; }
+  #s2 .fd b{ font:600 11px/1 var(--fb); letter-spacing:.2em; color:var(--red); }
+  #s2 .fd p{ font:400 15px/1.45 var(--fs); color:var(--ink); }
+  #s2 .org{ padding:16px 0 0; }
+  #s2 .nd{ background:none !important; border:0 !important; border-bottom:1px solid var(--line) !important; border-radius:0; padding:9px 0; color:var(--ink) !important; }
+  #s2 .nd i{ background:none !important; color:var(--red) !important; width:auto; height:auto; font:600 13px/1 var(--fb); letter-spacing:.1em; border-radius:0; min-width:30px; }
+  #s2 .nd b{ font:600 18px/1.15 var(--fs); } #s2 .nd small{ color:var(--mute) !important; font-size:13px; }
+  #s2 .nd.l1 b{ font-size:24px; } #s2 .nd.l2 b{ font-size:20px; }
+  #s2 .nd.l1{ border-bottom:2px solid var(--ink) !important; }
+  #s2 .row3 .nd{ padding:8px 0; }
+  #s2 .tree::before{ border-left:1px solid var(--line2); }
+  #s2 .crew{ border:0; border-top:1px solid var(--ink); border-radius:0; }
+  #s2 .crew div{ padding:14px 14px 0 0; } #s2 .crew div + div{ padding-left:16px; border-left:1px solid var(--line2); }
+  #s2 .crew b{ font:600 52px/1 var(--fs); } #s2 .crew span{ font:600 11px/1.4 var(--fb); letter-spacing:.14em; }
+  #s2 .crew .t{ background:none; color:var(--red); } #s2 .crew .t b{ color:var(--red); } #s2 .crew .t span{ color:var(--red); }
+  #s2 .tot{ background:none !important; padding:0 !important; border-radius:0; }
+  #s2 .tot b{ color:var(--red) !important; font:600 44px/1 var(--fs) !important; } #s2 .tot span{ color:var(--ink2) !important; font:600 11px/1.4 var(--fb); letter-spacing:.14em; }
+  #s2 .kp{ gap:0; border-top:1px solid var(--ink); }
+  #s2 .kc{ background:none; border:0 !important; border-radius:0; padding:12px 16px 4px !important; }
+  #s2 .kc + .kc{ border-left:1px solid var(--line2) !important; }
+  #s2 .kc::before{ position:relative; display:block; order:-1; right:auto; top:auto; width:100% !important; height:92px !important; margin-bottom:10px; border-radius:0; }
+  #s2 .kc header{ flex-direction:row; max-width:none; min-height:0; font:600 11px/1.2 var(--fb); letter-spacing:.16em; }
+  #s2 .kc header svg{ display:none; }
+  #s2 .kc .v{ margin-top:6px !important; font:600 52px/1 var(--fs) !important; letter-spacing:-.02em; }
+  #s2 .kc .u{ color:var(--red); font:italic 400 16px/1.2 var(--fs); }
+  #s2 .kc .sb{ border-bottom:1px solid var(--line); font-size:12.5px; }
+  #s2 .kc li::before{ width:5px; height:5px; border-radius:50%; background:var(--ink); top:7px; }
+  #s2 .ic, #s2 .ctl{ padding:12px 0 0 !important; }
+  #s2 .ic li{ background:none; border-left:0; border-bottom:1px dotted var(--line2); border-radius:0; padding:6px 0 !important; }
+  #s2 .ic li b{ font:600 16px/1.2 var(--fs); } #s2 .ic li span{ font:600 10.5px/1.6 var(--fb); letter-spacing:.14em; color:var(--red); }
+  #s2 .ic li.sum{ background:none; color:var(--red); border-bottom:0; } #s2 .ic li.sum b{ font:600 40px/1 var(--fs); } #s2 .ic li.sum span{ color:var(--ink2); }
+  #s2 .ctl p{ font:400 15px/1.5 var(--fs) !important; color:var(--ink); } #s2 .ctl p em{ font-style:italic; color:var(--red); }
+  #s2 .flw li{ background:none; border:0; border-top:2px solid var(--ink); border-radius:0; padding:7px 4px 0 0 !important; font:600 12.5px/1.2 var(--fb) !important; }
+  #s2 .flw li u{ font:600 18px/1 var(--fs); color:var(--red); }
+  #s2 .flw li:last-child{ background:none; color:var(--red); border-color:var(--red); } #s2 .flw li:last-child u{ color:var(--red); }
+
+  /* roadmap */
+  #s3 .vp{ top:262px; height:584px; border:0; border-radius:0; }
+  #s3 .pin button{ background:var(--ink); border:2px solid #fff; font:600 16px/1 var(--fs); box-shadow:0 4px 12px rgba(0,0,0,.35); }
+  #s3 .pin button::after{ border-color:rgba(255,255,255,.7); }
+  #s3 .pin span{ border-left:0; border-radius:0; font:600 15px/1 var(--fs); background:var(--bg); }
+  #s3 .pin.act button{ background:var(--red); box-shadow:0 0 0 8px rgba(163,38,46,.25); }
+  #s3 .zm button{ border-radius:0; background:var(--bg); font:600 13px/1 var(--fb); }
+  #s3 .cap{ background:var(--bg); font:italic 400 13px/1.4 var(--fs); letter-spacing:0; text-transform:none; }
+  #s3 .dock{ gap:0; border-top:1px solid var(--ink); }
+  #s3 .st{ background:none; border:0; border-top:0; border-radius:0; padding:12px 16px 0; }
+  #s3 .st + .st{ border-left:1px solid var(--line2); }
+  #s3 .st::after{ display:none; }
+  #s3 .st u{ font:600 34px/1 var(--fs); color:var(--ink); }
+  #s3 .st small{ font:600 10.5px/1.2 var(--fb); letter-spacing:.14em; color:var(--red); }
+  #s3 .st b{ font:600 17px/1.25 var(--fs); }
+  #s3 .st:hover{ transform:none; background:var(--panel2); }
+  #s3 .st.on{ background:none; color:var(--ink); box-shadow:inset 0 3px 0 var(--red); }
+  #s3 .st.on u{ color:var(--red); } #s3 .st.on small{ color:var(--red); }
+  #s3 .drw{ background:var(--bg); border-top:0; border-radius:0; }
+  #s3 .drw figure u{ background:var(--bg); color:var(--red); font:600 46px/1 var(--fs); padding:8px 16px 4px; }
+  #s3 .drw small{ font:600 11px/1 var(--fb); letter-spacing:.18em; color:var(--red); }
+  #s3 .drw h4{ font:600 28px/1.1 var(--fs); } #s3 .drw figure{ height:auto; flex:1 1 0; min-height:110px; } #s3 .drw .bx{ flex:none; }
+  #s3 .drw p{ font:italic 400 16px/1.5 var(--fs); }
+  #s3 .drw li{ background:none; border-bottom:1px solid var(--line); border-radius:0; padding:7px 0; font-size:14.5px; }
+  #s3 .drw li::before{ content:'—'; color:var(--red); }
+  #s3 .drw .nv button{ border-radius:0; background:none; font:600 12px/1 var(--fb); letter-spacing:.08em; }
+  #s3 .drw .nv button.m{ background:var(--ink); }
+
+  /* kolaborasi */
+  #s4 .hd h2{ font-size:46px; } #s4 .hd{ margin-bottom:28px; }
+  #s4 .cols{ gap:0; border-top:1px solid var(--ink); height:772px; }
+  #s4 .cl{ border-top:0; padding:14px 18px 0; }
+  #s4 .cl + .cl{ border-left:1px solid var(--line2); }
+  #s4 .cl:first-child{ padding-left:0; } #s4 .cl:last-child{ padding-right:0; }
+  #s4 .cl figure{ height:132px; }
+  #s4 .cl figure::after{ content:none; }
+  #s4 .cl figure u{ display:none; }
+  #s4 .cl figure div{ position:static; }
+  #s4 .cl figure{ display:flex; flex-direction:column; height:auto; overflow:visible; }
+  #s4 .cl figure img{ height:150px; order:-1; }
+  #s4 .cl figure small{ display:block; margin-top:10px; color:var(--red); font:600 11px/1 var(--fb); letter-spacing:.18em; }
+  #s4 .cl figure h3{ color:var(--ink); font:600 25px/1.1 var(--fs); }
+  #s4 .cl figure h3 span{ color:var(--mute); font:italic 400 14px/1 var(--fs); letter-spacing:0; }
+  #s4 .bx{ padding:4px 0 0; }
+  #s4 .lb{ font:600 10.5px/1 var(--fb); letter-spacing:.18em; color:var(--mute); }
+  #s4 ol li{ font-size:13.5px; color:var(--ink); }
+  #s4 ol li::before{ font:600 13px/1.4 var(--fs); color:var(--red); }
+  #s4 .fc ul{ display:block; }
+  #s4 .fc li{ display:block; border:0; background:none; padding:2px 0; font:italic 400 14.5px/1.35 var(--fs); color:var(--ink); }
+  #s4 .fc li::before{ content:'— '; color:var(--red); font-style:normal; }
+  #s4 .rs{ margin:12px 0 0; padding:10px 0 12px; background:none; border-top:1px solid var(--ink); font:italic 400 14px/1.4 var(--fs); color:var(--ink2); }
+  #s4 .rs b{ font:600 10.5px/1 var(--fb); letter-spacing:.18em; color:var(--red); font-style:normal; }
+  #s4 .kd{ margin-top:16px; border-top:1px solid var(--ink); padding-top:10px; height:auto; }
+  #s4 .kd > span{ font:600 11px/1 var(--fb); letter-spacing:.2em; color:var(--red); }
+  #s4 .kd li{ background:none; border:0; padding:0 12px; font:600 16px/1.15 var(--fs); }
+  #s4 .kd li::before{ font:600 13px/1 var(--fb); color:var(--red); }
+  #s4 .kd li:last-child{ background:none; color:var(--red); } #s4 .kd li:last-child::before{ color:var(--red); }
+
+  /* 2027 */
+  #s5 .bd{ gap:44px; }
+  #s5 .cd{ padding:14px 0 0; }
+  #s5 .ch i{ display:none; }
+  #s5 .ch small{ font:600 11px/1 var(--fb); letter-spacing:.2em; color:var(--red); }
+  #s5 .ch h3{ font:600 32px/1 var(--fs); }
+  #s5 .tj{ border-left:0; background:none; padding:0 0 12px; border-bottom:1px solid var(--line); font:italic 400 16px/1.45 var(--fs); color:var(--ink2); }
+  #s5 .tj b{ font:600 10.5px/1 var(--fb); letter-spacing:.18em; color:var(--red); font-style:normal; }
+  #s5 .grp figure{ border-radius:0; }
+  #s5 .grp figure figcaption{ background:var(--bg); color:var(--ink); padding:8px 0 0; position:absolute; top:auto; font:600 15px/1.15 var(--fs); }
+  #s5 .grp figure figcaption u{ display:inline; background:none; color:var(--red); width:auto; height:auto; margin:0 6px 0 0; font:italic 600 20px/1 var(--fs); }
+  #s5 .grp li{ background:none; border:0; border-bottom:1px solid var(--line); border-radius:0; padding:6px 0; }
+  #s5 .grp li b{ font:600 16px/1.2 var(--fs); } #s5 .grp li b u{ font:600 13px/1.5 var(--fs); color:var(--red); }
+  #s5 .grp li span{ color:var(--ink2); }
+  #s5 .th{ font:600 18px/1 var(--fs); }
+  #s5 .th em{ background:none; color:var(--red); padding:0; font:600 11px/1 var(--fb); letter-spacing:.18em; }
+  #s5 .th::after{ background:var(--line2); }
+  #s5 .js{ background:none; border:0; border-radius:0; }
+  #s5 .js figure u{ background:var(--bg); color:var(--red); font:600 14px/1 var(--fs); left:0; top:0; padding:5px 8px; }
+  #s5 .js div{ padding:8px 0 0; } #s5 .js b{ font:600 16px/1.15 var(--fs); }
+  #s5 .mf > b{ color:var(--red); font:600 11px/1.4 var(--fb); letter-spacing:.18em; }
+  #s5 .mf div{ border:0 !important; border-top:1px solid var(--ink) !important; border-radius:0; padding:8px 0 0; background:none; font:italic 400 15px/1.35 var(--fs); color:var(--ink); }
+  #s5 .mf div::before{ content:'—'; color:var(--red); font-style:normal; }
+  #s5 .goal{ background:none; color:var(--ink); border-top:4px double var(--ink); border-radius:0; padding:12px 0 0; height:auto; }
+  #s5 .goal b{ color:var(--red); font:600 26px/1 var(--fs); border-right:1px solid var(--line2); }
+  #s5 .goal p{ color:var(--ink) !important; font:italic 400 17px/1.45 var(--fs); }
+  #s5 .goal p em{ color:var(--red); font-style:normal; font-weight:600; }
+
+  #gate form{ border-radius:0; border-top:4px double var(--ink); background:var(--bg); }
+  #gate h3{ font-family:var(--fs); }
+  /* gate */
+  #gate{ position:fixed; inset:0; z-index:100; display:none; place-items:center; background:#05070A; font-family:var(--fb); }
+  html.lock #gate{ display:grid; }
+  #gate form{ width:380px; padding:34px; background:var(--panel); border:1px solid var(--line2); border-top:3px solid var(--red); border-radius:6px; }
+  #gate h3{ margin:0 0 6px; font:700 24px/1.2 var(--fh); } #gate p{ margin:0 0 20px; color:var(--mute); font-size:14px; }
+  #gate input{ width:100%; height:46px; padding:0 14px; border-radius:4px; border:1px solid var(--line2); background:var(--bg); color:var(--ink); font-size:16px; }
+  #gate button{ width:100%; height:46px; margin-top:12px; border:0; border-radius:4px; background:var(--red); color:#fff; font:700 15px/1 var(--fb); cursor:pointer; }
+  #gate .m{ min-height:20px; margin-top:10px; color:var(--red2); font-size:13px; }
+
+  /* version switcher */
+  #themeSw{ position:fixed; left:14px; bottom:12px; z-index:90; --idle:.1; display:flex; align-items:center; gap:4px; padding:4px; border-radius:999px; background:#fff; border:1px solid #CDD2D9; font:700 11px/1 'Inter',system-ui,sans-serif; opacity:var(--idle); transition:opacity .25s; }
+  #themeSw:hover, #themeSw:focus-within{ opacity:1; }
+  #themeSw span{ padding:0 6px 0 8px; color:#8590A2; letter-spacing:.06em; text-transform:uppercase; font-size:10px; }
+  #themeSw a{ display:flex; align-items:center; gap:5px; padding:6px 10px; border-radius:999px; color:#0E1116; text-decoration:none; }
+  #themeSw a::before{ content:''; width:9px; height:9px; border-radius:50%; background:var(--c); }
+  #themeSw a.on{ background:#0E1116; color:#fff; }
+</style>
+<script>
+(function(){
+  var KEY='deckGate', HASH='b5db982693486945e3e04d99a5375503a5a8abddcef639f38d9689516e184910';
+  var ok=false; try{ ok = sessionStorage.getItem(KEY) === HASH; }catch(e){}
+  if(!ok) document.documentElement.classList.add('lock');
+  window.__gate = { KEY:KEY, HASH:HASH };
+})();
+</script>
+</head>
+<body>
+<div id="gate"><form autocomplete="off"><h3>Dokumen terbatas</h3><p>Masukkan kata sandi untuk membuka presentasi.</p><input id="gateIn" type="password" placeholder="Kata sandi" aria-label="Kata sandi"><button type="submit">Buka</button><div class="m" role="alert"></div></form></div>
+
+<div id="app">
+  <div class="prog" id="prog"></div>
+  <div class="bar"><span class="brand"><i></i>ERG · PT Berau Coal</span><span class="sec" id="sec"></span><span class="live"><i></i>Ready for use</span><span class="cnt" id="cnt"></span></div>
+  <button class="arr l" id="prev" aria-label="Sebelumnya">&lsaquo;</button><button class="arr r" id="next" aria-label="Berikutnya">&rsaquo;</button>
+  <div class="nav" id="nav"></div>
+
+  <!-- 1 COVER -->
+  <section class="slide" id="s1" data-sec="Cover">
+    <div class="ph a" style="--i:0"></div><div class="scan"></div>
+    <div class="ret a" style="--i:6"><span>ERG · TEAM ON SITE</span></div>
+    <div class="in">
+      <div class="lg a" style="--i:1"><img src="logo/bc-cut.png" alt="Berau Coal"><p><b>PT BERAU COAL</b>EMERGENCY RESPONSE &amp; SAFETY SERVICE</p></div>
+      <p class="kk a" style="--i:2">Edisi 2026 &nbsp;·&nbsp; Laporan Program ER &amp; SS</p>
+      <h1 class="a" style="--i:3"><span>Emergency</span><span>Response</span><span>Group <em>(ERG)</em></span></h1>
+      <p class="sub a" style="--i:4">Integrated, Prepared, and Responsive for a Safer Mining Operation</p>
+    </div>
+    <div class="ft">
+      <div class="a" style="--i:5"><u>01</u><svg data-ic="siren"></svg><b>Emergency<br>Response</b></div>
+      <div class="a" style="--i:6"><u>02</u><svg data-ic="shield"></svg><b>Safety<br>Service</b></div>
+      <div class="a" style="--i:7"><u>03</u><svg data-ic="ext"></svg><b>Fire<br>Protection</b></div>
+      <div class="a" style="--i:8"><u>04</u><svg data-ic="people"></svg><b>Preparedness<br>&amp; Readiness</b></div>
+    </div>
+    <p class="cap1 a" style="--i:9"><b>Di lapangan.</b> Kru Emergency Response Group PT Berau Coal siaga di area tambang.</p>
+  </section>
+
+  <!-- 2 PROFILE -->
+  <section class="slide" id="s2" data-sec="A · Struktur ER &amp; SS">
+    <div class="hd a"><div><p class="k">Emergency Response &amp; Safety Service · PT Berau Coal</p><h2>Landasan, Struktur Organisasi <em>&amp; Akuntabilitas</em></h2></div></div>
+    <div class="fd a" style="--i:1">
+      <div><svg data-ic="target"></svg><div><b>Visi PT Berau Coal</b><p>Menunjang perwujudan masa depan cemerlang melalui peran aktifnya sebagai pengalih ragam energi yang eksponensial.</p></div></div>
+      <div><svg data-ic="flag"></svg><div><b>Misi PT Berau Coal</b><p>Mengelola sumber daya alam menjadi sumber energi dengan standar operasional yang mengutamakan kelestarian lingkungan dan kesejahteraan masyarakat.</p></div></div>
+      <div><svg data-ic="scale"></svg><div><b>Dasar Hukum</b><p>Permen ESDM 26/2018<br>Kepmen ESDM 1827 K/30/MEM/2018</p></div></div>
+      <div><svg data-ic="doc"></svg><div><b>Pembentukan</b><p>IM KTT No. 682/BC/TT-GBK/VII/2016</p></div></div>
+    </div>
+    <div class="bd">
+      <div class="pn org a" style="--i:2">
+        <h3 class="ttl">Struktur Organisasi 2026</h3>
+        <div class="tree">
+          <div class="nd l1"><i>GM</i><span><b>Jimmi Idris</b><small>GM OHS</small></span></div>
+          <div class="nd l2"><i>DH</i><span><b>Andi Henry Achmad</b><small>ER &amp; SS Dept. Head</small></span></div>
+          <div class="row3">
+            <div class="nd"><i>SH</i><span><b>I Nyoman Arya</b><small>ER &amp; SS Section Head</small></span></div>
+            <div class="nd"><i>TC</i><span><b>Hasbi Jumaidii</b><small>Training &amp; Competency</small></span></div>
+            <div class="nd"><i>FP</i><span><b>Eka Harsoni</b><small>Fire Protection &amp; Maintenance</small></span></div>
+          </div>
+          <div class="row3">
+            <div class="nd"><i>IC</i><span><b>Andi Basri</b><small>Koordinator IC</small></span></div>
+            <div class="nd"><i>IC</i><span><b>M Aqram</b><small>Koordinator IC</small></span></div>
+            <div class="nd"><i>SS</i><span><b>Bahar</b><small>Safety Service Officer</small></span></div>
+          </div>
+        </div>
+        <div class="crew"><div><b data-n="113">113</b><span>ER Crew / Member</span></div><div><b data-n="13">13</b><span>Paramedik</span></div><div class="t"><b data-n="126">126</b><span>Total personel pelaksana</span></div></div>
+      </div>
+      <div class="rt">
+        <div class="a" style="--i:3">
+          <div class="kh"><h3 class="ttl">Cakupan Data &amp; Akuntabilitas</h3><div class="tot"><b data-n="5811">5.811</b><span>Total data<br>pengelolaan ER &amp; SS</span></div></div>
+          <div class="kp">
+            <article class="kc" style="--im:url('erg/kpi-1.jpg')"><header><svg data-ic="people"></svg>Manpower</header><div class="v" data-n="126">126</div><div class="u">Personel</div><p class="sb">113 ER Crew + 13 Paramedik</p><ul><li>Kecukupan, kompetensi &amp; penempatan personel</li><li>Roster, shift, on-call, cuti &amp; pengganti</li><li>Kesiapan fisik, kesehatan &amp; kebugaran</li></ul></article>
+            <article class="kc" style="--im:url('erg/kpi-2.jpg')"><header><svg data-ic="truck"></svg>Emergency Unit</header><div class="v" data-n="43">43</div><div class="u">Unit</div><p class="sb">Ambulance, Fire Truck, Rescue, Water Truck, LV Support</p><ul><li>Ketersediaan, kelayakan &amp; fungsi unit</li><li>P2H, preventive &amp; corrective maintenance</li><li>Perbaikan hingga <b>Ready for Use</b></li></ul></article>
+            <article class="kc" style="--im:url('erg/kpi-3.jpg')"><header><svg data-ic="wrench"></svg>Peralatan ER</header><div class="v" data-n="4299">4.299</div><div class="u">Data inventaris</div><p class="sb">7 kategori peralatan</p><ul><li>Kelengkapan &amp; standar kelayakan</li><li>Inspeksi, uji fungsi &amp; maintenance berkala</li><li>Tindak lanjut kerusakan &amp; penggantian</li></ul></article>
+            <article class="kc" style="--im:url('erg/kpi-4.jpg')"><header><svg data-ic="monitor"></svg>Teknologi</header><div class="v" data-n="85">85</div><div class="u">Perangkat / titik</div><p class="sb">43 DMS · 31 CCTV · 11 Bodycam</p><ul><li>Ketersediaan &amp; cakupan perangkat monitoring</li><li>Pantau lokasi, aktivitas tim &amp; intervensi</li><li>Gangguan, konektivitas &amp; perbaikan</li></ul></article>
+            <article class="kc" style="--im:url('erg/kpi-5.jpg')"><header><svg data-ic="shield"></svg>Safety Device</header><div class="v" data-n="1258">1.258</div><div class="u">Data inspeksi</div><p class="sb">Perangkat keselamatan</p><ul><li>Pemenuhan standar sesuai risiko area</li><li>Inspeksi, functional test &amp; maintenance</li><li>Temuan &amp; penutupan gap pemenuhan</li></ul></article>
+          </div>
+        </div>
+        <div class="lw">
+          <div class="pn ic a" style="--i:4"><h3 class="ttl">Incident Commander per Site <small>11 site</small></h3>
+            <ul><li><b>Sutrisno</b><span>CCR HO</span></li><li><b>Afriandy</b><span>BMO 1</span></li><li><b>Hamsul</b><span>LMO</span></li><li><b>Putro Prasetya</b><span>PMO</span></li><li><b>Arjas Syahputra</b><span>SMO</span></li><li><b>Gundisalvus</b><span>Suaran</span></li><li><b>Ecky</b><span>GMO Utara</span></li><li><b>Ade Erlangga</b><span>BMO 2</span></li><li><b>Elki Pratama</b><span>GMO Selatan</span></li><li><b>Warham</b><span>BMO 3</span></li><li><b>Irwan Setiawan</b><span>Transhipment</span></li><li class="sum"><b>11</b><span>Site tercakup<br>Incident Commander</span></li></ul>
+          </div>
+          <div class="pn ctl a" style="--i:5"><h3 class="ttl">Emergency Data &amp; Equipment Control</h3>
+            <p>Pengendalian terintegrasi atas manpower, unit, peralatan, teknologi dan safety device melalui pengelolaan data, inspeksi, uji fungsi, maintenance dan tindak lanjut perbaikan, untuk menjaga kesiapan operasional <em>Ready for Use</em> di seluruh site.</p>
+            <span class="tag" style="margin-bottom:8px">Monitoring &amp; Evaluasi</span>
+            <ol class="flw"><li><u>01</u>DOP</li><li><u>02</u>Pelaksanaan</li><li><u>03</u>Pemeriksaan Hasil</li><li><u>04</u>Evaluasi</li><li><u>05</u>Tindak Lanjut Temuan</li><li><u>06</u>Laporan Bulanan</li></ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 ROADMAP -->
+  <section class="slide" id="s3" data-sec="B · Roadmap ERG">
+    <div class="hd a"><div><p class="k">Emergency Response Group · Roadmap Kru ERG</p><h2>Roadmap <em>Kru ERG</em></h2></div><p>Perjalanan setiap kru ERG, mulai dari <b>seleksi dan pendidikan</b>, menjalankan <b>tugas harian dan penugasan Safety Service</b>, dievaluasi melalui <b>KPI</b>, hingga menjadi tim <b>Emergency Response &amp; Safety Service</b> yang siap merespons di seluruh site.</p></div>
+    <div class="vp a" id="vp" style="--i:1">
+      <div class="stg" id="stg"><img src="erg/roadmaps-hd.jpg" alt="Ilustrasi roadmap kru ERG"></div>
+      <div id="pins"></div>
+      <div class="zm"><button type="button" data-z="1.3" aria-label="Perbesar">+</button><button type="button" data-z="0.77" aria-label="Perkecil">&minus;</button><button type="button" id="home">Lihat semua</button></div>
+      <div class="cap">Ilustrasi konseptual<br>bukan lokasi &amp; skala sebenarnya</div>
+      <aside class="drw" id="drw"></aside>
+    </div>
+    <div class="dock" id="dock"></div>
+  </section>
+
+  <!-- 4 KOLABORASI -->
+  <section class="slide" id="s4" data-sec="B · Program ERG Q4">
+    <div class="hd a"><div><p class="k">Emergency Response &amp; Safety Service · Program Q4 2026</p><h2>Kolaborasi Program Aktivitas <em>&amp; Perkuatan ERG Q4 2026</em></h2></div><p>Penguatan program <b>rutin &amp; nonrutin</b> untuk kesiapan operasional, <b>respons cepat</b>, dan <b>risiko terkendali</b> di empat fungsi ERG.</p></div>
+    <div class="cols">
+      <article class="pn cl a" style="--i:1"><figure><img src="erg/kol-a.jpg?v=2" alt=""><u>A</u><div><small>Emergency Response</small><h3>ER Crew Site <span>5 aktivitas</span></h3></div></figure>
+        <div class="bx"><p class="lb">Aktivitas rutin &amp; nonrutin</p><ol><li>Response incident: assessment bahaya, pengamanan lokasi, rescue, medis awal &amp; evakuasi korban</li><li>P5M, P2H kendaraan, inspeksi peralatan rescue &amp; kesiapan ER Station</li><li>Training rescue, fire &amp; medical, competency test, SAMAPTA &amp; emergency drill</li><li>Monitoring kondisi site, fasilitas, peralatan &amp; tindak lanjut temuan</li><li>Evaluasi penanganan insiden &amp; kesiapan personel serta peralatan</li></ol>
+        <div class="fc"><p class="lb">Fokus penguatan Q4</p><ul><li>Kesiapsiagaan tim Emergency Response</li><li>Kesiapan peralatan tanggap darurat</li><li>Emergency drill, PPGD &amp; pelaporan CCR</li><li>Mitigasi risiko musim hujan</li></ul></div>
+        <p class="rs"><b>Hasil</b>Personel &amp; peralatan siap, penanganan insiden terlaksana, hasil latihan &amp; respons dievaluasi.</p></div></article>
+      <article class="pn cl a" style="--i:2"><figure><img src="erg/kol-b.jpg?v=2" alt=""><u>B</u><div><small>Emergency Response</small><h3>Command Center HO <span>8 aktivitas</span></h3></div></figure>
+        <div class="bx"><p class="lb">Aktivitas rutin &amp; nonrutin</p><ol><li>Penerimaan laporan emergency, aktivasi tim &amp; koordinasi penanganan</li><li>Monitoring CCTV kesiapan ER Station, keberangkatan &amp; lokasi kejadian</li><li>Monitoring DMS untuk pergerakan kendaraan &amp; response time</li><li>Monitoring bodycam untuk pemantauan &amp; evaluasi penanganan insiden</li><li>Monitoring CCTV housekeeping, APD, fasilitas, temuan &amp; verifikasi logbook</li><li>Monitoring DMS perilaku tidak aman, pelanggaran, intervensi &amp; tindak lanjut</li><li>Pemeriksaan komunikasi radio &amp; kesiapan bodycam</li><li>Pencatatan kronologi, evaluasi response time &amp; pelaporan tindak lanjut</li></ol>
+        <div class="fc"><p class="lb">Fokus penguatan Q4</p><ul><li>Kelayakan personel, fatigue &amp; road safety</li><li>Dukungan emergency drill, PPGD &amp; pelaporan CCR</li><li>Layer 5 SBS: APD, emergency response, safety device &amp; kontrol sistem</li></ul></div>
+        <p class="rs"><b>Hasil</b>Pelaporan &amp; aktivasi tim terlaksana, kegiatan site terpantau, hasil monitoring &amp; intervensi tercatat.</p></div></article>
+      <article class="pn cl a" style="--i:3"><figure><img src="erg/kol-c.jpg?v=2" alt=""><u>C</u><div><small>Fire Protection</small><h3>Proteksi Kebakaran <span>5 aktivitas</span></h3></div></figure>
+        <div class="bx"><p class="lb">Aktivitas rutin &amp; nonrutin</p><ol><li>Fire Risk Assessment pada aset &amp; fasilitas operasional</li><li>Inspeksi APAR, hydrant, fire pump, alarm, gas detector &amp; fire suppression</li><li>Functional test serta pemeriksaan reservoir &amp; sistem pompa</li><li>Monitoring kondisi peralatan, perawatan &amp; penanganan kerusakan</li><li>Verifikasi hasil pengujian, pemeriksaan ulang &amp; tindak lanjut temuan</li></ol>
+        <div class="fc"><p class="lb">Fokus penguatan Q4</p><ul><li>Mitigasi pencegahan &amp; pengendalian kebakaran</li><li>Inspeksi proteksi kebakaran khusus</li></ul></div>
+        <p class="rs"><b>Hasil</b>Peralatan proteksi kebakaran diperiksa, diuji, dan kerusakan ditindaklanjuti.</p></div></article>
+      <article class="pn cl a" style="--i:4"><figure><img src="erg/kol-d.jpg?v=2" alt=""><u>D</u><div><small>IKK / Safety Service</small><h3>Pekerjaan Kritis <span>6 aktivitas</span></h3></div></figure>
+        <div class="bx"><p class="lb">Aktivitas rutin &amp; nonrutin</p><ol><li>Assessment &amp; observasi IKK serta verifikasi rescue plan</li><li>Assessment kecakapan pekerja &amp; pendampingan pekerjaan kritis</li><li>Pelaksanaan CCV, OAK, SAP, inspeksi bahaya &amp; coaching</li><li>Pengawasan langsung &amp; berjarak serta intervensi ketidaksesuaian</li><li>Training PPGD, self-evacuation &amp; sosialisasi keselamatan</li><li>Evaluasi assessment, observasi &amp; penyelesaian temuan</li></ol>
+        <div class="fc"><p class="lb">Fokus penguatan Q4</p><ul><li>Penurunan risiko IKK</li><li>Pengawasan IKK pekerjaan kritis</li><li>CCV &amp; OAK safety device tunnel</li><li>Safety culture &amp; speak up</li></ul></div>
+        <p class="rs"><b>Hasil</b>Pekerjaan kritis dinilai &amp; diawasi, pengendalian risiko diperiksa, temuan ditindaklanjuti.</p></div></article>
+    </div>
+    <div class="kd a" style="--i:5"><span>Kendali pelaksanaan</span><ol><li>DOP &amp; Jadwal Program</li><li>Pelaksanaan</li><li>Pemeriksaan Hasil</li><li>Evaluasi</li><li>Tindak Lanjut</li><li>Laporan Q4 2026</li></ol></div>
+  </section>
+
+  <!-- 5 PROGRAM 2027 -->
+  <section class="slide" id="s5" data-sec="C · Program 2027">
+    <div class="hd a"><div><p class="k">Emergency Response &amp; Safety Service · Rencana 2027</p><h2>Perkuatan Program ER <em>&amp; Safety Service 2027</em></h2></div><p>Peningkatan <b>kesiapsiagaan</b>, penguatan <b>Contact Defense</b>, dan dukungan <b>kebutuhan darah</b> operasional &amp; masyarakat Kabupaten Berau.</p></div>
+    <div class="bd">
+      <div class="pn cd a" style="--i:1">
+        <div class="ch"><i><svg data-ic="shield"></svg></i><div><small>Layer 5</small><h3>Contact Defense</h3></div></div>
+        <p class="tj"><b>TUJUAN</b>Meningkatkan kesiapan penanganan emergency, pengawasan risiko kritikal, dan keandalan Safety Device di seluruh area operasional.</p>
+        <div class="grp"><figure><img src="erg/p7-er.jpg" alt=""><figcaption><u>A</u>Emergency Response</figcaption></figure>
+          <ul><li><b><u>01</u>Kompetensi &amp; Sertifikasi</b><span>Kompetensi rescue &amp; sertifikasi personel ERG</span></li><li><b><u>02</u>Report &amp; Response Time</b><span>Pelaporan, eskalasi &amp; respons emergency &le; 10 menit</span></li><li><b><u>03</u>Unit &amp; Equipment</b><span>Inspeksi, uji fungsi &amp; maintenance, kondisi Ready for Use</span></li><li><b><u>04</u>Command &amp; Technology</b><span>Komando, komunikasi, CCTV &amp; Bodycam</span></li><li><b><u>05</u>Emergency Drill</b><span>Simulasi &amp; evaluasi kemampuan rescue sesuai skenario risiko</span></li><li><b><u>06</u>IKK &amp; SAP Pengawas</b><span>Assessment, OAK, observasi risiko kritikal &amp; tindak lanjut</span></li></ul></div>
+        <div class="grp"><figure><img src="erg/p7-sd.jpg" alt=""><figcaption><u>B</u>Safety Device</figcaption></figure>
+          <ul><li><b><u>01</u>Emergency Stop &amp; Interlock</b><span>Pemeriksaan &amp; uji fungsi penghentian darurat</span></li><li><b><u>02</u>Gas &amp; Flame Detector</b><span>Uji fungsi deteksi &amp; peringatan dini</span></li><li><b><u>03</u>Fire Alarm System</b><span>Pengujian fungsi alarm kebakaran</span></li><li><b><u>04</u>Inspeksi APAR, APAB &amp; Hydrant</b><span>Kelayakan &amp; kesiapan sarana pemadaman</span></li><li><b><u>05</u>Fire Pump &amp; Sistem Proteksi</b><span>Uji fungsi pompa &amp; sistem proteksi kebakaran</span></li><li><b><u>06</u>Monitoring &amp; Maintenance</b><span>Inspeksi, pemeliharaan &amp; penyelesaian temuan</span></li></ul></div>
+      </div>
+      <div class="pn cd a" style="--i:2">
+        <div class="ch"><i><svg data-ic="drop"></svg></i><div><small>Program baru</small><h3>Relawan Donor Darah Siaga</h3></div></div>
+        <p class="tj"><b>TUJUAN</b>Membentuk relawan donor darah dari karyawan PT Berau Coal dan mitra kerja untuk mendukung kebutuhan darah operasional serta stok darah masyarakat Kabupaten Berau.</p>
+        <div class="th"><em>Tahap 1</em>Pembentukan Relawan</div>
+        <div class="jr" id="jr1"></div>
+        <div class="th"><em>Tahap 2</em>Aktivasi &amp; Pelaksanaan Donor</div>
+        <div class="jr" id="jr2"></div>
+        <div class="mf"><b>Manfaat<br>program</b><div>Mendukung kebutuhan darah operasional perusahaan</div><div>Membantu ketersediaan stok darah masyarakat Kabupaten Berau</div><div>Meningkatkan kepedulian, kesiapsiagaan &amp; solidaritas karyawan</div></div>
+      </div>
+    </div>
+    <div class="goal a" style="--i:3"><b>Sasaran 2027</b><p>Meningkatkan kompetensi ERG, mempercepat respons emergency, memperkuat pengawasan risiko kritikal, menjaga kesiapan <em>Safety Device</em>, serta membangun <em>jaringan relawan donor darah siaga</em> bagi operasional dan masyarakat Kabupaten Berau.</p></div>
+  </section>
+</div>
+
+<nav id="themeSw" aria-label="Versi desain"><span>Versi</span><a href="erg.html" data-f="erg.html" style="--c:#1F8A3B">Hijau</a><a href="erg-v2.html" data-f="erg-v2.html" style="--c:#A3262E">Editorial</a><a href="erg-v3.html" data-f="erg-v3.html" style="--c:#1E4FA8">Navy</a></nav>
+
+<script>
+(function(){
+  var IC = {
+    people:'<path d="M12 4a3.2 3.2 0 1 1 0 6.4A3.2 3.2 0 0 1 12 4zM5 6.5a2.4 2.4 0 1 1 0 4.8 2.4 2.4 0 0 1 0-4.8zm14 0a2.4 2.4 0 1 1 0 4.8 2.4 2.4 0 0 1 0-4.8zM6.4 20c0-3.3 2.5-6 5.6-6s5.6 2.7 5.6 6zM.5 19c0-2.6 1.9-4.5 4.3-4.5.9 0 1.8.3 2.4.8-1.1 1.2-1.8 2.5-1.9 3.7zm23 0c0-2.6-1.9-4.5-4.3-4.5-.9 0-1.8.3-2.4.8 1.1 1.2 1.8 2.5 1.9 3.7z"/>',
+    siren:'<path d="M6 19v-6a6 6 0 0 1 12 0v6zM4 19h16v2.5H4z"/><path d="M12 1.5v3M4.2 4.7l2 2M19.8 4.7l-2 2M1.5 11h2.5M20 11h2.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>',
+    shield:'<path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3zm-1.5 14L7 12.5l1.4-1.4 2.1 2.1 5.1-5.1L17 9.5 10.5 16z"/>',
+    ext:'<path d="M9 8h6a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1zM10.5 4h3v3h-3zM13.5 5h4l2-2-.8-.8-1.6 1.6h-3.6z"/>',
+    truck:'<path d="M2 6h11v9H2zM13 9h4l3 3.5V15h-7zM6 19a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm11 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zM6.5 8.5h2v1.5H10v2H8.5v1.5h-2V12H5v-2h1.5z"/>',
+    wrench:'<path d="M21.7 6.3 18 10l-3.9-.1L14 6l3.7-3.7a6 6 0 0 0-7.6 7.6L2.6 17.4a2.1 2.1 0 1 0 3 3l7.5-7.5a6 6 0 0 0 7.6-7.6z"/>',
+    monitor:'<path d="M2 4h20v12H2zm2 2v8h16V6zM8 19h8v2H8zm3-3h2v3h-2z"/>',
+    target:'<path d="M12 2a10 10 0 1 1 0 20 10 10 0 0 1 0-20zm0 3a7 7 0 1 0 0 14 7 7 0 0 0 0-14zm0 3a4 4 0 1 1 0 8 4 4 0 0 1 0-8zm0 2.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>',
+    flag:'<path d="M5 2h2v20H5zM8 3h11l-2.5 4.5L19 12H8z"/>',
+    scale:'<path d="M11 3h2v2.1l6 1.4V8h-1.2l2.7 6.2c0 1.8-1.6 2.8-3.5 2.8s-3.5-1-3.5-2.8L16.2 8H13v11h4v2H7v-2h4V8H7.8l2.7 6.2C10.5 16 8.9 17 7 17s-3.5-1-3.5-2.8L6.2 8H5V6.5l6-1.4zM7 9.7 5.4 13.6h3.2zm10 0-1.6 3.9h3.2z"/>',
+    doc:'<path d="M6 2h8l5 5v15H6zm7 1.5V8h4.5zM8.5 12h8v1.6h-8zm0 3.4h8V17h-8zm0-6.8h4V10h-4z"/>',
+    drop:'<path d="M12 2.5S5 10 5 14.5a7 7 0 0 0 14 0C19 10 12 2.5 12 2.5zm-2.6 12.2h1.9v-1.9h1.4v1.9h1.9v1.4h-1.9V18h-1.4v-1.9H9.4z"/>'
+  };
+  document.querySelectorAll('svg[data-ic]').forEach(function(s){ s.setAttribute('viewBox','0 0 24 24'); s.setAttribute('aria-hidden','true'); s.innerHTML = IC[s.dataset.ic] || ''; });
+
+  /* donor journey */
+  var J = [['Tata Kelola','SOP, PIC &amp; koordinasi dengan PMI/UTD-RS'],['Rekrutmen','Sosialisasi &amp; pendaftaran relawan'],['Verifikasi','Pemeriksaan golongan darah ABO/Rh'],['Database','Pemetaan golongan darah, lokasi, kontak &amp; kesiapan'],['Komunikasi &amp; Siaga','Kartu relawan, uji panggilan &amp; pembaruan status'],
+           ['Kebutuhan Darah','Konfirmasi kebutuhan darah pasien atau stok'],['Koordinasi Stok','Cek ketersediaan darah melalui PMI/UTD-RS'],['Aktivasi Relawan','Pemanggilan &amp; mobilisasi relawan sesuai kebutuhan'],['Pelaksanaan Donor','Skrining kesehatan &amp; pelaksanaan donor'],['Monitoring &amp; Evaluasi','Pencatatan donor, pembaruan database &amp; evaluasi program']];
+  J.forEach(function(j, i){ var n = ('0' + (i + 1)).slice(-2);
+    document.getElementById(i < 5 ? 'jr1' : 'jr2').insertAdjacentHTML('beforeend', '<div class="js"><figure><img src="erg/p7-s' + n + '.jpg?v=2" alt=""><u>' + n + '</u></figure><div><b>' + j[0] + '</b><span>' + j[1] + '</span></div></div>'); });
+
+  /* scale canvas */
+  var app = document.getElementById('app');
+  function fit(){ var k = Math.min(innerWidth / 1920, innerHeight / 1080); app.style.transform = 'translate(' + (innerWidth - 1920 * k) / 2 + 'px,' + (innerHeight - 1080 * k) / 2 + 'px) scale(' + k + ')'; }
+  fit(); addEventListener('resize', fit);
+
+  /* slides */
+  var S = [].slice.call(document.querySelectorAll('.slide')), cur = -1, nav = document.getElementById('nav');
+  S.forEach(function(s, i){ var b = document.createElement('button'); b.type = 'button'; b.setAttribute('aria-label', 'Slide ' + (i + 1)); b.onclick = function(){ go(i); }; nav.appendChild(b); });
+  function count(root){ root.querySelectorAll('[data-n]').forEach(function(el){ var t = +el.dataset.n, t0 = performance.now(), d = 1300;
+    (function f(now){ var p = Math.min(1, (now - t0) / d), v = Math.round(t * (1 - Math.pow(1 - p, 3))); el.textContent = v.toLocaleString('id-ID'); if(p < 1) requestAnimationFrame(f); })(t0); }); }
+  function go(i){ i = Math.max(0, Math.min(S.length - 1, i)); if(i === cur) return; if(cur >= 0) S[cur].classList.remove('on'); cur = i; S[i].classList.add('on');
+    nav.querySelectorAll('button').forEach(function(b, j){ b.classList.toggle('on', j === i); }); app.classList.toggle('c1', i === 0);
+    document.getElementById('sec').innerHTML = S[i].dataset.sec; document.getElementById('cnt').innerHTML = '<b>' + ('0' + (i + 1)).slice(-2) + '</b> / ' + ('0' + S.length).slice(-2);
+    document.getElementById('prog').style.width = ((i + 1) / S.length * 100) + '%';
+    count(S[i]); try{ history.replaceState(null, '', '#' + (i + 1)); }catch(e){}
+    document.dispatchEvent(new CustomEvent('slide', { detail:S[i].id })); }
+  document.getElementById('prev').onclick = function(){ go(cur - 1); }; document.getElementById('next').onclick = function(){ go(cur + 1); };
+  addEventListener('keydown', function(e){ if(document.documentElement.classList.contains('lock')) return;
+    if(e.defaultPrevented) return;
+    if(['ArrowRight','PageDown',' '].indexOf(e.key) >= 0){ e.preventDefault(); go(cur + 1); }
+    else if(['ArrowLeft','PageUp'].indexOf(e.key) >= 0){ e.preventDefault(); go(cur - 1); }
+    else if(e.key === 'Home') go(0); else if(e.key === 'End') go(S.length - 1);
+    else if(e.key === 'f' || e.key === 'F'){ if(!document.fullscreenElement) document.documentElement.requestFullscreen && document.documentElement.requestFullscreen(); else document.exitFullscreen(); } });
+  window.__go = go;
+  go(Math.max(0, (parseInt(location.hash.slice(1), 10) || 1) - 1));
+
+  /* roadmap */
+  var STEPS = [{"n": "01", "g": "rek", "ph": "Rekrutmen & Pendidikan", "t": "Seleksi & Penerimaan Karyawan", "ic": "people", "p": [150, 700], "lab": [250, 800], "d": "Tahap awal penyaringan calon kru ERG agar memenuhi standar fisik dan kesehatan.", "b": ["Tes SAMAPTA A &amp; B", "Interview user", "Screening awal (termasuk MCU)"], "svg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><circle cx=\"12\" cy=\"6.5\" r=\"3\"/><circle cx=\"5\" cy=\"8.5\" r=\"2.3\"/><circle cx=\"19\" cy=\"8.5\" r=\"2.3\"/><path d=\"M6.6 19.5c0-3.2 2.4-5.8 5.4-5.8s5.4 2.6 5.4 5.8zM.8 18.5c0-2.5 1.8-4.4 4.2-4.4.9 0 1.8.3 2.4.8-1.1 1.2-1.8 2.5-1.9 3.6zM23.2 18.5c0-2.5-1.8-4.4-4.2-4.4-.9 0-1.8.3-2.4.8 1.1 1.2 1.8 2.5 1.9 3.6z\"/></svg>"}, {"n": "02", "g": "rek", "ph": "Rekrutmen & Pendidikan", "t": "Masa Pendidikan", "ic": "cap", "p": [150, 330], "lab": [250, 170], "d": "Pembekalan kompetensi dasar fire &amp; rescue hingga dinyatakan layak menjadi karyawan ER.", "b": ["Basic Fire &amp; Rescue Course (teori &amp; praktik)", "Tes SAMAPTA A &amp; B", "Penilaian &amp; OJT", "Kelayakan menjadi karyawan ER"], "svg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 3 1 8.5 12 14l9-4.5V16h2V8.5zM5 12.2V16c0 1.9 3.1 4 7 4s7-2.1 7-4v-3.8L12 16z\"/></svg>"}, {"n": "03", "g": "ops", "ph": "Operasional Harian", "t": "Tugas Harian Tim ERSS / Kru ERG &amp; Command Center", "ic": "gear", "p": [520, 600], "lab": [560, 470], "d": "Rutinitas harian kru ERG dan Command Center untuk menjaga kesiapan unit, peralatan, dan pemantauan.", "b": ["Roll Call &amp; Pembagian DOP", "P2H Unit &amp; Inspeksi Peralatan Emergency", "Monitoring CCTV, Bodycam &amp; DMS", "Penerimaan &amp; Koordinasi Laporan Emergency", "Evaluasi Kesiapan Peralatan &amp; Program ERG"], "svg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M19.4 13a7.5 7.5 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a7.3 7.3 0 0 0-1.7-1L15 3h-4l-.4 2.9a7.3 7.3 0 0 0-1.7 1l-2.5-1-2 3.5L6.6 11a7.5 7.5 0 0 0 0 2l-2.1 1.6 2 3.5 2.5-1a7.3 7.3 0 0 0 1.7 1L11 21h4l.4-2.9a7.3 7.3 0 0 0 1.7-1l2.5 1 2-3.5zM13 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z\"/></svg>"}, {"n": "04", "g": "ops", "ph": "Operasional Harian", "t": "Penunjukan Tim Safety Service &amp; Fire Protection", "ic": "shield", "p": [920, 350], "lab": [930, 190], "d": "Penugasan tim Safety Service &amp; Fire Protection untuk verifikasi, inspeksi, dan kesiapan proteksi.", "b": ["Assessment &amp; verifikasi IKK", "Pelaksanaan CCV, OAK, dan SAP", "Training PPGD &amp; self-evaluasi", "Evaluasi kesiapan fasilitas &amp; proteksi"], "svg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3zm-1.5 14L7 12.5l1.4-1.4 2.1 2.1 5.1-5.1L17 9.5 10.5 16z\"/></svg>"}, {"n": "05", "g": "kin", "ph": "Kinerja & Respons", "t": "KPI &amp; Evaluasi", "ic": "chart", "p": [1470, 205], "lab": [1390, 80], "d": "Penilaian kinerja kru ERG melalui KPI, evaluasi, dan tindak lanjut.", "b": ["Pembuatan plan KPI C – Kru ERG", "Pelaksanaan KPI &amp; penilaian", "Evaluasi hasil KPI", "Tindak lanjut &amp; potensi downgrade"], "svg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M3 20h18v2H3zM5 11h3v8H5zm5.5-4h3v12h-3zM16 3h3v16h-3z\"/></svg>"}, {"n": "06", "g": "kin", "ph": "Kinerja & Respons", "t": "Emergency Response &amp; Safety Service", "ic": "siren", "p": [1410, 535], "lab": [1450, 420], "d": "Tujuan akhir: tim yang siaga, merespons, menangani, dan belajar dari setiap kejadian emergency.", "b": ["Kesiapsiagaan tim ER", "Respon &amp; penanganan emergency", "Rescue, evakuasi &amp; pertolongan pertama", "Evaluasi insiden &amp; perbaikan berkelanjutan"], "svg": "<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M6 19v-6a6 6 0 0 1 12 0v6zM4 19h16v2.5H4z\"/><path d=\"M12 1.5v3M4.2 4.7l2 2M19.8 4.7l-2 2M1.5 11h2.5M20 11h2.5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.8\" stroke-linecap=\"round\"/></svg>"}];
+  var vp = document.getElementById('vp'), stg = document.getElementById('stg'), pins = document.getElementById('pins'), drw = document.getElementById('drw'), dock = document.getElementById('dock');
+  var IW = 1672, IH = 941, s = 1, x = 0, y = 0, base = 1, sel = -1;
+  var els = STEPS.map(function(st, i){ var w = document.createElement('div'); w.className = 'pin'; w.innerHTML = '<button type="button" aria-label="Tahap ' + st.n + '">' + st.n + '</button><span>' + st.t.replace(/ \/ .*| &amp; Command Center/, '') + '</span>';
+    w.querySelector('button').addEventListener('click', function(e){ e.stopPropagation(); open(i); }); pins.appendChild(w);
+    var d = document.createElement('button'); d.type = 'button'; d.className = 'st'; d.innerHTML = '<u>' + st.n + '</u><small>' + st.ph + '</small><b>' + st.t.replace(/ \/ .*| &amp; Command Center/, '') + '</b>';
+    d.addEventListener('click', function(){ sel === i ? close() : open(i); }); dock.appendChild(d); return w; });
+  var docks = dock.querySelectorAll('.st');
+  function W(){ return vp.clientWidth; } function H(){ return vp.clientHeight; }
+  function free(){ return drw.classList.contains('on') ? drw.offsetWidth + 24 : 0; }
+  function clamp(){ s = Math.max(base, Math.min(base * 5, s)); x = Math.min(0, Math.max(W() - free() - IW * s, x)); y = Math.min(0, Math.max(H() - IH * s, y)); }
+  function paint(){ clamp(); stg.style.transform = 'translate(' + x + 'px,' + y + 'px) scale(' + s + ')';
+    STEPS.forEach(function(st, i){ els[i].style.transform = 'translate(' + (st.p[0] * s + x) + 'px,' + (st.p[1] * s + y) + 'px)'; }); }
+  function anim(a){ vp.classList.toggle('anim', !!a); paint(); if(a) setTimeout(function(){ vp.classList.remove('anim'); }, 900); }
+  function home(a){ base = Math.max(W() / IW, H() / IH); s = base; x = (W() - IW * s) / 2; y = (H() - IH * s) / 2; anim(a); }
+  function focus(i){ var st = STEPS[i], fw = W() - free(); s = base * 2.4; x = fw / 2 - st.p[0] * s; y = H() / 2 - st.p[1] * s; anim(true); }
+  function open(i){ sel = i; var st = STEPS[i];
+    els.forEach(function(w, j){ w.classList.toggle('act', j === i); }); docks.forEach(function(d, j){ d.classList.toggle('on', j === i); }); vp.classList.add('zoomed');
+    drw.innerHTML = '<figure><img src="erg/rm-' + st.n + '.jpg" alt=""><u>' + st.n + '</u></figure><button type="button" class="x" aria-label="Tutup">&times;</button>'
+      + '<div class="bx"><small>' + st.ph + '</small><h4>' + st.t + '</h4><p>' + st.d + '</p><ul>' + st.b.map(function(b){ return '<li>' + b + '</li>'; }).join('') + '</ul>'
+      + '<div class="nv"><button type="button" data-n="-1"' + (i === 0 ? ' disabled' : '') + '>&lsaquo; Sebelumnya</button><button type="button" class="m" data-n="0">Roadmap</button><button type="button" data-n="1"' + (i === STEPS.length - 1 ? ' disabled' : '') + '>Berikutnya &rsaquo;</button></div></div>';
+    drw.querySelector('.x').onclick = close;
+    drw.querySelectorAll('.nv button').forEach(function(b){ b.onclick = function(){ var n = +b.dataset.n; if(!n) close(); else open(sel + n); }; });
+    drw.classList.add('on'); focus(i); }
+  function close(){ sel = -1; drw.classList.remove('on'); vp.classList.remove('zoomed'); els.forEach(function(w){ w.classList.remove('act'); }); docks.forEach(function(d){ d.classList.remove('on'); }); home(true); }
+  ['pointerdown','wheel'].forEach(function(t){ drw.addEventListener(t, function(e){ e.stopPropagation(); }); });
+  document.getElementById('home').onclick = function(e){ e.stopPropagation(); close(); };
+  vp.querySelectorAll('.zm [data-z]').forEach(function(b){ b.addEventListener('click', function(e){ e.stopPropagation(); var f = +b.dataset.z, cx = W() / 2, cy = H() / 2, ns = Math.max(base, Math.min(base * 5, s * f)); x = cx - (cx - x) * ns / s; y = cy - (cy - y) * ns / s; s = ns; anim(true); }); });
+  vp.addEventListener('wheel', function(e){ e.preventDefault(); var r = vp.getBoundingClientRect(), k = r.width / W(), cx = (e.clientX - r.left) / k, cy = (e.clientY - r.top) / k, ns = Math.max(base, Math.min(base * 5, s * (e.deltaY < 0 ? 1.15 : 0.87))); x = cx - (cx - x) * ns / s; y = cy - (cy - y) * ns / s; s = ns; anim(false); }, { passive:false });
+  var pan = null;
+  vp.addEventListener('pointerdown', function(e){ if(e.target.closest('button')) return; pan = { x:e.clientX, y:e.clientY, ox:x, oy:y }; vp.classList.add('drag'); vp.setPointerCapture(e.pointerId); });
+  vp.addEventListener('pointermove', function(e){ if(!pan) return; var k = vp.getBoundingClientRect().width / W(); x = pan.ox + (e.clientX - pan.x) / k; y = pan.oy + (e.clientY - pan.y) / k; anim(false); });
+  vp.addEventListener('pointerup', function(){ pan = null; vp.classList.remove('drag'); });
+  addEventListener('keydown', function(e){ if(sel < 0 || S[cur].id !== 's3') return;
+    if(e.key === 'Escape'){ e.preventDefault(); close(); }
+    else if(e.key === 'ArrowRight' && sel < STEPS.length - 1){ e.preventDefault(); open(sel + 1); }
+    else if(e.key === 'ArrowLeft' && sel > 0){ e.preventDefault(); open(sel - 1); } }, true);
+  document.addEventListener('slide', function(e){ if(e.detail === 's3') requestAnimationFrame(function(){ sel < 0 ? home(false) : focus(sel); }); else if(sel >= 0) close(); });
+  home(false);
+
+  /* gate */
+  var g = window.__gate;
+  function sha256(str){
+    var K = [], Hh = [], i = 0, p = 2, j;
+    for(; i < 64; p++){ for(j = 2; j * j <= p && p % j; j++); if(j * j > p){ if(i < 8) Hh[i] = (Math.pow(p, .5) * 4294967296) | 0; K[i++] = (Math.pow(p, 1 / 3) * 4294967296) | 0; } }
+    var b = unescape(encodeURIComponent(str)), l = b.length * 8, w = [];
+    b += '\x80'; while(b.length % 64 - 56) b += '\x00';
+    for(i = 0; i < b.length; i++) w[i >> 2] |= b.charCodeAt(i) << ((3 - i) % 4) * 8;
+    w[w.length] = (l / 4294967296) | 0; w[w.length] = l;
+    var r = function(x, n){ return (x >>> n) | (x << (32 - n)); };
+    for(j = 0; j < w.length; j += 16){
+      var a = Hh.slice(0, 8), Wd = w.slice(j, j + 16);
+      for(i = 0; i < 64; i++){
+        if(i >= 16){ var x1 = Wd[i - 15], y1 = Wd[i - 2]; Wd[i] = (Wd[i - 16] + (r(x1, 7) ^ r(x1, 18) ^ (x1 >>> 3)) + Wd[i - 7] + (r(y1, 17) ^ r(y1, 19) ^ (y1 >>> 10))) | 0; }
+        var t1 = a[7] + (r(a[4], 6) ^ r(a[4], 11) ^ r(a[4], 25)) + ((a[4] & a[5]) ^ (~a[4] & a[6])) + K[i] + Wd[i];
+        var t2 = (r(a[0], 2) ^ r(a[0], 13) ^ r(a[0], 22)) + ((a[0] & a[1]) ^ (a[0] & a[2]) ^ (a[1] & a[2]));
+        a = [(t1 + t2) | 0].concat(a); a[4] = (a[4] + t1) | 0; a.length = 8;
+      }
+      for(i = 0; i < 8; i++) Hh[i] = (Hh[i] + a[i]) | 0;
+    }
+    for(i = 0, b = ''; i < 8; i++) b += ('00000000' + (Hh[i] >>> 0).toString(16)).slice(-8);
+    return b;
+  }
+  var gf = document.querySelector('#gate form');
+  gf.addEventListener('submit', function(e){ e.preventDefault(); var v = document.getElementById('gateIn').value.trim();
+    if(sha256(v) === g.HASH){ try{ sessionStorage.setItem(g.KEY, g.HASH); }catch(err){} document.documentElement.classList.remove('lock'); }
+    else gf.querySelector('.m').textContent = 'Kata sandi salah.'; });
+  if(document.documentElement.classList.contains('lock')) document.getElementById('gateIn').focus();
+
+  /* version switcher */
+  var fn = location.pathname.split('/').pop() || 'erg.html';
+  document.querySelectorAll('#themeSw a').forEach(function(a){ if(a.dataset.f === fn) a.classList.add('on'); a.href = a.dataset.f + location.search; });
+})();
+</script>
+</body>
+</html>
