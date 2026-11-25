@@ -1,0 +1,375 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Berau Connect Run 2027 · A Story in 21,1 KM</title>
+<meta name="description" content="Berau Connect Run 2027 — proposal sponsorship dalam bentuk cerita bergambar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=Barlow+Condensed:ital,wght@0,700;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<style>
+  :root{ --g:#86E11F; --cream:#F2F6EE; --gold:#86E11F; --ink:#0B120A; --fs:'Barlow',system-ui,sans-serif; --fc:'Barlow Condensed',sans-serif; --fd:'Barlow Condensed',sans-serif; }
+  *{ box-sizing:border-box; }
+  html,body{ margin:0; height:100%; overflow:hidden; background:#080B08; color:var(--cream); font-family:var(--fs); -webkit-font-smoothing:antialiased; }
+  #film{ position:fixed; inset:0; overflow:hidden; cursor:pointer; }
+  .sc{ position:absolute; inset:0; opacity:0; visibility:hidden; transition:opacity 1.2s ease, visibility 1.2s; }
+  .sc.on{ opacity:1; visibility:visible; }
+  /* painterly photo layer */
+  .ph{ position:absolute; inset:-6%; background:var(--im) center/cover; filter:saturate(1.25) contrast(1.05) sepia(.28) brightness(.92); transform:scale(1.15); }
+  .sc.on .ph{ animation:var(--cam,push) var(--dur,8s) cubic-bezier(.3,.1,.3,1) forwards; }
+  @keyframes push{ from{ transform:scale(1.18) translate(2%,1%); } to{ transform:scale(1.04) translate(-1%,-1%); } }
+  @keyframes panL{ from{ transform:scale(1.15) translateX(4%); } to{ transform:scale(1.15) translateX(-4%); } }
+  @keyframes panU{ from{ transform:scale(1.15) translateY(4%); } to{ transform:scale(1.12) translateY(-3%); } }
+  @keyframes pull{ from{ transform:scale(1.02); } to{ transform:scale(1.2); } }
+  .warm{ position:absolute; inset:0; background:radial-gradient(ellipse at 30% 20%,rgba(255,200,120,.35),transparent 55%), linear-gradient(0deg,rgba(20,12,4,.82),rgba(20,12,4,.1) 55%,rgba(20,12,4,.35)); mix-blend-mode:normal; }
+  .grain{ position:fixed; inset:-50%; z-index:20; pointer-events:none; opacity:.11; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); animation:grain 1s steps(6) infinite; }
+  @keyframes grain{ 20%{ transform:translate(-5%,3%); } 40%{ transform:translate(4%,-4%); } 60%{ transform:translate(-3%,5%); } 80%{ transform:translate(5%,2%); } }
+  .vig{ position:fixed; inset:0; z-index:19; pointer-events:none; background:radial-gradient(ellipse at center,transparent 55%,rgba(0,0,0,.6)); }
+  .dust{ position:absolute; inset:0; pointer-events:none; }
+  .dust i{ position:absolute; width:3px; height:3px; border-radius:50%; background:#FFE7B0; box-shadow:0 0 8px #FFD27A; opacity:0; animation:mote var(--t) linear var(--d) infinite; }
+  @keyframes mote{ 0%{ opacity:0; transform:translate(0,0); } 20%{ opacity:.9; } 100%{ opacity:0; transform:translate(var(--x),-40vh); } }
+  /* text */
+  .tx{ position:absolute; z-index:3; text-align:center; left:50%; transform:translateX(-50%); width:min(760px,88vw); text-shadow:0 2px 18px rgba(0,0,0,.6); }
+  .name{ font:400 clamp(56px,8vw,120px)/1 var(--fc); color:var(--cream); }
+  .bio{ margin:14px auto 0; font:500 clamp(17px,1.6vw,23px)/1.5 var(--fs); }
+  .quote{ font:italic 600 clamp(24px,2.6vw,40px)/1.3 var(--fs); color:var(--gold); }
+  .big{ font:600 clamp(36px,4.4vw,68px)/1.1 var(--fs); }
+  .big em{ font:400 1.25em/1 var(--fc); color:var(--gold); font-style:normal; }
+  .sm{ margin-top:14px; font:500 clamp(15px,1.3vw,19px)/1.5 var(--fs); letter-spacing:.04em; opacity:.85; }
+  .rv{ opacity:0; transform:translateY(18px); filter:blur(6px); }
+  .sc.on .rv{ animation:rv 1.4s cubic-bezier(.2,.8,.2,1) forwards; animation-delay:var(--d,.6s); }
+  @keyframes rv{ to{ opacity:1; transform:none; filter:none; } }
+  .wm{ position:fixed; z-index:21; left:50%; bottom:22px; transform:translateX(-50%); font:600 11px/1 var(--fs); letter-spacing:.5em; color:rgba(246,235,214,.55); pointer-events:none; }
+  .tag{ position:absolute; z-index:4; top:9vh; left:50%; transform:translateX(-50%); font:600 12px/1 var(--fs); letter-spacing:.45em; color:rgba(246,235,214,.75); }
+  /* scene: gallery wall */
+  #s5{ background:#7A1A16; }
+  #s5 .wall{ position:absolute; inset:0; background:radial-gradient(ellipse at 50% 30%,#A32621,#5A0F0C 75%); }
+  #s5 .track{ position:absolute; left:0; top:12vh; height:70vh; display:flex; align-items:center; gap:4vw; padding:0 10vw; width:max-content; }
+  .sc.on .track{ animation:wall var(--dur) linear forwards; }
+  @keyframes wall{ from{ transform:translateX(10vw); } to{ transform:translateX(calc(-100% + 80vw)); } }
+  .fr{ position:relative; flex:none; padding:14px; background:linear-gradient(135deg,#F2D48A,#A87830 40%,#F6DE9C 60%,#8A5F22); box-shadow:0 20px 40px rgba(0,0,0,.5), inset 0 0 0 3px #5A3A12; transform:rotate(var(--r)); }
+  .fr div{ width:var(--w,26vw); height:var(--h,34vh); background:var(--im) center/cover; filter:sepia(.25) saturate(1.1); box-shadow:inset 0 0 30px rgba(0,0,0,.5); }
+  .fr b{ position:absolute; left:50%; bottom:-46px; transform:translateX(-50%); white-space:nowrap; font:600 18px/1.2 var(--fs); color:var(--cream); text-align:center; }
+  .fr b small{ display:block; font:400 34px/1 var(--fc); color:var(--gold); }
+  .speed{ position:absolute; z-index:4; top:6vh; left:50%; transform:translateX(-50%); font:600 12px/1 var(--fs); letter-spacing:.4em; color:rgba(246,235,214,.8); }
+  /* scene: curtain */
+  .cur{ position:absolute; top:0; bottom:0; width:51%; z-index:5; background:repeating-linear-gradient(90deg,#E9E2D4 0 3%,#CFC6B4 3% 6%,#F4EEE2 6% 9%); box-shadow:inset 0 0 60px rgba(0,0,0,.35); }
+  .cur.l{ left:0; } .cur.r{ right:0; }
+  .sc.on .cur.l{ animation:curL 2.4s cubic-bezier(.7,0,.2,1) 1.6s forwards; } .sc.on .cur.r{ animation:curR 2.4s cubic-bezier(.7,0,.2,1) 1.6s forwards; }
+  @keyframes curL{ to{ transform:translateX(-102%); } } @keyframes curR{ to{ transform:translateX(102%); } }
+  .cur-tx{ position:absolute; z-index:6; top:50%; left:50%; transform:translate(-50%,-50%); color:#4A3A26; text-align:center; font:500 clamp(22px,2.2vw,32px)/1.4 var(--fs); text-shadow:none; }
+  .sc.on .cur-tx{ animation:fadeOut .8s ease 1.3s forwards; } @keyframes fadeOut{ to{ opacity:0; } }
+  .trio{ position:absolute; inset:0; display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:100%; }
+  .trio > div{ position:relative; overflow:hidden; border-right:2px solid rgba(232,194,122,.6); }
+  .trio > div:last-child{ border-right:0; }
+  .trio .ph{ inset:-4%; }
+  .trio b{ position:absolute; z-index:3; left:0; right:0; bottom:18vh; text-align:center; font:400 clamp(48px,5.5vw,90px)/1 var(--fc); color:var(--cream); text-shadow:0 4px 20px rgba(0,0,0,.7); }
+  .trio span{ position:absolute; z-index:3; left:10%; right:10%; bottom:9vh; text-align:center; font:500 clamp(15px,1.25vw,19px)/1.4 var(--fs); }
+  /* scene: poster */
+  .poster{ position:absolute; z-index:3; left:50%; top:48%; width:min(440px,74vw); transform:translate(-50%,-50%) rotate(-2deg); padding:22px 24px 26px; background:#F4E9D2; color:var(--ink); box-shadow:0 30px 60px rgba(0,0,0,.55); text-align:center; }
+  .poster::before{ content:''; position:absolute; left:50%; top:-10px; width:18px; height:18px; margin-left:-9px; border-radius:50%; background:radial-gradient(circle at 35% 35%,#fff,#9BE84A 40%,#3F7A10); box-shadow:0 3px 6px rgba(0,0,0,.4); }
+  .poster h3{ margin:0; font:900 italic clamp(40px,4.6vw,64px)/.9 var(--fd); text-transform:uppercase; letter-spacing:-.01em; color:#1F3A10; }
+  .poster h3 small{ display:block; font:600 14px/1 var(--fs); letter-spacing:.3em; color:#6A5236; font-style:normal; margin-bottom:6px; }
+  .poster .pimg{ height:clamp(160px,26vh,260px); margin:14px 0; background:url('img/startline.jpg') center 30%/cover; filter:sepia(.3) saturate(1.1); }
+  .poster .who{ font:400 clamp(38px,4vw,56px)/1 var(--fc); color:#3F7A10; }
+  .poster .dt{ margin-top:8px; font:600 16px/1.4 var(--fs); letter-spacing:.12em; }
+  .sc.on .poster{ animation:pin 1.6s cubic-bezier(.2,.9,.3,1.2) .3s both; }
+  @keyframes pin{ from{ transform:translate(-50%,-160%) rotate(-12deg); } }
+  .lant{ position:absolute; inset:0; z-index:2; pointer-events:none; }
+  .lant i{ position:absolute; width:22px; height:30px; border-radius:6px; background:radial-gradient(circle at 50% 60%,#FFF3C4,#F5B547 60%,#B86A1A); box-shadow:0 0 30px 10px rgba(255,190,90,.45); animation:sway 4s ease-in-out var(--d) infinite alternate; }
+  @keyframes sway{ to{ transform:translateY(-14px) rotate(4deg); } }
+  /* scene: name the brand */
+  .slot{ display:inline-block; min-width:9ch; margin-top:16px; padding:6px 18px; border:2px dashed var(--gold); border-radius:6px; font:400 clamp(40px,4.4vw,70px)/1.1 var(--fc); color:var(--gold); }
+  .slot::after{ content:'|'; margin-left:4px; animation:blink 1s steps(1) infinite; font-family:var(--fs); }
+  @keyframes blink{ 50%{ opacity:0; } }
+  .pills{ display:flex; justify-content:center; gap:10px; margin-top:22px; }
+  .pills span{ padding:8px 14px; border:1px solid rgba(246,235,214,.5); border-radius:999px; font:600 15px/1 var(--fs); letter-spacing:.06em; }
+  .cta{ display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-top:28px; }
+  .cta a{ padding:12px 22px; border-radius:999px; border:1.5px solid var(--gold); color:var(--gold); font:600 17px/1 var(--fs); letter-spacing:.06em; text-decoration:none; text-shadow:none; }
+  .cta a.p{ background:var(--gold); color:var(--ink); }
+  /* chrome */
+  #bars{ position:fixed; z-index:30; left:16px; right:16px; top:12px; display:flex; gap:5px; }
+  #bars i{ flex:1; height:3px; border-radius:2px; background:rgba(255,255,255,.25); overflow:hidden; }
+  #bars i b{ display:block; height:100%; width:0; background:var(--cream); }
+  #ctrl{ position:fixed; z-index:30; right:16px; top:26px; display:flex; gap:8px; }
+  #ctrl button, #ctrl a{ height:34px; padding:0 12px; border-radius:999px; border:1px solid rgba(255,255,255,.25); background:rgba(0,0,0,.35); color:var(--cream); font:600 13px/1 var(--fs); letter-spacing:.06em; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; backdrop-filter:blur(6px); }
+  #brand{ position:fixed; z-index:30; left:16px; top:28px; font:600 12px/1 var(--fs); letter-spacing:.32em; color:rgba(246,235,214,.85); }
+  .hint{ position:fixed; z-index:30; left:50%; bottom:50px; transform:translateX(-50%); font:italic 500 14px/1 var(--fs); color:rgba(246,235,214,.6); transition:opacity .6s; }
+  @media (prefers-reduced-motion:reduce){ .ph, .track, .grain, .dust i, .lant i{ animation:none !important; } }
+
+  /* ===== brand restyle (match BCR deck) ===== */
+  .ph{ filter:saturate(1.05) contrast(1.05) brightness(.85) !important; }
+  .warm{ background:radial-gradient(ellipse at 80% 10%,rgba(134,225,31,.25),transparent 55%), linear-gradient(0deg,rgba(8,11,8,.92),rgba(8,11,8,.15) 55%,rgba(8,11,8,.55)) !important; }
+  .dust i{ background:#B6F56A; box-shadow:0 0 8px #86E11F; }
+  .name, .trio b, .poster .who, .slot{ font-family:var(--fc) !important; font-style:italic !important; font-weight:900 !important; text-transform:uppercase; letter-spacing:-.01em; line-height:.88 !important; }
+  .name{ font-size:clamp(60px,8.6vw,140px) !important; }
+  .name::first-letter{ color:var(--g); }
+  .bio{ font-weight:500; line-height:1.55 !important; max-width:720px; }
+  .quote{ font:900 italic clamp(30px,3.4vw,56px)/1.05 var(--fc) !important; text-transform:uppercase; color:var(--g) !important; }
+  .big{ font:900 italic clamp(44px,5.4vw,90px)/.92 var(--fc) !important; text-transform:uppercase; }
+  .big em{ font:inherit !important; color:var(--g) !important; }
+  .sm, .tag, .speed, .wm, #brand{ font-family:var(--fs) !important; font-weight:700 !important; letter-spacing:.2em !important; text-transform:uppercase; }
+  .sm{ font-size:clamp(12px,1vw,15px) !important; color:var(--g); opacity:1 !important; }
+  .bio + .sm, .tx > .sm:last-child{ color:var(--cream); letter-spacing:.06em !important; text-transform:none; font-weight:500 !important; font-size:clamp(14px,1.15vw,18px) !important; }
+  .tag{ padding:6px 12px; background:var(--g); color:var(--ink) !important; border-radius:3px; letter-spacing:.12em !important; }
+  #s5, #s5 .wall{ background:radial-gradient(ellipse at 50% 30%,#1B2A14,#070A06 75%) !important; }
+  #s5 .wall::after{ content:''; position:absolute; inset:0; background:repeating-linear-gradient(115deg,transparent 0 80px,rgba(134,225,31,.06) 80px 96px); }
+  .fr{ background:#0B120A !important; box-shadow:0 0 0 3px var(--g), 0 0 40px rgba(134,225,31,.35), 0 20px 40px rgba(0,0,0,.6) !important; }
+  .fr div{ filter:none !important; }
+  .fr b{ font:700 16px/1.2 var(--fs) !important; } .fr b small{ font:900 italic 42px/1 var(--fc) !important; color:var(--g) !important; }
+  .cur{ background:repeating-linear-gradient(115deg,#0B120A 0 60px,#86E11F 60px 76px,#0B120A 76px 120px) !important; }
+  .cur-tx{ color:var(--cream) !important; font:900 italic clamp(30px,3vw,52px)/1 var(--fc) !important; text-transform:uppercase; text-shadow:0 4px 20px #000 !important; }
+  .cur-tx i{ color:var(--g); font-style:inherit; }
+  .trio b{ font-size:clamp(50px,6vw,100px) !important; color:var(--cream) !important; }
+  .trio > div{ border-right-color:var(--g) !important; }
+  .trio span{ font-weight:600; }
+  .poster{ background:#0B120A !important; color:var(--cream) !important; border:3px solid var(--g); box-shadow:0 0 60px rgba(134,225,31,.35), 0 30px 60px rgba(0,0,0,.6) !important; }
+  .poster h3{ color:var(--cream) !important; } .poster h3 small{ color:var(--g) !important; font:700 13px/1 var(--fs) !important; letter-spacing:.3em !important; }
+  .poster .pimg{ filter:none !important; }
+  .poster .who{ color:var(--g) !important; font-size:clamp(40px,4.2vw,64px) !important; }
+  .poster .dt{ font:700 14px/1.4 var(--fs) !important; letter-spacing:.16em; }
+  .lant i{ width:14px; height:44px; border-radius:2px; background:linear-gradient(#D9FFB0,#86E11F) !important; box-shadow:0 0 24px 6px rgba(134,225,31,.5) !important; transform:skewX(-16deg); }
+  .slot{ border-color:var(--g) !important; color:var(--g) !important; font-size:clamp(44px,5vw,80px) !important; }
+  .pills span{ border-color:rgba(134,225,31,.6) !important; font:800 italic 20px/1 var(--fc) !important; text-transform:uppercase; }
+  .cta a{ border-color:var(--g) !important; color:var(--g) !important; font:900 italic 22px/1 var(--fc) !important; text-transform:uppercase; padding:14px 24px !important; }
+  .cta a.p{ background:var(--g) !important; color:var(--ink) !important; }
+  #bars i b{ background:var(--g) !important; box-shadow:0 0 8px var(--g); }
+  #ctrl button, #ctrl a{ font:700 13px/1 var(--fs) !important; }
+  #brand{ color:var(--g) !important; }
+  .hint{ font:600 13px/1 var(--fs) !important; letter-spacing:.08em; }
+  .vig{ background:radial-gradient(ellipse at center,transparent 60%,rgba(0,0,0,.55)) !important; }
+  .ph.soft{ filter:blur(2px) brightness(.5) saturate(1.1) !important; }
+  .sm.plain{ color:var(--cream) !important; text-transform:none !important; letter-spacing:.04em !important; font-weight:500 !important; line-height:1.6 !important; }
+  .poster{ top:40% !important; width:min(400px,60vw) !important; }
+  .poster .pimg{ height:clamp(130px,20vh,210px) !important; }
+
+  /* ===== info scenes (full proposal content) ===== */
+  .info .ph{ filter:brightness(.42) saturate(1.05) blur(1px) !important; }
+  .pn{ position:absolute; z-index:3; left:50%; transform:translateX(-50%); width:min(1340px,92vw); text-shadow:0 2px 14px rgba(0,0,0,.6); }
+  .pn.side{ left:6vw; transform:none; width:min(640px,46vw); }
+  .kk{ display:inline-block; margin:0 0 10px; padding:6px 12px; border-radius:3px; background:var(--g); color:var(--ink); font:800 13px/1 var(--fs); letter-spacing:.14em; text-transform:uppercase; text-shadow:none; }
+  .hh{ margin:0; font:900 italic clamp(40px,5vw,84px)/.9 var(--fc); text-transform:uppercase; }
+  .hh em{ font-style:inherit; color:var(--g); }
+  .ld{ margin:14px 0 0; max-width:900px; font:500 clamp(15px,1.25vw,19px)/1.55 var(--fs); color:#DDE5D8; }
+  .ld b{ color:#fff; }
+  .cg{ display:grid; gap:14px; margin-top:26px; }
+  .g2{ grid-template-columns:1fr 1fr; } .g3{ grid-template-columns:repeat(3,1fr); } .g4{ grid-template-columns:repeat(4,1fr); } .g5{ grid-template-columns:repeat(5,1fr); }
+  .ci{ position:relative; padding:18px 20px; border-radius:6px; background:linear-gradient(160deg,rgba(255,255,255,.1),rgba(255,255,255,.03)); border:1px solid rgba(255,255,255,.14); border-top:3px solid var(--g); backdrop-filter:blur(8px); text-shadow:none; }
+  .ci small{ display:block; font:700 11.5px/1.3 var(--fs); letter-spacing:.16em; text-transform:uppercase; color:var(--g); }
+  .ci b{ display:block; margin-top:8px; font:900 italic clamp(22px,2vw,34px)/1 var(--fc); text-transform:uppercase; color:#fff; }
+  .ci span{ display:block; margin-top:8px; font:500 clamp(13px,1vw,15.5px)/1.45 var(--fs); color:#CFD8CA; }
+  .ci u{ display:block; text-decoration:none; font:900 italic 44px/1 var(--fc); color:var(--g); }
+  .ci strong{ display:block; margin-top:10px; font:900 italic clamp(40px,3.6vw,62px)/1 var(--fc); color:#fff; }
+  .ci .kx{ font-size:clamp(54px,5vw,84px) !important; margin:0; }
+  .ci .kr{ display:grid; gap:6px; margin-top:12px; padding-top:10px; border-top:1px solid rgba(255,255,255,.14); }
+  .ci .kr span{ display:flex; justify-content:space-between; margin:0; } .ci .kr i{ font-style:normal; font-weight:800; color:#fff; }
+  .tall .ci ul{ margin:10px 0 0; padding:0; list-style:none; }
+  .tall .ci li{ padding:8px 0; border-top:1px dashed rgba(255,255,255,.16); font:700 14.5px/1.3 var(--fs); color:#fff; }
+  .tall .ci li i{ display:inline-block; min-width:64px; font-style:normal; font-weight:800; color:var(--g); font-size:12px; letter-spacing:.06em; }
+  .tall .ci li em{ display:block; margin-left:64px; font-style:normal; font-weight:500; font-size:13px; color:#B9C3B4; }
+  .co{ margin:18px 0 0; padding:12px 18px; border-radius:4px; background:var(--g); color:var(--ink); font:900 italic clamp(16px,1.5vw,24px)/1 var(--fc); text-transform:uppercase; text-align:center; text-shadow:none; }
+  .nt{ margin:16px 0 0; font:italic 500 13.5px/1.5 var(--fs); color:#AAB5A6; }
+  .tl{ margin:26px 0 0; padding:0; list-style:none; display:grid; grid-template-columns:repeat(5,1fr); gap:12px; }
+  .tl li{ padding:14px 16px; border-radius:6px; background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12); border-left:4px solid rgba(255,255,255,.4); text-shadow:none; }
+  .tl li.hot{ border-left-color:var(--g); background:rgba(134,225,31,.12); }
+  .tl b{ display:block; font:900 italic 34px/1 var(--fc); color:var(--g); } .tl span{ display:block; margin-top:6px; font:700 14.5px/1.3 var(--fs); color:#fff; }
+  .tb{ width:100%; margin-top:16px; border-collapse:collapse; background:rgba(8,11,8,.7); border-radius:6px; overflow:hidden; text-shadow:none; }
+  .tb th, .tb td{ padding:11px 14px; text-align:left; font:600 14.5px/1.2 var(--fs); color:#E3EADE; border-bottom:1px solid rgba(255,255,255,.08); }
+  .tb th{ background:var(--g); color:var(--ink); font:800 12px/1 var(--fs); letter-spacing:.12em; text-transform:uppercase; }
+  .tb td:first-child{ font:900 italic 22px/1 var(--fc); color:var(--g); text-transform:uppercase; }
+  .tiers{ display:flex; align-items:flex-end; gap:8px; height:220px; margin-top:12px; }
+  .tiers i{ flex:1; height:var(--h); display:flex; align-items:flex-end; padding:10px; border-radius:4px 4px 0 0; background:var(--c); font:900 italic 18px/1.05 var(--fc); font-style:normal; color:#fff; text-transform:uppercase; }
+  .g5 .ci{ border-top-width:5px; } .g5 .tn{ font-size:clamp(28px,2.4vw,40px) !important; margin:0; }
+  .g5 .ci strong{ font-size:clamp(30px,2.6vw,44px); margin-top:4px; }
+  .g5 .fs{ display:flex; align-items:center; gap:8px; margin-top:12px; font:700 12px/1.2 var(--fs); color:#CFD8CA; text-transform:uppercase; letter-spacing:.06em; }
+  .g5 .fs i{ font:900 italic 46px/1 var(--fc); font-style:normal; color:var(--g); }
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:24px; }
+  .chips span{ padding:10px 14px; border-radius:999px; background:rgba(255,255,255,.08); border:1px solid rgba(134,225,31,.45); font:800 italic 18px/1 var(--fc); text-transform:uppercase; text-shadow:none; }
+  .chips span.q{ background:var(--g); color:var(--ink); }
+  .steps{ margin:26px 0 0; padding:0; list-style:none; display:grid; grid-template-columns:repeat(5,1fr); gap:12px; }
+  .steps li{ padding:18px; border-radius:6px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.12); text-shadow:none; }
+  .steps u{ display:block; text-decoration:none; font:900 italic 50px/1 var(--fc); color:var(--g); }
+  .steps b{ display:block; margin-top:8px; font:900 italic 24px/1 var(--fc); text-transform:uppercase; } .steps span{ display:block; margin-top:8px; font:500 14.5px/1.4 var(--fs); color:#CFD8CA; }
+  @media (max-width:900px){ .g3, .g4, .g5, .tl, .steps{ grid-template-columns:1fr 1fr; } .pn.side{ width:88vw; } }
+  .name{ font-size:min(8.6vw,13.5vh) !important; }
+  .quote{ font-size:min(3.4vw,6vh) !important; }
+  .big{ font-size:min(5.4vw,8.5vh) !important; }
+  .hh{ font-size:min(5vw,8vh) !important; }
+
+  /* smooth transitions */
+  .sc{ transition:none !important; transform-origin:50% 50%; will-change:transform, opacity, filter; }
+  .sc.leave{ opacity:1; visibility:visible; }
+  .sc .rv{ animation-delay:calc(var(--d,.6s) + .55s) !important; }
+  .sc.on .ph{ animation-duration:calc(var(--dur,8s) + 2s) !important; }
+</style>
+</head>
+<body>
+<div id="film">
+
+  <!-- 1 -->
+  <section class="sc" data-dur="6500" style="--dur:7s">
+    <div class="ph soft" style="--im:url('img/runners3.jpg');--cam:pull"></div>
+    <div class="dust"></div>
+    <div class="tx" style="top:50%;transform:translate(-50%,-55%)"><p class="sm rv" style="--d:.3s;letter-spacing:.4em">SEBUAH CERITA DALAM 21,1 KILOMETER</p><div class="name rv" style="--d:1s">Berau Connect<br>Run 2027</div><p class="quote rv" style="--d:2s">Start for more!</p></div>
+  </section>
+  <section class="sc info" data-dur="13000" style="--dur:14s">
+    <div class="ph" style="--im:url('img/aerial.jpg');--cam:push"></div><div class="warm"></div><div class="dust"></div>
+    <div class="pn" style="top:10vh"><p class="kk rv" style="--d:.2s">KM 1,3 &middot; Ringkasan eksekutif &middot; Start for more!</p><h2 class="hh rv" style="--d:.4s">Langkah mengenal <em>Berau</em></h2><p class="ld rv" style="--d:.7s">Berau Connect Run 2027 memperluas pengalaman olahraga menjadi ruang pertemuan antara pelari, komunitas, budaya lokal, pelaku usaha, dan brand &mdash; memperkenalkan Berau, mendorong <b>sport tourism</b>, dan menggerakkan ekonomi lokal.</p><div class="cg g3"><div class="ci rv" style="--d:0.90s"><small>Target peserta</small><b data-n="6900">6.900</b><span>Pelari, stakeholder, manajemen &amp; alokasi mitra sponsor</span></div><div class="ci rv" style="--d:1.05s"><small>3 kategori lari</small><b>5K &middot; 10K &middot; 21K</b><span>Termasuk 21K Half Marathon</span></div><div class="ci rv" style="--d:1.20s"><small>Tanggal &amp; lokasi</small><b>11 April 2027</b><span>Tanjung Redeb, Kabupaten Berau</span></div></div></div>
+  </section>
+
+
+  <!-- 5 gallery -->
+  <section class="sc" id="s5" data-dur="9000" style="--dur:9s">
+    <div class="wall"></div>
+    <div class="speed">KM 2,6 &middot; BACKGROUND &amp; JOURNEY &middot; DARI CORPORATE ANNUAL RUN MENUJU EVENT PUBLIK BERAU</div>
+    <div class="track">
+      <div class="fr" style="--r:-2deg;--im:url('img/runners2.jpg')"><div></div><b><small>2019</small>Color Run &middot; 2.000</b></div>
+      <div class="fr" style="--r:2deg;--w:20vw;--h:44vh;--im:url('img/startline.jpg')"><div></div><b><small>2020</small>Tekno Run &middot; 2.447</b></div>
+      <div class="fr" style="--r:-1deg;--im:url('img/community.jpg')"><div></div><b><small>2023</small>Siaga Run &middot; 3.000</b></div>
+      <div class="fr" style="--r:3deg;--w:22vw;--h:30vh;--im:url('img/nature.jpg')"><div></div><b><small>2025</small>Eco Trail Run &middot; 350</b></div>
+      <div class="fr" style="--r:-3deg;--w:28vw;--h:40vh;--im:url('img/aerial.jpg')"><div></div><b><small>2026</small>Berau Coal Run &middot; 3.593</b></div>
+      <div class="fr" style="--r:1deg;--w:24vw;--h:46vh;--im:url('img/cover.jpg')"><div></div><b><small>2027</small>Berau Connect Run &middot; 6.900</b></div>
+    </div>
+  </section>
+
+  <!-- 6 curtain + pillars -->
+  <section class="sc" data-dur="10000" style="--dur:10s">
+    <div class="trio">
+      <div><div class="ph" style="--im:url('img/nature.jpg');--cam:push"></div><div class="warm"></div><b>Nature</b><span>Berlari sambil menjelajahi destinasi Berau &mdash; memperkenalkan potensi alam &amp; daya tarik kunjungan.</span></div>
+      <div><div class="ph" style="--im:url('img/culture.jpg');--cam:push"></div><div class="warm"></div><b>Culture</b><span>Melibatkan komunitas &amp; budaya lokal &mdash; ruang tampil paguyuban, lembaga adat, pelaku kreatif.</span></div>
+      <div><div class="ph" style="--im:url('img/community.jpg');--cam:push"></div><div class="warm"></div><b>Community</b><span>Pelari, sekolah, organisasi &amp; masyarakat &mdash; berpartisipasi dan terhubung lintas kelompok.</span></div>
+    </div>
+    <div class="cur l"></div><div class="cur r"></div>
+    <div class="cur-tx">KM 4,0 &middot; Tema event<br><i>Tiga pilar Berau Connect Run</i></div>
+  </section>
+  <section class="sc info" data-dur="13000" style="--dur:14s">
+    <div class="ph" style="--im:url('img/startline.jpg');--cam:push"></div><div class="warm"></div><div class="dust"></div>
+    <div class="pn" style="top:10vh"><p class="kk rv" style="--d:.2s">KM 5,3 &middot; Nilai kemitraan</p><h2 class="hh rv" style="--d:.4s">Mengapa bermitra <em>dengan kami?</em></h2><div class="cg g4"><div class="ci rv" style="--d:0.90s"><u>01</u><b>Audiens aktif &amp; sehat</b><span>Brand terhubung dengan audiens yang berorientasi kebugaran, komunitas, pengalaman, dan eksplorasi daerah.</span></div><div class="ci rv" style="--d:1.05s"><u>02</u><b>Interaksi langsung</b><span>Booth, sampling, demo produk, konten &amp; program komunitas &mdash; sekaligus mengenal mitra besar &amp; stakeholder Berau.</span></div><div class="ci rv" style="--d:1.20s"><u>03</u><b>Dukung UMKM &amp; destinasi</b><span>Berkontribusi pada UMKM, budaya, dan promosi destinasi lokal lewat program yang dirancang bersama.</span></div><div class="ci rv" style="--d:1.35s"><u>04</u><b>Evaluasi terukur</b><span>Indikator yang disepakati, dokumentasi, dan laporan pelaksanaan pasca-event.</span></div></div></div>
+  </section>
+
+  <section class="sc info" data-dur="12000" style="--dur:13s">
+    <div class="ph" style="--im:url('img/course.jpg');--cam:pull"></div><div class="warm" style="background:linear-gradient(90deg,rgba(8,11,8,.95) 38%,rgba(8,11,8,.2)) !important"></div>
+    <div class="pn side" style="top:12vh"><p class="kk rv" style="--d:.2s">KM 6,6 &middot; Profil event</p><h2 class="hh rv" style="--d:.4s">Inclusive run, <em>community &amp; local economy</em></h2><div class="cg g2"><div class="ci rv" style="--d:0.90s"><small>Hari pelaksanaan</small><b>11 April 2027</b></div><div class="ci rv" style="--d:1.05s"><small>Lokasi</small><b>Tanjung Redeb</b><span>Kab. Berau, Kalimantan Timur</span></div><div class="ci rv" style="--d:1.20s"><small>Kategori</small><b>5K / 10K / 21K</b></div><div class="ci rv" style="--d:1.35s"><small>Penyelenggara</small><b>PT Berau Coal</b><span>&amp; Stakeholder</span></div></div><p class="nt rv" style="--d:1.8s">Kompetisi lari berpadu dengan race village, aktivitas sponsor, dukungan UMKM, dan elemen budaya lokal. Ilustrasi rute &mdash; rute final ditetapkan bersama pihak terkait.</p></div>
+  </section>
+
+  <section class="sc info" data-dur="15000" style="--dur:16s">
+    <div class="ph" style="--im:url('img/runners3.jpg');--cam:push"></div><div class="warm"></div><div class="dust"></div>
+    <div class="pn" style="top:8vh"><p class="kk rv" style="--d:.2s">KM 7,9 &middot; Rangkaian acara</p><h2 class="hh rv" style="--d:.4s">Road to race day <em>Nov 2026 &ndash; Jun 2027</em></h2><div class="cg g3 tall"><div class="ci rv" style="--d:0.90s"><b>01 Pre-event</b><small>17 Nov 2026 &ndash; 8 Apr 2027</small><span>Bangun antusiasme &amp; rasa memiliki</span><ul><li><i>Des</i>Event Reveal &amp; Register<em>Roadshow, teaser, registrasi</em></li><li><i>Jan</i>Berau Talent &amp; Pacer Hunt<em>Band battle, audisi tari, pacer</em></li><li><i>Feb&ndash;Mar</i>Run for Health &amp; Kindness<em>BK3N clinic, Ramadan berbagi</em></li><li><i>Mar&ndash;Apr</i>Comeback Run &amp; Cheer Lab<em>Social run, kurasi UMKM</em></li></ul></div><div class="ci rv" style="--d:1.05s"><b>02 During event</b><small>9 &ndash; 11 April 2027</small><span>Race weekend jadi festival masyarakat</span><ul><li><i>9&ndash;10</i>Local Market Festival<em>RPC, UMKM &amp; panggung budaya</em></li><li><i>10 Apr</i>Community Shake-Out Day<em>Shake-out run, meet pacer</em></li><li><i>11 Apr</i>Race Day Celebration<em>21K &middot; 10K &middot; 5K &middot; race village</em></li></ul></div><div class="ci rv" style="--d:1.20s"><b>03 Post-event</b><small>12 April &ndash; Juni 2027</small><span>Manfaat berlanjut setelah finis</span><ul><li><i>Apr</i>Thank You, Berau!<em>Gathering pacer &amp; relawan</em></li><li><i>Apr&ndash;Mei</i>More Clean &amp; Green Day<em>Aksi bersih &amp; penanaman</em></li><li><i>Mei</i>Berau Impact &amp; Market Day<em>Pop-up UMKM, laporan dampak</em></li><li><i>Mei&ndash;Jun</i>Keep Berau Running<em>Social run bulanan, teaser 2028</em></li></ul></div></div><p class="co rv" style="--d:1.6s">Co-create &rsaquo; Co-organize &rsaquo; Co-celebrate &rsaquo; Co-benefit &rsaquo; Co-sustain</p></div>
+  </section>
+
+  <section class="sc info" data-dur="13000" style="--dur:14s">
+    <div class="ph" style="--im:url('img/runners.jpg');--cam:push"></div><div class="warm"></div><div class="dust"></div>
+    <div class="pn" style="top:10vh"><p class="kk rv" style="--d:.2s">KM 9,2 &middot; Kategori lomba</p><h2 class="hh rv" style="--d:.4s">Tiga kategori untuk <em>semua level pelari</em></h2><div class="cg g3"><div class="ci rv" style="--d:0.90s"><b class="kx" style="color:#86E11F">5K</b><small>Fun &amp; family</small><strong data-n="2000">2.000</strong><span>target peserta</span><div class="kr"><span>Tiket indikatif <i>Rp300.000</i></span><span>Flag-off <i>06.20</i></span><span>Cut-off <i>07.50</i></span></div></div><div class="ci rv" style="--d:1.05s"><b class="kx" style="color:#4CC24C">10K</b><small>Challenge</small><strong data-n="2000">2.000</strong><span>target peserta</span><div class="kr"><span>Tiket indikatif <i>Rp375.000</i></span><span>Flag-off <i>06.00</i></span><span>Cut-off <i>08.00</i></span></div></div><div class="ci rv" style="--d:1.20s"><b class="kx" style="color:#F0B43A">21K</b><small>Half marathon</small><strong data-n="1500">1.500</strong><span>target peserta</span><div class="kr"><span>Tiket indikatif <i>Rp475.000</i></span><span>Flag-off <i>05.15</i></span><span>Cut-off <i>08.45</i></span></div></div></div><p class="nt rv" style="--d:1.6s">Target total 6.900 peserta termasuk tamu undangan sponsorship. *Harga tiket indikatif, final mengikuti ketentuan penyelenggara.</p></div>
+  </section>
+
+  <section class="sc info" data-dur="13000" style="--dur:14s">
+    <div class="ph" style="--im:url('img/crowd.jpg');--cam:push"></div><div class="warm"></div><div class="dust"></div>
+    <div class="pn" style="top:10vh"><p class="kk rv" style="--d:.2s">KM 10,6 &middot; Rencana acara</p><h2 class="hh rv" style="--d:.4s">Race day <em>run of show</em></h2><p class="ld rv" style="--d:.7s">Minggu, 11 April 2027 &middot; rencana waktu dapat disesuaikan penyelenggara.</p><ol class="tl"><li class="rv" style="--d:0.90s"><b>05.00</b><span>Race village dibuka</span></li><li class="rv" style="--d:1.02s"><b>05.05</b><span>Opening ceremony</span></li><li class="rv" style="--d:1.14s"><b>05.10</b><span>Warming up</span></li><li class="rv hot" style="--d:1.26s"><b>05.15</b><span>Flag-off 21K</span></li><li class="rv hot" style="--d:1.38s"><b>06.00</b><span>Flag-off 10K</span></li><li class="rv hot" style="--d:1.50s"><b>06.20</b><span>Flag-off 5K</span></li><li class="rv" style="--d:1.62s"><b>07.00</b><span>Finishers &amp; recovery</span></li><li class="rv hot" style="--d:1.74s"><b>08.30</b><span>Aktivasi sponsor</span></li><li class="rv" style="--d:1.86s"><b>09.30</b><span>Awarding ceremony</span></li><li class="rv" style="--d:1.98s"><b>11.30</b><span>Closing &amp; doorprize</span></li></ol></div>
+  </section>
+
+  <section class="sc info" data-dur="14000" style="--dur:15s">
+    <div class="ph" style="--im:url('img/runners2.jpg');--cam:push"></div><div class="warm"></div><div class="dust"></div>
+    <div class="pn" style="top:10vh"><p class="kk rv" style="--d:.2s">KM 11,9 &middot; Hadiah &amp; podium</p><h2 class="hh rv" style="--d:.4s">Race for <em>the podium</em></h2><div class="cg g3"><div class="ci rv" style="--d:0.90s"><small>Total hadiah</small><b>Rp482,5 juta</b><span>Open Rp274 jt &middot; Master Rp69,5 jt &middot; Regional Rp139 jt</span></div><div class="ci rv" style="--d:1.05s"><small>Total podium</small><b data-n="55">55</b><span>Putra &amp; putri &middot; 5K / 10K / 21K</span></div><div class="ci rv" style="--d:1.20s"><small>Juara 1 21K Open</small><b>Rp40 juta</b><span>II Rp25 jt &middot; III Rp15 jt &middot; IV Rp10 jt &middot; V Rp5 jt</span></div></div><table class="tb rv" style="--d:1.5s"><tr><th>Kategori</th><th>5K (I/II/III)</th><th>10K (I/II/III)</th><th>21K (I&ndash;V)</th><th>Syarat</th></tr><tr><td>Open</td><td>8 / 5 / 4</td><td>12 / 8 / 5</td><td>40 / 25 / 15 / 10 / 5</td><td>Umum</td></tr><tr><td>Master</td><td>5 / 3 / 2,5</td><td>8 / 5 / 4</td><td>15 / 10 / 8 / 5 / 4</td><td>Usia 44+</td></tr><tr><td>Regional</td><td>5 / 3 / 2,5</td><td>8 / 5 / 4</td><td>15 / 10 / 8 / 5 / 4</td><td>KTP Berau / SID PT Berau Coal</td></tr></table><p class="nt rv" style="--d:1.8s">Nominal dalam Rp juta, per pemenang putra dan putri.</p></div>
+  </section>
+
+  <section class="sc info" data-dur="13000" style="--dur:14s">
+    <div class="ph" style="--im:url('img/cover.jpg');--cam:push"></div><div class="warm"></div><div class="dust"></div>
+    <div class="pn" style="top:10vh"><p class="kk rv" style="--d:.2s">KM 13,2 &middot; Arsitektur sponsorship</p><h2 class="hh rv" style="--d:.4s">Arsitektur <em>kemitraan</em></h2><div class="cg g2"><div class="ci rv" style="--d:0.90s"><small>Direct sponsorship &middot; cash commitment</small><div class="tiers"><i style="--c:#2E7FBF;--h:100%">Diamond<br>Rp100 jt</i><i style="--c:#5F6B70;--h:80%">Platinum<br>Rp75 jt</i><i style="--c:#F0AE2E;--h:62%">Gold<br>Rp50 jt</i><i style="--c:#A9B3B8;--h:46%">Silver<br>Rp35 jt</i><i style="--c:#B8673A;--h:32%">Bronze<br>Rp15 jt</i></div></div><div class="ci rv" style="--d:1.05s"><small>Strategic partnership</small><b>Main Partner &middot; Rp400 jt</b><span>Naming rights per kategori 21K / 10K / 5K, 1 mitra eksklusif</span><b style="margin-top:14px">Official Partner</b><span>Hotel, airline, hydration, medical, bank &amp; lainnya &mdash; cash, barang, jasa, atau slot</span><b style="margin-top:14px">Community &amp; UMKM 7 paket &middot; Add-on 14 item</b></div></div></div>
+  </section>
+
+  <section class="sc info" data-dur="15000" style="--dur:16s">
+    <div class="ph" style="--im:url('img/runners3.jpg');--cam:push"></div><div class="warm"></div><div class="dust"></div>
+    <div class="pn" style="top:10vh"><p class="kk rv" style="--d:.2s">KM 14,5 &middot; Direct sponsorship</p><h2 class="hh rv" style="--d:.4s">Lima tier <em>investasi</em></h2><div class="cg g5"><div class="ci rv" style="--d:0.90s"><b class="tn" style="color:#2E7FBF">Diamond</b><strong>Rp100 jt</strong><div class="fs"><i>30</i>free slot<br>peserta</div><small>31/31 benefit aktif</small><span>Booth di RPC &middot; cheering point &middot; 20 link karyawan &middot; flyer racepack &middot; logo XL di semua titik &middot; collab post 2x &middot; gala 3 seat &middot; plakat</span></div><div class="ci rv" style="--d:1.05s"><b class="tn" style="color:#5F6B70">Platinum</b><strong>Rp75 jt</strong><div class="fs"><i>20</i>free slot<br>peserta</div><small>29/31 benefit aktif</small><span>15 link karyawan &middot; flyer racepack &middot; logo L &middot; umbul-umbul sendiri &middot; collab post 1x &middot; gala 2 seat &middot; plakat</span></div><div class="ci rv" style="--d:1.20s"><b class="tn" style="color:#F0AE2E">Gold</b><strong>Rp50 jt</strong><div class="fs"><i>15</i>free slot<br>peserta</div><small>25/31 benefit aktif</small><span>Logo M &middot; MC adlips &middot; dedicated feed &middot; IG story &middot; VIP area &middot; gala 1 seat &middot; doorprize</span></div><div class="ci rv" style="--d:1.35s"><b class="tn" style="color:#A9B3B8">Silver</b><strong>Rp35 jt</strong><div class="fs"><i>10</i>free slot<br>peserta</div><small>21/31 benefit aktif</small><span>Logo S &middot; IG story mention &middot; logo di website &middot; VIP area &middot; doorprize &middot; sertifikat</span></div><div class="ci rv" style="--d:1.50s"><b class="tn" style="color:#B8673A">Bronze</b><strong>Rp15 jt</strong><div class="fs"><i>5</i>free slot<br>peserta</div><small>13/31 benefit aktif</small><span>Logo XS di spanduk, KM marker &amp; finish &middot; materi kampanye &middot; aftermovie &middot; sertifikat &middot; laporan</span></div></div><p class="nt rv" style="--d:1.8s">Semua tier mendapat laporan pasca-event (eksposur &amp; demografi). Kuota mitra per tier terbatas; nama free slot diserahkan maks. H-40.</p></div>
+  </section>
+
+  <section class="sc info" data-dur="16000" style="--dur:17s">
+    <div class="ph" style="--im:url('img/runners2.jpg');--cam:push"></div><div class="warm"></div><div class="dust"></div>
+    <div class="pn" style="top:10vh"><p class="kk rv" style="--d:.2s">KM 15,8 &middot; Strategic partnership &middot; Main partner</p><h2 class="hh rv" style="--d:.4s">Own the <em>starting line</em></h2><p class="ld rv" style="--d:.7s"><b>Main Partner &middot; Rp400 juta per kategori</b> &middot; 1 mitra eksklusif dengan hak penamaan: <b>Berau Connect Run 21K / 10K / 5K [Nama Mitra]</b> &middot; 50 free slot per kategori.</p><div class="cg g4"><div class="ci rv" style="--d:0.90s"><b>Pra-event</b><span>Hak promosi, press conference / guest star, campaign series &lsquo;Road to Berau Connect Run&rsquo;, pre-registration perks</span></div><div class="ci rv" style="--d:1.05s"><b>On-site prestige</b><span>Hak flag-off kategori, penyerahan hadiah juara umum &amp; podium, booth premium di race village</span></div><div class="ci rv" style="--d:1.20s"><b>Digital</b><span>MC mention tiap segmen, logo teratas di website, dedicated content, press release, live streaming</span></div><div class="ci rv" style="--d:1.35s"><b>Post-event &amp; jangka panjang</b><span>Lisensi &lsquo;Naming Partner&rsquo; 6 bulan, laporan &amp; debrief, ROFN edisi berikutnya, opsi multi-year price lock</span></div></div><div class="cg g3"><div class="ci rv" style="--d:0.90s"><small>Gala dinner bersama manajemen</small><b>6 seat &middot; 1 meja host</b><span>Bersama jajaran manajemen PT Berau Coal &amp; mitra kerja</span></div><div class="ci rv" style="--d:1.05s"><small>Forum HSECM</small><b>10 menit teaser</b><span>Display produk/jasa &amp; alokasi presentasi</span></div><div class="ci rv" style="--d:1.20s"><small>Relasi</small><b>Networking</b><span>Business matching, meet &amp; greet Forkopimda / tokoh, showcase display</span></div></div></div>
+  </section>
+
+  <section class="sc info" data-dur="14000" style="--dur:15s">
+    <div class="ph" style="--im:url('img/community.jpg');--cam:push"></div><div class="warm"></div><div class="dust"></div>
+    <div class="pn" style="top:10vh"><p class="kk rv" style="--d:.2s">KM 17,1 &middot; Strategic partnership</p><h2 class="hh rv" style="--d:.4s">Official partner <em>14 kategori mitra</em></h2><div class="chips"><span class="rv" style="--d:0.70s">Hotel / Akomodasi</span><span class="rv" style="--d:0.76s">Airline</span><span class="rv" style="--d:0.82s">Hydration</span><span class="rv" style="--d:0.88s">Medical &amp; Kesehatan</span><span class="rv" style="--d:0.94s">Bank / Payment</span><span class="rv" style="--d:1.00s">Telekomunikasi</span><span class="rv" style="--d:1.06s">Nutrisi &amp; Refreshment</span><span class="rv" style="--d:1.12s">Sportswear / Apparel</span><span class="rv" style="--d:1.18s">Media &amp; Percetakan</span><span class="rv" style="--d:1.24s">Sound, Tenda, Logistik</span><span class="rv" style="--d:1.30s">Fotografi / Timing</span><span class="rv" style="--d:1.36s">Transportasi Darat</span><span class="rv" style="--d:1.42s">Asuransi</span><span class="rv" style="--d:1.48s">Retail &amp; F&amp;B</span><span class="rv q" style="--d:1.6s">Kategori lain? Usulkan!</span></div><div class="cg g2"><div class="ci rv" style="--d:0.90s"><u>A</u><b>Kontribusi cash, barang, atau jasa</b><span>Cash, doorprize, refreshment, medical kit, transport, akomodasi, cetak, atau potongan harga untuk peserta &mdash; dinilai setara paket benefit tier Direct Sponsorship.</span></div><div class="ci rv" style="--d:1.05s"><u>B</u><b>Slot purchase &amp; resale</b><span>Beli slot peserta harga khusus mitra &rarr; buat bundling (bank, hotel, pesawat, liburan) &rarr; jual ke pelari &rarr; jangkauan pasar mitra bertambah.</span></div></div></div>
+  </section>
+
+  <section class="sc info" data-dur="13000" style="--dur:14s">
+    <div class="ph" style="--im:url('img/crowd.jpg');--cam:push"></div><div class="warm"></div><div class="dust"></div>
+    <div class="pn" style="top:10vh"><p class="kk rv" style="--d:.2s">KM 18,5 &middot; Roadmap aktivasi</p><h2 class="hh rv" style="--d:.4s">Aktivasi <em>&amp; pelaporan</em></h2><div class="cg g3"><div class="ci rv" style="--d:0.90s"><u>01</u><b>Pra-event</b><span>Peluncuran &amp; kampanye, roadshow, community run, coaching clinic, registrasi &amp; konten berseri, persetujuan artwork</span></div><div class="ci rv" style="--d:1.05s"><u>02</u><b>Hari-H &middot; 11 April</b><span>05.00 race village &middot; flag-off 21K/10K/5K &middot; 08.30 aktivasi sponsor &middot; 09.30 awarding &middot; 11.30 closing</span></div><div class="ci rv" style="--d:1.20s"><u>03</u><b>Pasca-event</b><span>Aftermovie &amp; Finisher Stories, appreciation night, dokumentasi &amp; laporan, evaluasi bersama mitra</span></div></div><p class="co rv" style="--d:1.6s">Pelaporan terukur: indikator disepakati &middot; dokumentasi foto &amp; video &middot; laporan pasca-event</p></div>
+  </section>
+
+  <section class="sc info" data-dur="13000" style="--dur:14s">
+    <div class="ph" style="--im:url('img/startline.jpg');--cam:push"></div><div class="warm"></div><div class="dust"></div>
+    <div class="pn" style="top:10vh"><p class="kk rv" style="--d:.2s">KM 19,8 &middot; Langkah kemitraan &amp; ketentuan</p><h2 class="hh rv" style="--d:.4s">Cara <em>bergabung</em></h2><ol class="steps"><li class="rv" style="--d:0.80s"><u>01</u><b>Pilih skema &amp; paket</b><span>Direct, Main Partner, Official Partner, Community &amp; UMKM, atau Add-on</span></li><li class="rv" style="--d:0.95s"><u>02</u><b>Diskusi aktivasi</b><span>Selaraskan sasaran pemasaran &amp; bentuk aktivasi</span></li><li class="rv" style="--d:1.10s"><u>03</u><b>Konfirmasi komitmen</b><span>Letter of intent &amp; perjanjian kerja sama</span></li><li class="rv" style="--d:1.25s"><u>04</u><b>Pembayaran &amp; artwork</b><span>Sesuai termin, artwork untuk persetujuan</span></li><li class="rv" style="--d:1.40s"><u>05</u><b>Aktivasi &amp; evaluasi</b><span>Pelaksanaan event &amp; laporan pasca-event</span></li></ol><p class="nt rv" style="--d:1.8s">Visibilitas: Main Partner &gt; Diamond &gt; Platinum &gt; Gold &gt; Silver &gt; Bronze. Eksklusivitas industri untuk Main Partner, Diamond, Platinum &amp; Official Partner. Artwork &amp; logo dengan persetujuan tertulis; aktivasi mengikuti kapasitas venue &amp; perizinan.</p></div>
+  </section>
+
+
+  <!-- 10 end -->
+  <section class="sc" data-dur="0">
+    <div class="ph soft" style="--im:url('img/crowd.jpg');--cam:pull"></div><div class="warm"></div><div class="dust"></div>
+    <div class="tx" style="top:13vh;width:min(1000px,90vw)"><p class="kk rv" style="--d:.1s">KM 21,1 &middot; Finish line</p><div class="name rv" style="--d:.3s;font-size:clamp(56px,7vw,110px) !important">Start for more!</div><p class="big rv" style="--d:1s;margin:14px 0 0;font-size:clamp(30px,3.4vw,54px) !important">Garis start menanti <em>brand Anda!</em></p>
+      <p class="sm rv plain" style="--d:1.8s">PIC Sponsorship: Rudini (rudini@beraucoal.co.id) &middot; Latifah (corporate.communication@beraucoal.co.id)<br>WhatsApp: Rudini +62 887-5858-585 &middot; Farah (Bendahara) +62 852-4719-7243<br>Sekretariat: Jl. Pemuda No. 40, Tanjung Redeb, Kabupaten Berau, Kalimantan Timur 77311<br>Rekening BRI 021301015655538 a.n. Farah Chandra Dewiningtyas</p>
+      <div class="cta rv" style="--d:2.4s"><a class="p" href="slides.html#12">Lihat paket sponsor</a><a href="slides.html">Buka proposal lengkap</a><a href="#" id="replay">Putar ulang</a></div></div>
+  </section>
+<div class="grain"></div><div class="vig"></div>
+<div class="wm">BERAU CONNECT RUN &middot; 2027</div>
+<div id="brand">#STARTFORMORE</div>
+<div id="bars"></div>
+<div id="ctrl"><button type="button" id="pp">❚❚ Jeda</button><a href="slides.html">Slide</a></div>
+<div class="hint" id="hint">klik / &rarr; untuk lanjut &middot; spasi untuk jeda</div>
+
+<script>
+(function(){
+  const S = [...document.querySelectorAll('.sc')], bars = document.getElementById('bars'), pp = document.getElementById('pp');
+  bars.innerHTML = S.map(()=> '<i><b></b></i>').join('');
+  const B = [...bars.querySelectorAll('b')];
+  document.querySelectorAll('.dust').forEach(d=>{ d.innerHTML = Array.from({length:26}, ()=> '<i style="left:' + (Math.random() * 100) + '%;top:' + (40 + Math.random() * 60) + '%;--t:' + (6 + Math.random() * 8) + 's;--d:-' + (Math.random() * 8) + 's;--x:' + (Math.random() * 80 - 40) + 'px"></i>').join(''); });
+  (document.getElementById('lant') || {}).innerHTML = Array.from({length:14}, (_, i)=> '<i style="left:' + (5 + Math.random() * 90) + '%;top:' + (6 + Math.random() * 40) + '%;--d:-' + (Math.random() * 4) + 's;transform:scale(' + (.6 + Math.random() * .8) + ')"></i>').join('');
+  let cur = -1, t0 = 0, el = 0, paused = false, raf;
+  const names = ['[Nama Brand Anda]', 'Brand Anda', '[Nama Mitra]', 'Anda?'];
+  let typer;
+  function type(){ clearInterval(typer); const s = document.getElementById('slot'); let w = 0, c = 0, del = false; s.textContent = '';
+    typer = setInterval(()=>{ const n = names[w]; if(!del){ c++; s.textContent = n.slice(0, c); if(c === n.length){ del = true; typer._h = 14; } }
+      else { if(typer._h > 0){ typer._h--; return; } c--; s.textContent = n.slice(0, c); if(c === 0){ del = false; w = (w + 1) % names.length; } } }, 90); }
+  /* cinematic camera transitions: the outgoing shot keeps moving while the next one flows in */
+  const TR = ['zoom','panL','rise','swirl','panR','zoom','dolly'];
+  const EZ = 'cubic-bezier(.65,0,.25,1)', TD = 1700;
+  const K = {
+    zoom:  [[{transform:'scale(1)',filter:'blur(0)',opacity:1},{transform:'scale(1.9)',filter:'blur(14px)',opacity:0}], [{transform:'scale(.72)',filter:'blur(10px)',opacity:0},{transform:'scale(1)',filter:'blur(0)',opacity:1}]],
+    dolly: [[{transform:'scale(1)',filter:'blur(0)',opacity:1},{transform:'scale(.6)',filter:'blur(10px)',opacity:0}], [{transform:'scale(1.6)',filter:'blur(12px)',opacity:0},{transform:'scale(1)',filter:'blur(0)',opacity:1}]],
+    panL:  [[{transform:'translateX(0) scale(1)',filter:'blur(0)',opacity:1},{transform:'translateX(-45%) scale(1.15)',filter:'blur(12px)',opacity:0}], [{transform:'translateX(45%) scale(1.15)',filter:'blur(12px)',opacity:0},{transform:'translateX(0) scale(1)',filter:'blur(0)',opacity:1}]],
+    panR:  [[{transform:'translateX(0) scale(1)',filter:'blur(0)',opacity:1},{transform:'translateX(45%) scale(1.15)',filter:'blur(12px)',opacity:0}], [{transform:'translateX(-45%) scale(1.15)',filter:'blur(12px)',opacity:0},{transform:'translateX(0) scale(1)',filter:'blur(0)',opacity:1}]],
+    rise:  [[{transform:'translateY(0) scale(1)',filter:'blur(0)',opacity:1},{transform:'translateY(40%) scale(1.1)',filter:'blur(12px)',opacity:0}], [{transform:'translateY(-40%) scale(1.1)',filter:'blur(12px)',opacity:0},{transform:'translateY(0) scale(1)',filter:'blur(0)',opacity:1}]],
+    swirl: [[{transform:'rotate(0) scale(1)',filter:'blur(0)',opacity:1},{transform:'rotate(-12deg) scale(1.8)',filter:'blur(14px)',opacity:0}], [{transform:'rotate(10deg) scale(1.5)',filter:'blur(12px)',opacity:0},{transform:'rotate(0) scale(1)',filter:'blur(0)',opacity:1}]]
+  };
+  const leaving = new Set();
+  function go(i){ i = Math.max(0, Math.min(S.length - 1, i)); if(i === cur) return;
+    const prev = cur >= 0 ? S[cur] : null, next = S[i], back = i < cur;
+    let kind = next.dataset.tr || TR[i % TR.length];
+    if(back) kind = ({ panL:'panR', panR:'panL', zoom:'dolly', dolly:'zoom', rise:'rise', swirl:'swirl' })[kind];
+    if(prev){ prev.classList.remove('on'); prev.classList.add('leave'); leaving.add(prev); prev.style.zIndex = 1;
+      const a = prev.animate(K[kind][0], { duration:TD, easing:EZ, fill:'forwards' });
+      a.onfinish = ()=>{ prev.classList.remove('leave'); leaving.delete(prev); a.cancel(); }; }
+    next.querySelectorAll('.ph, .track, .rv, .poster, .cur, .cur-tx').forEach(x=>{ x.style.animation = 'none'; void x.offsetWidth; x.style.animation = ''; });
+    next.style.zIndex = 2;
+    if(prev) next.animate(K[kind][1], { duration:TD, easing:EZ });
+    cur = i; next.classList.add('on'); el = 0; t0 = performance.now();
+    B.forEach((b, j)=> b.style.width = j < i ? '100%' : '0');
+    if(S[i].querySelector('#slot')) type();
+    S[i].querySelectorAll('[data-n]').forEach(n=>{ const to = +n.dataset.n, t1 = performance.now(); (function f(now){ const q = Math.min(1, (now - t1) / 1300); n.textContent = Math.round(to * (1 - Math.pow(1 - q, 3))).toLocaleString('id-ID'); if(q < 1) requestAnimationFrame(f); })(t1); });
+    document.getElementById('hint').style.opacity = i ? 0 : 1; }
+  function tick(now){ if(!paused){ const d = +S[cur].dataset.dur; if(d){ const p = Math.min(1, (el + now - t0) / d); B[cur].style.width = (p * 100) + '%'; if(p >= 1){ go(cur + 1); } } else B[cur].style.width = '100%'; }
+    raf = requestAnimationFrame(tick); }
+  function pause(v){ if(v === paused) return; const now = performance.now(); if(v){ el += now - t0; } else { t0 = now; } paused = v;
+    document.body.style.setProperty('--ps', v ? 'paused' : 'running'); document.querySelectorAll('.sc.on *').forEach(x=> x.style.animationPlayState = v ? 'paused' : '');
+    pp.textContent = v ? '▶ Putar' : '❚❚ Jeda'; }
+  document.getElementById('film').addEventListener('click', e=>{ if(e.target.closest('a')) return; const x = e.clientX / innerWidth; go(cur + (x < .3 ? -1 : 1)); });
+  pp.addEventListener('click', e=>{ e.stopPropagation(); pause(!paused); });
+  (document.getElementById('replay') || document.createElement('a')).addEventListener('click', e=>{ e.preventDefault(); e.stopPropagation(); go(0); });
+  addEventListener('keydown', e=>{ if(e.key === 'ArrowRight' || e.key === 'Enter'){ go(cur + 1); } else if(e.key === 'ArrowLeft'){ go(cur - 1); } else if(e.key === ' '){ e.preventDefault(); pause(!paused); } else if(e.key === 'f' || e.key === 'F'){ document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); } });
+  window.__go = go;
+  go(0); raf = requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>
